@@ -1,0 +1,500 @@
+[root@clpstpdfc114 ~]# eustore-describe-image
+-bash: eustore-describe-image: command not found
+[root@clpstpdfc114 ~]# ^C
+[root@clpstpdfc114 ~]# [root@clpstpdfc114 ~]# eustore-describe-image
+-bash: [root@clpstpdfc114: command not found
+[root@clpstpdfc114 ~]# -bash: eustore-describe-image: command not found
+-bash: -bash:: command not found
+[root@clpstpdfc114 ~]# euca-describe-images
+[root@clpstpdfc114 ~]# rpm -q euca2ools
+euca2ools-2.1.1-0.32.el6.noarch
+[root@clpstpdfc114 ~]#
+[root@clpstpdfc114 ~]# eustore-describe-images
+1107385945 centos      x86_64  2012.07.05     CentOS 5 1.3GB root, Hypervisor-Sp                                                                                        ecific Kernels
+[root@clpstpdfc114 ~]#
+[root@clpstpdfc114 ~]# [14:50:07] Deependra Singh Shekhawat: eustore-install-ima                                                                                        ge -i 1107385945 -s "My image" -a x86_64 -b centos -k kvm
+-bash: [14:50:07]: command not found
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -s "My image" -a x86                                                                                        _64 -b centos -k kvm
+Warning: you may be overriding the default architecture of this image!
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]# euca-describe-images                                                                                                                             [root@clpstpdfc114 ~]# eustore-describe-images
+1107385945 centos      x86_64  2012.07.05     CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -s "My image" -a x86_64 -b centos -k kvm
+Warning: you may be overriding the default architecture of this image!
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]# euca-describe-images
+[root@clpstpdfc114 ~]#  echo $EUSTORE_URL
+http://emis.eucalyptus.com/
+[root@clpstpdfc114 ~]# ^C
+[root@clpstpdfc114 ~]#  wget $EUSTORE_URL
+--2012-09-07 14:56:18--  http://emis.eucalyptus.com/
+Resolving emis.eucalyptus.com... 173.205.188.196
+Connecting to emis.eucalyptus.com|173.205.188.196|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1625 (1.6K) [text/html]
+Saving to: âindex.htmlâ
+
+100%[==============================================================================================================================>] 1,625       --.-K/s   in 0s
+
+2012-09-07 14:56:19 (446 MB/s) - âindex.htmlâ
+
+[root@clpstpdfc114 ~]# rpm -qa | grep euca
+eucalyptus-admin-tools-3.1.1-0.133.el6.noarch
+euca2ools-2.1.1-0.32.el6.noarch
+eucalyptus-walrus-3.1.1-0.133.el6.x86_64
+eucalyptus-3.1.1-0.133.el6.x86_64
+eucalyptus-gl-3.1.1-0.133.el6.x86_64
+eucalyptus-common-java-3.1.1-0.133.el6.x86_64
+euca2ools-release-2.1-0.2.el6.noarch
+eucalyptus-cloud-3.1.1-0.133.el6.x86_64
+eucalyptus-cc-3.1.1-0.133.el6.x86_64
+python-eucadmin-3.1.1-0.133.el6.noarch
+eucalyptus-sc-3.1.1-0.133.el6.x86_64
+eucalyptus-release-3.1-1.el6.noarch
+[root@clpstpdfc114 ~]# rpm -qa | grep boto
+python-boto-2.5.2-1.el6.noarch
+[root@clpstpdfc114 ~]# rpm -qa | grep M2Crypto
+[root@clpstpdfc114 ~]# rpm -qa | grep M2
+geronimo-specs-compat-1.0-3.4.M2.el6.noarch
+geronimo-specs-1.0-3.4.M2.el6.noarch
+[root@clpstpdfc114 ~]# rpm -qa | grep M
+geronimo-specs-compat-1.0-3.4.M2.el6.noarch
+perl-Module-Pluggable-3.90-127.el6.x86_64
+MAKEDEV-3.24-6.el6.x86_64
+geronimo-specs-1.0-3.4.M2.el6.noarch
+libSM-1.1.0-7.1.el6.x86_64
+[root@clpstpdfc114 ~]# yum list | grep M2Crypto
+[root@clpstpdfc114 ~]# yum repolist enabled
+Loaded plugins: fastestmirror, priorities
+Loading mirror speeds from cached hostfile
+ * base: centosmirror.go4hosting.in
+ * elrepo: mirror.solvention.de
+ * epel: ftp.riken.jp
+ * extras: mirror.bit.edu.cn
+ * updates: mirror.bit.edu.cn
+repo id                                                    repo name                                                                                              status
+base                                                       CentOS-6 - Base                                                                                        6,346
+elrepo                                                     ELRepo.org Community Enterprise Linux Repository - el6                                                   217
+epel                                                       Extra Packages for Enterprise Linux 6 - x86_64                                                         7,752
+euca2ools                                                  Euca2ools                                                                                                  5
+eucalyptus                                                 Eucalyptus                                                                                                33
+extras                                                     CentOS-6 - Extras                                                                                          4
+updates                                                    CentOS-6 - Updates                                                                                       528
+repolist: 14,885
+[root@clpstpdfc114 ~]# yum list | grep crypto
+m2crypto.x86_64                            0.20.2-9.el6                  @euca-itself
+crypto-utils.x86_64                        2.4.1-24.2.el6                base
+cryptopp.i686                              5.6.1-5.el6                   epel
+cryptopp.x86_64                            5.6.1-5.el6                   epel
+cryptopp-devel.i686                        5.6.1-5.el6                   epel
+cryptopp-devel.x86_64                      5.6.1-5.el6                   epel
+cryptopp-doc.noarch                        5.6.1-5.el6                   epel
+cryptopp-progs.x86_64                      5.6.1-5.el6                   epel
+erlang-crypto.x86_64                       R14B-04.1.el6                 epel
+libmcrypto.i686                            0.8.0-0.1.20100629svn3775.el6 epel
+libmcrypto.x86_64                          0.8.0-0.1.20100629svn3775.el6 epel
+libmcrypto-devel.i686                      0.8.0-0.1.20100629svn3775.el6 epel
+libmcrypto-devel.x86_64                    0.8.0-0.1.20100629svn3775.el6 epel
+opencryptoki.x86_64                        2.4-2.el6                     base
+opencryptoki-devel.i686                    2.4-2.el6                     base
+opencryptoki-devel.x86_64                  2.4-2.el6                     base
+opencryptoki-libs.i686                     2.4-2.el6                     base
+opencryptoki-libs.x86_64                   2.4-2.el6                     base
+poco-crypto.i686                           1.4.2p1-2.el6                 epel
+poco-crypto.x86_64                         1.4.2p1-2.el6                 epel
+python-crypto.x86_64                       2.0.1-22.el6                  base
+[root@clpstpdfc114 ~]# yum list | ^C
+[root@clpstpdfc114 ~]# rpm -qa | grep m2crypto
+m2crypto-0.20.2-9.el6.x86_64
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -s "My image" -a x86_64 -b centos -k kvm
+Warning: you may be overriding the default architecture of this image!
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -s "My image" -a x86_64 -b centos -k kvm --debug
+2012-09-07 15:02:24,938 InstallImage [DEBUG]:request_params: {'kernel_type': 'kvm', 'description': 'My image', 'bucket': 'centos', 'image_name': '1107385945', 'architecture': 'x86_64', 'dir': '/tmp'}
+Warning: you may be overriding the default architecture of this image!
+2012-09-07 15:02:24,939 InstallImage [DEBUG]:Method: GET
+2012-09-07 15:02:24,939 InstallImage [DEBUG]:Path: /services/Euare/
+2012-09-07 15:02:24,939 InstallImage [DEBUG]:Data:
+2012-09-07 15:02:24,939 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:02:24,939 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:02:24,939 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:Token: None
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A32%3A24Z&Version=2010-05-08
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:string_to_sign: GET
+192.168.7.114:8773
+/services/Euare/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A32%3A24Z&Version=2010-05-08
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:base64 encoded digest: I8vQ48tpWg4zK5abny+3Akm8E95jesQkHIiJZCn6gGI=
+2012-09-07 15:02:24,940 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A32%3A24Z&Version=2010-05-08 Signature: I8vQ48tpWg4zK5abny+3Akm8E95jesQkHIiJZCn6gGI=
+2012-09-07 15:02:24,981 InstallImage [DEBUG]:<GetUserResponse xmlns="http://iam.amazonaws.com/doc/2010-05-08/"><GetUserResult><User><Path>/</Path><UserName>admin</UserName><UserId>MFHV1PSGKPIXAMDHIUHOV</UserId><Arn>arn:aws:iam::eucalyptus:user/admin</Arn></User></GetUserResult><ResponseMetadata><RequestId>d06c0a8a-e694-40b7-bc95-933a4cabf67b</RequestId></ResponseMetadata></GetUserResponse>
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:Method: POST
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:Path: /services/Eucalyptus/
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:Data:
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:Token: None
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:02:24,982 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A32%3A24Z&Version=2012-06-01
+2012-09-07 15:02:24,983 InstallImage [DEBUG]:string_to_sign: POST
+192.168.7.114:8773
+/services/Eucalyptus/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A32%3A24Z&Version=2012-06-01
+2012-09-07 15:02:24,983 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:02:24,983 InstallImage [DEBUG]:base64 encoded digest: b2oVmgaCsU+ENgPDn1UB6I4wa/mZn+L4xih/L/TUlis=
+2012-09-07 15:02:24,983 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A32%3A24Z&Version=2012-06-01 Signature: b2oVmgaCsU+ENgPDn1UB6I4wa/mZn+L4xih/L/TUlis=
+2012-09-07 15:02:25,027 InstallImage [DEBUG]:<euca:DescribeImagesResponseType xmlns:euca="http://ec2.amazonaws.com/doc/2012-06-01/"><euca:VmImageMessage><euca:EucalyptusMessage><euca:_return>true</euca:_return><euca:_services/><euca:_disabledServices/><euca:_notreadyServices/></euca:EucalyptusMessage></euca:VmImageMessage><euca:imagesSet/></euca:DescribeImagesResponseType>
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]# cat /etc/redhat-release
+CentOS release 6.2 (Final)
+[root@clpstpdfc114 ~]# uname -a
+Linux clpstpdfc114 2.6.32-220.el6.x86_64 #1 SMP Tue Dec 6 19:48:22 GMT 2011 x86_64 x86_64 x86_64 GNU/Linux
+[root@clpstpdfc114 ~]# date
+Fri Sep  7 15:04:22 IST 2012
+[root@clpstpdfc114 ~]# service ntpd status
+ntpd (pid  6320) is running...
+[root@clpstpdfc114 ~]# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*framboise.hoopy 209.51.161.238   2 u   88  256  177  216.737   -0.842   0.685
++triangle.kansas 128.252.19.1     2 u  209  256  277  265.238    0.298   3.357
++enterprise.sono 158.43.128.66    3 u  213  256  277  155.727    2.313   3.475
+[root@clpstpdfc114 ~]# tail -f /var/log/eucalyptus/cloud-output.log
+Fri Sep 7 13:14:15 2012  INFO Exceptions              | Metadata request failed:
+Fri Sep 7 13:14:15 2012  INFO Exceptions              | Failed to send message S
+Fri Sep 7 13:14:18 2012  INFO Hosts                   | Updated local host infor                                                                                        hed(synced) dbpool:ok started=1347003800616 [/192.168.7.114]
+Fri Sep 7 13:14:18 2012  INFO Hosts                   | Updated changed local ho                                                                                        hed(synced) dbpool:ok started=1347003800616 [/192.168.7.114]
+Fri Sep 7 14:35:50 2012  INFO X509Download            | pushing out the X509 cer
+Fri Sep 7 14:35:50 2012  INFO DefaultCryptoProvider   | :1347008750546:DefaultCr                                                                                        alyptus, O=User, C=US
+Fri Sep 7 14:48:48 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 14:52:57 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 15:02:17 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 15:02:25 2012 ERROR Binding                 | Binding factory is empty
+^C
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -s "My image" -a x86_64 -b centos -k kvm --debug
+2012-09-07 15:05:47,684 InstallImage [DEBUG]:request_params: {'kernel_type': 'kvm', 'description': 'My image', 'bucket': 'centos', 'image_name': '1107385945', 'architecture': 'x86_64', 'dir': '/tmp'}
+Warning: you may be overriding the default architecture of this image!
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:Method: GET
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:Path: /services/Euare/
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:Data:
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:Token: None
+2012-09-07 15:05:47,685 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:05:47,686 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A35%3A47Z&Version=2010-05-08
+2012-09-07 15:05:47,686 InstallImage [DEBUG]:string_to_sign: GET
+192.168.7.114:8773
+/services/Euare/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A35%3A47Z&Version=2010-05-08
+2012-09-07 15:05:47,686 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:05:47,686 InstallImage [DEBUG]:base64 encoded digest: k6ewvgMNTpBVuG0G7nW4QTddJlG7mL1mgx31uUQznRE=
+2012-09-07 15:05:47,686 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A35%3A47Z&Version=2010-05-08 Signature: k6ewvgMNTpBVuG0G7nW4QTddJlG7mL1mgx31uUQznRE=
+2012-09-07 15:05:47,725 InstallImage [DEBUG]:<GetUserResponse xmlns="http://iam.amazonaws.com/doc/2010-05-08/"><GetUserResult><User><Path>/</Path><UserName>admin</UserName><UserId>MFHV1PSGKPIXAMDHIUHOV</UserId><Arn>arn:aws:iam::eucalyptus:user/admin</Arn></User></GetUserResult><ResponseMetadata><RequestId>f7b6b3ee-aff7-40a4-8c81-dae9997c0649</RequestId></ResponseMetadata></GetUserResponse>
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:Method: POST
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:Path: /services/Eucalyptus/
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:Data:
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:Token: None
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A35%3A47Z&Version=2012-06-01
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:string_to_sign: POST
+192.168.7.114:8773
+/services/Eucalyptus/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A35%3A47Z&Version=2012-06-01
+2012-09-07 15:05:47,727 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:05:47,728 InstallImage [DEBUG]:base64 encoded digest: DsaOgqHl0gF2uvnNZayl2hG2FW906a9HqGPaXdWIHlY=
+2012-09-07 15:05:47,728 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A35%3A47Z&Version=2012-06-01 Signature: DsaOgqHl0gF2uvnNZayl2hG2FW906a9HqGPaXdWIHlY=
+2012-09-07 15:05:47,755 InstallImage [DEBUG]:<euca:DescribeImagesResponseType xmlns:euca="http://ec2.amazonaws.com/doc/2012-06-01/"><euca:VmImageMessage><euca:EucalyptusMessage><euca:_return>true</euca:_return><euca:_services/><euca:_disabledServices/><euca:_notreadyServices/></euca:EucalyptusMessage></euca:VmImageMessage><euca:imagesSet/></euca:DescribeImagesResponseType>
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]# tail -f /var/log/eucalyptus/cloud-output.log
+Fri Sep 7 13:14:15 2012  INFO Exceptions              | Failed to send message String to service VmMetadata because: Metadata request failed: 127.0.0.1:network-topology
+Fri Sep 7 13:14:18 2012  INFO Hosts                   | Updated local host information:   Host 192.168.7.114 #15 /192.168.7.114 coordinator=192.168.7.114 booted db:synched(synced) dbpool:ok started=1347003800616 [/192.168.7.114]
+Fri Sep 7 13:14:18 2012  INFO Hosts                   | Updated changed local host entry: Host 192.168.7.114 #12 /192.168.7.114 coordinator=192.168.7.114 booted db:synched(synced) dbpool:ok started=1347003800616 [/192.168.7.114]
+Fri Sep 7 14:35:50 2012  INFO X509Download            | pushing out the X509 certificate for user admin
+Fri Sep 7 14:35:50 2012  INFO DefaultCryptoProvider   | :1347008750546:DefaultCryptoProvider:GENERATE_CERTIFICATE:CN=admin, OU=Eucalyptus, O=User, C=US:CN=admin, OU=Eucalyptus, O=User, C=US
+Fri Sep 7 14:48:48 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 14:52:57 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 15:02:17 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 15:02:25 2012 ERROR Binding                 | Binding factory is empty
+Fri Sep 7 15:05:47 2012 ERROR Binding                 | Binding factory is empty
+^C
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -s "My image"  -b centos  --debug
+2012-09-07 15:06:11,046 InstallImage [DEBUG]:request_params: {'bucket': 'centos', 'image_name': '1107385945', 'dir': '/tmp', 'description': 'My image'}
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:Method: GET
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:Path: /services/Euare/
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:Data:
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:Token: None
+2012-09-07 15:06:11,047 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:06:11,048 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A11Z&Version=2010-05-08
+2012-09-07 15:06:11,048 InstallImage [DEBUG]:string_to_sign: GET
+192.168.7.114:8773
+/services/Euare/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A11Z&Version=2010-05-08
+2012-09-07 15:06:11,048 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:06:11,048 InstallImage [DEBUG]:base64 encoded digest: ydpDAx2qn4BZqaRNIeSmItvLRCxaUNSFrRx4FLE84EQ=
+2012-09-07 15:06:11,048 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A11Z&Version=2010-05-08 Signature: ydpDAx2qn4BZqaRNIeSmItvLRCxaUNSFrRx4FLE84EQ=
+2012-09-07 15:06:11,085 InstallImage [DEBUG]:<GetUserResponse xmlns="http://iam.amazonaws.com/doc/2010-05-08/"><GetUserResult><User><Path>/</Path><UserName>admin</UserName><UserId>MFHV1PSGKPIXAMDHIUHOV</UserId><Arn>arn:aws:iam::eucalyptus:user/admin</Arn></User></GetUserResult><ResponseMetadata><RequestId>6f043988-88d2-42f9-a0a4-ef53598823cf</RequestId></ResponseMetadata></GetUserResponse>
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:Method: POST
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:Path: /services/Eucalyptus/
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:Data:
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:Token: None
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A11Z&Version=2012-06-01
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:string_to_sign: POST
+192.168.7.114:8773
+/services/Eucalyptus/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A11Z&Version=2012-06-01
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:06:11,087 InstallImage [DEBUG]:base64 encoded digest: 6p9OqxatwK21TV76HOtbP2126h8JuWCQsRHy8fHXs1g=
+2012-09-07 15:06:11,088 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A11Z&Version=2012-06-01 Signature: 6p9OqxatwK21TV76HOtbP2126h8JuWCQsRHy8fHXs1g=
+2012-09-07 15:06:11,115 InstallImage [DEBUG]:<euca:DescribeImagesResponseType xmlns:euca="http://ec2.amazonaws.com/doc/2012-06-01/"><euca:VmImageMessage><euca:EucalyptusMessage><euca:_return>true</euca:_return><euca:_services/><euca:_disabledServices/><euca:_notreadyServices/></euca:EucalyptusMessage></euca:VmImageMessage><euca:imagesSet/></euca:DescribeImagesResponseType>
+Error: The -k option must be specified because this image has separate kernels
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -b centos -k kvm --debug
+2012-09-07 15:06:24,279 InstallImage [DEBUG]:request_params: {'kernel_type': 'kvm', 'bucket': 'centos', 'image_name': '1107385945', 'dir': '/tmp'}
+2012-09-07 15:06:24,280 InstallImage [DEBUG]:Method: GET
+2012-09-07 15:06:24,280 InstallImage [DEBUG]:Path: /services/Euare/
+2012-09-07 15:06:24,280 InstallImage [DEBUG]:Data:
+2012-09-07 15:06:24,280 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:06:24,280 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:06:24,280 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:Token: None
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A24Z&Version=2010-05-08
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:string_to_sign: GET
+192.168.7.114:8773
+/services/Euare/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A24Z&Version=2010-05-08
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:base64 encoded digest: tpuK4zwsjJAHZEMx7RoAnpKgreKsJWZWC5nZGWAQ418=
+2012-09-07 15:06:24,281 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A24Z&Version=2010-05-08 Signature: tpuK4zwsjJAHZEMx7RoAnpKgreKsJWZWC5nZGWAQ418=
+2012-09-07 15:06:24,315 InstallImage [DEBUG]:<GetUserResponse xmlns="http://iam.amazonaws.com/doc/2010-05-08/"><GetUserResult><User><Path>/</Path><UserName>admin</UserName><UserId>MFHV1PSGKPIXAMDHIUHOV</UserId><Arn>arn:aws:iam::eucalyptus:user/admin</Arn></User></GetUserResult><ResponseMetadata><RequestId>219d880c-0ad1-4dd9-8b70-06c3c94ea1a1</RequestId></ResponseMetadata></GetUserResponse>
+2012-09-07 15:06:24,317 InstallImage [DEBUG]:Method: POST
+2012-09-07 15:06:24,317 InstallImage [DEBUG]:Path: /services/Eucalyptus/
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:Data:
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:Token: None
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A24Z&Version=2012-06-01
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:string_to_sign: POST
+192.168.7.114:8773
+/services/Eucalyptus/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A24Z&Version=2012-06-01
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:base64 encoded digest: kdIpZdMGtl0POYtSlSauE+YzowqZ4V8p7aRYRsz/FOw=
+2012-09-07 15:06:24,318 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A24Z&Version=2012-06-01 Signature: kdIpZdMGtl0POYtSlSauE+YzowqZ4V8p7aRYRsz/FOw=
+2012-09-07 15:06:24,345 InstallImage [DEBUG]:<euca:DescribeImagesResponseType xmlns:euca="http://ec2.amazonaws.com/doc/2012-06-01/"><euca:VmImageMessage><euca:EucalyptusMessage><euca:_return>true</euca:_return><euca:_services/><euca:_disabledServices/><euca:_notreadyServices/></euca:EucalyptusMessage></euca:VmImageMessage><euca:imagesSet/></euca:DescribeImagesResponseType>
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]# eustore-describe-images
+1107385945 centos      x86_64  2012.07.05     CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+[root@clpstpdfc114 ~]#  eustore-install-image -i 1107385945 -b centos-new -k kvm --debug
+2012-09-07 15:06:49,015 InstallImage [DEBUG]:request_params: {'kernel_type': 'kvm', 'bucket': 'centos-new', 'image_name': '1107385945', 'dir': '/tmp'}
+2012-09-07 15:06:49,016 InstallImage [DEBUG]:Method: GET
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:Path: /services/Euare/
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:Data:
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:Token: None
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:06:49,017 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A49Z&Version=2010-05-08
+2012-09-07 15:06:49,018 InstallImage [DEBUG]:string_to_sign: GET
+192.168.7.114:8773
+/services/Euare/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A49Z&Version=2010-05-08
+2012-09-07 15:06:49,018 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:06:49,018 InstallImage [DEBUG]:base64 encoded digest: EmPfS3p//3oK4jJxNlIly8idvA/noJk9sVN8f6zrOb0=
+2012-09-07 15:06:49,018 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=GetUser&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A49Z&Version=2010-05-08 Signature: EmPfS3p//3oK4jJxNlIly8idvA/noJk9sVN8f6zrOb0=
+2012-09-07 15:06:49,055 InstallImage [DEBUG]:<GetUserResponse xmlns="http://iam.amazonaws.com/doc/2010-05-08/"><GetUserResult><User><Path>/</Path><UserName>admin</UserName><UserId>MFHV1PSGKPIXAMDHIUHOV</UserId><Arn>arn:aws:iam::eucalyptus:user/admin</Arn></User></GetUserResult><ResponseMetadata><RequestId>9011fa21-5f18-41c8-a95e-cdcd906ce570</RequestId></ResponseMetadata></GetUserResponse>
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:Method: POST
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:Path: /services/Eucalyptus/
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:Data:
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:Headers: {}
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:Host: 192.168.7.114:8773
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:establishing HTTP connection: kwargs={}
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:Token: None
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:using _calc_signature_2
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:query string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A49Z&Version=2012-06-01
+2012-09-07 15:06:49,056 InstallImage [DEBUG]:string_to_sign: POST
+192.168.7.114:8773
+/services/Eucalyptus/
+AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A49Z&Version=2012-06-01
+2012-09-07 15:06:49,057 InstallImage [DEBUG]:len(b64)=44
+2012-09-07 15:06:49,057 InstallImage [DEBUG]:base64 encoded digest: lukt45pNZkPPKlVH+qpzzgeuA9oD/IpgmfMDMtRaffI=
+2012-09-07 15:06:49,057 InstallImage [DEBUG]:query_string: AWSAccessKeyId=NI6DDMGCQLZNDVM9KUDAH&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-09-07T09%3A36%3A49Z&Version=2012-06-01 Signature: lukt45pNZkPPKlVH+qpzzgeuA9oD/IpgmfMDMtRaffI=
+2012-09-07 15:06:49,085 InstallImage [DEBUG]:<euca:DescribeImagesResponseType xmlns:euca="http://ec2.amazonaws.com/doc/2012-06-01/"><euca:VmImageMessage><euca:EucalyptusMessage><euca:_return>true</euca:_return><euca:_services/><euca:_disabledServices/><euca:_notreadyServices/></euca:EucalyptusMessage></euca:VmImageMessage><euca:imagesSet/></euca:DescribeImagesResponseType>
+Downloading Image :  CentOS 5 1.3GB root, Hypervisor-Specific Kernels
+0-----1-----2-----3-----4-----5-----6-----7-----8-----9-----10
+integer division or modulo by zero
+[root@clpstpdfc114 ~]# euca-describe-images
+[root@clpstpdfc114 ~]# ls
+admin.zip        cloud-cert.pem                 euca2-admin-226bed7a-pk.pem  iamrc       install.log         jssecacerts
+anaconda-ks.cfg  euca2-admin-226bed7a-cert.pem  eucarc                       index.html  install.log.syslog
+[root@clpstpdfc114 ~]# cd /tmp
+[root@clpstpdfc114 tmp]# cd fas
+-bash: cd: fas: No such file or directory
+[root@clpstpdfc114 tmp]# cd faststart3.1.1/
+[root@clpstpdfc114 faststart3.1.1]# ls
+cloudvalidator.sh                         euca2ools-release-2.1.noarch.rpm       eucalyptus.conf                    guide.pdf
+elrepo-release-6-4.el6.elrepo.noarch.rpm  euca-centos-5.8-2012.07.05-x86_64.tgz  eucalyptus-release-3.1.noarch.rpm  imageinstall.sh
+epel-release-6-7.noarch.rpm               eucalyptus3.1.1.tgz                    fastinstall.sh                     README.md
+[root@clpstpdfc114 faststart3.1.1]# tar zxvf euca-centos-5.8-2012.07.05-x86_64.tgz
+euca-centos-5.8-2012.07.05-x86_64/
+euca-centos-5.8-2012.07.05-x86_64/xen-kernel/
+euca-centos-5.8-2012.07.05-x86_64/xen-kernel/vmlinuz-2.6.27.21-0.1-xen
+euca-centos-5.8-2012.07.05-x86_64/xen-kernel/initrd-2.6.27.21-0.1-xen
+euca-centos-5.8-2012.07.05-x86_64/euca-centos-5.8-2012.07.05-x86_64.img
+yeuca-centos-5.8-2012.07.05-x86_64/kvm-kernel/
+euca-centos-5.8-2012.07.05-x86_64/kvm-kernel/initrd.img-2.6.28-11-generic
+euca-centos-5.8-2012.07.05-x86_64/kvm-kernel/vmlinuz-2.6.28-11-generic
+[root@clpstpdfc114 faststart3.1.1]# cd euca-centos-5.8-2012.07.05-x86_64/kvm-kernel/
+[root@clpstpdfc114 kvm-kernel]# ls
+initrd.img-2.6.28-11-generic  vmlinuz-2.6.28-11-generic
+[root@clpstpdfc114 kvm-kernel]# euca-bundle-image -i vmlinuz-2.6.28-11-generic --kernel true --arch x86_64
+Checking image
+Compressing image
+Encrypting image
+Splitting image...
+Part: vmlinuz-2.6.28-11-generic.part.00
+Generating manifest /tmp/vmlinuz-2.6.28-11-generic.manifest.xml
+[root@clpstpdfc114 kvm-kernel]# euca-upload-bundle -b centos-kernel -m /tmp/vmlinuz-2.6.28-11-generic.manifest.xml
+Checking bucket: centos-kernel
+Creating bucket: centos-kernel
+Uploading manifest file
+Uploading part: vmlinuz-2.6.28-11-generic.part.00
+Uploaded image as centos-kernel/vmlinuz-2.6.28-11-generic.manifest.xml
+[root@clpstpdfc114 kvm-kernel]# euca-register centos-kernel/vmlinuz-2.6.28-11-generic.manifest.xml --arch x86_64
+IMAGE   eki-3984373F
+[root@clpstpdfc114 kvm-kernel]# euca-bundle-image -i initrd.img-2.6.28-11-generic --ramdisk true --arch x86_64
+Checking image
+Compressing image
+Encrypting image
+Splitting image...
+Part: initrd.img-2.6.28-11-generic.part.00
+Generating manifest /tmp/initrd.img-2.6.28-11-generic.manifest.xml
+[root@clpstpdfc114 kvm-kernel]# euca-upload-bundle -b centos-ramdisk -m /tmp/initrd.img-2.6.28-11-generic.manifest.xml
+Checking bucket: centos-ramdisk
+Creating bucket: centos-ramdisk
+Uploading manifest file
+Uploading part: initrd.img-2.6.28-11-generic.part.00
+eUploaded image as centos-ramdisk/initrd.img-2.6.28-11-generic.manifest.xml
+[root@clpstpdfc114 kvm-kernel]# euca-register centos-ramdisk/initrd.img.2.6.28-11-generic.manifest.xml --arch x86_64
+RegisterImageType: Failed to read manifest file: centos-ramdisk/initrd.img.2.6.28-11-generic.manifest.xml
+[root@clpstpdfc114 kvm-kernel]# euca-register centos-ramdisk/initrd.img-2.6.28-11-generic.manifest.xml --arch x86_64
+IMAGE   eri-802539F9
+[root@clpstpdfc114 kvm-kernel]# cd ..
+[root@clpstpdfc114 euca-centos-5.8-2012.07.05-x86_64]# euca-bundle-image -i euca-centos-5.8-2012.07.05-x86_64.img --kernel eki-3984373F --ramdisk eri-802539F9 --arch x86_64
+Checking image
+Compressing image
+Encrypting image
+Splitting image...
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.00
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.01
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.02
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.03
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.04
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.05
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.06
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.07
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.08
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.09
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.10
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.11
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.12
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.13
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.14
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.15
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.16
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.17
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.18
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.19
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.20
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.21
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.22
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.23
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.24
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.25
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.26
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.27
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.28
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.29
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.30
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.31
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.32
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.33
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.34
+Part: euca-centos-5.8-2012.07.05-x86_64.img.part.35
+Generating manifest /tmp/euca-centos-5.8-2012.07.05-x86_64.img.manifest.xml
+[root@clpstpdfc114 euca-centos-5.8-2012.07.05-x86_64]# euca-upload-bundle -b centos-root-disk -m /tmp/euca-centos-5.8-2012.07.05-x86_64.img.manifest.xml
+Checking bucket: centos-root-disk
+Creating bucket: centos-root-disk
+Uploading manifest file
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.00
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.01
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.02
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.03
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.04
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.05
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.06
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.07
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.08
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.09
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.10
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.11
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.12
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.13
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.14
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.15
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.16
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.17
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.18
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.19
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.20
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.21
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.22
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.23
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.24
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.25
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.26
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.27
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.28
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.29
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.30
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.31
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.32
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.33
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.34
+Uploading part: euca-centos-5.8-2012.07.05-x86_64.img.part.35
+Uploaded image as centos-root-disk/euca-centos-5.8-2012.07.05-x86_64.img.manifest.xml
+[root@clpstpdfc114 euca-centos-5.8-2012.07.05-x86_64]# euca-register centos-root-disk/euca-centos-5.8-2012.07.05-x86_64.img.manifest.xml --arch x86_64
+IMAGE   emi-7F663494
+[root@clpstpdfc114 euca-centos-5.8-2012.07.05-x86_64]# cd
+[root@clpstpdfc114 ~]# euca-describe-images
+IMAGE   eki-3984373F    centos-kernel/vmlinuz-2.6.28-11-generic.manifest.xml    246675861429    available       public          x86_64  kernel                         instance-store
+IMAGE   emi-7F663494    centos-root-disk/euca-centos-5.8-2012.07.05-x86_64.img.manifest.xml     246675861429    available       public          x86_64  machine eki-3984373F    eri-802539F9            instance-store
+IMAGE   eri-802539F9    centos-ramdisk/initrd.img-2.6.28-11-generic.manifest.xml        246675861429    available       public          x86_64  ramdisk                instance-store
+[root@clpstpdfc114 ~]#

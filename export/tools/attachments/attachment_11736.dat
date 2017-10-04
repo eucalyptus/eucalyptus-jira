@@ -1,0 +1,211 @@
+commit 7ce016291f8ebe26c09fd5db77cf9499ea8e14ec
+Author: Isaku Yamahata <yamahata@valinux.co.jp>
+Date:   Mon Jul 4 17:48:53 2011 +0900
+
+    implement euca-describe-instance-attribute
+    
+    This patch implements euca-describe-instance-attribute.
+    This depends on boto fixes on boto.ec2.instance.InstanceAttribute.
+    NOTE: the output format may not be compatible with
+          ec2-describe-instance-attribute as I couldn't find the all example
+          output on the net.
+          If the sample format is given, it's trivial to fix it.
+
+diff --git a/bin/euca-describe-instance-attribute b/bin/euca-describe-instance-attribute
+new file mode 100755
+index 0000000..adba74c
+--- /dev/null
++++ b/bin/euca-describe-instance-attribute
+@@ -0,0 +1,40 @@
++#!/usr/bin/python
++# -*- coding: utf-8 -*-
++
++# Software License Agreement (BSD License)
++#
++# Copyright (c) 2011 Isaku Yamahata
++# All rights reserved.
++#
++# Redistribution and use of this software in source and binary forms, with or
++# without modification, are permitted provided that the following conditions
++# are met:
++#
++#   Redistributions of source code must retain the above
++#   copyright notice, this list of conditions and the
++#   following disclaimer.
++#
++#   Redistributions in binary form must reproduce the above
++#   copyright notice, this list of conditions and the
++#   following disclaimer in the documentation and/or other
++#   materials provided with the distribution.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
++# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++# POSSIBILITY OF SUCH DAMAGE.
++#
++# Author: Isaku Yamahata yamahata@valinux.co.jp
++
++import euca2ools.commands.euca.describeinstanceattribute
++
++if __name__ == '__main__':
++    cmd = euca2ools.commands.euca.describeinstanceattribute.DescribeInstanceAttribute()
++    cmd.main_cli()
+diff --git a/euca2ools/commands/euca/describeinstanceattribute.py b/euca2ools/commands/euca/describeinstanceattribute.py
+new file mode 100644
+index 0000000..1cede8c
+--- /dev/null
++++ b/euca2ools/commands/euca/describeinstanceattribute.py
+@@ -0,0 +1,134 @@
++# Software License Agreement (BSD License)
++#
++# Copyright (c) 2011, Isaku Yamahata
++# All rights reserved.
++#
++# Redistribution and use of this software in source and binary forms, with or
++# without modification, are permitted provided that the following conditions
++# are met:
++#
++#   Redistributions of source code must retain the above
++#   copyright notice, this list of conditions and the
++#   following disclaimer.
++#
++#   Redistributions in binary form must reproduce the above
++#   copyright notice, this list of conditions and the
++#   following disclaimer in the documentation and/or other
++#   materials provided with the distribution.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
++# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++# POSSIBILITY OF SUCH DAMAGE.
++#
++# Author: Isaku Yamahata yamahata@valinux.co.jp
++
++import euca2ools.commands.eucacommand
++from boto.roboto.param import Param
++
++
++class DescribeInstanceAttribute(euca2ools.commands.eucacommand.EucaCommand):
++
++    Description = 'Show instance attributes.'
++    Options = [Param(name='blockDeviceMapping',
++                     short_name='b', long_name='block-device-mapping',
++                     optional=True, ptype='boolean',
++                     doc='show block device mapping.'),
++               Param(name='disableApiTermination',
++                     long_name='disable-api-termination',
++                     optional=True, ptype='boolean',
++                     doc='show whether the instance can be terminated '
++                     'using EC2 API'),
++               Param(name='groupSet',
++                     short_name='g', long_name='group-id',
++                     optional=True, ptype='boolean',
++                     doc='show security groups the instance is in'),
++               Param(name='instanceInitiatedShutdownBehavior',
++                     long_name='instance-initiated-shutdown-behavior',
++                     optional=True, ptype='boolean',
++                     doc='show if a instance shutdown is initiated'),
++               Param(name='instanceType',
++                     short_name='t', long_name='instance-type',
++                     optional=True, ptype='boolean',
++                     doc='show the instance type of the instance'),
++               Param(name='kernel', long_name='kernel',
++                     optional=True, ptype='boolean',
++                     doc='show the kernel id associated with the image.'),
++               Param(name='ramdisk', long_name='ramdisk',
++                     optional=True, ptype='boolean',
++                     doc='show the ramdisk id associated with the image.'),
++               Param(name='rootDeviceName',
++                     long_name='root-device-name',
++                     optional=True, ptype='boolean',
++                     doc='show the root device name'),
++               Param(name='sourceDestCheck',
++                     long_name='source-dest-check',
++                     optional=True, ptype='boolean',
++                     doc='show whether to enable a NAT instance in a VPC '
++                     'to performa NAT'),
++               Param(name='userData',
++                     long_name='user-data',
++                     optional=True, ptype='boolean',
++                     doc='show user data made available to the instance')]
++
++    Args = [Param(name='instance_id', ptype='string',
++                  doc="""unique identifier for the instance that you want
++                  to retrieve the attributes for.""",
++                  cardinality=1, optional=False)]
++
++    def display_instance_attribute(self, instance_id,
++                                   instance_attribute, attribute_name):
++        # NOTE: the output format may not be compatible with
++        #       ec2-describe-instance-attribute as I couldn't find the all
++        #       example output on the net.
++        #       If the sample format is given, it's trivial to fix it.
++
++        if attribute_name == 'blockDeviceMapping':
++            block_device_mapping = instance_attribute['block_device_mapping']
++            for dev_name in block_device_mapping:
++                print '%s\t%s\t' % (attribute_name, instance_id),
++                bdm = block_device_mapping[dev_name]
++                print 'blockDeviceMap\t%s: %s %s %s' \
++                    % (dev_name, bdm.volume_id, bdm.snapshot_id,
++                       bdm.delete_on_termination)
++            return
++
++        if attribute_name == 'groupSet':
++            groups = instance_attribute.groups
++            print '%s\t%s\t' % (attribute_name, instance_id),
++            for group in groups:
++                print '\t%s' % group.id,
++            print '\n'
++            return
++
++        value = instance_attribute.get(attribute_name)
++        print '%s\t%s\t%s' % (attribute_name, instance_id, value)
++
++    def main(self):
++        attribute = None
++        attr_names = [opt.name for opt in self.Options]
++        for name in attr_names:
++            if not attribute:
++                if getattr(self, name):
++                    attribute = name
++        if attribute:
++            conn = self.make_connection_cli()
++            return (self.make_request_cli(conn, 'get_instance_attribute',
++                                         instance_id=self.instance_id,
++                                         attribute=attribute), attribute)
++        else:
++            msg = 'instance attribute must be specified'
++            self.display_error_and_exit(msg)
++
++    def main_cli(self):
++        (instance_attribute, attribute_name) = self.main()
++        if instance_attribute:
++            self.display_instance_attribute(self.instance_id,
++                                            instance_attribute, attribute_name)
+diff --git a/setup.py b/setup.py
+index 151bf18..a6cbe22 100644
+--- a/setup.py
++++ b/setup.py
+@@ -135,6 +135,7 @@ setup(name = "euca2ools",
+                  "bin/euca-describe-image-attribute",
+                  "bin/euca-describe-images",
+                  "bin/euca-describe-instances",
++                 "bin/euca-describe-instance-attribute",
+                  "bin/euca-describe-keypairs",
+                  "bin/euca-describe-regions",
+                  "bin/euca-describe-snapshots",

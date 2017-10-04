@@ -1,0 +1,11 @@
+Index: euca2ools-2.1.1/install-manpages.sh
+===================================================================
+--- euca2ools-2.1.1.orig/install-manpages.sh
++++ euca2ools-2.1.1/install-manpages.sh
+@@ -5,5 +5,5 @@
+ 
+ install -d "$DESTDIR/$MANDIR/man1"
+ for manpage in man/*; do
+-    install "$manpage" "$DESTDIR/$MANDIR/man1/`basename $manpage`"
++    install -m 644 "$manpage" "$DESTDIR/$MANDIR/man1/`basename $manpage`"
+ done

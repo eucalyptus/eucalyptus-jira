@@ -1,0 +1,23 @@
+--- deletebundle.py.bak	2012-03-21 17:16:34.000000000 -0700
++++ deletebundle.py	2012-03-21 17:45:46.000000000 -0700
+@@ -47,8 +47,9 @@
+                      doc='Name of the bucket to upload to.'),
+                Param(name='manifest_path',
+                      short_name='m', long_name='manifest',
+-                     optional=True, ptype='file',
+-                     doc='Path to the manifest file.'),
++                     optional=True, ptype='string',
++                     doc="""Manifest file on your local filesystem or
++                     contained inside of the bucket."""),
+                Param(name='prefix', short_name='p', long_name='prefix',
+                      optional=True, ptype='string',
+                      doc="""The filename prefix for bundled files.
+@@ -165,7 +166,7 @@
+         directory = os.path.abspath('/tmp')
+ 
+         if not self.manifest_path and not self.prefix:
+-            print 'Neither manifestpath nor prefix was specified.'
++            print 'Neither manifest path nor prefix was specified.'
+             print 'All manifest data in bucket will be deleted.'
+ 
+         bucket_instance = self.ensure_bucket(self.bucket)

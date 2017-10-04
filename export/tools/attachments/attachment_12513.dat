@@ -1,0 +1,17 @@
+diff --git a/euca2ools/commands/euca/createsnapshot.py b/euca2ools/commands/euca/createsnapshot.py
+index 6d21bbc..c289bd0 100644
+--- a/euca2ools/commands/euca/createsnapshot.py
++++ b/euca2ools/commands/euca/createsnapshot.py
+@@ -48,9 +48,10 @@ class CreateSnapshot(euca2ools.commands.eucacommand.EucaCommand):
+     def display_snapshot(self, snapshot):
+         if not snapshot.id:
+             return
+-        snapshot_string = '%s\t%s\t%s\t%s\t%s\t%s' % (snapshot.id,
++        snapshot_string = '%s\t%s\t%s\t%s\t%s\t%s\t%s' % (snapshot.id,
+                 snapshot.volume_id, snapshot.status, snapshot.start_time,
+-                snapshot.progress, snapshot.description)
++                snapshot.owner_id, snapshot.volume_size, 
++                snapshot.description or '')
+         print 'SNAPSHOT\t%s' % snapshot_string
+ 
+     def main(self):
