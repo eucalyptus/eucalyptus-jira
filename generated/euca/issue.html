@@ -135,9 +135,9 @@ pre {
 <p class="w3-margin-left">
 {{for issue.fields.issuelinks}}
 {{if inwardIssue}}
-{{>type.inward}} <a href="{{>inwardIssue.key}}" target="_top">{{>inwardIssue.key}}</a> {{>inwardIssue.fields.summary}} <br/>
+{{>type.inward}} <a href="{{>inwardIssue.key}}.html" target="_top">{{>inwardIssue.key}}</a> {{>inwardIssue.fields.summary}} <br/>
 {{else}}
-{{>type.outward}} <a href="{{>outwardIssue.key}}" target="_top">{{>outwardIssue.key}}</a> {{>outwardIssue.fields.summary}} <br/>
+{{>type.outward}} <a href="{{>outwardIssue.key}}.html" target="_top">{{>outwardIssue.key}}</a> {{>outwardIssue.fields.summary}} <br/>
 {{/if}}
 {{/for}}
 </p>
