@@ -1,0 +1,168 @@
+Using CloudBerry with Walrus via SSL (using the latest 3.0.2 code, rev no 2603):
+
+There are 3 things that you must do to get CloudBerry to work with Walrus via SSL (non-SSL already works out of the box):
+1. You need a valid certificate for CLC server.
+2. Configure Eucalyptus to use that certificate by placing it in the eucalyptus keystore
+3. Configure a network iptables mapping to redirect traffic entering the CLC on port 443 to be redirected to port 8773.
+
+NOTE: for our internal Eucalyptus QA setups this requires using one of the eucalyptus wildcard certs and then configuring DNS on the machines to resolve the IPs to a hostname that matches *.eucalyptus.com or *.eucalyptus-systems.com. You can get the certs and keys from IT Services.
+
+
+Step 1: Setup a valid certificate for the CLC server. This will require contacting your CA to get a signed, valid certificate. You will need the certificate and the private key file (for example: server.crt and server-private.key). Using a valid certificate requires that the hostname on the certificate match the hostname that requests are sent to, so using IPs for addressing the eucalyptus endpoint does not work with CloudBerry + SSL.
+	a. go to $EUCALYPTUS/var/lib/eucalyptus/keys
+
+	b. copy euca.p12 to make a backup and a new copy to work on without breaking the existing one
+		cp euca.p12 euca.p12.backup
+		cp euca.p12 euca_new.p12
+
+	c. Add your certificate and private key to a new keystore that you can then import into the euca.p12 keystore. This step is required because you cannot import a trusted certificate & key directly into a pkcs12 format keystore, which is what eucalyptus uses. Remember the alias that you use for the key/cert pair as you will need it later.  NOTE: openssl will ask for an export password here. REMEMBER WHAT YOU USE! You will need to put that into a eucalyptus property later so that Eucalyptus can access the key.
+
+		If you are using a certificate signed by a trusted root (i.e. one that most clients will have pre-loaded as a trusted root).
+		openssl pkcs12 -export -in <YOURCERT.crt> -inkey <YOURKEY.key> -out tmpkeystore.p12 -name <some_alias>
+
+		If you need to send the whole chain (I haven't tested this method, so beware), then:
+		openssl pkcs12 -export -in <YOURCERT.crt> -inkey <YOURKEY.key> -out tmpkeystore.p12 -name <some_alias> -CAfile <YOUR_CA_CERT.crt> -caname <yourCA> -chain
+		You can repeat the combination of "-CAfile" and "-caname" for each intermediate certificate as required.
+		
+		You may, depending on your certificate and the signing chain, have to import the root certificate into the java cacerts keystore so that the entire chain will be trusted. Do this using the 'keytool' command (in our QA case this is the gd_bundle.crt certificate from GoDaddy.com:
+		keytool -importcert -keystore <java cacert location, for ubuntu it is: /usr/lib/jvm/java-1.6.0-openjdk/jre/lib/security/cacerts> -file <YOUR_CA_ROOT_CERT.crt> -alias <SOME_ALIAS>
+
+	d. Import the keystore into the eucalyptus keystore. The -deststorepass value is 'eucalyptus' and that does not change.
+	keytool -importkeystore -srckeystore tmpkeystore.p12 -srcstoretype pkcs12 -srcstorepass <your key password from export> -destkeystore euca_new.p12 -deststoretype pkcs12 -deststorepass eucalyptus -alias <some alias> -srckeypass <your key password from export> -destkeypass <your key password from export>
+
+	The command may complain that the -destkeypass is being ignored, this is normal and isn't a problem.
+
+	e. Verify that the keys are accessible:
+	openssl pkcs12 -in euca_new.p12 -clcerts -nodes -password pass:eucalyptus
+
+	That command should give a list of all keys and certs in the keystore. If there is a problem with a private key you will see errors for that entry and the command will fail at that point with exceptions thrown. It will look something like:
+
+Bag Attributes
+    friendlyName: <your alias you picked>
+    localKeyID: 54 69 6D 65 20 31 33 33 36 35 34 35 32 33 31 36 31 35 
+Error outputting keys and certificates
+140547566929736:error:06065064:digital envelope routines:EVP_DecryptFinal_ex:bad decrypt:evp_enc.c:535:
+140547566929736:error:23077074:PKCS12 routines:PKCS12_pbe_crypt:pkcs12 cipherfinal error:p12_decr.c:97:
+140547566929736:error:2306A075:PKCS12 routines:PKCS12_item_decrypt_d2i:pkcs12 pbe crypt error:p12_decr.c:123:
+
+If this command does not work, then you must redo the previous import step being sure that your srckeypass and destkeypass are set correctly. You may want to re-copy euca_new.p12 from the original euca.p12 to start over, or you can simply overwrite the entry when you redo step d above.
+
+	f. Copy the new keystore over the existing one.
+		cp euca_new.p12 euca.p12
+
+		
+Step 2: Configure Eucalyptus to use the certificate by placing it in the eucalyptus keystore.
+To enable eucalyptus to use the new certificate do the following
+	a. On the CLC:
+		euca-modify-property -p bootstrap.webservices.ssl.server_alias=<alias you chose in step 1c.>
+		euca-modify-property -p bootstrap.webservices.ssl.server_password=<password for key when it was exported in step 1c>
+
+	b. Restart the CLC:
+		service eucalyptus-cloud restart or $EUCALYPTUS/etc/init.d/eucalyptus-cloud restart
+
+	c. (OPTIONAL TEST) Wait for a bit (1-2 minutes minimum to allow the system to fully initialize), and then you can run some checks of SSL on the localhost. This may return errors if the certificate you use is not in the client-side trusted certificate chain or some portion of its trust chain is not in the intermediate or trusted root stores.
+
+#!/bin/bash -x
+(   # get openssl, gnutls, and bouncycastle versions 
+    openssl version; 
+    gnutls-cli-debug -v; 
+    unzip -p /usr/share/eucalyptus/lib/bcprov.jar META-INF/MANIFEST.MF | grep Implementation-Version
+    # check openssl {ssl2,ssl3,tls1} functionality against port 8774 and 8443 
+    for f in ssl2 ssl3 tls1; do  
+    	for p in 8773 8443; do 
+    		( 
+    		  echo -e "======= CHECKING $p WITH $f ======="; 
+    		  echo -e 'GET /\n\n' | openssl s_client -connect 127.0.0.1:$p -quiet -$f 2>&1 >/dev/null  
+    		) | xargs -i echo "127.0.0.1:$p openssl $f {}" 
+    	done
+    done  
+    # check gnutls functionality against port 8774 and 8443
+    for p in 8773 8443; do 
+    	(
+	       echo -e "======= CHECKING $p WITH gnutls ======="; 
+            gnutls-cli-debug -p $p 127.0.0.1  
+      ) | xargs -i echo "127.0.0.1:$p gnutls {}"; 
+    done
+)
+
+You should see output like this if SSL is NOT running (this is just output from the openssl portion, not the gnutils-cli-debug portion of the test):
+127.0.0.1:8773 openssl ssl2 ======= CHECKING 8773 WITH ssl2 =======
+127.0.0.1:8773 openssl ssl2 140620388595528:error:1406D0CB:SSL routines:GET_SERVER_HELLO:peer error no cipher:s2_pkt.c:682:
+127.0.0.1:8773 openssl ssl2 140620388595528:error:1407F0E5:SSL routines:SSL2_WRITE:ssl handshake failure:s2_pkt.c:430:
+127.0.0.1:8443 openssl ssl2 ======= CHECKING 8443 WITH ssl2 =======
+127.0.0.1:8443 openssl ssl2 139719285213000:error:1406D0CB:SSL routines:GET_SERVER_HELLO:peer error no cipher:s2_pkt.c:682:
+127.0.0.1:8443 openssl ssl2 139719285213000:error:1407F0E5:SSL routines:SSL2_WRITE:ssl handshake failure:s2_pkt.c:430:
+127.0.0.1:8773 openssl ssl3 ======= CHECKING 8773 WITH ssl3 =======
+127.0.0.1:8773 openssl ssl3 140183988000584:error:14094438:SSL routines:SSL3_READ_BYTES:tlsv1 alert internal error:s3_pkt.c:1193:SSL alert number 80
+127.0.0.1:8773 openssl ssl3 140183988000584:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:s3_pkt.c:590:
+127.0.0.1:8443 openssl ssl3 ======= CHECKING 8443 WITH ssl3 =======
+127.0.0.1:8443 openssl ssl3 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl ssl3 verify error:num=18:self signed certificate
+127.0.0.1:8443 openssl ssl3 verify return:1
+127.0.0.1:8443 openssl ssl3 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl ssl3 verify return:1
+127.0.0.1:8773 openssl tls1 ======= CHECKING 8773 WITH tls1 =======
+127.0.0.1:8773 openssl tls1 140546238641992:error:14094438:SSL routines:SSL3_READ_BYTES:tlsv1 alert internal error:s3_pkt.c:1193:SSL alert number 80
+127.0.0.1:8773 openssl tls1 140546238641992:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:s3_pkt.c:590:
+127.0.0.1:8443 openssl tls1 ======= CHECKING 8443 WITH tls1 =======
+127.0.0.1:8443 openssl tls1 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl tls1 verify error:num=18:self signed certificate
+127.0.0.1:8443 openssl tls1 verify return:1
+127.0.0.1:8443 openssl tls1 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl tls1 verify return:1
+
+And when it is running SSL properly (again, only the openssl output for now):
+
+27.0.0.1:8773 openssl ssl2 ======= CHECKING 8773 WITH ssl2 =======
+127.0.0.1:8773 openssl ssl2 140299004442440:error:1406D0CB:SSL routines:GET_SERVER_HELLO:peer error no cipher:s2_pkt.c:682:
+127.0.0.1:8773 openssl ssl2 140299004442440:error:1407F0E5:SSL routines:SSL2_WRITE:ssl handshake failure:s2_pkt.c:430:
+127.0.0.1:8443 openssl ssl2 ======= CHECKING 8443 WITH ssl2 =======
+127.0.0.1:8443 openssl ssl2 139658335795016:error:1406D0CB:SSL routines:GET_SERVER_HELLO:peer error no cipher:s2_pkt.c:682:
+127.0.0.1:8443 openssl ssl2 139658335795016:error:1407F0E5:SSL routines:SSL2_WRITE:ssl handshake failure:s2_pkt.c:430:
+127.0.0.1:8773 openssl ssl3 ======= CHECKING 8773 WITH ssl3 =======
+127.0.0.1:8773 openssl ssl3 depth=0 description = VJHYlYcjvKRNcF1c, C = US, CN = cloud.gerla.net, emailAddress = webmaster@gerla.net
+127.0.0.1:8773 openssl ssl3 verify error:num=20:unable to get local issuer certificate
+127.0.0.1:8773 openssl ssl3 verify return:1
+127.0.0.1:8773 openssl ssl3 depth=0 description = VJHYlYcjvKRNcF1c, C = US, CN = cloud.gerla.net, emailAddress = webmaster@gerla.net
+127.0.0.1:8773 openssl ssl3 verify error:num=27:certificate not trusted
+127.0.0.1:8773 openssl ssl3 verify return:1
+127.0.0.1:8773 openssl ssl3 depth=0 description = VJHYlYcjvKRNcF1c, C = US, CN = cloud.gerla.net, emailAddress = webmaster@gerla.net
+127.0.0.1:8773 openssl ssl3 verify error:num=21:unable to verify the first certificate
+127.0.0.1:8773 openssl ssl3 verify return:1
+127.0.0.1:8443 openssl ssl3 ======= CHECKING 8443 WITH ssl3 =======
+127.0.0.1:8443 openssl ssl3 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl ssl3 verify error:num=18:self signed certificate
+127.0.0.1:8443 openssl ssl3 verify return:1
+127.0.0.1:8443 openssl ssl3 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl ssl3 verify return:1
+127.0.0.1:8773 openssl tls1 ======= CHECKING 8773 WITH tls1 =======
+127.0.0.1:8773 openssl tls1 depth=0 description = VJHYlYcjvKRNcF1c, C = US, CN = cloud.gerla.net, emailAddress = webmaster@gerla.net
+127.0.0.1:8773 openssl tls1 verify error:num=20:unable to get local issuer certificate
+127.0.0.1:8773 openssl tls1 verify return:1
+127.0.0.1:8773 openssl tls1 depth=0 description = VJHYlYcjvKRNcF1c, C = US, CN = cloud.gerla.net, emailAddress = webmaster@gerla.net
+127.0.0.1:8773 openssl tls1 verify error:num=27:certificate not trusted
+127.0.0.1:8773 openssl tls1 verify return:1
+127.0.0.1:8773 openssl tls1 depth=0 description = VJHYlYcjvKRNcF1c, C = US, CN = cloud.gerla.net, emailAddress = webmaster@gerla.net
+127.0.0.1:8773 openssl tls1 verify error:num=21:unable to verify the first certificate
+127.0.0.1:8773 openssl tls1 verify return:1
+127.0.0.1:8443 openssl tls1 ======= CHECKING 8443 WITH tls1 =======
+127.0.0.1:8443 openssl tls1 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl tls1 verify error:num=18:self signed certificate
+127.0.0.1:8443 openssl tls1 verify return:1
+127.0.0.1:8443 openssl tls1 depth=0 C = US, O = Cloud, OU = Eucalyptus, CN = db
+127.0.0.1:8443 openssl tls1 verify return:1
+
+Note there are some errors but those are because the client doesn't have the certificate or its signing authority in the trusted root store (the "unable to verify the first certificate" message), or in the case of the very first sslv2 errors, the encryption used is for sslv3 only. If there are failures for ssl2, ssl3, and tls1 on 8773 or 84443 then something is broken.
+
+Step 3: Configure the CLC to redirect request on port 443 to port 8773
+CloudBerry assumes that all SSL traffic will be over port 443. Walrus listens for both SSL and non-SSL connections on port 8773. Since you cannot configure CloudBerry to use a different port you must configure the CLC to redirect the request from 443->8773. This should be done with caution if the CLC is also a CC node since the CC controls networking as well. In that case you should be sure to configure the CC to re-load correct rules on a reboot so that the redirect we will setup does not disappear (see the Eucalyptus Admin Guide for how to do that).
+
+To configure the re-direct from port 443 to port 8773 on the CLC, run the following command as root:
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 8773
+
+
+Step 4: For the cloudberry setup you must use the hostname and service path but no port. Example: eucahost-51-141.eucalyptus.com/services/Walrus.
+
+Eucalyptus QA-specific Notes:
+To test cloudberry in windows in the eucalyptus QA environment you must have dns hostnames for the CLC. You can achieve this by editing the /etc/hosts file (i.e add eucahost-x-y.eucalyptus.com for the 127.0.1.1 IP on the CLC).
+You must also get the hostname to resolve on the windows machine. To do this you edit the c:\Windows\System32\drivers\etc\hosts file. To be able to save the changes you must open notepad (or whatever editor) 'As Administrator'. Right-click on the text-editor's icon/shortcut and select 'Run-As Administrator'. Then add the hostname and IP to the hosts file.

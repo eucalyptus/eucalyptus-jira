@@ -1,0 +1,41 @@
+[Fri Jun  1 20:20:44 2012][010297][EUCADEBUG ] [i-BE2A40E6] implemented artifact 001|i-BE2A40E6 on try 1
+[Fri Jun  1 20:20:44 2012][010297][EUCAINFO  ] [i-BE2A40E6] wrote instance XML to /var/lib/eucalyptus/instances/work/P3NPFQAPLL6YVKJSDWMTG/i-BE2A40E6/instance.xml
+[Fri Jun  1 20:20:44 2012][010697][EUCAERROR ] libvirt: internal error no supported architecture for os type 'hvm' (code=1)
+[Fri Jun  1 20:20:44 2012][010297][EUCAERROR ] [i-BE2A40E6] hypervisor failed to create the instance
+[Fri Jun  1 20:20:45 2012][010297][EUCAINFO  ] [i-BE2A40E6] attempt 2 of 5 to create the instance
+[Fri Jun  1 20:20:45 2012][010698][EUCAERROR ] libvirt: internal error no supported architecture for os type 'hvm' (code=1)
+[Fri Jun  1 20:20:45 2012][010297][EUCAERROR ] [i-BE2A40E6] hypervisor failed to create the instance
+[Fri Jun  1 20:20:46 2012][010297][EUCADEBUG ] doDescribeResource: cores=3/4 mem=7800/7928 disk=38/40 iqn=iqn.1993-08.org.debian:01:e06c7bc96c9c
+[Fri Jun  1 20:20:46 2012][010297][EUCADEBUG ] doDescribeInstances: userId=eucalyptus correlationId=UNSET epoch=0 services[0].name= services[0].type= services[0].uris[0]=
+[Fri Jun  1 20:20:46 2012][010297][EUCADEBUG ] [i-BE2A40E6] Pending pub=192.168.10.183 priv=10.193.103.238 mac=D0:D0:BE:2A:40:E6 vlan=833 net=14 plat=linux vols=
+[Fri Jun  1 20:20:46 2012][010297][EUCAINFO  ] [i-BE2A40E6] attempt 3 of 5 to create the instance
+[Fri Jun  1 20:20:46 2012][010699][EUCAERROR ] libvirt: internal error no supported architecture for os type 'hvm' (code=1)
+[Fri Jun  1 20:20:46 2012][010297][EUCAERROR ] [i-BE2A40E6] hypervisor failed to create the instance
+[Fri Jun  1 20:20:47 2012][010297][EUCAINFO  ] [i-BE2A40E6] attempt 4 of 5 to create the instance
+[Fri Jun  1 20:20:47 2012][010700][EUCAERROR ] libvirt: internal error no supported architecture for os type 'hvm' (code=1)
+[Fri Jun  1 20:20:47 2012][010297][EUCAERROR ] [i-BE2A40E6] hypervisor failed to create the instance
+[Fri Jun  1 20:20:48 2012][010297][EUCAINFO  ] [i-BE2A40E6] attempt 5 of 5 to create the instance
+[Fri Jun  1 20:20:48 2012][010701][EUCAERROR ] libvirt: internal error no supported architecture for os type 'hvm' (code=1)
+[Fri Jun  1 20:20:48 2012][010297][EUCAERROR ] [i-BE2A40E6] hypervisor failed to create the instance
+[Fri Jun  1 20:20:49 2012][010297][EUCADEBUG ] [i-BE2A40E6] state change for instance: Staging -> Shutoff (Pending)
+[Fri Jun  1 20:20:52 2012][010297][EUCADEBUG ] doDescribeResource: cores=3/4 mem=7800/7928 disk=38/40 iqn=iqn.1993-08.org.debian:01:e06c7bc96c9c
+[Fri Jun  1 20:20:52 2012][010297][EUCADEBUG ] doDescribeInstances: userId=eucalyptus correlationId=UNSET epoch=0 services[0].name= services[0].type= services[0].uris[0]=
+[Fri Jun  1 20:20:52 2012][010297][EUCADEBUG ] [i-BE2A40E6] Pending pub=192.168.10.183 priv=10.193.103.238 mac=D0:D0:BE:2A:40:E6 vlan=833 net=14 plat=linux vols=
+[Fri Jun  1 20:20:54 2012][010297][EUCAWARN  ] libvirt: Domain not found: no domain with matching name 'i-BE2A40E6' (code=42)
+[Fri Jun  1 20:20:54 2012][010297][EUCAINFO  ] [i-BE2A40E6] cleaning up state for instance
+[Fri Jun  1 20:20:54 2012][010297][EUCAINFO  ] {225908480} ch(own|mod) '/var/lib/eucalyptus/instances/work/P3NPFQAPLL6YVKJSDWMTG/i-BE2A40E6/*' eucalyptus.* 660
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} attaching file /var/lib/eucalyptus/instances/work/P3NPFQAPLL6YVKJSDWMTG/i-BE2A40E6/eri-086C3802-bf1fee65.blocks
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480}             to /dev/loop7 at offset 0
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop7
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} attaching file /var/lib/eucalyptus/instances/work/P3NPFQAPLL6YVKJSDWMTG/i-BE2A40E6/eki-71FA3C08-a768dc8f.blocks
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480}             to /dev/loop7 at offset 0
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop7
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop6
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop2
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop3
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop0
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop1
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop4
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] {225908480} detaching from loop device /dev/loop5
+[Fri Jun  1 20:20:54 2012][010297][EUCAINFO  ] [i-BE2A40E6] stopping the network (vlan=833)
+[Fri Jun  1 20:20:54 2012][010297][EUCADEBUG ] [i-BE2A40E6] state change for instance: Shutoff -> Teardown (Teardown)

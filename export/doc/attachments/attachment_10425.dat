@@ -1,0 +1,276 @@
+{\rtf1\ansi\deff3\adeflang1025
+{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset128 Liberation Serif{\*\falt Times New Roman};}{\f4\fswiss\fprq2\fcharset128 Liberation Sans{\*\falt Arial};}{\f5\fnil\fprq2\fcharset128 WenQuanYi Zen Hei;}{\f6\fnil\fprq2\fcharset128 Lohit Devanagari;}{\f7\fnil\fprq0\fcharset128 Lohit Devanagari;}}
+{\colortbl;\red0\green0\blue0;\red220\green35\blue0;\red255\green255\blue0;\red128\green128\blue128;}
+{\stylesheet{\s0\snext0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033 Normal;}
+{\s1\sbasedon15\snext16\ilvl0\outlinelevel0\sb240\sa120\keepn\b\hich\af5\dbch\af6\afs32\ab\loch\f4\fs32 Heading 1;}
+{\s2\sbasedon15\snext16\ilvl1\outlinelevel1\sb240\sa120\keepn\i\b\hich\af5\dbch\af6\afs28\ai\ab\loch\f4\fs28 Heading 2;}
+{\s15\sbasedon0\snext16\sb240\sa120\keepn\hich\af5\dbch\af6\afs28\loch\f4\fs28 Heading;}
+{\s16\sbasedon0\snext16\sb0\sa120 Text body;}
+{\s17\sbasedon16\snext17\sb0\sa120\dbch\af7 List;}
+{\s18\sbasedon0\snext18\sb120\sa120\noline\i\dbch\af7\afs24\ai\fs24 Caption;}
+{\s19\sbasedon0\snext19\noline\dbch\af7 Index;}
+}{\*\listtable{\list\listtemplateid1
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-432\li432}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-576\li576}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-720\li720}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-864\li864}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-1008\li1008}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-1152\li1152}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-1296\li1296}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-1440\li1440}
+{\listlevel\levelnfc0\leveljc0\levelstartat1\levelfollow0{\leveltext \'00;}{\levelnumbers;}\fi-1584\li1584}\listid1}
+}{\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}{\info{\creatim\yr2012\mo5\dy3\hr10\min41}{\revtim\yr0\mo0\dy0\hr0\min0}{\printim\yr0\mo0\dy0\hr0\min0}{\comment LibreOffice}{\vern3400}}\deftab709
+
+{\*\pgdsctbl
+{\pgdsc0\pgdscuse195\pgwsxn12240\pghsxn15840\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\pgdscnxt0 Default;}}
+\formshade\paperh15840\paperw12240\margl1134\margr1134\margt1134\margb1134\sectd\sbknone\sectunlocked1\pgndec\pgwsxn12240\pghsxn15840\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\ftnbj\ftnstart1\ftnrstcont\ftnnar\aenddoc\aftnrstcont\aftnstart1\aftnnrlc
+\pgndec\pard\plain \s1\ilvl0\outlinelevel0\sb240\sa120\keepn\b\hich\af5\dbch\af6\afs32\ab\loch\f4\fs32{\listtext\pard\plain  \tab}\ls1 \li432\ri0\lin432\rin0\fi-432\sb240\sa120{\rtlch \ltrch\loch
+Configure DRBD\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+For HA:  This section is for Eucalyptus HA. If you are not using HA, skip this section.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+Before you begin, ensure that you have the following information:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+The IP address and hostname of each Walrus\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+The DRBD block device name of each Walrus. In the following examples, we assume that DRBD block device name\u13\'0d is /dev/drbd1.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+The DRBD backing disk partition names on each Walrus}{\chcbpat3\rtlch \ltrch\loch
+,}{\rtlch \ltrch\loch
+ a partition }{\chcbpat3\rtlch \ltrch\loch
+or volume}{\rtlch \ltrch\loch
+ (either on a new disk or an existing disk) should\u13\'0d be dedicated to Walrus. }{\chcbpat3\rtlch \ltrch\loch
+ It is best practice to use LVM to facilitate easy re-sizing of the the Walrus volume. }{\rtlch \ltrch\loch
+The }{\chcbpat3\rtlch \ltrch\loch
+volume}{\rtlch \ltrch\loch
+ }{\cf2\strike\rtlch \ltrch\loch
+partition}{\rtlch \ltrch\loch
+ sizes should be identical }{\chcbpat3\rtlch \ltrch\loch
+between systems and greater than;}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+(walrus.storagemaxbucketsizeinmb * walrus.storagemaxbucketsperaccount * number-of-accounts) + walrus.storagemaxcachesizeinmb  + walrus.storagemaxtotalsnapshotsizeingb = minimum LVM size}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+For example, if you plan for 4 accounts, and default settings then}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+(5120MB(max bucket size) * 5 (buckets per account) * 4 accounts) + 30720MB + 50GB = 180GB}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\i\chcbpat3\afs20\ai\rtlch \ltrch\loch\fs20
+NOTE:}{\chcbpat3\afs20\rtlch \ltrch\loch\fs20
+ If the Walrus storage values are changed then the DRBD will need to be re-sized accordingly. (refer to the DRBD documentation with LVM)}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\rtlch \ltrch\loch
+\u13\'0d\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Configuring DRBD requires that you complete edit the Eucalyptus DRBD file to include your Walrus information, and\u13\'0d edit the master DRBD file to tell it to look for the Eucalyptus DRBD file.\u13\'0d}
+\par \pard\plain \s2\ilvl1\outlinelevel1\sb240\sa120\keepn\i\b\hich\af5\dbch\af6\afs28\ai\ab\loch\f4\fs28{\listtext\pard\plain  \tab}\ls1 \li576\ri0\lin576\rin0\fi-576{\rtlch \ltrch\loch
+To configure DRBD:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+1. Log in to the primary Walrus.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+2. Load the DRBD module\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+modprobe drbd\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+There is no output from this command.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+3. Copy the example Eucalyptus DRBD file (/etc/eucalyptus/drbd.conf.example) to\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+/etc/eucalyptus/drbd.conf.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+4. Open the /etc/eucalyptus/drbd.conf file and make the following edits:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <walrus-host-1> to the hostname of the primary Walrus.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <drbd-block-dev, e.g., /dev/drbd1> to /dev/drbd1\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <drbd-backing-disk-dev, e.g. /dev/sdb1> to }{\chcbpat3\rtlch \ltrch\loch
+ /dev/vg01/lv_walrus }{\cf2\strike\rtlch \ltrch\loch
+/dev/sdb1}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <walrus-host-1-ip> to the IP address of the primary Walrus.}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <walrus-host-2> to the hostname of the secondary Walrus.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <drbd-block-dev, e.g., /dev/drbd1> to /dev/drbd1\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <drbd-backing-disk-dev, e.g. /dev/sdb1> to}{\chcbpat3\rtlch \ltrch\loch
+ /dev/vg01/lv_walrus}{\cf2\rtlch \ltrch\loch
+ }{\cf2\strike\rtlch \ltrch\loch
+/dev/sdb1}{\rtlch \ltrch\loch
+\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+\uc3 \u8226\'e2\'80\'a2 \uc1 }{\rtlch \ltrch\loch
+Change the value of <walrus-host-2-ip> to the IP address of the secondary Walrus.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+The file should look like the following example:}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+common \{\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+protocol C;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+\}\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+resource r0 \{\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+on walrus00.eucalyptus.com \{\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+device    /dev/drbd1;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\cf2\rtlch \ltrch
+   }{\cf2\strike\rtlch \ltrch
+ }{\cf2\strike\rtlch \ltrch\loch
+disk      /dev/sdb1;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\rtlch \ltrch
+    }{\chcbpat3\rtlch \ltrch\loch
+disk      /dev/vg01/lv_walrus;}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+address   192.168.58.1:7789;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+meta-disk internal;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+\}\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+on walrus01.eucalyptus.com \{\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+device    /dev/drbd1;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\cf2\rtlch \ltrch
+    }{\cf2\strike\rtlch \ltrch\loch
+disk      /dev/sdb1;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\chcbpat3\rtlch \ltrch
+    }{\chcbpat3\rtlch \ltrch\loch
+disk      /dev/vg01/lv_walrus;}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+address   192.168.58.2:7789;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+meta-disk internal;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+\}\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+syncer \{\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+rate 40M;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+\}\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+net \{\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+after-sb-0pri discard-zero-changes;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+    }{\rtlch \ltrch\loch
+after-sb-1pri discard-secondary;\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch
+  }{\rtlch \ltrch\loch
+\}\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+\}}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+Important:  On RHEL 6, remove the common section (common \{ protocol C; \}). The default\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+configuration in RHEL 6 already includes a common section.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+5. Save and close the file.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+6. Open the master DRBD file (/etc/drbd.conf) and append the following line:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+include "/etc/eucalyptus/drbd.conf";\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+7. Save and close the file.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+8. Open the /etc/eucalyptus/eucalyptus.conf file and make the following configuration:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+CLOUD_OPTS="-Dwalrus.storage.manager=DRBDStorageManager"\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+9. Restart Walrus.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+service eucalyptus-cloud restart\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+10. Copy the /etc/drbd.conf, the /etc/eucalyptus/drbd.conf, and the\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+/etc/eucalyptus/eucalyptus.conf files to the secondary Walrus server.}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+11. On the primary Walrus, associate the DRBD block device (/dev/drbd1) with the disk partition allocated for\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+Walrus }{{\*\bkmkstart __DdeLink__11_1804410511}\rtlch \ltrch\loch
+(/dev/sdb1}{\rtlch \ltrch\loch
+)}{\chcbpat3\rtlch \ltrch\loch
+ (/dev/vg01/lv_walrus)}{{\*\bkmkend __DdeLink__11_1804410511}\rtlch \ltrch\loch
+.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+drbdmeta --force /dev/drbd1 v08 }{\cf2\strike\rtlch \ltrch\loch
+/dev/sdb1}{\chcbpat3\rtlch \ltrch\loch
+ /dev/vg01/lv_walrus}{\rtlch \ltrch\loch
+ internal create-md\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+drbdadm attach r0\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+drbdadm connect r0\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+Repeat on the secondary Walrus.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+12. Set up the DRBD block device on the primary Walrus:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+drbdsetup /dev/drbd1 syncer -r 110M\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+drbdadm --overwrite-data-of-peer primary r0\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+13. On the primary Walrus only, run the following command to indicate whether the data on the DRBD primary and\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+secondary is consistent:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+drbdadm dstate r0\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+Wait for the output to display UpToDate/UpToDate, then continue to the next step.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+Tip:  To view the synchronization process in near-realtime, run watch -n 2 cat /proc/drbd.\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+14. On the primary Walrus, create a filesystem on /dev/drbd1. Eucalyptus supports ext3 or ext4. For example:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+mkfs.ext3 /dev/drbd1\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+15. On the primary CLC, tell Eucalyptus to use DRBD parameters configured in the DRBD config file so Walrus can\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+write to the correct device:\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+euca-modify-property -p walrus.blockdevice=/dev/drbd1\u13\'0d}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+euca-modify-property -p walrus.resource=r0}
+\par \pard\plain \s0\nowidctlpar{\*\hyphen2\hyphlead2\hyphtrail2\hyphmax0}\cf0\kerning1\hich\af5\langfe2052\dbch\af6\afs24\lang1081\loch\f3\fs24\lang1033{\rtlch \ltrch\loch
+}
+\par }
