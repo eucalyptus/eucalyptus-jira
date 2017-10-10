@@ -147,7 +147,7 @@ pre {
 {{for commits.detail}}
 {{for repositories}}
 {{for commits}}
-<a href="{{>url}}" target="_blank" title="{{>message}}">{{>displayId}}</a> {{>author.name}}
+<a href="{{>url}}" target="_blank" title="{{>message}}">{{>displayId}}</a> {{>author.name}} <br/>
 {{/for}}
 {{/for}}
 {{/for}}
@@ -169,7 +169,7 @@ pre {
   <td colspan="4" class="w3-theme-dark" height="32"><div class="w3-text-dark-grey">&nbsp;Generated using JIRA REST export from https://eucalyptus.atlassian.net/</div></td>  
 </tr>  
 <tr>  
-  <td width="200" valign="top" class="w3-theme-light"><iframe width="200" height="100%" frameborder="0" scrolling="yes" src="issue-side.html"></iframe></td>
+  <td width="200" heigh="100%" class="w3-theme-light"><iframe width="200" height="100%" frameborder="0" scrolling="yes" src="issue-side.html"></iframe></td>
   <td width="10"></td>
   <td valign="top"><div id="issue-target"></div></td>
   <td width="40"></td>
