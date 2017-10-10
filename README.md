@@ -4,6 +4,9 @@ Exported public issues from Eucalyptus JIRA
 # Exporting
 To export JIRA issues use the export.sh script from [confluence-to-github](https://github.com/sjones4/confluence-to-github/tree/master/jira)
 
+# Page generation
+To generate pages for each exported project, run generate.sh.
+
 # Example exported issues
 Example exported issues by project:
 
