@@ -212,11 +212,15 @@ pre {
   });
   $.views.converters("date", function(date) {
     var dateFormatted = date;
-    if ( dateFormatted.charAt(dateFormatted.length-5) == '-' && dateFormatted.charAt(dateFormatted.length-3) != ':' ) {
-        dateFormatted = dateFormatted.substring( 0, dateFormatted.length-2 ) + ":" + dateFormatted.substring( dateFormatted.length-2 )
+    if (dateFormatted) {
+      if ( dateFormatted.charAt(dateFormatted.length-5) == '-' && dateFormatted.charAt(dateFormatted.length-3) != ':' ) {
+          dateFormatted = dateFormatted.substring( 0, dateFormatted.length-2 ) + ":" + dateFormatted.substring( dateFormatted.length-2 )
+      }
+      var dateVal = new Date(dateFormatted);
+      return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
+    } else {
+      return "";
     }
-    var dateVal = new Date(dateFormatted);
-    return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
   });
   $.getJSON(issuePrefix + issueKey + ".json", function(issueJson){
     $.getJSON(commitsPrefix + "commits_"+issueJson.id+".json", function(commitsJson){
