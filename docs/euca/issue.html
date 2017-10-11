@@ -1,0 +1,226 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>Issue from JIRA export</title>
+<link rel="icon" type="image/png" href="../../template/euca_icon.png" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6,pre {font-family: "Roboto", sans-serif;}
+pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+.issue-table-title {
+  text-align: left
+}
+</style>
+</head>
+<body>
+  <script src="../../template/jquery-3.2.1.min.js"></script> <!-- fetch json -->
+  <script src="../../template/jsrender.min.js"></script> <!-- templating -->
+  <script src="../../template/J2M.js"></script> <!-- jira text to markdown -->
+  <script src="../../template/showdown.min.js"></script> <!-- markdown to html -->
+  <script type="text/x-jsrender" id="issue-title">[{{>issue.key}}] {{>issue.fields.summary}} - JIRA export</script>
+  <script type="text/x-jsrender" id="issue-template">
+<table cellspacing="8" cellpadding="0" border="0">
+      <tr>
+        <td><img src="../../template/euca.png" width="132" height="132">
+        <td valign="top">
+            <h2 class="w3-text-light-green">{{>issue.fields.project.name}} / {{>issue.key}}<br/>
+            {{>issue.fields.summary}}</h2>
+        </td>
+      </tr>
+</table>
+ 
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr>
+<td width="60%" valign="top">
+<h2 class="w3-text-light-green">Details</h2>
+
+<table cellspacing="0" cellpadding="2" border="0" class="w3-margin-left">
+      <tr>
+        <th class="issue-table-title">Type:</th>
+        <td>{{jiratype:issue.fields.issuetype}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Priority:</th>
+        <td>{{jirapriority:issue.fields.priority}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Status:</th>
+        <td>{{jirastatus:issue.fields.status}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Resolution:</th>
+        <td>{{if issue.fields.resolution}}{{>issue.fields.resolution.name}}{{/if}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Affects Version/s:</th>
+        <td>{{for issue.fields.versions}}{{>name}} {{/for}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Fix Version/s:</th>
+        <td>{{for issue.fields.fixVersions}}{{>name}} {{/for}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Components:</th>
+        <td>{{for issue.fields.components}}{{>name}} {{/for}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Labels:</th>
+        <td>{{for issue.fields.labels}}{{>#data}} {{/for}}</td>
+      </tr>
+</table>
+</td>
+<td valign="top">
+
+<h2 class="w3-text-light-green">People</h2>
+<table cellspacing="0" cellpadding="2" border="0" class="w3-margin-left">
+      <tr>
+        <th class="issue-table-title">Assignee:</th>
+        <td>{{jirauser:issue.fields.assignee}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Reporter:</th>
+        <td>{{jirauser:issue.fields.reporter}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Creator:</th>
+        <td>{{jirauser:issue.fields.creator}}</td>
+      </tr>
+</table>
+
+
+<h2 class="w3-text-light-green">Dates</h2>
+<table cellspacing="0" cellpadding="2" border="0" class="w3-margin-left">
+      <tr>
+        <th class="issue-table-title">Created:</th>
+        <td>{{date:issue.fields.created}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Updated:</th>
+        <td>{{date:issue.fields.updated}}</td>
+      </tr>
+      <tr>
+        <th class="issue-table-title">Resolved:</th>
+        <td>{{date:issue.fields.resolutiondate}}</td>
+      </tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+
+<hr/>
+
+<h2 class="w3-text-light-green">Description</h2>
+<div class="w3-margin-left">{{jiratext:issue.fields.description}}</div>
+
+<hr/>
+
+<h2 class="w3-text-light-green">Attachments</h2>
+<p class="w3-margin-left">
+{{for issue.fields.attachment}}
+  <a href="{{jiraattachlink:id}}" download="{{>filename}}" type="{{>mimeType}}" target="_blank">{{>filename}}</a> {{>mimeType}} {{date:created}} {{>size}} {{jirauser:author}}<br/>
+{{/for}}
+</p>
+
+<h2 class="w3-text-light-green">Links</h2>
+<p class="w3-margin-left">
+{{for issue.fields.issuelinks}}
+{{if inwardIssue}}
+{{>type.inward}} <a href="{{>inwardIssue.key}}.html" target="_top">{{>inwardIssue.key}}</a> {{>inwardIssue.fields.summary}} <br/>
+{{else}}
+{{>type.outward}} <a href="{{>outwardIssue.key}}.html" target="_top">{{>outwardIssue.key}}</a> {{>outwardIssue.fields.summary}} <br/>
+{{/if}}
+{{/for}}
+</p>
+
+<h2 class="w3-text-light-green">Commits</h2>
+<p class="w3-margin-left">
+{{for commits.detail}}
+{{for repositories}}
+{{for commits}}
+<a href="{{>url}}" target="_blank" title="{{>message}}">{{>displayId}}</a> {{>author.name}} <br/>
+{{/for}}
+{{/for}}
+{{/for}}
+</p>
+
+<h2 class="w3-text-light-green">Comments</h2>
+{{for issue.fields.comment.comments}}
+<hr/>
+<p>
+  <h4 class="w3-text-light-green">{{jirauser:author}} commented {{date:created}}{{if created != updated}} [updated {{date:updated}}]{{/if}}</h4>
+<p>
+<div class="w3-margin-left wrap-text">{{jiratext:body}}</div>
+{{/for}}
+
+</script>
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+<tr>
+  <td colspan="4" class="w3-theme-dark" height="32"><div class="w3-text-dark-grey">&nbsp;Generated using JIRA REST export from https://eucalyptus.atlassian.net/</div></td>  
+</tr>  
+<tr>  
+  <td width="200" height="100%" class="w3-theme-light"><iframe width="200" height="100%" frameborder="0" scrolling="yes" src="issue-side.html"></iframe></td>
+  <td width="10"></td>
+  <td valign="top"><div id="issue-target"></div></td>
+  <td width="40"></td>
+</tr>
+<tr>
+  <td colspan="4" class="w3-theme-dark" height="32"><div class="w3-text-dark-grey">&nbsp;Uses J2M [https://github.com/FokkeZB/J2M] and showdown [https://github.com/showdownjs] for text formatting</div></td>  
+</tr>  
+</table>
+
+<script type="text/javascript">
+  var pathname = top.window.location.pathname;
+  var issueKey = pathname.slice(pathname.lastIndexOf("/")+1, pathname.lastIndexOf(".html"))
+  var path = pathname.slice(0, pathname.lastIndexOf("/"))
+  var project = path.slice(path.lastIndexOf("/")+1, path.length)
+  var baseUrl = "https://cdn.rawgit.com/sjones4/eucalyptus-jira/master/export/";
+  var issuePrefix = baseUrl + project + "/issues/";  
+  var commitsPrefix = baseUrl + project + "/commits/";
+  var attachmentPrefix = baseUrl + project + "/attachments/";  
+  var iconPrefix = baseUrl + project + "/icons/";  
+  showdown.setFlavor("github");
+  var converter = new showdown.Converter();
+  $.views.converters("jiratext", function(text) {
+    return text ? converter.makeHtml(J2M.toM(text)) : "";
+  });
+  $.views.converters("jiraattachlink", function(attachmentId) {
+    return attachmentPrefix + "attachment_" + attachmentId + ".dat";
+  });
+  $.views.converters("jirauser", function(user) {
+    return user ? "<img src=\"" + iconPrefix + "user_icon_24_" + user.name + ".png\" width=\"24\" height=\"24\"/> " + user.displayName : "";
+  });
+  $.views.converters("jiratype", function(type) {
+    return type ? "<img src=\"" + iconPrefix + "issuetype_icon_" + type.name + ".svg\" width=\"16\" height=\"16\"/> " + type.name : "";
+  });
+  $.views.converters("jirastatus", function(status) {
+    return status ? status.name : "";
+  });
+  $.views.converters("jirapriority", function(priority) {
+    return priority ? "<img src=\"" + iconPrefix + "priority_icon_" + priority.name + ".svg\" width=\"16\" height=\"16\"/> " + priority.name : "";
+  });
+  $.views.converters("date", function(date) {
+    var dateVal = new Date(date);
+    return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
+  });
+  $.getJSON(issuePrefix + issueKey + ".json", function(issueJson){
+    $.getJSON(commitsPrefix + "commits_"+issueJson.id+".json", function(commitsJson){
+      top.document.title = $.templates("#issue-title").render({issue:issueJson});
+      $("#issue-target").html($.templates("#issue-template").render({issue:issueJson,commits:commitsJson}));
+    });
+  });  
+</script>
+
+</body>
+</html>
