@@ -82,9 +82,9 @@ th {
 
     <h1 class="w3-text-light-green" style="margin-top: 32px">All exported issues</h1>
     <div class="w3-text-light-green">
+        [<a href="#gui">Console</a>]
         [<a href="#doc">Documentation</a>]
         [<a href="#euca">Eucalyptus</a>]
-        [<a href="#gui">Console</a>]
         [<a href="#tools">Tools</a>]
     </div>
 
@@ -145,6 +145,9 @@ th {
         return priority ? "<img src=\"" + iconPrefix + "priority_icon_" + priority.name + ".svg\" width=\"16\" height=\"16\"/> " + priority.name : "";
       });
       $("#"+project+"-issues-target").html($.templates("#issues-table-template").render({issues:issuesJson}));
+      if (location.hash) {
+        location.href = location.hash;
+      }
     });  
   });
 </script>
