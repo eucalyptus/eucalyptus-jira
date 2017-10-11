@@ -11,17 +11,27 @@
                 <td></td>
             </tr>
         </table>
+
+        <h3 class="w3-text-light-green">Issues:</h3>
+        <div class="w3-margin-left">
+          <a href="/eucalyptus-jira/index.html" target="_top">Index</a><br/>
+          <a href="/eucalyptus-jira/index.html#gui" target="_top">Console</a><br/>
+          <a href="/eucalyptus-jira/index.html#doc" target="_top">Documentation</a><br/>
+          <a href="/eucalyptus-jira/index.html#euca" target="_top">Eucalyptus</a><br/>
+          <a href="/eucalyptus-jira/index.html#tools" target="_top">Tools</a><br/>
+        </div>
+
         <script type="text/x-jsrender" id="issue-list-template">
         <table cellspacing='2' cellpadding='2' border='0'>
             <tr>
                 <td>
-                    <h3 class="w3-text-light-green">Issues:</h3>
+                    <h3 class="w3-text-light-green">Project issues:</h3>
                 </td>
             </tr>
             {{for issues}}
             <tr>
                 <td>
-                    <a href="{{>#data}}.html" target="_top">{{>#data}}</a>
+                    <a href="{{>#data}}.html" target="_top" class="w3-margin-left">{{>#data}}</a>
                 </td>
             </tr>
             {{/for}}
