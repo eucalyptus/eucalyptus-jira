@@ -15,5 +15,6 @@ Example exported issues by project:
 * [GUI-1](https://sjones4.github.io/eucalyptus-jira/generated/gui/GUI-1.html)
 * [TOOLS-1](https://sjones4.github.io/eucalyptus-jira/generated/tools/TOOLS-1.html)
 
-
+# Generated github pages site
+[Generated site](https://sjones4.github.io/eucalyptus-jira/)
 
