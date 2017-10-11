@@ -185,7 +185,7 @@ pre {
   var issueKey = pathname.slice(pathname.lastIndexOf("/")+1, pathname.lastIndexOf(".html"))
   var path = pathname.slice(0, pathname.lastIndexOf("/"))
   var project = path.slice(path.lastIndexOf("/")+1, path.length)
-  var baseUrl = "https://cdn.rawgit.com/sjones4/eucalyptus-jira/master/export/";
+  var baseUrl = "/eucalyptus-jira/export/";
   var issuePrefix = baseUrl + project + "/issues/";  
   var commitsPrefix = baseUrl + project + "/commits/";
   var attachmentPrefix = baseUrl + project + "/attachments/";  
