@@ -1,0 +1,1013 @@
+[{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13611","id":"13611","description":"Eucalyptus 3.3.1","name":"3.3.1","archived":false,"released":true,"releaseDate":"2013-08-27"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"create alarm and enter custom metric links should be left justified under associated selectors and have \"Or:\" text prepended",
+"key":"GUI-1"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"400, Bad Request, Request has expired errors on multi-cluster setup",
+"key":"GUI-2"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13608","id":"13608","description":"Eucalyptus 3.2.1","name":"3.2.1","archived":false,"released":true,"releaseDate":"2013-02-14"},{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13609","id":"13609","description":"Eucalyptus 3.2.2","name":"3.2.2","archived":false,"released":true,"releaseDate":"2013-04-01"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Scaling the User Console and having a highly available access to the cloud",
+"key":"GUI-3"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13611","id":"13611","description":"Eucalyptus 3.3.1","name":"3.3.1","archived":false,"released":true,"releaseDate":"2013-08-27"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Attach Volume dialog does not validate volume name tag",
+"key":"GUI-4"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"\"406, Not Acceptable\" error on console",
+"key":"GUI-5"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"strange extra \"working\" spinner shows behind login screen",
+"key":"GUI-6"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13611","id":"13611","description":"Eucalyptus 3.3.1","name":"3.3.1","archived":false,"released":true,"releaseDate":"2013-08-27"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"need more informative message when filtering reduces result set to 0 ",
+"key":"GUI-7"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Manage tags does not show correctly in Safari and does not allow editing/creating tags. ",
+"key":"GUI-8"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"The tabs in the expanded row reset when the landing page refreshes",
+"key":"GUI-9"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"volume row not displaying (occasionally) in FF",
+"key":"GUI-10"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Performance Issues with Eucalyptus User Console",
+"key":"GUI-11"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Copy Paste in User Console search box doesn't behave well",
+"key":"GUI-12"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13611","id":"13611","description":"Eucalyptus 3.3.1","name":"3.3.1","archived":false,"released":true,"releaseDate":"2013-08-27"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"acting on multiple items is not giving multiple items in notification bar",
+"key":"GUI-13"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Instance data disappears in IE ",
+"key":"GUI-14"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Launch / autoscaling like this options don't always work",
+"key":"GUI-15"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/5","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/trivial.svg","name":"Trivial","id":"5"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"need to get rid of most of the google play font in the console",
+"key":"GUI-16"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13614","id":"13614","description":"Eucalyptus 3.4.1","name":"3.4.1","archived":false,"released":true,"releaseDate":"2013-12-16"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Adjust the Git branch names for clarity in semantic representation",
+"key":"GUI-17"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"when multiple tags are created, user console notifies about one only",
+"key":"GUI-18"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"eucalyptus-console error on the CLI",
+"key":"GUI-19"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"console flipping animation sluggish",
+"key":"GUI-20"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"notifications growl for create volume does not use volume name if one exists",
+"key":"GUI-21"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Selecting tags doesn't trigger magic search",
+"key":"GUI-22"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"help flip animation is not working on modal boxes",
+"key":"GUI-23"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Pull requests contain links to a server with a RFC1918 address",
+"key":"GUI-24"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/4","id":"4","description":"An improvement or enhancement to an existing feature or task.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14810&avatarType=issuetype","name":"Improvement","subtask":false,"avatarId":14810},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/14303","id":"14303","description":"Eucalyptus 4.1.0","name":"4.1.0","archived":false,"released":true,"releaseDate":"2015-01-29"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13607","id":"13607","description":"Eucalyptus 3.2.0","name":"3.2.0","archived":false,"released":true,"releaseDate":"2012-12-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"console should allow admin to specify account as part of url, and pre-fill the login page accordingly",
+"key":"GUI-25"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"notifications growl for snapshots does not use snapshot or volume names if they exist",
+"key":"GUI-26"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Errors in Firebug log during Selenium IDE test",
+"key":"GUI-27"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Auto Scaling title bar breaks if 'Instance' tab is selected",
+"key":"GUI-28"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Ensure user console works with tornado 3.x",
+"key":"GUI-29"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/2","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/critical.svg","name":"Critical","id":"2"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13611","id":"13611","description":"Eucalyptus 3.3.1","name":"3.3.1","archived":false,"released":true,"releaseDate":"2013-08-27"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"User Console Locks up when 740+ instances in list",
+"key":"GUI-30"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"When instance name is 256 characters, no error message is displayed in UI.",
+"key":"GUI-31"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Notification message should also display the names of cloud resources if exist",
+"key":"GUI-32"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Unable to scroll when a dialog is showing",
+"key":"GUI-33"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"long security group and/or key pair names cause extra checkbox to show up in launch instance wizard summary screen",
+"key":"GUI-34"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"attach volume from instance landing when no volumes exist shows wrong message",
+"key":"GUI-35"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/2","id":"2","description":"A new feature of the product, which has yet to be developed.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14811&avatarType=issuetype","name":"New Feature","subtask":false,"avatarId":14811},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10001","description":"This issue has been validated/reproduced, but has not been prioritized yet.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Confirmed","id":"10001","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"User Console should grey out \"Change Password\" option when used with Eucalyptus LDAP/AD Enabled Cloud",
+"key":"GUI-36"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/4","id":"4","description":"An improvement or enhancement to an existing feature or task.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14810&avatarType=issuetype","name":"Improvement","subtask":false,"avatarId":14810},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Remove private IP address and launch time columns from Instances landing page table",
+"key":"GUI-39"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/6","id":"6","description":"A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14807&avatarType=issuetype","name":"Epic","subtask":false,"avatarId":14807},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Managing AWS from Eucalyptus User Console",
+"key":"GUI-41"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/6","id":"6","description":"A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14807&avatarType=issuetype","name":"Epic","subtask":false,"avatarId":14807},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"User Console Architectural Improvements",
+"key":"GUI-42"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/6","id":"6","description":"A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14807&avatarType=issuetype","name":"Epic","subtask":false,"avatarId":14807},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Management console revamp",
+"key":"GUI-43"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/6","id":"6","description":"A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14807&avatarType=issuetype","name":"Epic","subtask":false,"avatarId":14807},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"Embedded SSH/VNC support for the Console",
+"summary":"Investigate browser-based SSH and VNC clients",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-44"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/6","id":"6","description":"A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14807&avatarType=issuetype","name":"Epic","subtask":false,"avatarId":14807},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Decouple UI release & versioning from Eucalyptus",
+"key":"GUI-45"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single volume view",
+"key":"GUI-46"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single instance view",
+"summary":"Display console output for Instance",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-47"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single autoscaling group view",
+"key":"GUI-48"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Security groups landing page",
+"key":"GUI-49"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Shiny new responsive dashboard",
+"key":"GUI-50"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Scaling groups landing page",
+"key":"GUI-51"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single elastic IP address view",
+"key":"GUI-52"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"remove instances from load balancers",
+"summary":"html for remove instances from LB",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"js for remove instances from LB",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-53"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"delete load balancer",
+"summary":"html for delete load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"js for delete load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-54"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Elastic IPs landing page",
+"key":"GUI-55"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Images landing page",
+"key":"GUI-56"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"notifications rewrite",
+"key":"GUI-57"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Snapshots landing page",
+"key":"GUI-58"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single security group view",
+"summary":"Add a \"Use my IP address\" for the Security Group rule CIDR input",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-59"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"new wizard controller",
+"key":"GUI-60"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single key pair view",
+"key":"GUI-61"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Navigation revamp",
+"summary":"move autoscaling to main nav, remove tabs from scaling groups and launch configs landing pages and breadcrumbs",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-62"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single snapshot view",
+"key":"GUI-63"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single launch configuration view",
+"key":"GUI-64"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"add instances to load balancer",
+"summary":"html for add instances to LB",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"js for add instances to LB",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-65"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Key pairs landing page",
+"key":"GUI-66"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/15504","id":"15504","description":"Eucalyptus 4.2.0","name":"4.2.0","archived":false,"released":true,"releaseDate":"2015-10-22"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/15504","id":"15504","description":"Eucalyptus 4.2.0","name":"4.2.0","archived":false,"released":true,"releaseDate":"2015-10-22"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Navigate to load balancers from the nav bar",
+"key":"GUI-67"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"single image view",
+"key":"GUI-68"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10001","description":"This issue has been validated/reproduced, but has not been prioritized yet.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Confirmed","id":"10001","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"edit load balancer",
+"summary":"html for edit LB",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"js for edit LB",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-69"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Launch configurations landing page",
+"key":"GUI-70"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10001","description":"This issue has been validated/reproduced, but has not been prioritized yet.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Confirmed","id":"10001","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"add load balancers count to the dashboard",
+"key":"GUI-71"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Volumes landing page",
+"key":"GUI-72"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"create load balancer wizard",
+"summary":"html for create LB wizard",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"js for create LB wizard",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-73"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Instances landing page",
+"key":"GUI-74"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"manage load balancers landing page",
+"summary":"HTML for LB landing page",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"JS for LB landing page",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"key":"GUI-75"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"remove instances from load balancers",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"html for remove instances from LB",
+"key":"GUI-76"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"remove instances from load balancers",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"js for remove instances from LB",
+"key":"GUI-77"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"delete load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"html for delete load balancer",
+"key":"GUI-78"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"delete load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"js for delete load balancer",
+"key":"GUI-79"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"add instances to load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"html for add instances to LB",
+"key":"GUI-80"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"add instances to load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"js for add instances to LB",
+"key":"GUI-81"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"edit load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10001","description":"This issue has been validated/reproduced, but has not been prioritized yet.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Confirmed","id":"10001","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"html for edit LB",
+"key":"GUI-82"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"edit load balancer",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10001","description":"This issue has been validated/reproduced, but has not been prioritized yet.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Confirmed","id":"10001","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"js for edit LB",
+"key":"GUI-83"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"create load balancer wizard",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"html for create LB wizard",
+"key":"GUI-84"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"create load balancer wizard",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/1","description":"The issue is open and ready for the assignee to start work on it.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/open.png","name":"Open","id":"1","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"js for create LB wizard",
+"key":"GUI-85"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"manage load balancers landing page",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"HTML for LB landing page",
+"key":"GUI-86"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/5","id":"5","description":"The sub-task of the issue","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14816&avatarType=issuetype","name":"Sub-task","subtask":true,"avatarId":14816},
+"summary":"manage load balancers landing page",
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/7","id":"7","description":"A user story. Created by JIRA Software - do not edit or delete.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14815&avatarType=issuetype","name":"Story","subtask":false,"avatarId":14815},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"JS for LB landing page",
+"key":"GUI-87"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"console doesn't display a new instance",
+"key":"GUI-88"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"VERSION file for \"console\" redundant or wrong version",
+"key":"GUI-89"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/14700","id":"14700","description":"Eucalyptus 4.0.2","name":"4.0.2","archived":false,"released":true,"releaseDate":"2014-10-20"},{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/15503","id":"15503","description":"Eucalyptus 4.1.2","name":"4.1.2","archived":false,"released":true,"releaseDate":"2015-07-30"},{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/16405","id":"16405","description":"Eucalyptus 4.2.1","name":"4.2.1","archived":false,"released":true,"releaseDate":"2015-12-07"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10001","description":"This issue has been validated/reproduced, but has not been prioritized yet.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Confirmed","id":"10001","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"Stop using M2Crypto for the web console",
+"key":"GUI-91"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Create a search icon",
+"key":"GUI-92"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/14303","id":"14303","description":"Eucalyptus 4.1.0","name":"4.1.0","archived":false,"released":true,"releaseDate":"2015-01-29"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13607","id":"13607","description":"Eucalyptus 3.2.0","name":"3.2.0","archived":false,"released":true,"releaseDate":"2012-12-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Cannot reattach volume to Windows instance once the volume has been attached, formatted, and detached previously. ",
+"key":"GUI-93"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Windows 7/ IE 10: Create new launch config dialog has a blank drop-down for the \"Security Group\" field.",
+"key":"GUI-94"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Proxy fails on get cache call and cannot recover",
+"key":"GUI-95"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Proxy flags false changes in some resources",
+"key":"GUI-96"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"user console should fail to start if SSL key file permissions are incorrect",
+"key":"GUI-97"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Saved search is the same for Amazon and Eucalyptus",
+"key":"GUI-98"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13608","id":"13608","description":"Eucalyptus 3.2.1","name":"3.2.1","archived":false,"released":true,"releaseDate":"2013-02-14"},{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13610","id":"13610","description":"Eucalyptus 3.3.0","name":"3.3.0","archived":false,"released":true,"releaseDate":"2013-06-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Can't navigate  from help page through the header icon for which the help page was initiated",
+"key":"GUI-99"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13607","id":"13607","description":"Eucalyptus 3.2.0","name":"3.2.0","archived":false,"released":true,"releaseDate":"2012-12-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/10000","description":"This issue has not yet been validated, and is not currently being investigated.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Unconfirmed","id":"10000","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/2","id":2,"key":"new","colorName":"blue-gray","name":"To Do"}},
+"components":[],
+"summary":"Let's not ask users to \"Try Again\" when trying to delete the security group that is in use",
+"key":"GUI-100"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"User Console: \"IP address\" in sgroup creation dialog is confusing",
+"key":"GUI-101"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"user console: parameters in all POST requests should be properly encoded depending on Content-Type",
+"key":"GUI-102"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/14303","id":"14303","description":"Eucalyptus 4.1.0","name":"4.1.0","archived":false,"released":true,"releaseDate":"2015-01-29"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/3","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/major.svg","name":"Major","id":"3"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13607","id":"13607","description":"Eucalyptus 3.2.0","name":"3.2.0","archived":false,"released":true,"releaseDate":"2012-12-19"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"Logged out of user console when launching large instance types",
+"key":"GUI-103"
+},{
+"issuetype":{"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/1","id":"1","description":"A problem which impairs or prevents the functions of the product.","iconUrl":"https://eucalyptus.atlassian.net/secure/viewavatar?size=xsmall&avatarId=14803&avatarType=issuetype","name":"Bug","subtask":false,"avatarId":14803},
+"fixVersions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13616","id":"13616","description":"Eucalyptus 4.0.0","name":"4.0.0","archived":false,"released":true,"releaseDate":"2014-05-30"}],
+"priority":{"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/4","iconUrl":"https://eucalyptus.atlassian.net/images/icons/priorities/minor.svg","name":"Minor","id":"4"},
+"versions":[{"self":"https://eucalyptus.atlassian.net/rest/api/2/version/13613","id":"13613","description":"Eucalyptus 3.4.0","name":"3.4.0","archived":false,"released":true,"releaseDate":"2013-10-24"}],
+"status":{"self":"https://eucalyptus.atlassian.net/rest/api/2/status/6","description":"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.","iconUrl":"https://eucalyptus.atlassian.net/images/icons/statuses/generic.png","name":"Closed","id":"6","statusCategory":{"self":"https://eucalyptus.atlassian.net/rest/api/2/statuscategory/3","id":3,"key":"done","colorName":"green","name":"Done"}},
+"components":[],
+"summary":"first refresh after modifying resource causes displayed expando tab to revert to first tab",
+"key":"GUI-104"
+}]

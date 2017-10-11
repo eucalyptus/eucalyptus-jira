@@ -1,0 +1,154 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>Eucalyptus JIRA exported issues</title>
+<link rel="icon" type="image/png" href="template/euca_icon.png" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6,pre {font-family: "Roboto", sans-serif;}
+html { 
+    height:100%;
+}
+body { 
+    height:100%;
+}
+th {
+    text-align: left;
+}
+.sidebar-margin-top {
+    margin-top:120px;
+}
+.top{position:fixed;z-index:2}
+.bottom{position:fixed;z-index:2;bottom:0}
+</style>
+</head>
+<body>
+  <script src="template/jquery-3.2.1.min.js"></script> <!-- fetch json -->
+  <script src="template/jsrender.min.js"></script> <!-- templating -->
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+<tr>
+  <td colspan="4" class="w3-theme-dark top" width="100%"><div class="w3-text-dark-grey">&nbsp;Generated using JIRA REST export from https://eucalyptus.atlassian.net/</div></td>  
+</tr>  
+<tr>  
+  <td width="200" valign="top" height="100%" class="w3-theme-light">
+    <!-- start side bar -->
+    <div class="w3-sidebar" style="margin-top: 32px">
+        <img src="template/euca.png" style="margin:4px">
+        <div class="w3-margin-left sidebar-margin-top">
+
+
+        <h3 class="w3-text-light-green">Issues</h3>
+        <a href="#doc">Documentation</a><br/>
+        <a href="#euca">Eucalyptus</a><br/>
+        <a href="#gui">Console</a><br/>
+        <a href="#tools">Tools</a><br/>
+
+        <h3 class="w3-text-light-green">Source</h3>
+        <a href="https://github.com/sjones4/eucalyptus-jira" target="_top">Github repo</a><br/>
+        <a href="https://github.com/eucalyptus/documentation" target="_top">Doc github</a><br/>
+        <a href="https://github.com/eucalyptus/eucalyptus" target="_top">Eucalyptus github</a><br/>
+        <a href="https://github.com/eucalyptus/eucaconsole" target="_top">Console github</a><br/>
+        <a href="https://github.com/eucalyptus/euca2ools" target="_top">Tools github</a><br/>
+        </div>
+    </div>
+    <!-- end side bar -->
+  </td>
+  <td width="10"></td>
+  <td valign="top">
+    <!-- start main content -->
+    <script type="text/x-jsrender" id="issues-table-template">
+      <table border="1">
+        <tr>
+          <th>Key</th>
+          <th>Type</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Summary</th>
+        </tr> 
+        {{for issues}}
+            <tr>
+              <td>{{jirakey:key}}</td>
+              <td>{{jiratype:issuetype}}</td>
+              <td>{{jirapriority:priority}}</td>
+              <td>{{jirastatus:status}}</td>
+              <td>{{>summary}}</td>
+            </tr>    
+        {{/for}}
+      </table>
+    </script>    
+
+    <h1 class="w3-text-light-green" style="margin-top: 32px">All exported issues</h1>
+    <div class="w3-text-light-green">
+        [<a href="#doc">Documentation</a>]
+        [<a href="#euca">Eucalyptus</a>]
+        [<a href="#gui">Console</a>]
+        [<a href="#tools">Tools</a>]
+    </div>
+
+    <a name="doc"/>
+    <h2 class="w3-text-light-green">Documentation issues</h2>
+    <div class="w3-margin-left">
+        <div id="doc-issues-target"></div>
+    </div>
+
+    <a name="euca"/>
+    <h2 class="w3-text-light-green">Eucalyptus issues</h2>
+    <div class="w3-margin-left">
+        <div id="euca-issues-target"></div>
+    </div>
+
+    <a name="gui"/>
+    <h2 class="w3-text-light-green">Console issues</h2>
+    <div class="w3-margin-left">
+        <div id="gui-issues-target"></div>
+    </div>
+
+    <a name="tools"/>
+    <h2 class="w3-text-light-green">Tools issues</h2>
+    <div class="w3-margin-left" style="margin-bottom:60px">
+        <div id="tools-issues-target"></div>
+    </div>
+
+    <!-- end main content -->
+  </td>
+  <td width="40"></td>
+</tr>
+<tr>
+  <td colspan="4" class="w3-theme-dark bottom" width="100%"><div class="w3-text-dark-grey">&nbsp;Uses J2M [https://github.com/FokkeZB/J2M] and showdown [https://github.com/showdownjs] for text formatting</div></td>  
+</tr>  
+</table>
+
+<script type="text/javascript">
+  var baseUrl = "";
+  var projects = [ 'doc', 'euca', 'gui', 'tools' ]
+  $.views.converters("date", function(date) {
+    var dateVal = new Date(date);
+    return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
+  });  
+  projects.forEach(function(project, index) {
+    $.getJSON(baseUrl + "generated/" + project + "/index.json", function(issuesJson){
+      var iconPrefix = baseUrl + "export/" + project + "/icons/";  
+      var issuePrefix = baseUrl + "generated/" + project + "/";  
+      $.views.converters("jirakey", function(key) {
+        return key ? "<a href=\"" + issuePrefix + key + ".html\" target=\"_top\"> " + key + "</a>" : "";
+      });
+      $.views.converters("jiratype", function(type) {
+        return type ? "<img src=\"" + iconPrefix + "issuetype_icon_" + type.name + ".svg\" width=\"16\" height=\"16\"/> " + type.name : "";
+      });
+      $.views.converters("jirastatus", function(status) {
+        return status ? status.name : "";
+      });
+      $.views.converters("jirapriority", function(priority) {
+        return priority ? "<img src=\"" + iconPrefix + "priority_icon_" + priority.name + ".svg\" width=\"16\" height=\"16\"/> " + priority.name : "";
+      });
+      $("#"+project+"-issues-target").html($.templates("#issues-table-template").render({issues:issuesJson}));
+    });  
+  });
+</script>
+
+</body>
+</html>
