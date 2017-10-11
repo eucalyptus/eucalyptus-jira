@@ -211,7 +211,11 @@ pre {
     return priority ? "<img src=\"" + iconPrefix + "priority_icon_" + priority.name + ".svg\" width=\"16\" height=\"16\"/> " + priority.name : "";
   });
   $.views.converters("date", function(date) {
-    var dateVal = new Date(date);
+    var dateFormatted = date;
+    if ( dateFormatted.charAt(dateFormatted.length-5) == '-' && dateFormatted.charAt(dateFormatted.length-3) != ':' ) {
+        dateFormatted = dateFormatted.substring( 0, dateFormatted.length-2 ) + ":" + dateFormatted.substring( dateFormatted.length-2 )
+    }
+    var dateVal = new Date(dateFormatted);
     return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
   });
   $.getJSON(issuePrefix + issueKey + ".json", function(issueJson){
