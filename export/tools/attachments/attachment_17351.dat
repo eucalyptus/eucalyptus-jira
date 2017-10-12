@@ -1,0 +1,17 @@
+Index: euca2ools/commands/euca/describeimages.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- euca2ools/commands/euca/describeimages.py	(revision 62ee82942cd216828e19ba3641a258d8d6797eff)
++++ euca2ools/commands/euca/describeimages.py	(revision )
+@@ -132,8 +132,7 @@
+     def print_image(self, image):
+         print self.tabify((
+             'IMAGE', image.get('imageId'),
+-            image.get('imageLocation'),
+-            image.get('imageOwnerAlias') or image.get('imageOwnerId'),
++            image.get('imageOwnerAlias') or image.get('imageOwnerId') + '/' +image.get('name'),
+             image.get('imageState'),
+             ('public' if image.get('isPublic') == 'true' else 'private'),
+             image.get('architecture'), image.get('imageType'),

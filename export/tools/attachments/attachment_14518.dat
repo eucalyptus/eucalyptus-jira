@@ -1,0 +1,46 @@
+root@lucid:~# euare-grouplistbypath 
+groups
+	arn:aws:iam::brian:group/default
+	arn:aws:iam::brian:group/admin-group
+root@lucid:~# euare-grouplistpolicies -g admin-group
+allow_star
+root@lucid:~# euare-grouplistpolicies -g admin-group -p allow_star 
+allow_star
+root@lucid:~# euare-groupgetpolicy -g admin-group -p allow_star
+{
+   "Statement":[{
+      "Effect":"Allow",
+      "Action":"*",
+      "Resource":"*"
+      }
+   ]
+}
+root@lucid:~# euare-grouplistusers -g admin-group
+arn:aws:iam::brian:group/admin-group
+	users
+	arn:aws:iam::brian:user/admin
+
+root@lucid:/tmp/mkdir# euca-download-bundle -b lucid  -d /tmp/mkdir/ --debug
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:path=/lucid/
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:auth_path=/lucid/
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:path=/lucid/?&max-keys=0
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:auth_path=/lucid/?&max-keys=0
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:Method: GET
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:Path: /services/Walrus/lucid/?&max-keys=0
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:Data: 
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:Headers: {}
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:Host: 192.168.111.10:8773
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:establishing HTTP connection: kwargs={}
+2013-02-14 22:50:50,752 euca2ools [DEBUG]:Token: None
+2013-02-14 22:50:50,753 euca2ools [DEBUG]:StringToSign:
+GET
+
+
+Thu, 14 Feb 2013 22:50:50 GMT
+/services/Walrus/lucid/
+send: 'GET /services/Walrus/lucid/?&max-keys=0 HTTP/1.1\r\nHost: 192.168.111.10:8773\r\nAccept-Encoding: identity\r\nDate: Thu, 14 Feb 2013 22:50:50 GMT\r\nContent-Length: 0\r\nAuthorization: AWS AWL8HMVYLSW9DPD0ZAAKB:B7dNkQVulA0DSBYQ3679WuGRd+E=\r\nUser-Agent: Boto/2.6.0 (linux2)\r\n\r\n'
+reply: 'HTTP/1.1 403 Forbidden\r\n'
+header: Content-Length: 259
+header: Content-Type: application/xml
+2013-02-14 22:50:50,903 euca2ools [DEBUG]:<Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Code>AccessDenied</Code><Message>Access Denied</Message><Resource>lucid</Resource><RequestId>a11ceb81-5f94-4677-86ec-78df4960feb9</RequestId></Error>
+Unable to get bucket lucid

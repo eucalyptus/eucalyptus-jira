@@ -1,0 +1,19 @@
+--- /usr/lib/python2.7/dist-packages/euca2ools/commands/ec2/getconsoleoutput.py.dist	2017-09-06 13:08:42.409012069 -0400
++++ /usr/lib/python2.7/dist-packages/euca2ools/commands/ec2/getconsoleoutput.py	2017-09-06 13:20:45.715838887 -0400
+@@ -54,13 +54,6 @@
+                 help='display raw output without escaping control characters')]
+ 
+     def print_result(self, result):
+-        print result.get('instanceId', '')
+-        print result.get('timestamp', '')
+-        output = base64.b64decode(result.get('output') or '')
+-        output = output.decode(sys.stdout.encoding or 'utf-8', 'replace')
+-        output = output.replace(u'\ufffd', u'?')
+-        if not self.args['raw_console_output']:
+-            # Escape control characters
+-            for char, escape in CHAR_ESCAPES.items():
+-                output = output.replace(char, escape)
+-        print output
++        sys.stdout.write(result.get('instanceId', b'') + b'\n')
++        sys.stdout.write(result.get('timestamp', b'') + b'\n')
++        sys.stdout.write(base64.b64decode(result.get('output', b'')) + b'\n')

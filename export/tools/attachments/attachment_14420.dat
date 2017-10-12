@@ -1,0 +1,53 @@
+[root@c-18 clc]# aws ec2 describe-instances --endpoint http://<clc_ip>/services/Eucalyptus --region us-east-1
+{
+    "euca:DescribeInstancesResponseType": {
+        "euca:reservationSet": {
+            "euca:item": {
+                "euca:instancesSet": {
+                    "euca:item": {
+                        "euca:productCodes": "", 
+                        "euca:instanceId": "i-EC4B41C8", 
+                        "euca:instanceType": "m1.small", 
+                        "euca:stateCode": "16", 
+                        "euca:launchTime": "2013-02-15T01:13:38.015Z", 
+                        "euca:placement": "PARTI00", 
+                        "euca:ramdisk": "eri-7A903D17", 
+                        "euca:monitoring": "true", 
+                        "euca:disableApiTermination": "false", 
+                        "euca:dnsName": "10.111.101.38", 
+                        "euca:tagSet": "", 
+                        "euca:stateName": "running", 
+                        "euca:reason": "NORMAL:  -- []", 
+                        "euca:keyName": "", 
+                        "euca:privateIpAddress": "172.31.201.58", 
+                        "euca:instanceInitiatedShutdownBehavior": "true", 
+                        "euca:ipAddress": "10.111.101.38", 
+                        "euca:kernel": "eki-3DE03D66", 
+                        "euca:rootDeviceName": "/dev/sda1", 
+                        "euca:imageId": "emi-2CB635E9", 
+                        "euca:rootDeviceType": "instance-store", 
+                        "euca:blockDevices": "", 
+                        "euca:amiLaunchIndex": "0", 
+                        "euca:privateDnsName": "172.31.201.58", 
+                        "euca:platform": "linux"
+                    }
+                }, 
+                "euca:ownerId": "386436811772", 
+                "euca:reservationId": "r-30473D24", 
+                "euca:groupSet": {
+                    "euca:item": {
+                        "euca:entry": "default"
+                    }
+                }
+            }
+        }, 
+        "euca:VmControlMessage": {
+            "euca:EucalyptusMessage": {
+                "euca:_disabledServices": "", 
+                "euca:_return": "true", 
+                "euca:_notreadyServices": "", 
+                "euca:_services": ""
+            }
+        }
+    }
+}

@@ -1,0 +1,89 @@
+#!/usr/bin/python -tt
+#
+# Copyright (c) 2014, Eucalyptus Systems, Inc.
+#
+# Permission to use, copy, modify, and/or distribute this software for
+# any purpose with or without fee is hereby granted, provided that the
+# above copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
+# OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+"""
+Read environment variables that normally appear in a "eucarc" file and
+use them to generate a euca2ools configuration file.
+"""
+
+import ConfigParser
+import optparse
+import os
+import sys
+import textwrap
+
+
+REGION_ENV_INI_MAP = {
+    'AWS_AUTO_SCALING_URL': 'autoscaling-url',
+    'AWS_CLOUDFORMATION_URL': 'cloudformation-url',
+    'AWS_CLOUDWATCH_URL': 'monitoring-url',
+    'AWS_ELB_URL': 'elasticloadbalancing-url',
+    'AWS_IAM_URL': 'iam-url',
+    'EC2_URL': 'ec2-url',
+    'EUARE_URL': 'iam-url',
+    'S3_URL': 's3-url'}
+
+
+USER_ENV_INI_MAP = {
+    'AWS_ACCESS_KEY': 'key-id',
+    'AWS_ACCESS_KEY_ID': 'key-id',
+    'AWS_SECRET_ACCESS_KEY': 'secret-key',
+    'AWS_SECRET_KEY': 'secret-key',
+    'EC2_ACCESS_KEY': 'key-id',
+    'EC2_SECRET_KEY': 'secret-key'}
+
+
+def generate_euca2ools_config(region_name, user_name):
+    """
+    Generate a config using the environment variables and config options
+    given in REGION_ENV_INI_MAP and USER_ENV_INI_MAP.
+    """
+    region_section = 'region {0}'.format(region_name)
+    user_section = 'user {0}'.format(user_name)
+
+    config = ConfigParser.SafeConfigParser()
+    config.add_section(region_section)
+    for env_var, conf_var in REGION_ENV_INI_MAP.iteritems():
+        if os.getenv(env_var):
+            config.set(region_section, conf_var, os.getenv(env_var))
+    config.set(region_section, 'user', user_name)
+    config.add_section(user_section)
+    for env_var, conf_var in USER_ENV_INI_MAP.iteritems():
+        if os.getenv(env_var):
+            config.set(user_section, conf_var, os.getenv(env_var))
+    return config
+
+
+def main():
+    """\
+    Read environment variables that normally appear in a "eucarc" file
+    and use them to display a euca2ools configuration file.
+    """
+    parser = optparse.OptionParser(description=textwrap.dedent(main.__doc__))
+    parser.add_option('-r', '--region-name', metavar='REGION',
+                      help='name to give the region')
+    parser.add_option('-u', '--user-name', metavar='USER',
+                      help='name to give the user')
+    options, _ = parser.parse_args()
+    if not options.region_name:
+        parser.error('argument -r/--region-name is required')
+    if not options.user_name:
+        parser.error('argument -r/--user-name is required')
+    config = generate_euca2ools_config(options.region_name, options.user_name)
+    config.write(sys.stdout)
+
+if __name__ == '__main__':
+    main()
