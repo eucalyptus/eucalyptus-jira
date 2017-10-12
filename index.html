@@ -75,15 +75,13 @@ table.issuetable tr:hover {background-color: #d2d2d2}
       <table class="issuetable" cellspacing="0" cellpadding="4" width="100%">
         <tr>
           <th>Key</th>
-          <th>Type</th>
           <th>Priority</th>
           <th>Status</th>
           <th>Summary</th>
         </tr> 
         {{for issues}}
             <tr>
-              <td>{{jirakey:key}}</td>
-              <td>{{jiratype:issuetype}}</td>
+              <td>{{jiratype:issuetype}} {{jirakey:key}}</td>
               <td>{{jirapriority:priority}}</td>
               <td>{{jirastatus:status}}</td>
               <td>{{>summary}}</td>
@@ -148,7 +146,7 @@ table.issuetable tr:hover {background-color: #d2d2d2}
         return key ? "<a href=\"" + issuePrefix + key + ".html\" target=\"_top\"> " + key + "</a>" : "";
       });
       $.views.converters("jiratype", function(type) {
-        return type ? "<img src=\"" + iconPrefix + "issuetype_icon_" + type.name + ".svg\" width=\"16\" height=\"16\"/> " + type.name : "";
+        return type ? "<img src=\"" + iconPrefix + "issuetype_icon_" + type.name + ".svg\" width=\"16\" height=\"16\"/>" : "";
       });
       $.views.converters("jirastatus", function(status) {
         return status ? status.name : "";
