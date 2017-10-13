@@ -11,11 +11,13 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="template/magic_search.css" type="text/css"/>
 
 <script type="text/javascript" src="template/modernizr.js"></script>
 <script type="text/javascript" src="template/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="template/angular.min.js"></script>
 <script type="text/javascript" src="template/foundation.min.js"></script>
+<script type="text/javascript" src="template/magic_search.js"></script>
 
 <style>
 html,body,h1,h2,h3,h4,h5,h6,pre {font-family: "Roboto", sans-serif;}
@@ -92,8 +94,6 @@ table.issuetable img {
 
     <h3 class="w3-text-light-green">Search:</h3>
 
-    <link rel="stylesheet" type="text/css" href="template/magic_search.css"/>
-    <script type="text/javascript" src="template/magic_search.js"></script>
     <div ng-app="Search" ng-controller="SearchCtrl as searchCtrl" ng-init="searchCtrl.init()">
         <magic-search template="template/magic_search.html"
             facets={{searchCtrl.facets}}
@@ -152,9 +152,9 @@ table.issuetable img {
             {"name":"version", "label":"Affects Version",
              "options": [...new Set(facetsJson.versions.map(function(item){return item.name;}))].sort().reverse().map(function(item){return {"key": item, "label": item};})
             }
-        ]
+        ];
         vm.data_set = [];  
-        var projects = [ 'doc', 'euca', 'gui', 'tools' ]
+        var projects = [ 'doc', 'euca', 'gui', 'tools' ];
         projects.forEach(function(project, index) {
             var dateFormatter = function(date){
                 var dateFormatted = date;
@@ -189,7 +189,7 @@ table.issuetable img {
                   "fixversion": issue.fixVersions.map(function(item){return item.name;}),
                   "version": issue.versions.map(function(item){return item.name;}),
                   "summary": issue.summary
-                } )
+                } );
               });
             });  
         });
