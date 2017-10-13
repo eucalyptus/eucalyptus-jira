@@ -2,11 +2,21 @@
 <html>
 <head>
   <title>Eucalyptus JIRA exported issues</title>
+<meta charset="utf-8" /> 
 <link rel="icon" type="image/png" href="template/euca_icon.png" />
+
+<link rel="stylesheet" href="template/foundation.min.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="template/foundation-icons.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src="template/modernizr.js"></script>
+<script type="text/javascript" src="template/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="template/angular.min.js"></script>
+<script type="text/javascript" src="template/foundation.min.js"></script>
+
 <style>
 html,body,h1,h2,h3,h4,h5,h6,pre {font-family: "Roboto", sans-serif;}
 html { 
@@ -14,6 +24,9 @@ html {
 }
 body { 
     height:100%;
+}
+a:hover {
+    color: #8bc34a;
 }
 table.issuetable {
     border: 1px solid #8bc34a;
@@ -24,6 +37,7 @@ table.issuetable th {
 }
 table.issuetable td {
     border: 0px;
+    padding: 4px;
 }
 table.issuetable tr:nth-child(even) {background-color: #f2f2f2}
 .sidebar-margin-top {
@@ -33,13 +47,14 @@ table.issuetable tr:hover {background-color: #d2d2d2}
 .sidebar-margin-top {
     margin-top:120px;
 }
+table.issuetable img {
+    vertical-align: text-top;
+}
 .top{position:fixed;z-index:2}
 .bottom{position:fixed;z-index:2;bottom:0}
 </style>
 </head>
 <body>
-  <script src="template/jquery-3.2.1.min.js"></script> <!-- fetch json -->
-  <script src="template/jsrender.min.js"></script> <!-- templating -->
 
 <table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
 <tr>
@@ -71,56 +86,200 @@ table.issuetable tr:hover {background-color: #d2d2d2}
   <td width="10"></td>
   <td valign="top">
     <!-- start main content -->
-    <script type="text/x-jsrender" id="issues-table-template">
-      <table class="issuetable" cellspacing="0" cellpadding="4" width="100%">
-        <tr>
-          <th>Key</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Summary</th>
-        </tr> 
-        {{for issues}}
+    <div style="margin-top: 32px"/>
+
+    <h1 class="w3-text-light-green">Search for issues</h1>
+
+    <h3 class="w3-text-light-green">Search:</h3>
+
+    <link rel="stylesheet" type="text/css" href="template/magic_search.css"/>
+    <script type="text/javascript" src="template/magic_search.js"></script>
+    <div ng-app="Search" ng-controller="SearchCtrl as searchCtrl" ng-init="searchCtrl.init()">
+        <magic-search template="template/magic_search.html"
+            facets={{searchCtrl.facets}}
+            filter-keys='["key","summary"]'
+            strings="{'remove':'Remove facet', 'cancel':'Clear search', 'prompt':'Select facets or enter text', 'text':'Text'}">
+        </magic-search>
+        <br/>
+        <h3 class="w3-text-light-green">Search results
+            <span ng-show="searchCtrl.filtered_data.length == 0"> - none</span>
+            <span ng-show="searchCtrl.filtered_data.length > 0"> {{ searchCtrl.filtered_data.length }} items</span>
+            <span ng-show="searchCtrl.filtered_data.length > 500">(first 500 displayed)</span>
+        </h3>
+          <table class="issuetable" width="100%">
             <tr>
-              <td>{{jiratype:issuetype}} {{jirakey:key}}</td>
-              <td>{{jirapriority:priority}}</td>
-              <td>{{jirastatus:status}}</td>
-              <td>{{>summary}}</td>
-            </tr>    
-        {{/for}}
-      </table>
-    </script>    
-
-    <h1 class="w3-text-light-green" style="margin-top: 32px">All exported issues</h1>
-    <div class="w3-text-light-green">
-        [<a href="#gui">Console</a>]
-        [<a href="#doc">Documentation</a>]
-        [<a href="#euca">Eucalyptus</a>]
-        [<a href="#tools">Tools</a>]
+              <th>Key</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Summary</th>
+            </tr> 
+            <tr ng-repeat="item in searchCtrl.filtered_data.slice(0,500)">
+              <td><img src="{{item.typeIconUrl}}" width="16" height="16"/> <a href="{{item.url}}" target="_top">{{item.key}}</a></td>
+              <td><img src="{{item.priorityIconUrl}}" width="16" height="16"/> {{item.priorityLabel}}</td>
+              <td>{{item.statusLabel}}</td>
+              <td>{{item.summary}}</td>
+            </tr> 
+          </table>
     </div>
+    <script type="text/javascript">
+      $.getJSON("generated/facets.json", function(facetsJson){
+        angular.module('Search', ['MagicSearch']).controller('SearchCtrl', function($scope, $timeout) {
+        var vm = this;
+        var optionMapper = function(item){ return {"key": item.id, "label": item.name}; };
+        var optionSorter = function(a,b){return a.label < b.label ? -1 : a.label > b.label;};
+        vm.facets = [
+            {"name":"component", "label":"Component",
+             "options": facetsJson.components.map(optionMapper).sort(optionSorter)
+            },
+            {"name":"priority", "label":"Priority",
+             "options": facetsJson.priorities.map(optionMapper).sort(optionSorter)
+            },
+            {"name":"project", "label":"Project",
+             "options": facetsJson.projects.map(function(item){ return {"key": item.key.toLowerCase(), "label": item.name}; }).sort(optionSorter)
+            },
+            {"name":"status", "label":"Status",
+             "options": facetsJson.statuses.map(optionMapper).sort(optionSorter)
+            },
+            {"name":"resolution", "label":"Resolution",
+             "options": facetsJson.resolutions.map(optionMapper).sort(optionSorter)
+            },
+            {"name":"type", "label":"Type",
+             "options": facetsJson.issuetypes.map(optionMapper).sort(optionSorter)
+            },
+            {"name":"fixversion", "label":"Fix Version",
+             "options": [...new Set(facetsJson.versions.map(function(item){return item.name;}))].sort().reverse().map(function(item){return {"key": item, "label": item};})
+            },
+            {"name":"version", "label":"Affects Version",
+             "options": [...new Set(facetsJson.versions.map(function(item){return item.name;}))].sort().reverse().map(function(item){return {"key": item, "label": item};})
+            }
+        ]
+        vm.data_set = [];  
+        var projects = [ 'doc', 'euca', 'gui', 'tools' ]
+        projects.forEach(function(project, index) {
+            var dateFormatter = function(date){
+                var dateFormatted = date;
+                if (dateFormatted) {
+                  if ( dateFormatted.charAt(dateFormatted.length-5) == '-' && dateFormatted.charAt(dateFormatted.length-3) != ':' ) {
+                      dateFormatted = dateFormatted.substring( 0, dateFormatted.length-2 ) + ":" + dateFormatted.substring( dateFormatted.length-2 )
+                  }
+                  var dateVal = new Date(dateFormatted);
+                  return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
+                } else {
+                  return "";
+                }
+            };
+            $.getJSON("generated/" + project + "/index.json", function(issuesJson){
+              var iconPrefix = "export/" + project + "/icons/";  
+              var issuePrefix = "generated/" + project + "/";  
+              issuesJson.forEach(function(issue){
+                vm.data_set.push( {
+                  "project": project,  
+                  "url": issuePrefix + issue.key + ".html",
+                  "type": issue.issuetype.id,
+                  "typeIconUrl": iconPrefix + "issuetype_icon_" + issue.issuetype.name + ".svg",
+                  "key": issue.key,
+                  "priority": issue.priority.id,
+                  "priorityLabel": issue.priority.name,
+                  "priorityIconUrl": iconPrefix + "priority_icon_" + issue.priority.name + ".svg",
+                  "status": issue.status.id,
+                  "statusLabel": issue.status.name,
+                  "resolution": issue.resolution.id,
+                  "resolutionLabel": issue.resolution.name,
+                  "component": issue.components.map(function(item){return item.id;}),
+                  "fixversion": issue.fixVersions.map(function(item){return item.name;}),
+                  "version": issue.versions.map(function(item){return item.name;}),
+                  "summary": issue.summary
+                } )
+              });
+            });  
+        });
+        
+        vm.faceted_data = [];   // filterd by facets
+        vm.filtered_data = [];  // filtered by facets and text
+        vm.init = function() {
+            vm.faceted_data = vm.data_set;
+            vm.filtered_data = vm.data_set;
+            // since we're not getting data from the server, do a client-filter based on URL
+            var query = window.location.href;
+            if (query.indexOf("?") > -1) {
+                query = query.split("?")[1];
+                $scope.$emit('searchUpdated', query);
+            }
+            $timeout(function() {
+                $(document).foundation('dropdown', 'reflow');
+            }, 500);
+        };
+        vm.filter_items = function() {
+            if (vm.filter_text === undefined || vm.filter_text === '') {
+                vm.filtered_data = vm.faceted_data;
+                return;
+            }
+            vm.filtered_data = vm.faceted_data.filter(function(item) {
+                for (var i=0; i<vm.filter_keys.length; i++) {
+                    var prop = vm.filter_keys[i];
+                    var val = item.hasOwnProperty(prop) && item[prop];
+                    if (val.toLowerCase().indexOf(vm.filter_text) !== -1) {
+                        return true;
+                    }
+                }
+            });
+            $timeout(function () { $scope.$apply() });
+        };
+        $scope.$on('searchUpdated', function($event, query) {
+            // update url
+            var url = window.location.href;
+            if (url.indexOf("?") > -1) {
+                url = url.split("?")[0];
+            }
+            if (query.length > 0) {
+                url = url + "?" + query;
+            }
+            window.history.pushState(query, "", url);
+            if (query !== undefined && query.length !== 0) {
+                var tmp = query.split('&').sort();
+                var facets = {};
+                for (var i=0; i<tmp.length; i++) {
+                    var facet = tmp[i].split('=');
+                    if (facets[facet[0]] === undefined) {
+                        facets[facet[0]] = [];
+                    }
+                    facets[facet[0]].push(facet[1]);
+                }
+                var results = vm.data_set;
+                for (var key in facets) {
+                    results = results.filter(function(item) {
+                        var val = item.hasOwnProperty(key) && item[key];
+                        if ($.isArray(val)) {
+                          for (var i=0; i<val.length; i++) {
+                            if ($.inArray(val[i].toLowerCase(), facets[key]) > -1) {
+                                return true;
+                            }
+                          }
+                        } else if ($.inArray(val.toLowerCase(), facets[key]) > -1) {
+                            return true;
+                        }
+                    });
+                }
+                vm.faceted_data = results;
+            }
+            else {
+                vm.faceted_data = vm.data_set.slice();
+            }
+            vm.filter_items();
+            $timeout(function () { $scope.$apply() });
+        });
+        $scope.$on('textSearch', function($event, text, filter_keys) {
+            vm.filter_text = text ? text.toLowerCase() : '';
+            vm.filter_keys = filter_keys;
+            vm.filter_items();
+        });
+    });
 
-    <a name="gui"/>
-    <h2 class="w3-text-light-green">Console issues</h2>
-    <div class="w3-margin-left">
-        <div id="gui-issues-target"></div>
-    </div>
+        $(document).foundation();
+      });
+    </script>
 
-    <a name="doc"/>
-    <h2 class="w3-text-light-green">Documentation issues</h2>
-    <div class="w3-margin-left">
-        <div id="doc-issues-target"></div>
-    </div>
-
-    <a name="euca"/>
-    <h2 class="w3-text-light-green">Eucalyptus issues</h2>
-    <div class="w3-margin-left">
-        <div id="euca-issues-target"></div>
-    </div>
-
-    <a name="tools"/>
-    <h2 class="w3-text-light-green">Tools issues</h2>
-    <div class="w3-margin-left" style="margin-bottom:60px">
-        <div id="tools-issues-target"></div>
-    </div>
+    <div style="margin-top: 32px"/>
 
     <!-- end main content -->
   </td>
@@ -130,37 +289,5 @@ table.issuetable tr:hover {background-color: #d2d2d2}
   <td colspan="4" class="w3-theme-dark bottom" width="100%"><div class="w3-text-dark-grey">&nbsp;Uses J2M [https://github.com/FokkeZB/J2M] and showdown [https://github.com/showdownjs] for text formatting</div></td>  
 </tr>  
 </table>
-
-<script type="text/javascript">
-  var baseUrl = "";
-  var projects = [ 'doc', 'euca', 'gui', 'tools' ]
-  $.views.converters("date", function(date) {
-    var dateVal = new Date(date);
-    return dateVal.toDateString( ) + ", " + dateVal.toLocaleTimeString( );
-  });  
-  projects.forEach(function(project, index) {
-    $.getJSON(baseUrl + "generated/" + project + "/index.json", function(issuesJson){
-      var iconPrefix = baseUrl + "export/" + project + "/icons/";  
-      var issuePrefix = baseUrl + "generated/" + project + "/";  
-      $.views.converters("jirakey", function(key) {
-        return key ? "<a href=\"" + issuePrefix + key + ".html\" target=\"_top\"> " + key + "</a>" : "";
-      });
-      $.views.converters("jiratype", function(type) {
-        return type ? "<img src=\"" + iconPrefix + "issuetype_icon_" + type.name + ".svg\" width=\"16\" height=\"16\"/>" : "";
-      });
-      $.views.converters("jirastatus", function(status) {
-        return status ? status.name : "";
-      });
-      $.views.converters("jirapriority", function(priority) {
-        return priority ? "<img src=\"" + iconPrefix + "priority_icon_" + priority.name + ".svg\" width=\"16\" height=\"16\"/> " + priority.name : "";
-      });
-      $("#"+project+"-issues-target").html($.templates("#issues-table-template").render({issues:issuesJson}));
-      if (location.hash) {
-        location.href = location.hash;
-      }
-    });  
-  });
-</script>
-
 </body>
 </html>

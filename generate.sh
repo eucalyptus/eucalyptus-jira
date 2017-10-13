@@ -28,7 +28,7 @@ for PROJECT_PATH in export/*; do
   echo " ] }" >> "generated/${PROJECT}/issues.json"
 
   echo "Generating issue index for ${PROJECT}"
-  INDEX_FILE="$(pwd)/generated/${PROJECT}/index.json"
+  INDEX_FILE="generated/${PROJECT}/index.json"
   echo "[{" > "${INDEX_FILE}"
   FIRST_ISSUE="yes"
   for ISSUE_PATH in $(ls export/${PROJECT}/issues/*-*.json | sort -V); do 
@@ -36,7 +36,7 @@ for PROJECT_PATH in export/*; do
     if [ $FIRST_ISSUE != "yes" ]; then
       echo ",{" >> "${INDEX_FILE}"
     fi
-    grep -oP '"components":\[.*?\]|"fixVersions":\[.*?\]|"issuetype":\{.*?}|"priority":\{.*?}|"status":\{.*?"statusCategory":{.*?}}|"summary":".*?(?<!\\)"|"versions":\[.*?\]|"issuelinks":\[.*?\]' $ISSUE_PATH | grep -v issuelinks | awk '{print $0 ","}' >> "${INDEX_FILE}"
+    grep -oP '"components":\[.*?\]|"fixVersions":\[.*?\]|"issuetype":\{.*?}|"priority":\{.*?}|"resolution":\{.*?}|"status":\{.*?"statusCategory":{.*?}}|"summary":".*?(?<!\\)"|"versions":\[.*?\]|"issuelinks":\[.*?\]|"subtasks":\[.*?\]' $ISSUE_PATH | grep -v issuelinks | grep -v subtasks | awk '{print $0 ","}' >> "${INDEX_FILE}"
     echo -n '"key":"' >> "${INDEX_FILE}"
     echo -n "${ISSUE%%.json}" >> "${INDEX_FILE}"
     echo '"' >> "${INDEX_FILE}"
@@ -50,4 +50,25 @@ for PROJECT_PATH in export/*; do
   cp -v template/issue-side.html "generated/${PROJECT}/"
 
 done
+
+echo "Generating search facets"
+FACETS_FILE="$(pwd)/generated/facets.json"
+echo "{" > "${FACETS_FILE}"
+echo '"components":[' >> "${FACETS_FILE}"
+grep -hoP '{.*?"self":"https://eucalyptus.atlassian.net/rest/api/2/component/.*?".*?}' generated/*/index.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo '],"versions":[' >> "${FACETS_FILE}"
+grep -hoP '{.*?"self":"https://eucalyptus.atlassian.net/rest/api/2/version/.*?".*?}' generated/*/index.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo '],"issuetypes":[' >> "${FACETS_FILE}"
+grep -hoP '{.*?"self":"https://eucalyptus.atlassian.net/rest/api/2/issuetype/.*?".*?}' generated/*/index.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo '],"priorities":[' >> "${FACETS_FILE}"
+grep -hoP '{.*?"self":"https://eucalyptus.atlassian.net/rest/api/2/priority/.*?".*?}' generated/*/index.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo '],"projects":[' >> "${FACETS_FILE}"
+grep -hoP '{"self":"https://eucalyptus.atlassian.net/rest/api/2/project/.*?".*?"avatarUrls":{.*?}.*?}' export/*/issues/*-???.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo '],"resolutions":[' >> "${FACETS_FILE}"
+grep -hoP '{"self":"https://eucalyptus.atlassian.net/rest/api/2/resolution/.*?".*?}' generated/*/index.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo '],"statuses":[' >> "${FACETS_FILE}"
+grep -hoP '{.*?"self":"https://eucalyptus.atlassian.net/rest/api/2/status/.*?".*?"statusCategory":{.*?}.*?}' generated/*/index.json | sort -uV | awk '{print $0 ","}' | head -c -2 >> "${FACETS_FILE}"
+echo ']' >> "${FACETS_FILE}"
+echo "}" >> "${FACETS_FILE}"
+
 
