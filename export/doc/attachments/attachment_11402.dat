@@ -1,0 +1,172 @@
+#!/usr/bin/python
+### BEGIN INIT INFO
+# Provides:          dhcp-sniff-and-ping-daemon
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: DHCP_ACK packet sniff and client ping daemon
+# Description:       This script analyzes DHCP_ACK packets captured by
+#                    IPTables's NFLOG target and pings an IP address
+#                    assigned to clients with a MAC address starting
+#                    with d0:0d.
+### END INIT INFO
+#
+# Author:	Oskar Senft <oskar.senft@kalido.com>
+# Date:		25-JUN-2012
+
+# DHCP_ACK packet sniff and client ping daemon
+
+# This script uses NFLOG to receive DHCP packages and then decodes them using
+# dhcplib. If a received package is a DHCP_ACK and the client MAC address
+# starts with d0:0d, then this script executes ping to send one ICMP message
+# to the "your IP address" from the received DHCP packet. This causes the
+# MAC/IP address combination to be registered in the ARP table where it can
+# be picked up by Eucalyptus when running in network SYSTEM mode.
+#
+# This script is implemented as a daemon and is be controlled from the
+# command line by providing a command line argument of "start", "stop" or
+# "restart".
+
+# Required packages:
+# - python-pydhcplib
+# - python-nflog
+# - python-daemon
+# - python-netfilter
+
+# Prerequisites:
+# This script automatically configures a IPTables/NetFilter rule similar to this example:
+#   iptables -I FORWARD 1 -p UDP --sport 67:68 --dport 67:68 -j NFLOG --nflog-group 40
+# This rule is also removed automatically when the script stops.
+
+import sys
+import subprocess
+import socket
+import nflog
+import pydhcplib.dhcp_packet
+import syslog
+import os
+import daemon.runner
+import netfilter.rule
+import netfilter.table
+import signal
+
+nflogGroup = 40
+
+class DhcpSniffAndPingDaemon():
+	def __init__(self):
+		self.stdin_path = '/dev/null'
+		self.stdout_path = '/dev/null'
+		self.stderr_path = '/dev/null'
+		self.pidfile_path = '/var/run/' + os.path.splitext(os.path.basename(sys.argv[0]))[0] + ".pid"
+		self.pidfile_timeout = 5
+
+		self.devnull = open('/dev/null', 'w')
+		self.hexsym = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
+
+		# The IPTables/NetFilter rule to add/remove
+		self.rule = netfilter.rule.Rule(
+			protocol='UDP',
+			matches=[netfilter.rule.Match('udp', '--sport 67:68 --dport 67:68')],
+			jump=netfilter.rule.Target('NFLOG', '--nflog-group ' + str(nflogGroup)))
+		self.table = netfilter.table.Table('filter') 
+
+		self.original_sigterm_handler = None
+
+	def ping_ipaddr(self, ipaddr_str):
+		subprocess.Popen(["/bin/ping", "-q", "-c", "2", ipaddr_str], stdout=self.devnull, stderr=self.devnull)
+
+	def nflog_callback(self, payload):
+		# Get the payload data
+		data = payload.get_data()
+
+		# Strip the layer 3 header
+		l3_data = data[28:]
+
+		# Decode the packet, assuming it's DHCP
+		dhcpPacket = pydhcplib.dhcp_packet.DhcpPacket()
+		dhcpPacket.DecodePacket(l3_data)
+
+		# Print the packet
+		#syslog.syslog("packet: " + dhcpPacket.str())
+
+		# Check that it's an DHCP_ACK
+		if dhcpPacket.IsDhcpAckPacket():
+			# Get the client's MAC address
+			chaddr = dhcpPacket.GetOption("chaddr")
+
+			# Check that it's a Eucalyptus MAC address
+			if chaddr[0] == 0xd0 and chaddr[1] == 0x0d:
+				# Get the "Your IP address"
+				yiaddr = dhcpPacket.GetOption("yiaddr")
+
+				# Convert the "Your IP address" into a dotted string
+				yiaddr_str = ".".join([str(x) for x in list(yiaddr)])
+				
+				if yiaddr_str != "0.0.0.0" and yiaddr_str != "255.255.255.255":
+
+					# Convert the client's MAC address into a hex string
+					chaddr_str = ":".join([str(self.hexsym[x/16]+self.hexsym[x%16]) for x in list(chaddr[:6])])
+
+					# Print log information
+					syslog.syslog("DHCP_ACK : yiaddr=" + yiaddr_str + " chaddr=" + chaddr_str)
+	
+					# Ping the IP address
+					self.ping_ipaddr(yiaddr_str)
+	
+		return 1
+
+	def add_iptables_rule(self):
+		#syslog.syslog("adding netfilter rule")
+		self.table.prepend_rule('FORWARD', self.rule)
+
+	def remove_iptables_rule(self):
+		try:
+			#syslog.syslog("removing netfilter rule")
+			self.table.delete_rule('FORWARD', self.rule)
+		except:
+			# ignore all exceptions
+			pass
+
+	def run(self):
+		# Print the PID file path
+		syslog.syslog("pidfile=" + self.pidfile_path)
+
+		try:
+			# Initialize NFLOG client
+			nflogClient = nflog.log()
+
+			# Configure callback
+			nflogClient.set_callback(self.nflog_callback)
+
+			# Open NFLOG on channel 40 for IPv4
+			nflogClient.fast_open(nflogGroup, socket.AF_INET)
+
+			# Remove (to avoid duplicates) and add the IPTables rule
+			self.remove_iptables_rule()
+			self.add_iptables_rule()
+
+			# Run the NFLOG client
+			nflogClient.try_run()
+
+		except KeyboardInterrupt, e:
+			syslog.syslog("unexpected error: " + sys.exc_info()[0])
+		except SystemExit:
+			pass			
+		except:
+			syslog.syslog("unexpected error (no details)")
+
+		# Clean-up
+		nflogClient.unbind(socket.AF_INET)
+		nflogClient.close()
+
+		# Remove the IPTables rule
+		self.remove_iptables_rule()
+
+		#syslog.syslog("exit")		
+
+# Main code
+app = DhcpSniffAndPingDaemon()
+daemon_runner = daemon.runner.DaemonRunner(app)
+daemon_runner.do_action()
+

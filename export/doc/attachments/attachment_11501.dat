@@ -1,0 +1,33 @@
+diff --git a/clc/modules/core/conf/upgrade/upgrade_30_31.groovy b/clc/modules/core/conf/upgrade/upgrade_30_31.groovy
+index b910033..d1147d3 100644
+--- a/clc/modules/core/conf/upgrade/upgrade_30_31.groovy
++++ b/clc/modules/core/conf/upgrade/upgrade_30_31.groovy
+@@ -187,18 +187,6 @@ class upgrade_30_31 extends AbstractUpgradeScript {
+     public void upgrade(File oldEucaHome, File newEucaHome) {
+         buildConnectionMap();
+ 
+-        // VMware
+-        entities.add(Class.forName("com.eucalyptus.cloud.ws.BrokerVolumeInfo"));
+-        entities.add(Class.forName("com.eucalyptus.cloud.ws.BrokerGroupInfo"));
+-        entities.add(Class.forName("com.eucalyptus.broker.vmware.VMwareBrokerInfo"));
+-
+-        // SAN
+-        entities.add(Class.forName("edu.ucsb.eucalyptus.cloud.entities.SANInfo"));
+-        entities.add(Class.forName("edu.ucsb.eucalyptus.cloud.entities.DASInfo"));
+-        entities.add(Class.forName("edu.ucsb.eucalyptus.cloud.entities.IgroupInfo"));
+-        entities.add(Class.forName("edu.ucsb.eucalyptus.cloud.entities.SANVolumeInfo"));
+-        entities.add(Class.forName("edu.ucsb.eucalyptus.cloud.entities.NetappInfo"));
+-
+         // Do object upgrades which follow the entity map / setter map pattern
+         buildEntityMap();
+ 
+@@ -232,9 +220,6 @@ class upgrade_30_31 extends AbstractUpgradeScript {
+         entityKeys.remove("ephemeral_mappings");
+         entityKeys.remove("suppress_mappings");
+ 
+-        upgradeSANVolumeInfo();
+-        entityKeys.remove("EquallogicVolumeInfo");
+-
+         // Hardcode some ordering here
+         for (String entityKey : entityKeys) {
+             upgradeEntity(entityKey);

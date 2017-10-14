@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<title>Sample Policies</title>
+</head>
+<body id="policies_samples">
+
+
+  <h1 class="title topictitle1">Sample Policies</h1>
+
+  
+  <div class="body conbody"><p class="shortdesc">A few example use cases and associated policies.</p>
+
+    <p class="p">Here are some example use cases and associated polices. You can edit
+      these polices for your use, or use them as examples of JSON syntax and
+      form.</p>
+
+
+    <div class="note tip"><span class="tiptitle">Tip:</span> For more information about JSON syntax used with AWS
+      resources, go to <a class="xref" href="http://aws.amazon.com/documentation/iam/" target="_blank">Using AWS Identity and Access
+        Management</a>.</div>
+
+
+    <div class="section"><h2 class="title sectiontitle">Examples: Allowing Specific Actions</h2>
+      
+      <p class="p">The following policy allows a user to only run instances and describe
+        things.</p>
+
+      <pre class="pre codeblock">{
+   "Statement":[{
+      "Effect":"Allow",
+      "Action":["ec2:*Describe*",​"ec2:*Run*"],
+      "Resource":"*",
+      }
+   ]
+   }</pre>
+
+      <p class="p">The following policy allows a user to only list things:</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Sid": "Stmt1313686153864",
+      "Action": [
+        "iam:List*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy grants a generic basic user permission for running
+        instances and describing things.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Sid": "Stmt1313605116084",
+      "Action": [
+        "ec2:AllocateAddress",
+        "ec2:AssociateAddress",
+        "ec2:AttachVolume",
+        "ec2:Authorize*",
+        "ec2:CreateKeyPair",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateSnapshot",
+        "ec2:CreateVolume",
+        "ec2:DeleteKeyPair",
+        "ec2:DeleteSecurityGroup",
+        "ec2:DeleteSnapshot",
+        "ec2:DeleteVolume",
+        "ec2:Describe*",
+        "ec2:DetachVolume",
+        "ec2:DisassociateAddress",
+        "ec2:GetConsoleOutput",
+        "ec2:RunInstances",
+        "ec2:TerminateInstances"
+        "ec2:ReleaseAddress"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}</pre>
+
+    </div>
+
+
+    <div class="section"><h2 class="title sectiontitle">Examples: Denying Specific Actions</h2>
+      
+      <p class="p">The following policy allows a user to do anything but delete.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Delete*"
+      ],
+      "Effect": "Deny",
+      "Resource": "*"
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy denies a user from creating other users.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Sid": "Stmt1313686153864",
+      "Action": [
+        "iam:CreateUser"
+      ],
+      "Effect": "Deny",
+      "Resource": "*"
+    }
+  ]
+}</pre>
+
+    </div>
+
+
+    <div class="section"><h2 class="title sectiontitle">Examples: Specifying Time Limits</h2>
+      
+      <p class="p">The following policy allows a user to run instances within a specific
+        time.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Sid": "Stmt1313453084396",
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "DateLessThanEquals": {
+          "aws:CurrentTime": "2011-08-16T00:00:00Z"
+        }
+      }
+    }
+  ]
+}</pre>
+
+      <p class="p">The following policy blocks users from running instances at a specific
+        time.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Sid": "Stmt1313453084396",
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "DateLessThanEquals": {
+          "aws:CurrentTime": "2011-08-16T00:00:00Z"
+        }
+      }
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy keeps alive an instance for 1,000 hours (60,000 minutes).</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Action": ["ec2:RunInstances" ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": { "NumericEquals":{"ec2:KeepAlive":"60000"}}
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy sets an expiration date on running instances.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Action": ["ec2:RunInstances" ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": { "DateEquals":{"ec2:ExpirationTime":"2011-08-16T00:00:00Z"}}
+    }
+  ]
+}</pre>
+
+    </div>
+
+
+    <div class="section"><h2 class="title sectiontitle">Examples: Restricting Resources</h2>
+      
+      <p class="p">The following policy allows users to only launch instances with a large
+        image type.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:ec2:::vmtype/m1.xlarge"
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy restricts users from launching instances with a
+        specific image ID.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Action": [
+        "ec2:RunInstances"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:::image/emi-0FFF1874"
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy restricts users from allocating addresses to a
+        specific elastic IP address.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Sid": "Stmt1313626078249",
+      "Action": "*",
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:::address/192.168.10.140"
+    }
+  ]
+  }</pre>
+
+      <p class="p">The following policy denies volume access.</p>
+
+      <pre class="pre codeblock">{
+  "Statement": [
+    {
+      "Action": [
+        "ec2:*"
+      ],
+      "Effect": "Deny",
+      "Resource": "arn:aws:ec2:::volume/*"
+    }
+  ]
+   
+}</pre>
+
+      <div class="note note"><span class="notetitle">Note:</span> For policies attached to an account, quota limits can be specified. 
+        See the Quotas section for further details.</div>
+
+    </div>
+
+
+
+
+    
+
+  </div>
+
+
+</body>
+</html>

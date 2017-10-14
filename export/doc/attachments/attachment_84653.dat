@@ -1,0 +1,124 @@
+++ Cross-Account API Access Using IAM Roles ++
+
+== AWS Scenario Example ==
+
+http://docs.aws.amazon.com/IAM/latest/UserGuide/cross-acct-access-walkthrough.html
+
+== Scenario ==
+
+User in Account B wants to create a role that provides access to a particular OSG bucket owned by Account B, which can be assumed by user in Account A. 
+
+== Steps ==
+
+1) Using s3cmd (https://github.com/s3tools/s3cmd), list bucket that will be shared through role
+
+# ./s3cmd/s3cmd --config=.s3cfg-acctB-user11 ls s3://mongodb-snapshots
+2014-12-01 22:34 188563920   s3://mongodb-snapshots/mongodb-backup-monday.img.xz
+2014-12-02 13:34 188564068   s3://mongodb-snapshots/mongodb-backup-tuesday.img.xz
+
+2) Create Role in Account B with Trust Policy for User from Account A
+
+# cat acctB-role-trust-acctA-policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": {"AWS": "arn:aws:iam::290122656840:user/user01"},
+    "Action": "sts:AssumeRole"
+  }]
+}
+
+# euare-rolecreate --role-name cross-bucket-access-mongodb-logs --policy-document acctB-role-trust-acctA-policy.json
+
+3) Upload IAM Access Policy for Role in Account B
+
+# cat acctB-mongodb-snapshots-bucket-access-policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::mongodb-snapshots"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::mongodb-snapshots/*"
+    }
+  ]
+}
+
+# euare-roleuploadpolicy --role-name cross-bucket-access-mongodb-logs --policy-document acctB-mongodb-snapshots-bucket-access-policy.json --policy-name mongodb-logs-bucket-access
+
+4) Upload IAM access policy to Group (e.g. Testers) associated with user in Account A to allow for Role in Account B to be assumed (IAM Best Practice - http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html#use-groups-for-permissions)
+
+# cat acctA-assume-role-acctB-policy.json
+{
+  "Statement": [
+    {
+      "Sid": "Stmt1417531456446",
+      "Action": [
+        "sts:AssumeRole"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:iam::325271821652:role/cross-bucket-access-mongodb-logs"
+    }
+  ]
+}
+
+# euare-groupuploadpolicy --policy-name mongodb-bucket-access-role --group-name Testers --policy-document acctA-assume-role-acctB-policy.json
+
+5)  Write script in python boto (http://boto.readthedocs.org/en/latest/index.html) that performs the following actions:
+
+    - Accesses STS to get temporary access key, secret key and token
+	- List contents of bucket "mongodb-snapshots"
+	
+=======================	
+#!/bin/env python
+
+import boto
+from boto.sts import STSConnection
+from boto.s3.connection import S3Connection
+from boto.s3.connection import OrdinaryCallingFormat
+
+if __name__ == "__main__":
+    """
+    Assuming 'cross-bucket-access-mongodb-logs' role by AccountA, User01 user
+    """
+    STSConnection.DefaultRegionEndpoint = "tokens.future.euca-hasp.cs.prc.eucalyptus-systems.com"
+    sts_connection = STSConnection(aws_access_key_id="<AccountA User01 Access Key ID>",
+                                   aws_secret_access_key="<AccountA User01 Secret Key>",
+                                   is_secure=False, port="8773")
+    assumedRoleObject = sts_connection.assume_role(
+                                   role_arn="arn:aws:iam::325271821652:role/cross-bucket-access-mongodb-logs",
+                                   role_session_name="AcctAUser01MongoDBBucketAccess")
+
+    s3 = S3Connection(aws_access_key_id=assumedRoleObject.credentials.access_key,
+                      aws_secret_access_key=assumedRoleObject.credentials.secret_key,
+                      security_token=assumedRoleObject.credentials.session_token,
+                      host="objectstorage.future.euca-hasp.cs.prc.eucalyptus-systems.com",
+                      is_secure=False, port=8773, calling_format=OrdinaryCallingFormat())
+
+    bucket_name = "mongodb-snapshots"
+    bucket = s3.lookup(bucket_name)
+    if bucket:
+        print "Bucket Information [%s]:" % bucket_name
+        print "------------------------------------------------------------"
+        for key in bucket:
+            print "\t" + key.name
+    else:
+        print "Bucket is not available: " + bucket_name + "\n"
+==================
+
+6)  Run script:
+
+# ./describe-bucket-script.py
+Bucket Information [mongodb-snapshots]:
+------------------------------------------------------------
+	mongodb-backup-monday.img.xz
+	mongodb-backup-tuesday.img.xz

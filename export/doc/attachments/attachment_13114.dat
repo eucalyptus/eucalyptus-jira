@@ -1,0 +1,21 @@
+User Console and SSL Support
+============================
+
+When the user console service is run for the first time, it will generate a self-signed certificate and key which will be put into **/etc/eucalyptus-console/**.
+
+If you do not want to use the certificate and key that are generated, you can disable automatic generation of the certificate and key by editing the **/etc/sysconfig/eucalyptus-console** file to include the following:
+
+	GENERATE_CERT=NO
+	
+Please note that the “NO” value provided is case-sensitive.
+
+Generating Your Own Certificates
+--------------------------------
+
+If you’ve chosen not to use the self-signed certificate and key that are provided by the User Console, you will need to provide your own. Edit the User Console configuration file **/etc/eucalyptus-console/console.ini** and modify the fields **sslkey** and **sslcert** so that they reference the location of your certificate and key respectively.
+
+Here’s an example:
+
+	sslcert: /path/to/mycert.crt
+	sslkey: /path/to/mykey.key
+	
