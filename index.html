@@ -70,10 +70,10 @@ table.issuetable img {
         <div class="w3-margin-left sidebar-margin-top">
 
         <h3 class="w3-text-light-green">Issues</h3>
-        <a href="#gui">Console</a><br/>
-        <a href="#doc">Documentation</a><br/>
-        <a href="#euca">Eucalyptus</a><br/>
-        <a href="#tools">Tools</a><br/>
+        <a href="?project=gui">Console</a> <a href="?project=gui&status=10001&status=10003&status=1&status=10000">[open]</a><br/>
+        <a href="?project=doc">Documentation</a> <a href="?project=doc&status=10001&status=10003&status=1&status=10000">[open]</a><br/>
+        <a href="?project=euca">Eucalyptus</a> <a href="?project=euca&status=10001&status=10003&status=1&status=10000">[open]</a><br/>
+        <a href="?project=tools">Tools</a> <a href="?project=tools&status=10001&status=10003&status=1&status=10000">[open]</a><br/>
 
         <h3 class="w3-text-light-green">Source</h3>
         <a href="https://github.com/sjones4/eucalyptus-jira" target="_top">Github repo</a><br/>
@@ -193,6 +193,7 @@ table.issuetable img {
                   "summary": issue.summary
                 } );
               });
+              vm.init();
             });  
         });        
         vm.faceted_data = [];   // filterd by facets
