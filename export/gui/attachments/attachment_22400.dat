@@ -1,0 +1,250 @@
+<html><body>
+    <h3>[app:main]</h3>
+      <table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all">
+        <thead class="thead" align="left">
+          <tr class="row">
+            <th class="entry" valign="top">Property</th>
+
+            <th class="entry" valign="top">Description</th>
+            <th class="entry" valign="top">Required</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+        	<tr class="row">
+        		<td class="entry" valign="top">clchost</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your cloud front end.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">clcport</td>
+
+        		<td class="entry" valign="top">The port of your cloud front end.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">ec2.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your ec2 service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">ec2.port</td>
+
+        		<td class="entry" valign="top">The port of your ec2 service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">autoscale.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your autoscale service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">autoscale.port</td>
+
+        		<td class="entry" valign="top">The port of your autoscale service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">cloudwatch.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your cloudwatch service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">cloudwatch.port</td>
+
+        		<td class="entry" valign="top">The port of your cloudwatch service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">elb.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your elb service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">elb.port</td>
+
+        		<td class="entry" valign="top">The port of your elb service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">iam.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your iam service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">iam.port</td>
+
+        		<td class="entry" valign="top">The port of your iam service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">sts.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your sts service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">sts.port</td>
+
+        		<td class="entry" valign="top">The port of your sts service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">s3.host</td>
+
+        		<td class="entry" valign="top">The IP address or DNS name of your s3 service endpoint, if different than clchost.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">s3.port</td>
+
+        		<td class="entry" valign="top">The port of your s3 service port, if different than clcport.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">help.url</td>
+
+        		<td class="entry" valign="top">A url that directs users who select 'help' on the account menu to a help page. You can customize for your installation if you don't want our help system.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">support.url</td>
+
+        		<td class="entry" valign="top">A url given to users who have trouble logging in. It may be used to direct them to cloud admin page or e-mail address.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">aws.enabled</td>
+
+        		<td class="entry" valign="top">If 'True', the AWS tab will be shown on the login screen.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">aws.default.region</td>
+
+        		<td class="entry" valign="top">The name of the region to show by default when the user logs into AWS. Use any value from the 'Region' column in this <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region">table.</a></td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">static.cache.duration</td>
+
+        		<td class="entry" valign="top">Sets the cache control value for static assets (in seconds)</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">browser.password.save</td>
+
+        		<td class="entry" valign="top">If 'True', enables browser password saving.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">connection.ssl.validation</td>
+
+        		<td class="entry" valign="top">If 'True', enables validation of the SSL certificate supplied by the clchost (or other endpoint) to secure the connection to the service endpoint.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">connection.ssl.certfile</td>
+
+        		<td class="entry" valign="top">If certificate validation is on, you may specify a different certificate file than the default.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">connection.debug</td>
+
+        		<td class="entry" valign="top">If 'True', very detailed information about communication between the console server and service endpoints. Logs will become cluttered, so don't leave this on under normal operation.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">connection.retries</td>
+
+        		<td class="entry" valign="top">Sets the number of retires used when issuing requests to service endpoints. Adjusting this higher may reduce UI responsiveness.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">pyramid.default_locale_name</td>
+
+        		<td class="entry" valign="top">The default locale if none specified by browser.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">session.keyini</td>
+
+        		<td class="entry" valign="top">The location of a file that contain session encryption keys.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">session.secure</td>
+
+        		<td class="entry" valign="top">If 'True', send session cookie over secure connection only. Needs to be 'False' if SSL not configured.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">session.timeout</td>
+
+        		<td class="entry" valign="top">Sets the idle session timeout.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">session.cookie_expires</td>
+
+        		<td class="entry" valign="top">Sets the absolute session timeout.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">cache.username</td>
+
+        		<td class="entry" valign="top">Sets a username to be used when SASL authentication is enabled for memcached. If not set, the memcached connection is unauthenticated.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">cache.password</td>
+
+        		<td class="entry" valign="top">Sets a password to be used when SASL authentication is enabled for memcached. If not set, the memcached connection is unauthenticated.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        </tbody>
+      </table>
+    <h3>[server:main]</h3>
+      <table cellpadding="4" cellspacing="0" summary="" class="table" frame="border" border="1" rules="all">
+        <thead class="thead" align="left">
+          <tr class="row">
+            <th class="entry" valign="top">Property</th>
+
+            <th class="entry" valign="top">Description</th>
+            <th class="entry" valign="top">Required</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+        	<tr class="row">
+        		<td class="entry" valign="top">host</td>
+
+        		<td class="entry" valign="top">If set to 0.0.0.0, allows connections from anyhost. If set to 127.0.0.1, only allows connections from localhost which is preferred if running nginx.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">port</td>
+
+        		<td class="entry" valign="top">The port which the console can be reached on.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">workers</td>
+
+        		<td class="entry" valign="top">The number of worker processes used to service requests. A rule of thumb is # cores times 2 plus 1.</td>
+        		<td class="entry" valign="top">yes</td>
+        	</tr>
+        	<tr class="row">
+        		<td class="entry" valign="top">tmp_upload_dir</td>
+
+        		<td class="entry" valign="top">If set, specifies a different directory to be used for file uploads. It should have plenty of space to handle large file uploads. Defaults to system tempdir.</td>
+        		<td class="entry" valign="top">no</td>
+        	</tr>
+        </tbody>
+      </table>
+</body></html>

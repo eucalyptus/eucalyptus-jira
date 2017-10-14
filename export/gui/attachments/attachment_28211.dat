@@ -1,0 +1,46 @@
+2016-03-02 17:25:19 INFO eucalyptus/admin@10.5.1.126 [zvXLBxRmTdFeBXLb]: Creating elastic load balancer test-elb
+2016-03-02 17:25:20 ERROR Error handling request
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/async.py", line 45, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/gunicorn/ggevent.py", line 154, in handle_request
+    super(GeventWorker, self).handle_request(*args)
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/async.py", line 93, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 251, in __call__
+    response = self.invoke_subrequest(request, use_tweens=True)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 227, in invoke_subrequest
+    response = handle_request(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 102, in __call__
+    response = self.handler(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 58, in tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 47, in tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/pyramid/tweens.py", line 21, in excview_tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 161, in handle_request
+    response = view_callable(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 319, in attr_view
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 295, in predicate_wrapper
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 237, in _secured_view
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 345, in rendered_view
+    result = view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 467, in _class_requestonly_view
+    response = getattr(inst, attr)()
+  File "/usr/lib/python2.6/site-packages/eucaconsole/views/elbs.py", line 1256, in elb_create
+    return HTTPFound(location=location)
+  File "/usr/lib64/python2.6/contextlib.py", line 34, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/views/__init__.py", line 725, in boto_error_handler
+    yield
+  File "/usr/lib/python2.6/site-packages/eucaconsole/views/elbs.py", line 1235, in elb_create
+    self.elb_conn.enable_availability_zones(name, zone)
+  File "/usr/lib/python2.6/site-packages/boto/ec2/elb/__init__.py", line 363, in enable_availability_zones
+    'AvailabilityZones.member.%d')
+  File "/usr/lib/python2.6/site-packages/boto/ec2/elb/__init__.py", line 106, in build_list_params
+    for index, item in enumerate(items):
+TypeError: 'NoneType' object is not iterable

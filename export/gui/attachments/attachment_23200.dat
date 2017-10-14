@@ -1,0 +1,339 @@
+$ flake8 eucaconsole --ignore=W291,W293,W391 --max-line-length=120
+eucaconsole/caches.py:29:1: F401 'sha1' imported but unused
+eucaconsole/caches.py:32:1: E302 expected 2 blank lines, found 1
+eucaconsole/caches.py:38:5: E301 expected 1 blank line, found 0
+eucaconsole/caches.py:47:9: E265 block comment should start with '# '
+eucaconsole/caches.py:52:1: E302 expected 2 blank lines, found 1
+eucaconsole/caches.py:56:29: F841 local variable 'err' is assigned to but never used
+eucaconsole/config.py:42:1: F401 'make_region' imported but unused
+eucaconsole/config.py:43:1: F401 'sha1_mangle_key' imported but unused
+eucaconsole/config.py:65:5: E265 block comment should start with '# '
+eucaconsole/config.py:71:1: E302 expected 2 blank lines, found 1
+eucaconsole/config.py:92:1: E302 expected 2 blank lines, found 1
+eucaconsole/config.py:93:27: E703 statement ends with a semicolon
+eucaconsole/config.py:131:24: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:131:26: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:132:18: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:132:20: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:133:18: E231 missing whitespace after ':'
+eucaconsole/config.py:134:21: E231 missing whitespace after ':'
+eucaconsole/config.py:135:31: E231 missing whitespace after ':'
+eucaconsole/config.py:136:24: E231 missing whitespace after ':'
+eucaconsole/config.py:136:45: E231 missing whitespace after ','
+eucaconsole/config.py:136:54: E231 missing whitespace after ':'
+eucaconsole/config.py:137:23: E231 missing whitespace after ':'
+eucaconsole/config.py:138:23: E231 missing whitespace after ':'
+eucaconsole/config.py:143:24: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:143:26: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:144:18: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:144:20: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:145:18: E231 missing whitespace after ':'
+eucaconsole/config.py:146:21: E231 missing whitespace after ':'
+eucaconsole/config.py:147:31: E231 missing whitespace after ':'
+eucaconsole/config.py:148:24: E231 missing whitespace after ':'
+eucaconsole/config.py:148:45: E231 missing whitespace after ','
+eucaconsole/config.py:148:54: E231 missing whitespace after ':'
+eucaconsole/config.py:149:23: E231 missing whitespace after ':'
+eucaconsole/config.py:150:23: E231 missing whitespace after ':'
+eucaconsole/config.py:155:24: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:155:26: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:156:18: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:156:20: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:157:18: E231 missing whitespace after ':'
+eucaconsole/config.py:158:21: E231 missing whitespace after ':'
+eucaconsole/config.py:159:31: E231 missing whitespace after ':'
+eucaconsole/config.py:160:24: E231 missing whitespace after ':'
+eucaconsole/config.py:160:45: E231 missing whitespace after ','
+eucaconsole/config.py:160:54: E231 missing whitespace after ':'
+eucaconsole/config.py:161:23: E231 missing whitespace after ':'
+eucaconsole/config.py:162:23: E231 missing whitespace after ':'
+eucaconsole/config.py:167:24: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:167:26: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:168:18: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:168:20: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/config.py:169:18: E231 missing whitespace after ':'
+eucaconsole/config.py:170:21: E231 missing whitespace after ':'
+eucaconsole/config.py:171:31: E231 missing whitespace after ':'
+eucaconsole/config.py:172:24: E231 missing whitespace after ':'
+eucaconsole/config.py:172:45: E231 missing whitespace after ','
+eucaconsole/config.py:172:54: E231 missing whitespace after ':'
+eucaconsole/config.py:173:23: E231 missing whitespace after ':'
+eucaconsole/config.py:174:23: E231 missing whitespace after ':'
+eucaconsole/config.py:179:1: E302 expected 2 blank lines, found 1
+eucaconsole/layout.py:64:121: E501 line too long (122 > 120 characters)
+eucaconsole/layout.py:87:121: E501 line too long (124 > 120 characters)
+eucaconsole/constants/images.py:50:29: E241 multiple spaces after ','
+eucaconsole/constants/images.py:51:27: E241 multiple spaces after ','
+eucaconsole/constants/images.py:52:27: E241 multiple spaces after ','
+eucaconsole/constants/images.py:53:29: E241 multiple spaces after ','
+eucaconsole/constants/images.py:54:28: E241 multiple spaces after ','
+eucaconsole/forms/groups.py:37:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/launchconfigs.py:116:121: E501 line too long (137 > 120 characters)
+eucaconsole/forms/__init__.py:128:33: F841 local variable 'err' is assigned to but never used
+eucaconsole/forms/__init__.py:174:37: F841 local variable 'err' is assigned to but never used
+eucaconsole/forms/__init__.py:405:62: E241 multiple spaces after ','
+eucaconsole/forms/quotas.py:77:41: E128 continuation line under-indented for visual indent
+eucaconsole/forms/quotas.py:84:29: E126 continuation line over-indented for hanging indent
+eucaconsole/forms/quotas.py:85:50: E231 missing whitespace after ':'
+eucaconsole/forms/quotas.py:89:29: E126 continuation line over-indented for hanging indent
+eucaconsole/forms/quotas.py:90:50: E231 missing whitespace after ':'
+eucaconsole/forms/quotas.py:90:85: E231 missing whitespace after ':'
+eucaconsole/forms/quotas.py:90:121: E501 line too long (127 > 120 characters)
+eucaconsole/forms/quotas.py:92:39: F841 local variable 'err' is assigned to but never used
+eucaconsole/forms/securitygroups.py:63:9: F841 local variable 'region' is assigned to but never used
+eucaconsole/forms/snapshots.py:46:70: E231 missing whitespace after ','
+eucaconsole/forms/users.py:31:1: F401 'json' imported but unused
+eucaconsole/forms/users.py:33:1: F401 'BotoServerError' imported but unused
+eucaconsole/forms/users.py:94:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/users.py:98:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/users.py:102:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/users.py:112:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/users.py:122:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/users.py:126:1: E302 expected 2 blank lines, found 1
+eucaconsole/forms/users.py:131:5: E301 expected 1 blank line, found 0
+eucaconsole/forms/instances.py:330:32: E226 missing whitespace around arithmetic operator
+eucaconsole/forms/instances.py:330:54: E226 missing whitespace around arithmetic operator
+eucaconsole/forms/volumes.py:126:9: E128 continuation line under-indented for visual indent
+eucaconsole/gunicorn/ggevent.py:37:1: E302 expected 2 blank lines, found 1
+eucaconsole/gunicorn/ggevent.py:47:1: E302 expected 2 blank lines, found 1
+eucaconsole/gunicorn/ggevent.py:93:21: E128 continuation line under-indented for visual indent
+eucaconsole/gunicorn/ggevent.py:126:45: E261 at least two spaces before inline comment
+eucaconsole/models/quotas.py:36:1: E302 expected 2 blank lines, found 0
+eucaconsole/models/quotas.py:51:9: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:64:9: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:73:9: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:83:9: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:93:9: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:102:75: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:102:94: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:102:121: E501 line too long (187 > 120 characters)
+eucaconsole/models/quotas.py:102:137: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:102:175: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:105:81: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:105:103: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:105:121: E501 line too long (196 > 120 characters)
+eucaconsole/models/quotas.py:105:146: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:105:184: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:112:25: E126 continuation line over-indented for hanging indent
+eucaconsole/models/quotas.py:113:43: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:113:67: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:116:25: E126 continuation line over-indented for hanging indent
+eucaconsole/models/quotas.py:117:46: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:117:73: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:122:43: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:122:62: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:122:93: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:122:121: E501 line too long (134 > 120 characters)
+eucaconsole/models/quotas.py:128:46: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:128:68: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:128:99: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:128:121: E501 line too long (140 > 120 characters)
+eucaconsole/models/quotas.py:133:13: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:135:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:137:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:139:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:141:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:143:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:145:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:146:13: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:148:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:150:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:152:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:154:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:155:13: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:157:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:159:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:161:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:163:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:164:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:165:13: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:167:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:168:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:170:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:171:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:173:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:174:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:175:13: E265 block comment should start with '# '
+eucaconsole/models/quotas.py:177:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:178:37: E128 continuation line under-indented for visual indent
+eucaconsole/models/quotas.py:186:83: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:186:102: E231 missing whitespace after ':'
+eucaconsole/models/auth.py:33:1: F401 'logging' imported but unused
+eucaconsole/models/auth.py:46:1: E265 block comment should start with '# '
+eucaconsole/models/auth.py:112:9: F841 local variable 'cache_key' is assigned to but never used
+eucaconsole/models/auth.py:168:9: F841 local variable 'cache_key' is assigned to but never used
+eucaconsole/models/auth.py:208:36: E225 missing whitespace around operator
+eucaconsole/models/auth.py:220:13: E265 block comment should start with '# '
+eucaconsole/models/auth.py:261:25: E126 continuation line over-indented for hanging indent
+eucaconsole/models/auth.py:323:25: E126 continuation line over-indented for hanging indent
+eucaconsole/models/quotas.py:186:121: E501 line too long (216 > 120 characters)
+eucaconsole/models/quotas.py:186:145: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:186:191: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:188:121: E501 line too long (125 > 120 characters)
+eucaconsole/models/quotas.py:189:89: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:189:111: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:189:121: E501 line too long (225 > 120 characters)
+eucaconsole/models/quotas.py:189:154: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:189:200: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:198:83: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:198:102: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:198:121: E501 line too long (216 > 120 characters)
+eucaconsole/models/quotas.py:198:145: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:198:191: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:200:121: E501 line too long (125 > 120 characters)
+eucaconsole/models/quotas.py:201:89: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:201:111: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:201:121: E501 line too long (225 > 120 characters)
+eucaconsole/models/quotas.py:201:154: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:201:200: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:207:83: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:207:102: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:207:121: E501 line too long (212 > 120 characters)
+eucaconsole/models/quotas.py:207:145: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:207:187: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:209:121: E501 line too long (125 > 120 characters)
+eucaconsole/models/quotas.py:210:89: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:210:111: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:210:121: E501 line too long (221 > 120 characters)
+eucaconsole/models/quotas.py:210:154: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:210:196: E231 missing whitespace after ':'
+eucaconsole/models/quotas.py:238:37: E261 at least two spaces before inline comment
+eucaconsole/models/quotas.py:245:52: E261 at least two spaces before inline comment
+eucaconsole/views/accounts.py:114:25: E126 continuation line over-indented for hanging indent
+eucaconsole/views/accounts.py:115:46: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:117:39: F841 local variable 'exc' is assigned to but never used
+eucaconsole/views/accounts.py:130:82: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:131:84: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:132:82: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:158:121: E501 line too long (126 > 120 characters)
+eucaconsole/views/accounts.py:161:121: E501 line too long (206 > 120 characters)
+eucaconsole/views/accounts.py:181:36: F812 list comprehension redefines 'account' from line 178
+eucaconsole/views/accounts.py:182:35: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/accounts.py:195:25: E126 continuation line over-indented for hanging indent
+eucaconsole/views/accounts.py:196:50: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:199:25: E126 continuation line over-indented for hanging indent
+eucaconsole/views/accounts.py:200:50: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:203:25: E126 continuation line over-indented for hanging indent
+eucaconsole/views/accounts.py:204:50: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:215:78: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:217:37: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:217:57: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:217:91: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:218:17: F841 local variable 'result' is assigned to but never used
+eucaconsole/views/accounts.py:219:37: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:219:64: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:234:87: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:234:100: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:234:121: E501 line too long (142 > 120 characters)
+eucaconsole/views/accounts.py:234:124: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:237:88: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:237:105: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:237:121: E501 line too long (151 > 120 characters)
+eucaconsole/views/accounts.py:237:133: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:239:93: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:239:117: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:239:121: E501 line too long (135 > 120 characters)
+eucaconsole/views/accounts.py:240:121: E501 line too long (144 > 120 characters)
+eucaconsole/views/accounts.py:287:51: E202 whitespace before ')'
+eucaconsole/views/accounts.py:299:91: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:299:121: E501 line too long (145 > 120 characters)
+eucaconsole/views/accounts.py:307:86: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:307:121: E501 line too long (152 > 120 characters)
+eucaconsole/views/accounts.py:307:126: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:320:86: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:320:121: E501 line too long (177 > 120 characters)
+eucaconsole/views/accounts.py:320:126: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:320:151: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:331:89: E231 missing whitespace after ':'
+eucaconsole/views/accounts.py:331:121: E501 line too long (150 > 120 characters)
+eucaconsole/views/accounts.py:331:129: E231 missing whitespace after ':'
+eucaconsole/views/dialogs.py:58:121: E501 line too long (211 > 120 characters)
+eucaconsole/views/dialogs.py:72:121: E501 line too long (127 > 120 characters)
+eucaconsole/views/dialogs.py:114:1: E302 expected 2 blank lines, found 1
+eucaconsole/views/dialogs.py:116:20: E127 continuation line over-indented for visual indent
+eucaconsole/views/dialogs.py:127:1: E302 expected 2 blank lines, found 1
+eucaconsole/views/dashboard.py:122:17: E225 missing whitespace around operator
+eucaconsole/views/dashboard.py:186:13: E265 block comment should start with '# '
+eucaconsole/views/dashboard.py:220:23: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/views/dashboard.py:220:25: E251 unexpected spaces around keyword / parameter equals
+eucaconsole/views/__init__.py:251:33: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/__init__.py:352:63: E226 missing whitespace around arithmetic operator
+eucaconsole/views/__init__.py:354:68: E226 missing whitespace around arithmetic operator
+eucaconsole/views/__init__.py:359:20: E128 continuation line under-indented for visual indent
+eucaconsole/views/__init__.py:360:20: E128 continuation line under-indented for visual indent
+eucaconsole/views/__init__.py:361:20: E128 continuation line under-indented for visual indent
+eucaconsole/views/groups.py:61:9: F841 local variable 'user_choices' is assigned to but never used
+eucaconsole/views/groups.py:121:39: F841 local variable 'exc' is assigned to but never used
+eucaconsole/views/groups.py:151:121: E501 line too long (201 > 120 characters)
+eucaconsole/views/groups.py:178:35: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/groups.py:229:41: E201 whitespace after '('
+eucaconsole/views/images.py:110:36: E226 missing whitespace around arithmetic operator
+eucaconsole/views/images.py:305:60: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:77:35: E261 at least two spaces before inline comment
+eucaconsole/views/buckets.py:211:52: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:211:54: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:211:58: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:246:54: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:246:56: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:246:60: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:261:72: E226 missing whitespace around arithmetic operator
+eucaconsole/views/buckets.py:382:83: E226 missing whitespace around arithmetic operator
+eucaconsole/views/ipaddresses.py:89:26: E225 missing whitespace around operator
+eucaconsole/views/keypairs.py:140:39: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/keypairs.py:162:57: E226 missing whitespace around arithmetic operator
+eucaconsole/views/keypairs.py:165:51: E226 missing whitespace around arithmetic operator
+eucaconsole/views/keypairs.py:207:57: E226 missing whitespace around arithmetic operator
+eucaconsole/views/login.py:186:43: E226 missing whitespace around arithmetic operator
+eucaconsole/views/login.py:189:51: E226 missing whitespace around arithmetic operator
+eucaconsole/views/login.py:194:42: E226 missing whitespace around arithmetic operator
+eucaconsole/views/managecredentials.py:107:33: E128 continuation line under-indented for visual indent
+eucaconsole/views/managecredentials.py:120:57: E703 statement ends with a semicolon
+eucaconsole/views/managecredentials.py:127:47: E226 missing whitespace around arithmetic operator
+eucaconsole/views/managecredentials.py:131:46: E226 missing whitespace around arithmetic operator
+eucaconsole/views/launchconfigs.py:93:17: F841 local variable 'launch_config' is assigned to but never used
+eucaconsole/views/launchconfigs.py:143:21: E123 closing bracket does not match indentation of opening bracket's line
+eucaconsole/views/launchconfigs.py:217:1: E302 expected 2 blank lines, found 1
+eucaconsole/views/launchconfigs.py:235:48: E226 missing whitespace around arithmetic operator
+eucaconsole/views/launchconfigs.py:243:45: E225 missing whitespace around operator
+eucaconsole/views/launchconfigs.py:247:45: E225 missing whitespace around operator
+eucaconsole/views/launchconfigs.py:482:71: E226 missing whitespace around arithmetic operator
+eucaconsole/views/panels.py:161:121: E501 line too long (128 > 120 characters)
+eucaconsole/views/panels.py:229:16: E225 missing whitespace around operator
+eucaconsole/views/roles.py:62:9: F841 local variable 'user_choices' is assigned to but never used
+eucaconsole/views/roles.py:124:121: E501 line too long (124 > 120 characters)
+eucaconsole/views/roles.py:125:109: E231 missing whitespace after ':'
+eucaconsole/views/roles.py:125:121: E501 line too long (123 > 120 characters)
+eucaconsole/views/roles.py:126:43: F841 local variable 'exc' is assigned to but never used
+eucaconsole/views/roles.py:163:121: E501 line too long (198 > 120 characters)
+eucaconsole/views/roles.py:185:35: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/roles.py:205:57: E226 missing whitespace around arithmetic operator
+eucaconsole/views/roles.py:220:50: E225 missing whitespace around operator
+eucaconsole/views/roles.py:228:121: E501 line too long (125 > 120 characters)
+eucaconsole/views/roles.py:229:105: E231 missing whitespace after ':'
+eucaconsole/views/roles.py:231:34: E225 missing whitespace around operator
+eucaconsole/views/roles.py:254:121: E501 line too long (129 > 120 characters)
+eucaconsole/views/roles.py:323:121: E501 line too long (143 > 120 characters)
+eucaconsole/views/roles.py:342:67: E226 missing whitespace around arithmetic operator
+eucaconsole/views/instances.py:95:39: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/instances.py:110:39: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/instances.py:303:24: E225 missing whitespace around operator
+eucaconsole/views/instances.py:319:24: E225 missing whitespace around operator
+eucaconsole/views/instances.py:329:1: E302 expected 2 blank lines, found 1
+eucaconsole/views/instances.py:375:9: F841 local variable 'region' is assigned to but never used
+eucaconsole/views/instances.py:382:17: E123 closing bracket does not match indentation of opening bracket's line
+eucaconsole/views/instances.py:490:32: E226 missing whitespace around arithmetic operator
+eucaconsole/views/instances.py:516:16: E124 closing bracket does not match visual indentation
+eucaconsole/views/instances.py:554:48: E226 missing whitespace around arithmetic operator
+eucaconsole/views/instances.py:695:36: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/instances.py:704:24: E225 missing whitespace around operator
+eucaconsole/views/instances.py:1169:48: E226 missing whitespace around arithmetic operator
+eucaconsole/views/instances.py:1388:91: E226 missing whitespace around arithmetic operator
+eucaconsole/views/scalinggroups.py:73:121: E501 line too long (138 > 120 characters)
+eucaconsole/views/scalinggroups.py:164:88: E241 multiple spaces after ','
+eucaconsole/views/snapshots.py:404:35: F841 local variable 'err' is assigned to but never used
+eucaconsole/views/users.py:470:19: E225 missing whitespace around operator
+eucaconsole/views/users.py:481:25: E126 continuation line over-indented for hanging indent
+eucaconsole/views/users.py:500:13: F841 local variable 'creds' is assigned to but never used
+eucaconsole/views/users.py:609:17: E128 continuation line under-indented for visual indent
+eucaconsole/views/volumes.py:62:39: F841 local variable 'err' is assigned to but never used
+

@@ -1,0 +1,89 @@
+2014-05-12 14:42:52 ERROR Error handling request
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/async.py", line 45, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/ggevent.py", line 151, in handle_request
+    super(GeventWorker, self).handle_request(*args)
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/async.py", line 93, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 251, in __call__
+    response = self.invoke_subrequest(request, use_tweens=True)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 227, in invoke_subrequest
+    response = handle_request(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 78, in __call__
+    response = self.handler(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 53, in tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 42, in tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/pyramid/tweens.py", line 21, in excview_tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 161, in handle_request
+    response = view_callable(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 237, in _secured_view
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 367, in rendered_view
+    context)
+  File "/usr/lib/python2.6/site-packages/pyramid/renderers.py", line 531, in render_view
+    return self.render_to_response(response, system, request=request)
+  File "/usr/lib/python2.6/site-packages/pyramid/renderers.py", line 561, in render_to_response
+    result = self.render(value, system_values, request=request)
+  File "/usr/lib/python2.6/site-packages/pyramid/renderers.py", line 557, in render
+    result = renderer(value, system_values)
+  File "/usr/lib/python2.6/site-packages/pyramid_chameleon/zpt.py", line 47, in __call__
+    result = self.template(**system)
+  File "/usr/lib/python2.6/site-packages/chameleon/template.py", line 132, in __call__
+    return self.render(**kwargs)
+  File "/usr/lib/python2.6/site-packages/chameleon/zpt/template.py", line 213, in render
+    return super(PageTemplate, self).render(**vars)
+  File "/usr/lib/python2.6/site-packages/chameleon/template.py", line 193, in render
+    raise_with_traceback(exc, tb)
+  File "/usr/lib/python2.6/site-packages/chameleon/template.py", line 179, in render
+    self._render(stream, econtext, rcontext)
+  File "launchconfig_view_b08c0ddcf4bd787938fbd6e42bae337d8b193226.py", line 2712, in render
+  File "/usr/lib/python2.6/site-packages/chameleon/zpt/template.py", line 217, in include
+    self._render(*args, **kwargs)
+  File "master_layout_cf86870255c9c0a8088450589824f37a7b75f680.py", line 2341, in render
+  File "launchconfig_view_b08c0ddcf4bd787938fbd6e42bae337d8b193226.py", line 2451, in __fill_main_content
+  File "/usr/lib/python2.6/site-packages/pyramid_layout/layout.py", line 65, in render_panel
+    return Structure(panel(context, request, *args, **kw))
+  File "/usr/lib/python2.6/site-packages/pyramid_layout/config.py", line 232, in derived
+    result = wrapped(context, request, *args, **kw)
+  File "/usr/lib/python2.6/site-packages/pyramid_layout/config.py", line 217, in derived
+    result = wrapped(context, request, *args, **kw)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/views/panels.py", line 222, in bdmapping_editor
+    for bdm in bdm_list:
+TypeError: 'NoneType' object is not iterable
+
+ - Expression: "panel('bdmapping_editor', image=image, launch_config=launch_config, read_only=True)"
+ - Filename:   /usr/lib/python2.6/site-packages/eucaconsole/templates/launchconfigs/launchconfig_view.pt
+ - Location:   (104:22)
+
+ - Source:     ... panel('bdmapping_editor', image=image, launch_config=launch_config, read_only=True) ...
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ - Expression: "
+                    ${panel('bdmapping_editor', image=image, launch_config=launch_config, read_only=True)}
+                "
+ - Filename:   /usr/lib/python2.6/site-packages/eucaconsole/templates/launchconfigs/launchconfig_view.pt
+ - Location:   (103:26)
+
+ - Source:     ... 
+                   ^
+ - Arguments:  launch_config: <LaunchConfiguration - at 0x37c5c10>
+               renderer_name: ../templates/launchconfigs/launchconfig_view.pt
+               lc_created_time: 2014-05-06T23:51:58.561000+00:00
+               in_use: True
+               request: <Request - at 0x37c2a50>
+               image: <Image - at 0x37c5810>
+               renderer_info: <RendererHelper - at 0x316c110>
+               repeat: {...} (0)
+               security_groups: <ResultSet - at 0x4165d60>
+               panel: <instancemethod render_panel at 0x3325be0>
+               layout: <MasterLayout - at 0x37e46d0>
+               req: <Request - at 0x37c2a50>
+               escaped_launch_config_name: LC3
+               delete_form: <LaunchConfigDeleteForm - at 0x37e4c10>
+               context: <SiteRootFactory - at 0x37c28d0>
+               view: <LaunchConfigView - at 0x37c2b50>
+               main_template: <PyramidPageTemplateFile - at 0x3439f90>
+

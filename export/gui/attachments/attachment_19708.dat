@@ -1,0 +1,326 @@
+{
+  "Version": "2011-04-01",
+  "Statement": [
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "65"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-vminstancenumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateVolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumenumber": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateSnapshot",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-snapshotnumber": "2"
+        }
+      }
+    },
+    {
+      "Action": "ec2:AllocateAddress",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-addressnumber": "1"
+        }
+      }
+    },
+    {
+      "Action": "ec2:createvolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumetotalsize": "3"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-vminstancenumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateVolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumenumber": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateSnapshot",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-snapshotnumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:AllocateAddress",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-addressnumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:createvolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumetotalsize": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-vminstancenumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateVolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumenumber": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateSnapshot",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-snapshotnumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:AllocateAddress",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-addressnumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:createvolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumetotalsize": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "2"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-vminstancenumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateVolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumenumber": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateSnapshot",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-snapshotnumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:AllocateAddress",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-addressnumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:createvolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumetotalsize": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RegisterImage",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-imagenumber": "100"
+        }
+      }
+    },
+    {
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-vminstancenumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateVolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumenumber": "4"
+        }
+      }
+    },
+    {
+      "Action": "ec2:CreateSnapshot",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-snapshotnumber": "5"
+        }
+      }
+    },
+    {
+      "Action": "ec2:AllocateAddress",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-addressnumber": "6"
+        }
+      }
+    },
+    {
+      "Action": "ec2:createvolume",
+      "Resource": "*",
+      "Effect": "Limit",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-volumetotalsize": "4"
+        }
+      }
+    }
+  ]
+}
+

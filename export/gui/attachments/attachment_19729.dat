@@ -1,0 +1,37 @@
+2014-04-29 13:31:57 INFO eucalyptus/admin [mGWx6NyR73peETdjNSB3QQ]: Running instance(s) (num=1, image=emi-e2f52b7d, type=m1.small)
+2014-04-29 13:37:44 INFO Authenticated Eucalyptus user: ccassler/admin
+2014-04-29 13:44:01 ERROR Error handling request
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/async.py", line 45, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/ggevent.py", line 151, in handle_request
+    super(GeventWorker, self).handle_request(*args)
+  File "/usr/lib/python2.6/site-packages/gunicorn/workers/async.py", line 93, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 251, in __call__
+    response = self.invoke_subrequest(request, use_tweens=True)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 227, in invoke_subrequest
+    response = handle_request(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 46, in __call__
+    response = self.handler(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 25, in tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/eucaconsole/tweens.py", line 15, in tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/pyramid/tweens.py", line 21, in excview_tween
+    response = handler(request)
+  File "/usr/lib/python2.6/site-packages/pyramid/router.py", line 161, in handle_request
+    response = view_callable(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 319, in attr_view
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 295, in predicate_wrapper
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 237, in _secured_view
+    return view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 345, in rendered_view
+    result = view(context, request)
+  File "/usr/lib/python2.6/site-packages/pyramid/config/views.py", line 467, in _class_requestonly_view
+    response = getattr(inst, attr)()
+  File "/usr/lib/python2.6/site-packages/eucaconsole/views/instances.py", line 763, in instance_launch
+    image_id = self.image.id
+AttributeError: 'NoneType' object has no attribute 'id'

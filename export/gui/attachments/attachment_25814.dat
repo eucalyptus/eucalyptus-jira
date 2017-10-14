@@ -1,0 +1,18 @@
+#cloud-config
+# vim: syntax=yaml
+#
+# This config installs the eucalyptus and epel repos, then installs and
+# configures the eucaconsole package
+
+runcmd:
+ - [ yum, -y, install, "http://packages.release.eucalyptus-systems.com/yum/tags/eucalyptus-devel/rhel/6/x86_64/eucalyptus-release-firehose-0-1.el6.noarch.rpm" ]
+ - [ yum, -y, install, eucaconsole ]
+ - [ sed, -i, "s/localhost/a-09.autoqa.qa1.eucalyptus-systems.com/", /etc/eucaconsole/console.ini ]
+ - [ service, eucaconsole, restart ]
+
+write_files:
+-   content: |
+          [general]
+          session.encrypt_key = E8LnF9b8nx5E2kXlmFmM4BjDuesWt4j
+          session.validate_key = B0SFBpZ7DMvt4q0uW0hHZCRETGn8MT
+    path: /etc/eucaconsole/session-keys.ini

@@ -1,0 +1,160 @@
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolelistbypath --region=ceph:shm70003:ceph@ceph
+euare-rolelistbypath: error: missing access key ID; please supply one with -I
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ 
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ 
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ 
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolelistbypath --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolecreate -f assume-role.json assume-role --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-roleuploadpolicy -f default-role -p default-role assume-role --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolegetattributes assume-role --region=ceph:shm70003:admin@ceph
+arn:aws:iam::000401936645:role/assume-role
+AROAALDRDR3SRTSAC74Q4
+{
+    "Id": "RoleForLoginWithGlobusshl1",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+		    "auth.globus.org:aud": <<Globus Client ID>>, 
+                    "auth.globus.org:sub": [ "bf604ea4-d274-11e5-bb5e-f73dbf5a71af" ]
+                }
+            },
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::000401936645:oidc-provider/auth.globus.org" 
+            }
+        }
+    ],
+    "Version": "2012-10-17"
+}
+
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolegetpolicy -p default-role assume-role --region=ceph:shm70003:admin@ceph
+{
+    "Statement": [
+        {
+            "Action": [
+                "ec2:RunInstance*",
+                "ec2:DescribeInstance*"
+            ],
+            "Effect": "Deny",
+            "Resource": [
+                "arn:aws:ec2:::vmtype/t1.micro",
+                "arn:aws:ec2:::vmtype/m1.medium",
+                "arn:aws:ec2:::vmtype/m3.xlarge",
+                "arn:aws:ec2:::vmtype/m3.2xlarge",
+                "arn:aws:ec2:::vmtype/cc1.4xlarge",
+                "arn:aws:ec2:::vmtype/m2.4xlarge",
+                "arn:aws:ec2:::vmtype/hi1.4xlarge",
+                "arn:aws:ec2:::vmtype/cc2.8xlarge",
+                "arn:aws:ec2:::vmtype/cg1.4xlarge",
+                "arn:aws:ec2:::vmtype/cr1.8xlarge",
+                "arn:aws:ec2:::vmtype/hs1.8xlarge"
+            ]
+        },
+        {
+            "Action": [
+                "ec2:*",
+                "s3:*",
+                "autoscaling:*",
+                "elasticloadbalancing:*",
+                "cloudwatch:*",
+                "cloudformation:*",
+                "logs:*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+	{
+	    "Action": [
+                "iam:*AccessKey*",
+                "iam:*SigningCertificate*",
+		"iam:List*",
+		"iam:GetUser*"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:iam::000401936645:user/shl1" 
+	}
+    ]
+}
+
+<< Log in via Globus Auth on web console works at this time >>
+
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-roledelpolicy -p default-role assume-role --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-roledel assume-role --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolelistbypath --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolecreate -f assume-role.json assume-role1 --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-roleuploadpolicy -f default-role -p default-role assume-role1 --region=ceph:shm70003:admin@ceph
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolegetattributes assume-role1 --region=ceph:shm70003:admin@ceph
+arn:aws:iam::000401936645:role/assume-role1
+AROAAVOSNSYIQD3TZ5O3D
+{
+    "Id": "RoleForLoginWithGlobusshl1",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+		    "auth.globus.org:aud": <<Globus Client ID>>, 
+                    "auth.globus.org:sub": [ "bf604ea4-d274-11e5-bb5e-f73dbf5a71af" ]
+                }
+            },
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::000401936645:oidc-provider/auth.globus.org" 
+            }
+        }
+    ],
+    "Version": "2012-10-17"
+}
+
+[shl1@euca-128-84-11-135 red-cloud-accounting]$ euare-rolegetpolicy -p default-role assume-role1 --region=ceph:shm70003:admin@ceph
+{
+    "Statement": [
+        {
+            "Action": [
+                "ec2:RunInstance*",
+                "ec2:DescribeInstance*"
+            ],
+            "Effect": "Deny",
+            "Resource": [
+                "arn:aws:ec2:::vmtype/t1.micro",
+                "arn:aws:ec2:::vmtype/m1.medium",
+                "arn:aws:ec2:::vmtype/m3.xlarge",
+                "arn:aws:ec2:::vmtype/m3.2xlarge",
+                "arn:aws:ec2:::vmtype/cc1.4xlarge",
+                "arn:aws:ec2:::vmtype/m2.4xlarge",
+                "arn:aws:ec2:::vmtype/hi1.4xlarge",
+                "arn:aws:ec2:::vmtype/cc2.8xlarge",
+                "arn:aws:ec2:::vmtype/cg1.4xlarge",
+                "arn:aws:ec2:::vmtype/cr1.8xlarge",
+                "arn:aws:ec2:::vmtype/hs1.8xlarge"
+            ]
+        },
+        {
+            "Action": [
+                "ec2:*",
+                "s3:*",
+                "autoscaling:*",
+                "elasticloadbalancing:*",
+                "cloudwatch:*",
+                "cloudformation:*",
+                "logs:*"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+	{
+	    "Action": [
+                "iam:*AccessKey*",
+                "iam:*SigningCertificate*",
+		"iam:List*",
+		"iam:GetUser*"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:iam::000401936645:user/shl1" 
+	}
+    ]
+}
+
+
