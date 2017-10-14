@@ -122,12 +122,13 @@ table.issuetable img {
           </table>
     </div>
     <script type="text/javascript">
-      $.getJSON("generated/facets.json", function(facetsJson){
-        angular.module('Search', ['MagicSearch']).controller('SearchCtrl', function($scope, $timeout) {
+      angular.module('Search', ['MagicSearch']).controller('SearchCtrl', function($scope, $timeout) {
         var vm = this;
         var optionMapper = function(item){ return {"key": item.id, "label": item.name}; };
         var optionSorter = function(a,b){return a.label < b.label ? -1 : a.label > b.label;};
-        vm.facets = [
+        vm.facets = [];
+        $.getJSON("generated/facets.json", function(facetsJson){
+          vm.facets = [
             {"name":"component", "label":"Component",
              "options": facetsJson.components.map(optionMapper).sort(optionSorter)
             },
@@ -152,7 +153,8 @@ table.issuetable img {
             {"name":"version", "label":"Affects Version",
              "options": [...new Set(facetsJson.versions.map(function(item){return item.name;}))].sort().reverse().map(function(item){return {"key": item, "label": item};})
             }
-        ];
+          ];
+        });
         vm.data_set = [];  
         var projects = [ 'doc', 'euca', 'gui', 'tools' ];
         projects.forEach(function(project, index) {
@@ -192,8 +194,7 @@ table.issuetable img {
                 } );
               });
             });  
-        });
-        
+        });        
         vm.faceted_data = [];   // filterd by facets
         vm.filtered_data = [];  // filtered by facets and text
         vm.init = function() {
@@ -273,10 +274,9 @@ table.issuetable img {
             vm.filter_keys = filter_keys;
             vm.filter_items();
         });
-    });
-
-        $(document).foundation();
       });
+
+      $(document).foundation();
     </script>
 
     <div style="margin-top: 32px"/>
