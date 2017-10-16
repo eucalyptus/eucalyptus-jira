@@ -18,7 +18,7 @@
 		});
 
 		input = input.replace(/\{\{([^}]+)\}\}/g, '`$1`');
-		input = input.replace(/\?\?((?:.[^?]|[^?].)+)\?\?/g, '<cite>$1</cite>');
+		//input = input.replace(/\?\?((?:.[^?]|[^?].)+)\?\?/g, '<cite>$1</cite>');
 		input = input.replace(/\+([^+]*)\+/g, '<ins>$1</ins>');
 		input = input.replace(/\^([^^]*)\^/g, '<sup>$1</sup>');
 		input = input.replace(/~([^~]*)~/g, '<sub>$1</sub>');
@@ -31,6 +31,7 @@
 		input = input.replace(/\[(.+?)\]([^\(]*)/g, '<$1>$2');
 
 		input = input.replace(/{noformat}/g, '```');
+		input = input.replace(/{quote}([\s\S]{1,10240}?){quote}/, '<blockquote>$1</blockquote>');
 
 		// Convert header rows of tables by splitting input on lines
 		lines = input.split(/\r?\n/gm);

@@ -17,8 +17,16 @@ pre {
     white-space: -o-pre-wrap;
     word-wrap: break-word;
 }
+blockquote pre {
+    background-color: #f4f4f4;
+}
+blockquote {
+    border-left: 4px solid #8bc34a;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
 .issue-table-title {
-  text-align: left
+  text-align: left;
 }
 </style>
 </head>
@@ -137,9 +145,9 @@ pre {
 <p class="w3-margin-left">
 {{for issue.fields.issuelinks}}
 {{if inwardIssue}}
-{{>type.inward}} <a href="{{>inwardIssue.key}}.html" target="_top">{{>inwardIssue.key}}</a> {{>inwardIssue.fields.summary}} <br/>
+{{>type.inward}} <a href="../{{>inwardIssue.key.replace(/-[0-9]{1,9}/,'').toLowerCase()}}/{{>inwardIssue.key}}.html" target="_top">{{>inwardIssue.key}}</a> {{>inwardIssue.fields.summary}} <br/>
 {{else}}
-{{>type.outward}} <a href="{{>outwardIssue.key}}.html" target="_top">{{>outwardIssue.key}}</a> {{>outwardIssue.fields.summary}} <br/>
+{{>type.outward}} <a href="../{{>outwardIssue.key.replace(/-[0-9]{1,9}/,'').toLowerCase()}}/{{>outwardIssue.key}}.html" target="_top">{{>outwardIssue.key}}</a> {{>outwardIssue.fields.summary}} <br/>
 {{/if}}
 {{/for}}
 </p>
@@ -191,10 +199,19 @@ pre {
   var commitsPrefix = baseUrl + project + "/commits/";
   var attachmentPrefix = baseUrl + project + "/attachments/";  
   var iconPrefix = baseUrl + project + "/icons/";  
+  var linkIssues = function(text) {
+    return text ?
+      text
+        .replace(/([\s])(DOC-[0-9]{1,6})\b/,'$1<a href="../doc/$2.html" target="_top">$2</a>')
+        .replace(/([\s])(EUCA-[0-9]{1,6})\b/,'$1<a href="../euca/$2.html" target="_top">$2</a>')
+        .replace(/([\s])(GUI-[0-9]{1,6})\b/,'$1<a href="../gui/$2.html" target="_top">$2</a>')
+        .replace(/([\s])(TOOLS-[0-9]{1,6})\b/,'$1<a href="../tools/$2.html" target="_top">$2</a>') :
+      '';
+  };
   showdown.setFlavor("github");
   var converter = new showdown.Converter();
   $.views.converters("jiratext", function(text) {
-    return text ? converter.makeHtml(J2M.toM(text)) : "";
+    return text ? linkIssues(converter.makeHtml(J2M.toM(text))) : "";
   });
   $.views.converters("jiraattachlink", function(attachmentId) {
     return attachmentPrefix + "attachment_" + attachmentId + ".dat";
