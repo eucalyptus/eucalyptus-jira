@@ -88,7 +88,7 @@ table.issuetable img {
   <td width="10"></td>
   <td valign="top">
     <!-- start main content -->
-    <div style="margin-top: 32px"/>
+    <div style="margin-top: 32px"></div>
 
     <h1 class="w3-text-light-green">Search for issues</h1>
 
@@ -148,10 +148,10 @@ table.issuetable img {
              "options": facetsJson.issuetypes.map(optionMapper).sort(optionSorter)
             },
             {"name":"fixversion", "label":"Fix Version",
-             "options": [...new Set(facetsJson.versions.map(function(item){return item.name;}))].sort().reverse().map(function(item){return {"key": item, "label": item};})
+             "options": $.unique(facetsJson.versions.map(function(item){return item.name;}).sort()).reverse().map(function(item){return {"key": item, "label": item};})
             },
             {"name":"version", "label":"Affects Version",
-             "options": [...new Set(facetsJson.versions.map(function(item){return item.name;}))].sort().reverse().map(function(item){return {"key": item, "label": item};})
+             "options": $.unique(facetsJson.versions.map(function(item){return item.name;}).sort()).reverse().map(function(item){return {"key": item, "label": item};})
             }
           ];
         });
@@ -280,7 +280,7 @@ table.issuetable img {
       $(document).foundation();
     </script>
 
-    <div style="margin-top: 32px"/>
+    <div style="margin-top: 32px"></div>
 
     <!-- end main content -->
   </td>
