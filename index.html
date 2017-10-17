@@ -101,10 +101,16 @@ table.issuetable img {
             strings="{'remove':'Remove facet', 'cancel':'Clear search', 'prompt':'Select facets or enter text', 'text':'Text'}">
         </magic-search>
         <br/>
+        <form name="resultsForm">
+          <label><h3 class="w3-text-light-green">Max results:</h3>
+            <input type="number" name="input" ng-model="searchCtrl.max_results" min="10" max="100000" required/>
+         </label>
+        </form>
+        <br/>
         <h3 class="w3-text-light-green">Search results
             <span ng-show="searchCtrl.filtered_data.length == 0"> - none</span>
             <span ng-show="searchCtrl.filtered_data.length > 0"> {{ searchCtrl.filtered_data.length }} items</span>
-            <span ng-show="searchCtrl.filtered_data.length > 500">(first 500 displayed)</span>
+            <span ng-show="searchCtrl.filtered_data.length > searchCtrl.max_results">(first {{searchCtrl.max_results}} displayed)</span>
         </h3>
           <table class="issuetable" width="100%">
             <tr>
@@ -113,7 +119,7 @@ table.issuetable img {
               <th>Status</th>
               <th>Summary</th>
             </tr> 
-            <tr ng-repeat="item in searchCtrl.filtered_data | limitTo: 500">
+            <tr ng-repeat="item in searchCtrl.filtered_data | limitTo: searchCtrl.max_results">
               <td><img src="{{::item.typeIconUrl}}" width="16" height="16"/>&nbsp;<a href="{{::item.url}}" target="_top">{{::item.key}}</a></td>
               <td><img src="{{::item.priorityIconUrl}}" width="16" height="16"/>&nbsp;{{::item.priorityLabel}}</td>
               <td>{{::item.statusLabel}}</td>
@@ -132,6 +138,7 @@ table.issuetable img {
         var optionSorter = function(a,b){return a.label < b.label ? -1 : a.label > b.label;};
         var idMapper = function(item){return item.id;};
         var nameMapper = function(item){return item.name;};
+        vm.max_results = 100;
         vm.facets = [];
         $.getJSON("generated/facets.json", function(facetsJson){
           vm.facets = [
