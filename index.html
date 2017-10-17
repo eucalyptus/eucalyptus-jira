@@ -113,19 +113,25 @@ table.issuetable img {
               <th>Status</th>
               <th>Summary</th>
             </tr> 
-            <tr ng-repeat="item in searchCtrl.filtered_data.slice(0,500)">
-              <td><img src="{{item.typeIconUrl}}" width="16" height="16"/> <a href="{{item.url}}" target="_top">{{item.key}}</a></td>
-              <td><img src="{{item.priorityIconUrl}}" width="16" height="16"/> {{item.priorityLabel}}</td>
-              <td>{{item.statusLabel}}</td>
-              <td>{{item.summary}}</td>
+            <tr ng-repeat="item in searchCtrl.filtered_data | limitTo: 500">
+              <td><img src="{{::item.typeIconUrl}}" width="16" height="16"/>&nbsp;<a href="{{::item.url}}" target="_top">{{::item.key}}</a></td>
+              <td><img src="{{::item.priorityIconUrl}}" width="16" height="16"/>&nbsp;{{::item.priorityLabel}}</td>
+              <td>{{::item.statusLabel}}</td>
+              <td>{{::item.summary}}</td>
             </tr> 
           </table>
     </div>
     <script type="text/javascript">
-      angular.module('Search', ['MagicSearch']).controller('SearchCtrl', function($scope, $timeout) {
+      var app = angular.module('Search', ['MagicSearch']);
+      app.config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+      }]);
+      app.controller('SearchCtrl', function($scope, $timeout) {
         var vm = this;
         var optionMapper = function(item){ return {"key": item.id, "label": item.name}; };
         var optionSorter = function(a,b){return a.label < b.label ? -1 : a.label > b.label;};
+        var idMapper = function(item){return item.id;};
+        var nameMapper = function(item){return item.name;};
         vm.facets = [];
         $.getJSON("generated/facets.json", function(facetsJson){
           vm.facets = [
@@ -148,10 +154,10 @@ table.issuetable img {
              "options": facetsJson.issuetypes.map(optionMapper).sort(optionSorter)
             },
             {"name":"fixversion", "label":"Fix Version",
-             "options": $.unique(facetsJson.versions.map(function(item){return item.name;}).sort()).reverse().map(function(item){return {"key": item, "label": item};})
+             "options": $.unique(facetsJson.versions.map(nameMapper).sort()).reverse().map(function(item){return {"key": item, "label": item};})
             },
             {"name":"version", "label":"Affects Version",
-             "options": $.unique(facetsJson.versions.map(function(item){return item.name;}).sort()).reverse().map(function(item){return {"key": item, "label": item};})
+             "options": $.unique(facetsJson.versions.map(nameMapper).sort()).reverse().map(function(item){return {"key": item, "label": item};})
             }
           ];
         });
@@ -187,9 +193,9 @@ table.issuetable img {
                   "statusLabel": issue.status.name,
                   "resolution": issue.resolution ? issue.resolution.id : '',
                   "resolutionLabel": issue.resolution ? issue.resolution.name : '',
-                  "component": issue.components.map(function(item){return item.id;}),
-                  "fixversion": issue.fixVersions.map(function(item){return item.name;}),
-                  "version": issue.versions.map(function(item){return item.name;}),
+                  "component": issue.components.map(idMapper),
+                  "fixversion": issue.fixVersions.map(nameMapper),
+                  "version": issue.versions.map(nameMapper),
                   "summary": issue.summary
                 } );
               });
