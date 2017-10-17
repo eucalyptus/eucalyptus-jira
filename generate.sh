@@ -31,7 +31,7 @@ for PROJECT_PATH in export/*; do
   INDEX_FILE="generated/${PROJECT}/index.json"
   echo "[{" > "${INDEX_FILE}"
   FIRST_ISSUE="yes"
-  for ISSUE_PATH in $(ls export/${PROJECT}/issues/*-*.json | sort -V); do 
+  for ISSUE_PATH in $(ls export/${PROJECT}/issues/*-*.json | sort -Vr); do
     ISSUE="${ISSUE_PATH##*/}"
     if [ $FIRST_ISSUE != "yes" ]; then
       echo ",{" >> "${INDEX_FILE}"
@@ -72,3 +72,11 @@ echo ']' >> "${FACETS_FILE}"
 echo "}" >> "${FACETS_FILE}"
 
 
+for PROJECT_PATH in export/*; do
+  PROJECT="${PROJECT_PATH##*/}"
+
+  echo "Shrinking index for ${PROJECT}"
+  INDEX_FILE="generated/${PROJECT}/index.json"
+  json_reformat < "${INDEX_FILE}" | grep -v '"self":' | grep -v '"iconUrl":' | grep -vP '"description": ".*?",$' | json_reformat -m > "${INDEX_FILE}.shrunk"
+  mv -fv "${INDEX_FILE}.shrunk" "${INDEX_FILE}"
+done

@@ -54,6 +54,7 @@ table.issuetable img {
 }
 .top{position:fixed;z-index:2}
 .bottom{position:fixed;z-index:2;bottom:0}
+.nowrap{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -120,9 +121,9 @@ table.issuetable img {
               <th>Summary</th>
             </tr> 
             <tr ng-repeat="item in searchCtrl.filtered_data | limitTo: searchCtrl.max_results">
-              <td><img src="{{::item.typeIconUrl}}" width="16" height="16"/>&nbsp;<a href="{{::item.url}}" target="_top">{{::item.key}}</a></td>
-              <td><img src="{{::item.priorityIconUrl}}" width="16" height="16"/>&nbsp;{{::item.priorityLabel}}</td>
-              <td>{{::item.statusLabel}}</td>
+              <td class="nowrap"><img src="{{::item.typeIconUrl}}" width="16" height="16"/>&nbsp;<a href="{{::item.url}}" target="_top">{{::item.key}}</a></td>
+              <td class="nowrap"><img src="{{::item.priorityIconUrl}}" width="16" height="16"/>&nbsp;{{::item.priorityLabel}}</td>
+              <td class="nowrap">{{::item.statusLabel}}</td>
               <td>{{::item.summary}}</td>
             </tr> 
           </table>
@@ -193,9 +194,9 @@ table.issuetable img {
                   "type": issue.issuetype.id,
                   "typeIconUrl": iconPrefix + "issuetype_icon_" + issue.issuetype.name + ".svg",
                   "key": issue.key,
-                  "priority": issue.priority.id,
-                  "priorityLabel": issue.priority.name,
-                  "priorityIconUrl": iconPrefix + "priority_icon_" + issue.priority.name + ".svg",
+                  "priority": issue.priority ? issue.priority.id : '',
+                  "priorityLabel": issue.priority ? issue.priority.name : '',
+                  "priorityIconUrl": iconPrefix + "priority_icon_" + ( issue.priority ? issue.priority.name : '' ) + ".svg",
                   "status": issue.status.id,
                   "statusLabel": issue.status.name,
                   "resolution": issue.resolution ? issue.resolution.id : '',
