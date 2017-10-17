@@ -1,0 +1,112 @@
+Request URL:http://localhost:8888/autoscaling?Action=TerminateInstanceInAutoScalingGroup
+Request Method:POST
+Status Code:200 OK
+Request Headersview source
+Accept:application/json, text/javascript, */*; q=0.01
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Content-Length:97
+Content-Type:application/x-www-form-urlencoded; charset=UTF-8
+Cookie:instance_type=m1.small; showSystemTags=false; _xsrf=8f7d613ace3549cfa0040ada7ffd1968; session-id=0597991e0902c3e6582797fca8e491e0; account=ui-test-acct-03; username=admin; remember=true
+Host:localhost:8888
+Origin:http://localhost:8888
+Referer:http://localhost:8888/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Query String Parametersview sourceview URL encoded
+Action:TerminateInstanceInAutoScalingGroup
+Form Dataview sourceview URL encoded
+_xsrf:8f7d613ace3549cfa0040ada7ffd1968
+InstanceId:i-E8D43FEA
+ShouldDecrementDesiredCapacity:false
+Response Headersview source
+Cache-control:no-store
+Content-Length:706
+Content-Type:application/json;charset=UTF-8
+Pragma:no-cache
+Server:TornadoServer/2.2.1
+
+{
+  "results": {
+    "activity_id": "bd3a7b0b-4c59-4599-afda-170325d28cb3", 
+    "cause": "At 2013-09-06T20:29:41Z instance was taken out of service in response to a user request..", 
+    "description": "Terminating EC2 instance: i-E8D43FEA", 
+    "ResponseMetadata": "", 
+    "status_code": "InProgress", 
+    "start_time": "2013-09-06T20:29:41.116000", 
+    "group_name": "test", 
+    "connection": [], 
+    "__obj_name__": "Activity", 
+    "end_time": null, 
+    "TerminateInstanceInAutoScalingGroupResult": "", 
+    "Activity": "", 
+    "progress": "50", 
+    "status_message": null, 
+    "TerminateInstanceInAutoScalingGroupResponse": "", 
+    "RequestId": "e6aee660-12de-491b-99c7-3068c032330c"
+  }
+}
+
+Request URL:http://localhost:8888/autoscaling?Action=TerminateInstanceInAutoScalingGroup
+Request Method:POST
+Status Code:400 Bad Request
+Request Headersview source
+Accept:application/json, text/javascript, */*; q=0.01
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Content-Length:97
+Content-Type:application/x-www-form-urlencoded; charset=UTF-8
+Cookie:instance_type=m1.small; showSystemTags=false; _xsrf=8f7d613ace3549cfa0040ada7ffd1968; session-id=0597991e0902c3e6582797fca8e491e0; account=ui-test-acct-03; username=admin; remember=true
+Host:localhost:8888
+Origin:http://localhost:8888
+Referer:http://localhost:8888/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Query String Parametersview sourceview URL encoded
+Action:TerminateInstanceInAutoScalingGroup
+Form Dataview sourceview URL encoded
+_xsrf:8f7d613ace3549cfa0040ada7ffd1968
+InstanceId:i-12403F53
+ShouldDecrementDesiredCapacity:false
+Response Headersview source
+Cache-control:no-store
+Content-Length:111
+Content-Type:application/json;charset=UTF-8
+Pragma:no-cache
+Server:TornadoServer/2.2.1
+
+{"results": {"status": 400, "message": "Scaling activity in progress", "summary": "ScalingActivityInProgress"}}
+
+
+Request URL:http://localhost:8888/autoscaling?Action=TerminateInstanceInAutoScalingGroup
+Request Method:POST
+Status Code:400 Bad Request
+Request Headersview source
+Accept:application/json, text/javascript, */*; q=0.01
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Content-Length:97
+Content-Type:application/x-www-form-urlencoded; charset=UTF-8
+Cookie:instance_type=m1.small; showSystemTags=false; _xsrf=8f7d613ace3549cfa0040ada7ffd1968; session-id=0597991e0902c3e6582797fca8e491e0; account=ui-test-acct-03; username=admin; remember=true
+Host:localhost:8888
+Origin:http://localhost:8888
+Referer:http://localhost:8888/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Query String Parametersview sourceview URL encoded
+Action:TerminateInstanceInAutoScalingGroup
+Form Dataview sourceview URL encoded
+_xsrf:8f7d613ace3549cfa0040ada7ffd1968
+InstanceId:i-1B9B4509
+ShouldDecrementDesiredCapacity:false
+Response Headersview source
+Cache-control:no-store
+Content-Length:111
+Content-Type:application/json;charset=UTF-8
+Pragma:no-cache
+Server:TornadoServer/2.2.1
+
+{"results": {"status": 400, "message": "Scaling activity in progress", "summary": "ScalingActivityInProgress"}}

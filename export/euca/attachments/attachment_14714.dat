@@ -1,0 +1,26 @@
+
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.SetAlarmStateRequest;
+import com.amazonaws.services.cloudwatch.model.StateValue;
+
+public class StateChangeTest extends Credentials {
+  public static AmazonCloudWatchClient getCreds() {
+    BasicAWSCredentials props = new BasicAWSCredentials(
+      "A6PFZBJU2OKWKVH4KTZAQ",
+      "d0wSAheQlGS4IdQqrHZyjnrqxHXxV37Ltsk6HifF");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+    return cloudWatch;
+  }
+  public static void main(String[] args) {
+      AmazonCloudWatchClient cloudWatch = getCreds();
+      SetAlarmStateRequest setAlarmStateRequest = new SetAlarmStateRequest();
+      setAlarmStateRequest.setAlarmName("My Name");
+      setAlarmStateRequest.setStateValue(StateValue.ALARM);
+      setAlarmStateRequest.setStateReason("state reason");
+      setAlarmStateRequest.setStateReasonData("JSON");
+      cloudWatch.setAlarmState(setAlarmStateRequest);
+  }
+}

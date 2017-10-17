@@ -1,0 +1,13 @@
+{
+	"Version": "2016-04-06", 
+		"Statement": [{
+		"Action": "ec2:AllocateAddress", 
+		"Resource": "*", 
+		"Effect": "Limit", 
+		"Condition": {
+			"NumericLessThanEquals": {
+				"ec2:quota-addressnumber": "2"
+				}
+			}
+	}]
+}

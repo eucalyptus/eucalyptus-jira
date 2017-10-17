@@ -1,0 +1,454 @@
+Stats to measure:
+DiskReadBytes (number of bytes read over the period)
+DiskWriteBytes (number of bytes written over the period)
+DiskReadOps (number of disk read operations over the period)
+DiskWriteOps (number of disk write operations over the period)
+
+How to measure/predict:
+There may always be some background operations going on in the system, but determining how many bytes have been written/read from disk should be
+predictable by forcing the system to read/write a certain number of bytes.  Consider the following operation
+
+dd if=/dev/urandom of=testfile count=100 bs=1M; dd if=testfile of=/dev/null count=100 bs=1M
+
+This writes a random stream of 1 Megabyte to a file called 'testfile' 100 times, and reads from that same file.  When run on my local system, it 
+generates the following output
+
+dd if=/dev/urandom of=testfile count=100 bs=1M; dd if=testfile of=/dev/null count=100 bs=1M
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB) copied, 7.29337 s, 14.4 MB/s
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB) copied, 0.0231528 s, 4.5 GB/s
+
+This generates 104857600 DiskReadBytes and the same number of DiskWriteBytes, though as you can see it happens very quickly.  Churning this command
+several times over a period of time should generate significant disk load whose value we can predict.  (# of trials * 104857600)
+
+How do we measure operations though?  One way is to assume a constant number of bytes per operation.  If this is the case, the value of 
+DiskReadBytes / DiskReadOps would be constant.  Then the number of operations will vary directly with the number of bytes.  This should make operations 
+easy to validate, the same way as bytes.
+
+Another way to measure disk stats is to type
+
+"cat /proc/diskstats" on a linux system.  Such a command gives a result like the following.
+cat /proc/diskstats 
+   1       0 ram0 0 0 0 0 0 0 0 0 0 0 0
+   1       1 ram1 0 0 0 0 0 0 0 0 0 0 0
+   1       2 ram2 0 0 0 0 0 0 0 0 0 0 0
+   1       3 ram3 0 0 0 0 0 0 0 0 0 0 0
+   1       4 ram4 0 0 0 0 0 0 0 0 0 0 0
+   1       5 ram5 0 0 0 0 0 0 0 0 0 0 0
+   1       6 ram6 0 0 0 0 0 0 0 0 0 0 0
+   1       7 ram7 0 0 0 0 0 0 0 0 0 0 0
+   1       8 ram8 0 0 0 0 0 0 0 0 0 0 0
+   1       9 ram9 0 0 0 0 0 0 0 0 0 0 0
+   1      10 ram10 0 0 0 0 0 0 0 0 0 0 0
+   1      11 ram11 0 0 0 0 0 0 0 0 0 0 0
+   1      12 ram12 0 0 0 0 0 0 0 0 0 0 0
+   1      13 ram13 0 0 0 0 0 0 0 0 0 0 0
+   1      14 ram14 0 0 0 0 0 0 0 0 0 0 0
+   1      15 ram15 0 0 0 0 0 0 0 0 0 0 0
+   7       0 loop0 0 0 0 0 0 0 0 0 0 0 0
+   7       1 loop1 0 0 0 0 0 0 0 0 0 0 0
+   7       2 loop2 0 0 0 0 0 0 0 0 0 0 0
+   7       3 loop3 0 0 0 0 0 0 0 0 0 0 0
+   7       4 loop4 0 0 0 0 0 0 0 0 0 0 0
+   7       5 loop5 0 0 0 0 0 0 0 0 0 0 0
+   7       6 loop6 0 0 0 0 0 0 0 0 0 0 0
+   7       7 loop7 0 0 0 0 0 0 0 0 0 0 0
+ 202       0 xvda 8504 2086 233314 51552 167986 1391805 12479336 30322366 0 324263 30373668
+ 202       1 xvda1 8485 2086 233162 51458 167986 1391805 12479336 30322366 0 324169 30373574
+ 202      16 xvdb 270 0 2154 420 1 0 8 25 0 445 445
+
+We don't care about the ram or loop numbers (representing memory and presumably network data) but the xvda line represents disk activity for the main disk.  
+The numbers after the "xvda" represent (in order)
+1 - Number of successful disk reads
+2 - Number of merged disk reads
+3 - Number of disk sectors read
+4 - Number of milliseconds disk reading
+5 - Number of successful disk writes
+6 - Number of merged disk writes
+7 - Number of disk sectors written
+8 - Number of milliseconds disk writing
+9 - Number if I/O operations in progress
+10 - Number of milliseconds doing I/O
+11 - Weighted number of milliseconds doing I/O
+
+These are the values used by the getstats.pl script to calculate the values in the back end.
+Specifically: #1 = Disk Read Ops, # 5 = Disk Write Ops,  #3 * 512 = Disk Read Bytes, #7 * 512 = Disk Write Bytes  (512 bytes is sector size)
+
+The values in this file are cumulative since the machine was started, so to find the values reported, we should find values at two different times.
+In the above xvda represents all of the first disk, whereas xvda1 is a partition.  Often there are several partitions, but the total disk value is on the
+line above.  We will only show the one line in the file we use at any given time.
+
+
+Trial:
+So for a given system, we will attempt the following
+1) Start the system, let it idle for 10 minutes
+2) Call the above dd command (that reads/write 100MB) 64 times.  On some systems this takes about 10 minutes.  (On some surprisingly more)
+3) Let the system idle again for 10 minutes.
+
+These systems will all be running linux so we will call cat /proc/diskstats on them.  When collecting these stats, the commands are run on the NC, rather than inside the instance.  
+This may affect the result.  We also run these same commands against an AWS instance to see if that has any effect.
+
+
+First Test:
+AWS instance, running Centos 6.4 
+Operations
+2013-09-13 23:35:00 Start instance. Sleep
+2013-09-14 23:46:00 Run the above dd command 64 times.  (Takes quite a long time, actually)
+2013-09-14 00:29:00 Sleep
+2013-09-14 00:40:00 Terminate instance
+
+Relevant disk stats from the times above.
+2013-09-13 23:35:00  202       0 xvda 8472 2086 232674 50752 4928 19098 193216 555274 0 25066 606022
+2013-09-14 23:46:00  202       0 xvda 8476 2086 232738 50832 5016 19098 193920 556724 0 25839 607552
+2013-09-14 00:29:00  202       0 xvda 8504 2086 233314 51552 167839 1391805 12478160 30317907 0 323221 30369209
+2013-09-14 00:40:00  202       0 xvda 8504 2086 233314 51552 167986 1391805 12479336 30322366 0 324263 30373668
+
+What the above says (according to the model)
+Time                      DiskReadBytes     DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+From 23:35:00 to 23:46:00       32768.0             4.0           360448.0          88.0            8192.0           4096.0
+From 23:46:00 to 00:29:00      294912.0            28.0       6289530880.0      162823.0           10532.6          38628.0
+From 00:29:00 to 00:40:00           0.0             0.0           602112.0         147.0           #DIV/0!           4096.0
+Total                          327680.0            32.0       6290493440.0      327680.0           10240.0          38578.3
+
+
+From this perspective, predicted ratios do not appear promising, as they vary widely.  DiskReadBytes predictions seem way off,
+DiskWriteBytes are ok.  Let's look at this compared to the files we are creating.
+
+DiskReadBytes  =     327680.0
+DiskWriteBytes = 6290493440.0
+100MB * 64     = 6710886400.0
+
+Here is the cloudwatch data for this period. (Manipulated in LibreOffice)
+
+
+Time                    DiskReadBytes   DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+2013-09-13 23:35:00        28094464.0        3627.0         13541376.0        3306.0            7745.9           4096.0
+2013-09-13 23:36:00           65536.0          15.0            94208.0          23.0            4369.1           4096.0
+2013-09-13 23:37:00           16384.0           4.0            20480.0           5.0            4096.0           4096.0
+2013-09-13 23:38:00           24576.0           6.0            32768.0           8.0            4096.0           4096.0
+2013-09-13 23:39:00          163840.0          24.0            90112.0          22.0            6826.7           4096.0
+2013-09-13 23:40:00          147456.0          36.0           176128.0          43.0            4096.0           4096.0
+2013-09-13 23:41:00           57344.0          14.0            73728.0          18.0            4096.0           4096.0
+2013-09-13 23:42:00           16384.0           4.0            20480.0           5.0            4096.0           4096.0
+2013-09-13 23:43:00           24576.0           6.0            32768.0           8.0            4096.0           4096.0
+2013-09-13 23:44:00           24576.0           6.0            32768.0           8.0            4096.0           4096.0
+2013-09-13 23:45:00           65536.0          16.0            86016.0          21.0            4096.0           4096.0
+2013-09-13 23:46:00        53858304.0       13148.0         40140800.0        9800.0            4096.3           4096.0
+2013-09-13 23:47:00       139493376.0       34055.0        153124864.0       37384.0            4096.1           4096.0
+2013-09-13 23:48:00       151900160.0       37085.0        138964992.0       33927.0            4096.0           4096.0
+2013-09-13 23:49:00       138424320.0       33794.0        150450176.0       36731.0            4096.1           4096.0
+2013-09-13 23:50:00       146620416.0       35796.0        146247680.0       35705.0            4096.0           4096.0
+2013-09-13 23:51:00       148643840.0       36289.0        150355968.0       36708.0            4096.1           4096.0
+2013-09-13 23:52:00       144232448.0       35072.0        129941504.0       31724.0            4112.5           4096.0
+2013-09-13 23:53:00       145756160.0       35585.0        159662080.0       38980.0            4096.0           4096.0
+2013-09-13 23:54:00       150913024.0       36844.0        151040000.0       36875.0            4096.0           4096.0
+2013-09-13 23:55:00       150700032.0       36792.0        150798336.0       36816.0            4096.0           4096.0
+2013-09-13 23:56:00       141500416.0       34546.0        141606912.0       34572.0            4096.0           4096.0
+2013-09-13 23:57:00       142553088.0       34803.0        142655488.0       34828.0            4096.0           4096.0
+2013-09-13 23:58:00       146661376.0       35806.0        146780160.0       35835.0            4096.0           4096.0
+2013-09-13 23:59:00       189861888.0       46352.0        186957824.0       45644.0            4096.1           4096.0
+2013-09-14 00:00:00       105836544.0       25805.0        108793856.0       26561.0            4101.4           4096.0
+2013-09-14 00:01:00       141565952.0       34562.0        141692928.0       34593.0            4096.0           4096.0
+2013-09-14 00:02:00       146661376.0       35806.0        133029888.0       32478.0            4096.0           4096.0
+2013-09-14 00:03:00       153964544.0       37589.0        161460224.0       39419.0            4096.0           4096.0
+2013-09-14 00:04:00       137142272.0       33482.0        129843200.0       31700.0            4096.0           4096.0
+2013-09-14 00:05:00       146767872.0       35832.0        160595968.0       39208.0            4096.0           4096.0
+2013-09-14 00:06:00       147697664.0       36059.0        134090752.0       32737.0            4096.0           4096.0
+2013-09-14 00:07:00       145530880.0       35530.0        159354880.0       38905.0            4096.0           4096.0
+2013-09-14 00:08:00       143446016.0       35020.0        143544320.0       35045.0            4096.1           4096.0
+2013-09-14 00:09:00       158302208.0       38648.0        158396416.0       38671.0            4096.0           4096.0
+2013-09-14 00:10:00       142630912.0       34822.0        142712832.0       34842.0            4096.0           4096.0
+2013-09-14 00:11:00       155090944.0       37864.0        155185152.0       37887.0            4096.0           4096.0
+2013-09-14 00:12:00       140230656.0       34236.0        140337152.0       34262.0            4096.0           4096.0
+2013-09-14 00:13:00       152985600.0       37350.0        139411456.0       34036.0            4096.0           4096.0
+2013-09-14 00:14:00       144343040.0       35240.0        154308608.0       37673.0            4096.0           4096.0
+2013-09-14 00:15:00       148140032.0       36167.0        138391552.0       33787.0            4096.0           4096.0
+2013-09-14 00:16:00       136085504.0       33223.0        149884928.0       36593.0            4096.1           4096.0
+2013-09-14 00:17:00       163360768.0       39883.0        149753856.0       36561.0            4096.0           4096.0
+2013-09-14 00:18:00       133210112.0       32522.0        147042304.0       35899.0            4096.0           4096.0
+2013-09-14 00:19:00       157372416.0       38421.0        157364224.0       38419.0            4096.0           4096.0
+2013-09-14 00:20:00       140881920.0       34395.0        135274496.0       33026.0            4096.0           4096.0
+2013-09-14 00:21:00       150294528.0       36693.0        156225536.0       38141.0            4096.0           4096.0
+2013-09-14 00:22:00       132861952.0       32437.0        132939776.0       32456.0            4096.0           4096.0
+2013-09-14 00:23:00       155037696.0       37851.0        155152384.0       37879.0            4096.0           4096.0
+2013-09-14 00:24:00       145649664.0       35558.0        145764352.0       35587.0            4096.1           4096.0
+2013-09-14 00:25:00       150872064.0       36834.0        150958080.0       36855.0            4096.0           4096.0
+2013-09-14 00:26:00       143515648.0       35038.0        143597568.0       35058.0            4096.0           4096.0
+2013-09-14 00:27:00       147742720.0       36070.0        147832832.0       36092.0            4096.0           4096.0
+2013-09-14 00:28:00       140410880.0       34280.0        140488704.0       34299.0            4096.0           4096.0
+2013-09-14 00:29:00       105865216.0       25846.0        105844736.0       25841.0            4096.0           4096.0
+2013-09-14 00:30:00          139264.0          34.0           155648.0          38.0            4096.0           4096.0
+2013-09-14 00:31:00           65536.0          16.0            86016.0          21.0            4096.0           4096.0
+2013-09-14 00:32:00           16384.0           4.0            20480.0           5.0            4096.0           4096.0
+2013-09-14 00:33:00           24576.0           6.0            32768.0           8.0            4096.0           4096.0
+2013-09-14 00:34:00           94208.0          23.0           106496.0          26.0            4096.0           4096.0
+2013-09-14 00:35:00          106496.0          26.0           118784.0          29.0            4096.0           4096.0
+2013-09-14 00:36:00           65536.0          16.0            73728.0          18.0            4096.0           4096.0
+2013-09-14 00:37:00           49152.0          12.0            69632.0          17.0            4096.0           4096.0
+2013-09-14 00:38:00           24576.0           6.0            32768.0           8.0            4096.0           4096.0
+2013-09-14 00:39:00           77824.0          19.0            86016.0          21.0            4096.0           4096.0
+2013-09-14 00:40:00          303104.0          69.0           294912.0          72.0            4392.8           4096.0
+Total                    6334283776.0     1543019.0       6323277824.0     1543769.0            4105.1           4096.0
+Total                        327680.0          32.0       6290493440.0      327680.0           10240.0          38578.3
+
+A couple of things to note here.  First, the prediction stats with cat /proc/diskstats are off, except for possibly DiskWriteBytes.
+Second, the number of bytes read and written total are close to our original prediction of 64 100MB files, though they are smaller.
+
+DiskReadBytes  = 6334283776.0
+DiskWriteBytes = 6323277824.0
+100MB * 64     = 6710886400.0
+
+Let's look at some systems Eucalyptus uses.
+
+Second Test:
+Eucalyptus instance on vmware, running Fedora 18.
+There are some possible variations in the OS that is running on the system (more likely the hypervisor is an issue) but we had issues running a Centos 6.4 system in vmware,
+so we will compare what stats we can.
+
+Operations
+2013-09-14 19:17:00 Start instance. Sleep
+2013-09-14 19:27:00 Run the above dd command 64 times.
+2013-09-14 19:37:00 Sleep
+2013-09-14 19:47:00 Terminate instance
+
+Relevant disk stats from the times above.
+2013-09-14 19:17:00   8       0 sda 6024 1315 155322 25988 357 2128 19904 2547 0 6223 28526
+2013-09-14 19:27:00   8       0 sda 6027 1315 155402 26001 385 2140 20224 2559 0 6237 28551
+2013-09-14 19:37:00   8       0 sda 7858 1320 500402 32781 38168 1422449 11684960 1615738 0 52833 1648385202       
+2013-09-14 19:47:00   8       0 sda 7861 1320 500490 32801 38179 1422459 11685128 1615739 0 52848 1648406
+
+What the above says (according to the model)
+Time                      DiskReadBytes     DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+From 19:17:00 to 19:27:00       40960.0             3.0           163840.0          28.0           13653.3           5851.4
+From 19:27:00 to 19:37:00   176640000.0          1831.0       5972344832.0       37783.0           96471.9         158069.6
+From 19:47:00 to 19:47:00       45056.0             3.0            86016.0          11.0           15018.7           7819.6
+Total                       176726016.0          1837.0       5972594688.0       37822.0           96203.6         157913.2
+
+The ratios are not encouraging for a constant, and the disk read bytes prediction is much lower than the disk write bytes prediction, both of which should be 
+much higher.  (It's hard to tell by looking at it, but the DiskWriteBytes is an order of magnitude higher.)
+
+DiskReadBytes  =  176726016.0
+DiskWriteBytes = 5972594688.0
+100MB * 64     = 6710886400.0
+
+Here is the cloudwatch data for this period.
+
+
+Time                    DiskReadBytes   DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+2013-09-14 19:17:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:18:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:19:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:20:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:21:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:22:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:23:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:24:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:25:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:26:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:27:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:28:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:29:00        20766720.0         200.0        642273280.0        4020.0          103833.6         159769.5
+2013-09-14 19:30:00        27018240.0         240.0        781255680.0        4905.0          112576.0         159277.4
+2013-09-14 19:31:00        26009600.0         220.0        791162880.0        4980.0          118225.5         158868.0
+2013-09-14 19:32:00        21811200.0         180.0        764211200.0        4800.0          121173.3         159210.7
+2013-09-14 19:33:00        23756800.0         240.0        765337600.0        4800.0           98986.7         159445.3
+2013-09-14 19:34:00        18800640.0         160.0        760913920.0        4800.0          117504.0         158523.7
+2013-09-14 19:35:00        18984960.0         180.0        788889600.0        4960.0          105472.0         159050.3
+2013-09-14 19:36:00        10240000.0         100.0        417628160.0        2620.0          102400.0         159400.1
+2013-09-14 19:37:00           40960.0           0.0            81920.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:38:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:39:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:40:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:41:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:42:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:43:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:44:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:45:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:46:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-14 19:47:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+Total                     167429120.0        1520.0       5711754240.0       35885.0          110150.7         159168.3
+Predicted                 176726016.0        1837.0       5972594688.0       37822.0           96203.6         157913.2
+In this instance, the ratios, while high, are at least somewhat in the same range as each other, though there are a lot of 0/0 value for ratios.
+The data occurs when the churn occurs, which is good.  The predicted values are closer than with AWS, though that may be due to the assumptions.
+The data compared to the file size is much closer in the Write than in the Read, but the write isn't fully there either.
+
+DiskReadBytes  =  167429120.0
+DiskWriteBytes = 5711754240.0
+100MB * 64     = 6710886400.0
+ 
+Here are some kvm tests
+Third Test:
+Eucalyptus instance on kvm, running Fedora 18.
+Fedora 18 is the common OS in the Eucalyptus systems.
+
+Operations
+2013-09-12 23:34:00 Start instance. Sleep
+2013-09-12 23:45:00 Run the above dd command 64 times.
+2013-09-12 23:55:00 Sleep
+2013-09-12 00:05:00 Terminate instance
+
+Relevant disk stats from the times above.
+2013-09-12 23:34:00  252       0 vda 5539 1285 148738 3396 444 2405 22816 2526 0 2353 5917
+2013-09-12 23:45:00  252       0 vda 5542 1285 148818 3398 451 2407 22888 2645 0 2474 6038
+2013-09-14 23:55:00  252       0 vda 5605 1290 151218 3406 14099 1456086 11761504 176105 0 50057 179415
+2013-09-14 00:05:00  252       0 vda 5700 1293 153130 3454 14119 1456101 11761784 176241 0 50224 179599
+
+What the above says (according to the model)
+Time                      DiskReadBytes     DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+From 23:34:00 to 23:45:00       40960.0             3.0            36864.0           7.0           13653.3           5266.2
+From 23:45:00 to 23:55:00     1228800.0            63.0       6010171392.0       13648.0           19504.7         440370.1
+From 23:55:00 to 00:05:00      978944.0            95.0           143360.0          20.0           10304.7           7168.0
+Total                         2248704.0           161.0       6010351616.0       13675.0           13967.1         439513.8
+
+
+The ratios are once again not constant, and the read ops seem off.  They are higher during the cooldown than during the churn.  Writes seem
+semi-ok, and at least in the ballpark.  Ratios vary but seem closer to the vmware than the AWS machine.  (Which suggests that OS may play a role?)
+
+DiskReadBytes  =    2248704.0
+DiskWriteBytes = 6010351616.0
+100MB * 64     = 6710886400.0
+
+Here is the cloudwatch data for this period.
+Time                    DiskReadBytes   DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+2013-09-12 23:34:00          950272.0         159.0           311296.0          59.0            5976.6           5276.2
+2013-09-12 23:35:00            4096.0           1.0           258048.0          60.0            4096.0           4300.8
+2013-09-12 23:36:00           36864.0           6.0            16384.0           5.0            6144.0           3276.8
+2013-09-12 23:37:00               0.0           0.0            20480.0           7.0           #DIV/0!           2925.7
+2013-09-12 23:38:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:39:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:40:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:41:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:42:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:43:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:44:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:45:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:46:00          741376.0         102.0        340512768.0       41600.0            7268.4           8185.4
+2013-09-12 23:47:00          458752.0          75.0        784924672.0       95890.0            6116.7           8185.7
+2013-09-12 23:48:00               0.0           0.0        778559488.0       95109.0           #DIV/0!           8186.0
+2013-09-12 23:49:00               0.0           0.0        780525568.0       95348.0           #DIV/0!           8186.1
+2013-09-12 23:50:00               0.0           0.0        771207168.0       94215.0           #DIV/0!           8185.6
+2013-09-12 23:51:00            4096.0           1.0        759803904.0       92825.0            4096.0           8185.3
+2013-09-12 23:52:00               0.0           0.0        802623488.0       98052.0           #DIV/0!           8185.7
+2013-09-12 23:53:00               0.0           0.0        776499200.0       94858.0           #DIV/0!           8185.9
+2013-09-12 23:54:00               0.0           0.0        215515136.0       26333.0           #DIV/0!           8184.2
+2013-09-12 23:55:00           28672.0           5.0                0.0           0.0            5734.4          #DIV/0!
+2013-09-12 23:56:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:57:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:58:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-12 23:59:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-13 00:00:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-13 00:01:00          978944.0         167.0           143360.0          32.0            5861.9           4480.0
+2013-09-13 00:02:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-13 00:03:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+2013-09-13 00:04:00               0.0           0.0                0.0           0.0           #DIV/0!          #DIV/0!
+Total                       3203072.0         516.0       6010920960.0      734393.0            6207.5           8184.9
+Predicted                   2248704.0         161.0       6010351616.0       13675.0           13967.1         439513.8
+
+So Again, the bytes are kind of close to the prediction (at least in the same order of magnitude).  The DiskOps seem off this time though, and the ratio
+predictions are way off too.  Write was once again close to the actual value we should have.
+DiskReadBytes  =    3203072.0
+DiskWriteBytes = 6010920960.0
+100MB * 64     = 6710886400.0
+
+Let's look at one more kvm example.  
+
+
+Fourth Test:
+Eucalyptus instance on kvm, running Centos 6.4.
+Centos 6.4 is used on kvm and AWS.
+
+Operations
+2013-09-13 00:28:00 Start instance. Sleep
+2013-09-13 00:39:00 Run the above dd command 64 times. (Actually finished in about 10 minutes but user distraction let another 5 go by idle)
+2013-09-13 00:54:00 Sleep
+2013-09-13 01:04:00 Terminate instance
+
+Relevant disk stats from the times above.
+2013-09-13 00:28:00  252       0 vda 8171 1797 321924 1550 336 2858 25536 1946 0 1804 3487
+2013-09-13 00:39:00  252       0 vda 8200 1815 324068 1554 415 2891 26432 2838 0 2688 4383
+2013-09-13 00:54:00  252       0 vda 8211 1815 324236 1555 18466 1397063 11324216 213149 0 65784 214679
+2013-09-13 01:04:00  252       0 vda 8238 1815 325348 1576 18522 1397079 11324792 213873 0 66521 215424
+
+What the above says (according to the model)
+Time                      DiskReadBytes     DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+From 00:28:00 to 00:39:00     1097728.0            29.0           458752.0          79.0           37852.7           5807.0
+From 00:39:00 to 00:54:00       86016.0            11.0       5784465408.0       18051.0            7819.6         320451.2
+From 00:54:00 to 01:04:00      569344.0            27.0           294912.0          56.0           21086.8           5266.3
+Total                         1753088.0            67.0       5785219072.0       18186.0           26165.5         318113.9
+
+What this suggests is bizarre.  There will apparently be more reads during startup and idle than during churn.  This doesn't make much sense.  The writes
+look ok, I suppose, and again the ratios are not close enough to predict anything.  WriteBytes was again at least the right order of magnitude.
+DiskReadBytes  =    1753088.0
+DiskWriteBytes = 5785219072.0
+100MB * 64     = 6710886400.0
+
+Here is the cloudwatch data.
+
+Time                    DiskReadBytes   DiskReadOps     DiskWriteBytes  DiskWriteOps    BytesPerReadOp  BytesPerWriteOp
+2013-09-13 00:28:00       349795328.0       53850.0         50151424.0        6598.0            6495.7           7601.0
+2013-09-13 00:29:00         2191360.0         301.0          3194880.0         438.0            7280.3           7294.2
+2013-09-13 00:30:00         1777664.0         284.0           348160.0          70.0            6259.4           4973.7
+2013-09-13 00:31:00               0.0           0.0            20480.0           7.0           #DIV/0!           2925.7
+2013-09-13 00:32:00               0.0           0.0            16384.0           5.0           #DIV/0!           3276.8
+2013-09-13 00:33:00         1069056.0         143.0            36864.0          12.0            7475.9           3072.0
+2013-09-13 00:34:00               0.0           0.0            32768.0           9.0           #DIV/0!           3640.9
+2013-09-13 00:35:00               0.0           0.0            16384.0           5.0           #DIV/0!           3276.8
+2013-09-13 00:36:00               0.0           0.0            16384.0           6.0           #DIV/0!           2730.7
+2013-09-13 00:37:00               0.0           0.0            16384.0           5.0           #DIV/0!           3276.8
+2013-09-13 00:38:00               0.0           0.0            36864.0          12.0           #DIV/0!           3072.0
+2013-09-13 00:39:00               0.0           0.0            24576.0           7.0           #DIV/0!           3510.9
+2013-09-13 00:40:00           69632.0          13.0         93614080.0       11505.0            5356.3           8136.8
+2013-09-13 00:41:00            4096.0           1.0        466690048.0       57299.0            4096.0           8144.8
+2013-09-13 00:42:00            8192.0           2.0        485564416.0       59618.0            4096.0           8144.6
+2013-09-13 00:43:00               0.0           0.0        473862144.0       58181.0           #DIV/0!           8144.6
+2013-09-13 00:44:00               0.0           0.0        441196544.0       54170.0           #DIV/0!           8144.7
+2013-09-13 00:45:00               0.0           0.0        470949888.0       57813.0           #DIV/0!           8146.1
+2013-09-13 00:46:00               0.0           0.0        468627456.0       57550.0           #DIV/0!           8143.0
+2013-09-13 00:47:00            4096.0           1.0        480624640.0       59022.0            4096.0           8143.1
+2013-09-13 00:48:00               0.0           0.0        471687168.0       57916.0           #DIV/0!           8144.3
+2013-09-13 00:49:00               0.0           0.0        478081024.0       58701.0           #DIV/0!           8144.3
+2013-09-13 00:50:00               0.0           0.0        448815104.0       55114.0           #DIV/0!           8143.4
+2013-09-13 00:51:00               0.0           0.0        465551360.0       57167.0           #DIV/0!           8143.7
+2013-09-13 00:52:00            4096.0           1.0        457076736.0       56113.0            4096.0           8145.6
+2013-09-13 00:53:00               0.0           0.0         82100224.0       10089.0           #DIV/0!           8137.6
+2013-09-13 00:54:00               0.0           0.0            24576.0           7.0           #DIV/0!           3510.9
+2013-09-13 00:55:00               0.0           0.0            16384.0           6.0           #DIV/0!           2730.7
+2013-09-13 00:56:00               0.0           0.0            16384.0           5.0           #DIV/0!           3276.8
+2013-09-13 00:57:00               0.0           0.0            16384.0           6.0           #DIV/0!           2730.7
+2013-09-13 00:58:00               0.0           0.0            16384.0           5.0           #DIV/0!           3276.8
+2013-09-13 00:59:00               0.0           0.0            24576.0           7.0           #DIV/0!           3510.9
+2013-09-13 01:00:00               0.0           0.0            24576.0          10.0           #DIV/0!           2457.6
+2013-09-13 01:01:00          379562.7          54.7            79189.3          16.7            6943.2           4751.4
+2013-09-13 01:02:00               0.0           0.0            16384.0           6.0           #DIV/0!           2730.7
+2013-09-13 01:03:00               0.0           0.0            16384.0           5.0           #DIV/0!           3276.8
+2013-09-13 01:04:00               0.0           0.0            24576.0           7.0           #DIV/0!           3510.9
+2013-09-13 01:05:00               0.0           0.0           16384.0            6.0           #DIV/0!           2730.7
+Total                     355303082.7       54650.7       5838644565.3      717518.7            6501.3           8137.3
+Predicted                   1753088.0          67.0       5785219072.0       18186.0           26165.5         318113.9
+
+The total and predicted are far off this time, but the first row seems like an outlier, so let's try this.
+Total minus first row       5507754.7         800.7       5788493141.3      710920.7            6879.0           8142.2
+
+It helps a bit with the predictions, but they are still fairly far off.  The disk write bytes is again within the order of magnitude.
+The ratios are somewhat better, at least they are similar to each other.  Also the read predictions of read times seemed to match the 
+times when reading actually occurred in the cloudwatch stats, but not when the churn happened.  (Write bytes matched that better).
+
+
+These results are mostly inconclusive.  Some of the "predictions" based on the "cat /proc/diskstats" are close to the values recorded by cloudwatch, but some are not.
+They do appear to be closer with the eucalyptus machines than the AWS machines.
+Read appears to be way off from what we think it should be, but that may be due to caching of the data from the dd command.  (Data is written then immediately read).
+Running these commands (cat /proc/diskstats) from inside the vm may be the wrong way to check the stats as well.
+One thing that may be beneficial is a longer churn and idle period, and many runs of this data, but that would take quite some time.
+Automation of the data gathering would be beneficial as well.  All of the above stats were manipulated by hand quite a bit.
+
+Any suggestions at this point would be most illuminating.  
+
+
+
+
+
+
+

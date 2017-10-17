@@ -1,0 +1,13 @@
+diff --git a/src/main/java/com/eucalyptus/cloud/ws/vsphere/VSphereHost.java b/src/main/java/com/eucalyptus/cloud/ws/vsphere/VSphereHost.java
+index b5b3139..e15c35a 100644
+--- a/src/main/java/com/eucalyptus/cloud/ws/vsphere/VSphereHost.java
++++ b/src/main/java/com/eucalyptus/cloud/ws/vsphere/VSphereHost.java
+@@ -284,7 +284,7 @@ public class VSphereHost extends BrokerHost {
+ 		for (VirtualBootRecord v : ephemerals.values()) { // iterate over ephemeral VBRs in ascending order
+ 			VirtualDiskFlatVer2BackingInfo diskFileBacking = new VirtualDiskFlatVer2BackingInfo();
+ 			diskFileBacking.setDatastore(datastore.getMOR());
+-			diskFileBacking.setFileName(getVspherePathDatastoreFile(datastore, remoteId, "-" + v.getGuestDeviceName() + ".vmdk"));
++			diskFileBacking.setFileName(getVspherePathDatastoreFile(datastore, remoteId, "-" + v.getGuestDeviceName().replaceAll("/", "_") + ".vmdk"));
+ 			diskFileBacking.setThinProvisioned(getDoUseThinProvisioning());
+ 			diskFileBacking.setDiskMode("persistent");
+ 

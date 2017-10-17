@@ -1,0 +1,132 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "AWS CloudFormation Sample Template Sample template EIP_With_Association: This template shows how to associate an Elastic IP address with an Amazon EC2 instance - you can use this same technique to associate an EC2 instance with an Elastic IP Address that is not created inside the template by replacing the EIP reference in the AWS::EC2::EIPAssoication resource type with the IP address of the external EIP. **WARNING** This template creates an Amazon EC2 instance and an Elastic IP Address. You will be billed for the AWS resources used if you create a stack from this template.",
+
+  "Resources" : {
+    "ServerSecurityGroup" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },  
+  
+    "ServerSecurityGroup2" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },  
+  
+    "ServerSecurityGroup3" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },  
+  
+    "ServerSecurityGroup4" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },  
+  
+    "S3Bucket1" : {
+      "Type" : "AWS::S3::Bucket"
+    },
+  
+    "S3Bucket2" : {
+      "Type" : "AWS::S3::Bucket"
+    },
+  
+    "S3Bucket3" : {
+      "Type" : "AWS::S3::Bucket"
+    },
+  
+    "S3Bucket4" : {
+      "Type" : "AWS::S3::Bucket"
+    },
+  
+    "Ec2Instance" : {
+      "Type" : "AWS::EC2::Instance",      
+      "Properties" : {
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : [ "", [ "IPAddress=", {"Ref" : "IPAddress"}]]}},
+        "ImageId" : "emi-3b99f794",
+        "SecurityGroups": [ { "Ref" : "ServerSecurityGroup" } ]
+      }
+    },
+
+    "IPAddress" : {
+      "Type" : "AWS::EC2::EIP"
+    },
+
+    "IPAssoc" : {
+      "Type" : "AWS::EC2::EIPAssociation",
+      "Properties" : {
+        "InstanceId" : { "Ref" : "Ec2Instance" },
+        "EIP" : { "Ref" : "IPAddress" }
+      }
+    }
+  },
+  "Outputs" : {
+    "InstanceId" : {
+      "Value" : { "Ref" : "Ec2Instance" }
+    },
+    "InstanceIPAddress" : {
+      "Value" : { "Ref" : "IPAddress" }
+    }
+  }
+}

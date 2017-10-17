@@ -1,0 +1,454 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.BasicSessionCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.ec2.AmazonEC2
+import com.amazonaws.services.ec2.AmazonEC2Client
+import com.amazonaws.services.ec2.model.Address
+import com.amazonaws.services.ec2.model.CreateKeyPairRequest
+import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest
+import com.amazonaws.services.ec2.model.CreateSnapshotRequest
+import com.amazonaws.services.ec2.model.CreateVolumeRequest
+import com.amazonaws.services.ec2.model.DeleteKeyPairRequest
+import com.amazonaws.services.ec2.model.DeleteSecurityGroupRequest
+import com.amazonaws.services.ec2.model.DeleteSnapshotRequest
+import com.amazonaws.services.ec2.model.DeleteVolumeRequest
+import com.amazonaws.services.ec2.model.DescribeAddressesRequest
+import com.amazonaws.services.ec2.model.DescribeImagesRequest
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest
+import com.amazonaws.services.ec2.model.DescribeKeyPairsRequest
+import com.amazonaws.services.ec2.model.DescribeSecurityGroupsRequest
+import com.amazonaws.services.ec2.model.DescribeSnapshotsRequest
+import com.amazonaws.services.ec2.model.DescribeVolumesRequest
+import com.amazonaws.services.ec2.model.Filter
+import com.amazonaws.services.ec2.model.Instance
+import com.amazonaws.services.ec2.model.KeyPairInfo
+import com.amazonaws.services.ec2.model.ReleaseAddressRequest
+import com.amazonaws.services.ec2.model.Reservation
+import com.amazonaws.services.ec2.model.RunInstancesRequest
+import com.amazonaws.services.ec2.model.SecurityGroup
+import com.amazonaws.services.ec2.model.Snapshot
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest
+import com.amazonaws.services.ec2.model.Volume
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagement
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClient
+import com.amazonaws.services.identitymanagement.model.CreateRoleRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRoleRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.amazonaws.services.identitymanagement.model.PutRolePolicyRequest
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest
+import groovy.transform.TypeChecked
+
+/**
+ * Test listing and deletion for EC2 resources via admin roles.
+ */
+@TypeChecked
+class TestAdminRoleEC2 {
+
+  private final String host = "10.111.5.4"
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIGCOMX8VBIDOB5DXLD",
+      "aakSKGI2ueFldEdhPMmBTbRtlSOAIKvr2EAcNoNf" ) )
+
+  // Details for an admin in some other account that we want to allow
+  // to assume an admin role
+  private final String adminAccountNumber = "043417679255"
+  private final AWSCredentialsProvider adminCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBSXTEDM5FG6FK9AKN",
+      "UW24y4ujHM7pBGg64DYQuJbq2EEzpPqSKG2bS8IH" ) )
+
+  // Creds for a regular account we can use to create a resource to
+  // test administrative access
+  private final AWSCredentialsProvider regularCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBW4IOR7IAEPC9PP1W",
+      "TZdqeMEZK5FZg0ss6bbQexHMdsVCQVSS5iAqshI4" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoleEC2().test()
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AWSCredentialsProvider getRoleCredentialsProvider( final String roleArn,
+                                                             final String sessionName,
+                                                             final AWSCredentialsProvider tokenServiceCredentials ) {
+    TestAdminRoleEC2 test = this;
+    new AWSCredentialsProvider(){
+      @Override
+      public AWSCredentials getCredentials() {
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( tokenServiceCredentials  )
+        sts.setEndpoint( test.cloudUri( "/services/Tokens/" ) )
+        sts.assumeRole( new AssumeRoleRequest(
+            roleArn: roleArn,
+            roleSessionName: sessionName
+        ) ).with {
+          assumedRoleUser.with {
+            test.assertThat( assumedRoleId.endsWith( sessionName ), "Unexpected assumed role id: ${assumedRoleId}" )
+            test.assertThat( arn.endsWith( sessionName ), "Unexpected assumed role arn: ${arn}" )
+          }
+          credentials.with {
+            new BasicSessionCredentials( accessKeyId, secretAccessKey, sessionToken )
+          }
+        }
+      }
+
+      @Override
+      public void refresh() {
+      }
+    }
+  }
+
+  private AmazonEC2 getEc2Client( final AWSCredentialsProvider credentials ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials )
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) )
+    ec2
+  }
+
+  private AmazonIdentityManagement getIamClient( final AWSCredentialsProvider credentials  ) {
+    final AmazonIdentityManagement iam = new AmazonIdentityManagementClient( credentials )
+    iam.setEndpoint( cloudUri( "/services/Euare/" ) )
+    iam
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final AmazonEC2 ec2User = getEc2Client( regularCredentials )
+    final AmazonIdentityManagement iam = getIamClient( eucalyptusCredentials )
+
+    // Find an AZ to use
+    final String availabilityZone = ec2User.describeAvailabilityZones().with {
+      assertThat( (availabilityZones?.size()?:0) > 0, "Availability zone not found" )
+      availabilityZones?.get( 0 )?.zoneName
+    }
+    print( "Using availability zone: ${availabilityZone}" )
+
+    // Find an image to use
+    final String imageId = ec2User.describeImages( new DescribeImagesRequest(
+        filters: [
+            new Filter( name: "image-type", values: ["machine"] ),
+            new Filter( name: "root-device-type", values: ["instance-store"] ),
+        ]
+    ) ).with {
+      assertThat( (images?.size()?:0) > 0, "Image not found" )
+      images.get( 0 )?.imageId
+    }
+    print( "Using image: ${imageId}" )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      String roleArn = null
+      iam.with {
+        // Set up administrative role
+        final String roleName = "${namePrefix}resource-admin"
+        print( "Creating role with name: ${roleName}" )
+        roleArn = createRole( new CreateRoleRequest(
+            roleName: roleName,
+            assumeRolePolicyDocument: """\
+            {
+                "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "AWS": [ "arn:aws:iam::${adminAccountNumber}:user/admin" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+                } ]
+            }
+            """.stripIndent() as String
+        ) ).with {
+          role?.arn
+        }
+        assertThat( roleArn!=null, "Role ARN expected" )
+        print( "Created role with ARN: ${roleArn}" )
+
+        cleanupTasks.add {
+          print( "Deleting role: ${roleName}" )
+          deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+        }
+
+        final String policyName = "ec2"
+        print( "Adding policy to role: ${roleName}" )
+        putRolePolicy( new PutRolePolicyRequest( roleName: roleName, policyName: policyName, policyDocument: """\
+        {
+           "Statement": [ {
+              "Effect": "Allow",
+              "Action": "ec2:*",
+              "Resource": "*"
+           } ]
+        }
+        """.stripIndent()
+        ) )
+
+        cleanupTasks.add {
+          print( "Deleting policy for role: ${roleName}/${policyName}" )
+          deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+        }
+      }
+
+      String volumeId = null
+      String snapshotId = null;
+      final String keyName = namePrefix + "Key1"
+      final String groupName = namePrefix + "Group1"
+      String groupId = null
+      String instanceId = null
+      String elasticIp = null
+      ec2User.with {
+        // Create resources to test listing via admin role
+        print( "Creating volume as user" )
+        volumeId = createVolume( new CreateVolumeRequest(
+            availabilityZone: availabilityZone,
+            size: 1
+        ) ).with {
+          volume?.volumeId
+        }
+        assertThat( volumeId!=null, "Volume ID expected" )
+        print( "Created volume: ${volumeId}" )
+        cleanupTasks.add {
+          print( "Deleting volume: ${volumeId}" )
+          deleteVolume( new DeleteVolumeRequest( volumeId: volumeId ) )
+        }
+        print( "Waiting for volume creation to complete." )
+        while (
+          describeVolumes( new DescribeVolumesRequest(
+              volumeIds: [ volumeId ],
+              filters: [ new Filter( name: "status", values: [ "creating" ] ) ]
+          ) ).with { (!volumes?.isEmpty())?:false }
+        ) sleep( 2500 )
+
+        print( "Creating snapshot as user" )
+        snapshotId = createSnapshot( new CreateSnapshotRequest(
+            volumeId: volumeId
+        ) ).with {
+          snapshot?.snapshotId
+        }
+        assertThat( snapshotId!=null, "Snapshot ID expected" )
+        print( "Created snapshot: ${snapshotId}" )
+        cleanupTasks.add {
+          print( "Deleting snapshot: ${snapshotId}" )
+          deleteSnapshot( new DeleteSnapshotRequest( snapshotId: snapshotId ) )
+        }
+        print( "Waiting for snapshot creation to complete." )
+        while (
+            describeSnapshots( new DescribeSnapshotsRequest(
+                snapshotIds: [ snapshotId ],
+                filters: [ new Filter( name: "status", values: [ "pending" ] ) ]
+            ) ).with { (!snapshots?.isEmpty())?:false }
+        ) sleep( 2500 )
+
+        print( "Creating key pair" )
+        createKeyPair( new CreateKeyPairRequest( keyName: keyName ) )
+        cleanupTasks.add {
+          print( "Deleting key pair: ${keyName}" )
+          deleteKeyPair( new DeleteKeyPairRequest( keyName: keyName ) )
+        }
+
+        print( "Creating security group" )
+        groupId = createSecurityGroup( new CreateSecurityGroupRequest(
+            groupName: groupName,
+            description: "Test security group"
+        ) ).groupId
+        assertThat( groupId!=null, "Group ID expected" )
+        cleanupTasks.add {
+          print( "Deleting group: ${groupId}" )
+          deleteSecurityGroup( new DeleteSecurityGroupRequest( groupId: groupId ) )
+        }
+
+        print( "Allocating elastic IP" )
+        elasticIp = allocateAddress().with { publicIp  }
+        assertThat( elasticIp!=null, "Elastic IP expected" )
+        cleanupTasks.add {
+          print( "Releasing elastic IP: ${elasticIp}" )
+          releaseAddress( new ReleaseAddressRequest( publicIp: elasticIp ) )
+        }
+
+        print( "Running instance" )
+        instanceId = runInstances( new RunInstancesRequest(
+          imageId: imageId,
+          instanceType: "m1.small",
+          clientToken: "${namePrefix}ClientToken",
+          minCount: 1,
+          maxCount: 1
+        ) ).with {
+          reservation?.instances?.getAt(0)?.instanceId
+        }
+        assertThat( instanceId!=null, "Instance ID expected" )
+        print( "Launched instance: ${instanceId}" )
+        cleanupTasks.add {
+          print( "Terminating instance: ${instanceId}" )
+          terminateInstances( new TerminateInstancesRequest( instanceIds: [ instanceId ] ) )
+        }
+      }
+
+      // Create client using role
+      getEc2Client(
+          getRoleCredentialsProvider( roleArn, "session-name-here", adminCredentials )
+      ).with {
+        // List resources using admin role
+        print( "Listing volumes" )
+        describeVolumes( new DescribeVolumesRequest(
+            volumeIds: [ "verbose" ]
+        ) ).with {
+          assertThat(
+              !volumes.findAll{ Volume volume ->
+                volume.volumeId==volumeId }.isEmpty(),
+              "Expected volume: ${volumeId}" )
+        }
+
+        print( "Listing snapshots" )
+        describeSnapshots( new DescribeSnapshotsRequest(
+            snapshotIds: [ "verbose" ]
+        ) ).with {
+          assertThat(
+              !snapshots.findAll{ Snapshot snapshot ->
+                snapshot.snapshotId==snapshotId }.isEmpty(),
+              "Expected snapshot: ${snapshotId}" )
+        }
+
+        print( "Listing keys" )
+        describeKeyPairs( new DescribeKeyPairsRequest( keyNames: ["verbose"] ) ).with {
+          assertThat(
+              !keyPairs.findAll{ KeyPairInfo key ->
+                key.keyName==keyName }.isEmpty(),
+              "Expected key: ${keyName}" )
+        }
+
+        print( "Listing security groups" )
+        describeSecurityGroups( new DescribeSecurityGroupsRequest( groupNames: ["verbose"] ) ).with {
+          assertThat(
+              !securityGroups.findAll{ SecurityGroup group ->
+                group.groupName==groupName }.isEmpty(),
+              "Expected group: ${groupName}" )
+        }
+
+        print( "Listing elastic IPs" )
+        describeAddresses( new DescribeAddressesRequest( publicIps: ["verbose"] )  ).with {
+          assertThat(
+          !addresses.findAll{ Address address ->
+            address.publicIp==elasticIp }.isEmpty(),
+          "Expected elastic IP: ${elasticIp}" )
+        }
+
+        print( "Listing instances" )
+        describeInstances( new DescribeInstancesRequest( instanceIds: ["verbose"] ) ).with {
+          List<String> instanceIds = (reservations as List<Reservation>).collect { Reservation reservation ->
+            reservation.instances
+          }.flatten().collect {
+            Instance instance -> instance.instanceId
+          }
+          assertThat( instanceIds.contains( instanceId ), "Expected instance: ${groupName}" )
+        }
+
+        // Delete resources using admin role (where possible)
+        print( "Deleting volume: ${volumeId}" )
+        deleteVolume( new DeleteVolumeRequest( volumeId: volumeId ) );
+
+        print( "Deleting snapshot: ${snapshotId}" )
+        deleteSnapshot( new DeleteSnapshotRequest( snapshotId: snapshotId ) );
+
+        print( "Deleting security group: ${groupId}" )
+        deleteSecurityGroup( new DeleteSecurityGroupRequest( groupId: groupId ) )
+
+        print( "Releasing elastic IP: ${elasticIp}" )
+        releaseAddress( new ReleaseAddressRequest( publicIp: elasticIp ) )
+
+        print( "Terminating instance: ${instanceId}" )
+        terminateInstances( new TerminateInstancesRequest( instanceIds: [ instanceId ] ) )
+      }
+
+      ec2User.with {
+        // Verify resources deleted / terminated
+        print( "Verifying volume deleted: ${volumeId}" )
+        describeVolumes( new DescribeVolumesRequest(
+            volumeIds: [ volumeId ],
+            filters: [ new Filter( name: "status", values: [ "creating", "available" ] ) ]
+        ) ).with {
+          assertThat( volumes.isEmpty(), "Expected volume deleted: ${volumeId}" )
+        }
+
+        print( "Verifying snapshot deleted: ${snapshotId}" )
+        describeSnapshots( new DescribeSnapshotsRequest( snapshotIds: [ snapshotId ] ) ).with {
+          assertThat( snapshots.isEmpty(), "Expected snapshot deleted: ${snapshotId}" )
+        }
+
+        print( "Verifying security group deleted: ${groupId}" )
+        describeSecurityGroups( new DescribeSecurityGroupsRequest( groupIds: [ groupId ] ) ).with {
+          assertThat( securityGroups.isEmpty(), "Expected security group deleted: ${groupId}" )
+        }
+
+        print( "Verifying elastic IP released: ${elasticIp}" )
+        describeAddresses( new DescribeAddressesRequest( publicIps: [elasticIp] ) ).with {
+          assertThat( addresses.isEmpty(), "Expected elastic IP released: ${elasticIp}" )
+        }
+
+        print( "Verifying instance terminated: ${instanceId}" )
+        describeInstances( new DescribeInstancesRequest(
+            instanceIds: [ instanceId ],
+            filters: [ new Filter( name: "instance-state-name", values: [ "pending", "running" ] ) ]
+        ) ).with {
+          assertThat(
+              reservations.isEmpty() || reservations.get(0).instances.isEmpty(),
+              "Expected instance terminated: ${instanceId}" )
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1074 @@
+2013-02-18 11:34:13 DEBUG 000015415 doDescribeSensors        | invoked (instIdsLen=0 sensorIdsLen=0)
+2013-02-18 11:34:13 DEBUG 000015415 sensor_expire_cache_entr | invoked
+2013-02-18 11:34:13 DEBUG 000015415 doDescribeSensors        | found 3 resource(s)
+2013-02-18 11:34:14 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:14 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:14 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:14 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:14 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:20 DEBUG 000015415 doStartNetwork           | invoked (remoteHostsLen=0 port=0 vlan=524)
+2013-02-18 11:34:20 DEBUG 000015415 vnetStartNetworkManaged  | params: vlan=524, uuid=UNSET, userName=UNSET, netName=UNSET
+2013-02-18 11:34:20  INFO 000015415 doStartNetwork           | started network (port=0 vlan=524)
+2013-02-18 11:34:20  INFO 000015415 doRunInstance            | [i-A0703EE5] running instance cores=1 disk=5 memory=512 vlan=524 priMAC=D0:0D:A0:70:3E:E5 privIp=172.27.160.171
+2013-02-18 11:34:20 DEBUG 000015415 vbr_legacy               | [i-A0703EE5]                VBR[0] type=swap id=none dev=sda3 size=524288 format=swap none
+2013-02-18 11:34:20 DEBUG 000015415 vbr_legacy               | [i-A0703EE5]                VBR[1] type=ephemeral id=none dev=sda2 size=49152 format=ext3 none
+2013-02-18 11:34:20 DEBUG 000015415 vbr_legacy               | [i-A0703EE5]                VBR[2] type=machine id=emi-A2733F05 dev=sda1 size=4669440 format=none walrus://centos/centos-6.3-x86_64.manifest.xml
+2013-02-18 11:34:20 DEBUG 000015415 vbr_legacy               | [i-A0703EE5]                VBR[3] type=kernel id=eki-E0593B48 dev=none size=-1 format=none walrus://centos/vmlinuz-2.6.32-279.14.1.el6.x86_64.manifest.xml
+2013-02-18 11:34:20 DEBUG 000015415 vbr_legacy               | [i-A0703EE5]                VBR[4] type=ramdisk id=eri-32043475 dev=none size=-1 format=none walrus://centos/initrd-2.6.32-279.14.1.el6.x86_64.img.manifest.xml
+2013-02-18 11:34:20 DEBUG 000015415 change_state             | [i-A0703EE5] state change for instance: Unknown -> Staging (Pending)
+2013-02-18 11:34:20 DEBUG 000010940 startup_thread           | [i-A0703EE5] spawning startup thread
+2013-02-18 11:34:20 DEBUG 000010940 vnetStartNetworkManaged  | params: vlan=524, uuid=UNSET, userName=UNSET, netName=UNSET
+2013-02-18 11:34:20  INFO 000010940 ensure_directories_exist | creating path /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5
+2013-02-18 11:34:20 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5' *.root 771
+2013-02-18 11:34:20 DEBUG 000010940 vbr_alloc_tree           | [i-A0703EE5] found 2 prereqs and 3 partitions in the VBR
+2013-02-18 11:34:20 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 727|i-A0703EE5 size=-1 vbr=(nil) cache=0 file=0
+2013-02-18 11:34:20 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: calling URL=http://10.111.5.31:8773/services/Walrus/centos/vmlinuz-2.6.32-279.14.1.el6.x86_64.manifest.xml
+2013-02-18 11:34:20 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: reading private key file //var/lib/eucalyptus/keys/node-pk.pem
+2013-02-18 11:34:20 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: signing input length=125 buf[n-1]=116 hash=-202156872
+2013-02-18 11:34:20 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: signing output 115
+2013-02-18 11:34:20 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: base64 signature length=344 buf[n-1]=61 hash=1398867441
+2013-02-18 11:34:20 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: writing GET output to /tmp/walrus-digest-loQRqV
+2013-02-18 11:34:20 DEBUG 000015415 doAssignAddress          | [i-A0703EE5] invoked (publicIp=10.111.102.83)
+2013-02-18 11:34:20 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:20 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:20 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:20 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:20 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:20 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Pending pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:34:21 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: wrote 3480 byte(s) in 1 write(s)
+2013-02-18 11:34:21  INFO 000010940 walrus_request_timeout   | {643262208} walrus_request: to /tmp/walrus-digest-loQRqV
+2013-02-18 11:34:21 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 728|eki-E0593B48-5bb4a8bd size=3988752 vbr=0x7fd5405de510 cache=1 file=1
+2013-02-18 11:34:21 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 729|eki-E0593B48-5bb4a8bd size=3988752 vbr=0x7fd5405de510 cache=0 file=1
+2013-02-18 11:34:21 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 729|eki-E0593B48-5bb4a8bd artifact 728|eki-E0593B48-5bb4a8bd
+2013-02-18 11:34:21 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 727|i-A0703EE5 artifact 729|eki-E0593B48-5bb4a8bd
+2013-02-18 11:34:21 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: calling URL=http://10.111.5.31:8773/services/Walrus/centos/initrd-2.6.32-279.14.1.el6.x86_64.img.manifest.xml
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: reading private key file //var/lib/eucalyptus/keys/node-pk.pem
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: signing input length=128 buf[n-1]=116 hash=-1283688937
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: signing output 11
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: base64 signature length=344 buf[n-1]=61 hash=1496660908
+2013-02-18 11:34:21 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: writing GET output to /tmp/walrus-digest-MTtuG9
+2013-02-18 11:34:21 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: wrote 3488 byte(s) in 1 write(s)
+2013-02-18 11:34:21  INFO 000010940 walrus_request_timeout   | {643262208} walrus_request: to /tmp/walrus-digest-MTtuG9
+2013-02-18 11:34:21 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 730|eri-32043475-d34ad1c5 size=5943048 vbr=0x7fd5405dec38 cache=1 file=1
+2013-02-18 11:34:21 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 731|eri-32043475-d34ad1c5 size=5943048 vbr=0x7fd5405dec38 cache=0 file=1
+2013-02-18 11:34:21 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 731|eri-32043475-d34ad1c5 artifact 730|eri-32043475-d34ad1c5
+2013-02-18 11:34:21 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 727|i-A0703EE5 artifact 731|eri-32043475-d34ad1c5
+2013-02-18 11:34:21 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: calling URL=http://10.111.5.31:8773/services/Walrus/centos/centos-6.3-x86_64.manifest.xml
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: reading private key file //var/lib/eucalyptus/keys/node-pk.pem
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: signing input length=108 buf[n-1]=116 hash=-1643117897
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: signing output 138
+2013-02-18 11:34:21 DEBUG 000010940 eucav2_sign_request      | eucav2_sign_request: base64 signature length=344 buf[n-1]=61 hash=-423421175
+2013-02-18 11:34:21 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: writing GET output to /tmp/walrus-digest-d3Eksp
+2013-02-18 11:34:22 DEBUG 000010940 walrus_request_timeout   | {643262208} walrus_request: wrote 6228 byte(s) in 1 write(s)
+2013-02-18 11:34:22  INFO 000010940 walrus_request_timeout   | {643262208} walrus_request: to /tmp/walrus-digest-d3Eksp
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 732|emi-A2733F05-665ccb9e size=4781506560 vbr=0x7fd5405ddde8 cache=1 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 733|emi-A2733F05-592391c7 size=4781506560 vbr=0x7fd5405ddde8 cache=0 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 733|emi-A2733F05-592391c7 artifact 732|emi-A2733F05-665ccb9e
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 734|prt-00048ext3-f8c650b3 size=50331648 vbr=0x7fd5405dd6c0 cache=1 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 735|prt-00048ext3-f8c650b3 size=50331648 vbr=0x7fd5405dd6c0 cache=0 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 735|prt-00048ext3-f8c650b3 artifact 734|prt-00048ext3-f8c650b3
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 736|prt-00512swap-ac8d5670 size=536870912 vbr=0x7fd5405dcf98 cache=1 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 737|prt-00512swap-ac8d5670 size=536870912 vbr=0x7fd5405dcf98 cache=0 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 737|prt-00512swap-ac8d5670 artifact 736|prt-00512swap-ac8d5670
+2013-02-18 11:34:22 DEBUG 000010940 art_alloc                | [i-A0703EE5] allocated artifact 738|dsk-A2733F05-dafa402a size=5368741376 vbr=0x7fd5405df360 cache=0 file=0
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 738|dsk-A2733F05-dafa402a artifact 733|emi-A2733F05-592391c7
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 738|dsk-A2733F05-dafa402a artifact 735|prt-00048ext3-f8c650b3
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 738|dsk-A2733F05-dafa402a artifact 737|prt-00512swap-ac8d5670
+2013-02-18 11:34:22 DEBUG 000010940 art_add_dep              | [i-A0703EE5] added to artifact 727|i-A0703EE5 artifact 738|dsk-A2733F05-dafa402a
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 727|i-A0703EE5 cache=0 file=0 creator=(nil) vbr=(nil)
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 	729|eki-E0593B48-5bb4a8bd cache=0 file=1 creator=0x7fd537d9a390 vbr=0x7fd5405de510
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 		728|eki-E0593B48-5bb4a8bd cache=1 file=1 creator=0x7fd537d9b590 vbr=0x7fd5405de510
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 	731|eri-32043475-d34ad1c5 cache=0 file=1 creator=0x7fd537d9a390 vbr=0x7fd5405dec38
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 		730|eri-32043475-d34ad1c5 cache=1 file=1 creator=0x7fd537d9b590 vbr=0x7fd5405dec38
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 	738|dsk-A2733F05-dafa402a cache=0 file=0 creator=0x7fd537d9b9e0 vbr=0x7fd5405df360
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 		733|emi-A2733F05-592391c7 cache=0 file=0 creator=0x7fd537d9a390 vbr=0x7fd5405ddde8
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 			732|emi-A2733F05-665ccb9e cache=1 file=0 creator=0x7fd537d9b590 vbr=0x7fd5405ddde8
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 		735|prt-00048ext3-f8c650b3 cache=0 file=0 creator=0x7fd537d9a390 vbr=0x7fd5405dd6c0
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 			734|prt-00048ext3-f8c650b3 cache=1 file=0 creator=0x7fd537d9b0d0 vbr=0x7fd5405dd6c0
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 		737|prt-00512swap-ac8d5670 cache=0 file=0 creator=0x7fd537d9a390 vbr=0x7fd5405dcf98
+2013-02-18 11:34:22 DEBUG 000010940 art_print_tree           | [i-A0703EE5] artifacts tree: 			736|prt-00512swap-ac8d5670 cache=1 file=0 creator=0x7fd537d9b0d0 vbr=0x7fd5405dcf98
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 727|i-A0703EE5
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 729|eki-E0593B48-5bb4a8bd
+2013-02-18 11:34:22 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 729|eki-E0593B48-5bb4a8bd (do_create=0 ret=1)
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 728|eki-E0593B48-5bb4a8bd
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/cache/eki-E0593B48-5bb4a8bd/blocks
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_loop            |             to /dev/loop15 at offset 0
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] found existing artifact 728|eki-E0593B48-5bb4a8bd on try 1
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 728|eki-E0593B48-5bb4a8bd on try 1
+2013-02-18 11:34:22 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 729|eki-E0593B48-5bb4a8bd (do_create=1 ret=1)
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eki-E0593B48-5bb4a8bd.blocks
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_loop            |             to /dev/loop16 at offset 0
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] created a blob for an artifact 729|eki-E0593B48-5bb4a8bd on try 1
+2013-02-18 11:34:22  INFO 000010940 copy_creator             | [i-A0703EE5] copying/cloning blob eki-E0593B48-5bb4a8bd to blob QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eki-E0593B48-5bb4a8bd
+2013-02-18 11:34:22  INFO 000010940 diskutil_dd2             | copying data from '/disk1/storage/eucalyptus/instances/cache/eki-E0593B48-5bb4a8bd/blocks'
+2013-02-18 11:34:22  INFO 000010940 diskutil_dd2             |                to '/disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eki-E0593B48-5bb4a8bd.blocks'
+2013-02-18 11:34:22  INFO 000010940 diskutil_dd2             |                of 249297 blocks (bs=16), seeking 0, skipping 0
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eki-E0593B48-5bb4a8bd.blocks' *.* 664
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_unloop          | detaching from loop device /dev/loop15
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 729|eki-E0593B48-5bb4a8bd on try 1
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_unloop          | detaching from loop device /dev/loop16
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 731|eri-32043475-d34ad1c5
+2013-02-18 11:34:22 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 731|eri-32043475-d34ad1c5 (do_create=0 ret=1)
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 730|eri-32043475-d34ad1c5
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/cache/eri-32043475-d34ad1c5/blocks
+2013-02-18 11:34:22 DEBUG 000010940 diskutil_loop            |             to /dev/loop15 at offset 0
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] found existing artifact 730|eri-32043475-d34ad1c5 on try 1
+2013-02-18 11:34:22 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 730|eri-32043475-d34ad1c5 on try 1
+2013-02-18 11:34:22 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 731|eri-32043475-d34ad1c5 (do_create=1 ret=1)
+2013-02-18 11:34:23 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eri-32043475-d34ad1c5.blocks
+2013-02-18 11:34:23 DEBUG 000010940 diskutil_loop            |             to /dev/loop16 at offset 0
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] created a blob for an artifact 731|eri-32043475-d34ad1c5 on try 1
+2013-02-18 11:34:23  INFO 000010940 copy_creator             | [i-A0703EE5] copying/cloning blob eri-32043475-d34ad1c5 to blob QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eri-32043475-d34ad1c5
+2013-02-18 11:34:23  INFO 000010940 diskutil_dd2             | copying data from '/disk1/storage/eucalyptus/instances/cache/eri-32043475-d34ad1c5/blocks'
+2013-02-18 11:34:23  INFO 000010940 diskutil_dd2             |                to '/disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eri-32043475-d34ad1c5.blocks'
+2013-02-18 11:34:23  INFO 000010940 diskutil_dd2             |                of 742881 blocks (bs=8), seeking 0, skipping 0
+2013-02-18 11:34:23 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eri-32043475-d34ad1c5.blocks' *.* 664
+2013-02-18 11:34:23 DEBUG 000010940 diskutil_unloop          | detaching from loop device /dev/loop15
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 731|eri-32043475-d34ad1c5 on try 1
+2013-02-18 11:34:23 DEBUG 000010940 diskutil_unloop          | detaching from loop device /dev/loop16
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 738|dsk-A2733F05-dafa402a
+2013-02-18 11:34:23 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 738|dsk-A2733F05-dafa402a (do_create=0 ret=1)
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 733|emi-A2733F05-592391c7
+2013-02-18 11:34:23 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 733|emi-A2733F05-592391c7 (do_create=0 ret=1)
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 732|emi-A2733F05-665ccb9e
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] found existing artifact 732|emi-A2733F05-665ccb9e on try 1
+2013-02-18 11:34:23 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 732|emi-A2733F05-665ccb9e on try 1
+2013-02-18 11:34:23 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 733|emi-A2733F05-592391c7 (do_create=1 ret=1)
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/emi-A2733F05-592391c7.blocks
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            |             to /dev/loop15 at offset 0
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] created a blob for an artifact 733|emi-A2733F05-592391c7 on try 1
+2013-02-18 11:34:24  INFO 000010940 copy_creator             | [i-A0703EE5] copying/cloning blob emi-A2733F05-665ccb9e to blob QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/emi-A2733F05-592391c7
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-emi-A2733F05-592391c7-p0-back' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-emi-A2733F05-592391c7-p0-snap' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-emi-A2733F05-592391c7' eucalyptus.* 660
+2013-02-18 11:34:24  INFO 000010940 copy_creator             | [i-A0703EE5] tuning root file system on disk 0 partition 1
+2013-02-18 11:34:24  INFO 000010940 copy_creator             | [i-A0703EE5] injecting the ssh key
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/tmp/euca-mount-kYaMbL/root/.ssh' root.* 700
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/tmp/euca-mount-kYaMbL/root/.ssh/authorized_keys' root.* 600
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-emi-A2733F05-592391c7' eucalyptus.* 0
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 733|emi-A2733F05-592391c7 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 735|prt-00048ext3-f8c650b3
+2013-02-18 11:34:24 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 735|prt-00048ext3-f8c650b3 (do_create=0 ret=1)
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 734|prt-00048ext3-f8c650b3
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] found existing artifact 734|prt-00048ext3-f8c650b3 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 734|prt-00048ext3-f8c650b3 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 735|prt-00048ext3-f8c650b3 (do_create=1 ret=1)
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/prt-00048ext3-f8c650b3.blocks
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            |             to /dev/loop16 at offset 0
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] created a blob for an artifact 735|prt-00048ext3-f8c650b3 on try 1
+2013-02-18 11:34:24  INFO 000010940 copy_creator             | [i-A0703EE5] copying/cloning blob prt-00048ext3-f8c650b3 to blob QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/prt-00048ext3-f8c650b3
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00048ext3-f8c650b3-p0-back' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00048ext3-f8c650b3-p0-snap' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00048ext3-f8c650b3' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 735|prt-00048ext3-f8c650b3 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 737|prt-00512swap-ac8d5670
+2013-02-18 11:34:24 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 737|prt-00512swap-ac8d5670 (do_create=0 ret=1)
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implementing artifact 736|prt-00512swap-ac8d5670
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] found existing artifact 736|prt-00512swap-ac8d5670 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 736|prt-00512swap-ac8d5670 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 737|prt-00512swap-ac8d5670 (do_create=1 ret=1)
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/prt-00512swap-ac8d5670.blocks
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            |             to /dev/loop17 at offset 0
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] created a blob for an artifact 737|prt-00512swap-ac8d5670 on try 1
+2013-02-18 11:34:24  INFO 000010940 copy_creator             | [i-A0703EE5] copying/cloning blob prt-00512swap-ac8d5670 to blob QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/prt-00512swap-ac8d5670
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00512swap-ac8d5670-p0-back' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00512swap-ac8d5670-p0-snap' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00512swap-ac8d5670' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 737|prt-00512swap-ac8d5670 on try 1
+2013-02-18 11:34:24 DEBUG 000010940 find_or_create_artifact  | [i-A0703EE5] checking work blobstore for 738|dsk-A2733F05-dafa402a (do_create=1 ret=1)
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/dsk-A2733F05-dafa402a.blocks
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_loop            |             to /dev/loop18 at offset 0
+2013-02-18 11:34:24 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] created a blob for an artifact 738|dsk-A2733F05-dafa402a on try 1
+2013-02-18 11:34:24  INFO 000010940 disk_creator             | [i-A0703EE5] constructing disk of size 5368741376 bytes in dsk-A2733F05-dafa402a (/dev/loop18)
+2013-02-18 11:34:24 DEBUG 000010940 disk_creator             | [i-A0703EE5] mapping partition 1 from /dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-emi-A2733F05-592391c7 [63-9338942]
+2013-02-18 11:34:24 DEBUG 000010940 disk_creator             | [i-A0703EE5] mapping partition 2 from /dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00048ext3-f8c650b3 [9338943-9437246]
+2013-02-18 11:34:24 DEBUG 000010940 disk_creator             | [i-A0703EE5] mapping partition 3 from /dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-prt-00512swap-ac8d5670 [9437247-10485822]
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-dsk-A2733F05-dafa402a-p0-back' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:34:24 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:34:24 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185365409792 bytes
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-dsk-A2733F05-dafa402a-p0-snap' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000010940 diskutil_ch              | ch(own|mod) '/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-dsk-A2733F05-dafa402a' eucalyptus.* 660
+2013-02-18 11:34:24 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:34:24 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:34:24 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185365405696 bytes
+2013-02-18 11:34:24  INFO 000010940 disk_creator             | [i-A0703EE5] creating MBR
+2013-02-18 11:34:24  INFO 000010940 disk_creator             | [i-A0703EE5] adding partition 1 to partition table (/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-dsk-A2733F05-dafa402a)
+2013-02-18 11:34:25  INFO 000010940 disk_creator             | [i-A0703EE5] adding partition 2 to partition table (/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-dsk-A2733F05-dafa402a)
+2013-02-18 11:34:25  INFO 000010940 disk_creator             | [i-A0703EE5] adding partition 3 to partition table (/dev/mapper/euca-QSYS1PM1LQHODG9GGQGOI-i-A0703EE5-dsk-A2733F05-dafa402a)
+2013-02-18 11:34:25 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 738|dsk-A2733F05-dafa402a on try 1
+2013-02-18 11:34:25 DEBUG 000010940 art_implement_tree       | [i-A0703EE5] implemented artifact 727|i-A0703EE5 on try 1
+2013-02-18 11:34:25 DEBUG 000010940 write_xml_file           | [i-A0703EE5] wrote instance XML to /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/instance.xml
+2013-02-18 11:34:25  INFO 000010940 find_or_alloc_sr         | allocated new sensor resource i-A0703EE5
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_resource_alia | set alias for sensor resource i-A0703EE5 to 172.27.160.171
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:DiskReadOps
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sc         | allocated new sensor counter DiskReadOps:summation
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sd         | allocated new sensor dimension summation:root
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_dimension_ali | set alias for sensor dimension i-A0703EE5:DiskReadOps:summation:root to 'vda'
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:DiskWriteOps
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sc         | allocated new sensor counter DiskWriteOps:summation
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sd         | allocated new sensor dimension summation:root
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_dimension_ali | set alias for sensor dimension i-A0703EE5:DiskWriteOps:summation:root to 'vda'
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:DiskReadBytes
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sc         | allocated new sensor counter DiskReadBytes:summation
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sd         | allocated new sensor dimension summation:root
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_dimension_ali | set alias for sensor dimension i-A0703EE5:DiskReadBytes:summation:root to 'vda'
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:DiskWriteBytes
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sc         | allocated new sensor counter DiskWriteBytes:summation
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sd         | allocated new sensor dimension summation:root
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_dimension_ali | set alias for sensor dimension i-A0703EE5:DiskWriteBytes:summation:root to 'vda'
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:VolumeTotalReadTime
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sc         | allocated new sensor counter VolumeTotalReadTime:summation
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sd         | allocated new sensor dimension summation:root
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_dimension_ali | set alias for sensor dimension i-A0703EE5:VolumeTotalReadTime:summation:root to 'vda'
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:VolumeTotalWriteTime
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sc         | allocated new sensor counter VolumeTotalWriteTime:summation
+2013-02-18 11:34:25 DEBUG 000010940 find_or_alloc_sd         | allocated new sensor dimension summation:root
+2013-02-18 11:34:25 DEBUG 000010940 sensor_set_dimension_ali | set alias for sensor dimension i-A0703EE5:VolumeTotalWriteTime:summation:root to 'vda'
+2013-02-18 11:34:26  INFO 000010940 startup_thread           | [i-A0703EE5] booting
+2013-02-18 11:34:26 DEBUG 000010940 change_state             | [i-A0703EE5] state change for instance: Staging -> Booting (Extant)
+2013-02-18 11:34:27 DEBUG 000015447 sensor_refresh_resources | polled statistics for 4 instance(s)
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:CPUUtilization
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sc         | allocated new sensor counter CPUUtilization:summation
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sd         | allocated new sensor dimension summation:default
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:NetworkIn
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sc         | allocated new sensor counter NetworkIn:summation
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sd         | allocated new sensor dimension summation:total
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sm         | allocated new sensor metric i-A0703EE5:NetworkOut
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sc         | allocated new sensor counter NetworkOut:summation
+2013-02-18 11:34:27 DEBUG 000015447 find_or_alloc_sd         | allocated new sensor dimension summation:total
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:27 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:27 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:27 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:27 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:27 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:27 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:34:31 DEBUG 000015530 change_state             | [i-A0703EE5] state change for instance: Booting -> Running (Extant)
+2013-02-18 11:34:34 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:34 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:34 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:34 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:34 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:34 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:34:40 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:40 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:40 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:40 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:40 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:40 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:34:46 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:46 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:46 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:46 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:46 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:46 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:34:53 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:53 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:53 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:53 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:53 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:53 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:34:57 DEBUG 000015447 sensor_refresh_resources | polled statistics for 4 instance(s)
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:34:59 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:34:59 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:34:59 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:34:59 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:34:59 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:34:59 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:05 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:05 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:05 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:05 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:05 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:05 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:11 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:11 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:11 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:11 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:11 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:11 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:18 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:18 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:18 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:18 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:18 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:18 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:20 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:35:20 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:35:20 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185358434304 bytes
+2013-02-18 11:35:20 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:35:20 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:35:20 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185358434304 bytes
+2013-02-18 11:35:24 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:24 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:24 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:24 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:24 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:24 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:27 DEBUG 000015447 sensor_refresh_resources | polled statistics for 4 instance(s)
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:30 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:30 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:30 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:30 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:30 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:30 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:36 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:36 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:36 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:36 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:36 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:36 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:43 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:43 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:43 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:43 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:43 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:43 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:49 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:49 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:49 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:49 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:49 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:49 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:55 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:35:55 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:35:55 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:35:55 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:35:55 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:35:55 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:35:57 DEBUG 000015447 sensor_refresh_resources | polled statistics for 4 instance(s)
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:35:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:02 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:02 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:02 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:02 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:02 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:02 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=10.111.102.83 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:05  INFO 000015415 doTerminateInstance      | [i-A0703EE5] termination requested
+2013-02-18 11:36:05 DEBUG 000015415 sensor_refresh_resources | polled statistics for 4 instance(s)
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05 DEBUG 000015415 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:05  INFO 000015415 find_and_terminate_insta | [i-A0703EE5] destroying instance
+2013-02-18 11:36:05 DEBUG 000015415 change_state             | [i-A0703EE5] state change for instance: Running -> Shutoff (Extant)
+2013-02-18 11:36:05 DEBUG 000015415 doAssignAddress          | [i-A0703EE5] invoked (publicIp=0.0.0.0)
+2013-02-18 11:36:05 DEBUG 000015415 doAssignAddress          | [i-A0703EE5] invoked (publicIp=0.0.0.0)
+2013-02-18 11:36:08 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:08 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:08 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:08 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:08 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:08 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Extant pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:10  WARN 000015530 libvirt_err_handler      | libvirt: Domain not found: no domain with matching name 'i-A0703EE5' (code=42)
+2013-02-18 11:36:10  INFO 000015530 monitoring_thread        | [i-A0703EE5] cleaning up state for instance
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_ch              | ch(own|mod) '/disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/*' eucalyptus.* 660
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_unloop          | detaching from loop device /dev/loop18
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_unloop          | detaching from loop device /dev/loop17
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eki-E0593B48-5bb4a8bd.blocks
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_loop            |             to /dev/loop17 at offset 0
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_unloop          | detaching from loop device /dev/loop17
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_loop            | attaching file /disk1/storage/eucalyptus/instances/work/QSYS1PM1LQHODG9GGQGOI/i-A0703EE5/eri-32043475-d34ad1c5.blocks
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_loop            |             to /dev/loop17 at offset 0
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_unloop          | detaching from loop device /dev/loop17
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_unloop          | detaching from loop device /dev/loop16
+2013-02-18 11:36:10 DEBUG 000015530 diskutil_unloop          | detaching from loop device /dev/loop15
+2013-02-18 11:36:10  INFO 000015530 monitoring_thread        | [i-A0703EE5] stopping the network (vlan=524)
+2013-02-18 11:36:10 DEBUG 000015530 change_state             | [i-A0703EE5] state change for instance: Shutoff -> Teardown (Teardown)
+2013-02-18 11:36:14 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:14 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:14 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:14 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:14 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:14 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:15 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:36:15 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:36:15 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375682560 bytes
+2013-02-18 11:36:15 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:36:15 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:36:15 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375682560 bytes
+2013-02-18 11:36:21 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:21 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:21 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:21 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:21 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:21 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:27 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:36:27 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:27 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:27 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:27 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:27 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:27 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:27 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:33 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:33 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:33 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:33 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:33 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:33 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:40 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:40 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:40 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:40 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:40 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:40 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:46 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:46 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:46 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:46 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:46 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:46 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:48 DEBUG 000015415 doDescribeSensors        | invoked (instIdsLen=0 sensorIdsLen=0)
+2013-02-18 11:36:48 DEBUG 000015415 sensor_expire_cache_entr | invoked
+2013-02-18 11:36:48 DEBUG 000015415 doDescribeSensors        | found 4 resource(s)
+2013-02-18 11:36:52 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:52 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:52 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:52 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:52 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:52 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:36:57 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:36:57 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:36:59 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:36:59 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:36:59 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:36:59 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:36:59 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:36:59 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:05 DEBUG 000015415 doDescribeResource       | returning cores=1/4 mem=6256/7792 disk=42/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:05 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:05 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:05 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:05 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:05 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:10 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:37:10 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:37:10 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375576064 bytes
+2013-02-18 11:37:10 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:37:10 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:37:10 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375576064 bytes
+2013-02-18 11:37:10 DEBUG 000015415 doStartNetwork           | invoked (remoteHostsLen=0 port=0 vlan=533)
+2013-02-18 11:37:10 DEBUG 000015415 vnetStartNetworkManaged  | params: vlan=533, uuid=UNSET, userName=UNSET, netName=UNSET
+2013-02-18 11:37:10  INFO 000015415 doStartNetwork           | started network (port=0 vlan=533)
+2013-02-18 11:37:10  INFO 000015415 doRunInstance            | [i-DF913DB4] running instance cores=1 disk=5 memory=512 vlan=533 priMAC=D0:0D:DF:91:3D:B4 privIp=172.27.161.60
+2013-02-18 11:37:10 DEBUG 000015415 vbr_legacy               | [i-DF913DB4]                VBR[0] type=swap id=none dev=sda3 size=524288 format=swap none
+2013-02-18 11:37:10 DEBUG 000015415 vbr_legacy               | [i-DF913DB4]                VBR[1] type=ephemeral id=none dev=sda2 size=8192 format=ext3 none
+2013-02-18 11:37:10 DEBUG 000015415 vbr_legacy               | [i-DF913DB4]                VBR[2] type=machine id=emi-8B453FC2 dev=sda1 size=4710400 format=none walrus://fedora/fedora16-x86_64.manifest.xml
+2013-02-18 11:37:10 DEBUG 000015415 vbr_legacy               | [i-DF913DB4]                VBR[3] type=kernel id=eki-3FD63A9F dev=none size=-1 format=none walrus://fedora/vmlinuz-3.6.6-1.fc16.x86_64.manifest.xml
+2013-02-18 11:37:10 DEBUG 000015415 vbr_legacy               | [i-DF913DB4]                VBR[4] type=ramdisk id=eri-8B1A3A85 dev=none size=-1 format=none walrus://fedora/initrd-3.6.6-1.fc16.x86_64.img.manifest.xml
+2013-02-18 11:37:11 DEBUG 000015415 change_state             | [i-DF913DB4] state change for instance: Unknown -> Staging (Pending)
+2013-02-18 11:37:11 DEBUG 000012011 startup_thread           | [i-DF913DB4] spawning startup thread
+2013-02-18 11:37:11 DEBUG 000015415 doAssignAddress          | [i-DF913DB4] invoked (publicIp=10.111.102.83)
+2013-02-18 11:37:11 DEBUG 000015415 save_instance_struct     | [i-DF913DB4] save_instance_struct: failed to create instance checkpoint at /disk1/storage/eucalyptus/instances/work/9OPRWIZSLX6RGOFLZWKSK/i-DF913DB4/instance.checkpoint
+2013-02-18 11:37:11 DEBUG 000012011 vnetStartNetworkManaged  | params: vlan=533, uuid=UNSET, userName=UNSET, netName=UNSET
+2013-02-18 11:37:11  INFO 000012011 ensure_directories_exist | creating path /disk1/storage/eucalyptus/instances/work/9OPRWIZSLX6RGOFLZWKSK/i-DF913DB4
+2013-02-18 11:37:11 DEBUG 000012011 diskutil_ch              | ch(own|mod) '/disk1/storage/eucalyptus/instances/work/9OPRWIZSLX6RGOFLZWKSK/i-DF913DB4' *.root 771
+2013-02-18 11:37:11 DEBUG 000012011 vbr_alloc_tree           | [i-DF913DB4] found 2 prereqs and 3 partitions in the VBR
+2013-02-18 11:37:11 DEBUG 000012011 art_alloc                | [i-DF913DB4] allocated artifact 739|i-DF913DB4 size=-1 vbr=(nil) cache=0 file=0
+2013-02-18 11:37:11 DEBUG 000012011 walrus_request_timeout   | {643262208} walrus_request: calling URL=http://10.111.5.31:8773/services/Walrus/fedora/vmlinuz-3.6.6-1.fc16.x86_64.manifest.xml
+2013-02-18 11:37:11 DEBUG 000012011 eucav2_sign_request      | eucav2_sign_request: reading private key file //var/lib/eucalyptus/keys/node-pk.pem
+2013-02-18 11:37:11 DEBUG 000012011 eucav2_sign_request      | eucav2_sign_request: signing input length=118 buf[n-1]=116 hash=-1618082134
+2013-02-18 11:37:11 DEBUG 000012011 eucav2_sign_request      | eucav2_sign_request: signing output 6
+2013-02-18 11:37:11 DEBUG 000012011 eucav2_sign_request      | eucav2_sign_request: base64 signature length=344 buf[n-1]=61 hash=-588345443
+2013-02-18 11:37:11 DEBUG 000012011 walrus_request_timeout   | {643262208} walrus_request: writing GET output to /tmp/walrus-digest-Si6oev
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:11 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:18 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:24 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:27 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:37:27 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:30 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:37 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:43 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:49 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:37:56 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:37:57 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:37:57 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:37:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:02 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:06 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:38:06 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:38:06 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375440896 bytes
+2013-02-18 11:38:06 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:38:06 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:38:06 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375428608 bytes
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:08 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:15 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:21 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:27 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:38:27 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:27 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:34 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:40 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:46 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:53 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:38:57 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:38:57 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:38:59 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:02 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:39:02 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:39:02 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375309824 bytes
+2013-02-18 11:39:02 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:39:02 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:39:02 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375309824 bytes
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:39:05 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeInstances      | [i-A0703EE5] Teardown pub=0.0.0.0 priv=172.27.160.171 mac=D0:0D:A0:70:3E:E5 vlan=524 net=11 plat=linux vols=
+2013-02-18 11:39:12 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:14  INFO 000015530 monitoring_thread        | [i-A0703EE5] forgetting about instance
+2013-02-18 11:39:18 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:18 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:18 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:18 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:18 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:18 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:23 DEBUG 000015415 doDescribeSensors        | invoked (instIdsLen=0 sensorIdsLen=0)
+2013-02-18 11:39:23 DEBUG 000015415 sensor_expire_cache_entr | invoked
+2013-02-18 11:39:23 DEBUG 000015415 doDescribeSensors        | [i-DF913DB4] failed to retrieve sensor data
+2013-02-18 11:39:23 DEBUG 000015415 doDescribeSensors        | found 3 resource(s)
+2013-02-18 11:39:24 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:24 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:24 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:24 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:24 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:24 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:27 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:27 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:31 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:31 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:31 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:31 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:31 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:31 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:37 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:37 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:37 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:37 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:37 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:37 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:43 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:43 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:43 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:43 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:43 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:43 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:50 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:50 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:50 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:50 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:50 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:50 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:53 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-02-18 11:39:53 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 31
+2013-02-18 11:39:53 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375162368 bytes
+2013-02-18 11:39:53 DEBUG 000015530 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-02-18 11:39:53 DEBUG 000015530 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 31
+2013-02-18 11:39:53 DEBUG 000015530 statfs_path              |   of size 211378954240 bytes with available 185375162368 bytes
+2013-02-18 11:39:56 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:39:56 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:39:56 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:39:56 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:39:56 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:39:56 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:39:57 DEBUG 000015447 sensor_refresh_resources | polled statistics for 3 instance(s)
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_refresh_resources | unable to get metrics for instance i-A0703EE5 (OK if it was terminated---should soon expire from the cache)
+2013-02-18 11:39:57 DEBUG 000015447 sensor_expire_cache_entr | invoked
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:39:57 DEBUG 000015447 sensor_merge_records     | completed: merged 1 values, ret=0
+2013-02-18 11:40:02 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:40:02 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:40:02 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:40:02 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:40:02 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:40:02 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=
+2013-02-18 11:40:09 DEBUG 000015415 doDescribeResource       | returning cores=0/4 mem=5744/7792 disk=37/57 iqn=iqn.1994-05.com.redhat:8df4f47a68
+2013-02-18 11:40:09 DEBUG 000015415 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=0 services[0]{.name= .type= .uris[0]=}
+2013-02-18 11:40:09 DEBUG 000015415 doDescribeInstances      | [i-7E1344C8] Extant pub=10.111.102.80 priv=172.27.161.59 mac=D0:0D:7E:13:44:C8 vlan=533 net=11 plat=linux vols=
+2013-02-18 11:40:09 DEBUG 000015415 doDescribeInstances      | [i-F94C40C5] Extant pub=10.111.102.82 priv=172.27.163.156 mac=D0:0D:F9:4C:40:C5 vlan=571 net=12 plat=linux vols=
+2013-02-18 11:40:09 DEBUG 000015415 doDescribeInstances      | [i-E0013D4B] Extant pub=10.111.102.81 priv=172.27.163.155 mac=D0:0D:E0:01:3D:4B vlan=571 net=11 plat=linux vols=
+2013-02-18 11:40:09 DEBUG 000015415 doDescribeInstances      | [i-DF913DB4] Pending pub=10.111.102.83 priv=172.27.161.60 mac=D0:0D:DF:91:3D:B4 vlan=533 net=12 plat=linux vols=

@@ -1,0 +1,1218 @@
+{
+    "Parameters" : {
+     "AccountName" : {
+      "Description" : "Name of the account owner",
+      "Type" : "String" }
+     ,
+     "StackName" : {
+      "Description" : "Name of the stack",
+      "Type" : "String" 
+     } 
+    },
+
+    "Resources" : {
+    "mybucket1" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest1" ] ] }
+        }
+   },
+    "mybucket2" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest2" ] ] }
+        }
+   },
+    "mybucket3" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest3" ] ] }
+        }
+   },
+    "mybucket4" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest4" ] ] }
+        }
+   },
+    "mybucket5" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest5" ] ] }
+        }
+   },
+    "mybucket6" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest6" ] ] }
+        }
+   },
+    "mybucket7" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest7" ] ] }
+        }
+   },
+    "mybucket8" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest8" ] ] }
+        }
+   },
+    "mybucket9" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest9" ] ] }
+        }
+   },
+    "mybucket10" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest10" ] ] }
+        }
+   },
+    "mybucket11" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest11" ] ] }
+        }
+   },
+    "mybucket12" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest12" ] ] }
+        }
+   },
+    "mybucket13" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest13" ] ] }
+        }
+   },
+    "mybucket14" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest14" ] ] }
+        }
+   },
+    "mybucket15" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest15" ] ] }
+        }
+   },
+    "mybucket16" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest16" ] ] }
+        }
+   },
+    "mybucket17" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest17" ] ] }
+        }
+   },
+    "mybucket18" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest18" ] ] }
+        }
+   },
+    "mybucket19" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest19" ] ] }
+        }
+   },
+    "mybucket20" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest20" ] ] }
+        }
+   },
+    "mybucket21" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest21" ] ] }
+        }
+   },
+    "mybucket22" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest22" ] ] }
+        }
+   },
+    "mybucket23" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest23" ] ] }
+        }
+   },
+    "mybucket24" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest24" ] ] }
+        }
+   },
+    "mybucket25" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest25" ] ] }
+        }
+   },
+    "mybucket26" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest26" ] ] }
+        }
+   },
+    "mybucket27" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest27" ] ] }
+        }
+   },
+    "mybucket28" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest28" ] ] }
+        }
+   },
+    "mybucket29" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest29" ] ] }
+        }
+   },
+    "mybucket30" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest30" ] ] }
+        }
+   },
+    "mybucket31" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest31" ] ] }
+        }
+   },
+    "mybucket32" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest32" ] ] }
+        }
+   },
+    "mybucket33" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest33" ] ] }
+        }
+   },
+    "mybucket34" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest34" ] ] }
+        }
+   },
+    "mybucket35" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest35" ] ] }
+        }
+   },
+    "mybucket36" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest36" ] ] }
+        }
+   },
+    "mybucket37" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest37" ] ] }
+        }
+   },
+    "mybucket38" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest38" ] ] }
+        }
+   },
+    "mybucket39" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest39" ] ] }
+        }
+   },
+    "mybucket40" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest40" ] ] }
+        }
+   },
+    "mybucket41" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest41" ] ] }
+        }
+   },
+    "mybucket42" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest42" ] ] }
+        }
+   },
+    "mybucket43" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest43" ] ] }
+        }
+   },
+    "mybucket44" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest44" ] ] }
+        }
+   },
+    "mybucket45" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest45" ] ] }
+        }
+   },
+    "mybucket46" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest46" ] ] }
+        }
+   },
+    "mybucket47" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest47" ] ] }
+        }
+   },
+    "mybucket48" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest48" ] ] }
+        }
+   },
+    "mybucket49" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest49" ] ] }
+        }
+   },
+    "mybucket50" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest50" ] ] }
+        }
+   },
+    "mybucket51" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest51" ] ] }
+        }
+   },
+    "mybucket52" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest52" ] ] }
+        }
+   },
+    "mybucket53" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest53" ] ] }
+        }
+   },
+    "mybucket54" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest54" ] ] }
+        }
+   },
+    "mybucket55" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest55" ] ] }
+        }
+   },
+    "mybucket56" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest56" ] ] }
+        }
+   },
+    "mybucket57" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest57" ] ] }
+        }
+   },
+    "mybucket58" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest58" ] ] }
+        }
+   },
+    "mybucket59" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest59" ] ] }
+        }
+   },
+    "mybucket60" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest60" ] ] }
+        }
+   },
+    "mybucket61" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest61" ] ] }
+        }
+   },
+    "mybucket62" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest62" ] ] }
+        }
+   },
+    "mybucket63" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest63" ] ] }
+        }
+   },
+    "mybucket64" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest64" ] ] }
+        }
+   },
+    "mybucket65" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest65" ] ] }
+        }
+   },
+    "mybucket66" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest66" ] ] }
+        }
+   },
+    "mybucket67" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest67" ] ] }
+        }
+   },
+    "mybucket68" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest68" ] ] }
+        }
+   },
+    "mybucket69" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest69" ] ] }
+        }
+   },
+    "mybucket70" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest70" ] ] }
+        }
+   },
+    "mybucket71" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest71" ] ] }
+        }
+   },
+    "mybucket72" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest72" ] ] }
+        }
+   },
+    "mybucket73" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest73" ] ] }
+        }
+   },
+    "mybucket74" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest74" ] ] }
+        }
+   },
+    "mybucket75" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest75" ] ] }
+        }
+   },
+    "mybucket76" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest76" ] ] }
+        }
+   },
+    "mybucket77" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest77" ] ] }
+        }
+   },
+    "mybucket78" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest78" ] ] }
+        }
+   },
+    "mybucket79" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest79" ] ] }
+        }
+   },
+    "mybucket80" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest80" ] ] }
+        }
+   },
+    "mybucket81" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest81" ] ] }
+        }
+   },
+    "mybucket82" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest82" ] ] }
+        }
+   },
+    "mybucket83" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest83" ] ] }
+        }
+   },
+    "mybucket84" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest84" ] ] }
+        }
+   },
+    "mybucket85" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest85" ] ] }
+        }
+   },
+    "mybucket86" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest86" ] ] }
+        }
+   },
+    "mybucket87" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest87" ] ] }
+        }
+   },
+    "mybucket88" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest88" ] ] }
+        }
+   },
+    "mybucket89" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest89" ] ] }
+        }
+   },
+    "mybucket90" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest90" ] ] }
+        }
+   },
+    "mybucket91" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest91" ] ] }
+        }
+   },
+    "mybucket92" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest92" ] ] }
+        }
+   },
+    "mybucket93" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest93" ] ] }
+        }
+   },
+    "mybucket94" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest94" ] ] }
+        }
+   },
+    "mybucket95" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest95" ] ] }
+        }
+   },
+    "mybucket96" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest96" ] ] }
+        }
+   },
+    "mybucket97" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest97" ] ] }
+        }
+   },
+    "mybucket98" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest98" ] ] }
+        }
+   },
+    "mybucket99" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest99" ] ] }
+        }
+   },
+    "mybucket100" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest100" ] ] }
+        }
+   },
+    "mybucket101" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest101" ] ] }
+        }
+   },
+    "mybucket102" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest102" ] ] }
+        }
+   },
+    "mybucket103" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest103" ] ] }
+        }
+   },
+    "mybucket104" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest104" ] ] }
+        }
+   },
+    "mybucket105" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest105" ] ] }
+        }
+   },
+    "mybucket106" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest106" ] ] }
+        }
+   },
+    "mybucket107" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest107" ] ] }
+        }
+   },
+    "mybucket108" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest108" ] ] }
+        }
+   },
+    "mybucket109" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest109" ] ] }
+        }
+   },
+    "mybucket110" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest110" ] ] }
+        }
+   },
+    "mybucket111" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest111" ] ] }
+        }
+   },
+    "mybucket112" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest112" ] ] }
+        }
+   },
+    "mybucket113" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest113" ] ] }
+        }
+   },
+    "mybucket114" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest114" ] ] }
+        }
+   },
+    "mybucket115" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest115" ] ] }
+        }
+   },
+    "mybucket116" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest116" ] ] }
+        }
+   },
+    "mybucket117" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest117" ] ] }
+        }
+   },
+    "mybucket118" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest118" ] ] }
+        }
+   },
+    "mybucket119" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest119" ] ] }
+        }
+   },
+    "mybucket120" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest120" ] ] }
+        }
+   },
+    "mybucket121" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest121" ] ] }
+        }
+   },
+    "mybucket122" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest122" ] ] }
+        }
+   },
+    "mybucket123" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest123" ] ] }
+        }
+   },
+    "mybucket124" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest124" ] ] }
+        }
+   },
+    "mybucket125" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest125" ] ] }
+        }
+   },
+    "mybucket126" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest126" ] ] }
+        }
+   },
+    "mybucket127" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest127" ] ] }
+        }
+   },
+    "mybucket128" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest128" ] ] }
+        }
+   },
+    "mybucket129" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest129" ] ] }
+        }
+   },
+    "mybucket130" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest130" ] ] }
+        }
+   },
+    "mybucket131" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest131" ] ] }
+        }
+   },
+    "mybucket132" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest132" ] ] }
+        }
+   },
+    "mybucket133" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest133" ] ] }
+        }
+   },
+    "mybucket134" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest134" ] ] }
+        }
+   },
+    "mybucket135" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest135" ] ] }
+        }
+   },
+    "mybucket136" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest136" ] ] }
+        }
+   },
+    "mybucket137" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest137" ] ] }
+        }
+   },
+    "mybucket138" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest138" ] ] }
+        }
+   },
+    "mybucket139" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest139" ] ] }
+        }
+   },
+    "mybucket140" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest140" ] ] }
+        }
+   },
+    "mybucket141" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest141" ] ] }
+        }
+   },
+    "mybucket142" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest142" ] ] }
+        }
+   },
+    "mybucket143" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest143" ] ] }
+        }
+   },
+    "mybucket144" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest144" ] ] }
+        }
+   },
+    "mybucket145" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest145" ] ] }
+        }
+   },
+    "mybucket146" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest146" ] ] }
+        }
+   },
+    "mybucket147" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest147" ] ] }
+        }
+   },
+    "mybucket148" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest148" ] ] }
+        }
+   },
+    "mybucket149" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest149" ] ] }
+        }
+   },
+    "mybucket150" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest150" ] ] }
+        }
+   },
+    "mybucket151" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest151" ] ] }
+        }
+   },
+    "mybucket152" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest152" ] ] }
+        }
+   },
+    "mybucket153" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest153" ] ] }
+        }
+   },
+    "mybucket154" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest154" ] ] }
+        }
+   },
+    "mybucket155" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest155" ] ] }
+        }
+   },
+    "mybucket156" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest156" ] ] }
+        }
+   },
+    "mybucket157" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest157" ] ] }
+        }
+   },
+    "mybucket158" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest158" ] ] }
+        }
+   },
+    "mybucket159" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest159" ] ] }
+        }
+   },
+    "mybucket160" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest160" ] ] }
+        }
+   },
+    "mybucket161" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest161" ] ] }
+        }
+   },
+    "mybucket162" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest162" ] ] }
+        }
+   },
+    "mybucket163" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest163" ] ] }
+        }
+   },
+    "mybucket164" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest164" ] ] }
+        }
+   },
+    "mybucket165" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest165" ] ] }
+        }
+   },
+    "mybucket166" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest166" ] ] }
+        }
+   },
+    "mybucket167" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest167" ] ] }
+        }
+   },
+    "mybucket168" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest168" ] ] }
+        }
+   },
+    "mybucket169" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest169" ] ] }
+        }
+   },
+    "mybucket170" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest170" ] ] }
+        }
+   },
+    "mybucket171" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest171" ] ] }
+        }
+   },
+    "mybucket172" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest172" ] ] }
+        }
+   },
+    "mybucket173" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest173" ] ] }
+        }
+   },
+    "mybucket174" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest174" ] ] }
+        }
+   },
+    "mybucket175" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest175" ] ] }
+        }
+   },
+    "mybucket176" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest176" ] ] }
+        }
+   },
+    "mybucket177" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest177" ] ] }
+        }
+   },
+    "mybucket178" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest178" ] ] }
+        }
+   },
+    "mybucket179" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest179" ] ] }
+        }
+   },
+    "mybucket180" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest180" ] ] }
+        }
+   },
+    "mybucket181" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest181" ] ] }
+        }
+   },
+    "mybucket182" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest182" ] ] }
+        }
+   },
+    "mybucket183" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest183" ] ] }
+        }
+   },
+    "mybucket184" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest184" ] ] }
+        }
+   },
+    "mybucket185" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest185" ] ] }
+        }
+   },
+    "mybucket186" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest186" ] ] }
+        }
+   },
+    "mybucket187" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest187" ] ] }
+        }
+   },
+    "mybucket188" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest188" ] ] }
+        }
+   },
+    "mybucket189" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest189" ] ] }
+        }
+   },
+    "mybucket190" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest190" ] ] }
+        }
+   },
+    "mybucket191" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest191" ] ] }
+        }
+   },
+    "mybucket192" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest192" ] ] }
+        }
+   },
+    "mybucket193" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest193" ] ] }
+        }
+   },
+    "mybucket194" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest194" ] ] }
+        }
+   },
+    "mybucket195" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest195" ] ] }
+        }
+   },
+    "mybucket196" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest196" ] ] }
+        }
+   },
+    "mybucket197" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest197" ] ] }
+        }
+   },
+    "mybucket198" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest198" ] ] }
+        }
+   },
+    "mybucket199" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest199" ] ] }
+        }
+   },
+    "mybucket200" : {
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "resourcetest200" ] ] }
+        }
+   }
+    },
+ 
+    "Outputs" : {
+    }
+}     

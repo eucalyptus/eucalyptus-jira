@@ -1,0 +1,33 @@
+IP=`euca-describe-instances | grep INS | cut -f4 | grep 192`
+KEY=jpdcred.keys
+LOCAL=10.101.1.11
+PORT=2200
+
+# outbound - connect to netserver on instance 
+for i in $IP ; do
+
+ echo "/usr/local/bin/netperf  TCP_CRR -P 0  -c -C -H $i -p $PORT  -l 60  -- -r 16384,16384  " 
+
+ /usr/local/bin/netperf  TCP_CRR -P0 -c -C -H $i -p $PORT  -l 60  -- -r 16384,16384  & 
+
+done
+
+wait 
+
+
+exit
+
+# inbound  - connect instance to netserver on another IP
+
+for i in $IP ; do
+
+echo "ssh -i $KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$i  /usr/local/bin/netperf  TCP_STREAM -P 0 -c -C -H $LOCAL -p $PORT  -l 60  -- -r 16384,16384  &   " 
+
+ssh -i $KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@$i " /usr/local/bin/netperf  TCP_STREAM -P 0 -c -C -H $LOCAL -p $PORT  -l 60  -- -r 16384,16384  & "   & 
+
+
+done
+
+ wait
+
+

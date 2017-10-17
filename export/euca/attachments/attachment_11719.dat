@@ -1,0 +1,272 @@
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/ServiceJarDiscovery.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/ServiceJarDiscovery.java	2011-05-18 11:40:02.923480988 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/ServiceJarDiscovery.java	2011-05-18 11:40:12.543460635 +0100
+@@ -22,6 +22,7 @@
+ import com.eucalyptus.system.Ats;
+ import com.eucalyptus.system.BaseDirectory;
+ import com.google.common.base.Function;
++import com.google.common.collect.ArrayListMultimap;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Multimap;
+ import com.google.common.collect.Multimaps;
+@@ -30,7 +31,7 @@
+ public abstract class ServiceJarDiscovery implements Comparable<ServiceJarDiscovery> {
+   private static Logger                         LOG       = Logger.getLogger( ServiceJarDiscovery.class );
+   private static SortedSet<ServiceJarDiscovery> discovery = Sets.newTreeSet( );
+-  private static Multimap<Class, String>        classList = Multimaps.newArrayListMultimap( );
++  private static Multimap<Class, String>        classList = ArrayListMultimap.create( );
+   
+   @SuppressWarnings( { "deprecation", "unchecked" } )
+   public static void processFile( File f ) throws IOException {
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java	2011-05-18 11:40:02.903481030 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java	2011-05-18 11:40:12.543460635 +0100
+@@ -79,6 +79,7 @@
+ import com.eucalyptus.util.NetworkUtil;
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Sets;
++import com.google.common.collect.MapMaker;
+ 
+ /**
+  * @author decker
+@@ -95,7 +96,7 @@
+   private Lifecycle                                lifecycle;
+   private Boolean                                  enabled;
+   private Boolean                                  local;
+-  private Map<String, Service>                     services        = Maps.newConcurrentHashMap( );
++  private Map<String, Service>                     services        = new MapMaker().makeMap( );
+   
+   Component( String name, URI configFile ) throws ServiceRegistrationException {
+     this.name = name;
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/component/DefaultServiceBuilder.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/component/DefaultServiceBuilder.java	2011-05-18 11:40:02.913481009 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/component/DefaultServiceBuilder.java	2011-05-18 11:40:12.543460635 +0100
+@@ -8,10 +8,11 @@
+ import com.eucalyptus.util.NetworkUtil;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
++import com.google.common.collect.MapMaker;
+ 
+ public class DefaultServiceBuilder extends AbstractServiceBuilder<ServiceConfiguration> {
+   private Component                         component;
+-  private Map<String, ServiceConfiguration> services = Maps.newConcurrentHashMap( );
++  private Map<String, ServiceConfiguration> services = new MapMaker().makeMap( );
+   
+   public DefaultServiceBuilder( Component component ) {
+     this.component = component;
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertyDirectory.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertyDirectory.java	2011-05-18 11:40:02.953480925 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertyDirectory.java	2011-05-18 11:40:12.543460635 +0100
+@@ -9,14 +9,15 @@
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Multimap;
+ import com.google.common.collect.Multimaps;
++import com.google.common.collect.HashMultimap;
+ import edu.ucsb.eucalyptus.msgs.ComponentProperty;
+ 
+ public class PropertyDirectory {
+   private static Logger                                 LOG         = Logger.getLogger( PropertyDirectory.class );
+   private static Map<String, ConfigurableProperty>      fqMap       = Maps.newHashMap( );
+-  private static Multimap<String, ConfigurableProperty> fqPrefixMap = Multimaps.newHashMultimap( );
++  private static Multimap<String, ConfigurableProperty> fqPrefixMap = HashMultimap.create( );
+   private static Map<String, ConfigurableProperty>      fqPendingMap       = Maps.newHashMap( );
+- private static Multimap<String, ConfigurableProperty> fqPendingPrefixMap = Multimaps.newHashMultimap( );
++  private static Multimap<String, ConfigurableProperty> fqPendingPrefixMap = HashMultimap.create( );
+ 
+   private static List<ConfigurablePropertyBuilder>      builders    = Lists.newArrayList( new StaticPropertyEntry.StaticPropertyBuilder( ),
+                                                                                           new SingletonDatabasePropertyEntry.DatabasePropertyBuilder( ),
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurationProperties.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurationProperties.java	2011-05-18 11:40:02.943480946 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurationProperties.java	2011-05-18 11:40:12.543460635 +0100
+@@ -16,12 +16,13 @@
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Multimap;
+ import com.google.common.collect.Multimaps;
++import com.google.common.collect.HashMultimap;
+ 
+ public class ConfigurationProperties {
+   private static Logger LOG = Logger.getLogger( ConfigurationProperties.class );
+ 
+-  private static Multimap<String,Class> fileToClassMap = Multimaps.newHashMultimap( );
+-  private static Multimap<Class,String> classToFieldMap = Multimaps.newHashMultimap( );
++  private static Multimap<String,Class> fileToClassMap = HashMultimap.create( );
++  private static Multimap<Class,String> classToFieldMap = HashMultimap.create( );
+   private static Map<String,PropertyTypeParser> fieldTypeMap = Maps.newHashMap( );
+     
+   @SuppressWarnings( "deprecation" )
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/entities/PersistenceContexts.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/entities/PersistenceContexts.java	2011-05-18 11:40:02.933480967 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/entities/PersistenceContexts.java	2011-05-18 11:40:12.543460635 +0100
+@@ -24,7 +24,7 @@
+   public static int                                     MAX_FAIL        = 5;
+   private static AtomicInteger                          failCount       = new AtomicInteger( 0 );
+   private static Logger                                 LOG             = Logger.getLogger( PersistenceContexts.class );
+-  private static final ArrayListMultimap<String, Class> entities        = Multimaps.newArrayListMultimap( );
++  private static final ArrayListMultimap<String, Class> entities        = ArrayListMultimap.create( );
+   private static final List<Class>                      sharedEntities  = Lists.newArrayList( );
+   private static Map<String, EntityManagerFactoryImpl>  emf             = new ConcurrentSkipListMap<String, EntityManagerFactoryImpl>( );
+   private static List<Exception>                        illegalAccesses = Collections.synchronizedList( Lists.newArrayList( ) );
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/event/ReentrantListenerRegistry.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/event/ReentrantListenerRegistry.java	2011-05-18 11:40:02.973480883 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/event/ReentrantListenerRegistry.java	2011-05-18 11:40:12.553460614 +0100
+@@ -9,6 +9,7 @@
+ import com.eucalyptus.util.LogUtil;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Multimap;
++import com.google.common.collect.ArrayListMultimap;
+ import com.google.common.collect.Multimaps;
+ import com.eucalyptus.records.EventRecord;
+ 
+@@ -19,7 +20,7 @@
+   
+   public ReentrantListenerRegistry( ) {
+     super( );
+-    this.listenerMap = Multimaps.newArrayListMultimap( );
++    this.listenerMap = ArrayListMultimap.create( );
+     this.modificationLock = new ReentrantLock( );
+   }
+   
+Index: eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/util/Composites.java
+===================================================================
+--- eucalyptus.orig/clc/modules/msgs/src/main/java/com/eucalyptus/util/Composites.java	2011-05-18 11:40:02.943480946 +0100
++++ eucalyptus/clc/modules/msgs/src/main/java/com/eucalyptus/util/Composites.java	2011-05-18 11:40:12.553460614 +0100
+@@ -8,10 +8,11 @@
+ import com.google.common.base.Function;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
++import com.google.common.collect.MapMaker;
+ 
+ public class Composites {
+   private static Logger LOG = Logger.getLogger( Composites.class );
+-  private static ConcurrentMap<Class, CompositeHelper> subTypeCache = Maps.newConcurrentHashMap( );
++  private static ConcurrentMap<Class, CompositeHelper> subTypeCache = new MapMaker( ).makeMap( );
+   
+   private static <T> CompositeHelper<T> build( Class<T> destType ) {
+     List<Class> sourceTypes = Lists.newArrayList( );
+Index: eucalyptus/clc/modules/configuration/src/main/java/com/eucalyptus/config/Configuration.java
+===================================================================
+--- eucalyptus.orig/clc/modules/configuration/src/main/java/com/eucalyptus/config/Configuration.java	2011-05-18 11:40:02.993480841 +0100
++++ eucalyptus/clc/modules/configuration/src/main/java/com/eucalyptus/config/Configuration.java	2011-05-18 11:40:12.553460614 +0100
+@@ -76,6 +76,7 @@
+ import com.eucalyptus.util.EucalyptusCloudException;
+ import com.eucalyptus.util.NetworkUtil;
+ import com.google.common.collect.Maps;
++import com.google.common.collect.MapMaker;
+ import edu.ucsb.eucalyptus.msgs.ComponentInfoType;
+ import edu.ucsb.eucalyptus.msgs.DeregisterComponentResponseType;
+ import edu.ucsb.eucalyptus.msgs.DeregisterComponentType;
+@@ -93,7 +94,7 @@
+   static String         CLUSTER_KEY_FSTRING = "cc-%s";
+   static String         NODE_KEY_FSTRING    = "nc-%s";
+ 
+-  private static Map<Class,ServiceBuilder<ComponentConfiguration>> builders = Maps.newConcurrentHashMap( );
++  private static Map<Class,ServiceBuilder<ComponentConfiguration>> builders = new MapMaker( ).makeMap();
+   public static void addBuilder( Class c, ServiceBuilder b ) {
+     builders.put( c, b );
+   }
+Index: eucalyptus/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/client/RemoteBootstrapperClient.java
+===================================================================
+--- eucalyptus.orig/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/client/RemoteBootstrapperClient.java	2011-05-18 11:40:02.853481137 +0100
++++ eucalyptus/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/client/RemoteBootstrapperClient.java	2011-05-18 11:40:12.553460614 +0100
+@@ -111,6 +111,8 @@
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Multimap;
+ import com.google.common.collect.Multimaps;
++import com.google.common.collect.MapMaker;
++import com.google.common.collect.ArrayListMultimap;
+ 
+ @Provides(Component.eucalyptus)
+ @RunDuring(Bootstrap.Stage.RemoteConfiguration)
+@@ -131,8 +133,8 @@
+     this.channelFactory = new NioClientSocketChannelFactory( Executors.newCachedThreadPool( ), Executors.newCachedThreadPool( ) );
+     this.clientBootstrap = new NioBootstrap( channelFactory );
+     this.clientBootstrap.setPipelineFactory( this );
+-    this.componentMap = Multimaps.newArrayListMultimap( );
+-    this.heartbeatMap = Maps.newConcurrentHashMap( );
++    this.componentMap = ArrayListMultimap.create( );
++    this.heartbeatMap = new MapMaker( ).makeMap();
+   }
+ 
+   public ChannelPipeline getPipeline( ) throws Exception {
+Index: eucalyptus/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/StatefulMessageSet.java
+===================================================================
+--- eucalyptus.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/StatefulMessageSet.java	2011-05-18 11:40:02.863481116 +0100
++++ eucalyptus/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/StatefulMessageSet.java	2011-05-18 11:40:12.553460614 +0100
+@@ -8,12 +8,13 @@
+ import com.google.common.base.Function;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Multimap;
++import com.google.common.collect.HashMultimap;
+ import com.google.common.collect.Multimaps;
+ import com.eucalyptus.records.EventRecord;
+ 
+ public class StatefulMessageSet<E extends Enum<E>> {
+   private static Logger                              LOG           = Logger.getLogger( StatefulMessageSet.class );
+-  private Multimap<E, QueuedEventCallback>           messages      = Multimaps.newHashMultimap( );
++  private Multimap<E, QueuedEventCallback>           messages      = HashMultimap.create( );
+   private ConcurrentLinkedQueue<QueuedEventCallback> pendingEvents = new ConcurrentLinkedQueue<QueuedEventCallback>( );
+   private E[]                                        states;
+   private E                                          state;
+Index: eucalyptus/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/StateUpdateHandler.java
+===================================================================
+--- eucalyptus.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/StateUpdateHandler.java	2011-05-18 11:40:02.873481095 +0100
++++ eucalyptus/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/StateUpdateHandler.java	2011-05-18 11:40:12.563460593 +0100
+@@ -12,12 +12,14 @@
+ import com.google.common.base.Predicate;
+ import com.google.common.collect.Iterables;
+ import com.google.common.collect.Maps;
++import com.google.common.collect.MapMaker;
+ 
+ public class StateUpdateHandler implements EventListener {
+   private static Logger LOG = Logger.getLogger( StateUpdateHandler.class );
+-  private static final ConcurrentMap<String,StateUpdateHandler> clusterMap = Maps.newConcurrentHashMap( );
+-  private final ConcurrentMap<Class,AtomicBoolean> inflightMap = Maps.newConcurrentHashMap( );
+-  private final ConcurrentMap<Class,QueuedEventCallback> callbackMap = Maps.newConcurrentHashMap( );
++  private static final MapMaker mMaker = new MapMaker();
++  private static final ConcurrentMap<String,StateUpdateHandler> clusterMap = mMaker.makeMap();
++  private final ConcurrentMap<Class,AtomicBoolean> inflightMap = mMaker.makeMap();
++  private final ConcurrentMap<Class,QueuedEventCallback> callbackMap = mMaker.makeMap();
+   private final Cluster cluster;
+   
+   public static void create( Cluster cluster, QueuedEventCallback callback ) {
+Index: eucalyptus/clc/modules/cluster-manager/src/main/java/com/eucalyptus/sla/ClusterAllocator.java
+===================================================================
+--- eucalyptus.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/sla/ClusterAllocator.java	2011-05-18 11:40:02.893481052 +0100
++++ eucalyptus/clc/modules/cluster-manager/src/main/java/com/eucalyptus/sla/ClusterAllocator.java	2011-05-18 11:40:12.563460593 +0100
+@@ -285,7 +285,7 @@
+     if ( primaryNet != null ) {
+       vlan = primaryNet.getVlan( );
+       networkNames = Lists.newArrayList( primaryNet.getNetworkName( ) );
+-      netIndexes = Lists.newArrayList( Iterables.transform( primaryNet.getIndexes( ), Functions.TO_STRING ) );
++      netIndexes = Lists.newArrayList( Iterables.transform( primaryNet.getIndexes( ), Functions.toStringFunction() ) );
+     } else {
+       vlan = -1;
+       networkNames = Lists.newArrayList( "default" );
+Index: eucalyptus/clc/modules/image-manager/src/main/java/com/eucalyptus/blockstorage/StorageUtil.java
+===================================================================
+--- eucalyptus.orig/clc/modules/image-manager/src/main/java/com/eucalyptus/blockstorage/StorageUtil.java	2011-05-18 11:40:33.753415784 +0100
++++ eucalyptus/clc/modules/image-manager/src/main/java/com/eucalyptus/blockstorage/StorageUtil.java	2011-05-18 11:41:09.193340916 +0100
+@@ -81,6 +81,7 @@
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
+ import com.google.common.collect.Multimap;
++import com.google.common.collect.HashMultimap;
+ import com.google.common.collect.Multimaps;
+ 
+ import edu.ucsb.eucalyptus.cloud.state.State;
+@@ -111,7 +112,7 @@
+   }
+ 
+   public static ArrayList<edu.ucsb.eucalyptus.msgs.Volume> getVolumeReply( Map<String, AttachedVolume> attachedVolumes, List<Volume> volumes ) throws EucalyptusCloudException {
+-    Multimap<String,Volume> clusterVolumeMap = Multimaps.newHashMultimap( );
++    Multimap<String,Volume> clusterVolumeMap = HashMultimap.create( );
+     Map<String,StorageVolume> idStorageVolumeMap = Maps.newHashMap( );
+     for( Volume v : volumes ) {
+       clusterVolumeMap.put( v.getCluster( ), v );

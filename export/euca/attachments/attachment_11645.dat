@@ -1,0 +1,173 @@
+From 36eebcb7045b9fb1e1b8ec2615eefdb8f2de1a8b Mon Sep 17 00:00:00 2001
+From: Stanislav Ievlev <stanislav.ievlev@gmail.com>
+Date: Thu, 11 Feb 2010 16:34:39 -0500
+Subject: [PATCH] improve locking mechanizm during staging process, fix work with network filesystems
+
+---
+ storage/storage.c |  105 ++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 files changed, 99 insertions(+), 6 deletions(-)
+
+diff --git a/storage/storage.c b/storage/storage.c
+index 8824a81..11af1e0 100644
+--- a/storage/storage.c
++++ b/storage/storage.c
+@@ -93,6 +93,81 @@ static int scConfigInit=0;
+ static sem * sc_sem;
+ static sem * disk_sem;
+ 
++/*** simple locking */
++
++/* retcode:
++   -1 - error
++   -2 - lock conflict
++   >0 - success */
++int lock_file_aquire(const char *path)
++{
++    struct flock lck;
++    struct stat st;
++    int fd = -1;
++    int rc = -1;
++
++    sem_v (disk_sem);
++
++    while (1)
++    {
++	if (!stat (path, &st))
++	{
++	    logprintfl (EUCAINFO, "lock_file_aquire(): file already exists %s\n", path);
++	    rc = -2;
++	    break;
++	}
++
++	logprintfl (EUCAINFO, "lock_file_aquire(): %s, pid=%d\n", path,getpid());
++
++	/* note: O_EXCL can't work on some network file systems */
++	if ((fd = open(path,O_RDWR|O_CREAT,0600)) == -1)
++	{
++	    rc = -1;
++	    break;
++	}
++
++	memset (&lck, 0, sizeof (struct flock));
++	lck.l_type = F_WRLCK;
++	lck.l_whence = SEEK_SET;
++
++	if (fcntl (fd, F_SETLK, &lck) == -1)
++	{
++	    close(fd);
++	    if (errno != EAGAIN && errno != EACCES)
++		rc = -1;
++	    else
++	    {
++		logprintfl (EUCAINFO, "lock_file_aquire(): unable to lock %s\n", path);
++		rc = -2;
++	    }
++	}
++	else
++	    rc = fd;
++
++	break;
++    }
++
++    sem_p (disk_sem);
++    return rc;
++}
++
++void lock_file_release(const char *path,int fd)
++{
++    struct flock lck;
++
++    logprintfl (EUCAINFO, "lock_file_release(): %s\n", path);
++
++    memset (&lck, 0, sizeof (struct flock));
++    lck.l_type = F_UNLCK;
++    lck.l_whence = SEEK_SET;
++    fcntl (fd, F_SETLK, &lck);
++
++    close(fd);
++    unlink(path);
++}
++
++/*** end of simple locking */
++
+ int scInitConfig (void)
+ {
+     struct stat mystat;
+@@ -749,6 +824,7 @@ static long long get_cached_file (const char * user_id, const char * url, const
+ 	char cached_dir      [BUFSIZE]; 
+ 	char cached_path     [BUFSIZE];
+ 	char staging_path    [BUFSIZE];
++	int  staging_fd = -1;
+ 	char digest_path     [BUFSIZE];
+ 
+ 	snprintf (file_path,       BUFSIZE, "%s/%s/%s/%s",    sc_instance_path, user_id, instance_id, file_name);
+@@ -767,10 +843,11 @@ retry:
+ 	struct stat mystat;
+     int cached_exists  = ! stat (cached_path, &mystat);
+     int staging_exists = ! stat (staging_path, &mystat);
++    logprintfl (EUCAERROR, "get_cached_file(): staging_exists=%d\n", staging_exists);
+ 
+     int e = ERROR;
+     int action;
+-    enum { ABORT, VERIFY, WAIT, STAGE };
++    enum { RETRY, ABORT, VERIFY, WAIT, STAGE };
+     if ( staging_exists ) {
+         action = WAIT;
+     } else {
+@@ -811,9 +888,20 @@ retry:
+                 } else if ( ok_to_cache (cached_path, full_size_b) ) { /* will invalidate the cache, if needed */
+                     ensure_path_exists (cached_dir); /* creates missing directories */
+                     should_cache = 1;
+-                    if ( touch (staging_path) ) { /* indicate that we'll be caching it */
+-                        logprintfl (EUCAERROR, "error: failed to create staging file %s\n", staging_path);
+-                        action = ABORT;
++//                    if ( touch (staging_path) ) { /* indicate that we'll be caching it */
++//                        logprintfl (EUCAERROR, "error: failed to create staging file %s\n", staging_path);
++//                        action = ABORT;
++//                    }
++                    logprintfl (EUCAERROR, "before lock_file_aquire %s\n", staging_path);
++                    staging_fd = lock_file_aquire(staging_path); /* indicate that we'll be caching it */
++                    logprintfl (EUCAERROR, "staging_fd=%d\n", staging_fd);
++                    if (staging_fd == -2) { /* already locked */
++                      logprintfl (EUCAINFO, "lock file busy ... immediately retry\n");
++                      action = RETRY;
++                    }
++                    else if (staging_fd == -1) {
++                      logprintfl (EUCAERROR, "error: failed to create staging file %s\n", staging_path);
++                     action = ABORT;
+                     }
+                 }
+             } else {
+@@ -828,6 +916,9 @@ retry:
+     sem_v (sc_sem); /***** release lock *****/
+     
+     switch (action) {
++    case RETRY:
++	logprintfl (EUCAINFO, "retry action\n");
++	goto retry;
+     case STAGE:
+         logprintfl (EUCAINFO, "downloading and preparing image into %s...\n", file_path);		
+         e = walrus_image_by_manifest_url (url, file_path, 1);
+@@ -867,7 +958,9 @@ retry:
+         
+         sem_p (sc_sem);
+         if (should_cache) {
+-            unlink (staging_path);            
++            //unlink (staging_path);            
++	    logprintfl (EUCAERROR, "before lock_file_release() staging_path=%s,staging_fd=%d\n", staging_path, staging_fd);
++            lock_file_release(staging_path,staging_fd);
+         }
+         if ( e ) {
+             logprintfl (EUCAERROR, "error: failed to download or prepare into %s\n", file_path);
+@@ -903,7 +996,7 @@ retry:
+         } else if ((e=walrus_verify_digest (url, digest_path))<0) {
+             /* negative status => digest changed */
+             unlink (cached_path);
+-            unlink (staging_path); /* TODO: needed? */
++            //unlink (staging_path); /* TODO: needed? */
+             unlink (digest_path);
+             if ( rmdir (cached_dir) ) {
+                 logprintfl (EUCAWARN, "warning: failed to remove cache directory %s\n", cached_dir);
+-- 
+1.6.6
+

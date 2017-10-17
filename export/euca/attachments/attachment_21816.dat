@@ -1,0 +1,671 @@
+
+hpwnetapp01-iscsi::> vserver show hpwnetapp01-iscsi
+
+                                    Vserver: hpwnetapp01-iscsi
+                               Vserver Type: data
+                               Vserver UUID: 93e7bd07-0a91-11e3-8d6c-123478563412
+                                Root Volume: hpwnetapp01_iscsi_root
+                                  Aggregate: aggr1_sas_n01
+                        Name Service Switch: file
+                        Name Mapping Switch: file
+                                 NIS Domain: -
+                 Root Volume Security Style: unix
+                                LDAP Client: -
+               Default Volume Language Code: en_US.UTF-8
+                            Snapshot Policy: default
+                                    Comment: HPW hpwnetapp01-iscsi, dedicated aggr and capped volume number to 100 for a total of 5tb, changed the number of vols to 125 per Mahdi's request on 20140617
+                               Quota Policy: default
+                List of Aggregates Assigned: aggr1_sata_n01
+ Limit on Maximum Number of Volumes allowed: 125
+                        Vserver Admin State: running
+                          Allowed Protocols: iscsi
+                       Disallowed Protocols: nfs, cifs, fcp, ndmp
+            Is Vserver with Infinite Volume: false
+                           QoS Policy Group: -
+
+hpwnetapp01-iscsi::>
+
+hpwnetapp01-iscsi::> volume show
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          hpwnetapp01_iscsi_m0
+                       aggr1_sas_n01
+                                    online     LS         20MB    18.82MB    5%
+hpwnetapp01-iscsi
+          hpwnetapp01_iscsi_m1
+                       aggr1_sas_n02
+                                    online     LS         20MB    18.82MB    5%
+hpwnetapp01-iscsi
+          hpwnetapp01_iscsi_root
+                       aggr1_sas_n01
+                                    online     RW         20MB    18.82MB    5%
+hpwnetapp01-iscsi
+          snap_128B3F37
+                       aggr1_sata_n01
+                                    online     RW      44.65GB     4.47GB   89%
+hpwnetapp01-iscsi
+          snap_2BFF40EB
+                       aggr1_sata_n01
+                                    online     RW      44.90GB     4.71GB   89%
+hpwnetapp01-iscsi
+          snap_2D1C3E93
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_44573DCE
+                       aggr1_sata_n01
+                                    online     RW      44.90GB     4.71GB   89%
+hpwnetapp01-iscsi
+          snap_462F3C28
+                       aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          snap_48823F9A
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_4B1B41B2
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_5B204120
+                       aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          snap_5B8644DD
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_5F3F4385
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_600F404D
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          snap_75BD3FAF
+                       aggr1_sata_n01
+                                    online     RW      44.65GB     4.47GB   89%
+hpwnetapp01-iscsi
+          snap_7EA6453D
+                       aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          snap_82EF414B
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_84E83F8F
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_94094015
+                       aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          snap_A4984032
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_A7E540A4
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_A8E340E7
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          snap_AD453F27
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_B16D3EFC
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_B35B4060
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_C4DA3FA0
+                       aggr1_sata_n01
+                                    online     RW      44.65GB     4.47GB   89%
+hpwnetapp01-iscsi
+          snap_C7853DEF
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_D31A3ABB
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_D91D3D90
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_DD0B40F3
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          snap_EB1A3DBB
+                       aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          snap_ECD94000
+                       aggr1_sata_n01
+                                    offline    RW      44.65GB          -     -
+hpwnetapp01-iscsi
+          snap_FE1541DD
+                       aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_005D3B80 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_01B74057 aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_031B3C2F aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_0AF4441F aggr1_sata_n01
+                                    online     RW      44.65GB     4.48GB   89%
+hpwnetapp01-iscsi
+          vol_0B18439E aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_0CAD3F4A aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_10A24061 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_117E3DDC aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_13134345 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_1A8E43CE aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_1BA43B4B aggr1_sata_n01
+                                    online     RW      163.8GB    13.15GB   91%
+hpwnetapp01-iscsi
+          vol_1CC33EC4 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_1EB042B4 aggr1_sata_n01
+                                    online     RW      111.8GB    11.36GB   89%
+hpwnetapp01-iscsi
+          vol_265E3BB6 aggr1_sata_n01
+                                    online     RW      14.37GB     2.32GB   83%
+hpwnetapp01-iscsi
+          vol_29F23DE8 aggr1_sata_n01
+                                    online     RW      111.8GB    11.34GB   89%
+hpwnetapp01-iscsi
+          vol_2CF43DD3 aggr1_sata_n01
+                                    online     RW      44.65GB     4.48GB   89%
+hpwnetapp01-iscsi
+          vol_2D5C3F51 aggr1_sata_n01
+                                    online     RW      33.55GB     3.43GB   89%
+hpwnetapp01-iscsi
+          vol_32154186 aggr1_sata_n01
+                                    online     RW      111.8GB    11.34GB   89%
+hpwnetapp01-iscsi
+          vol_34303BE1 aggr1_sata_n01
+                                    online     RW      11.85GB     1.81GB   84%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_46573D3B aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_475B3F7F aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_48763FF1 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_53363AEA aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_5554413B aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_57783C62 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_59DC3EF2 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_5FB63F8D aggr1_sata_n01
+                                    online     RW      44.65GB     4.48GB   89%
+hpwnetapp01-iscsi
+          vol_604A3D8B aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_64A73C7F aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_65A639C8 aggr1_sata_n01
+                                    online     RW      111.8GB    11.36GB   89%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_696F4027 aggr1_sata_n01
+                                    online     RW      23.70GB     3.62GB   84%
+hpwnetapp01-iscsi
+          vol_6B834285 aggr1_sata_n01
+                                    online     RW      218.5GB    17.70GB   91%
+hpwnetapp01-iscsi
+          vol_6D5A40AF aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_6D5E3C7A aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_6D853E16 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_6DE73D24 aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_749339D7 aggr1_sata_n01
+                                    online     RW      11.85GB     1.81GB   84%
+hpwnetapp01-iscsi
+          vol_760A416C aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_79693FCF aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_7B483E7F aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_7C363DDF aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_82B73F30 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_83C23C41 aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_91303F66 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_92483F0A aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_971B3EE0 aggr1_sata_n01
+                                    online     RW      111.8GB    11.34GB   89%
+hpwnetapp01-iscsi
+          vol_99CC3A0F aggr1_sata_n01
+                                    online     RW      111.8GB    11.36GB   89%
+hpwnetapp01-iscsi
+          vol_9B693F76 aggr1_sata_n01
+                                    online     RW      11.85GB     1.81GB   84%
+hpwnetapp01-iscsi
+          vol_9B883B06 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_9D123F34 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_9E6F4205 aggr1_sata_n01
+                                    online     RW      111.8GB    11.36GB   89%
+hpwnetapp01-iscsi
+          vol_9F303F19 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_A33B40A2 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_A6AE3FBC aggr1_sata_n01
+                                    online     RW      111.8GB    11.34GB   89%
+hpwnetapp01-iscsi
+          vol_AA2042B4 aggr1_sata_n01
+                                    online     RW      33.55GB     3.42GB   89%
+hpwnetapp01-iscsi
+          vol_ABAF4077 aggr1_sata_n01
+                                    online     RW      111.8GB    11.34GB   89%
+hpwnetapp01-iscsi
+          vol_ACF73FF9 aggr1_sata_n01
+                                    online     RW      111.8GB    11.36GB   89%
+hpwnetapp01-iscsi
+          vol_AD533C8B aggr1_sata_n01
+                                    online     RW      23.70GB     3.62GB   84%
+hpwnetapp01-iscsi
+          vol_B37540F4 aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_B60D409A aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_B92A3A2B aggr1_sata_n01
+                                    online     RW      17.90GB     2.84GB   84%
+hpwnetapp01-iscsi
+          vol_BD9D3CB2 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_BF4A3E67 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_C1C541B0 aggr1_sata_n01
+                                    online     RW      44.65GB     4.48GB   89%
+hpwnetapp01-iscsi
+          vol_C2983DC1 aggr1_sata_n01
+                                    online     RW      111.8GB    11.36GB   89%
+hpwnetapp01-iscsi
+          vol_CE373C17 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_CE693E36 aggr1_sata_n01
+                                    online     RW      89.65GB     9.30GB   89%
+hpwnetapp01-iscsi
+          vol_CF1E3F16 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_D8284154 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_D88640CF aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_DB234364 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_DB57458D aggr1_sata_n01
+                                    online     RW      111.8GB    11.33GB   89%
+hpwnetapp01-iscsi
+          vol_DB653E53 aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_DB653F84 aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+hpwnetapp01-iscsi
+          vol_DEBE3DBA aggr1_sata_n01
+                                    online     RW      111.8GB    11.35GB   89%
+hpwnetapp01-iscsi
+          vol_DFB63C5A aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_E86F41AA aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_F00B3FEC aggr1_sata_n01
+                                    online     RW      17.90GB     2.83GB   84%
+hpwnetapp01-iscsi
+          vol_F1D63CB8 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_F3B33FA5 aggr1_sata_n01
+                                    online     RW         56GB     5.80GB   89%
+hpwnetapp01-iscsi
+          vol_FC58431B aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_FDC03AEC aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+hpwnetapp01-iscsi
+          vol_FE924057 aggr1_sata_n01
+                                    online     RW         56GB     5.78GB   89%
+116 entries were displayed.
+
+hpwnetapp01-iscsi::>
+
+
+hpwnetapp01::> storage aggregate show -aggregate aggr1_sata_n01
+
+                                         Aggregate: aggr1_sata_n01
+                                    Checksum Style: block
+                                   Number Of Disks: 22
+                                             Nodes: hpwnetapp01-01
+                                             Disks: hpwnetapp01-01:5a.10.0,
+                                                    hpwnetapp01-01:5a.10.1,
+                                                    hpwnetapp01-01:5a.10.2,
+                                                    hpwnetapp01-01:5a.10.3,
+                                                    hpwnetapp01-01:5a.10.4,
+                                                    hpwnetapp01-01:5a.10.5,
+                                                    hpwnetapp01-01:5a.10.6,
+                                                    hpwnetapp01-01:5a.10.7,
+                                                    hpwnetapp01-01:5a.10.8,
+                                                    hpwnetapp01-01:5a.10.9,
+                                                    hpwnetapp01-01:5a.10.10,
+                                                    hpwnetapp01-01:5a.10.11,
+                                                    hpwnetapp01-01:5a.10.12,
+                                                    hpwnetapp01-01:5a.10.13,
+                                                    hpwnetapp01-01:5a.10.14,
+                                                    hpwnetapp01-01:5a.10.15,
+                                                    hpwnetapp01-01:5a.10.16,
+                                                    hpwnetapp01-01:5a.10.17,
+                                                    hpwnetapp01-01:5a.10.18,
+                                                    hpwnetapp01-01:5a.10.19,
+                                                    hpwnetapp01-01:5a.10.20,
+                                                    hpwnetapp01-01:5a.10.21
+                           Free Space Reallocation: off
+                                         HA Policy: sfo
+                Space Reserved for Snapshot Copies: -
+                                    Hybrid Enabled: false
+                                    Available Size: 8.43TB
+                                  Checksum Enabled: true
+                                   Checksum Status: active
+                                  Has Mroot Volume: false
+                     Has Partner Node Mroot Volume: false
+                                           Home ID: 2016870552
+                                         Home Name: hpwnetapp01-01
+                           Total Hybrid Cache Size: 0B
+                                            Hybrid: false
+                                      Inconsistent: false
+                                 Is Aggregate Home: true
+                                     Max RAID Size: 11
+       Flash Pool SSD Tier Maximum RAID Group Size: -
+                                          Owner ID: 2016870552
+                                        Owner Name: hpwnetapp01-01
+                                   Used Percentage: 68%
+                                            Plexes: /aggr1_sata_n01/plex0
+                                       RAID Groups: /aggr1_sata_n01/plex0/rg0 (block)
+                                                    /aggr1_sata_n01/plex0/rg1 (block)
+                                       RAID Status: raid_dp, normal
+                                         RAID Type: raid_dp
+                                           Is Root: false
+      Space Used by Metadata for Volume Efficiency: 0B
+                                              Size: 26.19TB
+                                             State: online
+                                         Used Size: 17.76TB
+                                 Number Of Volumes: 124
+                                      Volume Style: flex
+
+
+
+hpwnetapp01::> storage  aggregate show-space aggr1_sata_n01
+
+                               Aggregate: aggr1_sata_n01
+                       Volume Footprints: 17.74TB
+               Volume Footprints Percent: 68%
+Total Space for Snapshot Copies in Bytes: -
+      Space Reserved for Snapshot Copies: -
+                      Aggregate Metadata: 16.07GB
+              Aggregate Metadata Percent: 0%
+                              Total Used: 17.76TB
+                      Total Used Percent: 68%
+
+hpwnetapp01::>
+
+
+hpwnetapp01::> dashboard storage show  aggr1_sata_n01
+
+                         Aggregate: aggr1_sata_n01
+                              Size: 26.19TB
+                         Used Size: 17.76TB
+                        Avail Size: 8.43TB
+                             Used%: 68%
+                             Nodes: hpwnetapp01-01
+                           Volumes: 124
+                    Read Data MB/s: 72057589775193725
+                         Read IOPs: 0
+                   Write Data MB/s: 0
+                        Write IOPs: 0
+                            Status: online, normal
+        4-hour Change in Used Size: 61.67MB
+4-hour Change in Number of Volumes: 0
+        8-hour Change in Used Size: 89.57MB
+8-hour Change in Number of Volumes: 0
+         1-day Change in Used Size: 56.42GB
+ 1-day Change in Number of Volumes: 1
+         2-day Change in Used Size: 55.93GB
+ 2-day Change in Number of Volumes: 1
+         3-day Change in Used Size: 56.46GB
+ 3-day Change in Number of Volumes: 1
+         7-day Change in Used Size: 57.09GB
+ 7-day Change in Number of Volumes: 1
+
+hpwnetapp01::>
+
+
+hpwnetapp01::> dashboard performance show
+          Average      ---Data-Network--- -Cluster--Network- ----Storage---
+    Total Latency  CPU Busy   Recv   Sent Busy   Recv   Sent   Read  Write
+    Ops/s in usec Busy Util   MB/s   MB/s Util   MB/s   MB/s   MB/s   MB/s
+   ------ ------- ---- ---- ------ ------ ---- ------ ------ ------ ------
+hpwnetapp01-01
+        0    8745  17%   1%     14      2   0%      1      3      4     98
+hpwnetapp01-02
+     3074    2760   8%   0%      2     10   0%      3      8     12      0
+hpwnetapp01-03
+        0       0   2%   0%      0      0   0%      0      0      0      0
+hpwnetapp01-04
+      458   16249   3%   0%      0      7   0%      7      0      0      0
+cluster:summary
+     3532    6019  17%   1%     16     19   0%     11     11     16     98
+5 entries were displayed.
+
+
+WHILE DOING SNAPSHOT
+
+
+hpwnetapp01::> dashboard performance show
+          Average      ---Data-Network--- -Cluster--Network- ----Storage---
+    Total Latency  CPU Busy   Recv   Sent Busy   Recv   Sent   Read  Write
+    Ops/s in usec Busy Util   MB/s   MB/s Util   MB/s   MB/s   MB/s   MB/s
+   ------ ------- ---- ---- ------ ------ ---- ------ ------ ------ ------
+hpwnetapp01-01
+        0    8745  63%   1%     14     14   0%      1      5    116     97
+hpwnetapp01-02
+     3409    2757  33%   3%      9     44   1%     32     16    137      0
+hpwnetapp01-03
+        0       0   5%   0%      0      0   0%      5     27      0      0
+hpwnetapp01-04
+     1344   16181   3%   0%      1      7   0%      7      1      0      0
+cluster:summary
+     4753    6013  63%   3%     24     65   1%     45     49    253     97
+5 entries were displayed.
+
+hpwnetapp01::> dashboard performance show
+          Average      ---Data-Network--- -Cluster--Network- ----Storage---
+    Total Latency  CPU Busy   Recv   Sent Busy   Recv   Sent   Read  Write
+    Ops/s in usec Busy Util   MB/s   MB/s Util   MB/s   MB/s   MB/s   MB/s
+   ------ ------- ---- ---- ------ ------ ---- ------ ------ ------ ------
+hpwnetapp01-01
+        0       0  61%   1%     27     15   0%      3      8    121     12
+hpwnetapp01-02
+     3364    1188  32%   3%     14     36   1%     37     21     71     29
+hpwnetapp01-03
+        0       0   6%   0%      0      0   0%      8     25      5     13
+hpwnetapp01-04
+     1011    4810   2%   1%      3     13   0%     13      3      0      0
+cluster:summary
+     4375    2025  61%   3%     44     64   1%     61     57    197     54
+5 entries were displayed.
+
+
+
+
+hpwnetapp01::> dashboard performance show
+          Average      ---Data-Network--- -Cluster--Network- ----Storage---
+    Total Latency  CPU Busy   Recv   Sent Busy   Recv   Sent   Read  Write
+    Ops/s in usec Busy Util   MB/s   MB/s Util   MB/s   MB/s   MB/s   MB/s
+   ------ ------- ---- ---- ------ ------ ---- ------ ------ ------ ------
+hpwnetapp01-01
+        0       0  56%   1%     21     18   0%      1      7     73     51
+hpwnetapp01-02
+     2261    1207  37%   1%     17     16   0%     11     14     54     30
+hpwnetapp01-03
+        0       0   3%   0%      0      0   0%      8      4      1      9
+hpwnetapp01-04
+      853    3427   2%   0%      6     10   0%     10      6      0      0
+cluster:summary
+     3114    1815  56%   1%     44     44   0%     30     31    128     90
+5 entries were displayed.
+
+hpwnetapp01::> dashboard performance show
+          Average      ---Data-Network--- -Cluster--Network- ----Storage---
+    Total Latency  CPU Busy   Recv   Sent Busy   Recv   Sent   Read  Write
+    Ops/s in usec Busy Util   MB/s   MB/s Util   MB/s   MB/s   MB/s   MB/s
+   ------ ------- ---- ---- ------ ------ ---- ------ ------ ------ ------
+hpwnetapp01-01
+        0       0  54%   1%     16     21   0%      2      6     62     43
+hpwnetapp01-02
+     3153    1015  40%   1%     16     20   0%     14     14     55     29
+hpwnetapp01-03
+        0       0   4%   0%      0      0   0%      7      6      1      6
+hpwnetapp01-04
+      756    3127   2%   0%      4      8   0%      8      4      0      0
+cluster:summary
+     3909    1424  54%   1%     36     49   0%     31     30    118     78
+5 entries were displayed.
+
+
+
+hpwnetapp01::> dashboard performance show
+          Average      ---Data-Network--- -Cluster--Network- ----Storage---
+    Total Latency  CPU Busy   Recv   Sent Busy   Recv   Sent   Read  Write
+    Ops/s in usec Busy Util   MB/s   MB/s Util   MB/s   MB/s   MB/s   MB/s
+   ------ ------- ---- ---- ------ ------ ---- ------ ------ ------ ------
+hpwnetapp01-01
+        0       0  60%   2%     18     25   1%      4     36    143     48
+hpwnetapp01-02
+     2642    1662  63%   1%     16     22   9%     14    217    261     32
+hpwnetapp01-03
+        0       0   4%   0%      0      0   0%      6      5      1      5
+hpwnetapp01-04
+     4497   12267   7%  20%      5    240   5%    241      6      0      0
+cluster:summary
+     7139    8342  63%  20%     39    287   9%    265    264    405     85
+5 entries were displayed.
+
+hpwnetapp01::>
+
+
+
+
+

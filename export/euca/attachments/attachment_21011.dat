@@ -1,0 +1,543 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+/**
+ * This application tests SWF functionality for workflow failures.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9620
+ */
+class TestSWFFailureWorkflow {
+
+  private final String host = "10.111.5.5"
+
+  // Credentials with permissions to perform any action in account
+  private final AWSCredentialsProvider credentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIFM5C9TYNQIXWH9NC7",
+      "r0ygLMRNLm2qisaGhetCMoAeyc2O90GARx3Mqm0O" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFFailureWorkflow( ).test( )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        String domainName = "${namePrefix}domain"
+        print("Registering domain ${domainName}")
+        registerDomain(new RegisterDomainRequest(
+            name: domainName,
+            description: 'test domain',
+            workflowExecutionRetentionPeriodInDays: 1))
+        cleanupTasks.add {
+          print("Deprecating domain ${domainName}")
+          deprecateDomain(new DeprecateDomainRequest(name: domainName))
+        }
+
+        String activityTypeName = "${namePrefix}activity-type"
+        print("Registering activity type ${activityTypeName}")
+        registerActivityType(new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultTaskHeartbeatTimeout: '60',
+            defaultTaskScheduleToCloseTimeout: '60',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultTaskScheduleToStartTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating activity type ${domainName}")
+          deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeName, version: '1')))
+        }
+
+        String workflowTypeName = "${namePrefix}workflow-type"
+        print("Registering workflow type ${workflowTypeName}")
+        registerWorkflowType(new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultChildPolicy: 'TERMINATE',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultExecutionStartToCloseTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating workflow type ${domainName}")
+          deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeName, version: '1')))
+        }
+
+        String workflowId1 = "${namePrefix}workflow-id"
+        print( "Starting workflow execution ${workflowId1} to test termination" )
+        String runId1 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId1,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list' ),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat( runId1 != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId1}" )
+
+        print( "Terminating workflow execution ${workflowId1}" )
+        terminateWorkflowExecution( new TerminateWorkflowExecutionRequest(
+          domain: domainName,
+          workflowId: workflowId1,
+          reason: 'test',
+          details: 'unit test'
+        ) )
+
+        print( "Verifying workflow execution history for ${workflowId1}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+              runId: runId1,
+              workflowId: workflowId1
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==3 , "Expected 3 events, but was: ${events?.size()}" )
+          events.get( 2 ).with {
+            assertThat( eventId == 3, "Expected event ID 3, but was: ${eventId}" )
+            assertThat( eventType == 'WorkflowExecutionTerminated', "Expected event type WorkflowExecutionTerminated, but was: ${eventType}" )
+            assertThat( workflowExecutionTerminatedEventAttributes != null, "Expected event attributes" )
+            workflowExecutionTerminatedEventAttributes.with {
+              assertThat( childPolicy == 'TERMINATE', "Expected childPolicy TERMINATE, but was: ${childPolicy}" )
+              assertThat( details == 'unit test', "Expected details 'unit test', but was: ${details}" )
+              assertThat( reason == 'test', "Expected reason 'test', but was: ${reason}" )
+            }
+          }
+        }
+
+        String workflowId2 = "${namePrefix}workflow-id"
+        print( "Starting workflow execution ${workflowId2} to test workflow failure decision task completion" )
+        String runId2 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId2,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list' ),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat( runId2 != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId2}" )
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken2 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding with workflow failure decision" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken2,
+            decisions: [
+                new Decision(
+                    decisionType: 'FailWorkflowExecution',
+                    failWorkflowExecutionDecisionAttributes: new FailWorkflowExecutionDecisionAttributes(
+                      reason: 'test',
+                      details: 'details go here'
+                    )
+                )
+            ]
+        ))
+
+        print( "Verifying workflow execution history for ${workflowId2}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId2,
+                workflowId: workflowId2
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==5 , "Expected 5 events, but was: ${events?.size()}" )
+          events.get( 3 ).with {
+            assertThat( eventId == 4, "Expected event ID 4, but was: ${eventId}" )
+            assertThat( eventType == 'DecisionTaskCompleted', "Expected event type DecisionTaskCompleted, but was: ${eventType}" )
+          }
+          events.get( 4 ).with {
+            assertThat( eventId == 5, "Expected event ID 5, but was: ${eventId}" )
+            assertThat( eventType == 'WorkflowExecutionFailed', "Expected event type WorkflowExecutionFailed, but was: ${eventType}" )
+            assertThat( workflowExecutionFailedEventAttributes != null, "Expected event attributes" )
+            workflowExecutionFailedEventAttributes.with {
+              assertThat( details == 'details go here', "Expected details 'details go here', but was: ${details}")
+              assertThat( reason == 'test', "Expected reason 'test', but was: ${details}")
+            }
+          }
+        }
+
+        String workflowId3 = "${namePrefix}workflow-id"
+        print( "Starting workflow execution ${workflowId3} to test activity failure" )
+        String runId3 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId3,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list' ),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat( runId3 != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId3}" )
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken3 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding with schedule activity task" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken3,
+            executionContext: 'foo',
+            decisions: [
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-1',
+                        input: 'input',
+                        scheduleToCloseTimeout: '120',
+                        scheduleToStartTimeout: '120',
+                        startToCloseTimeout: '120',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                )
+            ]
+        ))
+
+        print( "Polling for activity task ${domainName}/list" )
+        String activityTaskToken3 = pollForActivityTask(new PollForActivityTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-activity-processor-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding activity task failed" )
+        respondActivityTaskFailed(new RespondActivityTaskFailedRequest(
+            taskToken: activityTaskToken3,
+            reason: 'test',
+            details: 'details-here'
+        ))
+
+        print( "Verifying workflow execution history for ${workflowId3}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId3,
+                workflowId: workflowId3
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==8 , "Expected 8 events, but was: ${events?.size()}" )
+          events.get( 6 ).with {
+            assertThat( eventId == 7, "Expected event ID 7, but was: ${eventId}" )
+            assertThat( eventType == 'ActivityTaskFailed', "Expected event type ActivityTaskFailed, but was: ${eventType}" )
+            assertThat( activityTaskFailedEventAttributes != null, "Expected event attributes" )
+            activityTaskFailedEventAttributes.with {
+              assertThat( details == 'details-here', "Expected details 'details-here', but was: ${details}")
+              assertThat( reason == 'test', "Expected reason 'test', but was: ${details}")
+            }
+
+          }
+          events.get( 7 ).with {
+            assertThat( eventId == 8, "Expected event ID 8, but was: ${eventId}" )
+            assertThat( eventType == 'DecisionTaskScheduled', "Expected event type DecisionTaskScheduled, but was: ${eventType}" )
+            assertThat( decisionTaskScheduledEventAttributes != null, "Expected event attributes" )
+            decisionTaskScheduledEventAttributes.with {
+              assertThat(taskList != null, "Expected task list")
+              assertThat(taskList.name == 'list', "Expected task list 'list', but was: ${taskList.name}")
+            }
+          }
+        }
+
+        print( "Terminating workflow execution ${workflowId3}" )
+        terminateWorkflowExecution( new TerminateWorkflowExecutionRequest(
+            domain: domainName,
+            workflowId: workflowId3
+        ) )
+
+        String workflowId4 = "${namePrefix}workflow-4-id"
+        print( "Starting workflow execution ${workflowId4} to test workflow timeout" )
+        String runId4 = startWorkflowExecution( new StartWorkflowExecutionRequest(
+            workflowId: workflowId4,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list' ),
+            input: 'input-here',
+            executionStartToCloseTimeout: 1,
+
+        )).with {
+          runId
+        }
+        assertThat( runId4 != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId4}" )
+
+        String workflowId5 = "${namePrefix}workflow-5-id"
+        print( "Starting workflow execution ${workflowId5} to test decision task timeout" )
+        String runId5 = startWorkflowExecution( new StartWorkflowExecutionRequest(
+            workflowId: workflowId5,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list-task-timeout' ),
+            input: 'input-here',
+            taskStartToCloseTimeout: 1,
+        )).with {
+          runId
+        }
+        assertThat( runId5 != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId4}" )
+
+        print( "Polling for decision task ${domainName}/list-task-timeout (will not process)" )
+        pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list-task-timeout'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        String workflowId6 = "${namePrefix}workflow-6-id"
+        print( "Starting workflow execution ${workflowId6} to test activity timeout" )
+        String runId6 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId6,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list-activity-timeout' ),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat( runId6 != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId6}" )
+
+        print( "Polling for decision task ${domainName}/list-activity-timeout" )
+        String decisionTaskToken6 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list-activity-timeout'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding with schedule activity tasks" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken6,
+            decisions: [
+                new Decision( // activity with schedule to close timeout
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-1',
+                        input: 'input',
+                        scheduleToCloseTimeout: '1',
+                        scheduleToStartTimeout: '120',
+                        startToCloseTimeout: '120',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list-activity-timeout-ignore' )
+                    )
+                ),
+                new Decision( // activity with schedule to start timeout
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-2',
+                        input: 'input',
+                        scheduleToCloseTimeout: '120',
+                        scheduleToStartTimeout: '1',
+                        startToCloseTimeout: '120',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list-activity-timeout-ignore' )
+                    )
+                ),
+                new Decision( // activity with start to close timeout
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-3',
+                        input: 'input',
+                        scheduleToCloseTimeout: '120',
+                        scheduleToStartTimeout: '120',
+                        startToCloseTimeout: '1',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list-activity-timeout' )
+                    )
+                ),
+            ]
+        ))
+
+        print( "Polling for activity task ${domainName}/list-activity-timeout (will not process)" )
+        pollForActivityTask(new PollForActivityTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list-activity-timeout'),
+            identity: 'test-activity-processor-1'
+        ))
+
+        print( "Waiting for timeouts" )
+        sleep( 12000 )
+
+        print( "Verifying workflow execution history shows execution timeout for ${workflowId4}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId4,
+                workflowId: workflowId4
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==3 , "Expected 3 events, but was: ${events?.size()}" )
+          events.get( 2 ).with {
+            assertThat( eventId == 3, "Expected event ID 3, but was: ${eventId}" )
+            assertThat( eventType == 'WorkflowExecutionTimedOut', "Expected event type WorkflowExecutionTimedOut, but was: ${eventType}" )
+            assertThat( workflowExecutionTimedOutEventAttributes != null, "Expected event attributes" )
+            workflowExecutionTimedOutEventAttributes.with {
+              assertThat( timeoutType == 'START_TO_CLOSE', "Expected timeout type 'START_TO_CLOSE', but was: ${timeoutType}")
+              assertThat( childPolicy == 'TERMINATE', "Expected child policy 'TERMINATE', but was: ${timeoutType}")
+            }
+          }
+        }
+
+        print( "Verifying workflow execution history shows task timeout for ${workflowId5}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId5,
+                workflowId: workflowId5
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==5 , "Expected 5 events, but was: ${events?.size()}" )
+          events.get( 3 ).with {
+            assertThat( eventId == 4, "Expected event ID 4, but was: ${eventId}" )
+            assertThat( eventType == 'DecisionTaskTimedOut', "Expected event type DecisionTaskTimedOut, but was: ${eventType}" )
+            assertThat( decisionTaskTimedOutEventAttributes != null, "Expected event attributes" )
+            decisionTaskTimedOutEventAttributes.with {
+              assertThat( timeoutType == 'START_TO_CLOSE', "Expected timeout type 'START_TO_CLOSE', but was: ${timeoutType}")
+              assertThat( scheduledEventId == 2, "Expected scheduled event id 2, but was: ${scheduledEventId}")
+              assertThat( startedEventId == 3, "Expected started event id 3, but was: ${startedEventId}")
+            }
+          }
+          events.get( 4 ).with {
+            assertThat( eventId == 5, "Expected event ID 5, but was: ${eventId}" )
+            assertThat( eventType == 'DecisionTaskScheduled', "Expected event type DecisionTaskScheduled, but was: ${eventType}" )
+            assertThat( decisionTaskScheduledEventAttributes != null, "Expected event attributes" )
+            decisionTaskScheduledEventAttributes.with {
+              assertThat( startToCloseTimeout == '1', "Expected start to close timeout '1', but was: ${startToCloseTimeout}")
+            }
+          }
+        }
+
+        print( "Verifying workflow execution history shows activity timeouts for ${workflowId6}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId6,
+                workflowId: workflowId6
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==12 , "Expected 12 events, but was: ${events?.size()}" )
+          events.get( 9 ).with {
+            assertThat( eventId == 10, "Expected event ID 10, but was: ${eventId}" )
+            assertThat( eventType == 'DecisionTaskScheduled', "Expected event type DecisionTaskScheduled, but was: ${eventType}" )
+            assertThat( decisionTaskScheduledEventAttributes != null, "Expected event attributes" )
+            decisionTaskScheduledEventAttributes.with {
+              assertThat( startToCloseTimeout == '60', "Expected start to close timeout '60', but was: ${startToCloseTimeout}")
+            }
+          }
+          Set<String> expectedTimeoutTypes = [ 'SCHEDULE_TO_CLOSE', 'SCHEDULE_TO_START', 'START_TO_CLOSE' ]
+          events.get( 8 ).with {
+            assertThat( eventId == 9, "Expected event ID 9, but was: ${eventId}" )
+            assertThat( eventType == 'ActivityTaskTimedOut', "Expected event type ActivityTaskTimedOut, but was: ${eventType}" )
+            assertThat( activityTaskTimedOutEventAttributes != null, "Expected event attributes" )
+            activityTaskTimedOutEventAttributes.with {
+              assertThat( scheduledEventId != null, "Expected scheduled event id" )
+              assertThat( startedEventId != null, "Expected started event id" )
+              assertThat( expectedTimeoutTypes.remove( timeoutType ), "Unexpected timeout type: ${timeoutType}" )
+            }
+          }
+          events.get( 10 ).with {
+            assertThat( eventId == 11, "Expected event ID 11, but was: ${eventId}" )
+            assertThat( eventType == 'ActivityTaskTimedOut', "Expected event type ActivityTaskTimedOut, but was: ${eventType}" )
+            assertThat( activityTaskTimedOutEventAttributes != null, "Expected event attributes" )
+            activityTaskTimedOutEventAttributes.with {
+              assertThat( scheduledEventId != null, "Expected scheduled event id" )
+              assertThat( startedEventId != null, "Expected started event id" )
+              assertThat( expectedTimeoutTypes.remove( timeoutType ), "Unexpected timeout type: ${timeoutType}" )
+            }
+          }
+          events.get( 11 ).with {
+            assertThat( eventId == 12, "Expected event ID 12, but was: ${eventId}" )
+            assertThat( eventType == 'ActivityTaskTimedOut', "Expected event type ActivityTaskTimedOut, but was: ${eventType}" )
+            assertThat( activityTaskTimedOutEventAttributes != null, "Expected event attributes" )
+            activityTaskTimedOutEventAttributes.with {
+              assertThat( scheduledEventId != null, "Expected scheduled event id" )
+              assertThat( startedEventId != null, "Expected started event id" )
+              assertThat( expectedTimeoutTypes.remove( timeoutType ), "Unexpected timeout type: ${timeoutType}" )
+            }
+          }
+
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,259 @@
+{
+    "Parameters" : {
+    "Prefix" : {
+      "Description" : "bucket name prefix",
+      "Type" : "String" 
+    },
+    "Param1" : {
+    "Description" : "1-th parameter",
+    "Default" : "1",
+    "Type" : "String" },
+    "Param2" : {
+    "Description" : "2-th parameter",
+    "Default" : "2",
+    "Type" : "String" },
+    "Param3" : {
+    "Description" : "3-th parameter",
+    "Default" : "3",
+    "Type" : "String" },
+    "Param4" : {
+    "Description" : "4-th parameter",
+    "Default" : "4",
+    "Type" : "String" },
+    "Param5" : {
+    "Description" : "5-th parameter",
+    "Default" : "5",
+    "Type" : "String" },
+    "Param6" : {
+    "Description" : "6-th parameter",
+    "Default" : "6",
+    "Type" : "String" },
+    "Param7" : {
+    "Description" : "7-th parameter",
+    "Default" : "7",
+    "Type" : "String" },
+    "Param8" : {
+    "Description" : "8-th parameter",
+    "Default" : "8",
+    "Type" : "String" },
+    "Param9" : {
+    "Description" : "9-th parameter",
+    "Default" : "9",
+    "Type" : "String" },
+    "Param10" : {
+    "Description" : "10-th parameter",
+    "Default" : "0",
+    "Type" : "String" },
+    "Param11" : {
+    "Description" : "11-th parameter",
+    "Default" : "1",
+    "Type" : "String" },
+    "Param12" : {
+    "Description" : "12-th parameter",
+    "Default" : "2",
+    "Type" : "String" },
+    "Param13" : {
+    "Description" : "13-th parameter",
+    "Default" : "3",
+    "Type" : "String" },
+    "Param14" : {
+    "Description" : "14-th parameter",
+    "Default" : "4",
+    "Type" : "String" },
+    "Param15" : {
+    "Description" : "15-th parameter",
+    "Default" : "5",
+    "Type" : "String" },
+    "Param16" : {
+    "Description" : "16-th parameter",
+    "Default" : "6",
+    "Type" : "String" },
+    "Param17" : {
+    "Description" : "17-th parameter",
+    "Default" : "7",
+    "Type" : "String" },
+    "Param18" : {
+    "Description" : "18-th parameter",
+    "Default" : "8",
+    "Type" : "String" },
+    "Param19" : {
+    "Description" : "19-th parameter",
+    "Default" : "9",
+    "Type" : "String" },
+    "Param20" : {
+    "Description" : "20-th parameter",
+    "Default" : "0",
+    "Type" : "String" },
+    "Param21" : {
+    "Description" : "21-th parameter",
+    "Default" : "1",
+    "Type" : "String" },
+    "Param22" : {
+    "Description" : "22-th parameter",
+    "Default" : "2",
+    "Type" : "String" },
+    "Param23" : {
+    "Description" : "23-th parameter",
+    "Default" : "3",
+    "Type" : "String" },
+    "Param24" : {
+    "Description" : "24-th parameter",
+    "Default" : "4",
+    "Type" : "String" },
+    "Param25" : {
+    "Description" : "25-th parameter",
+    "Default" : "5",
+    "Type" : "String" },
+    "Param26" : {
+    "Description" : "26-th parameter",
+    "Default" : "6",
+    "Type" : "String" },
+    "Param27" : {
+    "Description" : "27-th parameter",
+    "Default" : "7",
+    "Type" : "String" },
+    "Param28" : {
+    "Description" : "28-th parameter",
+    "Default" : "8",
+    "Type" : "String" },
+    "Param29" : {
+    "Description" : "29-th parameter",
+    "Default" : "9",
+    "Type" : "String" },
+    "Param30" : {
+    "Description" : "30-th parameter",
+    "Default" : "0",
+    "Type" : "String" },
+    "Param31" : {
+    "Description" : "31-th parameter",
+    "Default" : "1",
+    "Type" : "String" },
+    "Param32" : {
+    "Description" : "32-th parameter",
+    "Default" : "2",
+    "Type" : "String" },
+    "Param33" : {
+    "Description" : "33-th parameter",
+    "Default" : "3",
+    "Type" : "String" },
+    "Param34" : {
+    "Description" : "34-th parameter",
+    "Default" : "4",
+    "Type" : "String" },
+    "Param35" : {
+    "Description" : "35-th parameter",
+    "Default" : "5",
+    "Type" : "String" },
+    "Param36" : {
+    "Description" : "36-th parameter",
+    "Default" : "6",
+    "Type" : "String" },
+    "Param37" : {
+    "Description" : "37-th parameter",
+    "Default" : "7",
+    "Type" : "String" },
+    "Param38" : {
+    "Description" : "38-th parameter",
+    "Default" : "8",
+    "Type" : "String" },
+    "Param39" : {
+    "Description" : "39-th parameter",
+    "Default" : "9",
+    "Type" : "String" },
+    "Param40" : {
+    "Description" : "40-th parameter",
+    "Default" : "0",
+    "Type" : "String" },
+    "Param41" : {
+    "Description" : "41-th parameter",
+    "Default" : "1",
+    "Type" : "String" },
+    "Param42" : {
+    "Description" : "42-th parameter",
+    "Default" : "2",
+    "Type" : "String" },
+    "Param43" : {
+    "Description" : "43-th parameter",
+    "Default" : "3",
+    "Type" : "String" },
+    "Param44" : {
+    "Description" : "44-th parameter",
+    "Default" : "4",
+    "Type" : "String" },
+    "Param45" : {
+    "Description" : "45-th parameter",
+    "Default" : "5",
+    "Type" : "String" },
+    "Param46" : {
+    "Description" : "46-th parameter",
+    "Default" : "6",
+    "Type" : "String" },
+    "Param47" : {
+    "Description" : "47-th parameter",
+    "Default" : "7",
+    "Type" : "String" },
+    "Param48" : {
+    "Description" : "48-th parameter",
+    "Default" : "8",
+    "Type" : "String" },
+    "Param49" : {
+    "Description" : "49-th parameter",
+    "Default" : "9",
+    "Type" : "String" },
+    "Param50" : {
+    "Description" : "50-th parameter",
+    "Default" : "0",
+    "Type" : "String" },
+    "Param51" : {
+    "Description" : "51-th parameter",
+    "Default" : "1",
+    "Type" : "String" },
+    "Param52" : {
+    "Description" : "52-th parameter",
+    "Default" : "2",
+    "Type" : "String" },
+    "Param53" : {
+    "Description" : "53-th parameter",
+    "Default" : "3",
+    "Type" : "String" },
+    "Param54" : {
+    "Description" : "54-th parameter",
+    "Default" : "4",
+    "Type" : "String" },
+    "Param55" : {
+    "Description" : "55-th parameter",
+    "Default" : "5",
+    "Type" : "String" },
+    "Param56" : {
+    "Description" : "56-th parameter",
+    "Default" : "6",
+    "Type" : "String" },
+    "Param57" : {
+    "Description" : "57-th parameter",
+    "Default" : "7",
+    "Type" : "String" },
+    "Param58" : {
+    "Description" : "58-th parameter",
+    "Default" : "8",
+    "Type" : "String" },
+    "Param59" : {
+    "Description" : "59-th parameter",
+    "Default" : "9",
+    "Type" : "String" }
+    },
+
+    "Resources" : {
+       "mybucket" : {
+           "Type" : "AWS::S3::Bucket",
+           "Properties" : {
+              "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "Prefix" }, {"Ref" : "Param1"}, {"Ref" : "Param2"}, {"Ref" : "Param3"}, {"Ref" : "Param4"}, {"Ref" : "Param5"}, {"Ref" : "Param6"}, {"Ref" : "Param7"}, {"Ref" : "Param8"}, {"Ref" : "Param9"}, {"Ref" : "Param10"}, {"Ref" : "Param11"}, {"Ref" : "Param12"}, {"Ref" : "Param13"}, {"Ref" : "Param14"}, {"Ref" : "Param15"}, {"Ref" : "Param16"}, {"Ref" : "Param17"}, {"Ref" : "Param18"}, {"Ref" : "Param19"}, {"Ref" : "Param20"}, {"Ref" : "Param21"}, {"Ref" : "Param22"}, {"Ref" : "Param23"}, {"Ref" : "Param24"}, {"Ref" : "Param25"}, {"Ref" : "Param26"}, {"Ref" : "Param27"}, {"Ref" : "Param28"}, {"Ref" : "Param29"}, {"Ref" : "Param30"}, {"Ref" : "Param31"}, {"Ref" : "Param32"}, {"Ref" : "Param33"}, {"Ref" : "Param34"}, {"Ref" : "Param35"}, {"Ref" : "Param36"}, {"Ref" : "Param37"}, {"Ref" : "Param38"}, {"Ref" : "Param39"}, {"Ref" : "Param40"}, {"Ref" : "Param41"}, {"Ref" : "Param42"}, {"Ref" : "Param43"}, {"Ref" : "Param44"}, {"Ref" : "Param45"}, {"Ref" : "Param46"}, {"Ref" : "Param47"}, {"Ref" : "Param48"}, {"Ref" : "Param49"}, {"Ref" : "Param50"}, {"Ref" : "Param51"}, {"Ref" : "Param52"}, {"Ref" : "Param53"}, {"Ref" : "Param54"}, {"Ref" : "Param55"}, {"Ref" : "Param56"}, {"Ref" : "Param57"} ] ] }
+           }
+       }
+    },
+ 
+    "Outputs" : {
+        "CreatedBucket" : { 
+            "Value" : {"Ref" : "mybucket" }
+        }
+    }
+}     

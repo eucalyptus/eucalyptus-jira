@@ -1,0 +1,50 @@
+# Test for EUCA-7207
+# https://eucalyptus.atlassian.net/browse/EUCA-7207
+#
+# REQUIRES:
+# - A security group with name 'test-group' (euca-create-group test-group -d "Test group for EUCA-7207")
+# - User must have permission for AuthorizeSecurityGroupIngress action
+# - Configure key info and host for test environment
+#
+import getopt, sys, os, time
+import boto, boto.ec2, boto.ec2.regioninfo
+from boto.exception import EC2ResponseError
+import urllib
+
+def main():
+    # update these values
+    aws_access_key_id = 'AKIKXCGENPHIWJWQ4X2O'
+    aws_secret_access_key = 'IvPEPbwDhNEQydrTiZKvxrRgRaQ9AFUNhmDdkmZD'
+    host = '10.111.5.43 '
+
+    # create connection
+    print "Creating connection to host %s" % host
+    region = boto.ec2.regioninfo.RegionInfo(name="eucalyptus", endpoint=host)
+    c = boto.connect_ec2(
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+            region=region,
+            port=8773,
+            path='/services/Eucalyptus',
+            is_secure=False
+    )
+
+    # comment out as desired (exception expected from each command)   
+    print "Authorizing with invalid ports for UDP"
+    try:
+        c.authorize_security_group_deprecated('test-group', from_port=-1, to_port=-1, ip_protocol='udp', cidr_ip='0.0.0.0/0')
+        print "FAILED: Expected exception not thrown"
+    except EC2ResponseError as e: 
+        print "SUCCESS: Expected error content %s " % e
+
+    print "Authorizing with invalid ports for UDP"
+    try:
+        c.authorize_security_group_deprecated('test-group', from_port=-1, to_port=-1, ip_protocol='tcp', cidr_ip='0.0.0.0/0')
+        print "FAILED: Expected exception not thrown"
+    except EC2ResponseError as e:
+        print "SUCCESS: Expected error content %s " % e
+
+if __name__ == "__main__":
+    main()
+
+

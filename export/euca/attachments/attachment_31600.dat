@@ -1,0 +1,317 @@
+[root@c-36 ~]# nodeadmin-pack-instance -i i-28e67f74 -o nc-backup/ --verbose
+DEBUG: Your Arguments: Namespace(all=False, instance='i-28e67f74', no_compression=False, output_directory='nc-backup/', shutdown=False, verbose=True)
+DEBUG: nc_status is 
+DEBUG: packing instance i-28e67f74
+DEBUG: attempting to pack instance i-28e67f74
+DEBUG: attempting to locate i-28e67f74 in libvirt at qemu:///system
+DEBUG: attempting to load /etc/eucalyptus/eucalyptus.conf
+DEBUG: found instance tuple i-28e67f74 /var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74
+DEBUG: attempting to save instance i-28e67f74 at qemu:///system to /var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74/i-28e67f74-ram.save
+DEBUG: save for domain i-28e67f74 returned 0
+DEBUG: attempting to gather list of files for archiving at /var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74 for instance i-28e67f74
+DEBUG: attempting to load /etc/eucalyptus/eucalyptus.conf
+Tried deleting lun 0 0 times in iSCSI session IP=10.107.2.1, IQN=iqn.1992-08.com.netapp:sn.142251821
+DEBUG: attempting to load /etc/eucalyptus/eucalyptus.conf
+Unable to write /sys/class/iscsi_session/session8/device/target13:0:0/13:0:0:1/delete.
+Tried deleting lun 1 0 times in iSCSI session IP=10.107.2.1, IQN=iqn.1992-08.com.netapp:sn.142251821
+DEBUG: attempting to load /etc/eucalyptus/eucalyptus.conf
+Tried deleting lun 2 0 times in iSCSI session IP=10.107.2.1, IQN=iqn.1992-08.com.netapp:sn.142251821
+DEBUG: attempting to load /etc/eucalyptus/eucalyptus.conf
+Tried deleting lun 3 0 times in iSCSI session IP=10.107.2.1, IQN=iqn.1992-08.com.netapp:sn.142251821
+INFO: Packed instance i-28e67f74 located at nc-backup/i-28e67f74-pack.tgz
+
+
+
+
+[root@a-38 ~]# nodeadmin-unpack-instance ./instances/i-28e67f74-pack.tgz --verbose
+DEBUG: Your Arguments: Namespace(packed_file='./instances/i-28e67f74-pack.tgz', verbose=True)
+Redirecting to /bin/systemctl status  eucalyptus-nc.service
+DEBUG: nc_status is ● eucalyptus-node.service - Eucalyptus node controller
+   Loaded: loaded (/usr/lib/systemd/system/eucalyptus-node.service; disabled; vendor preset: disabled)
+   Active: inactive (dead)
+
+Jun 21 11:49:54 a-38.qa1.eucalyptus-systems.com eucalyptus-node[3133]: /usr/lib64/libaxis2_engine.so.0(+0x31764
+Jun 21 11:49:54 a-38.qa1.eucalyptus-systems.com systemd[1]: Stopped Eucalyptus node controller.
+Jun 21 12:15:00 a-38.qa1.eucalyptus-systems.com systemd[1]: Started Eucalyptus node controller.
+Jun 21 12:15:00 a-38.qa1.eucalyptus-systems.com systemd[1]: Starting Eucalyptus node controller...
+Jun 21 12:45:00 a-38.qa1.eucalyptus-systems.com systemd[1]: Stopping Eucalyptus node controller...
+Jun 21 12:45:00 a-38.qa1.eucalyptus-systems.com systemd[1]: Stopped Eucalyptus node controller.
+Jun 21 12:51:41 a-38.qa1.eucalyptus-systems.com systemd[1]: Started Eucalyptus node controller.
+Jun 21 12:51:41 a-38.qa1.eucalyptus-systems.com systemd[1]: Starting Eucalyptus node controller...
+Jun 21 13:18:16 a-38.qa1.eucalyptus-systems.com systemd[1]: Stopping Eucalyptus node controller...
+Jun 21 13:18:16 a-38.qa1.eucalyptus-systems.com systemd[1]: Stopped Eucalyptus node controller.
+
+INFO: unpack on ./instances/i-28e67f74-pack.tgz
+/bin/tar: Removing leading `/' from member names
+DEBUG: <?xml version="1.0" encoding="UTF-8"?>
+<instance xml-version="1">
+  <hypervisor type="kvm" capability="hw" bitness="64" requiresDisk="true"/>
+  <backing>
+    <root type="ebs"/>
+  </backing>
+  <name>i-28e67f74</name>
+  <uuid>45421b36-2f48-407e-9572-11821e4c82ad</uuid>
+  <reservation>r-a73a61db</reservation>
+  <user>AIDAA37T2XDKQ5SIWUCLD</user>
+  <owner>AIDAA37T2XDKQ5SIWUCLD</owner>
+  <account>000230103345</account>
+  <imageId></imageId>
+  <kernelId></kernelId>
+  <ramdiskId></ramdiskId>
+  <dnsName></dnsName>
+  <privateDnsName></privateDnsName>
+  <instancePath>/var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74</instancePath>
+  <xmlFilePath>/var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74/instance.xml</xmlFilePath>
+  <libvirtFilePath>/var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74/instance-libvirt.xml</libvirtFilePath>
+  <consoleLogPath>/var/lib/eucalyptus/instances/work/AIDAA37T2XDKQ5SIWUCLD/i-28e67f74/console.log</consoleLogPath>
+  <userData></userData>
+  <launchIndex>0</launchIndex>
+  <hasFloppy>false</hasFloppy>
+  <cpuPassthrough>false</cpuPassthrough>
+  <cores>1</cores>
+  <memoryKB>524288</memoryKB>
+  <diskGB>10</diskGB>
+  <VmType>m1.medium</VmType>
+  <NicType>virtio</NicType>
+  <NicDevice>br0</NicDevice>
+  <rootDirective></rootDirective>
+  <key doInjectKey="false" sshKey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1jJ35yAxUl0CJFNfETynXq79+uIg2mBW/EDEcb1irDQSG1jUKemHbXZ6uEinlBgqy+TYUqBdrQ+7cflpCtxMJxvZCLusUNBfkm0nKZHyhkjJwpSyhr99Uqe6GajxWoHkH9+E4+qgpLgmMiD1zQvi6njGGzGsN+124QKqNCXrjhAp2TLiEGntcFvzbPmOli+RxLSBO42JFaMaV1Tz/RqPMLb5d9ExhnuTlMyaFcBU+Ayn86zQoS4ubumy7Wwvz+EdCfJ8oyzXKcNrgD6GeYCM5WkKvE/ewh0ihimax1qZ+GaMx8ZDiPfHJxyuN0D7we4Ww0sIv4sTl38EmQ10VRvJn 000230103345@eucalyptus.upgrade-test"/>
+  <os platform="linux" virtioRoot="true" virtioDisk="true" virtioNetwork="true"/>
+  <groupNames>
+    <name>000230103345-ca838921-9ad9-47ee-963a-ed15856acc9d</name>
+  </groupNames>
+  <disks>
+    <floppyPath></floppyPath>
+  </disks>
+  <vbrs>
+    <vbr>
+      <resourceLocation>sc://vol-35211afa,ADiH0cqW9aydv5XOSaKkmPIR/MTnDtqvPs5f7dlMeG/x3dsvma7Tyq9MSN7hU2ocM4wNixbI2UT27zdCnWJjVR5HKZ76L8tIFiX81HmYPBpfYcrNlJJAT0+jxLzulej/aLxnjFLFXD1LwL7flfw32tqPrO5W5V4/OUs0AQ87Ezb/Zf3yxY8yyERfMLvI9oyLqamSVQP9AKLS1EJFATdniawv6/NsVGB3eAr8RD+qh/P0pWRVp0KjdrqAU/V1PDL8WgwYjOw6SgVDWdlyIkpdSf23iwZpf0dUpObunIiaWCNQL7RgMDpSPMv+kahBJtvB0w5E9ocDP8j8S15vamSzBQ==</resourceLocation>
+      <guestDeviceName>vda</guestDeviceName>
+      <sizeBytes>3221225472</sizeBytes>
+      <formatName>none</formatName>
+      <id>emi-72f02bb1</id>
+      <typeName>ebs</typeName>
+      <type>ebs</type>
+      <locationType/>
+      <format>none</format>
+      <diskNumber>0</diskNumber>
+      <partitionNumber>0</partitionNumber>
+      <guestDeviceType>disk</guestDeviceType>
+      <guestDeviceBus>virtio</guestDeviceBus>
+      <backingType>block</backingType>
+      <backingPath>&lt;disk type='block'&gt;
+  &lt;driver cache='none' name='qemu'/&gt;
+  &lt;source dev='/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a454d'/&gt;
+  &lt;target bus='virtio' dev='vda'/&gt;
+  &lt;serial&gt;euca-bdm-ebs1-dev-vda&lt;/serial&gt;
+&lt;/disk&gt;
+</backingPath>
+      <preparedResourceLocation>iscsi,netapp,ccassler-427,,0,h/CopJntYQMsUd5VCpvnfGaQ9bQxFxzGN8GhzwM2mbZi5U4yJNboKqXUuhfh6Epvllfx05va0wFnbXauH7eAZt6EMStkAdCL+1FF0Jm3WQ7CaWWB1azbF7xV8rYgux4uOoox2MD02vNnDQSwct3lO/j2T5gP+7BDLfcvvkmWIyumHEpZLFquTOxcUbPczkuIYRXcbfUdWUujqiYr96Hd1e0QMLDlW7eInPs+LxROpRy7CZ2A5c5PgJdsGZg+ha3+qOmzW9Khbd+5zuXn6QIuQvieyXKSI7mIgeIxrTUDnJsa1EqUAKwOHP11uZ+2nYGBgVqprss03MniBbIzLFKJBg==,,10.107.2.1,iqn.1992-08.com.netapp:sn.142251821</preparedResourceLocation>
+      <guestDeviceSerialId>euca-bdm-ebs1-dev-vda</guestDeviceSerialId>
+    </vbr>
+  </vbrs>
+  <volumes>
+    <volume>
+      <id>vol-35211afa</id>
+      <attachmentToken>sc://vol-35211afa,ADiH0cqW9aydv5XOSaKkmPIR/MTnDtqvPs5f7dlMeG/x3dsvma7Tyq9MSN7hU2ocM4wNixbI2UT27zdCnWJjVR5HKZ76L8tIFiX81HmYPBpfYcrNlJJAT0+jxLzulej/aLxnjFLFXD1LwL7flfw32tqPrO5W5V4/OUs0AQ87Ezb/Zf3yxY8yyERfMLvI9oyLqamSVQP9AKLS1EJFATdniawv6/NsVGB3eAr8RD+qh/P0pWRVp0KjdrqAU/V1PDL8WgwYjOw6SgVDWdlyIkpdSf23iwZpf0dUpObunIiaWCNQL7RgMDpSPMv+kahBJtvB0w5E9ocDP8j8S15vamSzBQ==</attachmentToken>
+      <devName>vda</devName>
+      <stateName>attached</stateName>
+      <connectionString>iscsi,netapp,ccassler-427,,0,h/CopJntYQMsUd5VCpvnfGaQ9bQxFxzGN8GhzwM2mbZi5U4yJNboKqXUuhfh6Epvllfx05va0wFnbXauH7eAZt6EMStkAdCL+1FF0Jm3WQ7CaWWB1azbF7xV8rYgux4uOoox2MD02vNnDQSwct3lO/j2T5gP+7BDLfcvvkmWIyumHEpZLFquTOxcUbPczkuIYRXcbfUdWUujqiYr96Hd1e0QMLDlW7eInPs+LxROpRy7CZ2A5c5PgJdsGZg+ha3+qOmzW9Khbd+5zuXn6QIuQvieyXKSI7mIgeIxrTUDnJsa1EqUAKwOHP11uZ+2nYGBgVqprss03MniBbIzLFKJBg==,,10.107.2.1,iqn.1992-08.com.netapp:sn.142251821</connectionString>
+      <libvirt><disk type="block">
+  <driver cache="none" name="qemu"/>
+  <source dev="/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a454d"/>
+  <target bus="virtio" dev="vda"/>
+  <serial>euca-bdm-ebs1-dev-vda</serial>
+</disk>
+</libvirt>
+    </volume>
+    <volume>
+      <id>vol-157f51b4</id>
+      <attachmentToken>sc://vol-157f51b4,OL4pAWZmXAjptG7fnkQc8bBrv7QN/xluwc2+AlpGled50JF1WkZ65Ikw/yu+WcRElgXWvyjb5t2w9bMZEEEQ1/nqweLEvFMxYSMNz3EtBJ+zYzXkTqygAfetxQ/+BrkxYS3iY+pCIADfmLEZ0QRCjxY0LKgoWYfqHbAfGJb6tnIzxJHwLWrsju2e7wT4gDDpHPP7p3V5fa4cuJ8ax40eccTaXHKlk+g8NQgkR5hdHuBthtIfUhEYzifU4s9lkgp8C46kWqUcE7/siouM6aLcdQmpAfB1P7N/sdLbHce9akgbsmW+3v5b5Pa058+htQYY9bMVmdOdPaUlfzF8HvJMYA==</attachmentToken>
+      <devName>vdc</devName>
+      <stateName>detached</stateName>
+      <connectionString>iscsi,netapp,ccassler-427,,1,ZsS4/9bsozk5ftw/2cK9scfaH+KTmlXdFRPitGUt3TRGHqXiyc4D5h6+JXHC+xoICHoUYwPt0irFEeFT++/C5hWluam8llYcuC20Sffx6/JzlsnRbuz1yx4pBVtv401YhGz78o1FOUlY0U0DWQkDVpgKDkm6e+JZy+txkoLO8GVKNqv+BtEEFmMVvt6r9AFAoG2QGqakEawXVVjnPjTxryLbXbifkDd1kvPh6C4moDmkcc2U610Vz5KkA9j6A26zshQdb0ieLVUwr5DDIacpYxisaO5W+9HLNCkOW8dWDkvWQ9UlyeVtNjWVd/OBPRf0Vvi82gENoykQaUFKCL6RGA==,,10.107.2.1,iqn.1992-08.com.netapp:sn.142251821</connectionString>
+      <libvirt><disk type="block">
+  <driver cache="none" name="qemu"/>
+  <source dev="/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a4469"/>
+  <target bus="virtio" dev="vdc"/>
+  <serial>euca-vol-157f51b4-dev-vdc</serial>
+</disk>
+</libvirt>
+    </volume>
+    <volume>
+      <id>vol-3d762bfc</id>
+      <attachmentToken>sc://vol-3d762bfc,Yo9iE6adgpRPgXfvHbZ9RuyN0IfyZAmN1a4vNKUqT2RqWSzDYURDLW4u4I7WHq5CziKFIHhb3ql30Zjje2JHHETvMB3osWvzYjWp9U7zv20bSs7ejfPaITcERC0C2eJJZBJEzTDZQWGx/roDbcr2gx+1Lpf5dXA8xpBvIm2NZ341MqZtBovDmHgfc1rF1ZYcP6O0yZyrWnv55KTyKx3hGM+LLWYHiryK2dHnsY6PwYAO730Zwx+I/qYiA3aBz0T1eaqkhkJwA/WakbzrcbwV8jYbZ2D6MGXbp03maoeJVmEFvfaFEQFc6Eu+bSoxVNcMqw2tC+W/urG7QkaHl6QA1A==</attachmentToken>
+      <devName>vdd</devName>
+      <stateName>attached</stateName>
+      <connectionString>iscsi,netapp,ccassler-427,,2,G/xELp7oCLCLl5ymGCOQh4fHA3dT9b5fstNN/3qfQJQ/hNnC5WWsOIJIfJ846sfteRul/5xd/loXUOqeiA+WMi/QntBT5Q/x2G1xf+MZP6+lAxCGAv9rDpn5pOR0ucRh4GB6FbADSoHbrw5QnhubvJ+npwZje1aV+gR0RmcM6t5sIb3LtOcIsR19qsI9BIQiSk+qBKBcbsEJnG0WqZmcYOzmXlenUyzegHbiHgeAVgdP7TQZ9fyF5FJA/19wEjsuJ6jK/EtAkloiRmn3g00nysptLvx9/juGPJCDoN8VNqDANrM47xPi+tnvny13DCQPsdZWYls1n+Ux5d3WThLgSQ==,,10.107.2.1,iqn.1992-08.com.netapp:sn.142251821</connectionString>
+      <libvirt><disk type="block">
+  <driver cache="none" name="qemu"/>
+  <source dev="/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a4463"/>
+  <target bus="virtio" dev="vdd"/>
+  <serial>euca-vol-3d762bfc-dev-vdd</serial>
+</disk>
+</libvirt>
+    </volume>
+    <volume>
+      <id>vol-55f478f2</id>
+      <attachmentToken>sc://vol-55f478f2,c/DA9KVKMurBWTDqDPv+IAaqRQZACZkmsuNwf2AvTwYE1Bws/WUmeaU7u6FGHZf0c0jczgUiA7ebS4r9mgFqAcge5RbPxbxjsPrJP9p9APZ0mPchkKkNbUQgkoSjt4uQDfhW00P4ir7GvSDIRUAldSlRE692f0hXPOhOwe+7Cy5Rajk1u1s4o7GHQGyXGFgnPYsqRQWt0Amyg0sYfLbsWUIeyGRq3rmytf/jLH4dOEdw/e7Ehq/5qur4duTCXPIXS/Wmo/RNezMKcvqv1wdl/sbPEO4y0ITNuFkgvAlW4o4afdgznDZN/epAq/cFXoLcVOvtx2EIAxfGMj9tHdbOzw==</attachmentToken>
+      <devName>vde</devName>
+      <stateName>attached</stateName>
+      <connectionString>iscsi,netapp,ccassler-427,,3,C6LuNlVNejtWa2agLQ5QQ753wK9HJvBpVeJEz1REsk8m6GHvVjsRruefiT/YwKAU4aolF65Kl9d+tgOaiaK8tZtCj3OofGIW1GFpU0qjaDPiK0vmbata1Ccm7H8Twpr/u7kwupQ9bz4y0QSKmrHAET4RaUJjqL8t/0eJNqoQ1PE7XxzD+mZF9hiND5AWHLkcPn4nOobVoyiLLRqT8oAKrs/rtjGA6yLdSjWl8WIphDPdNEWTnmzsbcg+mV/CiXy5M3Lh/5o7bf3q8Gf8zpBpKSPxoTDGZ9ZOIx3jKskoZjo/8yIejRqbH25VSyM7peBzbegoCsVR6Oga5IxICUV0Sg==,,10.107.2.1,iqn.1992-08.com.netapp:sn.142251821</connectionString>
+      <libvirt><disk type="block">
+  <driver cache="none" name="qemu"/>
+  <source dev="/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a4465"/>
+  <target bus="virtio" dev="vde"/>
+  <serial>euca-vol-55f478f2-dev-vde</serial>
+</disk>
+</libvirt>
+    </volume>
+  </volumes>
+  <nics>
+    <nic vlan="-1" networkIndex="-1" mac="d0:0d:28:e6:7f:74" publicIp="10.111.30.124" privateIp="10.111.30.188" bridgeDeviceName="br0" guestDeviceName="vn_i-28e67f74" device="0" stateName="attached" hypervisorType="kvm" osPlatform="linux" osVirtioNetwork="true"/>
+  </nics>
+  <states>
+    <retries>5</retries>
+    <stateName>Extant</stateName>
+    <bundleTaskStateName>none</bundleTaskStateName>
+    <bundleTaskProgress>0.0000</bundleTaskProgress>
+    <createImageTaskStateName></createImageTaskStateName>
+    <stateCode>15</stateCode>
+    <state>Running</state>
+    <bundleTaskState>none</bundleTaskState>
+    <bundleBucketExists>false</bundleBucketExists>
+    <bundleCanceled>false</bundleCanceled>
+    <guestStateName>poweredOn</guestStateName>
+    <isStopRequested>false</isStopRequested>
+    <createImageTaskState>none</createImageTaskState>
+    <createImagePid>0</createImagePid>
+    <createImageCanceled>false</createImageCanceled>
+    <migrationState>none</migrationState>
+    <migrationSource></migrationSource>
+    <migrationDestination></migrationDestination>
+    <migrationCredentials></migrationCredentials>
+  </states>
+  <timestamps>
+    <launchTime>146653995</launchTime>
+    <expiryTime>146653995</expiryTime>
+    <bootTime>146653996</bootTime>
+    <bundlingTime>0</bundlingTime>
+    <createImageTime>0</createImageTime>
+    <terminationRequestedTime>0</terminationRequestedTime>
+    <terminationTime>0</terminationTime>
+    <migrationTime>0</migrationTime>
+  </timestamps>
+</instance>
+
+/bin/tar: Removing leading `/' from member names
+Before connecting:
+$VAR1 = {
+          'sid' => '1',
+          'tpgt' => '1000',
+          'netdev' => '<empty>',
+          'lun-0' => 'sdc',
+          'lun-1' => 'sdd',
+          'hostnumber' => '6',
+          'target' => 'iqn.1992-08.com.netapp:sn.142251821',
+          'pportal' => '10.107.2.1',
+          'iface' => 'default',
+          'portal' => '10.107.2.1'
+        };
+After connecting:
+$VAR1 = {
+          'sid' => '1',
+          'tpgt' => '1000',
+          'netdev' => '<empty>',
+          'lun-0' => 'sdc',
+          'lun-1' => 'sdd',
+          'hostnumber' => '6',
+          'target' => 'iqn.1992-08.com.netapp:sn.142251821',
+          'pportal' => '10.107.2.1',
+          'iface' => 'default',
+          'portal' => '10.107.2.1'
+        };
+<disk type='block'>
+  <driver cache='none' name='qemu'/>
+  <source dev='/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a446d'/>
+  <target bus='virtio' dev='vda'/>
+  <serial>euca-bdm-ebs1-dev-vda</serial>
+</disk>
+Before connecting:
+$VAR1 = {
+          'sid' => '1',
+          'tpgt' => '1000',
+          'netdev' => '<empty>',
+          'lun-0' => 'sdc',
+          'lun-1' => 'sdd',
+          'hostnumber' => '6',
+          'target' => 'iqn.1992-08.com.netapp:sn.142251821',
+          'pportal' => '10.107.2.1',
+          'iface' => 'default',
+          'portal' => '10.107.2.1'
+        };
+After connecting:
+$VAR1 = {
+          'sid' => '1',
+          'tpgt' => '1000',
+          'netdev' => '<empty>',
+          'lun-0' => 'sdc',
+          'lun-1' => 'sdd',
+          'hostnumber' => '6',
+          'target' => 'iqn.1992-08.com.netapp:sn.142251821',
+          'pportal' => '10.107.2.1',
+          'iface' => 'default',
+          'portal' => '10.107.2.1'
+        };
+<disk type='block'>
+  <driver cache='none' name='qemu'/>
+  <source dev='/dev/disk/by-id/scsi-360a980003237654d412b414f6d5a454b'/>
+  <target bus='virtio' dev='vdc'/>
+  <serial>euca-vol-157f51b4-dev-vdc</serial>
+</disk>
+Before connecting:
+$VAR1 = {
+          'sid' => '1',
+          'tpgt' => '1000',
+          'netdev' => '<empty>',
+          'lun-0' => 'sdc',
+          'lun-1' => 'sdd',
+          'hostnumber' => '6',
+          'target' => 'iqn.1992-08.com.netapp:sn.142251821',
+          'pportal' => '10.107.2.1',
+          'iface' => 'default',
+          'portal' => '10.107.2.1'
+        };
+Refreshing iscsiadm session before fetching attached device
+Refreshing iscsiadm session before fetching attached device
+Refreshing iscsiadm session before fetching attached device
+Refreshing iscsiadm session before fetching attached device
+Refreshing iscsiadm session before fetching attached device
+After connecting:
+$VAR1 = {
+          'sid' => '1',
+          'tpgt' => '1000',
+          'netdev' => '<empty>',
+          'lun-0' => 'sdc',
+          'lun-1' => 'sdd',
+          'hostnumber' => '6',
+          'target' => 'iqn.1992-08.com.netapp:sn.142251821',
+          'pportal' => '10.107.2.1',
+          'iface' => 'default',
+          'portal' => '10.107.2.1'
+        };
+Unable to get attached target device.
+Traceback (most recent call last):
+  File "/usr/sbin/nodeadmin-unpack-instance", line 329, in <module>
+    sys.exit(main(args, log_level))
+  File "/usr/sbin/nodeadmin-unpack-instance", line 319, in main
+    rc = unpack_instance(instance_tuple[1], args.packed_file)
+  File "/usr/sbin/nodeadmin-unpack-instance", line 282, in unpack_instance
+    _attach_volumes(instance_path)
+  File "/usr/sbin/nodeadmin-unpack-instance", line 252, in _attach_volumes
+    volume_serial, volume_bus, connection_string)
+  File "/usr/sbin/nodeadmin-unpack-instance", line 206, in _attach_iscsi_target
+    rc = check_call(iscsi_pl_cmd)
+  File "/usr/lib64/python2.7/subprocess.py", line 542, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['/usr/share/eucalyptus/connect_iscsitarget.pl', u'/,vol-3d762bfc,vdd,euca-vol-3d762bfc-dev-vdd,virtio,eucalyptus,/etc/ceph/ceph.client.eucalyptus.keyring,/etc/ceph/ceph.conf,iscsi,netapp,ccassler-427,,2,G/xELp7oCLCLl5ymGCOQh4fHA3dT9b5fstNN/3qfQJQ/hNnC5WWsOIJIfJ846sfteRul/5xd/loXUOqeiA+WMi/QntBT5Q/x2G1xf+MZP6+lAxCGAv9rDpn5pOR0ucRh4GB6FbADSoHbrw5QnhubvJ+npwZje1aV+gR0RmcM6t5sIb3LtOcIsR19qsI9BIQiSk+qBKBcbsEJnG0WqZmcYOzmXlenUyzegHbiHgeAVgdP7TQZ9fyF5FJA/19wEjsuJ6jK/EtAkloiRmn3g00nysptLvx9/juGPJCDoN8VNqDANrM47xPi+tnvny13DCQPsdZWYls1n+Ux5d3WThLgSQ==,,10.107.2.1,iqn.1992-08.com.netapp:sn.142251821']' returned non-zero exit status 1

@@ -1,0 +1,63 @@
+False Data Generator Instructions:
+
+To run the false data generator, modify the "euca" property as follows
+
+euca-modify-property -feuca=<path to FalseDataSystemMetricGenerator.groovy>
+
+You can see the output from the file by doing
+
+tail -f $EUCALYPTUS/var/log/eucalyptus/cloud-output.log | grep CloudWatchFalseDataSystemMetricGenerator
+
+(you may need to change the grep value to the latter part of the string as the log name is long and will be right truncated in the column space, maybe something like
+
+tail -f $EUCALYPTUS/var/log/eucalyptus/cloud-output.log | grep CloudWatchFalseDataSystemMetricGenerator
+
+
+
+The CloudWatchFalseDataSystemMetricGenerator.groovy creates a class called CloudWatchFalseDataSystemMetricGenerator
+
+It has the following methods that may be useful
+
+setDurationMins() -- sets how long (in minutes) the test will run
+setNumMillisecondsBetweenPuts() -- sets how many milliseconds are put in between data points (probably should set this to 30000 or 60000, or not touch it)
+setupDefaultInstances() -- sets up the default instance set
+setupDefaultInstances(numInstances) -- sets up the default instance set with a specific number of instances
+addInstance(Instance) adds an instance to the set of instances to generate.  Instance refers to an class defined within the file.  Look in setupDefaultInstances() for examples of creating Instance objects
+test() -- runs the test with the parameters defined.  If test() is the first method called, setupDefaultInstances() will be called
+
+
+
+
+
+
+For each instance metric there are some methods that may be called.  These methods are
+
+ConstantValue -- gives this metric a constant value
+IncreasingValue -- gives this metric a start value and an increment which increases linearly
+IncreasingBoundedValue -- gives this metric a start value and an increment which increases linearly until it hits the upper bound and it stays there.
+
+DecreasingValue
+DecreasingBoundedValue -- same as increasing except decreasing
+
+OscillatingValue -- gives this metric a range to oscillate between
+
+Examples of the above methods use can be found in the setupDefaultInstances() method
+
+Be careful about using values that are negative in the above values.  The values that actually go into cloudwatch are cumulative values, these methods convert the values in such a way as to produce the effect that is described in the method call.  Since cumulative values are supposedly always increasing, giving negative "difference" values makes that no longer true, which can cause issues.
+
+The final line in the file is
+
+new CloudWatchFalseDataSystemMetricGenerator().test()
+
+
+That is the line that needs to be changed to change things.
+
+For example
+CloudWatchFalseDataSystemMetricGenerator test = CloudWatchFalseDataSystemMetricGenerator();
+test.setDurmationMins(30);
+test.setupDefaultInstances(100);
+test.test();
+
+At some time in the future, it would be nice to not have to modify the groovy script but to put configuration in another file.
+
+

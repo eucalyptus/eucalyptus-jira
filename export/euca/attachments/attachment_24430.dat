@@ -1,0 +1,36 @@
+{
+    "Regions": [
+        {
+            "Name": "hood-billionaire",
+            "CertificateFingerprintDigest": "SHA-256",
+            "CertificateFingerprint": "7C:60:18:7E:92:FF:3E:C9:32:4F:28:13:C7:91:54:E6:17:7A:E1:AD:01:B3:3F:C7:71:FE:88:FF:34:1A:6F:6D",
+            "IdentifierPartitions": [
+                10
+            ],
+            "Services": [
+                {
+                    "Type": "identity",
+                    "Endpoints": [
+                        "https://eucalyptus.g-05-01.autoqa.qa1.eucalyptus-systems.com:8773"
+                    ]
+                }
+            ]
+        },
+        {
+            "Name": "god-forgives-i-dont",
+            "CertificateFingerprintDigest": "SHA-256",
+            "CertificateFingerprint": "B3:70:8B:35:BE:B2:06:69:E9:6A:4C:53:0D:34:30:A4:82:2A:A5:69:96:80:6F:FC:E8:0C:7A:74:8D:F6:DD:3A",
+            "IdentifierPartitions": [
+                10
+            ],
+            "Services": [
+                {
+                    "Type": "identity",
+                    "Endpoints": [
+                        "https://eucalyptus.a-17.autoqa.qa1.eucalyptus-systems.com:8773/services/Identity"
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,357 @@
+Outputs of testing EUCA-12902
+---> with comments like this
+
+s3curl: See https://eucalyptus.atlassian.net/wiki/display/STOR/S3Curl
+
+"curl" is used here as an anonymous request since it doesn't include
+an Authorization header that s3curl includes.
+
+
+lthomas@cent7-dev  16:41:15  ~
+$ s3curl.pl --id osgqlmy44 -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773" | xmllint --format -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   393  100   393    0     0   1350      0 --:--:-- --:--:-- --:--:--  1355
+<?xml version="1.0" encoding="UTF-8"?>
+<ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Owner>
+    <ID>c133c3a384bb32414f5c455e1d4928142a7371346603c2d5243445a411e5f572</ID>
+    <DisplayName>eucalyptus</DisplayName>
+  </Owner>
+  <Buckets>
+    <Bucket>
+      <Name>eucalyptus-service-image-v3.20</Name>
+      <CreationDate>2016-12-06T21:10:06.436Z</CreationDate>
+    </Bucket>
+  </Buckets>
+</ListAllMyBucketsResult>
+
+---> ^^^ no new bucket yet
+
+lthomas@cent7-dev  16:42:01  ~
+$ curl -L -X PUT "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAnon" -i
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 251
+Content-Type: application/xml
+Date: Wed, 07 Dec 2016 00:42:13 GMT
+x-amz-request-id: 2076592a-47bf-42c6-ba58-0479938a39e5
+Server: Eucalyptus/4.4.0
+
+<?xml version="1.0" encoding="UTF-8" ?><Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Code>AccessDenied</Code><Message>Access Denied</Message><Resource>bucketByAnon</Resource><RequestId>2076592a-47bf-42c6-ba58-0479938a39e5</RequestId></Error>
+
+---> ^^^ The anonymous user is correctly denied from creating a bucket
+
+lthomas@cent7-dev  16:42:13  ~
+$ s3curl.pl --id osgqlmy44 --createBucket -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin" -i
+HTTP/1.1 200 OK
+Date: Wed, 07 Dec 2016 00:43:10 GMT
+Content-Length: 0
+x-amz-request-id: 4f8f6553-539f-4322-b2ff-da5909b2e59d
+Server: Eucalyptus/4.4.0
+
+lthomas@cent7-dev  16:43:10  ~
+$ s3curl.pl --id osgqlmy44 -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773" | xmllint --format -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   489  100   489    0     0   1658      0 --:--:-- --:--:-- --:--:--  1663
+<?xml version="1.0" encoding="UTF-8"?>
+<ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Owner>
+    <ID>c133c3a384bb32414f5c455e1d4928142a7371346603c2d5243445a411e5f572</ID>
+    <DisplayName>eucalyptus</DisplayName>
+  </Owner>
+  <Buckets>
+    <Bucket>
+      <Name>bucketByAdmin</Name>
+      <CreationDate>2016-12-07T00:43:10.093Z</CreationDate>
+    </Bucket>
+    <Bucket>
+      <Name>eucalyptus-service-image-v3.20</Name>
+      <CreationDate>2016-12-06T21:10:06.436Z</CreationDate>
+    </Bucket>
+  </Buckets>
+</ListAllMyBucketsResult>
+
+---> shows the new bucket
+
+lthomas@cent7-dev  16:49:46  ~
+$ curl -L "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin" | xmllint --format -                                  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   252  100   252    0     0    917      0 --:--:-- --:--:-- --:--:--   916
+<?xml version="1.0" encoding="UTF-8"?>
+<Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Code>AccessDenied</Code>
+  <Message>Access Denied</Message>
+  <Resource>bucketByAdmin</Resource>
+  <RequestId>11a14683-d747-493b-b24c-75ac64b38250</RequestId>
+</Error>
+
+lthomas@cent7-dev  16:48:00  ~
+$ curl -L -T "/home/lthomas/one-liner.txt" "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAnon.txt" -i
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 252
+Content-Type: application/xml
+Date: Wed, 07 Dec 2016 00:48:07 GMT
+x-amz-request-id: da7b0573-1989-4dc6-82fc-c2832ca9e8cc
+Server: Eucalyptus/4.4.0
+
+<?xml version="1.0" encoding="UTF-8" ?><Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Code>AccessDenied</Code><Message>Access Denied</Message><Resource>bucketByAdmin</Resource><RequestId>da7b0573-1989-4dc6-82fc-c2832ca9e8cc</RequestId></Error>
+
+---> anon can't list the bucket nor create an object in it, due to default ACL
+
+lthomas@cent7-dev  16:48:32  ~
+$ s3curl.pl --id osgqlmy44  --put ~/one-liner.txt -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAdmin.txt" -i
+HTTP/1.1 100 Continue
+Date: Wed, 07 Dec 2016 00:49:41 UTC
+Server: Eucalyptus/4.4.0
+
+HTTP/1.1 200 OK
+ETag: "af456e8280c32c0d818b0b582501fc20"
+Date: Wed, 07 Dec 2016 00:49:41 GMT
+Content-Length: 0
+x-amz-request-id: 7068b110-c632-4506-9262-cb2399783123
+Server: Eucalyptus/4.4.0
+
+
+lthomas@cent7-dev  16:49:41  ~
+$ s3curl.pl --id osgqlmy44 -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin" | xmllint --format -              % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   546  100   546    0     0   1963      0 --:--:-- --:--:-- --:--:--  1971
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Name>bucketByAdmin</Name>
+  <Prefix/>
+  <Marker/>
+  <MaxKeys>1000</MaxKeys>
+  <IsTruncated>false</IsTruncated>
+  <Contents>
+    <Key>objByAdmin.txt</Key>
+    <LastModified>2016-12-07T00:49:41.438Z</LastModified>
+    <ETag>"af456e8280c32c0d818b0b582501fc20"</ETag>
+    <Size>11</Size>
+    <Owner>
+      <ID>c133c3a384bb32414f5c455e1d4928142a7371346603c2d5243445a411e5f572</ID>
+      <DisplayName>eucalyptus</DisplayName>
+    </Owner>
+    <StorageClass>STANDARD</StorageClass>
+  </Contents>
+</ListBucketResult>
+
+lthomas@cent7-dev  16:50:11  ~
+$ s3curl.pl --id osgqlmy44 -- -X PUT -H "x-amz-acl:public-read-write" "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin?acl" -i
+HTTP/1.1 200 OK
+Date: Wed, 07 Dec 2016 00:51:03 GMT
+Content-Length: 0
+x-amz-request-id: 3a47a0ad-b70a-456d-a50d-8a6bedee85d3
+Server: Eucalyptus/4.4.0
+
+---> admin opened up ACL to all users R/W (incl anon)
+
+lthomas@cent7-dev  16:51:07  ~
+$ curl -L "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin" | xmllint --format -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   546  100   546    0     0   1942      0 --:--:-- --:--:-- --:--:--  1950
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Name>bucketByAdmin</Name>
+  <Prefix/>
+  <Marker/>
+  <MaxKeys>1000</MaxKeys>
+  <IsTruncated>false</IsTruncated>
+  <Contents>
+    <Key>objByAdmin.txt</Key>
+    <LastModified>2016-12-07T00:49:41.438Z</LastModified>
+    <ETag>"af456e8280c32c0d818b0b582501fc20"</ETag>
+    <Size>11</Size>
+    <Owner>
+      <ID>c133c3a384bb32414f5c455e1d4928142a7371346603c2d5243445a411e5f572</ID>
+      <DisplayName>eucalyptus</DisplayName>
+    </Owner>
+    <StorageClass>STANDARD</StorageClass>
+  </Contents>
+</ListBucketResult>
+
+--> now anon can list the bucket, but still can't get the object
+
+lthomas@cent7-dev  16:51:21  ~
+$ curl -L "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAdmin.txt" -i
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 267
+Content-Type: application/xml
+Date: Wed, 07 Dec 2016 00:51:50 GMT
+x-amz-request-id: 0f64c18e-6752-447c-89ef-e84c5d505efe
+Server: Eucalyptus/4.4.0
+
+<?xml version="1.0" encoding="UTF-8" ?><Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Code>AccessDenied</Code><Message>Access Denied</Message><Resource>bucketByAdmin/objByAdmin.txt</Resource><RequestId>0f64c18e-6752-447c-89ef-e84c5d505efe</RequestId></Error>
+
+lthomas@cent7-dev  16:51:50  ~
+$ s3curl.pl --id osgqlmy44 -- -X PUT -H "x-amz-acl:public-read-write" "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAdmin.txt?acl" -i
+HTTP/1.1 200 OK
+Date: Wed, 07 Dec 2016 00:52:06 GMT
+Content-Length: 0
+x-amz-request-id: 03cc8d03-6db0-447a-b361-0e30c3bbe117
+Server: Eucalyptus/4.4.0
+
+
+lthomas@cent7-dev  16:52:06  ~
+$ curl -L "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAdmin.txt" -i                                   HTTP/1.1 200 OK
+Content-Type: application/octet-stream
+Content-Length: 11
+ETag: "af456e8280c32c0d818b0b582501fc20"
+Last-Modified: Wed, 07 Dec 2016 00:49:41 GMT
+Date: Wed, 07 Dec 2016 00:52:09 GMT
+x-amz-request-id: 8f51a573-1f46-4f23-b0b5-ef1a27ea9fd3
+Server: Eucalyptus/4.4.0
+
+I am here.
+
+---> After setting public R/W on the object, now anon can get it.
+
+lthomas@cent7-dev  16:52:09  ~
+$ curl -L -T "/home/lthomas/one-liner.txt" "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAnon.txt" -i   HTTP/1.1 100 Continue
+Date: Wed, 07 Dec 2016 00:52:24 UTC
+Server: Eucalyptus/4.4.0
+
+HTTP/1.1 200 OK
+ETag: "af456e8280c32c0d818b0b582501fc20"
+Date: Wed, 07 Dec 2016 00:52:24 GMT
+Content-Length: 0
+x-amz-request-id: b408dbff-4eb3-4b68-8ff0-867c04df2def
+Server: Eucalyptus/4.4.0
+
+
+lthomas@cent7-dev  16:52:24  ~
+$ curl -L "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAnon.txt" -i
+HTTP/1.1 200 OK
+Content-Type: application/octet-stream
+Content-Length: 11
+ETag: "af456e8280c32c0d818b0b582501fc20"
+Last-Modified: Wed, 07 Dec 2016 00:52:24 GMT
+Date: Wed, 07 Dec 2016 00:52:33 GMT
+x-amz-request-id: 227cdd00-3b92-483c-af0b-ccbfe653bf0d
+Server: Eucalyptus/4.4.0
+
+I am here.
+
+---> And now anon can create and get its own object.
+
+lthomas@cent7-dev  16:52:44  ~
+$ s3curl.pl --id osgqlmy44 -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAnon.txt" -i                HTTP/1.1 200 OK
+Content-Type: application/octet-stream
+Content-Length: 11
+ETag: "af456e8280c32c0d818b0b582501fc20"
+Last-Modified: Wed, 07 Dec 2016 00:52:24 GMT
+Date: Wed, 07 Dec 2016 00:53:01 GMT
+x-amz-request-id: d7fa617e-54a7-4079-9f7c-641dfed1330b
+Server: Eucalyptus/4.4.0
+
+I am here.
+
+---> In this case, the bucket owner can get the object only because the
+     bucket owner in these examples is the special "eucalyptus" account that
+     bypasses all ACL checks. If you were to create the bucket as any other
+     account besides "eucalyptus", then this request would be denied. Only
+     the object owner has any access to any object, no matter what bucket
+     it's in, unless the object owner opens up the object's ACL to allow
+     others to access it.
+
+lthomas@cent7-dev  16:53:01  ~
+$ curl -L -X DELETE "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAdmin.txt" -i
+HTTP/1.1 204 No Content
+Date: Wed, 07 Dec 2016 00:54:07 GMT
+x-amz-request-id: 231a2160-c0c3-4cfa-bcb8-2e28005b73ff
+Server: Eucalyptus/4.4.0
+
+
+lthomas@cent7-dev  16:54:07  ~
+$ s3curl.pl --id osgqlmy44 -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin/objByAdmin.txt" -i
+HTTP/1.1 404 Not Found
+Connection: close
+Content-Length: 284
+Content-Type: application/xml
+Date: Wed, 07 Dec 2016 00:54:16 GMT
+x-amz-request-id: c699fc64-57bf-471e-8162-8fc8141ed150
+Server: Eucalyptus/4.4.0
+
+<?xml version="1.0" encoding="UTF-8" ?><Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Resource>bucketByAdmin/objByAdmin.txt</Resource><RequestId>c699fc64-57bf-471e-8162-8fc8141ed150</RequestId></Error>
+
+---> Anon can delete bucket owner's object! Correct behavior when bucket is
+     public R/W.
+
+lthomas@cent7-dev  16:54:16  ~
+$ s3curl.pl --id osgqlmy44 --createBucket -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin2" -i              HTTP/1.1 200 OK
+Date: Wed, 07 Dec 2016 00:55:23 GMT
+Content-Length: 0
+x-amz-request-id: 3e09e895-7b4d-4701-8e40-f957002f704d
+Server: Eucalyptus/4.4.0
+
+lthomas@cent7-dev  16:56:01  ~
+$ s3curl.pl --id osgqlmy44  --put ~/one-liner.txt -- "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin2/objByAdmin2.txt" -i
+HTTP/1.1 100 Continue
+Date: Wed, 07 Dec 2016 00:56:30 UTC
+Server: Eucalyptus/4.4.0
+
+HTTP/1.1 200 OK
+ETag: "af456e8280c32c0d818b0b582501fc20"
+Date: Wed, 07 Dec 2016 00:56:30 GMT
+Content-Length: 0
+x-amz-request-id: 2d177123-2e80-4c3b-bd71-18caf9a3eeb4
+Server: Eucalyptus/4.4.0
+
+lthomas@cent7-dev  16:56:52  ~
+$ s3curl.pl --id osgqlmy44 -- -X PUT -H "x-amz-acl:public-read" "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin2?acl" -i
+HTTP/1.1 200 OK
+Date: Wed, 07 Dec 2016 00:57:13 GMT
+Content-Length: 0
+x-amz-request-id: fb3416c0-bd99-40db-9744-1625499e8997
+Server: Eucalyptus/4.4.0
+
+---> Creating a new bucket and putting a new object in it, and making the
+     bucket public read-only.
+
+lthomas@cent7-dev  16:58:23  ~
+$ curl -L "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin2" | xmllint --format -
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   548  100   548    0     0   1825      0 --:--:-- --:--:-- --:--:--  1820
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+  <Name>bucketByAdmin2</Name>
+  <Prefix/>
+  <Marker/>
+  <MaxKeys>1000</MaxKeys>
+  <IsTruncated>false</IsTruncated>
+  <Contents>
+    <Key>objByAdmin2.txt</Key>
+    <LastModified>2016-12-07T00:56:30.829Z</LastModified>
+    <ETag>"af456e8280c32c0d818b0b582501fc20"</ETag>
+    <Size>11</Size>
+    <Owner>
+      <ID>c133c3a384bb32414f5c455e1d4928142a7371346603c2d5243445a411e5f572</ID>
+      <DisplayName>eucalyptus</DisplayName>
+    </Owner>
+    <StorageClass>STANDARD</StorageClass>
+  </Contents>
+</ListBucketResult>
+
+lthomas@cent7-dev  16:58:43  ~
+$ curl -L -X DELETE "http://s3.c-18.autoqa.qa1.eucalyptus-systems.com:8773/bucketByAdmin2/objByAdmin2.txt" -i
+HTTP/1.1 403 Forbidden
+Connection: close
+Content-Length: 269
+Content-Type: application/xml
+Date: Wed, 07 Dec 2016 00:59:01 GMT
+x-amz-request-id: 0d21d169-8200-47b9-b59f-ef3a2f8cdefd
+Server: Eucalyptus/4.4.0
+
+<?xml version="1.0" encoding="UTF-8" ?><Error xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Code>AccessDenied</Code><Message>Access Denied</Message><Resource>bucketByAdmin2/objByAdmin2.txt</Resource><RequestId>0d21d169-8200-47b9-b59f-ef3a2f8cdefd</RequestId></Error>
+
+---> Now anon can list the bucket but can't delete an object.
+
+Make up your own new tests too!
+
+(end)

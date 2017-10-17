@@ -1,0 +1,462 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.Request
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.handlers.AbstractRequestHandler
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.identitymanagement.model.CreateAccessKeyRequest
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+import com.github.sjones4.youcan.youare.YouAre
+import com.github.sjones4.youcan.youare.YouAreClient
+import com.github.sjones4.youcan.youare.model.CreateAccountRequest
+import com.github.sjones4.youcan.youare.model.DeleteAccountRequest
+import com.github.sjones4.youcan.youare.model.PutAccountPolicyRequest
+import com.github.sjones4.youcan.youprop.YouProp
+import com.github.sjones4.youcan.youprop.YouPropClient
+import com.github.sjones4.youcan.youprop.model.ModifyPropertyValueRequest
+
+/**
+ * This application tests limits for SWF.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9624
+ */
+class TestSWFLimits {
+
+  private final String host;
+  private final AWSCredentialsProvider credentials;
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFLimits( '10.111.5.61', 'AKIKC7ZVX1BEKJN0Y0RB', 'MOq4SjJFpzrN4jy8hBhRdKBiDBOV9mKfYnAqfvO9' ).test( )
+  }
+
+  public TestSWFLimits( String host,
+                              String accessKey,
+                              String secretKey ) {
+    this.host = host
+    this.credentials = new StaticCredentialsProvider( new BasicAWSCredentials( accessKey, secretKey ) )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private YouAreClient getYouAreClient( final AWSCredentialsProvider credentials  ) {
+    final YouAreClient euare = new YouAreClient( credentials )
+    euare.setEndpoint( cloudUri( "/services/Euare/" ) )
+    euare
+  }
+
+  private YouProp getYouPropClient( final AWSCredentialsProvider credentials ) {
+    final YouProp youProp = new YouPropClient( credentials )
+    youProp.setEndpoint( cloudUri( "/services/Properties/" ) )
+    youProp
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final YouProp prop = getYouPropClient( credentials )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      prop.with {
+        [
+            'simpleworkflow.activitytypesperdomain': '1',
+            'simpleworkflow.workflowtypesperdomain': '1',
+            'simpleworkflow.openactivitytasksperworkflowexecution': '1',
+            'simpleworkflow.opentimersperworkflowexecution': '1',
+            'simpleworkflow.openworkflowexecutionsperdomain': '1',
+            'simpleworkflow.workflowexecutionhistorysize': '10',
+            'simpleworkflow.workflowexecutionretentionduration': '0d'
+        ].each { String property, String value ->
+          print( "Updating ${property} to ${value}" )
+          final String originalValue = modifyPropertyValue( new ModifyPropertyValueRequest( name: property, value: value ) ).with {
+            oldValue
+          }
+          print( "Old ${property} value was: ${originalValue}" )
+          cleanupTasks.add {
+            print( "Restoring ${property}: ${originalValue}" )
+            modifyPropertyValue( new ModifyPropertyValueRequest( name: property, value: originalValue ) )
+          }
+        }
+      }
+
+      AWSCredentialsProvider swfAccountCredentials = null
+      final YouAre youAre = getYouAreClient( credentials )
+      youAre.with {
+        final String accountName = "${namePrefix}swf-test-account"
+        print( "Creating account for quota testing: ${accountName}" )
+        String adminAccountNumber = createAccount( new CreateAccountRequest( accountName: accountName ) ).with {
+          account?.accountId
+        }
+        assertThat( adminAccountNumber != null, "Expected account number" )
+        print( "Created admin account with number: ${adminAccountNumber}" )
+        cleanupTasks.add {
+          print( "Deleting admin account: ${accountName}" )
+          deleteAccount( new DeleteAccountRequest( accountName: accountName, recursive: true ) )
+        }
+
+        print( "Creating access key for admin account: ${accountName}" )
+        YouAre adminIam = getYouAreClient( credentials )
+        adminIam.addRequestHandler( new AbstractRequestHandler(){
+          public void beforeRequest(final Request<?> request) {
+            request.addParameter( "DelegateAccount", accountName )
+          }
+        } )
+        swfAccountCredentials = adminIam.with {
+          createAccessKey( new CreateAccessKeyRequest( userName: "admin" ) ).with {
+            accessKey?.with {
+              new StaticCredentialsProvider( new BasicAWSCredentials( accessKeyId, secretAccessKey ) )
+            }
+          }
+        }
+        assertThat( swfAccountCredentials != null, "Expected admin credentials" )
+        print( "Created swf account access key: ${swfAccountCredentials.credentials.AWSAccessKeyId}" )
+
+        print( "Creating quota policy for swf account" )
+        putAccountPolicy( new PutAccountPolicyRequest(
+            accountName: accountName,
+            policyName: 'swf-quota-policy',
+            policyDocument: """
+              {
+                "Statement":[{
+                  "Effect":"Limit",
+                  "Action":"swf:registerdomain",
+                  "Resource":"*",
+                  "Condition":{
+                    "NumericLessThanEquals":{
+                      "swf:quota-domainnumber":"1"
+                    }
+                  }
+                }]
+              }
+            """.stripIndent( )
+        ) )
+
+        void
+      }
+
+      final AmazonSimpleWorkflow swf = getSWFClient( swfAccountCredentials )
+      swf.with{
+        String domainName = "${namePrefix}domain"
+        print( "Registering domain ${domainName}" )
+        registerDomain( new RegisterDomainRequest(
+            name: domainName,
+            description: 'test domain',
+            workflowExecutionRetentionPeriodInDays: 1 ) )
+        cleanupTasks.add{
+          print( "Deprecating domain ${domainName}" )
+          deprecateDomain( new DeprecateDomainRequest( name: domainName ) )
+        }
+
+        try {
+          String domainName2 = "${namePrefix}domain2"
+          print( "Registering domain ${domainName2} (expect fail due to quota)" )
+          registerDomain( new RegisterDomainRequest(
+              name: domainName2,
+              description: 'test domain 2',
+              workflowExecutionRetentionPeriodInDays: 1 ) )
+          cleanupTasks.add{
+            print( "Deprecating domain ${domainName2}" )
+            deprecateDomain( new DeprecateDomainRequest( name: domainName2 ) )
+          }
+          assertThat( false, "Expected domain registration failure due to quota exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        String activityTypeName = "${namePrefix}activity-type"
+        print( "Registering activity type ${activityTypeName}" )
+        registerActivityType( new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList( name: 'activity-task-list' ),
+            defaultTaskHeartbeatTimeout: '1',
+            defaultTaskScheduleToCloseTimeout: '2',
+            defaultTaskStartToCloseTimeout: '3',
+            defaultTaskScheduleToStartTimeout: '4'
+        ) )
+        cleanupTasks.add{
+          print( "Deprecating activity type ${activityTypeName}" )
+          deprecateActivityType( new DeprecateActivityTypeRequest( domain: domainName, activityType: new ActivityType( name: activityTypeName, version: '1' ) ))
+        }
+
+        try {
+          String activityTypeName2 = "${namePrefix}activity-type-2"
+          print( "Registering activity type ${activityTypeName2} (expect fail due to limit)" )
+          registerActivityType( new RegisterActivityTypeRequest(
+              domain: domainName,
+              name: activityTypeName2,
+              version: '1',
+              description: 'test activity type 2',
+              defaultTaskList: new TaskList( name: 'activity-task-list' ),
+              defaultTaskHeartbeatTimeout: '1',
+              defaultTaskScheduleToCloseTimeout: '2',
+              defaultTaskStartToCloseTimeout: '3',
+              defaultTaskScheduleToStartTimeout: '4'
+          ) )
+          cleanupTasks.add{
+            print( "Deprecating activity type ${activityTypeName2}" )
+            deprecateActivityType( new DeprecateActivityTypeRequest( domain: domainName, activityType: new ActivityType( name: activityTypeName, version: '1' ) ))
+          }
+          assertThat( false, "Expected activity type registration failure due to limit exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        String workflowTypeName = "${namePrefix}workflow-type"
+        print( "Registering workflow type ${workflowTypeName}" )
+        registerWorkflowType( new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList( name: 'workflow-task-list' ),
+            defaultChildPolicy: 'TERMINATE',
+            defaultTaskStartToCloseTimeout: '1',
+            defaultExecutionStartToCloseTimeout: '2'
+        ) )
+        cleanupTasks.add{
+          print( "Deprecating workflow type ${domainName}" )
+          deprecateWorkflowType( new DeprecateWorkflowTypeRequest( domain: domainName, workflowType: new WorkflowType( name: workflowTypeName, version: '1' ) ))
+        }
+
+        try {
+          String workflowTypeName2 = "${namePrefix}workflow-type-2"
+          print( "Registering workflow type ${workflowTypeName2} (expect fail due to limit)" )
+          registerWorkflowType( new RegisterWorkflowTypeRequest(
+              domain: domainName,
+              name: workflowTypeName2,
+              version: '1',
+              description: 'test workflow type 2',
+              defaultTaskList: new TaskList( name: 'workflow-task-list' ),
+              defaultChildPolicy: 'TERMINATE',
+              defaultTaskStartToCloseTimeout: '1',
+              defaultExecutionStartToCloseTimeout: '2'
+          ) )
+          cleanupTasks.add{
+            print( "Deprecating workflow type ${workflowTypeName2}" )
+            deprecateWorkflowType( new DeprecateWorkflowTypeRequest( domain: domainName, workflowType: new WorkflowType( name: workflowTypeName, version: '1' ) ))
+          }
+          assertThat( false, "Expected workflow type registration failure due to limit exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        String workflowId = "${namePrefix}workflow-id"
+        print( "Starting workflow execution ${workflowId}" )
+        String runId = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            taskList: new TaskList( name: 'list' ),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+
+        try {
+          String workflowId2 = "${namePrefix}workflow-id-2"
+          print( "Starting workflow execution ${workflowId} (expect fail due to limit)" )
+          startWorkflowExecution(new StartWorkflowExecutionRequest(
+              workflowId: workflowId2,
+              domain: domainName,
+              workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+              taskList: new TaskList( name: 'list' ),
+              input: 'input-here',
+          ))
+          assertThat( false, "Expected start workflow execution failure due to limit exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken1 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        try {
+          print("Responding with schedule activity tasks (expect fail due to limit)")
+          respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+              taskToken: decisionTaskToken1,
+              decisions: [
+                  new Decision(
+                      decisionType: 'ScheduleActivityTask',
+                      scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                          activityType: new ActivityType().withName(activityTypeName).withVersion('1'),
+                          activityId: 'activity-1',
+                          input: 'input',
+                          scheduleToCloseTimeout: '120',
+                          scheduleToStartTimeout: '120',
+                          startToCloseTimeout: '120',
+                          heartbeatTimeout: '120',
+                          taskList: new TaskList(name: 'list')
+                      )
+                  ),
+                  new Decision(
+                      decisionType: 'ScheduleActivityTask',
+                      scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                          activityType: new ActivityType().withName(activityTypeName).withVersion('1'),
+                          activityId: 'activity-1',
+                          input: 'input',
+                          scheduleToCloseTimeout: '120',
+                          scheduleToStartTimeout: '120',
+                          startToCloseTimeout: '120',
+                          heartbeatTimeout: '120',
+                          taskList: new TaskList(name: 'list')
+                      )
+                  ),
+              ]
+          ))
+          assertThat( false, "Expected schedule activity tasks failure due to limit exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        try {
+          print("Responding with start timers (expect fail due to limit)")
+          respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+              taskToken: decisionTaskToken1,
+              decisions: [
+                  new Decision(
+                      decisionType: 'StartTimer',
+                      startTimerDecisionAttributes: new StartTimerDecisionAttributes(
+                          control: 'control-here-1',
+                          startToFireTimeout: 2,
+                          timerId: "${namePrefix}timer-1",
+                      )
+                  ),
+                  new Decision(
+                      decisionType: 'StartTimer',
+                      startTimerDecisionAttributes: new StartTimerDecisionAttributes(
+                          control: 'control-here-2',
+                          startToFireTimeout: 20,
+                          timerId: "${namePrefix}timer-2",
+                      )
+                  ),
+              ]
+          ))
+          assertThat( false, "Expected start timers  failure due to limit exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        try {
+          print("Responding with many decisions (expect fail due to limit)")
+          respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+              taskToken: decisionTaskToken1,
+              decisions: [
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-1', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-2', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-3', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-4', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-5', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-6', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-7', details: 'foo', )
+                  ),
+                  new Decision(
+                      decisionType: 'RecordMarker',
+                      recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes( markerName: 'marker-8', details: 'foo', )
+                  ),
+              ]
+          ))
+          assertThat( false, "Expected failure due to limit exceeded")
+        } catch ( AmazonServiceException e ) {
+          print( "Expected exception ${e}" )
+          assertThat( 'LimitExceededFault' == e.errorCode, "Expected error code LimitExceededFault, but was: ${e.errorCode}" )
+        }
+
+        print( "Waiting 15s for workflow retention period expiry processing" )
+        sleep( 15000 )
+
+        // It is expected that the workflow is terminated due to the event
+        // history limit being exceeded. As the maximum workflow execution
+        // retention period is set to zero days the closed workflow should
+        // be deleted.
+
+        print("Verifying no workflow executions for ${domainName}")
+        listClosedWorkflowExecutions( new ListClosedWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos == null || executionInfos.isEmpty(), "Expected no executions, but was: ${executionInfos?.size()}" )
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

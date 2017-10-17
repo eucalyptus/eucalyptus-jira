@@ -1,0 +1,12 @@
+$TTL 1
+@   IN  SOA ns.mmunn1.org. hostmaster.mmunn1.org. (
+      2000072801 ; serial
+      28800 ; refresh
+      7200 ; retry
+      604800 ; expire
+      86400 ; default-ttl
+      )
+@   IN  NS  ns.mmunn1.org.
+;
+
+11 IN NS euca-10-210-23-171.eucalyptus.internal.

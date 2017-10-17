@@ -1,0 +1,223 @@
+#!/usr/bin/env python 
+import unittest
+import time
+from eucaops import Eucaops
+from eutester import xmlrunner
+from boto.exception import S3ResponseError
+from boto.exception import S3CreateError
+import os
+import re
+import random
+import argparse
+
+credpath = None
+
+class InstanceBasics(unittest.TestCase):
+    def setUp(self):
+        # Setup basic eutester object
+        self.tester = Eucaops( credpath=credpath)
+        self.tester.poll_count = 240
+        zones = self.tester.ec2.get_all_zones()
+        self.zone = random.choice(zones).name
+        if ownzone is not None:
+                self.zone = ownzone
+        
+        ### Add and authorize a group for the instance
+        self.group = self.tester.add_group(group_name="acmecloudstatus-" + self.zone + "-" + str(time.time()))
+        self.tester.authorize_group_by_name(group_name=self.group.name )
+        self.tester.authorize_group_by_name(group_name=self.group.name, port=-1, protocol="icmp" )
+        ### Generate a keypair for the instance
+        self.keypair = self.tester.add_keypair( "acmecloudstatus-" + self.zone + "-" + str(time.time()))
+        self.keypath = os.curdir + "/" + self.keypair.name + ".pem"
+        self.image = self.tester.get_emi(emi)
+        self.reservation = None
+        self.private_addressing = False
+    
+    def tearDown(self):
+        if self.reservation is not None:
+            self.assertTrue(self.tester.terminate_instances(self.reservation), "Unable to terminate instance(s)")
+        self.tester.delete_group(self.group)
+        self.tester.delete_keypair(self.keypair)
+        os.remove(self.keypath)
+        self.reservation = None
+        self.group = None
+        self.keypair = None
+        self.tester = None
+        self.ephemeral = None
+        
+    def create_attach_volume(self, instance, size):
+            self.volume = self.tester.create_volume(instance.placement, size)
+            device_path = "/dev/" + instance.block_device_prefix  +"j"
+            before_attach = instance.get_dev_dir()
+            try:
+                self.assertTrue(self.tester.attach_volume(instance, self.volume, device_path, timeout=360), "Failure attaching volume")
+            except AssertionError, e:
+                self.assertTrue( self.tester.delete_volume(self.volume))
+                return False
+            after_attach = instance.get_dev_dir()
+            new_devices = self.tester.diff(after_attach, before_attach)
+            if len(new_devices) is 0:
+                return False
+            self.volume_device = "/dev/" + new_devices[0].strip()
+            instance.assertFilePresent(self.volume_device)
+
+            instance.sys("mkfs.ext3 -F " + self.volume_device )
+            instance.sys("mkdir /mnt/device" )
+            instance.sys("mount " + self.volume_device + " /mnt/device")
+
+            ### Test speed of EBS
+            self.tester.debug( "Performing WRITE test" )
+            instance.sys("dd if=/dev/zero of=/mnt/device/speedtest.tmp bs=1M count=100 conv=fdatasync 2>&1 | grep [MG]B")
+            self.tester.debug( "Finished WRITE test" )
+            self.tester.debug( "Performing READ test" )
+            instance.sys("dd if=/mnt/device/speedtest.tmp of=/dev/zero conv=fdatasync 2>&1 | grep [MG]B")
+            self.tester.debug( "Finished READ test" )
+            self.tester.debug( "Removing tmp file" )
+            instance.sys("rm -f /mnt/device/speedtest.tmp")
+
+            self.tester.sleep(20)
+
+            ### Unmount the volume
+            if instance.sys("umount /mnt/device") != []:
+               self.tester.fail("Failure unmounting volume")
+
+            ### Make a snapshot of the volume
+        try:
+                snapshot = self.tester.create_snapshot(self.volume.id)
+        except:
+        self.tester.debug( "Exception creating snapshot" )
+            ### Delete the snapshot
+        #self.tester.sleep(20)
+            try:
+                self.tester.delete_snapshot(snapshot)
+            except:
+                self.tester.debug( "Exception deleting snapshot" )
+
+        #self.tester.sleep(20)
+            #self.delete_snapshot(snapshot)
+
+            self.tester.detach_volume(self.volume,timeout=240)
+            self.tester.delete_volume(self.volume)
+
+            return True
+    
+    def BasicInstanceChecks(self, zone = None):
+        """Instance checks including reachability and ephemeral storage"""
+        if zone is None:
+            zone = self.zone
+        if self.reservation is None:
+            self.reservation = self.tester.run_instance(self.image, keypair=self.keypair.name, group=self.group.name, user_data="echo 'userdata is working' > /tmp/userdata.txt", type="m1.small", min=1, max=1, zone=zone)
+            self.tester.sleep(10)
+        for instance in self.reservation.instances:
+            self.assertTrue( self.tester.wait_for_reservation(self.reservation) ,'Instance did not go to running')
+            self.assertNotEqual( instance.public_dns_name, instance.private_ip_address, 'Public and private IP are the same')
+            self.assertTrue( self.tester.ping(instance.public_dns_name), 'Could not ping instance')
+            self.assertFalse( instance.found("ls -1 /dev/" + instance.rootfs_device + "2",  "No such file or directory"),  'Did not find ephemeral storage at ' + instance.rootfs_device + "2")
+
+        self.tester.sleep(10)
+            ###  Run command on instance
+            uname_result = instance.sys("uname")
+            self.assertNotEqual(len(uname_result), 0, "uname failed")
+            ### Check userdata
+            userdata_result = instance.sys("cat /tmp/userdata.txt")
+            self.assertNotEqual(len(userdata_result), 0, "userdata failed")
+
+        ### Create a bucket
+        test_bucket = "acmecloudstatus-testbucket-" + str(int(time.time())) 
+        self.tester.debug("Starting bucket test using bucket name: " + test_bucket)
+        try:
+            bucket = self.tester.s3.create_bucket(test_bucket)
+        if bucket == None:
+            self.tester.s3.delete_bucket(test_bucket)
+            self.tester.debug( test_bucket + " was not created correctly" )
+            #self.fail(test_bucket + " was not created correctly")
+        else:
+            self.tester.debug( test_bucket + " was created correctly" )
+                    self.tester.debug( "Deleting bucket " + test_bucket )
+                    self.tester.s3.delete_bucket(test_bucket)
+        except (S3ResponseError, S3CreateError) as e:
+        #self.fail(test_bucket + " create caused exception: " + e)
+            self.tester.debug( "Caught the exception" )
+
+        self.tester.sleep(10)
+        self.assertTrue(self.create_attach_volume(instance, 1), "Was not able to attach volume")
+        return self.reservation
+    
+    def run_testcase_thread(self, queue,delay = 20, name="MetaData"):
+        ### Thread that runs a testcase (function) and returns its pass or fail result
+        self.tester.sleep(delay)
+        try:
+            result = unittest.TextTestRunner(verbosity=5).run(InstanceBasics(name))
+        except Exception, e:
+            queue.put(1)
+            raise e
+        if result.wasSuccessful():
+            self.tester.debug("Passed test: " + name + "with " + emi)
+            queue.put(0)
+            return False
+        else:
+            self.tester.debug("Failed test: " + name + "with " + emi)
+            queue.put(1)
+            return True
+    
+if __name__ == "__main__":
+    ## If given command line arguments, use them as test names to launch
+    parser = argparse.ArgumentParser(description='Parse test suite arguments.')
+    parser.add_argument('--credpath', default=".eucarc")
+    parser.add_argument('--emi', default="")
+    parser.add_argument('--zone', default="")
+    parser.add_argument('--xml', action="store_true", default=False)
+    parser.add_argument('--tests', nargs='+', default= ["BasicInstanceChecks,create_attach_volume"])
+    #parser.add_argument('--rand', default="1")
+    args = parser.parse_args()
+    credpath = args.credpath
+    emi = args.emi
+    if emi == "":
+    stdout_handle = os.popen("source " + credpath + "eucarc && euca-describe-images | grep acmecloud-rhel-6.2-64bit-base-12.12 | cut -f 2", "r")
+    emi = "".join(stdout_handle.read().split('\n')[0])
+    #print emi
+    ownzone = args.zone
+    # Get credentials info
+    admin_accesskey = ""
+    admin_secretkey = ""
+    admin_ec2url = ""
+    cloudname = ""
+    cloudname = credpath.split('/')[3].split('_')[1]
+    stdout_handle = os.popen("cat " + credpath + "eucarc | grep export | grep 'EC2_URL' | awk '{print $2}'", "r")
+    for line in stdout_handle.read().split('\n'):
+        if "EC2_URL" in line:
+           admin_ec2url = line.split('=')[1]
+    ip = "".join(re.findall( r'[0-9a-z]+(?:\.[0-9a-z\-]+){3,4}', admin_ec2url ))
+    stdout_handle = os.popen("ssh " + ip + " cat /root/.euca/eucarc | grep export | grep 'EC2_ACCESS_KEY\|EC2_SECRET_KEY' | awk '{print $2}'", "r")
+    for line in stdout_handle.read().split('\n'):
+    if "EC2_ACCESS_KEY" in line:
+       admin_accesskey = line.split('=')[1]
+        if "EC2_SECRET_KEY" in line:
+           admin_secretkey = line.split('=')[1]
+    if ownzone == "":
+    os.system("timeout 60 euca-describe-availability-zones verbose -a " + admin_accesskey + " -s " + admin_secretkey + " -U " + admin_ec2url + " > /var/www/html/" + cloudname + ".ava")
+        os.system("timeout 60 cat /var/www/html/" + cloudname + ".ava |grep m1.small| awk '{print $4*$7 $5 $6*$7}'")
+    os.system("a=$(timeout 60 cat /var/www/html/" + cloudname + ".ava | grep m1.small| awk '{print $6*$7}') ; if [ ! -f /var/www/html/" + cloudname + ".max ] ; then echo $a > /var/www/html/" + cloudname + ".max ; fi ; b=$(cat /var/www/html/" + cloudname + ".max) ; if [ $a -gt $b ] ; then echo $a > /var/www/html/" + cloudname + ".max ; fi")
+    else:
+        os.system("timeout 60 euca-describe-availability-zones verbose -a " + admin_accesskey + " -s " + admin_secretkey + " -U " + admin_ec2url + " | sed -n '/" + ownzone + "/,/clo[cg]/p' | grep '" + ownzone + "\||-' > /var/www/html/" + ownzone + ".ava")
+    os.system("timeout 60 cat /var/www/html/" + ownzone + ".ava |grep m1.small| awk '{print $4*$7 $5 $6*$7}'")
+    os.system("a=$(timeout 60 cat /var/www/html/" + ownzone + ".ava | grep m1.small| awk '{print $6*$7}') ; if [ ! -f /var/www/html/" + ownzone + ".max ] ; then echo $a > /var/www/html/" + ownzone + ".max ; fi ; b=$(cat /var/www/html/" + ownzone + ".max) ; if [ $a -gt $b ] ; then echo $a > /var/www/html/" + ownzone + ".max ; fi")
+    os.system("AC=`timeout 60 /usr/bin/euca-describe-addresses -a " + admin_accesskey + " -s " + admin_secretkey + " -U " + admin_ec2url + "`;X=`echo $AC | grep -o nobody | wc -l`;Y=`echo $AC | grep -o ADDRESS | wc -l`;echo -ne $X;echo -ne '/';echo $Y")
+    os.system("timeout -k 60s 50s ssh " + ip + " euca_conf --version")
+    os.system("timeout 60 euca-describe-images -A " + admin_accesskey + " -S " + admin_secretkey + " -U " + admin_ec2url + " | grep available | grep emi- | cut -f 2,3 > /var/www/html/" + cloudname + ".emi")
+
+    #exit(1)
+    
+
+    #stdout_handle = os.popen("source " + credpath + "eucarc && euca-describe-images | grep emi- | grep available | grep -v windows | grep -v ebs | cut -f 2", "r")
+    #images = filter(None,stdout_handle.read().split('\n'))
+    #randimage = random.randrange(0,int(len(images)))
+    #emi = images[randimage]
+    #print emi 
+    #rd = random.randrange(1,int(args.rand)+1)
+    #print rd
+    result = unittest.TextTestRunner(verbosity=0).run(InstanceBasics("BasicInstanceChecks"))
+    if result.wasSuccessful():
+        pass
+    else:
+        exit(1)

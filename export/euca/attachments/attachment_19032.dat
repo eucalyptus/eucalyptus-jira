@@ -1,0 +1,193 @@
+diff --git a/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/StorageInfo.java b/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/StorageInfo.java
+index 1c8872e..b214a8a 100644
+--- a/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/StorageInfo.java
++++ b/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/StorageInfo.java
+@@ -106,11 +106,15 @@ public class StorageInfo extends AbstractPersistent {
+ 	@Column( name = "system_storage_transfer_snapshots")
+ 	private Boolean shouldTransferSnapshots;
+ 
+-	@ConfigurableField( description = "Maximum retry count for snapshot transfer", displayName = "Max Snaphot Transfer Retries" )
++	@ConfigurableField( description = "Maximum retry count for snapshot transfer", displayName = "Max Snapshot Transfer Retries" )
+ 	@Column( name = "max_snap_transfer_retries")
+ 	private Integer maxSnapTransferRetries;
+-		
+-	public StorageInfo() {
++
++    @ConfigurableField( description = "Expiration time for deleted volumes (hours)", displayName = "Deleted Volumes Expiration Time (Hours)" )
++    @Column( name = "deleted_vol_expiration")
++    private Integer deletedVolExpiration;
++
++    public StorageInfo() {
+ 		this.name = StorageProperties.NAME;
+ 	}
+ 
+@@ -127,6 +131,7 @@ public class StorageInfo extends AbstractPersistent {
+ 		this.maxTotalVolumeSizeInGb = maxTotalVolumeSizeInGb;
+ 		this.maxVolumeSizeInGB = maxVolumeSizeInGB;
+ 		this.shouldTransferSnapshots = shouldTransferSnapshots;
++        this.deletedVolExpiration = StorageProperties.DELETED_VOLUME_EXPIRATION_TIME;
+ 	}
+ 
+ 	public String getName() {
+@@ -169,7 +174,15 @@ public class StorageInfo extends AbstractPersistent {
+ 		this.maxSnapTransferRetries = maxSnapTransferRetries;
+ 	}
+ 
+-	@Override
++    public Integer getDeletedVolExpiration() {
++        return deletedVolExpiration == null ? StorageProperties.DELETED_VOLUME_EXPIRATION_TIME : deletedVolExpiration;
++    }
++
++    public void setDeletedVolExpiration(Integer deletedVolExpiration) {
++        this.deletedVolExpiration = deletedVolExpiration;
++    }
++
++    @Override
+ 	public boolean equals(Object obj) {
+ 		if (this == obj)
+ 			return true;
+@@ -213,6 +226,7 @@ public class StorageInfo extends AbstractPersistent {
+ 					StorageProperties.MAX_TOTAL_VOLUME_SIZE, 
+ 					StorageProperties.MAX_VOLUME_SIZE,
+ 					true);
++            conf.setDeletedVolExpiration(StorageProperties.DELETED_VOLUME_EXPIRATION_TIME);
+ 			storageDb.add(conf);
+ 			storageDb.commit();
+ 		}
+diff --git a/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/VolumeInfo.java b/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/VolumeInfo.java
+index 5538f0b..b99ac46 100644
+--- a/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/VolumeInfo.java
++++ b/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/entities/VolumeInfo.java
+@@ -64,6 +64,7 @@ package com.eucalyptus.blockstorage.entities;
+ 
+ import java.util.Date;
+ import java.util.List;
++import java.util.concurrent.TimeUnit;
+ import javax.persistence.CascadeType;
+ import javax.persistence.Column;
+ import javax.persistence.Entity;
+@@ -110,6 +111,8 @@ public class VolumeInfo extends AbstractPersistent {
+ 	private String zone;
+ 	@Column(name = "snapshot_id")
+ 	private String snapshotId;
++    @Column(name = "deletion_time")
++    private Date deletionTime;
+ 
+ 	@NotFound( action = NotFoundAction.IGNORE )
+ 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "volume", orphanRemoval=true, cascade = CascadeType.ALL)
+@@ -189,7 +192,15 @@ public class VolumeInfo extends AbstractPersistent {
+ 		this.snapshotId = snapshotId;
+ 	}
+ 
+-	@Override
++    public Date getDeletionTime() {
++        return deletionTime;
++    }
++
++    public void setDeletionTime(Date deletionTime) {
++        this.deletionTime = deletionTime;
++    }
++
++    @Override
+ 	public boolean equals(Object obj) {
+ 		if (this == obj)
+ 			return true;
+@@ -368,4 +379,13 @@ public class VolumeInfo extends AbstractPersistent {
+ 			throw new EucalyptusCloudException("Failed on invalidation of token");
+ 		}
+ 	}
++
++    public boolean cleanupOnDeletion() {
++        if (deletionTime != null) {
++            if (System.currentTimeMillis() > (deletionTime.getTime() + TimeUnit.MILLISECONDS.convert(StorageInfo.getStorageInfo().getDeletedVolExpiration(), TimeUnit.HOURS))) {
++                return true;
++            }
++        }
++        return false;
++    }
+ }
+diff --git a/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/util/StorageProperties.java b/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/util/StorageProperties.java
+index c2c71ae..412dba9 100644
+--- a/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/util/StorageProperties.java
++++ b/clc/modules/block-storage-common/src/main/java/com/eucalyptus/blockstorage/util/StorageProperties.java
+@@ -131,27 +131,6 @@ public class StorageProperties {
+     public static final String DEFAULT_ASSUME_ROLE_POLICY =
+             "{\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":[\"s3.amazonaws.com\"]},\"Action\":[\"sts:AssumeRole\"]}]}";
+ 
+-//    public static final String S3_SNAPSHOT_BUCKET_ACCESS_POLICY =
+-//            "{\"Statement\":[" +
+-//                    "{" +
+-//                    "\"Effect\":\"Allow\"," +
+-//                    "\"Action\": [\"s3:CreateBucket\"," +
+-//                    "\"s3:ListBucket\"," +
+-//                    "\"s3:DeleteBucket\"]," +
+-//                    "\"Resource\": \"arn:aws:s3:::" + SNAPSHOT_BUCKET_WILDCARD +"\"" +
+-//                    "}" +
+-//                    "]}";
+-    
+-//    public static final String S3_SNAPSHOT_OBJECT_ACCESS_POLICY =
+-//            "{\"Statement\":[" +
+-//                    "{" +
+-//                    "\"Effect\":\"Allow\"," +
+-//                    "\"Action\": [\"s3:PutObject\"," +
+-//                    "\"s3:GetObject\"," +
+-//                    "\"s3:DeleteObject\"]," +
+-//                    "\"Resource\": \"arn:aws:s3:::" + SNAPSHOT_BUCKET_WILDCARD + "/*\"" +
+-//                    "}" +
+-//                    "]}";
+     
+     public static final String S3_SNAPSHOT_BUCKET_ACCESS_POLICY =
+             "{\"Statement\":[" +
+@@ -171,6 +150,7 @@ public class StorageProperties {
+                     "}" +
+                     "]}";
+ 
++    public static final Integer DELETED_VOLUME_EXPIRATION_TIME =  24;//hours
+     public static String formatVolumeAttachmentTokenForTransfer(String token, String volumeId) {
+ 		return TOKEN_PREFIX + volumeId + "," + token;
+ 	}
+diff --git a/clc/modules/block-storage/src/main/java/com/eucalyptus/blockstorage/BlockStorageController.java b/clc/modules/block-storage/src/main/java/com/eucalyptus/blockstorage/BlockStorageController.java
+index f106d38..149070aa 100644
+--- a/clc/modules/block-storage/src/main/java/com/eucalyptus/blockstorage/BlockStorageController.java
++++ b/clc/modules/block-storage/src/main/java/com/eucalyptus/blockstorage/BlockStorageController.java
+@@ -2060,6 +2060,8 @@ public class BlockStorageController {
+         return reply;
+     }
+ 
++    //TODO: This is a mess. Transactional access should be handled at a lower level
++    //instead of multiple calls to EntityWrapper. It is error prone and hard to enforce correctly closed transactions
+     public static class VolumeDeleterTask extends CheckerTask {
+ 
+         public VolumeDeleterTask() {
+@@ -2070,10 +2072,22 @@ public class BlockStorageController {
+         public void run() {
+             EntityWrapper<VolumeInfo> db = StorageProperties.getEntityWrapper();
+             try {
++                //Check if deleted volumes need to expire
+                 VolumeInfo searchVolume = new VolumeInfo();
++                searchVolume.setStatus(StorageProperties.Status.deleted.toString());
++                List<VolumeInfo> deletedVolumes = db.query(searchVolume);
++                for (VolumeInfo deletedVolume : deletedVolumes) {
++                    if(deletedVolume.cleanupOnDeletion()) {
++                        LOG.info("Volume deletion time expired for: " + deletedVolume.getVolumeId() + " ...cleaning up.");
++                        db.delete(deletedVolume);
++                    }
++                }
++                db.commit();
++                db = StorageProperties.getEntityWrapper();
++                searchVolume = new VolumeInfo();
+                 searchVolume.setStatus(StorageProperties.Status.deleting.toString());
+                 List<VolumeInfo> volumes = db.query(searchVolume);
+-                db.commit();
++                db.rollback();
+                 for (VolumeInfo vol : volumes) {
+                     //Do separate transaction for each volume so we don't
+                     // keep the transaction open for a long time
+@@ -2111,6 +2125,7 @@ public class BlockStorageController {
+                             continue;
+                         }
+                         vol.setStatus(StorageProperties.Status.deleted.toString());
++                        vol.setDeletionTime(new Date());
+                         EucaSemaphoreDirectory.removeSemaphore(volumeId);
+                         db.commit();
+                     } catch(Exception e) {

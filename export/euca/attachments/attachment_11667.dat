@@ -1,0 +1,19 @@
+diff -urN eucalyptus-1.6.2.r1222.orig/clc/modules/image-manager/src/main/java/edu/ucsb/eucalyptus/cloud/ws/ImageManager.java eucalyptus-1.6.2.r1222.new/clc/modules/image-manager/src/main/java/edu/ucsb/eucalyptus/cloud/ws/ImageManager.java
+--- eucalyptus-1.6.2.r1222.orig/clc/modules/image-manager/src/main/java/edu/ucsb/eucalyptus/cloud/ws/ImageManager.java	2010-05-18 15:24:12.000000000 +0900
++++ eucalyptus-1.6.2.r1222.new/clc/modules/image-manager/src/main/java/edu/ucsb/eucalyptus/cloud/ws/ImageManager.java	2010-05-18 15:28:00.000000000 +0900
+@@ -353,9 +353,13 @@
+     try {
+       db.add( imageInfo );
+       UserInfo user = db.recast( UserInfo.class ).getUnique( new UserInfo( request.getUserId( ) ) );
+-      UserGroupInfo group = db.recast( UserGroupInfo.class ).getUnique( new UserGroupInfo( "all" ) );
++      if ( user.isAdministrator() ) {
++        UserGroupInfo group = db.recast( UserGroupInfo.class ).getUnique( new UserGroupInfo( "all" ) );
++        imageInfo.getUserGroups( ).add( group );
++      } else {
++        imageInfo.setPublic( false );
++      }
+       imageInfo.getPermissions( ).add( user );
+-      imageInfo.getUserGroups( ).add( group );
+       db.commit( );
+       LOG.info( "Registering image pk=" + imageInfo.getId( ) + " ownerId=" + user.getUserName( ) );
+     } catch ( EucalyptusCloudException e ) {

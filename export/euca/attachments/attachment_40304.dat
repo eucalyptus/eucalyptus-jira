@@ -1,0 +1,377 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+
+	"Description": "CloudFormation template to multi-az ELB,  deployment on Eucalyptus VPC cloud",
+
+	"Parameters": {
+		"ImageId": {
+			"Description": "Ubuntu Image id",
+			"Type": "String",
+			"NoEcho": "False"
+		},
+
+		"KeyName": {
+			"Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+			"Type": "String",
+			"ConstraintDescription": "The name of an existing EC2 KeyPair",
+			"NoEcho": "False"
+		},
+
+               "EndPoint": {
+                        "Description": "Endpoint URL of Cloudformation (required for Eucalyptus)",
+                        "Type": "String",
+                        "ConstraintDescription": "must be an URL to Cloudformation service on Eucalyptus"
+                },
+
+		"InstanceType": {
+			"Description": "Type of EC2 instance to launch.",
+			"Type": "String",
+                        "Default" : "m1.medium",
+                        "AllowedValues" : [ "m1.small","t1.micro","m1.medium", "m3.medium","c1.medium","m1.large", "m1.xlarge", "c1.xlarge", "m2.xlarge", "m3.xlarge", "m2.2xlarge", "m3.2xlarge", "cc1.4xlarge", "m2.4xlarge", "hi1.4xlarge", "cc2.8xlarge", "cg1.4xlarge", "cr1.8xlarge", "hs1.8xlarge" ],
+			"ConstraintDescription": "must be a valid EC2 instance type."
+		},
+
+		"MinSize": {
+			"Description": "Minimum number of EC2 instances.",
+			"Type": "String",
+			"Default": "2"
+		},
+
+		"MaxSize": {
+			"Description": "Maximum number of EC2 instances.",
+			"Type": "String",
+			"Default": "4"
+		},
+
+                "VPC": {
+                       "Description": "VPC used for ELB+ASG stack",
+                       "Type": "AWS::EC2::VPC::Id"
+                },
+
+                "SubnetOne": {
+                       "Description": "First Subnet ID in given VPC",
+                       "Type": "AWS::EC2::Subnet::Id"
+                },
+
+                "SubnetTwo": {
+                       "Description": "Second Subnet ID in given VPC",
+                       "Type": "AWS::EC2::Subnet::Id"
+                }
+	},
+
+	"Resources": {
+
+                "CfnUser": {
+                        "Type": "AWS::IAM::User",
+                        "Properties": {
+                                "Path": "/",
+                                "Policies": [{
+                                "PolicyName": "root",
+                                "PolicyDocument": {
+                                       "Statement": [{
+                                       "Effect": "Allow",
+                                       "NotAction": [
+                                               "iam:*"
+                                       ],
+                                       "Resource": "*"
+                                       }]
+                                }
+                                }]
+                        }
+                },
+
+                "CfnUserKey": {
+                        "Type": "AWS::IAM::AccessKey",
+                        "Properties": {
+                                "UserName": {
+                                       "Ref": "CfnUser"
+                                }
+                        }
+                },
+
+		"LoadBalancerSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"GroupDescription": "Enable HTTP access on port 80",
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"SecurityGroupIngress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "80",
+					"ToPort": "80",
+					"CidrIp": "0.0.0.0/0"
+				}, {
+					"IpProtocol": "tcp",
+					"FromPort": "443",
+					"ToPort": "443",
+					"CidrIp": "0.0.0.0/0"
+				}],
+				"SecurityGroupEgress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "80",
+					"ToPort": "80",
+					"CidrIp": "0.0.0.0/0"
+				}, {
+					"IpProtocol": "tcp",
+					"FromPort": "443",
+					"ToPort": "443",
+					"CidrIp": "0.0.0.0/0"
+				}]
+			}
+		},
+
+                "S3LoggingBucket": {
+                    "Type": "AWS::S3::Bucket",
+                    "Properties": {
+                        "Tags": [{
+                            "Key": "Application",
+                                "Value": {
+                                        "Ref": "AWS::StackId"
+                                }
+                        }]
+                    }
+                },
+
+		"ELB": {
+			"Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+			"Properties": {
+				"Subnets": [{
+					"Ref": "SubnetOne"
+                                },{
+					"Ref": "SubnetTwo"
+				}],
+				"SecurityGroups": [{
+					"Ref": "LoadBalancerSecurityGroup"
+				}],
+				"Listeners": [{
+					"LoadBalancerPort": "80",
+					"InstancePort": "80",
+					"Protocol": "HTTP"
+				}],
+				"HealthCheck": {
+					"Target": "HTTP:80/",
+					"HealthyThreshold": "3",
+					"UnhealthyThreshold": "7",
+					"Interval": "90",
+					"Timeout": "60"
+				},
+                                "CrossZone": "true",
+                                "ConnectionDrainingPolicy": {
+                                        "Enabled": "true",
+                                        "Timeout": "20"
+                                },
+                                "ConnectionSettings": {
+                                        "IdleTimeout": "30"
+                                },
+		                "Tags": [{
+		 	            "Key": "Application",
+				    "Value": {
+				        "Ref": "AWS::StackId"
+				    }
+			        }]
+			}
+		},
+
+		"InstanceSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"GroupDescription": "Enable HTTP access on 80 and 443 from ELB.",
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"SecurityGroupIngress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "80",
+					"ToPort": "80",
+					"SourceSecurityGroupId": {
+						"Ref": "LoadBalancerSecurityGroup"
+					}
+				}, {
+					"IpProtocol": "tcp",
+					"FromPort": "443",
+					"ToPort": "443",
+					"SourceSecurityGroupId": {
+						"Ref": "LoadBalancerSecurityGroup"
+					}
+				}]
+			}
+		},
+
+		"LaunchConfig": {
+			"Type": "AWS::AutoScaling::LaunchConfiguration",
+			"Properties": {
+				"ImageId": {
+					"Ref": "ImageId"
+				},
+				"InstanceType": {
+					"Ref": "InstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"AssociatePublicIpAddress": "true",
+				"UserData": {
+					"Fn::Base64": {
+						"Fn::Join": ["", [
+                                                      "#!/bin/bash -xe\n",
+                                                      "apt-get update && apt-get install ntp -y\n",
+                                                      "apt-get install -y python-setuptools\n",
+                                                      "apt-get install -y nginx\n",
+					              "curl https://www.yahoo.com/ --insecure > /var/www/html/index.nginx-debian.html\n",
+                                                      "ntpd -u pool.ntp.org\n",
+                                                      "timedatectl set-ntp yes\n",
+                                                      "hwclock --systohc\n",
+                                                      "mkdir /aws-cfn-bootstrap-latest\n",
+                                                      "curl https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz | tar xz -C /aws-cfn-bootstrap-latest --strip-components 1\n",
+                                                      "easy_install /aws-cfn-bootstrap-latest\n",
+                                                      "/usr/local/bin/cfn-signal -e 0 --stack ", { "Ref": "AWS::StackName" },
+                                                      " --access-key ", { "Ref": "CfnUserKey" },
+                                                      " --secret-key ", { "Fn::GetAtt": ["CfnUserKey", "SecretAccessKey"] },
+                                                      " --resource AutoScalingGroup ",
+                                                      " --url ", { "Ref": "EndPoint" },
+                                                      " --region ", { "Ref" : "AWS::Region" }, "\n"
+						]]
+					}
+				},
+				"SecurityGroups": [{
+					"Ref": "InstanceSecurityGroup"
+				}],
+				"InstanceMonitoring": true
+			}
+		},
+
+		"AutoScalingGroup": {
+                        "CreationPolicy": {
+                            "ResourceSignal": {
+                                "Count": { "Ref" : "MinSize" },
+                                "Timeout": "PT15M"
+                            }
+                        },
+			"UpdatePolicy": {
+				"AutoScalingRollingUpdate": {
+					"MinInstancesInService": {
+						"Ref": "MinSize"
+					},
+					"MaxBatchSize": "3",
+					"PauseTime": "PT15M"
+				}
+			},
+			"Type": "AWS::AutoScaling::AutoScalingGroup",
+			"Properties": {
+				"VPCZoneIdentifier": [{
+					"Ref": "SubnetOne"
+                },{
+					"Ref": "SubnetTwo"
+				}],
+				"Cooldown": "300",
+				"MaxSize": {
+					"Ref": "MaxSize"
+				},
+				"MinSize": {
+					"Ref": "MinSize"
+				},
+				"DesiredCapacity": {
+					"Ref": "MinSize"
+				},
+				"LaunchConfigurationName": {
+					"Ref": "LaunchConfig"
+				},
+				"HealthCheckType": "EC2",
+				"HealthCheckGracePeriod": "3600",
+				"LoadBalancerNames": [{
+					"Ref": "ELB"
+				}],
+				"Tags": [{
+					"Key": "Name",
+					"Value": {
+						"Ref": "AWS::StackName"
+					},
+					"PropagateAtLaunch": true
+				}]
+			}
+		},
+
+		"ScaleUpPolicy": {
+			"Type": "AWS::AutoScaling::ScalingPolicy",
+			"Properties": {
+				"AdjustmentType": "ChangeInCapacity",
+				"AutoScalingGroupName": {
+					"Ref": "AutoScalingGroup"
+				},
+				"Cooldown": "60",
+				"ScalingAdjustment": "1"
+			}
+		},
+
+		"ScaleDownPolicy": {
+			"Type": "AWS::AutoScaling::ScalingPolicy",
+			"Properties": {
+				"AdjustmentType": "ChangeInCapacity",
+				"AutoScalingGroupName": {
+					"Ref": "AutoScalingGroup"
+				},
+				"Cooldown": "60",
+				"ScalingAdjustment": "-1"
+			}
+		},
+
+		"CPUAlarmHigh": {
+			"Type": "AWS::CloudWatch::Alarm",
+			"Properties": {
+				"AlarmDescription": "Scale-up if CPU > 80% for 10 minutes",
+				"MetricName": "CPUUtilization",
+				"Namespace": "AWS/EC2",
+				"Statistic": "Average",
+				"Period": "300",
+				"EvaluationPeriods": "2",
+				"Threshold": "80",
+				"AlarmActions": [{
+					"Ref": "ScaleUpPolicy"
+				}],
+				"Dimensions": [{
+					"Name": "AutoScalingGroupName",
+					"Value": {
+						"Ref": "AutoScalingGroup"
+					}
+				}],
+				"ComparisonOperator": "GreaterThanThreshold"
+			}
+		},
+
+		"CPUAlarmLow": {
+			"Type": "AWS::CloudWatch::Alarm",
+			"Properties": {
+				"AlarmDescription": "Scale-down if CPU < 20% for 10 minutes",
+				"MetricName": "CPUUtilization",
+				"Namespace": "AWS/EC2",
+				"Statistic": "Average",
+				"Period": "300",
+				"EvaluationPeriods": "2",
+				"Threshold": "20",
+				"AlarmActions": [{
+					"Ref": "ScaleDownPolicy"
+				}],
+				"Dimensions": [{
+					"Name": "AutoScalingGroupName",
+					"Value": {
+						"Ref": "AutoScalingGroup"
+					}
+				}],
+				"ComparisonOperator": "LessThanThreshold"
+			}
+		}
+	},
+
+	"Outputs": {
+		"ELBURL": {
+			"Value": {
+				"Fn::Join": ["", ["http://", {
+					"Fn::GetAtt": ["ELB", "DNSName"]
+				}]]
+			},
+			"Description": "ELB DNS Name for Nginx Cluster"
+		}
+	}
+
+}

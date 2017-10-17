@@ -1,0 +1,466 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+/**
+ * This application tests SWF count and list actions.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9623
+ */
+class TestSWFCountsAndListings {
+
+  private final String host = "10.111.5.146"
+
+  // Credentials with permissions to perform any action in account
+  private final AWSCredentialsProvider credentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKI5RKXRABCYI8ZGMWNI",
+      "EYVwmUwVn2wfEDZrGHqFJFtp66htMpnwypfduPH0" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFCountsAndListings( ).test( )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        String domainName = "${namePrefix}domain"
+        print("Registering domain ${domainName}")
+        registerDomain(new RegisterDomainRequest(
+            name: domainName,
+            description: 'test domain',
+            workflowExecutionRetentionPeriodInDays: 1))
+        cleanupTasks.add {
+          print("Deprecating domain ${domainName}")
+          deprecateDomain(new DeprecateDomainRequest(name: domainName))
+        }
+
+        String activityTypeName = "${namePrefix}activity-type"
+        print("Registering activity type ${activityTypeName}")
+        registerActivityType(new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultTaskHeartbeatTimeout: '60',
+            defaultTaskScheduleToCloseTimeout: '60',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultTaskScheduleToStartTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating activity type ${domainName}")
+          deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeName, version: '1')))
+        }
+
+        String workflowTypeName = "${namePrefix}workflow-type"
+        print("Registering workflow type ${workflowTypeName}")
+        registerWorkflowType(new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultChildPolicy: 'TERMINATE',
+            defaultTaskStartToCloseTimeout: '30',
+            defaultExecutionStartToCloseTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating workflow type ${domainName}")
+          deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeName, version: '1')))
+        }
+
+        String workflowId1 = "${namePrefix}workflow-1-id"
+        print("Starting workflow execution ${workflowId1}")
+        String runId1 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId1,
+            domain: domainName,
+            workflowType: new WorkflowType(name: workflowTypeName, version: '1'),
+            tagList: ['tags', 'go', 'here'],
+            taskList: new TaskList(name: 'list'),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat(runId1 != null, "Expected run-id")
+        print("Started workflow execution with runId: ${runId1}")
+
+        print("Polling for decision task ${domainName}/list")
+        String decisionTaskToken1 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding with schedule activity tasks" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken1,
+            decisions: [
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-1',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-2',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-3',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list-1' )
+                    )
+                )
+            ],
+            executionContext: 'execution-context-here'
+        ))
+
+        print("Verifying workflow execution descriptions for ${workflowId1}")
+        describeWorkflowExecution( new DescribeWorkflowExecutionRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId1,
+                runId: runId1
+            )
+        ) ).with {
+          assertThat( executionInfo != null , "Expected execution info" )
+          executionInfo.with {
+            assertThat( execution != null, "Expected execution" )
+            assertThat( execution.runId == runId1, "Expected execution run id ${runId1}, but was: ${execution.runId}")
+            assertThat( execution.workflowId == workflowId1, "Expected execution workflow id ${workflowId1}, but was: ${execution.workflowId}")
+
+            assertThat( workflowType != null, "Expected workflowType" )
+            assertThat( workflowType.name == workflowTypeName, "Expected workflow type name '${workflowTypeName}', but was: ${workflowType.name}")
+            assertThat( workflowType.version == '1', "Expected workflow type version '1', but was: ${workflowType.version}")
+
+            assertThat( startTimestamp != null, "Expected start timestamp" )
+            assertThat( closeTimestamp == null, "Unexpected close timestamp" )
+            assertThat( executionStatus != null && executionStatus == 'OPEN', "Expected execution status 'OPEN', but was: ${executionStatus}" )
+            assertThat( closeStatus == null, "Unexpected close status" )
+            assertThat( tagList != null && tagList == ['tags', 'go', 'here'], "Expected tag list ['tags', 'go', 'here'], but was: ${tagList}" )
+            assertThat( parent == null, "Unexpected parent execution" )
+            assertThat( cancelRequested != null && !cancelRequested, "Expected cancel requested false, but was: ${cancelRequested}" )
+          }
+
+          assertThat( executionConfiguration != null , "Expected execution configuration" )
+          executionConfiguration.with {
+            assertThat( taskStartToCloseTimeout == '30', "Expected task start to close timeout '30', but was: ${taskStartToCloseTimeout}" )
+            assertThat( executionStartToCloseTimeout == '60', "Expected execution start to close timeout '60', but was: ${executionStartToCloseTimeout}" )
+            assertThat( taskList != null, "Expected task list" )
+            assertThat( taskList.name == 'list', "Expected task list name 'list', but was: ${taskList.name}" )
+            assertThat( childPolicy == 'TERMINATE', "Expected child policy 'TERMINATE', but was: ${childPolicy}" )
+          }
+
+          assertThat( openCounts != null , "Expected open counts" )
+          openCounts.with {
+            assertThat( openActivityTasks == 3, "Expected open activity task count 3, but was: ${openActivityTasks}")
+            assertThat( openDecisionTasks == 0, "Expected open decision task count 0, but was: ${openDecisionTasks}")
+            assertThat( openTimers == 0, "Expected open timeers task count 0, but was: ${openTimers}")
+            assertThat( openChildWorkflowExecutions == 0, "Expected open child workflow execution count 0, but was: ${openChildWorkflowExecutions}")
+          }
+
+          assertThat( latestActivityTaskTimestamp != null, "Expected latest activity task timestamp" )
+          assertThat( latestExecutionContext == 'execution-context-here', "Expected execution context 'execution-context-here', but was: ${latestExecutionContext}" )
+        }
+
+        print( "Verifying closed workflow execution count for domain ${domainName}" )
+        countClosedWorkflowExecutions( new CountClosedWorkflowExecutionsRequest(
+          domain: domainName,
+          startTimeFilter: new ExecutionTimeFilter(
+              oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+          )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 0, "Expected count 0, but was: ${count}" )
+        }
+
+        print( "Verifying open workflow execution count for domain ${domainName}" )
+        countOpenWorkflowExecutions( new CountOpenWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 1, "Expected count 1, but was: ${count}" )
+        }
+
+        print( "Verifying pending activity task count for domain ${domainName} list list" )
+        countPendingActivityTasks( new CountPendingActivityTasksRequest(
+            domain: domainName,
+            taskList: new TaskList(
+                name: 'list'
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 2, "Expected count 2, but was: ${count}" )
+        }
+
+        print( "Verifying pending activity task count for domain ${domainName} list list-1" )
+        countPendingActivityTasks( new CountPendingActivityTasksRequest(
+            domain: domainName,
+            taskList: new TaskList(
+                name: 'list-1'
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 1, "Expected count 1, but was: ${count}" )
+        }
+
+        print( "Verifying pending decision task count for domain ${domainName} list list" )
+        countPendingDecisionTasks( new CountPendingDecisionTasksRequest(
+            domain: domainName,
+            taskList: new TaskList(
+                name: 'list'
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 0, "Expected count 0, but was: ${count}" )
+        }
+
+        print( "Verifying closed workflow listing for domain ${domainName}" )
+        listClosedWorkflowExecutions( new ListClosedWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos == null || executionInfos.isEmpty(), "Expected no executions, but was: ${executionInfos?.size()}" )
+        }
+
+        print( "Verifying open workflow listing for domain ${domainName}" )
+        listOpenWorkflowExecutions( new ListOpenWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos != null && executionInfos.size() == 1, "Expected one execution, but was: ${executionInfos?.size()}" )
+          executionInfos[0].with {
+            assertThat( execution != null, "Expected execution" )
+            assertThat( execution.runId == runId1, "Expected execution run id ${runId1}, but was: ${execution.runId}")
+            assertThat( execution.workflowId == workflowId1, "Expected execution workflow id ${workflowId1}, but was: ${execution.workflowId}")
+
+            assertThat( workflowType != null, "Expected workflowType" )
+            assertThat( workflowType.name == workflowTypeName, "Expected workflow type name '${workflowTypeName}', but was: ${workflowType.name}")
+            assertThat( workflowType.version == '1', "Expected workflow type version '1', but was: ${workflowType.version}")
+
+            assertThat( startTimestamp != null, "Expected start timestamp" )
+            assertThat( closeTimestamp == null, "Unexpected close timestamp" )
+            assertThat( executionStatus != null && executionStatus == 'OPEN', "Expected execution status 'OPEN', but was: ${executionStatus}" )
+            assertThat( closeStatus == null, "Unexpected close status" )
+            assertThat( tagList != null && tagList == ['tags', 'go', 'here'], "Expected tag list ['tags', 'go', 'here'], but was: ${tagList}" )
+            assertThat( parent == null, "Unexpected parent execution" )
+            assertThat( cancelRequested != null && !cancelRequested, "Expected cancel requested false, but was: ${cancelRequested}" )
+          }
+        }
+
+        print( "Requesting cancel for workflow execution ${workflowId1}" )
+        requestCancelWorkflowExecution( new RequestCancelWorkflowExecutionRequest(
+            domain: domainName,
+            workflowId: workflowId1,
+            runId: runId1
+        ))
+
+        print("Verifying workflow execution descriptions for ${workflowId1}")
+        describeWorkflowExecution( new DescribeWorkflowExecutionRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId1,
+                runId: runId1
+            )
+        ) ).with {
+          assertThat( executionInfo != null , "Expected execution info" )
+          executionInfo.with {
+            assertThat( cancelRequested != null && cancelRequested, "Expected cancel requested, but was: ${cancelRequested}" )
+          }
+        }
+
+        print( "Verifying pending decision task count for domain ${domainName} list list" )
+        countPendingDecisionTasks( new CountPendingDecisionTasksRequest(
+            domain: domainName,
+            taskList: new TaskList(
+                name: 'list'
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 1, "Expected count 1, but was: ${count}" )
+        }
+
+        print( "Terminating workflow execution ${workflowId1}" )
+        terminateWorkflowExecution( new TerminateWorkflowExecutionRequest(
+          domain: domainName,
+          workflowId: workflowId1,
+          runId: runId1
+        ) )
+
+        print("Verifying workflow execution descriptions for ${workflowId1}")
+        describeWorkflowExecution( new DescribeWorkflowExecutionRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId1,
+                runId: runId1
+            )
+        ) ).with {
+          assertThat( executionInfo != null , "Expected execution info" )
+          executionInfo.with {
+            assertThat( closeTimestamp != null, "Expected close timestamp" )
+            assertThat( closeStatus == 'TERMINATED', "Expected close status 'TERMINATED', but was: ${closeStatus}" )
+          }
+
+          assertThat( openCounts != null , "Expected open counts" )
+          openCounts.with {
+            assertThat( openActivityTasks == 3, "Expected open activity task count 3, but was: ${openActivityTasks}")
+            assertThat( openDecisionTasks == 1, "Expected open decision task count 1, but was: ${openDecisionTasks}")
+            assertThat( openTimers == 0, "Expected open timeers task count 0, but was: ${openTimers}")
+            assertThat( openChildWorkflowExecutions == 0, "Expected open child workflow execution count 0, but was: ${openChildWorkflowExecutions}")
+          }
+
+          assertThat( latestActivityTaskTimestamp != null, "Expected latest activity task timestamp" )
+          assertThat( latestExecutionContext == 'execution-context-here', "Expected execution context 'execution-context-here', but was: ${latestExecutionContext}" )
+        }
+
+        print( "Verifying closed workflow execution count for domain ${domainName}" )
+        countClosedWorkflowExecutions( new CountClosedWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 1, "Expected count 1, but was: ${count}" )
+        }
+
+        print( "Verifying open workflow execution count for domain ${domainName}" )
+        countOpenWorkflowExecutions( new CountOpenWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 0, "Expected count 0, but was: ${count}" )
+        }
+
+        print( "Verifying pending activity task count for domain ${domainName} list list" )
+        countPendingActivityTasks( new CountPendingActivityTasksRequest(
+            domain: domainName,
+            taskList: new TaskList(
+                name: 'list'
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 0, "Expected count 0, but was: ${count}" )
+        }
+
+        print( "Verifying pending decision task count for domain ${domainName} list list" )
+        countPendingDecisionTasks( new CountPendingDecisionTasksRequest(
+            domain: domainName,
+            taskList: new TaskList(
+                name: 'list'
+            )
+        ) ).with {
+          assertThat( truncated != null && !truncated, "Expected not truncated, but was: ${truncated}" )
+          assertThat( count != null && count == 0, "Expected count 0, but was: ${count}" )
+        }
+
+        print( "Verifying closed workflow listing for domain ${domainName}" )
+        listClosedWorkflowExecutions( new ListClosedWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos != null && executionInfos.size() == 1, "Expected one execution, but was: ${executionInfos?.size()}" )
+          executionInfos[0].with {
+            assertThat( execution != null, "Expected execution" )
+            assertThat( execution.runId == runId1, "Expected execution run id ${runId1}, but was: ${execution.runId}")
+            assertThat( execution.workflowId == workflowId1, "Expected execution workflow id ${workflowId1}, but was: ${execution.workflowId}")
+
+            assertThat( workflowType != null, "Expected workflowType" )
+            assertThat( workflowType.name == workflowTypeName, "Expected workflow type name '${workflowTypeName}', but was: ${workflowType.name}")
+            assertThat( workflowType.version == '1', "Expected workflow type version '1', but was: ${workflowType.version}")
+
+            assertThat( startTimestamp != null, "Expected start timestamp" )
+            assertThat( closeTimestamp != null, "Expected close timestamp" )
+            assertThat( executionStatus == 'CLOSED', "Expected execution status 'CLOSED', but was: ${executionStatus}" )
+            assertThat( closeStatus == 'TERMINATED', "Expected close status 'TERMINATED', but was: ${closeStatus}" )
+          }
+        }
+
+        print( "Verifying open workflow listing for domain ${domainName}" )
+        listOpenWorkflowExecutions( new ListOpenWorkflowExecutionsRequest(
+            domain: domainName,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos == null || executionInfos.isEmpty(), "Expected no executions, but was: ${executionInfos?.size()}" )
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

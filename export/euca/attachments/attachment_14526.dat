@@ -1,0 +1,15 @@
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+
+
+public class ListMetricsTest {
+  public static void main(String[] args) {
+    BasicAWSCredentials props = new BasicAWSCredentials(
+        "JQCO27GFXAIFWYLV9XUMP",
+        "jCPyXfQHfzgwRKm81CaJwAwfztKNYs6hoLHk8VG3");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+
+    System.out.println(cloudWatch.listMetrics());
+  }
+}

@@ -1,0 +1,317 @@
+-- Logs begin at Wed 2017-01-18 07:46:07 PST, end at Tue 2017-01-24 13:40:01 PST. --
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com systemd[1]: Started Eucalyptus cloud web services.
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com systemd[1]: Starting Eucalyptus cloud web services...
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:05 INFO ulimit: resource=7 soft=65535 hard=65535
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:05 INFO ulimit: resource=6 soft=-1 hard=-1
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:05 INFO ulimit: resource=6 soft=-1 hard=-1
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:05 13729 INFO User did not set heap size. Setting it automatically to 4GB base on total memory of 8192278528 bytes
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info AspectJ Weaver Version 1.8.8 built on Friday Jan 8, 2016 at 19:54:25 GMT
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info register classloader sun.misc.Launcher$AppClassLoader@18b4aac2
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info using configuration file:/usr/share/eucalyptus/eucalyptus-loadbalancing-4.4.0.jar!/META-INF/aop.xml
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info register aspect com.amazonaws.services.simpleworkflow.flow.aspectj.AsynchronousAspect
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info register aspect com.amazonaws.services.simpleworkflow.flow.aspectj.ExponentialRetryAspect
+Jan 18 08:02:05 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:05 INFO Returning Bootstrapper instance.
+Jan 18 08:02:18 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] warning javax.* types are not being woven because the weaver option '-Xset:weaveJavaxPackages=true' has not been specified
+Jan 18 08:02:44 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:44 INFO Executing Pre-Shutdown Hooks...
+Jan 18 08:02:44 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:44 INFO Executing Shutdown Hooks...
+Jan 18 08:02:44 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:44 INFO Executing Post-Shutdown Hooks...
+Jan 18 08:02:44 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:44 INFO Executing Post-Shutdown Hook: com.eucalyptus.system.Threads$ThreadPool$1@4bb05c55
+Jan 18 08:02:44 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:44 INFO SHUTDOWN:eucalyptus-system Stopping thread pool...
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:46 13726 INFO Reloading service.
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:46 INFO ulimit: resource=7 soft=65535 hard=65535
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:46 INFO ulimit: resource=6 soft=-1 hard=-1
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:46 INFO ulimit: resource=6 soft=-1 hard=-1
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:46 13922 INFO User did not set heap size. Setting it automatically to 4GB base on total memory of 8192278528 bytes
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info AspectJ Weaver Version 1.8.8 built on Friday Jan 8, 2016 at 19:54:25 GMT
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info register classloader sun.misc.Launcher$AppClassLoader@18b4aac2
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info using configuration file:/usr/share/eucalyptus/eucalyptus-loadbalancing-4.4.0.jar!/META-INF/aop.xml
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info register aspect com.amazonaws.services.simpleworkflow.flow.aspectj.AsynchronousAspect
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] info register aspect com.amazonaws.services.simpleworkflow.flow.aspectj.ExponentialRetryAspect
+Jan 18 08:02:46 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:02:46 INFO Returning Bootstrapper instance.
+Jan 18 08:02:59 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [AppClassLoader@18b4aac2] warning javax.* types are not being woven because the weaver option '-Xset:weaveJavaxPackages=true' has not been specified
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:03:58 INFO Started Eucalyptus Version: 4.4.0
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: System Bootstrap Configuration
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: SystemInit --
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: PrivilegedConfiguration --
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: UnprivilegedConfiguration -- DirectoryBootstrapper PipelineBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: SystemCredentialsInit -- RemoteComponentCredentialBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: RemoteConfiguration -- HostMembershipBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: DatabaseInit --
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: UpgradeDatabase --
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: PoolInit -- DatabasePoolBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: PersistenceInit -- PersistenceContextBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: RemoteDbPoolInit -- DatabaseRemotePoolBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: SystemAccountsInit -- DatabaseSystemAccountBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: RemoteServicesInit -- ServiceContextBootstrapper ServiceBootstrapper WebServicesBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: UserCredentialsInit -- DatabaseAuthBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: CloudServiceInit -- TroubleshootingBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Final -- SystemClockBootstrapper
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Component Bootstrap Configuration
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper SimpleWorkflowBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper PolledNotificationsBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper CloudFormationBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap:cloudformation:cloudformation:10.111.5.138/cloudformation/cloudformation cloudformation:unpartitioned:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper ImagingBackendServicePropertyBootstrapper runDuring=Final dependsLocal=[arn:euca:eucalyptus::imagingbackend:10.111.5.138/eucalyptus/imagingbackend imagingbackend:unpartitioned:cloudLocal:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper ReportingPropertyBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap::reporting:10.111.5.138/bootstrap/reporting reporting:unpartitioned:alwaysLocal:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper DNSBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap:dns:dns:10.111.5.138/dns/dns dns:unpartitioned:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper WalrusBootstrapper runDuring=RemoteServicesInit dependsLocal=[arn:euca:bootstrap:walrusbackend:walrusbackend:10.111.5.138/walrusbackend/walrusbackend walrusbackend:unpartitioned:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper EnablingBootstrap runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper ArbitratorBootstrapper runDuring=CloudServiceInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper OsgBootstrapper runDuring=RemoteServicesInit dependsLocal=[arn:euca:bootstrap:objectstorage:objectstorage:10.111.5.138/objectstorage/objectstorage objectstorage:unpartitioned:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper CloudWatchPropertyBootstrapper runDuring=Final dependsLocal=[arn:euca:eucalyptus::cloudwatchbackend:10.111.5.138/eucalyptus/cloudwatchbackend cloudwatchbackend:unpartitioned:cloudLocal:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper BlockStorageBootstrapper runDuring=RemoteServicesInit dependsLocal=[arn:euca:eucalyptus::storage:10.111.5.138/eucalyptus/storage storage:partitioned:cloudLocal:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper LoadBalancingServiceBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap:loadbalancing:loadbalancing:10.111.5.138/loadbalancing/loadbalancing loadbalancing:unpartitioned:] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Local Services
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: component -- ServiceConfiguration component arn:euca:bootstrap::component:10.111.5.138/ 10.111.5.138:8773:/services/Component:vm-local:host-local:ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: component -- arn:euca:bootstrap::component:10.111.5.138/bootstrap/component component:unpartitioned:alwaysLocal:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: component -- ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: simpleworkflow -- ServiceConfiguration simpleworkflow arn:euca:bootstrap:API_10.111.5.138:simpleworkflow:API_10.111.5.138.simpleworkflow/ 10.111.5.138:8773:/services/SimpleWorkflow:vm-local:host-local:NOTREADY
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: simpleworkflow -- arn:euca:bootstrap:simpleworkflow:simpleworkflow:10.111.5.138/simpleworkflow/simpleworkflow simpleworkflow:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: simpleworkflow -- NOTREADY
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: properties -- ServiceConfiguration properties arn:euca:bootstrap::properties:10.111.5.138/ 10.111.5.138:8773:/services/Properties:vm-local:host-local:ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: properties -- arn:euca:bootstrap::properties:10.111.5.138/bootstrap/properties properties:unpartitioned:alwaysLocal:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: properties -- ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: cloudformation -- ServiceConfiguration cloudformation arn:euca:bootstrap:API_10.111.5.138:cloudformation:API_10.111.5.138.cloudformation/ 10.111.5.138:8773:/services/CloudFormation:vm-local:host-local:NOTREADY
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: cloudformation -- arn:euca:bootstrap:cloudformation:cloudformation:10.111.5.138/cloudformation/cloudformation cloudformation:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: cloudformation -- NOTREADY
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: cloudwatch -- ServiceConfiguration cloudwatch arn:euca:bootstrap:API_10.111.5.138:cloudwatch:API_10.111.5.138.cloudwatch/ 10.111.5.138:8773:/services/CloudWatch:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: cloudwatch -- arn:euca:bootstrap:cloudwatch:cloudwatch:10.111.5.138/cloudwatch/cloudwatch cloudwatch:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: cloudwatch -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: reporting -- ServiceConfiguration reporting arn:euca:bootstrap::reporting:10.111.5.138/ 10.111.5.138:8773:/services/Reporting:vm-local:host-local:ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: reporting -- arn:euca:bootstrap::reporting:10.111.5.138/bootstrap/reporting reporting:unpartitioned:alwaysLocal:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: reporting -- ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: dns -- ServiceConfiguration dns arn:euca:bootstrap:API_10.111.5.138:dns:API_10.111.5.138.dns/ 10.111.5.138:8773:/services/Dns:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: dns -- arn:euca:bootstrap:dns:dns:10.111.5.138/dns/dns dns:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: dns -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: bootstrap -- ServiceConfiguration bootstrap arn:euca:bootstrap:::10.111.5.138/ 10.111.5.138:8773:/services/Empyrean:vm-local:host-local:ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: bootstrap -- arn:euca:bootstrap:::10.111.5.138/bootstrap/bootstrap bootstrap:unpartitioned:alwaysLocal:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: bootstrap -- ENABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: autoscaling -- ServiceConfiguration autoscaling arn:euca:bootstrap:API_10.111.5.138:autoscaling:API_10.111.5.138.autoscaling/ 10.111.5.138:8773:/services/AutoScaling:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: autoscaling -- arn:euca:bootstrap:autoscaling:autoscaling:10.111.5.138/autoscaling/autoscaling autoscaling:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: autoscaling -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: euare -- ServiceConfiguration euare arn:euca:bootstrap:API_10.111.5.138:euare:API_10.111.5.138.euare/ 10.111.5.138:8773:/services/Euare:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: euare -- arn:euca:bootstrap:euare:euare:10.111.5.138/euare/euare euare:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: euare -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: objectstorage -- ServiceConfiguration objectstorage arn:euca:bootstrap:API_10.111.5.138:objectstorage:API_10.111.5.138.objectstorage/ 10.111.5.138:8773:/services/objectstorage:vm-local:host-local:BROKEN
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: objectstorage -- arn:euca:bootstrap:objectstorage:objectstorage:10.111.5.138/objectstorage/objectstorage objectstorage:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: objectstorage -- BROKEN
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: tokens -- ServiceConfiguration tokens arn:euca:bootstrap:API_10.111.5.138:tokens:API_10.111.5.138.tokens/ 10.111.5.138:8773:/services/Tokens:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: tokens -- arn:euca:bootstrap:tokens:tokens:10.111.5.138/tokens/tokens tokens:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: tokens -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: storage -- ServiceConfiguration storage arn:euca:eucalyptus:take-care:storage:take-care-sc-0/ 10.111.5.138:8773:/services/Storage:vm-local:host-local:BROKEN
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: storage -- arn:euca:eucalyptus::storage:10.111.5.138/eucalyptus/storage storage:partitioned:cloudLocal:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: storage -- BROKEN
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: compute -- ServiceConfiguration compute arn:euca:bootstrap:API_10.111.5.138:compute:API_10.111.5.138.compute/ 10.111.5.138:8773:/services/compute:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: compute -- arn:euca:bootstrap:compute:compute:10.111.5.138/compute/compute compute:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: compute -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: user-api -- ServiceConfiguration user-api arn:euca:bootstrap:API_10.111.5.138:user-api:API_10.111.5.138/ 10.111.5.138:8773:/services/Empyrean:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: user-api -- arn:euca:bootstrap:user-api:user-api:10.111.5.138/user-api/user-api user-api:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: user-api -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: loadbalancing -- ServiceConfiguration loadbalancing arn:euca:bootstrap:API_10.111.5.138:loadbalancing:API_10.111.5.138.loadbalancing/ 10.111.5.138:8773:/services/LoadBalancing:vm-local:host-local:NOTREADY
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: loadbalancing -- arn:euca:bootstrap:loadbalancing:loadbalancing:10.111.5.138/loadbalancing/loadbalancing loadbalancing:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: loadbalancing -- NOTREADY
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: identity -- ServiceConfiguration identity arn:euca:bootstrap:API_10.111.5.138:identity:API_10.111.5.138.identity/ 10.111.5.138:8773:/services/Identity:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: identity -- arn:euca:bootstrap:identity:identity:10.111.5.138/identity/identity identity:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: identity -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: imaging -- ServiceConfiguration imaging arn:euca:bootstrap:API_10.111.5.138:imaging:API_10.111.5.138.imaging/ 10.111.5.138:8773:/services/Imaging:vm-local:host-local:DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: imaging -- arn:euca:bootstrap:imaging:imaging:10.111.5.138/imaging/imaging imaging:unpartitioned:
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: imaging -- DISABLED
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: Detected Interfaces
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: _________________________________________________________
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: em1.107 -- [/10.107.105.138/16 [/10.107.255.255]]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: em1.107 -- /10.107.105.138
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: em1 -- [/10.111.5.138/16 [/10.111.255.255]]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: em1 -- /10.111.5.138
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: lo -- [/127.0.0.1/8 [null]]
+Jan 18 08:03:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: lo -- /127.0.0.1
+Jan 18 08:04:29 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:29 WARN Received a reply for absent client:  No channel to write response message: Found correlation id ee1bf2e5-3912-494e-afc0-1a2883534d41 but no corresponding context. for SimpleWorkflowMessage
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id bccd4164-3268-4aa6-ba82-448b18a1154c but no corresponding context. for ActivityTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id cd28800a-302c-4168-8aca-78e4f2fa5738 but no corresponding context. for ActivityTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id 826db2f8-1407-4f58-a27e-c5074a3c83a6 but no corresponding context. for ActivityTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id 32d8ee6a-029e-43c5-b102-324dc1a5bce9 but no corresponding context. for DecisionTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id ee3664ea-e6a8-42d4-a108-e2af2c7d2f44 but no corresponding context. for DecisionTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id 4b90c6a0-c055-4906-94b8-a489d34b2243 but no corresponding context. for DecisionTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id fd0d3853-e32a-4f2e-a53d-926c2fb55f39 but no corresponding context. for ActivityTask
+Jan 18 08:04:47 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:04:47 WARN Received a reply for absent client:  No channel to write response message: Found correlation id 27b513ab-b958-4263-abad-e0cdd13b4966 but no corresponding context. for DecisionTask
+Jan 18 08:05:07 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:05:07 WARN Received a reply for absent client:  No channel to write response message: Found correlation id 3c9135dd-8e16-4d08-b19b-2e1cf7820988 but no corresponding context. for DecisionTask
+Jan 18 08:05:07 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 08:05:07 WARN Received a reply for absent client:  No channel to write response message: Found correlation id c6864837-86ae-4cbc-affc-adcf3ca6b628 but no corresponding context. for DecisionTask
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: [thread 140283715462912 also had an error]
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # A fatal error has been detected by the Java Runtime Environment:
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #  SIGSEGV (0xb) at pc=0x00007f9713791355, pid=13922, tid=0x00007f96281a2700
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # JRE version: OpenJDK Runtime Environment (8.0_111-b15) (build 1.8.0_111-b15)
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # Java VM: OpenJDK 64-Bit Server VM (25.111-b15 mixed mode linux-amd64 compressed oops)
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # Problematic frame:
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # C  [ld-linux-x86-64.so.2+0x9355]  do_lookup_x+0x95
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # An error report file with more information is saved as:
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # /tmp/hs_err_pid13922.log
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # If you would like to submit a bug report, please visit:
+Jan 18 19:38:57 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #   http://bugreport.java.com/bugreport/crash.jsp
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # The crash happened outside the Java Virtual Machine in native code.
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: # See problematic frame for where to report the bug.
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: #
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[13726]: 2017-01-18 19:38:58 13726 ERROR 0597 Service exit with a return value of 1.
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com systemd[1]: eucalyptus-cloud.service: main process exited, code=exited, status=1/FAILURE
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com systemd[1]: Unit eucalyptus-cloud.service entered failed state.
+Jan 18 19:38:58 d-14.qa1.eucalyptus-systems.com systemd[1]: eucalyptus-cloud.service failed.
+Jan 20 09:15:53 d-14.qa1.eucalyptus-systems.com systemd[1]: Started Eucalyptus cloud web services.
+Jan 20 09:15:53 d-14.qa1.eucalyptus-systems.com systemd[1]: Starting Eucalyptus cloud web services...
+Jan 20 09:15:53 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:15:53 INFO ulimit: resource=7 soft=65535 hard=65535
+Jan 20 09:15:53 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:15:53 INFO ulimit: resource=6 soft=-1 hard=-1
+Jan 20 09:15:53 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:15:53 INFO ulimit: resource=6 soft=-1 hard=-1
+Jan 20 09:15:53 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:15:53 9671 INFO User did not set heap size. Setting it automatically to 4GB base on total memory of 8192278528 bytes
+Jan 20 09:15:54 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: [AppClassLoader@18b4aac2] info AspectJ Weaver Version 1.8.8 built on Friday Jan 8, 2016 at 19:54:25 GMT
+Jan 20 09:15:54 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: [AppClassLoader@18b4aac2] info register classloader sun.misc.Launcher$AppClassLoader@18b4aac2
+Jan 20 09:15:54 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: [AppClassLoader@18b4aac2] info using configuration file:/usr/share/eucalyptus/eucalyptus-loadbalancing-4.4.0.jar!/META-INF/aop.xml
+Jan 20 09:15:54 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: [AppClassLoader@18b4aac2] info register aspect com.amazonaws.services.simpleworkflow.flow.aspectj.AsynchronousAspect
+Jan 20 09:15:54 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: [AppClassLoader@18b4aac2] info register aspect com.amazonaws.services.simpleworkflow.flow.aspectj.ExponentialRetryAspect
+Jan 20 09:15:54 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:15:54 INFO Returning Bootstrapper instance.
+Jan 20 09:16:06 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: [AppClassLoader@18b4aac2] warning javax.* types are not being woven because the weaver option '-Xset:weaveJavaxPackages=true' has not been specified
+Jan 20 09:16:45 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:16:45 WARN SHUTDOWN:eucalyptus-bootstrap-deferredpropertiesbootstrapper Freeing duplicate thread pool...
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-20 09:16:51 INFO Started Eucalyptus Version: 4.4.0
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: System Bootstrap Configuration
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: SystemInit --
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: PrivilegedConfiguration --
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: UnprivilegedConfiguration -- DirectoryBootstrapper PipelineBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: SystemCredentialsInit -- RemoteComponentCredentialBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: RemoteConfiguration -- HostMembershipBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: DatabaseInit --
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: UpgradeDatabase --
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: PoolInit -- DatabasePoolBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: PersistenceInit -- PersistenceContextBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: RemoteDbPoolInit -- DatabaseRemotePoolBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: SystemAccountsInit -- DatabaseSystemAccountBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: RemoteServicesInit -- ServiceContextBootstrapper ServiceBootstrapper WebServicesBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: UserCredentialsInit -- DatabaseAuthBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: CloudServiceInit -- TroubleshootingBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Final -- SystemClockBootstrapper
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Component Bootstrap Configuration
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper ImagingBackendServicePropertyBootstrapper runDuring=Final dependsLocal=[arn:euca:eucalyptus::imagingbackend:10.111.5.138/eucalyptus/imagingbackend imagingbackend:unpartitioned:cloudLocal:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper EnablingBootstrap runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper CloudWatchPropertyBootstrapper runDuring=Final dependsLocal=[arn:euca:eucalyptus::cloudwatchbackend:10.111.5.138/eucalyptus/cloudwatchbackend cloudwatchbackend:unpartitioned:cloudLocal:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper BlockStorageBootstrapper runDuring=RemoteServicesInit dependsLocal=[arn:euca:eucalyptus::storage:10.111.5.138/eucalyptus/storage storage:partitioned:cloudLocal:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper LoadBalancingServiceBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap:loadbalancing:loadbalancing:10.111.5.138/loadbalancing/loadbalancing loadbalancing:unpartitioned:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper WalrusBootstrapper runDuring=RemoteServicesInit dependsLocal=[arn:euca:bootstrap:walrusbackend:walrusbackend:10.111.5.138/walrusbackend/walrusbackend walrusbackend:unpartitioned:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DNSBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap:dns:dns:10.111.5.138/dns/dns dns:unpartitioned:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper PolledNotificationsBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper OsgBootstrapper runDuring=RemoteServicesInit dependsLocal=[arn:euca:bootstrap:objectstorage:objectstorage:10.111.5.138/objectstorage/objectstorage objectstorage:unpartitioned:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper CloudFormationBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap:cloudformation:cloudformation:10.111.5.138/cloudformation/cloudformation cloudformation:unpartitioned:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper SimpleWorkflowBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper ArbitratorBootstrapper runDuring=CloudServiceInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper ReportingPropertyBootstrapper runDuring=Final dependsLocal=[arn:euca:bootstrap::reporting:10.111.5.138/bootstrap/reporting reporting:unpartitioned:alwaysLocal:] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper ColocationBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]Bootstrapper DeferredPropertiesBootstrapper runDuring=RemoteServicesInit dependsLocal=[] dependsRemote=[]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Local Services
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: storage -- ServiceConfiguration storage arn:euca:eucalyptus:take-care:storage:take-care-sc-0/ 10.111.5.138:8773:/services/Storage:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: storage -- arn:euca:eucalyptus::storage:10.111.5.138/eucalyptus/storage storage:partitioned:cloudLocal:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: storage -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: tokens -- ServiceConfiguration tokens arn:euca:bootstrap:API_10.111.5.138:tokens:API_10.111.5.138.tokens/ 10.111.5.138:8773:/services/Tokens:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: tokens -- arn:euca:bootstrap:tokens:tokens:10.111.5.138/tokens/tokens tokens:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: tokens -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: autoscaling -- ServiceConfiguration autoscaling arn:euca:bootstrap:API_10.111.5.138:autoscaling:API_10.111.5.138.autoscaling/ 10.111.5.138:8773:/services/AutoScaling:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: autoscaling -- arn:euca:bootstrap:autoscaling:autoscaling:10.111.5.138/autoscaling/autoscaling autoscaling:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: autoscaling -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: loadbalancing -- ServiceConfiguration loadbalancing arn:euca:bootstrap:API_10.111.5.138:loadbalancing:API_10.111.5.138.loadbalancing/ 10.111.5.138:8773:/services/LoadBalancing:vm-local:host-local:NOTREADY
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: loadbalancing -- arn:euca:bootstrap:loadbalancing:loadbalancing:10.111.5.138/loadbalancing/loadbalancing loadbalancing:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: loadbalancing -- NOTREADY
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: dns -- ServiceConfiguration dns arn:euca:bootstrap:API_10.111.5.138:dns:API_10.111.5.138.dns/ 10.111.5.138:8773:/services/Dns:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: dns -- arn:euca:bootstrap:dns:dns:10.111.5.138/dns/dns dns:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: dns -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: objectstorage -- ServiceConfiguration objectstorage arn:euca:bootstrap:API_10.111.5.138:objectstorage:API_10.111.5.138.objectstorage/ 10.111.5.138:8773:/services/objectstorage:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: objectstorage -- arn:euca:bootstrap:objectstorage:objectstorage:10.111.5.138/objectstorage/objectstorage objectstorage:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: objectstorage -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: cloudformation -- ServiceConfiguration cloudformation arn:euca:bootstrap:API_10.111.5.138:cloudformation:API_10.111.5.138.cloudformation/ 10.111.5.138:8773:/services/CloudFormation:vm-local:host-local:NOTREADY
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: cloudformation -- arn:euca:bootstrap:cloudformation:cloudformation:10.111.5.138/cloudformation/cloudformation cloudformation:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: cloudformation -- NOTREADY
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: simpleworkflow -- ServiceConfiguration simpleworkflow arn:euca:bootstrap:API_10.111.5.138:simpleworkflow:API_10.111.5.138.simpleworkflow/ 10.111.5.138:8773:/services/SimpleWorkflow:vm-local:host-local:NOTREADY
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: simpleworkflow -- arn:euca:bootstrap:simpleworkflow:simpleworkflow:10.111.5.138/simpleworkflow/simpleworkflow simpleworkflow:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: simpleworkflow -- NOTREADY
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: component -- ServiceConfiguration component arn:euca:bootstrap::component:10.111.5.138/ 10.111.5.138:8773:/services/Component:vm-local:host-local:ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: component -- arn:euca:bootstrap::component:10.111.5.138/bootstrap/component component:unpartitioned:alwaysLocal:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: component -- ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: properties -- ServiceConfiguration properties arn:euca:bootstrap::properties:10.111.5.138/ 10.111.5.138:8773:/services/Properties:vm-local:host-local:ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: properties -- arn:euca:bootstrap::properties:10.111.5.138/bootstrap/properties properties:unpartitioned:alwaysLocal:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: properties -- ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: bootstrap -- ServiceConfiguration bootstrap arn:euca:bootstrap:::10.111.5.138/ 10.111.5.138:8773:/services/Empyrean:vm-local:host-local:ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: bootstrap -- arn:euca:bootstrap:::10.111.5.138/bootstrap/bootstrap bootstrap:unpartitioned:alwaysLocal:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: bootstrap -- ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: reporting -- ServiceConfiguration reporting arn:euca:bootstrap::reporting:10.111.5.138/ 10.111.5.138:8773:/services/Reporting:vm-local:host-local:ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: reporting -- arn:euca:bootstrap::reporting:10.111.5.138/bootstrap/reporting reporting:unpartitioned:alwaysLocal:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: reporting -- ENABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: cloudwatch -- ServiceConfiguration cloudwatch arn:euca:bootstrap:API_10.111.5.138:cloudwatch:API_10.111.5.138.cloudwatch/ 10.111.5.138:8773:/services/CloudWatch:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: cloudwatch -- arn:euca:bootstrap:cloudwatch:cloudwatch:10.111.5.138/cloudwatch/cloudwatch cloudwatch:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: cloudwatch -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: user-api -- ServiceConfiguration user-api arn:euca:bootstrap:API_10.111.5.138:user-api:API_10.111.5.138/ 10.111.5.138:8773:/services/Empyrean:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: user-api -- arn:euca:bootstrap:user-api:user-api:10.111.5.138/user-api/user-api user-api:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: user-api -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: compute -- ServiceConfiguration compute arn:euca:bootstrap:API_10.111.5.138:compute:API_10.111.5.138.compute/ 10.111.5.138:8773:/services/compute:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: compute -- arn:euca:bootstrap:compute:compute:10.111.5.138/compute/compute compute:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: compute -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: euare -- ServiceConfiguration euare arn:euca:bootstrap:API_10.111.5.138:euare:API_10.111.5.138.euare/ 10.111.5.138:8773:/services/Euare:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: euare -- arn:euca:bootstrap:euare:euare:10.111.5.138/euare/euare euare:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: euare -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: identity -- ServiceConfiguration identity arn:euca:bootstrap:API_10.111.5.138:identity:API_10.111.5.138.identity/ 10.111.5.138:8773:/services/Identity:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: identity -- arn:euca:bootstrap:identity:identity:10.111.5.138/identity/identity identity:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: identity -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: imaging -- ServiceConfiguration imaging arn:euca:bootstrap:API_10.111.5.138:imaging:API_10.111.5.138.imaging/ 10.111.5.138:8773:/services/Imaging:vm-local:host-local:DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: imaging -- arn:euca:bootstrap:imaging:imaging:10.111.5.138/imaging/imaging imaging:unpartitioned:
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: imaging -- DISABLED
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: Detected Interfaces
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: _________________________________________________________
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: em1.107 -- [/10.107.105.138/16 [/10.107.255.255]]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: em1.107 -- /10.107.105.138
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: em1 -- [/10.111.5.138/16 [/10.111.255.255]]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: em1 -- /10.111.5.138
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: lo -- [/127.0.0.1/8 [null]]
+Jan 20 09:16:51 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: lo -- /127.0.0.1
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # A fatal error has been detected by the Java Runtime Environment:
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #  SIGSEGV (0xb) at pc=0x00007f948e2d6e4f, pid=9671, tid=0x00007f944b3a4700
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # JRE version: OpenJDK Runtime Environment (8.0_111-b15) (build 1.8.0_111-b15)
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # Java VM: OpenJDK 64-Bit Server VM (25.111-b15 mixed mode linux-amd64 compressed oops)
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # Problematic frame:
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # C  [libplds4.so+0x1e4f]  PL_HashTableLookupConst+0xf
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # An error report file with more information is saved as:
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # /tmp/hs_err_pid9671.log
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # If you would like to submit a bug report, please visit:
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #   http://bugreport.java.com/bugreport/crash.jsp
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # The crash happened outside the Java Virtual Machine in native code.
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: # See problematic frame for where to report the bug.
+Jan 24 13:34:28 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: #
+Jan 24 13:34:29 d-14.qa1.eucalyptus-systems.com eucalyptus-cloud[9668]: 2017-01-24 13:34:29 9668 ERROR 0597 Service exit with a return value of 1.
+Jan 24 13:34:29 d-14.qa1.eucalyptus-systems.com systemd[1]: eucalyptus-cloud.service: main process exited, code=exited, status=1/FAILURE
+Jan 24 13:34:29 d-14.qa1.eucalyptus-systems.com systemd[1]: Unit eucalyptus-cloud.service entered failed state.
+Jan 24 13:34:29 d-14.qa1.eucalyptus-systems.com systemd[1]: eucalyptus-cloud.service failed.

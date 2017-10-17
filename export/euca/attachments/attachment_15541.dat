@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+import boto
+import boto.ec2
+from boto.ec2.connection import EC2Connection
+from boto.ec2.blockdevicemapping import BlockDeviceType
+from boto.ec2.blockdevicemapping import BlockDeviceMapping
+
+
+# put in your api keys and change the following linke to toggle from aws to euca EPC
+env = 'euca3'
+
+boto.set_stream_logger('foo')
+debug = 2
+debug = 0
+if env == "euca3":
+    user = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    password = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    endpoint = 'eucalyptus.partner.eucalyptus.com'
+    port = 8773
+    secure = False
+    region = 'euca'
+    path = '/services/Euare/'
+    api_version = '2010-08-31'
+    image = 'emi-2C27388C'
+
+    region = boto.ec2.regioninfo.RegionInfo(name=region, endpoint=endpoint)
+    conn = boto.connect_ec2(user, password,
+        is_secure=secure,
+        region=region,
+        port=port,
+        path=path,
+        debug=debug)
+    conn.APIVersion = api_version
+else:
+    user = 'XXXXXXXXXXXXXXX'
+    password = 'XXXXXXXXXXXXXXXXXXXXXXXXX'
+    image = 'ami-55dc0b3c'
+    
+    conn = conn = EC2Connection(user, password)
+
+mapping = BlockDeviceMapping()
+eph0 = BlockDeviceType()
+eph0.ephemeral_name = 'ephemeral0'
+mapping['/dev/sdb'] = eph0
+# comment the following three lines out and it will work on euca
+eph1 = BlockDeviceType()
+eph1.ephemeral_name = 'ephemeral1'
+mapping['/dev/sdc'] = eph1
+
+
+reservation = conn.run_instances(image_id=image, instance_type='m1.small', block_device_map= mapping)
+print reservation
+exit()

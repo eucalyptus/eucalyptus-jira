@@ -1,0 +1,286 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.autoscaling.AmazonAutoScaling;
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient;
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.SetDesiredCapacityRequest;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
+
+/**
+ * This application tests auto scaling with multiple availability zones.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-4992
+ */
+public class TestAutoScalingMultipleAvailabilityZones {
+
+  public static void main( String[] args ) throws Exception {
+    final TestAutoScalingMultipleAvailabilityZones test =  new TestAutoScalingMultipleAvailabilityZones();
+    test.test();
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials(
+        "FQYGUZ9T7BGE23POKHF0L",
+        "id0aCF7i7CCbqd0kY8mhULSadGLK55PHJMLwLThv"
+    );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://192.168.51.156:8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( ) {
+    final AmazonAutoScaling as = new AmazonAutoScalingClient( credentials() );
+    as.setEndpoint( cloudUri( "/services/AutoScaling/" ) );
+    return as;
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private String instanceType() {
+    return "m1.small";
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  private void test() throws Exception{
+    final AmazonAutoScaling as = getAutoScalingClient();
+    final AmazonEC2 ec2 = getEc2Client();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" ),
+        new Filter().withName( "root-device-type" ).withValues( "instance-store" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 1, "Multiple availability zones required" );
+
+    final String availabilityZone1 = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    final String availabilityZone2 = azResult.getAvailabilityZones().get( 1 ).getZoneName();
+    print( "Using availability zones: " + Arrays.asList( availabilityZone1, availabilityZone2 ) );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Create launch configuration
+      final String configName = namePrefix + "MultipleZones";
+      print( "Creating launch configuration: " + configName );
+      as.createLaunchConfiguration( new CreateLaunchConfigurationRequest()
+          .withLaunchConfigurationName( configName )
+          .withImageId( imageId )
+          .withInstanceType( instanceType() ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting launch configuration: " + configName );
+          as.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest().withLaunchConfigurationName( configName ) );
+        }
+      } );
+
+      // Create scaling group
+      final String groupName = namePrefix + "MultipleZones";
+      print( "Creating auto scaling group: " + groupName );
+      as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+          .withAutoScalingGroupName( groupName )
+          .withLaunchConfigurationName( configName )
+          .withDesiredCapacity( 2 )
+          .withMinSize( 0 )
+          .withMaxSize( 4 )
+          .withHealthCheckType( "EC2" )
+          .withAvailabilityZones( availabilityZone1, availabilityZone2 )
+          .withTerminationPolicies( "OldestInstance" ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting group: " + groupName );
+          as.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest().withAutoScalingGroupName( groupName ).withForceDelete( true ) );
+        }
+      } );
+
+      // Wait for instances to launch
+      print( "Waiting for 2 instances to launch" );
+      final long timeout = TimeUnit.MINUTES.toMillis( 2 );
+      List<Instance> instances = waitForInstances( ec2, timeout, 2, groupName );
+      assertBalanced( instances, availabilityZone1, availabilityZone2 );
+
+      // Update group desired capacity and wait for instances to launch
+      print( "Setting desired capacity to 4 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 4 ) );
+
+      // Wait for instances to launch
+      print( "Waiting for 2 instances to launch" );
+      instances = waitForInstances( ec2, timeout, 4, groupName );
+      assertBalanced( instances, availabilityZone1, availabilityZone2 );
+
+      // Update group desired capacity and wait for instances to launch
+      print( "Setting desired capacity to 2 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 2 ) );
+
+      // Wait for instances to terminate
+      print( "Waiting for 2 instances to terminate" );
+      instances = waitForInstances( ec2, timeout, 2, groupName );
+      assertBalanced( instances, availabilityZone1, availabilityZone2 );
+
+      // Update group desired capacity and wait for instances to terminate
+      print( "Setting desired capacity to 0 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 0 ) );
+
+      // Wait for instances to terminate
+      print( "Waiting for 2 instances to terminate" );
+      waitForInstances( ec2, timeout, 0, groupName );
+
+      // Update group desired capacity and wait for instances to launch
+      print( "Setting desired capacity to 0 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 4 ) );
+
+      // Wait for instances to launch
+      print( "Waiting for 4 instances to launch" );
+      instances = waitForInstances( ec2, timeout, 4, groupName );
+      assertBalanced( instances, availabilityZone1, availabilityZone2 );
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private void assertBalanced( final List<Instance> instances,
+                               final String zone1,
+                               final String zone2 ) {
+    final int zone1Count = countZoneInstances( instances, zone1 );
+    final int zone2Count = countZoneInstances( instances, zone2 );
+
+    assertThat(
+        zone1Count+zone2Count==instances.size() && zone1Count==zone2Count,
+        "Zones are not balanced " + zone1 + "=" + zone1Count + " / " + zone2 + "=" + zone2Count);
+  }
+
+  private int countZoneInstances( final List<Instance> instances,
+                                  final String zone ) {
+    int count = 0;
+    for ( final Instance instance : instances ) {
+      if ( instance.getPlacement() != null && zone.equals( instance.getPlacement().getAvailabilityZone() ) ) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  private List<Instance> waitForInstances( final AmazonEC2 ec2,
+                                           final long timeout,
+                                           final int expectedCount,
+                                           final String groupName ) throws Exception {
+    final long startTime = System.currentTimeMillis( );
+    boolean completed = false;
+    List<Instance> instances = Collections.emptyList();
+    while ( !completed && ( System.currentTimeMillis() - startTime ) < timeout ) {
+      Thread.sleep( 5000 );
+      instances = getInstancesForGroup( ec2, groupName, "running" );
+      completed = instances.size() == expectedCount;
+    }
+    assertThat( completed, "Instances count did not change to " + expectedCount + " within the expected timeout" );
+    print( "Instance count changed in " + ( System.currentTimeMillis()-startTime ) + "ms" );
+    return instances;
+  }
+
+  private List<Instance> getInstancesForGroup( final AmazonEC2 ec2,
+                                               final String groupName,
+                                               final String status ) {
+    final DescribeInstancesResult instancesResult = ec2.describeInstances( new DescribeInstancesRequest().withFilters(
+        new Filter().withName( "tag:aws:autoscaling:groupName" ).withValues( groupName )
+    ) );
+    final List<Instance> instances = new ArrayList<Instance>();
+    for ( final Reservation reservation : instancesResult.getReservations() ) {
+      for ( final Instance instance : reservation.getInstances() ) {
+        if ( status == null || instance.getState()==null || status.equals( instance.getState().getName() ) ) {
+          instances.add( instance );
+        }
+      }
+    }
+    return instances;
+  }
+
+}

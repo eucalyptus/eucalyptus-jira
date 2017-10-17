@@ -1,0 +1,259 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.Request
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.BasicSessionCredentials
+import com.amazonaws.handlers.AbstractRequestHandler
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.identitymanagement.model.CreateAccessKeyRequest
+import com.amazonaws.services.identitymanagement.model.CreateRoleRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRoleRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.amazonaws.services.identitymanagement.model.PutRolePolicyRequest
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest
+import com.github.sjones4.youare.YouAre
+import com.github.sjones4.youare.YouAreClient
+import com.github.sjones4.youare.model.Account
+import com.github.sjones4.youare.model.CreateAccountRequest
+import com.github.sjones4.youare.model.DeleteAccountRequest
+import groovy.transform.TypeChecked
+
+/**
+ * Test listing and deletion for IAM accounts via admin roles.
+ *
+ * Uses:
+ *   https://github.com/sjones4/you-are-sdk
+ */
+@TypeChecked
+class TestAdminRoleEuare {
+
+  private final String host = "10.111.5.77"
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIL11F1JNQT0UCTJPWN",
+      "dq3Kp2LUDr03D8hEeC7Q2aYjdoU8Rq52525xJEXq"  ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoleEuare().test()
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AWSCredentialsProvider getRoleCredentialsProvider( final String roleArn,
+                                                             final String sessionName,
+                                                             final AWSCredentialsProvider tokenServiceCredentials ) {
+    TestAdminRoleEuare test = this;
+    new AWSCredentialsProvider(){
+      @Override
+      public AWSCredentials getCredentials() {
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( tokenServiceCredentials  )
+        sts.setEndpoint( test.cloudUri( "/services/Tokens/" ) )
+        sts.assumeRole( new AssumeRoleRequest(
+            roleArn: roleArn,
+            roleSessionName: sessionName
+        ) ).with {
+          assumedRoleUser.with {
+            test.assertThat( assumedRoleId.endsWith( sessionName ), "Unexpected assumed role id: ${assumedRoleId}" )
+            test.assertThat( arn.endsWith( sessionName ), "Unexpected assumed role arn: ${arn}" )
+          }
+          credentials.with {
+            new BasicSessionCredentials( accessKeyId, secretAccessKey, sessionToken )
+          }
+        }
+      }
+
+      @Override
+      public void refresh() {
+      }
+    }
+  }
+
+  private YouAreClient getYouAreClient( final AWSCredentialsProvider credentials  ) {
+    final YouAreClient euare = new YouAreClient( credentials )
+    euare.setEndpoint( cloudUri( "/services/Euare/" ) )
+    euare
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final YouAre iam = getYouAreClient( eucalyptusCredentials )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      String roleArn = null
+      AWSCredentialsProvider adminCredentials = null
+      iam.with {
+        // Create account to use for testing roles
+        final String accountName = "${namePrefix}admin-account1"
+        print( "Creating admin account: ${accountName}" )
+        String adminAccountNumber = createAccount( new CreateAccountRequest( accountName: accountName ) ).with {
+          account?.accountId
+        }
+        assertThat( adminAccountNumber != null, "Expected account number" )
+        print( "Created admin account with number: ${adminAccountNumber}" )
+        cleanupTasks.add {
+          print( "Deleting admin account: ${accountName}" )
+          deleteAccount( new DeleteAccountRequest( accountName: accountName, recursive: true ) )
+        }
+
+        // Get credentials for admin account
+        print( "Creating access key for admin account: ${accountName}" )
+        YouAre adminIam = getYouAreClient( eucalyptusCredentials )
+        adminIam.addRequestHandler( new AbstractRequestHandler(){
+          public void beforeRequest(final Request<?> request) {
+            request.addParameter( "DelegateAccount", accountName )
+          }
+        } )
+        adminCredentials = adminIam.with {
+          createAccessKey( new CreateAccessKeyRequest( userName: "admin" ) ).with {
+            accessKey?.with {
+              new StaticCredentialsProvider( new BasicAWSCredentials( accessKeyId, secretAccessKey ) )
+            }
+          }
+        }
+        assertThat( adminCredentials != null, "Expected admin credentials" )
+        print( "Created admin account access key: ${adminCredentials.credentials.AWSAccessKeyId}" )
+
+        // Set up administrative role
+        final String roleName = "${namePrefix}resource-admin"
+        print( "Creating role with name: ${roleName}" )
+        roleArn = createRole( new CreateRoleRequest(
+            roleName: roleName,
+            assumeRolePolicyDocument: """\
+            {
+                "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "AWS": [ "arn:aws:iam::${adminAccountNumber}:user/admin" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+                } ]
+            }
+            """.stripIndent() as String
+        ) ).with {
+          role?.arn
+        }
+        assertThat( roleArn!=null, "Role ARN expected" )
+        print( "Created role with ARN: ${roleArn}" )
+
+        cleanupTasks.add {
+          print( "Deleting role: ${roleName}" )
+          deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+        }
+
+        final String policyName = "ec2"
+        print( "Adding policy to role: ${roleName}" )
+        putRolePolicy( new PutRolePolicyRequest( roleName: roleName, policyName: policyName, policyDocument: """\
+        {
+           "Statement": [ {
+              "Effect": "Allow",
+              "Action": "iam:*",
+              "Resource": "*"
+           } ]
+        }
+        """.stripIndent()
+        ) )
+
+        cleanupTasks.add {
+          print( "Deleting policy for role: ${roleName}/${policyName}" )
+          deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+        }
+      }
+
+      // Create client using role
+      String accountName = namePrefix + "account1"
+      getYouAreClient(
+          getRoleCredentialsProvider( roleArn, "session-name-here", adminCredentials )
+      ).with {
+        print( "Creating account ${accountName}" )
+        String accountId = createAccount( new CreateAccountRequest( accountName: accountName ) ).with {
+          account?.accountId
+        }
+        assertThat( accountId != null, "Expected account ID" )
+        print( "Created account with number: ${accountId}" )
+
+        print( "Listing accounts" )
+        listAccounts( ).with {
+          assertThat(
+              !accounts.findAll{ Account account ->
+                account.accountName==accountName }.isEmpty(),
+              "Expected account: ${accountName}" )
+        }
+
+        print( "Deleting account: ${accountName}" )
+        deleteAccount( new DeleteAccountRequest( accountName: accountName, recursive: true ) )
+
+        void
+      }
+
+      iam.with {
+        // Verify account deleted
+        print( "Verifying account deleted: ${accountName}" )
+        listAccounts( ).with {
+          assertThat( accounts.findAll{ Account account ->
+            account.accountName==accountName }.isEmpty(), "Expected account deleted: ${accountName}" )
+        }
+
+        void
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

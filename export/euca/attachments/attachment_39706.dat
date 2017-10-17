@@ -1,0 +1,161 @@
+{
+
+    "AWSTemplateFormatVersion" : "2010-09-09",
+
+    "Description" : "Cloudformation Template to deploy Bastion host using Ubuntu instance",
+
+    "Parameters": {
+        "UbuntuImageId": {
+            "Description":"Ubuntu Image id",
+            "Type":"String",
+            "NoEcho":"False"
+        },
+
+        "SSHLocation" : {
+            "Description" : "The IP address range that can be used to SSH to Bastion host",
+            "Type": "String",
+            "MinLength": "9",
+            "MaxLength": "18",
+            "ConstraintDescription": "IP address range parameter must be in the form x.x.x.x/x",
+            "Default": "0.0.0.0/0"
+        },
+
+        "InstanceType": {
+            "Description": "Type of EC2 instance to launch.",
+            "Type": "String",
+                        "Default" : "m1.medium",
+                        "AllowedValues" : [ "m1.small","t1.micro","m1.medium", "m3.medium","c1.medium","m1.large", "m1.xlarge", "c1.xlarge", "m2.xlarge", "m3.xlarge", "m2.2xlarge", "m3.2xlarge", "cc1.4xlarge", "m2.4xlarge", "hi1.4xlarge", "cc2.8xlarge", "cg1.4xlarge", "cr1.8xlarge", "hs1.8xlarge" ],
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+
+        "BastionVPC" : {
+            "Type" : "AWS::EC2::VPC::Id",
+            "Description" : "VpcId of the System VPC containing the instances for ELB service",
+            "ConstraintDescription" : "must be the VPC Id of an existing Virtual Private Cloud."
+        },
+
+        "ELBInstanceSG" : {
+            "Type" : "AWS::EC2::SecurityGroup::Id",
+            "Description" : "Security Group of ELB instance(s)'s Primary Interface",
+            "ConstraintDescription" : "must be a security group ID of an existing security group."
+        }, 
+
+        "BastionSubnet" : {
+            "Type": "AWS::EC2::Subnet::Id",
+            "Description": "Subnet ID of the subnet containing the NAT Gateway of the System Subnet for ELB service instances",
+            "ConstraintDescription": "must be the Subnet ID of an existing Subnet."
+        },
+
+        "KeyName": {
+            "Description":"User Key Pair",
+            "Type":"AWS::EC2::KeyPair::KeyName",
+            "NoEcho":"False"
+        }
+    },
+
+    "Resources" : {
+        "BastionSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+                "Properties": {
+                    "GroupDescription" : "Security Group with Ingress Rule for BastionInstance",
+                    "VpcId" : {"Ref" : "BastionVPC"},
+                    "Tags" : [
+                        {"Key" : "Purpose", "Value" : "Bastion Host for ELB Instance Access"},
+                        {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"}}
+                    ],
+                    "SecurityGroupIngress" : [
+                        {
+                            "IpProtocol" : "tcp",
+                            "FromPort" : "22",
+                            "ToPort" : "22",
+                            "CidrIp" : { "Ref" : "SSHLocation"}
+                         }
+                    ]
+                }
+        },
+
+        "ELBInstanceSGToBastionEgress" : {
+            "Type": "AWS::EC2::SecurityGroupEgress", 
+            "Properties" : {
+                    "IpProtocol": "tcp",
+                    "FromPort": "22",
+                    "ToPort": "22",
+                    "CidrIp": "0.0.0.0/0",
+                    "GroupId": {
+                        "Ref" : "ELBInstanceSG"
+                    }
+            }
+        },
+
+        "ELBInstanceSGToBastionIngress" : {
+            "Type": "AWS::EC2::SecurityGroupIngress", 
+            "Properties" : {
+                    "IpProtocol": "tcp",
+                    "FromPort": "22",
+                    "ToPort": "22",
+                    "CidrIp": "0.0.0.0/0",
+                    "GroupId": {
+                        "Ref": "ELBInstanceSG"
+                    }
+            }
+        },
+
+        "BastionIPAddress" : {
+            "Type" : "AWS::EC2::EIP",
+            "DependsOn": "BastionInstance",
+            "Properties" : {
+                "Domain" : "vpc"
+            }
+        },
+
+        "BastionNetworkInterface" : {
+            "Type": "AWS::EC2::NetworkInterface",
+            "Properties": {
+                    "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ],
+                    "SourceDestCheck" : "true",
+                    "GroupSet" : [{ "Ref" : "BastionSecurityGroup" }],
+                    "SubnetId"  : { "Ref" : "BastionSubnet" }
+            }
+        },
+
+        "BastionIPNetworkInterfaceAssociation": {
+            "Type": "AWS::EC2::EIPAssociation",
+            "Properties": {
+                "AllocationId": { "Fn::GetAtt" : [ "BastionIPAddress", "AllocationId" ]},
+                "NetworkInterfaceId": { "Ref": "BastionNetworkInterface" }
+            }
+        },
+
+        "BastionInstance": {
+            "Type": "AWS::EC2::Instance",
+                "Properties": {
+                    "ImageId" : { "Ref":"UbuntuImageId" },
+                    "InstanceType" : { "Ref":"InstanceType" },
+                    "Tags" : [
+                        {"Key" : "Purpose", "Value" : "Bastion Host for ELB Instance Access"},
+                        {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"}}
+                    ],
+                    "NetworkInterfaces" : [{
+                        "DeviceIndex"  : "0",
+                        "NetworkInterfaceId" : { "Ref" : "BastionNetworkInterface" }
+                    }],
+                    "KeyName" : { "Ref" : "KeyName" }
+            }
+        }
+    },
+
+    "Outputs" : {
+        "InstanceId" : {
+            "Description" : "InstanceId of the newly created EC2 instance",
+            "Value" : { "Ref" : "BastionInstance" }
+        },
+        "AZ" : {
+            "Description" : "Availability Zone of the newly created EC2 instance",
+            "Value" : { "Fn::GetAtt" : [ "BastionInstance", "AvailabilityZone" ] }
+        },
+        "PublicIP" : {
+            "Description" : "Public IP address of the newly created EC2 instance",
+            "Value" : { "Fn::GetAtt" : [ "BastionInstance", "PublicIp" ] }
+        }
+    }
+}

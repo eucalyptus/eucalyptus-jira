@@ -1,0 +1,432 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.Request
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.BasicSessionCredentials
+import com.amazonaws.handlers.AbstractRequestHandler
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagement
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClient
+import com.amazonaws.services.identitymanagement.model.CreateGroupRequest
+import com.amazonaws.services.identitymanagement.model.CreateRoleRequest
+import com.amazonaws.services.identitymanagement.model.CreateUserRequest
+import com.amazonaws.services.identitymanagement.model.DeleteGroupPolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteGroupRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRoleRequest
+import com.amazonaws.services.identitymanagement.model.DeleteUserPolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteUserRequest
+import com.amazonaws.services.identitymanagement.model.Group
+import com.amazonaws.services.identitymanagement.model.ListGroupPoliciesRequest
+import com.amazonaws.services.identitymanagement.model.ListRolePoliciesRequest
+import com.amazonaws.services.identitymanagement.model.ListUserPoliciesRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.amazonaws.services.identitymanagement.model.PutGroupPolicyRequest
+import com.amazonaws.services.identitymanagement.model.PutRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.PutUserPolicyRequest
+import com.amazonaws.services.identitymanagement.model.Role
+import com.amazonaws.services.identitymanagement.model.User
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest
+import groovy.transform.TypeChecked
+
+/**
+ * Test listing and deletion for IAM resources via admin roles.
+ */
+@TypeChecked
+class TestAdminRoleIAM {
+
+  private final String host = "10.111.5.4"
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIGCOMX8VBIDOB5DXLD",
+      "aakSKGI2ueFldEdhPMmBTbRtlSOAIKvr2EAcNoNf" ) )
+
+  // Details for an admin in some other account that we want to allow
+  // to assume an admin role
+  private final String adminAccountNumber = "043417679255"
+  private final AWSCredentialsProvider adminCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBSXTEDM5FG6FK9AKN",
+      "UW24y4ujHM7pBGg64DYQuJbq2EEzpPqSKG2bS8IH" ) )
+
+  // Creds for a regular account we can use to create a resource to
+  // test administrative access
+  private final String regularAccountAlias = "test"
+  private final AWSCredentialsProvider regularCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBW4IOR7IAEPC9PP1W",
+      "TZdqeMEZK5FZg0ss6bbQexHMdsVCQVSS5iAqshI4" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoleIAM().test()
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AWSCredentialsProvider getRoleCredentialsProvider( final String roleArn,
+                                                             final String sessionName,
+                                                             final AWSCredentialsProvider tokenServiceCredentials ) {
+    TestAdminRoleIAM test = this;
+    new AWSCredentialsProvider(){
+      @Override
+      public AWSCredentials getCredentials() {
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( tokenServiceCredentials  )
+        sts.setEndpoint( test.cloudUri( "/services/Tokens/" ) )
+        sts.assumeRole( new AssumeRoleRequest(
+            roleArn: roleArn,
+            roleSessionName: sessionName
+        ) ).with {
+          assumedRoleUser.with {
+            test.assertThat( assumedRoleId.endsWith( sessionName ), "Unexpected assumed role id: ${assumedRoleId}" )
+            test.assertThat( arn.endsWith( sessionName ), "Unexpected assumed role arn: ${arn}" )
+          }
+          credentials.with {
+            new BasicSessionCredentials( accessKeyId, secretAccessKey, sessionToken )
+          }
+        }
+      }
+
+      @Override
+      public void refresh() {
+      }
+    }
+  }
+
+  private AmazonIdentityManagementClient getIamClient( final AWSCredentialsProvider credentials ) {
+    final AmazonIdentityManagementClient iam = new AmazonIdentityManagementClient( credentials )
+    iam.setEndpoint( cloudUri( "/services/Euare/" ) )
+    iam
+  }
+
+  private AmazonIdentityManagement getAdminIamClient( final String accountAlias,
+                                                      final AWSCredentialsProvider credentials  ) {
+    final AmazonIdentityManagementClient iam = getIamClient( credentials )
+    iam.addRequestHandler( new AbstractRequestHandler(){
+      @Override
+      void beforeRequest(final Request<?> request) {
+        request.addParameter( "DelegateAccount", accountAlias )
+      }
+    } )
+    iam
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final AmazonIdentityManagement iam = getIamClient( eucalyptusCredentials )
+    final AmazonIdentityManagement iamUser = getIamClient( regularCredentials )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      String roleArn = null
+      iam.with {
+        // Set up administrative role
+        final String roleName = "${namePrefix}resource-admin"
+        print( "Creating role with name: ${roleName}" )
+        roleArn = createRole( new CreateRoleRequest(
+            roleName: roleName,
+            assumeRolePolicyDocument: """\
+            {
+                "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "AWS": [ "arn:aws:iam::${adminAccountNumber}:user/admin" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+                } ]
+            }
+            """.stripIndent() as String
+        ) ).with {
+          role?.arn
+        }
+        assertThat( roleArn!=null, "Role ARN expected" )
+        print( "Created role with ARN: ${roleArn}" )
+
+        cleanupTasks.add {
+          print( "Deleting role: ${roleName}" )
+          deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+        }
+
+        final String policyName = "ec2"
+        print( "Adding policy to role: ${roleName}" )
+        putRolePolicy( new PutRolePolicyRequest( roleName: roleName, policyName: policyName, policyDocument: """\
+        {
+           "Statement": [ {
+              "Effect": "Allow",
+              "Action": "iam:*",
+              "Resource": "*"
+           } ]
+        }
+        """.stripIndent()
+        ) )
+
+        cleanupTasks.add {
+          print( "Deleting policy for role: ${roleName}/${policyName}" )
+          deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+        }
+      }
+
+      final String userName = "${namePrefix}User1"
+      final String groupName = "${namePrefix}Group1"
+      final String roleName = "${namePrefix}Role1"
+      final String policyName = "${namePrefix}Policy1"
+      iamUser.with {
+        // Create resources to test listing via admin role
+        print( "Creating user as user: ${userName}" )
+        createUser( new CreateUserRequest(
+          userName: userName,
+          path: "/"
+        ) )
+        print( "Created user: ${userName}" )
+        cleanupTasks.add {
+          print( "Deleting user: ${userName}" )
+          deleteUser( new DeleteUserRequest( userName: userName ) )
+        }
+
+        print( "Creating group as user: ${groupName}" )
+        createGroup( new CreateGroupRequest(
+            groupName: groupName,
+            path: "/"
+        ) )
+        print( "Created group: ${groupName}" )
+        cleanupTasks.add {
+          print( "Deleting group: ${groupName}" )
+          deleteGroup( new DeleteGroupRequest( groupName: groupName ) )
+        }
+
+        print( "Creating role as user: ${roleName}" )
+        createRole( new CreateRoleRequest(
+            roleName: roleName,
+            path: "/",
+            assumeRolePolicyDocument: """\
+            {
+                "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "Service": [ "ec2.amazonaws.com" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+                } ]
+            }
+
+            """.stripIndent()
+        ) )
+        print( "Created role: ${roleName}" )
+        cleanupTasks.add {
+          print( "Deleting role: ${roleName}" )
+          deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+        }
+
+        print( "Creating user policy as user: ${userName}/${policyName}" )
+        putUserPolicy( new PutUserPolicyRequest(
+            userName: userName,
+            policyName: policyName,
+            policyDocument: """\
+              {
+                 "Statement": [ {
+                    "Effect": "Allow",
+                    "Action": "ec2:Describe*",
+                    "Resource": "*"
+                 } ]
+              }
+            """.stripIndent()
+        ) )
+        print( "Created user policy: ${userName}/${policyName}" )
+        cleanupTasks.add {
+          print( "Deleting user policy: ${userName}/${policyName}" )
+          deleteUserPolicy( new DeleteUserPolicyRequest( userName: userName, policyName: policyName ) )
+        }
+
+        print( "Creating group policy as user: ${groupName}/${policyName}" )
+        putGroupPolicy( new PutGroupPolicyRequest(
+            groupName: groupName,
+            policyName: policyName,
+            policyDocument: """\
+              {
+                 "Statement": [ {
+                    "Effect": "Allow",
+                    "Action": "ec2:Describe*",
+                    "Resource": "*"
+                 } ]
+              }
+            """.stripIndent()
+        ) )
+        print( "Created group policy: ${groupName}/${policyName}" )
+        cleanupTasks.add {
+          print( "Deleting group policy: ${groupName}/${policyName}" )
+          deleteGroupPolicy( new DeleteGroupPolicyRequest( groupName: groupName, policyName: policyName ) )
+        }
+
+        print( "Creating role policy as user: ${roleName}/${policyName}" )
+        putRolePolicy( new PutRolePolicyRequest(
+            roleName: roleName,
+            policyName: policyName,
+            policyDocument: """\
+              {
+                 "Statement": [ {
+                    "Effect": "Allow",
+                    "Action": "ec2:Describe*",
+                    "Resource": "*"
+                 } ]
+              }
+            """.stripIndent()
+        ) )
+        print( "Created role policy: ${roleName}/${policyName}" )
+        cleanupTasks.add {
+          print( "Deleting role policy: ${roleName}/${policyName}" )
+          deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+        }
+      }
+
+      // Create client using role
+      getAdminIamClient(
+          regularAccountAlias,
+          getRoleCredentialsProvider( roleArn, "session-name-here", adminCredentials )
+      ).with {
+        // List resources using admin role
+        print( "Listing users" )
+        listUsers( ).with {
+          assertThat(
+              !users.findAll{ User user ->
+               user.userName==userName }.isEmpty(),
+              "Expected user: ${userName}" )
+        }
+
+        print( "Listing groups" )
+        listGroups( ).with {
+          assertThat(
+              !groups.findAll{ Group group ->
+                group.groupName==groupName }.isEmpty(),
+              "Expected group: ${userName}" )
+        }
+
+        print( "Listing roles" )
+        listRoles( ).with {
+          assertThat(
+              !roles.findAll{ Role role ->
+                role.roleName==roleName }.isEmpty(),
+              "Expected role: ${userName}" )
+        }
+
+        print( "Listing user policies" )
+        listUserPolicies( new ListUserPoliciesRequest( userName: userName ) ).with {
+          assertThat(
+              policyNames.contains( policyName ),
+              "Expected user policy: ${policyName}" )
+        }
+
+        print( "Listing group policies" )
+        listGroupPolicies( new ListGroupPoliciesRequest( groupName: groupName ) ).with {
+          assertThat(
+              policyNames.contains( policyName ),
+              "Expected group policy: ${policyName}" )
+        }
+
+        print( "Listing role policies" )
+        listRolePolicies( new ListRolePoliciesRequest( roleName: roleName ) ).with {
+          assertThat(
+              policyNames.contains( policyName ),
+              "Expected role policy: ${policyName}" )
+        }
+
+        // Delete resources using admin role
+        print( "Deleting user policy: ${userName}/${policyName}" )
+        deleteUserPolicy( new DeleteUserPolicyRequest( userName: userName, policyName: policyName ) )
+
+        print( "Deleting group policy: ${groupName}/${policyName}" )
+        deleteGroupPolicy( new DeleteGroupPolicyRequest( groupName: groupName, policyName: policyName ) )
+
+        print( "Deleting role policy: ${roleName}/${policyName}" )
+        deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+
+        print( "Deleting user: ${userName}" )
+        deleteUser( new DeleteUserRequest( userName: userName ) )
+
+        print( "Deleting group: ${groupName}" )
+        deleteGroup( new DeleteGroupRequest( groupName: groupName ) )
+
+        print( "Deleting role: ${roleName}" )
+        deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+
+        void
+      }
+
+      iamUser.with {
+        // Verify resources deleted / terminated
+        print( "Verifying user deleted: ${userName}" )
+        listUsers( ).with {
+          assertThat( users.findAll{ User user ->
+            user.userName==userName }.isEmpty(), "Expected user deleted: ${userName}" )
+        }
+
+        print( "Verifying group deleted: ${groupName}" )
+        listGroups( ).with {
+          assertThat( groups.findAll{ Group group ->
+            group.groupName==groupName }.isEmpty(), "Expected group deleted: ${groupName}" )
+        }
+
+        print( "Verifying role deleted: ${roleName}" )
+        listRoles( ).with {
+          assertThat( roles.findAll{ Role role ->
+            role.roleName==roleName }.isEmpty(), "Expected role deleted: ${roleName}" )
+        }
+
+        void
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

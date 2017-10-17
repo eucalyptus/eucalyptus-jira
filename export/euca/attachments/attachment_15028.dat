@@ -1,0 +1,11 @@
+Apr 12 12:33:44 localhost [CLOUDINIT] cloud-init[INFO]: cloud-init start-local running: Fri, 12 Apr 2013 12:33:44 +0000. up 8.92 seconds
+Apr 12 12:33:44 localhost [CLOUDINIT] __init__.py[DEBUG]: searching for data source in ['DataSourceNoCloud', 'DataSourceConfigDrive', 'DataSourceOVF']
+Apr 12 12:33:45 localhost [CLOUDINIT] __init__.py[DEBUG]: Did not find data source. searched classes: ['DataSourceNoCloud', 'DataSourceConfigDrive', 'DataSourceOVF']
+Apr 12 12:33:45 localhost [CLOUDINIT] cloud-init[INFO]: cloud-init start running: Fri, 12 Apr 2013 12:33:45 +0000. up 9.23 seconds
+Apr 12 12:33:45 localhost [CLOUDINIT] __init__.py[DEBUG]: searching for data source in ['DataSourceNoCloudNet', 'DataSourceConfigDriveNet', 'DataSourceOVFNet', 'DataSourceEc2']
+Apr 12 12:33:45 localhost [CLOUDINIT] DataSourceEc2.py[DEBUG]: removed the following from metadata urls: ['http://instance-data.:8773']
+Apr 12 12:34:35 localhost [CLOUDINIT] DataSourceEc2.py[WARNING]: 'http://169.254.169.254/2009-04-04/meta-data/instance-id' failed [50/120s]: url error [timed out]
+Apr 12 12:35:26 localhost [CLOUDINIT] DataSourceEc2.py[WARNING]: 'http://169.254.169.254/2009-04-04/meta-data/instance-id' failed [101/120s]: url error [timed out]
+Apr 12 12:35:44 localhost [CLOUDINIT] DataSourceEc2.py[WARNING]: 'http://169.254.169.254/2009-04-04/meta-data/instance-id' failed [119/120s]: url error [timed out]
+Apr 12 12:35:45 localhost [CLOUDINIT] DataSourceEc2.py[CRITICAL]: giving up on md after 120 seconds
+Apr 12 12:35:45 localhost [CLOUDINIT] __init__.py[DEBUG]: Did not find data source. searched classes: ['DataSourceNoCloudNet', 'DataSourceConfigDriveNet', 'DataSourceOVFNet', 'DataSourceEc2']

@@ -1,0 +1,100 @@
+2013-10-20 18:07:02 DEBUG 000005788 diskutil_unloop          | detaching from loop device /dev/loop0
+2013-10-20 18:07:02 DEBUG 000005788 diskutil_unloop          | detaching from loop device /dev/loop1
+2013-10-20 18:07:02 DEBUG 000005788 diskutil_unloop          | detaching from loop device /dev/loop4
+2013-10-20 18:07:02 DEBUG 000005788 diskutil_unloop          | detaching from loop device /dev/loop5
+2013-10-20 18:07:02 DEBUG 000005707 sensor_refresh_resources | polled statistics for 0 instance(s)
+2013-10-20 18:07:02 DEBUG 000005707 sensor_refresh_resources | unable to get metrics for resource i-F37D4558 (OK if it was terminated---should soon expire from the cache)
+2013-10-20 18:07:02 DEBUG 000005707 sensor_expire_cache_entr | invoked
+2013-10-20 18:07:02 DEBUG 000005788 diskutil_unloop          | detaching from loop device /dev/loop2
+2013-10-20 18:07:02 DEBUG 000005788 diskutil_unloop          | detaching from loop device /dev/loop3
+2013-10-20 18:07:02  INFO 000005788 monitoring_thread        | [i-F37D4558] stopping the network (vlan=-1)
+2013-10-20 18:07:02 DEBUG 000005788 change_state             | [i-F37D4558] state change for instance: Shutoff -> Teardown (Teardown)
+2013-10-20 18:07:02 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:02 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:02 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:02 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:02 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:08 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:08 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:08 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:08 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:08 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:12 DEBUG 000005700 doDescribeSensors        | invoked (instIdsLen=0 sensorIdsLen=0)
+2013-10-20 18:07:12 DEBUG 000005700 sensor_expire_cache_entr | invoked
+2013-10-20 18:07:12 DEBUG 000005700 doDescribeSensors        | found 1 resource(s)
+2013-10-20 18:07:15 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:15 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:15 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:16 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:16 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:23 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:23 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:23 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:23 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:23 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:29 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:29 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:29 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:29 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:29 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:35 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:35 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:35 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:35 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:35 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:41 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:41 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:41 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:41 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:41 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:42 DEBUG 000005788 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-10-20 18:07:42 DEBUG 000005788 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 0
+2013-10-20 18:07:42 DEBUG 000005788 statfs_path              |   of size 210322055168 bytes with available 194422718464 bytes
+2013-10-20 18:07:42 DEBUG 000005788 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-10-20 18:07:42 DEBUG 000005788 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 0
+2013-10-20 18:07:42 DEBUG 000005788 statfs_path              |   of size 210322055168 bytes with available 194422718464 bytes
+2013-10-20 18:07:48 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:48 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:48 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:48 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:48 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:07:54 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:07:54 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:07:54 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:07:54 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:07:54 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:00 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:08:00 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:08:00 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:08:00 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:08:00 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:06 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:08:06 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:08:06 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:08:06 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:08:06 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:12 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:08:12 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:08:12 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:08:12 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:08:12 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:18 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:08:18 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:08:18 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:08:18 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:08:18 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:24 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:08:24 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:08:24 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:08:24 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:08:24 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:31 DEBUG 000005700 doDescribeResource       | Core status:   in-use 0 physical 4 over-committed no
+2013-10-20 18:08:31 DEBUG 000005700 doDescribeResource       | Memory status: in-use 0 physical 8048 over-committed no
+2013-10-20 18:08:31 DEBUG 000005700 doDescribeResource       | returning status=enabled cores=4/4 mem=8048/8048 disk=57/57 iqn=iqn.1994-05.com.redhat:7461ea56ee
+2013-10-20 18:08:31 DEBUG 000005700 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=32 services[0]{.name=CC_96 .type=cluster .uris[0]=http://10.111.5.96:8774/axis2/services/EucalyptusCC}
+2013-10-20 18:08:31 DEBUG 000005700 doDescribeInstances      | [i-F37D4558] Teardown (not migrating) pub=10.111.103.250 vols=vol-4D563C3F:D,vol-4B6743B9:A,vol-B9A53ABD:A
+2013-10-20 18:08:32 DEBUG 000005788 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2013-10-20 18:08:32 DEBUG 000005788 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 0
+2013-10-20 18:08:32 DEBUG 000005788 statfs_path              |   of size 210322055168 bytes with available 194422722560 bytes
+2013-10-20 18:08:32 DEBUG 000005788 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2013-10-20 18:08:32 DEBUG 000005788 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 0

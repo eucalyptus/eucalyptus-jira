@@ -1,0 +1,29 @@
+From c10e0bd66b11bd938363f48dfe1c861e30f033b8 Mon Sep 17 00:00:00 2001
+From: Garrett Holmstrom <gholms@fedoraproject.org>
+Date: Fri, 8 Jun 2012 12:11:31 -0700
+Subject: [PATCH] Fix bad euca-describe-* admin tool format strings
+
+Fixes EUCA-2310
+---
+ clc/eucadmin/eucadmin/describerequest.py |    5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/clc/eucadmin/eucadmin/describerequest.py b/clc/eucadmin/eucadmin/describerequest.py
+index e40b670..c83de79 100644
+--- a/clc/eucadmin/eucadmin/describerequest.py
++++ b/clc/eucadmin/eucadmin/describerequest.py
+@@ -58,9 +58,8 @@ class DescribeRequest(AWSQueryRequest):
+         for s in services:
+             if s.get('euca:hostName', None) != 'detail':
+                 for field_name in fields:
+-                    field_size = math.ceil(fields[field_name]/5.0)*5
+-                    if len(s.get(field_name)) > field_size:
+-                        fields[field_name] = field_size
++                    if len(s.get(field_name)) > fields[field_name]:
++                        fields[field_name] = len(s.get(field_name))
+         fmt = '%%s\t%%-%s.%ss\t%%-%d.%ds\t%%-%ds\t%%s\t%%s' % (fields['euca:partition'],
+                                                                fields['euca:partition'],
+                                                                fields['euca:name'],
+-- 
+1.7.10.1
+

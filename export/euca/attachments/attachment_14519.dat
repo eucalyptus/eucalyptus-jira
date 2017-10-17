@@ -1,0 +1,236 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.autoscaling.AmazonAutoScaling;
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient;
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing;
+import com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancingClient;
+import com.amazonaws.services.elasticloadbalancing.model.CreateLoadBalancerRequest;
+import com.amazonaws.services.elasticloadbalancing.model.DeleteLoadBalancerRequest;
+import com.amazonaws.services.elasticloadbalancing.model.Listener;
+
+/**
+ * This application tests reference validation for auto scaling groups with ELB.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-5027
+ */
+public class TestAutoScalingELBReferenceValidation {
+  private final String host;
+  private final String accessKey;
+  private final String secretKey;
+
+  public static void main( String[] args ) throws Exception {
+    final TestAutoScalingELBReferenceValidation test =  new TestAutoScalingELBReferenceValidation(
+        "192.168.51.180",
+        "TI3EFFFRCBPK4DGBHZBOH",
+        "NKRWF7ehFjhNR9A0SkGZBpCMJJinC148VSuyv6vf"
+    );
+    test.test();
+  }
+
+  public TestAutoScalingELBReferenceValidation( final String host,
+                                                final String accessKey,
+                                                final String secretKey ) {
+    this.host = host;
+    this.accessKey = accessKey;
+    this.secretKey = secretKey;
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials( accessKey, secretKey );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://" + host + ":8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( ) {
+    final AmazonAutoScaling as = new AmazonAutoScalingClient( credentials() );
+    as.setEndpoint( cloudUri( "/services/AutoScaling/" ) );
+    return as;
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private AmazonElasticLoadBalancing getElbClient( ) {
+    final AmazonElasticLoadBalancing elb = new AmazonElasticLoadBalancingClient( credentials() );
+    elb.setEndpoint( cloudUri( "/services/LoadBalancing/" ) );
+    return elb;
+  }
+
+  private String instanceType() {
+    return "m1.small";
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  public void test() throws Exception{
+    final AmazonAutoScaling as = getAutoScalingClient();
+    final AmazonEC2 ec2 = getEc2Client();
+    final AmazonElasticLoadBalancing elb = getElbClient();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" ),
+        new Filter().withName( "root-device-type" ).withValues( "instance-store" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 0, "Availability zone not found" );
+
+    final String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    print( "Using availability zone: " + availabilityZone );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Generate a load balancer to use
+      final String loadBalancerName = namePrefix + "ELBReferenceTest";
+      print( "Creating a load balancer for test use: " + loadBalancerName );
+      elb.createLoadBalancer( new CreateLoadBalancerRequest()
+          .withLoadBalancerName( loadBalancerName )
+          .withAvailabilityZones( availabilityZone )
+          .withListeners( new Listener()
+              .withInstancePort( 8888 )
+              .withLoadBalancerPort( 8888 )
+              .withProtocol( "HTTP" )
+          )
+      );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting load balancer: " + loadBalancerName );
+          elb.deleteLoadBalancer( new DeleteLoadBalancerRequest().withLoadBalancerName( loadBalancerName ) );
+        }
+      } );
+
+      // Register cleanup for launch config
+      final String configName = namePrefix + "ELBReferenceTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting launch configuration: " + configName );
+          as.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest().withLaunchConfigurationName( configName ) );
+        }
+      } );
+
+      // Create launch configuration
+      print( "Creating launch configuration: " + configName );
+      as.createLaunchConfiguration( new CreateLaunchConfigurationRequest()
+          .withLaunchConfigurationName( configName )
+          .withImageId( imageId )
+          .withInstanceType( instanceType() ) );
+
+      // Register cleanup for auto scaling group
+      final String groupName = namePrefix + "ELBReferenceTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting group: " + groupName );
+          as.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest().withAutoScalingGroupName( groupName ).withForceDelete( true ) );
+        }
+      } );
+
+      // Create scaling group with invalid availability zone
+      print( "Creating auto scaling group with invalid load balancer: " + groupName );
+      try {
+        as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+            .withAutoScalingGroupName( groupName )
+            .withLaunchConfigurationName( configName )
+            .withMinSize( 0 )
+            .withMaxSize( 2 )
+            .withAvailabilityZones( availabilityZone )
+            .withLoadBalancerNames( "invalid load balancer name" )
+        );
+        assertThat( false, "Creation should fail" );
+      } catch ( AmazonServiceException e ) {
+        print( "Expected error returned: " + e );
+      }
+
+      // Create scaling group
+      print( "Creating auto scaling group: " + groupName );
+      as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+          .withAutoScalingGroupName( groupName )
+          .withLaunchConfigurationName( configName )
+          .withMinSize( 0 )
+          .withMaxSize( 1 )
+          .withAvailabilityZones( availabilityZone )
+          .withLoadBalancerNames( loadBalancerName )
+      );
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+}

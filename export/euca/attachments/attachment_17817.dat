@@ -1,0 +1,261 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.BasicSessionCredentials;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.CreateVolumeRequest;
+import com.amazonaws.services.ec2.model.DeleteVolumeRequest;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeVolumesRequest;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClient;
+import com.amazonaws.services.identitymanagement.model.CreateRoleRequest;
+import com.amazonaws.services.identitymanagement.model.DeleteRolePolicyRequest;
+import com.amazonaws.services.identitymanagement.model.DeleteRoleRequest;
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException;
+import com.amazonaws.services.identitymanagement.model.PutRolePolicyRequest;
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient;
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
+import com.amazonaws.services.securitytoken.model.AssumeRoleResult;
+
+/**
+ * NOTE: This test may stop working if we limit access to the Eucalyptus account
+ */
+public class TestAdminRoles {
+
+  private final String host = "10.111.1.14";
+
+  // Cloud administrative credentials
+  private final String eucalyptusAccessKey = "AKIRZLNGM2PQDLQBEYEM";
+  private final String eucalyptusSecretKey = "eW5CRIGrUI3B7IYp1j43HnsGudHVeKsN7I75W1fZ";
+
+  // Details for an admin in some other account that we want to allow
+  // to assume an admin role
+  private final String adminAccountNumber = "363335430320";
+  private final String adminAccessKey = "AKIV5JG8D4KQ9CI84HQS";
+  private final String adminSecretKey = "FrHlgB7JBLewidxlTW0GVRcPEAxTC1LijIMqOI0M";
+
+  // Creds for a regular account we can use to create a resource to
+  // test administrative access
+  private final String regularAccessKey = "AKIOOAUZ6GJRG3OGSGFO";
+  private final String regularSecretKey = "nkAjhWN52lAjjaNm8m3i0PNIbWtd3sAboA1CFlaQ";
+
+  private final String ec2Policy = "{\n" +
+      "   \"Statement\":[{\n" +
+      "      \"Effect\":\"Allow\",\n" +
+      "      \"Action\":\"ec2:*\",\n" +
+      "      \"Resource\":\"*\"\n" +
+      "   }]\n" +
+      "}";
+
+  private final String assumeRolePolicy = "{\n" +
+      "    \"Statement\": [ {\n" +
+      "      \"Effect\": \"Allow\",\n" +
+      "      \"Principal\": {\n" +
+      "         \"AWS\": [ \"arn:aws:iam::"+adminAccountNumber+":user/admin\" ]\n" +
+      "      },\n" +
+      "      \"Action\": [ \"sts:AssumeRole\" ]\n" +
+      "    } ]\n" +
+      "}";
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoles().test();
+  }
+
+  private AWSCredentials credentials( final String accessKey,
+                                      final String secretKey ) {
+    return new BasicAWSCredentials( accessKey, secretKey );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://" + host + ":8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonEC2 getEc2ClientUsingRole( final String roleArn,
+                                           final String sessionName,
+                                           final String accessKey,
+                                           final String secretKey ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( new AWSCredentialsProvider(){
+      @Override
+      public AWSCredentials getCredentials() {
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( credentials( accessKey, secretKey ) );
+        sts.setEndpoint( cloudUri( "/services/Tokens/" ) );
+        final AssumeRoleResult assumeRoleResult = sts.assumeRole( new AssumeRoleRequest()
+            .withRoleArn( roleArn )
+            .withRoleSessionName( sessionName )
+        );
+
+        assertThat( assumeRoleResult.getAssumedRoleUser().getAssumedRoleId().endsWith( sessionName ), "Unexpected assumed role id: " + assumeRoleResult.getAssumedRoleUser().getAssumedRoleId() );
+        assertThat( assumeRoleResult.getAssumedRoleUser().getArn().endsWith( sessionName ), "Unexpected assumed role arn: " + assumeRoleResult.getAssumedRoleUser().getArn() );
+
+        return new BasicSessionCredentials(
+            assumeRoleResult.getCredentials().getAccessKeyId(),
+            assumeRoleResult.getCredentials().getSecretAccessKey(),
+            assumeRoleResult.getCredentials().getSessionToken()
+        );
+      }
+
+      @Override
+      public void refresh() {
+      }
+    } );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private AmazonEC2 getEc2Client( final String accessKey,
+                                  final String secretKey ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials( accessKey, secretKey ) );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private AmazonIdentityManagement getIamClient( final String accessKey,
+                                                 final String secretKey  ) {
+    final AmazonIdentityManagement iam = new AmazonIdentityManagementClient( credentials( accessKey, secretKey ) );
+    iam.setEndpoint( cloudUri( "/services/Euare/" ) );
+    return iam;
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  public void test() throws Exception {
+    final AmazonEC2 ec2 = getEc2Client( eucalyptusAccessKey, eucalyptusSecretKey );
+    final AmazonEC2 ec2User = getEc2Client( regularAccessKey, regularSecretKey );
+    final AmazonIdentityManagement iam = getIamClient( eucalyptusAccessKey, eucalyptusSecretKey );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 0, "Availability zone not found" );
+
+    final String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    print( "Using availability zone: " + availabilityZone );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Set up administrative role
+      final String roleName = namePrefix + "resource-admin";
+      print( "Creating role with name: " + roleName );
+      final String roleArn = iam.createRole( new CreateRoleRequest()
+        .withRoleName( roleName )
+        .withAssumeRolePolicyDocument( assumeRolePolicy )
+      ).getRole().getArn();
+      print( "Created role with ARN " + roleArn );
+
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting role " + roleName );
+          iam.deleteRole( new DeleteRoleRequest().withRoleName( roleName ) );
+        }
+      } );
+
+      final String policyName = "ec2";
+      print( "Adding policy to role " + roleName );
+      iam.putRolePolicy( new PutRolePolicyRequest( )
+        .withRoleName( roleName )
+        .withPolicyName( policyName )
+        .withPolicyDocument( ec2Policy )
+      );
+
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting policy for role " + roleName );
+          iam.deleteRolePolicy( new DeleteRolePolicyRequest().withRoleName( roleName ).withPolicyName( policyName ) );
+        }
+      } );
+
+      // Create resource to test cross-account access
+      print( "Creating volume as user" );
+      final String volumeId = ec2User.createVolume( new CreateVolumeRequest().withAvailabilityZone( availabilityZone ).withSize( 1 ) ).getVolume().getVolumeId();
+      print( "Created volume: " + volumeId );
+
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting volume for user: " + volumeId );
+          ec2User.deleteVolume( new DeleteVolumeRequest().withVolumeId( volumeId ) );
+        }
+      } );
+
+      print( "Waiting until volume available:" + volumeId );
+      for ( int i=0; i<120; i++ ) {
+        Thread.sleep( 1000 );
+        final int volumeCount = ec2User.describeVolumes( new DescribeVolumesRequest().withVolumeIds( volumeId ).withFilters( new Filter().withName( "status" ).withValues( "available" ) ) ).getVolumes().size();
+        if ( volumeCount == 1 ) break;
+      }
+      final int volumeCount1 = ec2User.describeVolumes( new DescribeVolumesRequest().withVolumeIds( volumeId ).withFilters( new Filter().withName( "status" ).withValues( "available" ) ) ).getVolumes().size();
+      assertThat( volumeCount1==1, "Expected volume available: " + volumeId );
+
+      // Delete volume with assumed role
+      print( "Deleting volume using admin role: " + roleArn );
+      final AmazonEC2 ec2role = getEc2ClientUsingRole( roleArn, "session-name-here", adminAccessKey, adminSecretKey );
+      ec2role.deleteVolume( new DeleteVolumeRequest().withVolumeId( volumeId ) );
+
+      // Verify volume deleted
+      print( "Verifying volume no longer present: " + volumeId );
+      final int volumeCount = ec2User.describeVolumes( new DescribeVolumesRequest().withVolumeIds( volumeId ).withFilters( new Filter().withName( "status" ).withValues( "available" ) ) ).getVolumes().size();
+      assertThat( volumeCount==0, "Expected volume deleted: " + volumeId );
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." );
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+}

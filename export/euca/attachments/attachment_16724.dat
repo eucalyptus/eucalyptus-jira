@@ -1,0 +1,34 @@
+[root@g-05-01 eucalyptus]# euca-describe-availability-zones verbose
+AVAILABILITYZONE    PARTI00 10.111.1.173 arn:euca:eucalyptus:PARTI00:cluster:CC_173/
+AVAILABILITYZONE    |- vm types free / max   cpu   ram  disk
+AVAILABILITYZONE    |- m1.small 0000 / 0012   1    256     5
+AVAILABILITYZONE    |- t1.micro 0000 / 0012   1    256     5
+AVAILABILITYZONE    |- m1.medium    0000 / 0012   1    512    10
+AVAILABILITYZONE    |- c1.medium    0000 / 0006   2    512    10
+AVAILABILITYZONE    |- m1.large 0000 / 0006   2    512    10
+AVAILABILITYZONE    |- m1.xlarge    0000 / 0006   2   1024    10
+AVAILABILITYZONE    |- c1.xlarge    0000 / 0006   2   2048    10
+AVAILABILITYZONE    |- m2.xlarge    0000 / 0006   2   2048    10
+AVAILABILITYZONE    |- m3.xlarge    0000 / 0003   4   2048    15
+AVAILABILITYZONE    |- m2.2xlarge   0000 / 0003   2   4096    30
+AVAILABILITYZONE    |- m3.2xlarge   0000 / 0003   4   4096    30
+AVAILABILITYZONE    |- cc1.4xlarge  0000 / 0000   8   3072    60
+AVAILABILITYZONE    |- m2.4xlarge   0000 / 0000   8   4096    60
+AVAILABILITYZONE    |- hi1.4xlarge  0000 / 0000   8   6144   120
+AVAILABILITYZONE    |- cc2.8xlarge  0000 / 0000  16   6144   120
+AVAILABILITYZONE    |- cg1.4xlarge  0000 / 0000  16   12288   200
+AVAILABILITYZONE    |- cr1.8xlarge  0000 / 0000  16   16384   240
+AVAILABILITYZONE    |- hs1.8xlarge  0000 / 0000  48   119808  24000
+[root@g-05-01 eucalyptus]# euca-describe-addresses
+ADDRESS 10.111.101.124  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.125  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.126  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.127  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.136  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.137  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.138  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.139  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.140  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.141  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.142  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard
+ADDRESS 10.111.101.143  pending (arn:aws:euare::000000000000:user/eucalyptus)   standard

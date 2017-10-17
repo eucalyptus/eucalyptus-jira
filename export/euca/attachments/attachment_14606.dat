@@ -1,0 +1,275 @@
+# 
+# starts/terminate a  a esb image 
+# and monitors if any iscsi turds 
+# are left over.
+#
+# usage: <ebsimage> 
+#
+NODE=0
+RUNS=0
+IMAGE=""
+# delay between euca-run-instance
+SLEEP1=30
+# delay after a instance becomes running
+SLEEP2=30
+# delay between loops 
+SLEEP3=30
+#WAIT 
+WAIT=360
+NODES=""
+SERIAL=""
+NET=""
+
+test_ip() 
+{
+S=120
+IP=`euca-describe-instances $1 | grep INS | cut -f4`
+
+while [ ! ${S} = 0 ]
+ do
+ 	S=`expr $S - 1`
+	ping -c 1 $IP > /dev/null 2>&1 
+ 	if [ ! $? ]; then
+		sleep 2
+	else
+    		echo "`date`: $1 has network up: $IP"
+		return 1
+	fi
+ done
+ echo "`date`; $1 Never answered on $IP" 
+ return 0
+
+}
+set_nc() 
+{
+
+NODES=`grep NODES /etc/eucalyptus/eucalyptus.conf | cut -f2 -d\"`
+}
+wait_for_run()
+{
+
+S=$WAIT
+
+while [ ! ${S} = 0 ]
+ do
+ 	S=`expr $S - 1`
+	STATE=`euca-describe-instances $1 | grep INS | cut -f6`
+ 	if [ "$STATE" = "running" ]; then
+    		echo "`date`: $1 is running"
+ 		RUNS=`expr $RUNS + 1`
+                # time to run
+                sleep $SLEEP2 
+		if [ "$NET" = "YES" ]; then 
+			test_ip $1
+		fi
+    		return 1
+ 	fi
+
+ 	if [ "$STATE" = "terminated" ]; then
+    		echo "`date`: $1 is terminated"
+    		return 0
+ 	fi
+
+ 	if [ "$STATE" = "stopped" ]; then
+    		echo "`date`: $1 is stopped"
+  	  	return 0
+ 	fi
+
+ 	sleep 5
+ done
+
+echo "`date`; $1 Never ran" 
+#	exit 1
+}
+
+is_ebs()
+{
+ E=`euca-describe-images  $1 | grep IMA | awk '{print $9}'`
+ if [ "$E" = "ebs" ]; then 
+	echo  "ebs"
+ else 
+	return ""
+ fi
+
+}
+# $1 == image
+
+loop_ebs ()
+{
+
+	echo "`date`, Stopping running VMs"
+
+ 	II=`euca-describe-instances  | grep INS | cut -f2`
+	while [ "$II" ] ; do 
+ 		euca-terminate-instances $II > /dev/null 2>&1 
+ 		sleep 30
+ 		II=`euca-describe-instances  | grep INS | cut -f2`
+	done
+
+	# number of free smalls at start 
+	NS=`euca-describe-availability-zones verbose | grep small | awk '{print $4}'`  
+
+while true
+
+ do
+ 	II=`euca-describe-instances  | grep INS | cut -f2`
+	while [ "$II" ] ; do 
+ 		euca-terminate-instances $II > /dev/null 2>&1 
+ 		sleep 30
+ 		II=`euca-describe-instances  | grep INS | cut -f2`
+	done
+
+	# N == number of smalls available
+	N=`euca-describe-availability-zones verbose | grep small | awk '{print $4}'`  
+	M=`euca-describe-availability-zones verbose | grep medium | awk '{print $4}'`  
+
+	echo "`date`; small: $N, med: $M"
+ 	DIFF=`expr $NS - $N `
+
+	if [ "${DIFF}" -gt "0" ]; then
+		echo "`date`; we lost a entry $NS, $N"
+		sync
+		exit 1
+		sleep 5
+		service eucalyptus-cloud stop
+		service eucalyptus-cc stop
+	fi
+
+        if [ "BLAST" = "YES" ] ; then
+
+ 			X=`euca-run-instances -n $N $IMAGE  2>&1  `
+			Y=`echo $X | grep "Not enough"`
+ 			if [ "${Y}" ]; then 
+ 				II=`euca-describe-instances  | grep INS | cut -f2`
+  				echo "$N, $X "
+  		 		exit 1
+ 			fi
+   	 		I=`echo $X| grep INS | awk '{print $6}' ` 
+ 			II=`euca-describe-instances  | grep INS | cut -f2`
+			for i in $II ; do 
+   	 			wait_for_run  $i
+			done
+
+	else if [ "SERIAL" = "YES" ] ; then
+
+		while [ ! ${N} = 0 ]; do
+ 			N=`expr $N - 1`
+ 			# X=`euca-run-instances -k jpdcred  $IMAGE  2>&1  `
+ 			X=`euca-run-instances $IMAGE  2>&1  `
+			Y=`echo $X | grep "Not enough"`
+ 			if [ "${Y}" ]; then 
+ 				II=`euca-describe-instances  | grep INS | cut -f2`
+  				echo "$N, $X "
+  		 		exit 1
+ 			fi
+   	 		I=`echo $X| grep INS | awk '{print $6}' ` 
+   	 		wait_for_run  $I
+                	# time between launches 
+			sleep $SLEEP1
+		done
+        else 
+		while [ ! ${N} = 0 ]; do
+ 			N=`expr $N - 1`
+ 			X=`euca-run-instances $IMAGE   2>&1  `
+			Y=`echo $X | grep "Not enough"`
+ 			if [ "${Y}" ]; then 
+ 				II=`euca-describe-instances  | grep INS | cut -f2`
+  				echo "$N, $X "
+  		 		exit 1
+ 			fi
+                	# time between launches 
+			sleep $SLEEP1
+		done
+ 		II=`euca-describe-instances  | grep INS | cut -f2`
+		for i in $II ; do 
+   	 		wait_for_run  $i
+		done
+
+        fi
+        fi
+
+
+ 	II=`euca-describe-instances  | grep INS | cut -f2`
+        # nc 
+        #CORES=`ssh ${NODE} grep "cores=" /var/log/eucalyptus/nc.log | tail -1 | cut -f2 -d' '`
+ 	II=`euca-describe-instances  | grep INS | cut -f2 | wc -l`
+ 	echo "`date`; Runs: $RUNS, $CORES, Instances: $II"
+
+ #	sleep $SLEEP3
+ done 
+}
+DELAY=60
+
+while [ "$1" != "" ] ; do 
+if [ "$1" = "-e" ]; then
+	shift
+	IMAGE=$1
+	shift
+fi
+if [ "$1" = "-s1" ]; then
+	shift
+	SLEEP1=$1
+	shift
+fi
+if [ "$1" = "-s2" ]; then
+	shift
+	SLEEP2=$1
+	shift
+fi
+if [ "$1" = "-s3" ]; then
+	shift
+	SLEEP3=$1
+	shift
+fi
+if [ "$1" = "-w" ]; then
+	shift
+	WAIT=$1
+	shift
+fi
+
+if [ "$1" = "-n" ]; then
+	NET="YES" 
+	shift
+fi
+if [ "$1" = "-s" ]; then
+	SUMMARY="YES" 
+	shift
+fi
+if [ "$1" = "-B" ]; then
+	BLAST="YES"
+	shift
+fi
+if [ "$1" = "-S" ]; then
+	SERIAL="YES"
+	shift
+fi
+if [ "$1" = "-t" ]; then
+	DELAY=$1
+	shift
+fi
+
+if [ "$1" = "-h" ]; then
+	shift
+        echo "usage: $0 -e <image> [-s1 secs][-s2 secs][-s3 secs][-h]"
+        echo "-e <ebs image>"
+        echo "-n : wait for instance to response to a ping (network test) "
+        echo "-s1 <secs> : delay between euca-runs-instance "
+        echo "-s2 <secs> : delay after a instance enters runs state "
+        echo "-s3 <secs> : delay between each loop/pass "
+        echo "-w <secs> : Wait for instance to run"
+        echo "-B : run as many  instances at once"
+        echo "-S : run instances serially waiting run state between each launch"
+        echo "          : (default: launch max instances then wait for run state)"
+	exit 0
+fi
+done
+
+
+
+if [ `is_ebs $IMAGE` ]; then 
+	NODE=`grep NODES /etc/eucalyptus/eucalyptus.conf | cut -f2 -d\"`
+	echo "NC Node0: ${NODE}, S1: $SLEEP1, S2 $SLEEP2, S3 $SLEEP3."
+	loop_ebs $IMAGE
+else 
+   echo "usage: -e $IMAGE is a ebs backed image " 
+fi

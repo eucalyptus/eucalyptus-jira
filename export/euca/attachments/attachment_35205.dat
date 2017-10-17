@@ -1,0 +1,582 @@
+{
+
+    "AWSTemplateFormatVersion" : "2010-09-09",
+
+    "Description" : "Cloudformation UpdateStack #9: Add instance profile to instance; trigger CFN Signal",
+
+    "Parameters": {
+        "ImageId": {
+            "Description":"Ubuntu Image Id",
+            "Type":"String",
+            "NoEcho":"False"
+        },
+
+        "EndPoint": {
+            "Description": "Endpoint URL of Cloudformation (required for Eucalyptus)",
+            "Type": "String",
+            "ConstraintDescription": "must be an URL to Cloudformation service on Eucalyptus"
+        },
+
+        "InstanceType": {
+            "Description": "EC2 instance type",
+            "Type": "String",
+            "Default": "m1.medium",
+            "AllowedValues": ["t1.micro", "t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "g2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"],
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        },
+
+        "KeyName": {
+            "Description":"User Key Pair",
+            "Type":"String",
+            "NoEcho":"False"
+        }
+    },
+
+    "Resources" : {
+        "VPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties" : {
+                "CidrBlock" : "10.0.0.0/16",
+                "EnableDnsSupport" : "True",
+                "EnableDnsHostnames" : "True",
+                "InstanceTenancy" : "default",
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"}} ]
+            }
+        },
+
+        "Subnet": {
+            "Type" : "AWS::EC2::Subnet",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "CidrBlock" : "10.0.0.0/24",
+                "AvailabilityZone" : { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
+            }
+        },
+
+        "InternetGateway" : {
+            "Type" : "AWS::EC2::InternetGateway",
+            "Properties" : {
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
+            }
+        },
+
+        "AttachGateway" : {
+            "Type" : "AWS::EC2::VPCGatewayAttachment",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "InternetGatewayId" : { "Ref" : "InternetGateway" }
+            }
+        },
+
+        "RouteTable": {
+            "Type" : "AWS::EC2::RouteTable",
+            "Properties" : {
+                "VpcId" : { "Ref" : "VPC" },
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
+            }
+        },
+
+        "Route" : {
+            "Type" : "AWS::EC2::Route",
+            "DependsOn" : "AttachGateway",
+            "Properties" : {
+                "RouteTableId" : { "Ref" : "RouteTable" },
+                "DestinationCidrBlock" : "0.0.0.0/0",
+                "GatewayId" : { "Ref" : "InternetGateway" }
+            }
+        },
+
+        "SubnetRouteTableAssocaiation" : {
+            "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+            "Properties" : {
+                "SubnetId" : { "Ref" : "Subnet" },
+                "RouteTableId" : { "Ref" : "RouteTable" }
+            }
+        },
+
+        "NetworkAcl" : {
+            "Type" : "AWS::EC2::NetworkAcl",
+            "Properties" : {
+                "VpcId" : {"Ref" : "VPC"},
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
+            }
+        },
+
+        "InboundSSHNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : {"Ref" : "NetworkAcl"},
+                "RuleNumber" : "101",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : {"From" : "22", "To" : "22"}
+            }
+        },
+
+        "InboundHTTPNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : {"Ref" : "NetworkAcl"},
+                "RuleNumber" : "102",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : {"From" : "80", "To" : "80"}
+            }
+        },
+
+        "InboundResponsePortsNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : {"Ref" : "NetworkAcl"},
+                "RuleNumber" : "103",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "false",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : {"From" : "1024", "To" : "65535"}
+            }
+        },
+
+        "OutBoundHTTPNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : {"Ref" : "NetworkAcl"},
+                "RuleNumber" : "100",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "true",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : {"From" : "80", "To" : "80"}
+            }
+        },
+
+        "OutBoundHTTPSNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : {"Ref" : "NetworkAcl"},
+                "RuleNumber" : "101",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "true",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : {"From" : "443", "To" : "443"}
+            }
+        },
+
+        "OutboundResponsePortsNetworkAclEntry" : {
+            "Type" : "AWS::EC2::NetworkAclEntry",
+            "Properties" : {
+                "NetworkAclId" : {"Ref" : "NetworkAcl"},
+                "RuleNumber" : "102",
+                "Protocol" : "6",
+                "RuleAction" : "allow",
+                "Egress" : "true",
+                "CidrBlock" : "0.0.0.0/0",
+                "PortRange" : {"From" : "1024", "To" : "65535"}
+            }
+        },
+
+        "SubnetNetworkAclAssociation" : {
+            "Type" : "AWS::EC2::SubnetNetworkAclAssociation",
+            "Properties" : {
+                "SubnetId" : { "Ref" : "Subnet" },
+                "NetworkAclId" : { "Ref" : "NetworkAcl" }
+            }
+        },
+
+        "SecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+                "Properties": {
+                    "GroupDescription" : "Security Group with Ingress Rule for Instance",
+                    "VpcId" : {"Ref" : "VPC"},
+                    "SecurityGroupIngress" : [
+                        {
+                            "IpProtocol" : "tcp",
+                            "FromPort" : "22",
+                            "ToPort" : "22",
+                            "CidrIp" : "0.0.0.0/0"
+                        },
+                        {
+                            "IpProtocol" : "tcp",
+                            "FromPort" : "80",
+                            "ToPort" : "80",
+                            "CidrIp" : "0.0.0.0/0"
+                        }
+                    ]
+                }
+        },
+
+        "SecurityGroup2": {
+            "Type": "AWS::EC2::SecurityGroup",
+                "Properties": {
+                    "GroupDescription" : "Security Group for Secondary Interface",
+                    "VpcId" : {"Ref" : "VPC"},
+                    "SecurityGroupIngress" : [
+                        {
+                            "IpProtocol" : "tcp",
+                            "FromPort" : "1",
+                            "ToPort" : "65535",
+                            "CidrIp" : "172.31.0.0/16"
+                        }
+                    ]
+                }
+        },
+
+        "Volume1" : {
+            "Type": "AWS::EC2::Volume",
+            "Properties" : {
+                "Size": "2",
+                "AvailabilityZone" : { "Fn::GetAtt" : [ "Instance", "AvailabilityZone" ] },
+                "Tags" : [ 
+                    {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} },
+                    {"Key" : "Purpose", "Value" : "Volume1 for Nginx Web Server" }
+                ]
+            },
+            "DeletionPolicy" : "Snapshot"
+        },
+
+        "Volume2" : {
+            "Type": "AWS::EC2::Volume",
+            "Properties" : {
+                "Size": "12",
+                "AvailabilityZone" : { "Fn::GetAtt" : [ "Instance", "AvailabilityZone" ] },
+                "Tags" : [ 
+                    {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} },
+                    {"Key" : "Purpose", "Value" : "Volume2 for Nginx Web Server" }
+                ]
+            },
+            "DeletionPolicy" : "Snapshot"
+        },
+
+        "MountPoint" : {
+            "Type" : "AWS::EC2::VolumeAttachment",
+            "DependsOn" : "Instance",
+            "Properties" : {
+                "InstanceId" : { "Ref" : "Instance" },
+                "VolumeId"  : { "Ref" : "Volume1" },
+                "Device" : "/dev/sde"
+            }
+        },
+
+        "MountPoint2" : {
+            "Type" : "AWS::EC2::VolumeAttachment",
+            "DependsOn" : "Instance",
+            "Properties" : {
+                "InstanceId" : { "Ref" : "Instance" },
+                "VolumeId"  : { "Ref" : "Volume2" },
+                "Device" : "/dev/sdf"
+            }
+        },
+
+        "DefaultInstanceRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [{
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": [
+                                "ec2.amazonaws.com"
+                            ]
+                        },
+                        "Action": [
+                            "sts:AssumeRole"
+                        ]
+                    }]
+                },
+                "Path": "/",
+                "Policies": [{
+                    "PolicyName": "AllowAllExceptIAM",
+                    "PolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [{
+                            "Effect": "Allow",
+                            "NotAction": [
+                                "iam:*"
+                            ],
+                            "Resource": "*"
+                        }]
+                    }
+                }]
+            }
+        },
+
+        "DefaultInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [{
+                    "Ref": "DefaultInstanceRole"
+                }]
+            }
+        },
+
+        "CfnUser": {
+            "Type": "AWS::IAM::User",
+            "Properties": {
+                "Path": "/",
+                "Policies": [{
+                    "PolicyName": "root",
+                    "PolicyDocument": {
+                        "Statement": [{
+                            "Effect": "Allow",
+                            "Action": "cloudformation:DescribeStackResource",
+                            "Resource": "*"
+                        }]
+                    }
+                }]
+            }
+        },
+
+        "CfnUserKey": {
+            "Type": "AWS::IAM::AccessKey",
+            "Properties": {
+                "UserName": {
+                    "Ref": "CfnUser"
+                }
+            }
+        },
+
+        "IPAddress" : {
+            "Type" : "AWS::EC2::EIP",
+            "DependsOn" : "AttachGateway",
+            "Properties" : {
+                "Domain" : "vpc"
+            }
+        },
+
+        "NetworkInterfaceOne" : {
+            "Type": "AWS::EC2::NetworkInterface",
+            "Properties": {
+                "Description": "Network Interface for Elastic IP",
+                "GroupSet" : [{ "Ref" : "SecurityGroup" }],
+                "SubnetId": { "Ref": "Subnet" },
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
+            }
+        },
+
+        "NetworkInterfaceTwo" : {
+            "Type": "AWS::EC2::NetworkInterface",
+            "Properties": {
+                "Description": "Secondary Network Interface",
+                "GroupSet" : [{ "Ref" : "SecurityGroup2" }],
+                "SubnetId": { "Ref": "Subnet" },
+                "Tags" : [ {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} } ]
+            }
+        },
+
+        "EIPAssociation": {
+            "Type" : "AWS::EC2::EIPAssociation",
+            "Properties" : {
+                "NetworkInterfaceId": { "Ref": "NetworkInterfaceOne" },
+                "AllocationId" : { "Fn::GetAtt" : [ "IPAddress" , "AllocationId" ] }
+            }
+        },
+
+        "Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Metadata": {
+                "AWS::CloudFormation::Init": {
+                    "config": {
+
+                        "files": {
+
+                            "/etc/cfn/cfn-hup.conf": {
+                                "content": {
+                                    "Fn::Join": ["", [
+                                        "[main]\n",
+                                        "stack=", {
+                                            "Ref": "AWS::StackName"
+                                        }, "\n",
+                                        "credential-file=/etc/cfn/cfn-credentials\n",
+                                        "interval=1\n",
+                                        "region=", {
+                                            "Ref": "AWS::Region"
+                                        }, "\n"
+                                    ]]
+                                },
+                                "mode": "000400",
+                                "owner": "root",
+                                "group": "root"
+                            },
+
+                            "/etc/cfn/cfn-credentials": {
+                                "content": {
+                                    "Fn::Join": ["", [
+                                        "AWSAccessKeyId=", {
+                                            "Ref": "CfnUserKey"
+                                        }, "\n",
+                                        "AWSSecretKey=", {
+                                            "Fn::GetAtt": ["CfnUserKey", "SecretAccessKey"]
+                                        }, "\n"
+                                    ]]
+                                },
+                                "mode": "000400",
+                                "owner": "root",
+                                "group": "root"
+                            },
+                            "/etc/cfn/hooks.d/cfn-auto-reloader.conf": {
+                                "content": {
+                                    "Fn::Join": ["", [
+                                        "[cfn-auto-reloader-hook]\n",
+                                        "triggers=post.update\n",
+                                        "path=Resources.Instance.Metadata.AWS::CloudFormation::Init\n",
+                                        "action=/usr/local/bin/cfn-init -v -s ", {
+                                            "Ref": "AWS::StackId"
+                                        }, " -r Instance ",
+                                        " --role ", {
+                                            "Ref": "DefaultInstanceRole"
+                                        },
+                                        " --region ", {
+                                            "Ref": "AWS::Region"
+                                        },
+                                        " --url ", {
+                                            "Ref": "EndPoint"
+                                        }, "\n",
+                                        "runas=root\n"
+                                    ]]
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            },
+            "Properties": {
+                "ImageId" : { "Ref":"ImageId" },
+                "InstanceType" : { "Ref":"InstanceType" },
+                "IamInstanceProfile": {
+                    "Ref": "DefaultInstanceProfile"
+                },
+                "UserData" : { "Fn::Base64" : { "Fn::Join" : ["",[
+                            "#!/bin/bash -xe\n",
+                            "apt-get update && apt-get install ntp -y\n",
+                            "apt-get install -y python-setuptools\n",
+                            "apt-get install -y nginx\n",
+                            "ntpd -u pool.ntp.org\n",
+                            "timedatectl set-ntp yes\n",
+                            "hwclock --systohc\n",
+                            "mkdir /aws-cfn-bootstrap-latest\n",
+                            "curl https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz | tar xz -C /aws-cfn-bootstrap-latest --strip-components 1\n",
+                            "easy_install /aws-cfn-bootstrap-latest\n",
+                            "function error_exit\n",
+                            "{\n",
+                            " /usr/local/bin/cfn-signal -e 1 ",
+                            "    --stack ", {
+                                "Ref": "AWS::StackId"
+                            },
+                            "    --reason \"$1\" '", {
+                                "Ref": "WaitHandle"
+                            }, "'",
+                            "    --role ", {
+                                "Ref": "DefaultInstanceRole"
+                            },
+                            "    --region ", {
+                                "Ref": "AWS::Region"
+                            }, "\n",
+                            "  exit 1\n",
+                            "}\n",
+                            "/usr/local/bin/cfn-init -v -s ", {
+                                "Ref": "AWS::StackId"
+                            }, " -r Instance ",
+                            "    --role ", {
+                                "Ref": "DefaultInstanceRole"
+                            },
+                            "    --region ", {
+                                "Ref": "AWS::Region"
+                            }, " --url ", {
+                                "Ref": "EndPoint"
+                            }, " || error_exit 'Failed to run cfn-init'\n",
+
+                            "/usr/local/bin/cfn-get-metadata -v -s ", {
+                                "Ref": "AWS::StackId"
+                            }, " -r Instance ",
+                            "  --access-key ", {
+                                "Ref": "CfnUserKey"
+                            },
+                            "  --secret-key ", {
+                                "Fn::GetAtt": ["CfnUserKey", "SecretAccessKey"]
+                            },
+                            "    --region ", {
+                                "Ref": "AWS::Region"
+                            }, " --url ", {
+                                "Ref": "EndPoint"
+                            }, " || error_exit 'Failed to run cfn-init'\n",
+
+                            "/usr/local/bin/cfn-hup || error_exit 'Failed to start cfn-hup'\n",
+
+                            " /usr/local/bin/cfn-signal -e 0 ",
+                            "    --stack ", {
+                                "Ref": "AWS::StackId"
+                            },
+                            "    --reason \"Helper Scripts Test Complete\" '", {
+                                "Ref": "WaitHandle"
+                            }, "'",
+                            "    --role ", {
+                                "Ref": "DefaultInstanceRole"
+                            },
+                            "    --region ", {
+                                "Ref": "AWS::Region"
+                            }, "\n"
+                        ]]
+                    }
+                },
+                "Tags" : [
+                    {"Key" : "Application", "Value" : { "Ref" : "AWS::StackId"} },
+                    {"Key" : "Purpose", "Value" : "Nginx Web Server" }
+                ],
+                "BlockDeviceMappings":[
+                    { "DeviceName":"/dev/sdc", "Ebs":{ "VolumeSize":"4", "DeleteOnTermination":"true" } },
+                    { "DeviceName":"/dev/sdd", "Ebs":{ "VolumeSize":"8", "DeleteOnTermination":"true" } }
+                ],
+                "NetworkInterfaces" : [{
+                    "DeviceIndex"  : "0",
+                    "Description" : "Default interface for instance",
+                    "NetworkInterfaceId" : { "Ref": "NetworkInterfaceOne" }
+                },{
+                    "DeviceIndex"  : "1",
+                    "Description" : "Secondary interface for instance",
+                    "NetworkInterfaceId" : { "Ref": "NetworkInterfaceTwo" }
+                }],
+                "KeyName" : { "Ref" : "KeyName" }
+            }
+        },
+
+        "WaitHandle": {
+            "Type": "AWS::CloudFormation::WaitConditionHandle"
+        },
+
+        "WaitCondition": {
+            "Type": "AWS::CloudFormation::WaitCondition",
+            "DependsOn": "Instance",
+            "Properties": {
+                "Handle": {
+                    "Ref": "WaitHandle"
+                },
+                "Timeout": "1800"
+            }
+        }
+    },
+
+    "Outputs" : {
+        "InstanceId" : {
+            "Description" : "InstanceId of the newly created EC2 instance",
+            "Value" : { "Ref" : "Instance" }
+        },
+        "AZ" : {
+            "Description" : "Availability Zone of the newly created EC2 instance",
+            "Value" : { "Fn::GetAtt" : [ "Instance", "AvailabilityZone" ] }
+        },
+        "PublicIP" : {
+            "Description" : "Public IP address of the newly created EC2 instance",
+            "Value" : { "Fn::GetAtt" : [ "Instance", "PublicIp" ] }
+        }
+    }
+}

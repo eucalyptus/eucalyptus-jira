@@ -1,0 +1,71 @@
+package com.eucalyptus.network
+
+import com.eucalyptus.cloud.run.AdmissionControl
+import com.eucalyptus.crypto.Crypto
+import com.google.common.collect.Iterables
+import com.google.common.collect.Lists
+import com.google.common.primitives.Ints
+import org.apache.log4j.Logger
+
+import java.util.concurrent.TimeUnit
+
+class YetAnotherAddressAllocator extends PrivateAddressAllocatorSupport {
+  private static Logger LOG = Logger.getLogger(AdmissionControl.class);
+  private static Logger logger = Logger.getLogger(AdmissionControl.class);
+  private int partitionSize;
+  private int partitionAttempts;
+
+  YetAnotherAddressAllocator() {
+    this(new DatabasePrivateAddressPersistence(), 8192, 10)
+  }
+
+  protected YetAnotherAddressAllocator(final PrivateAddressPersistence persistence,
+                                     final int partitionSize,
+                                     final int partitionAttempts) {
+    super(LOG, persistence)
+    this.partitionSize = partitionSize
+    this.partitionAttempts = partitionAttempts
+  }
+    
+
+  @Override
+  protected String allocate( final Iterable<Integer> addrIter, final Closure<String> allocator ) {
+    try {
+      long startTime = System.nanoTime();
+      List<Integer> addresses = addrIter;
+      for ( int attempts = 0; attempts < partitionAttempts; attempts++) {
+        long s1 = System.nanoTime();
+        int addrListSize = addresses.size();
+        int windowIndex = Math.random() * addrListSize;
+        List<Integer> addressWindow = Lists.newArrayList(addresses.subList(Ints.min(windowIndex,0), Ints.min(windowIndex + partitionSize, addresses.size() - 1)));
+        long s2 = System.nanoTime();
+        Collections.shuffle(addressWindow);
+        long s3 = System.nanoTime();
+        for (Integer address : addressWindow) {
+          String allocated = allocator.call(address)
+          if (allocated) {
+            long total=TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-startTime);
+            long sublist=TimeUnit.NANOSECONDS.toMillis(s2-s1);
+            long window = TimeUnit.NANOSECONDS.toMillis(s3-startTime);
+            long shuffle = TimeUnit.NANOSECONDS.toMillis(s3-s2);
+            long allocate = TimeUnit.NANOSECONDS.toMillis(System.nanoTime()-s3);
+            LOG.info(String.sprintf("address allocated: attempts=%d sublist=%d/%.2f%% window=%d/%.2f%% shuffle=%d/%.2f%% allocate=%d/%.2f%% total=%dmsec addrs=%d\n",
+            attempts,
+            sublist,sublist*100.0f/(1.0f*total),
+            window,window*100.0f/(1.0f*total),
+            shuffle,shuffle*100.0f/(1.0f*total),
+            allocate,allocate*100.0f/(1.0f*total),
+            total,addrListSize));
+            return allocated
+          }
+        }
+      }
+    } catch (Exception e) {
+      LOG.error(e,e);
+    }
+    null
+  }
+}
+
+PrivateAddresses.@allocator = new YetAnotherAddressAllocator();
+

@@ -1,0 +1,64 @@
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/component/Topology.java b/clc/modules/msgs/src/main/java/com/eucalyptus/component/Topology.java
+index 5641024..b0e427f 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/component/Topology.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/component/Topology.java
+@@ -79,6 +79,7 @@ import java.util.concurrent.atomic.AtomicInteger;
+ import java.util.concurrent.locks.ReadWriteLock;
+ import java.util.concurrent.locks.ReentrantReadWriteLock;
+ 
++import com.eucalyptus.component.groups.ApiEndpointServicesGroup.ApiEndpointGroup;
+ import org.apache.log4j.Logger;
+ 
+ import com.eucalyptus.bootstrap.Bootstrap;
+@@ -152,7 +153,7 @@ public class Topology {
+         return this.internal;
+       }
+     },
+-    EXTERNAL( 32 ) {
++    EXTERNAL( 256 ) {
+       ServiceConfiguration external;
+       
+       @Override
+@@ -204,6 +205,12 @@ public class Topology {
+         @Override
+         public Object call( ) {
+           try {
++            TimeUnit.SECONDS.sleep( backoff );
++          } catch ( InterruptedException ex ) {
++            busy.set( false );
++            return Collections.EMPTY_LIST;
++          }
++          try {
+             return RunChecks.INSTANCE.call( );
+           } finally {
+             busy.set( false );
+@@ -212,13 +219,6 @@ public class Topology {
+       };
+ 
+       if ( busy.compareAndSet( false, true ) ) {
+-        try {
+-          TimeUnit.SECONDS.sleep( backoff );
+-        } catch ( InterruptedException ex ) {
+-          busy.set( false );
+-          return;
+-        }
+-
+         if ( ( Hosts.isCoordinator( ) || counter.incrementAndGet( ) % 5 == 0 ) && lock.writeLock( ).tryLock( ) ) {
+           // Write lock acquisition is to ensure no other tasks in progress
+           // we don't want to block others from running
+@@ -401,11 +401,13 @@ public class Topology {
+   public static Function<ServiceConfiguration, Future<ServiceConfiguration>> transition( final Component.State toState ) {
+     final Function<ServiceConfiguration, Future<ServiceConfiguration>> transition = new Function<ServiceConfiguration, Future<ServiceConfiguration>>( ) {
+       private final List<Component.State> serializedStates = Lists.newArrayList( Component.State.ENABLED, Component.State.STOPPED );
+-      
++
+       @Override
+       public Future<ServiceConfiguration> apply( final ServiceConfiguration input ) {
+         final Callable<ServiceConfiguration> call = Topology.callable( input, Topology.get( toState ) );
+-        if ( this.serializedStates.contains( toState ) || this.serializedStates.contains( input.lookupState( ) ) ) {
++        if ( input.getComponentId().isManyToOnePartition() ) {//GRZE:ORLY: yes really.  if this doesn't work the whole scheme is gebroken.
++          return Queue.EXTERNAL.enqueue( call );
++        } else if ( this.serializedStates.contains( toState ) || this.serializedStates.contains( input.lookupState( ) ) ) {
+           return Threads.enqueue( input, Topology.class, 1, call );
+         } else {
+           return Queue.EXTERNAL.enqueue( call );

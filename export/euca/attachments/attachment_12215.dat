@@ -1,0 +1,225 @@
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/component/ComponentRegistrationHandler.java b/clc/modules/msgs/src/main/java/com/eucalyptus/component/ComponentRegistrationHandler.java
+index ed8413f..9a81d56 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/component/ComponentRegistrationHandler.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/component/ComponentRegistrationHandler.java
+@@ -75,6 +75,7 @@ import com.eucalyptus.util.EucalyptusCloudException;
+ import com.eucalyptus.util.Exceptions;
+ import com.google.common.util.concurrent.Futures;
+ import com.google.common.util.concurrent.MoreExecutors;
++import com.google.common.util.concurrent.JdkFutureAdapters;
+ 
+ public class ComponentRegistrationHandler {
+   private static Logger LOG = Logger.getLogger( ComponentRegistrationHandler.class );
+@@ -141,8 +142,8 @@ public class ComponentRegistrationHandler {
+       try {
+         Components.lookup( newComponent ).setup( newComponent );
+         Future<ServiceConfiguration> res = Topology.start( newComponent );
+-        Futures.makeListenable( res ).addListener( new Runnable( ) {
+-          
++        JdkFutureAdapters.listenInPoolThread( res ).addListener( new Runnable( ) {
++        
+           @Override
+           public void run( ) {
+             try {
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/SslSetup.java b/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/SslSetup.java
+index 643ec80..f19ee1d 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/SslSetup.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/SslSetup.java
+@@ -58,6 +58,9 @@ import com.google.common.base.Predicate;
+ import com.google.common.base.Splitter;
+ import com.google.common.base.Supplier;
+ import com.google.common.base.Suppliers;
++import com.google.common.cache.CacheBuilder;
++import com.google.common.cache.CacheLoader;
++import com.google.common.cache.LoadingCache;
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.MapMaker;
+ import com.google.common.collect.ObjectArrays;
+@@ -71,8 +74,8 @@ public class SslSetup {
+   private static final String PROTOCOL        = "TLS";
+   private static SSLContext   SERVER_CONTEXT  = null;
+   private static SSLContext   CLIENT_CONTEXT  = null;
+-  private static final Map<SslCipherSuiteBuilderParams,String[]> SSL_CIPHER_LOOKUP =
+-      new MapMaker().maximumSize(32).makeComputingMap( SslCipherSuiteBuilder.INSTANCE );
++  private static final LoadingCache<SslCipherSuiteBuilderParams,String[]> SSL_CIPHER_LOOKUP =
++	  CacheBuilder.newBuilder().maximumSize(32).build(CacheLoader.from(SslCipherSuiteBuilder.INSTANCE) );
+   @ConfigurableField( description = "Alias of the certificate entry in euca.p12 to use for SSL for webservices.",
+                       changeListener = SslCertChangeListener.class )
+   public static String        SERVER_ALIAS    = ComponentIds.lookup( Eucalyptus.class ).name( );
+@@ -172,7 +175,7 @@ public class SslSetup {
+   }
+ 
+   public static String[] getEnabledCipherSuites( final String cipherStrings, final String[] supportedCipherSuites ) {
+-    return SSL_CIPHER_LOOKUP.get( params(cipherStrings, supportedCipherSuites) );
++    return SSL_CIPHER_LOOKUP.getUnchecked( params(cipherStrings, supportedCipherSuites) );
+   }
+ 
+   static class ClientKeyManager extends KeyManagerFactorySpi {
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/util/Exceptions.java b/clc/modules/msgs/src/main/java/com/eucalyptus/util/Exceptions.java
+index b937f2b..073118f 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/util/Exceptions.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/util/Exceptions.java
+@@ -27,6 +27,10 @@ import com.google.common.base.Function;
+ import com.google.common.base.Joiner;
+ import com.google.common.base.Predicate;
+ import com.google.common.base.Predicates;
++import com.google.common.cache.Cache;
++import com.google.common.cache.CacheBuilder;
++import com.google.common.cache.CacheLoader;
++import com.google.common.cache.LoadingCache;
+ import com.google.common.collect.Collections2;
+ import com.google.common.collect.Iterables;
+ import com.google.common.collect.Lists;
+@@ -285,23 +289,23 @@ public class Exceptions {
+   
+   public static class ErrorMessageBuilder {
+     private Class              type;
+-    private Map<Class, String> map;
++    private LoadingCache<Class, String> map;
+     
+     public ErrorMessageBuilder( Class input ) {
+       this.type = input;
+       this.map = classErrorMessages.get( this.type );
+     }
+     
+-    private boolean hasMessage( Class<? extends Throwable> ex ) {
++    private boolean hasMessage( Class<? extends Throwable> ex ) { 
+       if ( this.map != null ) {
+-        return this.map.containsKey( ex );
++        return this.map.getUnchecked( ex ) != null;
+       } else {
+         return false;
+       }
+     }
+     
+     private String getMessage( Class<? extends Throwable> ex ) {
+-      return classErrorMessages.get( this.type ).get( ex );
++      return classErrorMessages.get( this.type ).getUnchecked( ex );
+     }
+     
+     public ExceptionBuilder exception( Throwable ex ) {
+@@ -370,7 +374,7 @@ public class Exceptions {
+     Class<?> value( );
+   }
+   
+-  private static final Map<Class, Map<Class, String>> classErrorMessages = Maps.newConcurrentMap( );
++  private static final Map<Class, LoadingCache<Class, String>> classErrorMessages = Maps.newConcurrentMap( );
+   
+   @Discovery( value = { Function.class },
+               annotations = { ErrorMessages.class },
+@@ -386,7 +390,7 @@ public class Exceptions {
+         try {
+           ErrorMessages annote = Ats.from( input ).get( ErrorMessages.class );
+           Function<Class, String> errorFunction = ( Function<Class, String> ) Classes.builder( input ).newInstance( );
+-          ConcurrentMap<Class, String> errorMap = new MapMaker( ).expireAfterAccess( 60, TimeUnit.SECONDS ).makeComputingMap( errorFunction );
++          LoadingCache<Class, String> errorMap =  CacheBuilder.newBuilder().expireAfterAccess( 60, TimeUnit.SECONDS ).build(CacheLoader.from(errorFunction));
+           classErrorMessages.put( annote.value( ), errorMap );
+           return true;
+         } catch ( UndeclaredThrowableException ex ) {
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java
+index f4bb232..397ed7e 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java
+@@ -62,7 +62,7 @@ public class AtomicMarkedState<P extends HasName<P>, S extends Automata.State, T
+         }
+       }
+     };
+-    this.immutableStates = ImmutableList.of( states );
++    this.immutableStates = ImmutableList.copyOf( states );
+     this.state = new AtomicMarkableReference<S>( this.startState, false );
+     this.immutableTransitions = ImmutableList.copyOf( transitions );
+     for ( TransitionHandler<P, S, T> t : transitions ) {
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/StateMachineBuilder.java b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/StateMachineBuilder.java
+index 161a8ad..669e430 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/StateMachineBuilder.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/StateMachineBuilder.java
+@@ -210,7 +210,7 @@ public class StateMachineBuilder<P extends HasName<P>, S extends Automata.State,
+   }
+   
+   private void doChecks( ) {
+-    this.immutableStates = ImmutableList.of( this.startState.asEnum.getEnumConstants( this.startState ) );
++    this.immutableStates = ImmutableList.copyOf( this.startState.asEnum.getEnumConstants( this.startState ) );
+     if ( this.transitions.isEmpty( ) ) {
+       throw new IllegalStateException( "Started state machine with no registered transitions." );
+     }
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingCache.java b/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingCache.java
+index 1950e65..2204062 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingCache.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingCache.java
+@@ -187,7 +187,8 @@ public class BindingCache {
+         MapDifference<String, String> diffBindings = Maps.difference( oldBindings, newBindings );
+         LOG.info( "Binding class cache expired (old,new): \n" + diffBindings.entriesDiffering( ) );
+         try {
+-          Files.deleteRecursively( SubDirectory.CLASSCACHE.getFile( ) );
++          //Files.deleteRecursively( SubDirectory.CLASSCACHE.getFile( ) );
++          delete( SubDirectory.CLASSCACHE.getFile( ) );
+         } catch ( IOException ex ) {
+           LOG.error( ex, ex );
+         }
+@@ -195,7 +196,14 @@ public class BindingCache {
+         return false;
+       }
+     }
+-    
++    private void delete(File f) throws IOException {
++	  if (f.isDirectory( ) ) {
++	    for (File file : f.listFiles( ) )
++	      delete( file );
++	  }
++	  if (!f.delete( ) )
++	    throw new FileNotFoundException("Failed to delete file: " + f);
++    } 
+     public void store( ) throws IOException {
+       Writer propOut = new FileWriter( CACHE_LIST );
+       try {
+@@ -210,7 +218,8 @@ public class BindingCache {
+         for ( File f : SubDirectory.CLASSCACHE.getFile( ).listFiles( ) ) {
+           try {
+             LOG.info( "Cleaning up class cache: " + f.getCanonicalPath( ) );
+-            Files.deleteRecursively( f );
++            //Files.deleteRecursively( f );
++            delete(f);
+           } catch ( IOException ex1 ) {
+             LOG.error( ex1, ex1 );
+           }
+diff --git a/clc/modules/www/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java b/clc/modules/www/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java
+index 2b9994e..505d7c2 100644
+--- a/clc/modules/www/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java
++++ b/clc/modules/www/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java
+@@ -126,6 +127,14 @@ public class HttpServerBootstrapper extends Bootstrapper {
+     jettyConfig.configure( jettyServer );
+   }
+   
++  private static void delete(File f) throws IOException {
++	  if (f.isDirectory( ) ) {
++	    for (File file : f.listFiles( ) )
++	      delete( file );
++	  }
++	  if (!f.delete( ) )
++	    throw new FileNotFoundException("Failed to delete file: " + f);
++  } 
+   private static void startJettyServer( ) {
+     Threads.lookup( HttpService.class, HttpServerBootstrapper.class ).submit( new Runnable( ) {
+       @Override
+@@ -135,7 +144,7 @@ public class HttpServerBootstrapper extends Bootstrapper {
+           String path = "/var/run/eucalyptus/webapp";
+           File dir = new File( BaseDirectory.HOME + path );
+           if ( dir.exists( ) ) {
+-            Files.deleteDirectoryContents( dir );
++            delete(dir);
+             dir.delete( );
+           }
+           
+diff --git a/clc/modules/postgresql/conf/scripts/setup_db.groovy b/clc/modules/postgresql/conf/scripts/setup_db.groovy
+index 07c2f37..2192f82 100644
+--- a/clc/modules/postgresql/conf/scripts/setup_db.groovy
++++ b/clc/modules/postgresql/conf/scripts/setup_db.groovy
+@@ -621,7 +621,7 @@ ${hostOrHostSSL}\tall\tall\t::/0\tpassword
+ 
+     @Override
+     public String getServicePath( String... pathParts ) {
+-        return pathParts != null && pathParts.length > 0 ? Joiner.on("/").join(pathParts) : "eucalyptus"
++        return pathParts != null && pathParts.length > 0 ? Joiner.on("/"). join(pathParts.iterator()) : "eucalyptus"
+     }
+ 
+     @Override

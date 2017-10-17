@@ -1,0 +1,116 @@
+/**
+ * Created by spark on 7/5/16.
+ */
+
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.Protocol;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.S3ClientOptions;
+import com.amazonaws.services.s3.model.BucketCrossOriginConfiguration;
+import com.amazonaws.services.s3.model.CORSRule;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+public class EUCA11639 {
+    private AmazonS3Client getClient() {
+        AmazonS3Client client;
+        ClientConfiguration config = new ClientConfiguration();
+        config.setProtocol(Protocol.HTTP);
+        client = new AmazonS3Client(new BasicAWSCredentials(
+                "AKIAAQPAW6I3DMWTWTNL",
+                "PVkJJXjRVnAFgGFPdzFUxfDUEmzIzobYr2PkDQnS"
+        ), new ClientConfiguration( ).withSignerOverride("S3SignerType"));
+        client.setEndpoint("http://10.111.1.1:8773/services/objectstorage/");
+        client.setS3ClientOptions( new S3ClientOptions().withPathStyleAccess( true ) );
+        return client;
+    }
+
+    private BucketCrossOriginConfiguration generateCORSConfiguration() {
+        // Add a sample configuration
+        BucketCrossOriginConfiguration configuration = new BucketCrossOriginConfiguration();
+
+        List<CORSRule> rules = new ArrayList<CORSRule>();
+
+        CORSRule rule1 = new CORSRule()
+                .withId("CORSRule1")
+                .withAllowedMethods(Arrays.asList(new CORSRule.AllowedMethods[] {
+                        CORSRule.AllowedMethods.PUT, CORSRule.AllowedMethods.POST, CORSRule.AllowedMethods.DELETE}))
+                .withAllowedOrigins(Arrays.asList(new String[] {"http://*.example.com"}));
+
+        CORSRule rule2 = new CORSRule()
+                .withId("CORSRule2")
+                .withAllowedMethods(Arrays.asList(new CORSRule.AllowedMethods[] {
+                        CORSRule.AllowedMethods.GET}))
+                .withAllowedOrigins(Arrays.asList(new String[] {"*"}))
+                .withMaxAgeSeconds(3000)
+                .withExposedHeaders(Arrays.asList(new String[] {"x-amz-server-side-encryption"}));
+
+        configuration.setRules(Arrays.asList(new CORSRule[] {rule1, rule2}));
+
+        return configuration;
+// Save the configuration
+    }
+
+    private List<String> listBuckets(AmazonS3Client s3) {
+       return s3.listBuckets().stream().map(b -> b.getName()).collect(Collectors.toList());
+    }
+
+    private String createBucket(AmazonS3Client s3) {
+        final Random randomGenerator = new Random();
+        final String bucketName = String.format("bucket-%d-%d",
+                randomGenerator.nextInt(1000), randomGenerator.nextInt(1000));
+        s3.createBucket(bucketName);
+        return bucketName;
+    }
+
+    private BucketCrossOriginConfiguration getConfiguration(final AmazonS3Client s3, final String bucketName) {
+        return s3.getBucketCrossOriginConfiguration(bucketName);
+    }
+
+    private void deleteConfiguration(final AmazonS3Client s3, final String bucketName) {
+        s3.deleteBucketCrossOriginConfiguration(bucketName);
+    }
+
+    private void printCORSConfiguration(BucketCrossOriginConfiguration configuration)
+    {
+
+        if (configuration == null)
+        {
+            System.out.println("\nConfiguration is null.");
+            return;
+        }
+
+        System.out.format("\nConfiguration has %s rules:\n", configuration.getRules().size());
+        for (CORSRule rule : configuration.getRules())
+        {
+            System.out.format("Rule ID: %s\n", rule.getId());
+            System.out.format("MaxAgeSeconds: %s\n", rule.getMaxAgeSeconds());
+            System.out.format("AllowedMethod: %s\n", rule.getAllowedMethods().toArray());
+            System.out.format("AllowedOrigins: %s\n", rule.getAllowedOrigins());
+            System.out.format("AllowedHeaders: %s\n", rule.getAllowedHeaders());
+            System.out.format("ExposeHeader: %s\n", rule.getExposedHeaders());
+        }
+    }
+
+    public static void main(String[] args) {
+        final EUCA11639 instance = new EUCA11639();
+        final AmazonS3Client s3 = instance.getClient();
+        final List<String> buckets = instance.listBuckets(s3);
+        String bucketName = null;
+        if (buckets.isEmpty()) {
+            bucketName = instance.createBucket(s3);
+        } else {
+            bucketName = buckets.get(0);
+        }
+        final BucketCrossOriginConfiguration config = instance.generateCORSConfiguration();
+        s3.setBucketCrossOriginConfiguration(bucketName, config);
+        instance.printCORSConfiguration(instance.getConfiguration(s3, bucketName));
+        instance.deleteConfiguration(s3, bucketName);
+        instance.printCORSConfiguration(instance.getConfiguration(s3, bucketName));
+    }
+}

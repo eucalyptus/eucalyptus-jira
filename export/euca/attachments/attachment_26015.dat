@@ -1,0 +1,84 @@
+{
+    "Parameters" : {
+     "AccountName" : {
+      "Description" : "Name of the account owner",
+      "Type" : "String" }
+     ,
+     "StackName" : {
+      "Description" : "Name of the stack",
+      "Type" : "String" 
+     } 
+    },
+
+    "Resources" : {
+       "mybucket" : {
+           "Type" : "AWS::S3::Bucket",
+           "Properties" : {
+              "BucketName" : { "Fn::Join" : [ "", [ {"Ref" : "AccountName"}, {"Ref" : "StackName"}, "outputtest" ] ] }
+           }
+       }
+    },
+ 
+    "Outputs" : {
+"CreatedBucket01" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket02" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket03" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket04" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket05" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket06" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket07" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket08" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket09" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket10" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket11" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket12" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket13" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket14" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket15" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket16" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket17" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket18" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket19" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket20" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket21" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket22" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket23" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket24" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket25" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket26" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket27" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket28" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket29" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket30" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket31" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket32" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket33" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket34" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket35" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket36" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket37" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket38" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket39" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket40" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket41" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket42" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket43" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket44" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket45" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket46" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket47" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket48" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket49" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket50" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket51" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket52" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket53" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket54" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket55" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket56" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket57" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket58" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket59" : { "Value" : {"Ref" : "mybucket" } },
+"CreatedBucket60" : { "Value" : {"Ref" : "mybucket" } }
+    }
+}     

@@ -1,0 +1,24 @@
+diff -Naur clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/ClusterState.java clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/ClusterState.java
+--- clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/ClusterState.java	2011-04-30 05:16:35.000000000 +0900
++++ clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/ClusterState.java	2011-11-16 16:55:46.000000000 +0900
+@@ -98,10 +98,16 @@
+   private ConcurrentNavigableMap<ClusterAddressInfo, Integer> orphans               = new ConcurrentSkipListMap<ClusterAddressInfo, Integer>( );
+   
+   public void clearOrphan( ClusterAddressInfo address ) {
+-    Integer delay = orphans.remove( address );
+-    delay = ( delay == null ? 0 : delay );
+-    if ( delay > 2 ) {
+-      LOG.warn( "Forgetting stale orphan address mapping from cluster " + clusterName + " for " + address.toString( ) );
++    NavigableSet<ClusterAddressInfo> addrList = orphans.navigableKeySet();
++    for ( ClusterAddressInfo addr : addrList ) {
++      if (((address.getAddress() != null) && (address.getAddress().equals(addr.getAddress())))
++            || ((address.getAddress() == null) && (addr.getAddress() == null))) {
++        Integer delay = orphans.remove( addr );
++        delay = ( delay == null ? 0 : delay );
++        if ( delay > 2 ) {
++          LOG.warn( "Forgetting stale orphan address mapping from cluster " + clusterName + " for " + addr.toString( ) );
++        }
++      }
+     }
+   }
+   public void handleOrphan( ClusterAddressInfo address ) {

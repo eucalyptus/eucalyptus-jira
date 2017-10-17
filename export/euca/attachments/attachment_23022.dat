@@ -1,0 +1,341 @@
+[root@odc-f-36 ~]# yum install eucalyptus-nc
+Loaded plugins: fastestmirror, security
+Setting up Install Process
+Loading mirror speeds from cached hostfile
+ * extras: mirror.lax.hugeserver.com
+eucalyptus-firehose                                                                                                                   | 1.5 kB     00:00     
+eucalyptus-firehose/primary                                                                                                           | 292 kB     00:00     
+eucalyptus-firehose                                                                                                                                1093/1093
+Resolving Dependencies
+--> Running transaction check
+---> Package eucalyptus-nc.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: eucanetd = 4.1.0-0.0.23042.367.20150125git5498edd.el6 for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: eucalyptus-imaging-toolkit = 4.1.0-0.0.23042.367.20150125git5498edd.el6 for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: eucalyptus-blockdev-utils = 4.1.0-0.0.23042.367.20150125git5498edd.el6 for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: eucalyptus-axis2c-common = 4.1.0-0.0.23042.367.20150125git5498edd.el6 for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: eucalyptus = 4.1.0-0.0.23042.367.20150125git5498edd.el6 for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: perl(XML::Simple) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: perl(Time::HiRes) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: perl(Sys::Virt) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0(LIBVIRT_0.7.3)(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0(LIBVIRT_0.3.2)(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0(LIBVIRT_0.2.1)(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0(LIBVIRT_0.1.9)(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0(LIBVIRT_0.1.0)(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0(LIBVIRT_0.0.3)(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: librbd1(x86-64) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: librados2(x86-64) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: kvm for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: iscsi-initiator-utils for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: httpd for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: device-mapper-multipath for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: /usr/sbin/euca_conf for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libvirt.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: librampart.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libneethi.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libmod_rampart.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libjson.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libjson-c.so.2()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libguththila.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxutil.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxis2_parser.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxis2_http_sender.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxis2_http_receiver.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxis2_http_common.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxis2_engine.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libaxis2_axiom.so.0()(64bit) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Running transaction check
+---> Package axis2c.x86_64 0:1.6.0-0.7.el6 will be installed
+---> Package device-mapper-multipath.x86_64 0:0.4.9-80.el6 will be installed
+--> Processing Dependency: kpartx = 0.4.9-80.el6 for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+--> Processing Dependency: device-mapper-multipath-libs = 0.4.9-80.el6 for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+--> Processing Dependency: libmultipath.so()(64bit) for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+--> Processing Dependency: libmpathpersist.so.0()(64bit) for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+---> Package eucalyptus.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+---> Package eucalyptus-admin-tools.noarch 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: python-boto >= 2.1 for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+--> Processing Dependency: m2crypto for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+--> Processing Dependency: PyYAML for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+--> Processing Dependency: PyGreSQL for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+---> Package eucalyptus-axis2c-common.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+---> Package eucalyptus-blockdev-utils.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: perl(Crypt::OpenSSL::Random) for package: eucalyptus-blockdev-utils-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: perl(Crypt::OpenSSL::RSA) for package: eucalyptus-blockdev-utils-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: libselinux-python for package: eucalyptus-blockdev-utils-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package eucalyptus-imaging-toolkit.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+---> Package eucalyptus-nc.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: perl(XML::Simple) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package eucanetd.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: dhcp >= 4.1.1-33.P1 for package: eucanetd-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: ipset for package: eucanetd-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+--> Processing Dependency: ebtables for package: eucanetd-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package httpd.x86_64 0:2.2.15-39.el6.centos will be installed
+--> Processing Dependency: httpd-tools = 2.2.15-39.el6.centos for package: httpd-2.2.15-39.el6.centos.x86_64
+--> Processing Dependency: apr-util-ldap for package: httpd-2.2.15-39.el6.centos.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.2.15-39.el6.centos.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.2.15-39.el6.centos.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.2.15-39.el6.centos.x86_64
+---> Package iscsi-initiator-utils.x86_64 0:6.2.0.873-13.el6 will be installed
+---> Package json-c.x86_64 0:0.11-11.el6 will be installed
+---> Package librados2.x86_64 1:0.80.5-9.el6 will be installed
+--> Processing Dependency: libboost_thread-mt.so.5()(64bit) for package: 1:librados2-0.80.5-9.el6.x86_64
+--> Processing Dependency: libboost_system-mt.so.5()(64bit) for package: 1:librados2-0.80.5-9.el6.x86_64
+---> Package librbd1.x86_64 1:0.80.5-9.el6 will be installed
+---> Package libvirt.x86_64 0:0.10.2-46.el6 will be installed
+--> Processing Dependency: dnsmasq >= 2.41 for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: radvd for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: numad for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: nfs-utils for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: lzop for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libnetcf.so.1(NETCF_1.4.0)(64bit) for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libnetcf.so.1(NETCF_1.3.0)(64bit) for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libnetcf.so.1(NETCF_1.2.0)(64bit) for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libnetcf.so.1(NETCF_1.0.0)(64bit) for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libcgroup for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: /usr/bin/qemu-img for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libyajl.so.1()(64bit) for package: libvirt-0.10.2-46.el6.x86_64
+--> Processing Dependency: libnetcf.so.1()(64bit) for package: libvirt-0.10.2-46.el6.x86_64
+---> Package libvirt-client.x86_64 0:0.10.2-46.el6 will be installed
+--> Processing Dependency: nc for package: libvirt-client-0.10.2-46.el6.x86_64
+--> Processing Dependency: gnutls-utils for package: libvirt-client-0.10.2-46.el6.x86_64
+--> Processing Dependency: gettext for package: libvirt-client-0.10.2-46.el6.x86_64
+--> Processing Dependency: cyrus-sasl-md5 for package: libvirt-client-0.10.2-46.el6.x86_64
+---> Package perl-Sys-Virt.x86_64 0:0.10.2-5.el6 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9721-136.el6 will be installed
+--> Processing Dependency: perl = 4:5.10.1-136.el6 for package: 4:perl-Time-HiRes-1.9721-136.el6.x86_64
+---> Package qemu-kvm-rhev.x86_64 2:0.12.1.2-2.445.el6 will be installed
+Midokura-local/filelists_db                                                                                                           |  39 kB     00:00     
+core-0/filelists                                                                                                                      | 3.8 MB     00:00     
+elrepo-6-x86_64/filelists_db                                                                                                          | 106 kB     00:00     
+epel-6-x86_64/filelists_db                                                                                                            | 9.0 MB     00:00     
+eucalyptus-firehose/filelists                                                                                                         | 797 kB     00:00     
+extras/filelists_db                                                                                                                   |  31 kB     00:00     
+--> Processing Dependency: seabios >= 0.6.1.2-20.el6 for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: vgabios-vmware for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: vgabios-stdvga for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: vgabios-qxl for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: vgabios for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.8.3)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.8.2)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.8.1)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.6.0)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.12.4)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.11.2)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.10.4)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1(SPICE_SERVER_0.10.0)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libpulse.so.0(PULSE_0)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libpulse-simple.so.0(PULSE_0)(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: glusterfs-api for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: /usr/share/sgabios/sgabios.bin for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: /usr/share/gpxe/virtio-net.rom for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: /usr/share/gpxe/rtl8139.rom for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: /usr/share/gpxe/rtl8029.rom for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: /usr/share/gpxe/pcnet32.rom for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: /usr/share/gpxe/e1000-0x100e.rom for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libusbredirparser.so.1()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libspice-server.so.1()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libpulse.so.0()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libpulse-simple.so.0()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libgfxdr.so.0()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libgfrpc.so.0()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+--> Processing Dependency: libgfapi.so.0()(64bit) for package: 2:qemu-kvm-rhev-0.12.1.2-2.445.el6.x86_64
+---> Package rampartc.x86_64 0:1.3.0-0.5.el6 will be installed
+--> Running transaction check
+---> Package PyGreSQL.x86_64 0:3.8.1-2.el6 will be installed
+--> Processing Dependency: libpq.so.5()(64bit) for package: PyGreSQL-3.8.1-2.el6.x86_64
+---> Package apr.x86_64 0:1.3.9-5.el6_2 will be installed
+---> Package apr-util.x86_64 0:1.3.9-3.el6_0.1 will be installed
+---> Package apr-util-ldap.x86_64 0:1.3.9-3.el6_0.1 will be installed
+---> Package boost-system.x86_64 0:1.41.0-25.el6 will be installed
+---> Package boost-thread.x86_64 0:1.41.0-25.el6 will be installed
+---> Package cyrus-sasl-md5.x86_64 0:2.1.23-15.el6 will be installed
+--> Processing Dependency: cyrus-sasl-lib = 2.1.23-15.el6 for package: cyrus-sasl-md5-2.1.23-15.el6.x86_64
+---> Package device-mapper-multipath.x86_64 0:0.4.9-80.el6 will be installed
+--> Processing Dependency: kpartx = 0.4.9-80.el6 for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+---> Package device-mapper-multipath-libs.x86_64 0:0.4.9-80.el6 will be installed
+---> Package dhcp.x86_64 12:4.1.1-43.P1.el6.centos will be installed
+--> Processing Dependency: portreserve for package: 12:dhcp-4.1.1-43.P1.el6.centos.x86_64
+---> Package dnsmasq.x86_64 0:2.48-14.el6 will be installed
+---> Package ebtables.x86_64 0:2.0.9-6.el6 will be installed
+---> Package eucalyptus-admin-tools.noarch 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: PyYAML for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+---> Package eucalyptus-nc.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: perl(XML::Simple) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package gettext.x86_64 0:0.17-18.el6 will be installed
+--> Processing Dependency: libgomp.so.1(GOMP_1.0)(64bit) for package: gettext-0.17-18.el6.x86_64
+--> Processing Dependency: cvs for package: gettext-0.17-18.el6.x86_64
+--> Processing Dependency: libgomp.so.1()(64bit) for package: gettext-0.17-18.el6.x86_64
+---> Package glusterfs-api.x86_64 0:3.6.0.28-2.el6 will be installed
+--> Processing Dependency: glusterfs = 3.6.0.28-2.el6 for package: glusterfs-api-3.6.0.28-2.el6.x86_64
+---> Package glusterfs-libs.x86_64 0:3.6.0.28-2.el6 will be installed
+---> Package gnutls-utils.x86_64 0:2.8.5-14.el6_5 will be installed
+---> Package gpxe-roms-qemu.noarch 0:0.9.7-6.12.el6 will be installed
+---> Package httpd-tools.x86_64 0:2.2.15-39.el6.centos will be installed
+---> Package ipset.x86_64 0:6.11-3.el6 will be installed
+--> Processing Dependency: libmnl.so.0(LIBMNL_1.0)(64bit) for package: ipset-6.11-3.el6.x86_64
+--> Processing Dependency: libmnl.so.0()(64bit) for package: ipset-6.11-3.el6.x86_64
+---> Package libcgroup.x86_64 0:0.40.rc1-12.el6 will be installed
+---> Package libselinux-python.x86_64 0:2.0.94-5.8.el6 will be installed
+---> Package lzop.x86_64 0:1.02-0.9.rc1.el6 will be installed
+---> Package m2crypto.x86_64 0:0.20.2-9.el6 will be installed
+---> Package mailcap.noarch 0:2.1.31-2.el6 will be installed
+---> Package nc.x86_64 0:1.84-22.el6 will be installed
+---> Package netcf-libs.x86_64 0:0.2.4-1.el6 will be installed
+--> Processing Dependency: libaugeas.so.0(AUGEAS_0.8.0)(64bit) for package: netcf-libs-0.2.4-1.el6.x86_64
+--> Processing Dependency: libaugeas.so.0(AUGEAS_0.1.0)(64bit) for package: netcf-libs-0.2.4-1.el6.x86_64
+--> Processing Dependency: libaugeas.so.0()(64bit) for package: netcf-libs-0.2.4-1.el6.x86_64
+---> Package nfs-utils.x86_64 1:1.2.3-54.el6 will be installed
+--> Processing Dependency: nfs-utils-lib >= 1.1.0-3 for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: keyutils >= 1.4-4 for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: rpcbind for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libtirpc for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libgssglue.so.1(libgssapi_CITI_2)(64bit) for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libgssglue for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libevent for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libtirpc.so.1()(64bit) for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libnfsidmap.so.0()(64bit) for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libgssglue.so.1()(64bit) for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+--> Processing Dependency: libevent-1.4.so.2()(64bit) for package: 1:nfs-utils-1.2.3-54.el6.x86_64
+---> Package numad.x86_64 0:0.5-11.20140620git.el6 will be installed
+---> Package perl-Crypt-OpenSSL-RSA.x86_64 0:0.25-10.1.el6 will be installed
+--> Processing Dependency: perl(Crypt::OpenSSL::Bignum) for package: perl-Crypt-OpenSSL-RSA-0.25-10.1.el6.x86_64
+---> Package perl-Crypt-OpenSSL-Random.x86_64 0:0.04-9.1.el6 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9721-136.el6 will be installed
+--> Processing Dependency: perl = 4:5.10.1-136.el6 for package: 4:perl-Time-HiRes-1.9721-136.el6.x86_64
+---> Package pulseaudio-libs.x86_64 0:0.9.21-17.el6 will be installed
+--> Processing Dependency: libsndfile.so.1(libsndfile.so.1.0)(64bit) for package: pulseaudio-libs-0.9.21-17.el6.x86_64
+--> Processing Dependency: libsndfile.so.1()(64bit) for package: pulseaudio-libs-0.9.21-17.el6.x86_64
+--> Processing Dependency: libasyncns.so.0()(64bit) for package: pulseaudio-libs-0.9.21-17.el6.x86_64
+--> Processing Dependency: libXtst.so.6()(64bit) for package: pulseaudio-libs-0.9.21-17.el6.x86_64
+--> Processing Dependency: libSM.so.6()(64bit) for package: pulseaudio-libs-0.9.21-17.el6.x86_64
+--> Processing Dependency: libICE.so.6()(64bit) for package: pulseaudio-libs-0.9.21-17.el6.x86_64
+---> Package python-boto.noarch 0:2.34.0-4.el6 will be installed
+--> Processing Dependency: python-rsa for package: python-boto-2.34.0-4.el6.noarch
+---> Package qemu-img-rhev.x86_64 2:0.12.1.2-2.445.el6 will be installed
+---> Package radvd.x86_64 0:1.6-1.el6 will be installed
+---> Package seabios.x86_64 0:0.6.1.2-28.el6 will be installed
+---> Package sgabios-bin.noarch 0:0-0.3.20110621svn.el6 will be installed
+---> Package spice-server.x86_64 0:0.12.4-11.el6 will be installed
+--> Processing Dependency: pixman >= 0.18 for package: spice-server-0.12.4-11.el6.x86_64
+--> Processing Dependency: libpixman-1.so.0()(64bit) for package: spice-server-0.12.4-11.el6.x86_64
+--> Processing Dependency: libcelt051.so.0()(64bit) for package: spice-server-0.12.4-11.el6.x86_64
+---> Package usbredir.x86_64 0:0.5.1-1.el6 will be installed
+---> Package vgabios.noarch 0:0.6b-3.7.el6 will be installed
+---> Package yajl.x86_64 0:1.0.7-3.el6 will be installed
+--> Running transaction check
+---> Package augeas-libs.x86_64 0:1.0.0-7.el6 will be installed
+---> Package celt051.x86_64 0:0.5.1.3-0.el6 will be installed
+--> Processing Dependency: libogg.so.0()(64bit) for package: celt051-0.5.1.3-0.el6.x86_64
+---> Package cvs.x86_64 0:1.11.23-16.el6 will be installed
+---> Package cyrus-sasl-lib.i686 0:2.1.23-15.el6 will be installed
+--> Processing Dependency: libresolv.so.2 for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libdl.so.2(GLIBC_2.1) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libdl.so.2(GLIBC_2.0) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libdl.so.2 for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libdb-4.7.so for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libcrypt.so.1 for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.4) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.3.4) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.3) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.1.3) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.1) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.0) for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+--> Processing Dependency: libc.so.6 for package: cyrus-sasl-lib-2.1.23-15.el6.i686
+---> Package device-mapper-multipath.x86_64 0:0.4.9-80.el6 will be installed
+--> Processing Dependency: kpartx = 0.4.9-80.el6 for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+---> Package eucalyptus-admin-tools.noarch 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: PyYAML for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+---> Package eucalyptus-nc.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: perl(XML::Simple) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package glusterfs.x86_64 0:3.6.0.28-2.el6 will be installed
+---> Package keyutils.x86_64 0:1.4-5.el6 will be installed
+---> Package libICE.x86_64 0:1.0.6-1.el6 will be installed
+---> Package libSM.x86_64 0:1.2.1-2.el6 will be installed
+---> Package libXtst.x86_64 0:1.2.2-2.1.el6 will be installed
+--> Processing Dependency: libXi.so.6()(64bit) for package: libXtst-1.2.2-2.1.el6.x86_64
+--> Processing Dependency: libXext.so.6()(64bit) for package: libXtst-1.2.2-2.1.el6.x86_64
+---> Package libasyncns.x86_64 0:0.8-1.1.el6 will be installed
+---> Package libevent.x86_64 0:1.4.13-4.el6 will be installed
+---> Package libgomp.x86_64 0:4.4.7-11.el6 will be installed
+---> Package libgssglue.x86_64 0:0.1-11.el6 will be installed
+---> Package libmnl.x86_64 0:1.0.2-3.el6 will be installed
+---> Package libsndfile.x86_64 0:1.0.20-5.el6 will be installed
+--> Processing Dependency: libvorbisenc.so.2()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+--> Processing Dependency: libvorbis.so.0()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+--> Processing Dependency: libFLAC.so.8()(64bit) for package: libsndfile-1.0.20-5.el6.x86_64
+---> Package libtirpc.x86_64 0:0.2.1-10.el6 will be installed
+---> Package nfs-utils-lib.x86_64 0:1.1.5-9.el6 will be installed
+---> Package perl-Crypt-OpenSSL-Bignum.x86_64 0:0.04-8.1.el6 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9721-136.el6 will be installed
+--> Processing Dependency: perl = 4:5.10.1-136.el6 for package: 4:perl-Time-HiRes-1.9721-136.el6.x86_64
+---> Package pixman.x86_64 0:0.32.4-4.el6 will be installed
+---> Package portreserve.x86_64 0:0.0.4-9.el6 will be installed
+---> Package postgresql-libs.x86_64 0:8.4.20-1.el6_5 will be installed
+---> Package python-rsa.noarch 0:3.1.1-5.el6 will be installed
+---> Package rpcbind.x86_64 0:0.2.0-11.el6 will be installed
+--> Running transaction check
+---> Package db4.i686 0:4.7.25-18.el6_4 will be installed
+---> Package device-mapper-multipath.x86_64 0:0.4.9-80.el6 will be installed
+--> Processing Dependency: kpartx = 0.4.9-80.el6 for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+---> Package eucalyptus-admin-tools.noarch 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: PyYAML for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+---> Package eucalyptus-nc.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: perl(XML::Simple) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package flac.x86_64 0:1.2.1-6.1.el6 will be installed
+---> Package glibc.i686 0:2.12-1.149.el6 will be installed
+--> Processing Dependency: glibc-common = 2.12-1.149.el6 for package: glibc-2.12-1.149.el6.i686
+--> Processing Dependency: libfreebl3.so(NSSRAWHASH_3.12.3) for package: glibc-2.12-1.149.el6.i686
+--> Processing Dependency: libfreebl3.so for package: glibc-2.12-1.149.el6.i686
+---> Package libXext.x86_64 0:1.3.2-2.1.el6 will be installed
+---> Package libXi.x86_64 0:1.7.2-2.2.el6 will be installed
+---> Package libogg.x86_64 2:1.1.4-2.1.el6 will be installed
+---> Package libvorbis.x86_64 1:1.2.3-4.el6_2.1 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9721-136.el6 will be installed
+--> Processing Dependency: perl = 4:5.10.1-136.el6 for package: 4:perl-Time-HiRes-1.9721-136.el6.x86_64
+--> Running transaction check
+---> Package device-mapper-multipath.x86_64 0:0.4.9-80.el6 will be installed
+--> Processing Dependency: kpartx = 0.4.9-80.el6 for package: device-mapper-multipath-0.4.9-80.el6.x86_64
+---> Package eucalyptus-admin-tools.noarch 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: PyYAML for package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch
+---> Package eucalyptus-nc.x86_64 0:4.1.0-0.0.23042.367.20150125git5498edd.el6 will be installed
+--> Processing Dependency: perl(XML::Simple) for package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64
+---> Package glibc.i686 0:2.12-1.149.el6 will be installed
+--> Processing Dependency: glibc-common = 2.12-1.149.el6 for package: glibc-2.12-1.149.el6.i686
+---> Package nss-softokn-freebl.i686 0:3.14.3-17.el6 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9721-136.el6 will be installed
+--> Processing Dependency: perl = 4:5.10.1-136.el6 for package: 4:perl-Time-HiRes-1.9721-136.el6.x86_64
+--> Finished Dependency Resolution
+Error: Package: 4:perl-Time-HiRes-1.9721-136.el6.x86_64 (core-0)
+           Requires: perl = 4:5.10.1-136.el6
+           Installed: 4:perl-5.10.1-136.el6_6.1.x86_64 (@centos-6u6-x86_64-updates/6.6)
+               perl = 4:5.10.1-136.el6_6.1
+           Available: 4:perl-5.10.1-136.el6.x86_64 (core-0)
+               perl = 4:5.10.1-136.el6
+Error: Package: eucalyptus-admin-tools-4.1.0-0.0.23042.367.20150125git5498edd.el6.noarch (eucalyptus-firehose)
+           Requires: PyYAML
+Error: Package: eucalyptus-nc-4.1.0-0.0.23042.367.20150125git5498edd.el6.x86_64 (eucalyptus-firehose)
+           Requires: perl(XML::Simple)
+Error: Package: glibc-2.12-1.149.el6.i686 (core-0)
+           Requires: glibc-common = 2.12-1.149.el6
+           Installed: glibc-common-2.12-1.149.el6_6.4.x86_64 (@centos-6u6-x86_64-updates/6.6)
+               glibc-common = 2.12-1.149.el6_6.4
+           Available: glibc-common-2.12-1.149.el6.x86_64 (core-0)
+               glibc-common = 2.12-1.149.el6
+Error: Package: device-mapper-multipath-0.4.9-80.el6.x86_64 (core-0)
+           Requires: kpartx = 0.4.9-80.el6
+           Installed: kpartx-0.4.9-80.el6_6.2.x86_64 (@centos-6u6-x86_64-updates/6.6)
+               kpartx = 0.4.9-80.el6_6.2
+           Available: kpartx-0.4.9-80.el6.x86_64 (core-0)
+               kpartx = 0.4.9-80.el6
+ You could try using --skip-broken to work around the problem
+ You could try running: rpm -Va --nofiles --nodigest
+[root@odc-f-36 ~]# uname -r
+2.6.32-504.3.3.el6.x86_64
+[root@odc-f-36 ~]# cat /etc/redhat-release 
+CentOS release 6.6 (Final)
+[root@odc-f-36 ~]# 
+
+
+While installing eucalyptus-nc package on NC (CentOS 6.6), it is showing message to downgrade kparx & glibc-common pakcages
+

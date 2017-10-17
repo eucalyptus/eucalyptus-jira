@@ -1,0 +1,86 @@
+Cloud-init v. 0.7.5 running 'init-local' at Thu, 12 Feb 2015 18:37:28 +0000. Up 8.07 seconds.
+Cloud-init v. 0.7.5 running 'init' at Thu, 12 Feb 2015 18:37:29 +0000. Up 8.51 seconds.
+ci-info: +++++++++++++++++++++++++Net device info+++++++++++++++++++++++++
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: | Device |  Up  |   Address   |     Mask    |     Hw-Address    |
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: |   lo   | True |  127.0.0.1  |  255.0.0.0  |         .         |
+ci-info: |  eth0  | True | 10.104.3.15 | 255.255.0.0 | d0:0d:23:0e:e5:cc |
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: ++++++++++++++++++++++++++++++Route info++++++++++++++++++++++++++++++
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: | Route | Destination |  Gateway   |   Genmask   | Interface | Flags |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: |   0   |  10.104.0.0 |  0.0.0.0   | 255.255.0.0 |    eth0   |   U   |
+ci-info: |   1   |   0.0.0.0   | 10.104.0.1 |   0.0.0.0   |    eth0   |   UG  |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+Cloud-init v. 0.7.5 running 'modules:config' at Thu, 12 Feb 2015 18:37:30 +0000. Up 9.96 seconds.
+Cloud-init v. 0.7.5 running 'modules:final' at Thu, 12 Feb 2015 18:37:31 +0000. Up 10.42 seconds.
+Cloud-init v. 0.7.5 finished at Thu, 12 Feb 2015 18:37:31 +0000. Datasource DataSourceEc2.  Up 10.58 seconds
+Cloud-init v. 0.7.5 running 'init-local' at Fri, 13 Feb 2015 02:53:19 +0000. Up 8.70 seconds.
+Cloud-init v. 0.7.5 running 'init' at Fri, 13 Feb 2015 02:53:20 +0000. Up 9.23 seconds.
+ci-info: +++++++++++++++++++++++++Net device info+++++++++++++++++++++++++
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: | Device |  Up  |   Address   |     Mask    |     Hw-Address    |
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: |   lo   | True |  127.0.0.1  |  255.0.0.0  |         .         |
+ci-info: |  eth0  | True | 10.104.3.15 | 255.255.0.0 | d0:0d:23:0e:e5:cc |
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: ++++++++++++++++++++++++++++++Route info++++++++++++++++++++++++++++++
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: | Route | Destination |  Gateway   |   Genmask   | Interface | Flags |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: |   0   |  10.104.0.0 |  0.0.0.0   | 255.255.0.0 |    eth0   |   U   |
+ci-info: |   1   |   0.0.0.0   | 10.104.0.1 |   0.0.0.0   |    eth0   |   UG  |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+Cloud-init v. 0.7.5 running 'modules:config' at Fri, 13 Feb 2015 02:53:21 +0000. Up 10.57 seconds.
+Cloud-init v. 0.7.5 running 'modules:final' at Fri, 13 Feb 2015 02:53:21 +0000. Up 10.97 seconds.
+Cloud-init v. 0.7.5 finished at Fri, 13 Feb 2015 02:53:21 +0000. Datasource DataSourceEc2.  Up 11.08 seconds
+Cloud-init v. 0.7.5 running 'init-local' at Fri, 13 Feb 2015 03:01:41 +0000. Up 8.09 seconds.
+Cloud-init v. 0.7.5 running 'init' at Fri, 13 Feb 2015 03:01:42 +0000. Up 8.55 seconds.
+ci-info: +++++++++++++++++++++++++Net device info+++++++++++++++++++++++++
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: | Device |  Up  |   Address   |     Mask    |     Hw-Address    |
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: |   lo   | True |  127.0.0.1  |  255.0.0.0  |         .         |
+ci-info: |  eth0  | True | 10.104.3.15 | 255.255.0.0 | d0:0d:23:0e:e5:cc |
+ci-info: +--------+------+-------------+-------------+-------------------+
+ci-info: ++++++++++++++++++++++++++++++Route info++++++++++++++++++++++++++++++
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: | Route | Destination |  Gateway   |   Genmask   | Interface | Flags |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: |   0   |  10.104.0.0 |  0.0.0.0   | 255.255.0.0 |    eth0   |   U   |
+ci-info: |   1   |   0.0.0.0   | 10.104.0.1 |   0.0.0.0   |    eth0   |   UG  |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+Cloud-init v. 0.7.5 running 'modules:config' at Fri, 13 Feb 2015 03:01:43 +0000. Up 9.83 seconds.
+Cloud-init v. 0.7.5 running 'modules:final' at Fri, 13 Feb 2015 03:01:44 +0000. Up 10.24 seconds.
+Cloud-init v. 0.7.5 finished at Fri, 13 Feb 2015 03:01:44 +0000. Datasource DataSourceEc2.  Up 10.35 seconds
+Cloud-init v. 0.7.5 running 'init-local' at Mon, 09 Nov 2015 21:29:04 +0000. Up 7.00 seconds.
+Cloud-init v. 0.7.5 running 'init' at Mon, 09 Nov 2015 21:29:05 +0000. Up 7.45 seconds.
+ci-info: ++++++++++++++++++++++++++Net device info++++++++++++++++++++++++++
+ci-info: +--------+------+---------------+-------------+-------------------+
+ci-info: | Device |  Up  |    Address    |     Mask    |     Hw-Address    |
+ci-info: +--------+------+---------------+-------------+-------------------+
+ci-info: |   lo   | True |   127.0.0.1   |  255.0.0.0  |         .         |
+ci-info: |  eth0  | True | 10.105.40.120 | 255.255.0.0 | d0:0d:08:6f:cf:40 |
+ci-info: +--------+------+---------------+-------------+-------------------+
+ci-info: ++++++++++++++++++++++++++++++Route info++++++++++++++++++++++++++++++
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: | Route | Destination |  Gateway   |   Genmask   | Interface | Flags |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+ci-info: |   0   |  10.105.0.0 |  0.0.0.0   | 255.255.0.0 |    eth0   |   U   |
+ci-info: |   1   |   0.0.0.0   | 10.105.0.1 |   0.0.0.0   |    eth0   |   UG  |
+ci-info: +-------+-------------+------------+-------------+-----------+-------+
+Cloud-init v. 0.7.5 running 'modules:config' at Mon, 09 Nov 2015 21:29:06 +0000. Up 8.67 seconds.
+Cloud-init v. 0.7.5 running 'modules:final' at Mon, 09 Nov 2015 21:29:06 +0000. Up 9.12 seconds.
++ SignalURL='http://10.105.10.83:8773/services/objectstorage/cf-waitcondition-oulxk7c7cnfd4/arn%3Aaws%3Acloudformation%3A%3A000573923428%3Astack/WordPressDemoStack/bd77f590-b227-40fa-89c4-be54fd68bdeb/myWaitHandle/WaitHandle?Expires=1447176448&AWSAccessKeyId=AKIAAYPZ4WTZ6W2DZEEU&x-amz-security-token=ZXVjYQABhuxHM2cZZz8XcM58Kw%2BhwvQHbAstxXP7%2FHqiDDQJqBBvb1OjHYTgY8ky5yvtxDt7AwkGwwF26DzfLhws%2FKMkXkzEkPQqkjQqEWQsHbUG%2BsQQG282Jn4E5%2BPNyTqVyP%2FtLuI1pyc%2FyVXIIZ7yA%2Fj%2FMkqyIK3eCkMC8yzbq6CKZG5XqNzi%2B1VWF5gc9CyZE8kTCWN7AJUN1%2FcGraozq2FHZ4XztgpnpE7SvXvfJid6J7PykIL83rDkzO8%3D&Signature=u4r0cJz4Q0ztZ6FiFRbe%2FJlHL6E%3D'
++ /usr/sbin/ntpdate -u 0.centos.pool.ntp.org
+10 Nov 05:29:09 ntpdate[1172]: step time server 129.6.15.28 offset 28801.084489 sec
++ sleep 60
++ /opt/aws/bin/cfn-init -v --stack WordPressDemoStack --resource WebServer --url https://cloudformation.hp-gol01-d8.mjc.prc.eucalyptus-systems.com --role Demos --configsets wordpress_install --region hp-gol01-d8
++ /opt/aws/bin/cfn-signal --success true --reason 'Configuration Complete' 'http://10.105.10.83:8773/services/objectstorage/cf-waitcondition-oulxk7c7cnfd4/arn%3Aaws%3Acloudformation%3A%3A000573923428%3Astack/WordPressDemoStack/bd77f590-b227-40fa-89c4-be54fd68bdeb/myWaitHandle/WaitHandle?Expires=1447176448&AWSAccessKeyId=AKIAAYPZ4WTZ6W2DZEEU&x-amz-security-token=ZXVjYQABhuxHM2cZZz8XcM58Kw%2BhwvQHbAstxXP7%2FHqiDDQJqBBvb1OjHYTgY8ky5yvtxDt7AwkGwwF26DzfLhws%2FKMkXkzEkPQqkjQqEWQsHbUG%2BsQQG282Jn4E5%2BPNyTqVyP%2FtLuI1pyc%2FyVXIIZ7yA%2Fj%2FMkqyIK3eCkMC8yzbq6CKZG5XqNzi%2B1VWF5gc9CyZE8kTCWN7AJUN1%2FcGraozq2FHZ4XztgpnpE7SvXvfJid6J7PykIL83rDkzO8%3D&Signature=u4r0cJz4Q0ztZ6FiFRbe%2FJlHL6E%3D'
+Error signaling CloudFormation: [Errno None] 
+2015-11-10 05:37:31,181 - util.py[WARNING]: Failed running /var/lib/cloud/instance/scripts/part-001 [1]
+2015-11-10 05:37:31,185 - cc_scripts_user.py[WARNING]: Failed to run module scripts-user (scripts in /var/lib/cloud/instance/scripts)
+2015-11-10 05:37:31,185 - util.py[WARNING]: Running scripts-user (<module 'cloudinit.config.cc_scripts_user' from '/usr/lib/python2.6/site-packages/cloudinit/config/cc_scripts_user.pyc'>) failed
+Cloud-init v. 0.7.5 finished at Tue, 10 Nov 2015 05:37:31 +0000. Datasource DataSourceEc2.  Up 512.39 seconds

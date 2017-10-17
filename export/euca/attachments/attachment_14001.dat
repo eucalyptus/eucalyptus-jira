@@ -1,0 +1,20 @@
+diff --git a/console/static/js/eip.js b/console/static/js/eip.js
+index 0b09dbd..21b31ce 100644
+--- a/console/static/js/eip.js
++++ b/console/static/js/eip.js
+@@ -71,7 +71,14 @@
+             {
+               "bVisible": false,
+               "fnRender": function(oObj) { 
+-                return oObj.aData.instance_id ? 'assigned' : 'unassigned' 
++                if (! oObj.aData.instance_id)
++                  return 'unassigned';
++                else if (oObj.aData.instance_id.indexOf('available') >= 0)
++                  return 'unassigned';
++                else if (oObj.aData.instance_id.indexOf('nobody') >= 0)
++                  return 'unallocated';
++                else
++                  return 'assigned'
+               } 
+             },
+             {

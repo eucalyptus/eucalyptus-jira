@@ -1,0 +1,268 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.DescribeInstanceStatusRequest;
+import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.IamInstanceProfileSpecification;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.RunInstancesRequest;
+import com.amazonaws.services.ec2.model.RunInstancesResult;
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagement;
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClient;
+import com.amazonaws.services.identitymanagement.model.CreateInstanceProfileRequest;
+import com.amazonaws.services.identitymanagement.model.CreateInstanceProfileResult;
+import com.amazonaws.services.identitymanagement.model.DeleteInstanceProfileRequest;
+
+/**
+ * This application test the EC2 RunInstances operation with instance profiles.
+ *
+ * This is verification for the task:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-5407
+ */
+public class TestEC2InstanceProfile {
+
+  private final String host;
+  private final String accessKey;
+  private final String secretKey;
+
+  public static void main( String[] args ) throws Exception {
+    final TestEC2InstanceProfile test =  new TestEC2InstanceProfile(
+        "192.168.51.170",
+        "N2H6DF7EVZIAMV67N90RC",
+        "M7W5Cn4Gt8eNsFaBNcNsQSft9Qv6jztaqVJcEEeO"
+    );
+    test.test();
+  }
+
+  public TestEC2InstanceProfile( final String host,
+                                 final String accessKey,
+                                 final String secretKey ) {
+    this.host = host;
+    this.accessKey = accessKey;
+    this.secretKey = secretKey;
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials( accessKey, secretKey );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://" + host + ":8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private AmazonIdentityManagement getIamClient( ) {
+    final AmazonIdentityManagement iam = new AmazonIdentityManagementClient( credentials() );
+    iam.setEndpoint( cloudUri( "/services/Euare/" ) );
+    return iam;
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  public void test() throws Exception {
+    final AmazonEC2 ec2 = getEc2Client();
+    final AmazonIdentityManagement iam = getIamClient();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" ),
+        new Filter().withName( "root-device-type" ).withValues( "instance-store" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // End discovery, start test
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      // Create instance profile
+      final String profileName = namePrefix + "EC2ProfileTest";
+      print( "Creating instance profile: " + profileName );
+      final CreateInstanceProfileResult instanceProfileResult = iam.createInstanceProfile( new CreateInstanceProfileRequest()
+          .withInstanceProfileName( profileName )
+          .withPath( "/path" ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting instance profile: " + profileName );
+          iam.deleteInstanceProfile( new DeleteInstanceProfileRequest()
+              .withInstanceProfileName( profileName ) );
+        }
+      } );
+      final String profileArn = instanceProfileResult.getInstanceProfile().getArn();
+      print( "Created instance profile with ARN: " + profileArn );
+
+      // Run instance with ARN
+      {
+        print( "Running instance with instance profile ARN" );
+        final RunInstancesResult runResult =
+            ec2.runInstances( new RunInstancesRequest()
+                .withImageId( imageId )
+                .withMinCount(1)
+                .withMaxCount(1)
+                .withIamInstanceProfile( new IamInstanceProfileSpecification()
+                    .withArn( profileArn ) ) );
+        final String instanceId = getInstancesIds( runResult.getReservation() ).get(0);
+        print( "Launched instance: " + instanceId );
+        cleanupTasks.add( new Runnable() {
+          @Override
+          public void run() {
+            print( "Terminating instance: " + instanceId );
+            ec2.terminateInstances( new TerminateInstancesRequest().withInstanceIds( instanceId ) );
+          }
+        } );
+
+        // Wait for instance
+        waitForInstance( ec2, instanceId, "running" );
+
+        // Verify instance profile used for instance
+        print( "Verifying run instances response references instance profile" );
+        assertThat( runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile() != null, "Expected instance profile" );
+        assertThat( profileArn.equals( runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile().getArn() ), "Unexpected instance profile ARN: " + runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile().getArn() );
+        assertThat( runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile().getId() != null , "Expected instance profile ID" );
+
+        //
+        print( "Terminating instance: " + instanceId );
+        ec2.terminateInstances( new TerminateInstancesRequest().withInstanceIds( instanceId ) );
+      }
+
+      // Run instance with name
+      {
+        print( "Running instance with instance profile name" );
+        final RunInstancesResult runResult =
+            ec2.runInstances( new RunInstancesRequest()
+                .withImageId( imageId )
+                .withMinCount(1)
+                .withMaxCount(1)
+                .withIamInstanceProfile( new IamInstanceProfileSpecification()
+                    .withName( profileName ) ) );
+        final String instanceId = getInstancesIds( runResult.getReservation() ).get(0);
+        print( "Launched instance: " + instanceId );
+        cleanupTasks.add( new Runnable() {
+          @Override
+          public void run() {
+            print( "Terminating instance: " + instanceId );
+            ec2.terminateInstances( new TerminateInstancesRequest().withInstanceIds( instanceId ) );
+          }
+        } );
+
+        // Wait for instance
+        waitForInstance( ec2, instanceId, "running" );
+
+        // Verify instance profile used for instance
+        print( "Verifying run instances response references instance profile" );
+        assertThat( runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile() != null, "Expected instance profile" );
+        assertThat( profileArn.equals( runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile().getArn() ), "Unexpected instance profile ARN: " + runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile().getArn() );
+        assertThat( runResult.getReservation().getInstances().get( 0 ).getIamInstanceProfile().getId() != null , "Expected instance profile ID" );
+
+        //
+        print( "Terminating instance: " + instanceId );
+        ec2.terminateInstances( new TerminateInstancesRequest().withInstanceIds( instanceId ) );
+      }
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private String waitForInstance( final AmazonEC2 ec2,
+                                  final String expectedId,
+                                  final String state ) throws Exception {
+    print( "Waiting for instance state " + state );
+    String az = null;
+    final long startTime = System.currentTimeMillis( );
+    boolean completed = false;
+    while ( !completed && ( System.currentTimeMillis() - startTime ) < TimeUnit.MINUTES.toMillis( 3 ) ) {
+      final DescribeInstanceStatusResult instanceStatusResult =
+          ec2.describeInstanceStatus( new DescribeInstanceStatusRequest()
+              .withInstanceIds( expectedId )
+              .withIncludeAllInstances( true )
+              .withFilters( new Filter()
+                  .withName( "instance-state-name" )
+                  .withValues( state ) ) );
+      completed = instanceStatusResult.getInstanceStatuses().size() == 1;
+      if ( completed ) {
+        az = instanceStatusResult.getInstanceStatuses().get(0).getAvailabilityZone();
+        assertThat( expectedId.equals( instanceStatusResult.getInstanceStatuses().get(0).getInstanceId() ), "Incorrect instance id" );
+        assertThat( state.equals( instanceStatusResult.getInstanceStatuses().get( 0 ).getInstanceState().getName() ), "Incorrect instance state" );
+      }
+      Thread.sleep( 5000 );
+    }
+    assertThat( completed, "Instance not reported within the expected timeout" );
+    print( "Instance reported "+state+" in " + ( System.currentTimeMillis()-startTime ) + "ms" );
+    return az;
+  }
+
+  private List<String> getInstancesIds( final Reservation... reservations ) {
+    final List<String> instances = new ArrayList<String>();
+    for ( final Reservation reservation : reservations ) {
+      for ( final Instance instance : reservation.getInstances() ) {
+        instances.add( instance.getInstanceId() );
+      }
+    }
+    return instances;
+  }
+}

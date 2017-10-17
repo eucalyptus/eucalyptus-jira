@@ -1,0 +1,68 @@
+i2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | verifying 1 instance[s] for migration...
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | verifying instance # 0...
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | invoked (action=prepare instance[0].{id=i-e043ff0a src=10.111.5.162 dst=10.111.5.196) creds=present
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | verifying 1 instance[s] for migration...
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | verifying instance # 0...
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | [i-e043ff0a] proposed migration action 'prepare' (10.111.5.162 > 10.111.5.196) [creds=present]
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | [i-e043ff0a] processing instance # 0 (10.111.5.162 > 10.111.5.196)
+2014-10-03 21:24:09 ERROR 000026323 write_xml_file           | [i-e043ff0a] failed to write instance XML to
+2014-10-03 21:24:09  INFO 000026323 doMigrateInstances       | [i-e043ff0a] migration destination preparing 10.111.5.162 > 10.111.5.196 [creds=present]
+2014-10-03 21:24:09 DEBUG 000026323 doMigrateInstances       | [i-e043ff0a] authorizing migration source node 10.111.5.162
+2014-10-03 21:24:09 DEBUG 000026323 authorize_migration_keys | [i-e043ff0a] migration key authorization command: '//usr/lib/eucalyptus/euca_rootwrap //usr/share/eucalyptus/authorize-migration-keys.pl -a 10.111.5.162 8cD8rfZFrmG55m0C'
+2014-10-03 21:24:09 DEBUG 000026323 authorize_migration_keys | [i-e043ff0a] migration key authorization/deauthorization succeeded
+2014-10-03 21:24:09 DEBUG 000026323 generate_migration_keys  | [i-e043ff0a] regeneration of migration credentials
+2014-10-03 21:24:09 DEBUG 000026323 generate_migration_keys  | [i-e043ff0a] executing migration key-generator: '//usr/lib/eucalyptus/euca_rootwrap //usr/share/eucalyptus/generate-migration-keys.sh 10.111.5.196 8cD8rfZFrmG55m0C restart'
+2014-10-03 21:24:10 DEBUG 000026323 generate_migration_keys  | [i-e043ff0a] migration key generation succeeded
+2014-10-03 21:24:10  INFO 000026323 ensure_directories_exist | creating path /disk1/storage/eucalyptus/instances/work/AIDTM5VGK2WCOJEEIDKWT/i-e043ff0a
+2014-10-03 21:24:10 DEBUG 000026323 diskutil_ch              | ch(own|mod) '/disk1/storage/eucalyptus/instances/work/AIDTM5VGK2WCOJEEIDKWT/i-e043ff0a' *.root 771
+2014-10-03 21:24:10 DEBUG 000026323 vbr_alloc_tree           | [i-e043ff0a] found 2 prereqs and 3 partitions/disks in the VBR
+2014-10-03 21:24:10 DEBUG 000026323 art_alloc                | [i-e043ff0a] allocated artifact 016|i-e043ff0a size=-1 vbr=(nil) cache=0 file=0
+2014-10-03 21:24:10 DEBUG 000026323 http_get_timeout         | downloading /tmp/http-reply-HJwWIt
+2014-10-03 21:24:10 DEBUG 000026323 http_get_timeout         | from http://10.111.5.157:8773/services/objectstorage/0dd0ae-download-manifests/DM-eki-2a40f196-r-57f26115?Expires=1412394310&AWSAccessKeyId=AKIC3DGCURVXZLQ9DZVE&Signature=ApqYC8iE5cqlZMT%2Fu6AHm8xZe8o%3D
+2014-10-03 21:24:10 DEBUG 000026323 http_get_timeout         | writing GET output to /tmp/http-reply-HJwWIt
+2014-10-03 21:24:10 DEBUG 000026323 http_get_timeout         | wrote 228 bytes in 1 writes
+2014-10-03 21:24:10 ERROR 000026323 http_get_timeout         | server responded with HTTP code 403 for http://10.111.5.157:8773/services/objectstorage/0dd0ae-download-manifests/DM-eki-2a40f196-r-57f26115?Expires=1412394310&AWSAccessKeyId=AKIC3DGCURVXZLQ9DZVE&Signature=ApqYC8iE5cqlZMT%2Fu6AHm8xZe8o%3D
+2014-10-03 21:24:10  WARN 000026323 http_get_timeout         | removing /tmp/http-reply-HJwWIt
+2014-10-03 21:24:10 ERROR 000026323 http_get2str             | failed to download http reply to /tmp/http-reply-HJwWIt
+2014-10-03 21:24:10 ERROR 000026323 art_alloc_vbr            | [i-e043ff0a] failed to obtain image manifest from object storage
+2014-10-03 21:24:10 ERROR 000026323 create_instance_backing  | [i-e043ff0a] failed to prepare extended backing for instance
+2014-10-03 21:24:10 ERROR 000026323 doMigrateInstances       | [i-e043ff0a] failed to prepare images for migrating instance (error=1)
+2014-10-03 21:24:10 ERROR 000026323 doMigrateInstances       | [i-e043ff0a] setting instance to Teardown(cleaning) after destination failure to prepare for migration
+2014-10-03 21:24:10 DEBUG 000026323 change_state             | [i-e043ff0a] state change for instance: Unknown -> Teardown (Teardown)
+2014-10-03 21:24:10  INFO 000026323 doMigrateInstances       | [i-e043ff0a] no remaining active incoming migrations -- checking to see if there are any pending migrations
+2014-10-03 21:24:10  INFO 000026323 doMigrateInstances       | [i-e043ff0a] no remaining incoming or pending migrations -- deauthorizing all migration client keys
+2014-10-03 21:24:10 DEBUG 000026323 authorize_migration_keys | [UNSET] migration key authorization command: '//usr/lib/eucalyptus/euca_rootwrap //usr/share/eucalyptus/authorize-migration-keys.pl -D -r  '
+2014-10-03 21:24:11 DEBUG 000026323 authorize_migration_keys | [UNSET] migration key authorization/deauthorization succeeded
+2014-10-03 21:24:11 ERROR 000026323 ncMigrateInstancesMarsha | failed error=1
+2014-10-03 21:24:13 DEBUG 000026323 doDescribeResource       | Core status:   in-use 1 physical 4 over-committed no
+2014-10-03 21:24:13 DEBUG 000026323 doDescribeResource       | Memory status: in-use 256 physical 8051 over-committed no
+2014-10-03 21:24:13 DEBUG 000026323 doDescribeResource       | returning status=enabled cores=15/16 mem=7795/8051 disk=52/57 iqn=iqn.1994-05.com.redhat:5773aede7076
+2014-10-03 21:24:13 DEBUG 000026323 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=28 services[0]{.name=10.111.5.63 .type=autoscalingbackend .uris[0]=http://10.111.5.63:8773/services/AutoScalingBackend}
+2014-10-03 21:24:13 DEBUG 000026323 doDescribeInstances      | [i-3c51dbf3] Extant (running) pub=10.111.103.24 vols=
+2014-10-03 21:24:13 DEBUG 000026323 doDescribeInstances      | [i-e043ff0a] Teardown (cleaning <10.111.5.162) pub=10.111.103.28 vols=
+2014-10-03 21:24:19 DEBUG 000026323 doDescribeResource       | Core status:   in-use 1 physical 4 over-committed no
+2014-10-03 21:24:19 DEBUG 000026323 doDescribeResource       | Memory status: in-use 256 physical 8051 over-committed no
+2014-10-03 21:24:19 DEBUG 000026323 doDescribeResource       | returning status=enabled cores=15/16 mem=7795/8051 disk=52/57 iqn=iqn.1994-05.com.redhat:5773aede7076
+2014-10-03 21:24:19 DEBUG 000026323 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=28 services[0]{.name=10.111.5.63 .type=autoscalingbackend .uris[0]=http://10.111.5.63:8773/services/AutoScalingBackend}
+2014-10-03 21:24:19 DEBUG 000026323 doDescribeInstances      | [i-3c51dbf3] Extant (running) pub=10.111.103.24 vols=
+2014-10-03 21:24:19 DEBUG 000026323 doDescribeInstances      | [i-e043ff0a] Teardown (cleaning <10.111.5.162) pub=10.111.103.28 vols=
+2014-10-03 21:24:20 DEBUG 000026323 doBroadcastNetworkInfo   | invoked
+2014-10-03 21:24:20 DEBUG 000026323 doBroadcastNetworkInfo   | decoding/writing buffer to (//var/lib/eucalyptus/global_network_info.xml)
+2014-10-03 21:24:25 DEBUG 000026323 doDescribeResource       | Core status:   in-use 1 physical 4 over-committed no
+2014-10-03 21:24:25 DEBUG 000026323 doDescribeResource       | Memory status: in-use 256 physical 8051 over-committed no
+2014-10-03 21:24:25 DEBUG 000026323 doDescribeResource       | returning status=enabled cores=15/16 mem=7795/8051 disk=52/57 iqn=iqn.1994-05.com.redhat:5773aede7076
+2014-10-03 21:24:25 DEBUG 000026323 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=28 services[0]{.name=10.111.5.63 .type=autoscalingbackend .uris[0]=http://10.111.5.63:8773/services/AutoScalingBackend}
+2014-10-03 21:24:25 DEBUG 000026323 doDescribeInstances      | [i-3c51dbf3] Extant (running) pub=10.111.103.24 vols=
+2014-10-03 21:24:25 DEBUG 000026323 doDescribeInstances      | [i-e043ff0a] Teardown (cleaning <10.111.5.162) pub=10.111.103.28 vols=
+2014-10-03 21:24:28 DEBUG 000026348 statfs_path              | path '/disk1/storage/eucalyptus/instances/work' resolved
+2014-10-03 21:24:28 DEBUG 000026348 statfs_path              |   to '/disk1/storage/eucalyptus/instances/work' with ID 0
+2014-10-03 21:24:28 DEBUG 000026348 statfs_path              |   of size 210322055168 bytes with available 189091631104 bytes
+2014-10-03 21:24:28 DEBUG 000026348 statfs_path              | path '/disk1/storage/eucalyptus/instances/cache' resolved
+2014-10-03 21:24:28 DEBUG 000026348 statfs_path              |   to '/disk1/storage/eucalyptus/instances/cache' with ID 0
+2014-10-03 21:24:28 DEBUG 000026348 statfs_path              |   of size 210322055168 bytes with available 189091631104 bytes
+2014-10-03 21:24:31 DEBUG 000026323 doDescribeResource       | Core status:   in-use 1 physical 4 over-committed no
+2014-10-03 21:24:31 DEBUG 000026323 doDescribeResource       | Memory status: in-use 256 physical 8051 over-committed no
+2014-10-03 21:24:31 DEBUG 000026323 doDescribeResource       | returning status=enabled cores=15/16 mem=7795/8051 disk=52/57 iqn=iqn.1994-05.com.redhat:5773aede7076
+2014-10-03 21:24:31 DEBUG 000026323 doDescribeInstances      | invoked userId=eucalyptus correlationId=UNSET epoch=28 services[0]{.name=10.111.5.63 .type=autoscalingbackend .uris[0]=http://10.111.5.63:8773/services/AutoScalingBackend}
+2014-10-03 21:24:31 DEBUG 000026323 doDescribeInstances      | [i-3c51dbf3] Extant (running) pub=10.111.103.24 vols=
+2014-10-03 21:24:31 DEBUG 000026323 doDescribeInstances      | [i-e043ff0a] Teardown (cleaning <10.111.5.162) pub=10.111.103.28 vols=

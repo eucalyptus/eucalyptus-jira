@@ -1,0 +1,330 @@
+/*************************************************************************
+ * Copyright 2009-2015 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.Request
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.handlers.AbstractRequestHandler
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.cloudformation.AmazonCloudFormationClient
+import com.amazonaws.services.cloudformation.model.CreateStackRequest
+import com.amazonaws.services.cloudformation.model.DeleteStackRequest
+import com.amazonaws.services.cloudformation.model.DescribeStacksRequest
+import com.amazonaws.services.identitymanagement.model.CreateAccessKeyRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.github.sjones4.youcan.youare.YouAre
+import com.github.sjones4.youcan.youare.YouAreClient
+import com.github.sjones4.youcan.youare.model.CreateAccountRequest
+import com.github.sjones4.youcan.youare.model.DeleteAccountRequest
+import com.github.sjones4.youcan.youprop.YouProp
+import com.github.sjones4.youcan.youprop.YouPropClient
+import com.github.sjones4.youcan.youprop.model.ModifyPropertyValueRequest
+
+import javax.net.ssl.*
+import javax.xml.bind.DatatypeConverter
+import java.security.MessageDigest
+import java.security.cert.X509Certificate
+
+/**
+ * Tests use of IAM APIs in a remote region.
+ *
+ * This is verification for the story:
+ *   IAMGLOB : Simple global IAM service
+ *   https://eucalyptus.atlassian.net/browse/EUCA-10443
+ *
+ * Uses:
+ *   https://github.com/sjones4/you-are-sdk
+ */
+class TestIAMGlobRemoteRegionIAM {
+
+  private final String host1 = '10.111.W.X'
+
+  private final String host2 = '10.111.Y.Z'
+
+  // Cloud 1 administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials1 = new StaticCredentialsProvider( new BasicAWSCredentials(
+      'AKI...',
+      'MlJ...'
+  ) )
+
+  // Cloud 2 administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials2 = new StaticCredentialsProvider( new BasicAWSCredentials(
+      'AKI...',
+      'YJP...'
+  ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestIAMGlobRemoteRegionIAM().test()
+  }
+
+  private String cloudUri( String host, String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private YouProp getYouPropClient( final String host, final AWSCredentialsProvider credentials ) {
+    final YouProp youProp = new YouPropClient( credentials )
+    youProp.setEndpoint( cloudUri( host, '/services/Properties' ) )
+    youProp
+  }
+
+  private YouAreClient getYouAreClient( final String host, final AWSCredentialsProvider credentials  ) {
+    final YouAreClient euare = new YouAreClient( credentials )
+    euare.setEndpoint( cloudUri( host, '/services/Euare' ) )
+    euare
+  }
+
+  private YouAreClient getYouAreClientWithDelegate( final String host,
+                                                    final AWSCredentialsProvider credentials,
+                                                    final String delegateAccountAlias  ) {
+    YouAre euare = getYouAreClient(host, credentials)
+    euare.addRequestHandler(new AbstractRequestHandler() {
+      public void beforeRequest(final Request<?> request) {
+        request.addParameter("DelegateAccount", delegateAccountAlias)
+      }
+    })
+    euare
+  }
+
+  private AmazonCloudFormationClient getCloudFormationClient( final String host, final AWSCredentialsProvider credentials  ) {
+    final AmazonCloudFormationClient cf = new AmazonCloudFormationClient( credentials )
+    cf.setEndpoint( cloudUri( host, "/services/CloudFormation" ) )
+    cf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString().substring(0,8) + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    List<X509Certificate> certificates = [ ]
+    SSLContext context = SSLContext.getInstance("TLS")
+    context.init( null, [
+      new X509TrustManager() {
+        @Override void checkClientTrusted(final X509Certificate[] x509Certificates, final String s) { }
+        @Override void checkServerTrusted(final X509Certificate[] x509Certificates, final String s) {
+          certificates << x509Certificates[0]
+        }
+        @Override X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0] }
+      } ] as TrustManager[]
+    , null)
+    SSLSocketFactory socketFactory = context.getSocketFactory( )
+
+    [ host1, host2 ].each { String host ->
+      HttpsURLConnection urlConnection = (HttpsURLConnection) new URL( "https://${host}:8773/" ).openConnection( )
+      urlConnection.setSSLSocketFactory( socketFactory )
+      try { urlConnection.getResponseCode( ) } catch ( Exception ) { }
+    }
+
+    assertThat( certificates.size() == 2, "Expected two certificates: ${certificates.size()}" )
+
+    List<String> certificateFingerprints = certificates.collect { X509Certificate certificate ->
+      DatatypeConverter.printHexBinary( MessageDigest.getInstance( "SHA-256" ).digest( certificate.getEncoded( ) ) ).replaceAll( '([a-fA-F0-9]{2})(?=.)', '$1:' )
+    }
+
+    println certificateFingerprints
+
+    String regionConfiguration = """\
+        {
+            "Regions": [
+                {
+                    "Name": "region-1",
+                    "CertificateFingerprint": "${certificateFingerprints[0]}",
+                    "IdentifierPartitions": [
+                      100
+                    ],
+                    "Services": [
+                        {
+                          "Type": "identity",
+                          "Endpoints": [
+                            "https://${host1}:8773/services/Identity"
+                          ]
+                        }
+                    ]
+                },
+                {
+                    "Name": "region-2",
+                    "CertificateFingerprint": "${certificateFingerprints[1]}",
+                    "IdentifierPartitions": [
+                      200
+                    ],
+                    "Services": [
+                        {
+                          "Type": "identity",
+                          "Endpoints": [
+                            "https://${host2}:8773/services/Identity"
+                          ]
+                        }
+                    ]
+                }
+            ]
+        }
+        """.stripIndent( )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      [
+          [ eucalyptusCredentials1, host1, 'region-1' ],
+          [ eucalyptusCredentials2, host2, 'region-2' ],
+      ].each{ AWSCredentialsProvider credentials, String host, String region ->
+        getYouPropClient( host, credentials ).with {
+          print( "Updating ${host} region.region_name to ${region}" )
+          modifyPropertyValue( new ModifyPropertyValueRequest( name: 'region.region_name', value: region ) )
+
+          print( "Updating ${host} region.region_configuration" )
+          modifyPropertyValue( new ModifyPropertyValueRequest( name: 'region.region_configuration', value: regionConfiguration ) )
+        }
+      }
+
+      final String resourceAccountName = "${namePrefix}resource-account1"
+      AWSCredentialsProvider resourceCredentials = null
+      getYouAreClient( host1, eucalyptusCredentials1 ).with {
+        // Create account for testing
+        print("Creating resource account on ${host1}: ${resourceAccountName}")
+        String resourceAccountNumber = createAccount(new CreateAccountRequest(accountName: resourceAccountName)).with {
+          account?.accountId
+        }
+        assertThat(resourceAccountNumber != null, "Expected account number")
+        print("Created resource account with number: ${resourceAccountNumber}")
+        cleanupTasks.add {
+          print("Deleting resource account: ${resourceAccountName}")
+          deleteAccount(new DeleteAccountRequest(accountName: resourceAccountName, recursive: true))
+        }
+
+        // Get credentials for resource account
+        print("Creating access key for resource account: ${resourceAccountName}")
+        resourceCredentials = getYouAreClientWithDelegate(host1, eucalyptusCredentials1, resourceAccountName).with {
+          createAccessKey(new CreateAccessKeyRequest(userName: "admin")).with {
+            accessKey?.with {
+              new StaticCredentialsProvider(new BasicAWSCredentials(accessKeyId, secretAccessKey))
+            }
+          }
+        }
+        assertThat(resourceCredentials != null, "Expected resource credentials")
+        print("Created resource account access key: ${resourceCredentials.credentials.AWSAccessKeyId}")
+      }
+
+      print( "Sleeping for 30 seconds to allow region configuration update to be processed" )
+      ( 0..5 ).each { Integer count ->
+        print( "Sleeping for ${30-(count*5)} seconds ..."  )
+        sleep 5000
+      }
+
+      print( "Testing host2 basic access" )
+      getYouAreClient( host2, resourceCredentials ).with {
+        print( getAccountSummary( ).toString( ) )
+      }
+
+      print( "Testing host2 delegate account access" )
+      getYouAreClientWithDelegate( host2, eucalyptusCredentials2, resourceAccountName ).with {
+        print( getAccountSummary( ).toString( ) )
+      }
+
+      print( "Testing host2 cloudformation IAM" )
+      getCloudFormationClient( host2, resourceCredentials ).with {
+        final String stackName = "s${namePrefix}stack1"
+        print( "Creating stack: ${stackName}" )
+        createStack( new CreateStackRequest(
+            stackName: stackName,
+            capabilities: [ 'CAPABILITY_IAM' ],
+            templateBody: '''\
+            {
+              "AWSTemplateFormatVersion" : "2010-09-09",
+              "Resources" : {
+                "User" : {
+                  "Type" : "AWS::IAM::User",
+                  "Properties" : {
+                    "Path" : "/",
+                    "Policies" : [ {
+                      "PolicyName" : "policy",
+                      "PolicyDocument" : {
+                        "Statement" : [ {
+                          "Effect" : "Allow",
+                          "Action" : "*",
+                          "Resource" : "*"
+                        } ]
+                      }
+                    } ]
+                  }
+                }
+              }
+            }
+            '''.stripIndent( )
+        ) )
+        cleanupTasks.add{
+          print( "Deleting stack: ${stackName}" )
+          deleteStack( new DeleteStackRequest(
+              stackName: stackName
+          ) )
+        }
+
+        print( "Waiting for stack creation to complete" )
+        ( 1..25 ).find{
+          sleep 5000
+          print( "Waiting for stack creation to complete, waited ${it*5}s" )
+          describeStacks( new DescribeStacksRequest(
+              stackName: stackName,
+          ) ).with {
+            stacks?.getAt( 0 )?.stackStatus == 'CREATE_COMPLETE'
+          }
+        }
+
+        describeStacks( new DescribeStacksRequest(
+            stackName: stackName,
+        ) ).with {
+          assertThat( stacks?.getAt( 0 )?.stackStatus == 'CREATE_COMPLETE', 'Stack failed' )
+        }
+
+        print( "Deleting stack: ${stackName}" )
+        deleteStack( new DeleteStackRequest(
+          stackName: stackName
+        ) )
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

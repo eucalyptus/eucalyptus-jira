@@ -1,0 +1,102 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+
+import java.util.ArrayList;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.RunInstancesRequest;
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
+
+/*
+ * Run Instance Monitor Test case
+ * https://eucalyptus.atlassian.net/browse/EUCA-4981
+ */
+
+public class RunInstanceMonitorTest {
+
+    static AmazonEC2 ec2;
+
+    private static void setCreds() throws Exception {
+
+	// Set credentials of the eucalyptus/admin user
+	BasicAWSCredentials props = new BasicAWSCredentials(
+		"UPGEOWPZTWIJ7LBWOPHKU",
+		"p7Ak2Y5d3EYPzhxTXyRCw6ceuQXv1j8zUfrhrklI");
+	ec2 = new AmazonEC2Client(props);
+	ec2.setEndpoint("http://10.111.1.50:8773/services/Eucalyptus/");
+    }
+
+    public static void main(String[] args) throws Exception {
+
+	setCreds();
+
+	// Find an image on the cloud
+	final DescribeImagesResult imagesResult = ec2
+		.describeImages(new DescribeImagesRequest().withFilters(
+			new Filter().withName("image-type").withValues(
+				"machine"),
+			new Filter().withName("root-device-type").withValues(
+				"instance-store")));
+
+	// Run an instance with monitoring set to true
+	RunInstancesRequest runInstancesRequest = new RunInstancesRequest()
+		.withInstanceType("m1.small")
+		.withImageId(imagesResult.getImages().get(0).getImageId())
+		.withMinCount(1).withMaxCount(1).withSecurityGroups("default")
+		.withMonitoring(Boolean.TRUE);
+
+	ec2.runInstances(runInstancesRequest);
+
+	// Run an instance with monitoring set to default (false)
+	RunInstancesRequest runInstancesRequest2 = new RunInstancesRequest()
+		.withInstanceType("m1.small")
+		.withImageId(imagesResult.getImages().get(0).getImageId())
+		.withMinCount(1).withMaxCount(1).withSecurityGroups("default");
+
+	ec2.runInstances(runInstancesRequest2);
+
+	ArrayList<String> instanceIds = new ArrayList<String>(2);
+	
+	// Describe the instance that were ran during the test
+	for (Reservation reservation : ec2.describeInstances()
+		.getReservations()) {
+	    for (Instance instance : reservation.getInstances()) {
+		instanceIds.add(instance.getInstanceId());
+		System.out.print("Instance : " + instance.toString() + "\n");
+	    }
+	}
+
+	/*
+	 * Add clean up after monitor method is completed Thread.sleep(60000);
+	 * TerminateInstancesRequest terminateInstancesRequest = new
+	 * TerminateInstancesRequest();
+	 * terminateInstancesRequest.setInstanceIds(instanceIds);
+	 * ec2.terminateInstances(terminateInstancesRequest);
+	 */
+    }
+
+}

@@ -1,0 +1,113 @@
+Thu Jun 14 14:02:32 2012 ERROR Volumes                 | java.lang.IllegalArgumentException: Storage size cannot be negative
+Thu Jun 14 14:03:26 2012  INFO ImageUtil               | Triggering caching: tmppsiwnsju99/vmlinuz-2.6.27.21-0.1-xen.manifest.xml
+Thu Jun 14 14:03:26 2012  INFO AdmissionControl        | Found authorized clusters: [CC_96]
+Thu Jun 14 14:03:26 2012  INFO AdmissionControl        | Availability: CC_96 -> 20
+Thu Jun 14 14:03:26 2012  INFO ClusterAllocator        | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare:404107650900:user/admin:VM_PREPARE:[com.eucalyptus.cloud.run.Allocations$Allocation@307c9d5c context=Context request=[?xml version="1.0" encoding="UTF-8"?]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:[euca:RunInstancesType xmlns:euca="http://msgs.eucalyptus.com"]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:VmControlMessage]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [euca:EucalyptusMessage]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:      [euca:correlationId]ef007b01-61cb-4a76-98ee-e598c7de9929[/euca:correlationId]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:      [euca:_return]true[/euca:_return]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:      [euca:_services/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:      [euca:_disabledServices/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:      [euca:_notreadyServices/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [/euca:EucalyptusMessage]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [/euca:VmControlMessage]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:imageId]emi-5B8644F1[/euca:imageId]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:minCount]1[/euca:minCount]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:maxCount]1[/euca:maxCount]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:keyName]testkey[/euca:keyName]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:instanceIds/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:groupSet]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [euca:item]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:      [euca:entry]test[/euca:entry]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [/euca:item]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [/euca:groupSet]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:userData/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:addressingType]private[/euca:addressingType]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:instanceType]m1.small[/euca:instanceType]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:availabilityZone]PARTI03[/euca:availabilityZone]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:placementGroup]default[/euca:placementGroup]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:blockDeviceMapping/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:monitoring]false[/euca:monitoring]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:shutdownAction]stop[/euca:shutdownAction]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:privateIpAddress/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:clientToken/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:networkIndexList/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [euca:vmType]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [euca:rootDeviceName]sda1[/euca:rootDeviceName]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [euca:deviceMappings/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:    [euca:virtualBootRecord/]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:  [/euca:vmType]
+                                                       | :1339707806824:ClusterAllocator:ef007b01-61cb-4a76-98ee-e598c7de9929:arn:aws:euare::404107650900:user/admin:VM_PREPARE:[/euca:RunInstancesType] ownerFullName=arn:aws:euare:404107650900:user/admin userData=null minCount=1 maxCount=1 usePrivateAddressing=true partition=Partition:name=PARTI03:cc-cert-serial=21056950259069:nc-cert-serial=21079137362632 sshKeyPair=SshKeyPair:404107650900:testkey:fingerPrint=27:bd:51:e2:18:ce:00:f8:2f:f1:84:5e:48:2a:e4:99:32:40:a8:79 bootSet=BootableSet:machine=arn:aws:euca:eucalyptus:404107650900:image/emi-5B8644F1/:ramdisk=false:kernel=arn:aws:euca:eucalyptus:000000000001:image/eki-FEF03B01/:isLinux=true vmType=VmType m1.small cores=1 disk=2 mem=128 primaryNetwork=NetworkRulesGroup:404107650900:test:description=test:networkRules=[NetworkRule:tcp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:, NetworkRule:udp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:, NetworkRule:icmp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:] networkGroups=[test:NetworkRulesGroup:404107650900:test:description=test:networkRules=[NetworkRule:tcp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:, NetworkRule:udp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:, NetworkRule:icmp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:]] reservationId=r-5CEE44F0 allocationTokens=[ResourceToken:i-14E3469A:tag=68:idx=113] reservationIndex=127 instanceIds=[0:i-14E3469A] expiration=Wed Jan 01 00:00:00 PST 3000]
+Thu Jun 14 14:03:27 2012  INFO MemQueue                | Event sent: [type:EbsVolume,isCreate:true,sizeMegs:3072,ownerId:GTIQG342ZHZ2O6QHJTUYM,ownerName:admin,accountId:404107650900,accountName:eucalyptus,clusterName:SC_96,zone:PARTI03]
+Thu Jun 14 14:03:27 2012  INFO StorageEventListener    | Receive event:[type:EbsVolume,isCreate:true,sizeMegs:3072,ownerId:GTIQG342ZHZ2O6QHJTUYM,ownerName:admin,accountId:404107650900,accountName:eucalyptus,clusterName:SC_96,zone:PARTI03] usageData:[vols:2,volsMegs:5120,snaps:1,snapsMegs:1024] addAmountMegs:3072 addNum:1
+Thu Jun 14 14:03:27 2012  INFO StorageEventListener    | Storing:[key:[owner:GTIQG342ZHZ2O6QHJTUYM,account:404107650900,cluster:SC_96,zone:PARTI03,timestamp:1339707807011],usageData:[vols:3,volsMegs:8192,snaps:1,snapsMegs:1024],allSnapshot:false]
+Thu Jun 14 14:03:27 2012 ERROR ClusterAllocator        | com.eucalyptus.util.EucalyptusCloudException: volume creation failed
+com.eucalyptus.util.EucalyptusCloudException: volume creation failed
+	at com.eucalyptus.cloud.run.ClusterAllocator.waitForVolume(ClusterAllocator.java:375)
+	at com.eucalyptus.cloud.run.ClusterAllocator.makeVmTypeInfo(ClusterAllocator.java:310)
+	at com.eucalyptus.cloud.run.ClusterAllocator.setupVmMessages(ClusterAllocator.java:295)
+	at com.eucalyptus.cloud.run.ClusterAllocator.<init>(ClusterAllocator.java:214)
+	at com.eucalyptus.cloud.run.ClusterAllocator.<init>(ClusterAllocator.java:126)
+	at com.eucalyptus.cloud.run.ClusterAllocator$SubmitAllocation$1.call(ClusterAllocator.java:160)
+	at com.eucalyptus.cloud.run.ClusterAllocator$SubmitAllocation$1.call(ClusterAllocator.java:156)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at com.eucalyptus.system.Threads$Queue.run(Threads.java:681)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:679)
+Thu Jun 14 14:03:27 2012 ERROR ClusterAllocator        | com.eucalyptus.util.EucalyptusCloudException: volume creation failed
+Thu Jun 14 14:03:27 2012 ERROR Allocations             | Aborting resource token: ResourceToken:i-14E3469A:tag=68:idx=113
+java.lang.RuntimeException
+	at com.eucalyptus.cloud.run.Allocations$Allocation.abort(Allocations.java:246)
+	at com.eucalyptus.cloud.run.ClusterAllocator.<init>(ClusterAllocator.java:219)
+	at com.eucalyptus.cloud.run.ClusterAllocator.<init>(ClusterAllocator.java:126)
+	at com.eucalyptus.cloud.run.ClusterAllocator$SubmitAllocation$1.call(ClusterAllocator.java:160)
+	at com.eucalyptus.cloud.run.ClusterAllocator$SubmitAllocation$1.call(ClusterAllocator.java:156)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at com.eucalyptus.system.Threads$Queue.run(Threads.java:681)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:679)
+Thu Jun 14 14:03:27 2012 ERROR VmInstance              | java.lang.IllegalArgumentException: Removing a detached instance com.eucalyptus.network.PrivateNetworkIndex#4028b3d237ecad800137ecced40a0056
+Thu Jun 14 14:03:27 2012  WARN Allocations             | Transaction marked as rollbackOnly
+Thu Jun 14 14:03:27 2012  INFO VmRuntimeState          | i-14E3469A state change: PENDING -> SHUTTING_DOWN (previously PENDING)
+Thu Jun 14 14:03:27 2012 ERROR ClusterAllocator        | com.eucalyptus.entities.TransientEntityException: VmInstance:networkConfig=VmNetworkConfig:usePrivateAddressing=true:macAddress=d0:0d:14:E3:46:9A:privateAddress=0.0.0.0:publicAddress=0.0.0.0:privateDnsName=euca-0-0-0-0.eucalyptus.internal:publicDnsName=euca-0-0-0-0.eucalyptus.localhost:vmId=VmId:reservationId=r-5CEE44F0:instanceId=i-14E3469A:bootRecord=VmBootRecord:machineImage=arn:aws:euca:eucalyptus:404107650900:image/emi-5B8644F1/:kernel=arn:aws:euca:eucalyptus:000000000001:image/eki-FEF03B01/:platform=linux:persistentVolumes=[VmVolumeAttachment:volumeId=vol-1D1E3DBE:device=/dev/sda1:status=attached:attachTime=2012-06-14 14:03:27.029]:sshKeyPair=testkey:vmType=VmType m1.small cores=1 disk=2 mem=128:usageStats=VmUsageStats:blockBytes=0:networkBytes=0:launchRecord=VmLaunchRecord:launchIndex=0:launchTime=2012-06-14 14:03:26.738:runtimeState=VmRuntimeState:reason=User terminated.:reasonDetails=[]:consoleOutput=::transientVolumeState=VmVolumeState:attachments=[]:placement=VmPlacement:clusterName=CC_96:partitionName=PARTI03:privateNetwork=false:networkGroups=[NetworkRulesGroup:404107650900:test:description=test:networkRules=[NetworkRule:udp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:, NetworkRule:icmp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:, NetworkRule:tcp:0:0:ipRanges=[0.0.0.0/0]:networkPeers=[]:]]:networkIndex=PrivateNetworkIndex:test tag=68 idx=113
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807425:StatefulMessageSet:VM_STARTING:START:0.595s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807426:StatefulMessageSet:VM_STARTING:START:TRANSITION:CREATE_VOLS
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807427:StatefulMessageSet:VM_STARTING:CREATE_VOLS:0.596s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807427:StatefulMessageSet:VM_STARTING:CREATE_VOLS:TRANSITION:CREATE_IGROUPS
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807428:StatefulMessageSet:VM_STARTING:CREATE_IGROUPS:0.598s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807429:StatefulMessageSet:VM_STARTING:CREATE_IGROUPS:TRANSITION:CREATE_NETWORK
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807429:StatefulMessageSet:VM_STARTING:CREATE_NETWORK:0.599s
+Thu Jun 14 14:03:27 2012  INFO TerminateInstancesType  | :1339707807562:TerminateInstancesType:VM_TERMINATING:[TerminateInstancesType instancesSet=[i-14E3469A] correlationId=a419fd47-27cc-47e1-b40d-982ee580b931 userId=eucalyptus effectiveUserId=eucalyptus _return=true statusMessage=null _epoch=null _services=[] _disabledServices=[] _notreadyServices=[]]
+Thu Jun 14 14:03:27 2012  INFO TerminateInstancesType  | :1339707807613:TerminateInstancesType:VM_TERMINATED:[TerminateInstancesResponseType terminated=true instancesSet=[] correlationId=null userId=eucalyptus effectiveUserId=null _return=true statusMessage=null _epoch=null _services=[] _disabledServices=[] _notreadyServices=[]]
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807618:StatefulMessageSet:VM_STARTING:CREATE_NETWORK:CC_96:StartNetworkResponseType
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807620:StatefulMessageSet:VM_STARTING:CREATE_NETWORK:TRANSITION:CREATE_NETWORK_RULES
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807621:StatefulMessageSet:VM_STARTING:CREATE_NETWORK_RULES:0.791s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807621:StatefulMessageSet:VM_STARTING:CREATE_NETWORK_RULES:TRANSITION:CREATE_VMS
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807622:StatefulMessageSet:VM_STARTING:CREATE_VMS:0.792s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807623:StatefulMessageSet:VM_STARTING:CREATE_VMS:TRANSITION:ATTACH_VOLS
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807623:StatefulMessageSet:VM_STARTING:ATTACH_VOLS:0.793s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807624:StatefulMessageSet:VM_STARTING:ATTACH_VOLS:TRANSITION:ASSIGN_ADDRESSES
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807625:StatefulMessageSet:VM_STARTING:ASSIGN_ADDRESSES:0.794s
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807625:StatefulMessageSet:VM_STARTING:ASSIGN_ADDRESSES:TRANSITION:FINISHED
+Thu Jun 14 14:03:27 2012  INFO StatefulMessageSet      | :1339707807626:StatefulMessageSet:VM_START_COMPLETED:0.796s
+Thu Jun 14 14:03:28 2012  INFO VmRuntimeState          | i-14E3469A state change: SHUTTING_DOWN -> TERMINATED (previously PENDING)
+Thu Jun 14 14:03:28 2012  INFO TerminateInstancesType  | :1339707808831:TerminateInstancesType:VM_TERMINATING:[TerminateInstancesType instancesSet=[i-14E3469A] correlationId=12bb85a7-34ce-46fb-8d58-31531617d4e3 userId=eucalyptus effectiveUserId=eucalyptus _return=true statusMessage=null _epoch=null _services=[] _disabledServices=[] _notreadyServices=[]]
+Thu Jun 14 14:03:28 2012  INFO TerminateInstancesType  | :1339707808887:TerminateInstancesType:VM_TERMINATED:[TerminateInstancesResponseType terminated=true instancesSet=[] correlationId=null userId=eucalyptus effectiveUserId=null _return=true statusMessage=null _epoch=null _services=[] _disabledServices=[] _notreadyServices=[]]
+Thu Jun 14 14:28:27 2012 ERROR PersistenceExceptions   | org.hibernate.PersistentObjectException: detached entity passed to persist: com.eucalyptus.vm.VmInstance
+Thu Jun 14 14:28:27 2012 ERROR PersistenceExceptions   | org.hibernate.PersistentObjectException: detached entity passed to persist: com.eucalyptus.vm.VmInstance
+
+
+
+

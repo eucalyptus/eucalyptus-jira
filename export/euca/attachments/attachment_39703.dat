@@ -1,0 +1,67 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+  
+    "Description" : "Cloudformation template to deploy multiple availability zone ELB+ASG environment on VPC",
+
+    "Parameters" : {
+        "CFNEndPoint" : {
+            "Description": "Endpoint URL of Cloudformation (required for Eucalyptus and AWS)",
+            "Type": "String",
+            "ConstraintDescription": "must be an URL to Cloudformation service on Eucalyptus and AWS"
+        },
+
+        "ImageId": {
+            "Description": "Ubuntu Image id",
+            "Type": "String",
+            "NoEcho": "False"
+        },
+
+        "KeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "The name of an existing EC2 KeyPair",
+            "NoEcho": "False"
+        },
+
+        "InstanceType": {
+            "Description": "Type of EC2 instance to launch.",
+            "Type": "String",
+            "Default" : "m1.medium",
+            "AllowedValues" : [ "m1.small","t1.micro","m1.medium", "m3.medium","c1.medium","m1.large", "m1.xlarge", "c1.xlarge", "m2.xlarge", "m3.xlarge", "m2.2xlarge", "m3.2xlarge", "cc1.4xlarge", "m2.4xlarge", "hi1.4xlarge", "cc2.8xlarge", "cg1.4xlarge", "cr1.8xlarge", "hs1.8xlarge" ],
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        }
+    },
+
+    "Resources": {
+        "VPCStack" : {
+            "Type" : "AWS::CloudFormation::Stack",
+            "Properties" : {
+                "TemplateURL" : "https://test-cfn-templates-v2.s3.amazonaws.com/cfn-vpc-setup.json"
+            }
+        },
+
+        "ELBASGStack" : {
+            "Type" : "AWS::CloudFormation::Stack",
+            "DependsOn" : "VPCStack",
+            "Properties" : {
+                "TemplateURL" : "https://test-cfn-templates-v2.s3.amazonaws.com/cfn-elb-asg-deployment-vpc-template.json",
+                "Parameters" : {
+                    "ImageId" : { "Ref" : "ImageId" },
+                    "EndPoint" : { "Ref" : "CFNEndPoint" },
+                    "KeyName" : { "Ref" : "KeyName" },
+                    "InstanceType" : { "Ref" : "InstanceType" },
+                    "VPC" : { "Fn::GetAtt" : [ "VPCStack", "Outputs.VPCId" ] },
+                    "SubnetOne" : { "Fn::GetAtt" : [ "VPCStack", "Outputs.Subnet1Id" ] },
+                    "SubnetTwo" : { "Fn::GetAtt" : [ "VPCStack", "Outputs.Subnet2Id" ] }
+                }
+            }
+        }
+    },
+
+    "Outputs": {
+        "OutputFromELBASGStack" : {
+            "Description" : "ELB DNS URL for Nginx Cluster",
+            "Value" : { "Fn::GetAtt" : [ "ELBASGStack", "Outputs.ELBURL" ] }
+        }
+    }
+}

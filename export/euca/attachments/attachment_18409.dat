@@ -1,0 +1,25 @@
+#!/usr/bin/groovy
+
+import com.eucalyptus.walrus.LifecycleCleanupJob;
+import com.eucalyptus.walrus.entities.ScheduledJobInfo;
+import com.eucalyptus.entities.Entities;
+import javax.persistence.EntityTransaction;
+import com.eucalyptus.walrus.util.WalrusSchedulerManager;
+
+def runIt() {
+
+    ScheduledJobInfo job = new ScheduledJobInfo();
+
+    job.setCronSchedule("0 0 1 * * ?");
+    job.setJobClassName("com.eucalyptus.walrus.LifecycleCleanupJob");
+
+    EntityTransaction tran = Entities.get(ScheduledJobInfo.class);
+    Entities.persist(job);
+    tran.commit();
+    
+    WalrusSchedulerManager.stop();
+    WalrusSchedulerManager.start();
+    return "script ";
+}
+
+return runIt();

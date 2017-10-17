@@ -1,0 +1,26 @@
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'right_aws'
+
+def generate_string( len )
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    generate_string = ""
+    1.upto(len) { |i| generate_string << chars[rand(chars.size-1)] }
+    return generate_string
+end
+
+s3 = RightAws::S3.new(aws_access_key_id=ENV['EC2_ACCESS_KEY'], aws_secret_access_key=ENV['EC2_SECRET_KEY'])
+
+for i in 0..5
+    bucket = RightAws::S3::Bucket.create(s3,'test_bucket_%s' % generate_string(10), true, 'public-read', :location => :us)
+    object = RightAws::S3::Key.create(bucket, 'test_object_%s'  % generate_string(10), data='testing hi there', meta_headers = {"group"=>"mygroup", "life"=>"mylife"})
+    object.put
+    if not object.exists?
+        puts "Object creation failed"
+    end
+    puts "%s" % object.reload_meta
+    object.delete
+    bucket.delete(true)
+end
+

@@ -1,0 +1,16 @@
+--- clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/SystemState.java.orig	2010-12-16 18:32:46.000000000 -0800
++++ clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/SystemState.java	2010-12-16 18:32:52.000000000 -0800
+@@ -333,11 +333,8 @@
+         try {
+           EntityWrapper<SshKeyPair> db = EntityWrapper.get( SshKeyPair.class );
+           try {
+-            SshKeyPair searchKey = new SshKeyPair( runVm.getOwnerId( ) ) {
+-              {
+-                setPublicKey( runVm.getKeyValue( ) );
+-              }
+-            };
++            SshKeyPair searchKey = new SshKeyPair( runVm.getOwnerId( ) );
++            searchKey.setPublicKey( runVm.getKeyValue( ) );
+             key = db.getUnique( searchKey );
+             db.commit( );
+           } catch ( Throwable e ) {

@@ -1,0 +1,99 @@
+from poster.encode import multipart_encode, MultipartParam
+from poster.streaminghttp import register_openers
+import urllib2
+import StringIO
+
+import base64, hmac, sha
+import time
+from email.utils import formatdate
+
+register_openers()
+
+#awshost="s3.amazonaws.com"
+#awskey = "AKIAIY2X62QVIHOPEFEQ"
+#awssecret = "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"
+#bucketaws = "feoff-personal-dontdelete"
+
+host='172.30.0.239:8773'+'/services/Walrus'
+key='AKIYTMPNSX70J2D5IUKI'
+secret='RQYTHgpsA1STzBjjc9w8pSQruC2AHvva8GijxYI0'
+bucket='buket4'
+data="12345678910"
+
+aws = False
+if aws:
+  bucket = bucketaws
+  key = awskey
+  secret = awssecret
+  host = awshost
+
+
+keyname="amazon.zip"
+filename="escsi_cfg.txt"
+
+url=host+"/"+bucket
+expiration="2015-12-01T12:00:00.000Z"
+datafile = open("E:\\"+filename ,"rb");
+data=datafile.read()
+datafile.close()
+content_type="binary/octet-stream"
+
+
+policy = ("{\"expiration\": \"%s\",\n"+
+"  \"conditions\": [ \n"+
+"    {\"bucket\": \"%s\"}, \n"+
+"    [\"starts-with\", \"$key\", \"%s\"],\n"+
+"    {\"acl\": \"%s\"},\n" +
+"    [\"starts-with\", \"$Content-Type\", \"%s\"],\n" +
+#"    [\"content-length-range\", %d, %d]\n" +
+"  ]\n" 
+"}") % (expiration,bucket,keyname,"private",content_type)#0,len(data))
+
+policy_encoded = base64.b64encode(policy)
+signature = base64.b64encode(hmac.new(secret, policy_encoded, sha).digest())
+
+dataparm = MultipartParam("file" , data , "filename" , content_type, len(data))
+params = (
+    MultipartParam("key", keyname , None , None)
+    , MultipartParam("bucket", bucket , None , None)
+    , MultipartParam("AWSAccessKeyId", key , None, None)
+    , ("Content-Type", content_type)
+    , ("acl", "private")
+    , MultipartParam("signature", signature , None, None)
+   , MultipartParam("policy", policy_encoded , None, None)
+    ,  MultipartParam("file" , data , keyname , content_type, len(data))
+    #, ("content-length-range" , ("%d, %d")%(0,len(data)))
+  , ("submit" , "ok")
+)
+
+auth_string = "AWS %s:%s" % (key, signature)
+datagen, headers = multipart_encode(params)
+headers['Authorization']=auth_string
+#headers['FormUploadPolicyData']=policy_encoded
+headers['Connection']="Close"
+headers['Date']=formatdate(timeval=None, localtime=False, usegmt=True)
+
+print str(policy_encoded)
+
+print str(signature)
+
+request = urllib2.Request("https://"+url, datagen, headers)
+for (headername , headerval) in request.header_items():
+    print headername+": "+headerval 
+
+dump_data = True
+if dump_data:
+    data = request.get_data()
+    for chunk in data:
+        print chunk
+    data.reset()
+    
+try:
+    response = urllib2.urlopen(request).read()
+    print str(response)
+    print response.read()
+except urllib2.URLError as ex:
+    print "failed!"
+    print str(ex)
+    print ex.read()
+    

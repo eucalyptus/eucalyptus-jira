@@ -1,0 +1,34 @@
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.ComparisonOperator;
+import com.amazonaws.services.cloudwatch.model.Dimension;
+import com.amazonaws.services.cloudwatch.model.PutMetricAlarmRequest;
+import com.amazonaws.services.cloudwatch.model.Statistic;
+
+public class PutMetricAlarmTest extends Credentials {
+  public static void main(String[] args) {
+    AmazonCloudWatchClient cloudWatch = getCreds();
+    PutMetricAlarmRequest putMetricAlarmRequest = new PutMetricAlarmRequest();
+    putMetricAlarmRequest.setActionsEnabled(true);
+    putMetricAlarmRequest.setAlarmDescription("desc2");
+    putMetricAlarmRequest.setAlarmName("My Name 2");
+    putMetricAlarmRequest.setComparisonOperator(ComparisonOperator.GreaterThanOrEqualToThreshold);
+    putMetricAlarmRequest.setDimensions(null);
+    putMetricAlarmRequest.setEvaluationPeriods(5);
+    Collection<String> okActions = new ArrayList<String>();
+    okActions.add("okact1");
+    okActions.add("okact2");
+    putMetricAlarmRequest.setOKActions(okActions);
+    putMetricAlarmRequest.setMetricName("metric1");
+    putMetricAlarmRequest.setNamespace("namespace1");
+    putMetricAlarmRequest.setPeriod(60);
+    putMetricAlarmRequest.setStatistic(Statistic.Maximum);
+    putMetricAlarmRequest.setThreshold(20.0);
+    cloudWatch.putMetricAlarm(putMetricAlarmRequest);
+  }
+
+}

@@ -1,0 +1,95 @@
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/context/ServiceContext.java b/clc/modules/msgs/src/main/java/com/eucalyptus/context/ServiceContext.java
+index 31c285b..84266af 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/context/ServiceContext.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/context/ServiceContext.java
+@@ -63,6 +63,10 @@
+ package com.eucalyptus.context;
+ 
+ import java.util.concurrent.Callable;
++import java.util.concurrent.DelayQueue;
++import java.util.concurrent.Delayed;
++import java.util.concurrent.Executors;
++import java.util.concurrent.Future;
+ import java.util.concurrent.ScheduledExecutorService;
+ import java.util.concurrent.ScheduledThreadPoolExecutor;
+ import java.util.concurrent.TimeUnit;
+@@ -123,12 +127,52 @@ public class ServiceContext {
+       }
+     }
+   }
+-  
++
+   private static final VMMessageDispatcherFactory  dispatcherFactory = new VMMessageDispatcherFactory( );
+   private static final AtomicReference<MuleClient> client            = new AtomicReference<MuleClient>( null );
+-  private static final BootstrapException          failEx            = new BootstrapException(
+-                                                                                                    "Attempt to use esb client before the service bus has been started." );
+-  
++  private static final BootstrapException          failEx            = new BootstrapException("Attempt to use esb client before the service bus has been started." );
++  public static class DelayedContextTimeout implements Delayed, Runnable {
++    private static final DelayQueue<DelayedContextTimeout> contextTimeoutQueue = new DelayQueue<>();
++    private static final Runnable contextTimeouterrr = new Runnable() {
++      @Override
++      public void run() {
++        DelayedContextTimeout next = null;
++        try {
++          try {
++            while ( ( next = contextTimeoutQueue.poll( 30, TimeUnit.SECONDS ) ) != null ) {
++              next.run();
++            }
++          } finally {
++            Threads.enqueue( Empyrean.class, ServiceContext.class, Executors.callable( this ) );
++          }
++        } catch ( InterruptedException e ) {
++          Exceptions.maybeInterrupted( e );
++        }
++      }
++    };
++    private static final Future contextTimeouterrrFuture = Threads.enqueue( Empyrean.class, ServiceContext.class, Executors.callable( contextTimeouterrr ) );
++    private Context ctx;
++
++    public DelayedContextTimeout( Context ctx ) {
++      this.ctx = ctx;
++    }
++
++    @Override
++    public long getDelay( TimeUnit unit ) {
++      return unit.convert( System.currentTimeMillis( ) + TimeUnit.SECONDS.toMillis( CONTEXT_TIMEOUT ), TimeUnit.MILLISECONDS );
++    }
++
++    @Override
++    public int compareTo( Delayed that ) {
++      return (int) (this.getDelay( TimeUnit.MILLISECONDS ) - that.getDelay( TimeUnit.MILLISECONDS ));
++    }
++
++    @Override
++    public void run() {
++      Contexts.clear( this.ctx );
++    }
++  }
++
+   public static void dispatch( String dest, Object msg ) throws Exception {
+     dest = ServiceContextManager.mapServiceToEndpoint( dest );
+     MuleContext muleCtx;
+@@ -170,22 +214,6 @@ public class ServiceContext {
+     } finally {
+       if ( dispatcher != null ) dispatcher.dispose( );
+     }
+-    final long clearContextTime = System.currentTimeMillis( ) + TimeUnit.SECONDS.toMillis( CONTEXT_TIMEOUT );
+-    Threads.enqueue( Empyrean.class, ServiceContext.class, new Callable<Boolean>( ) {
+-      @Override
+-      public Boolean call( ) {
+-        try {
+-          long sleepTime = clearContextTime - System.currentTimeMillis( );
+-          if ( sleepTime > 1 ) {
+-            Thread.sleep( sleepTime );
+-          }
+-          Contexts.clear( ctx );
+-        } catch ( InterruptedException ex ) {
+-          Thread.currentThread( ).interrupt( );
+-        }
+-        return true;
+-      }
+-    } );
+   }
+   
+   public static <T> T send( ComponentId dest, Object msg ) throws Exception {

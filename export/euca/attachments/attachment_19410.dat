@@ -1,0 +1,33 @@
+Index: modules/euare-common/src/main/java/com/eucalyptus/auth/euare/EuareMessages.groovy
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/euare-common/src/main/java/com/eucalyptus/auth/euare/EuareMessages.groovy	(revision 816adb117e6f1fc28ecf2bbae75609f0a86341d1)
++++ modules/euare-common/src/main/java/com/eucalyptus/auth/euare/EuareMessages.groovy	(revision )
+@@ -288,7 +288,7 @@
+   ResponseMetadataType responseMetadata = new ResponseMetadataType( );
+   public ListGroupsResponseType() {  }
+ }
+-public class ServerCertificateType extends EuareMessage {
++public class ServerCertificateType extends EucalyptusData {
+   @HttpEmbedded
+   ServerCertificateMetadataType serverCertificateMetadata = new ServerCertificateMetadataType( );
+   String certificateBody;
+Index: modules/euare-common/src/main/resources/euare-binding.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/euare-common/src/main/resources/euare-binding.xml	(revision 816adb117e6f1fc28ecf2bbae75609f0a86341d1)
++++ modules/euare-common/src/main/resources/euare-binding.xml	(revision )
+@@ -630,8 +630,7 @@
+       <structure name="member" type="com.eucalyptus.auth.euare.ServerCertificateMetadataType"/>
+     </collection>
+   </mapping>
+-  <mapping name="ServerCertificate" class="com.eucalyptus.auth.euare.ServerCertificateType" extends="com.eucalyptus.auth.euare.EuareMessage">
+-    <structure map-as="com.eucalyptus.auth.euare.EuareMessage"/>
++  <mapping name="ServerCertificate" class="com.eucalyptus.auth.euare.ServerCertificateType">
+     <structure name="ServerCertificateMetadata" field="serverCertificateMetadata" usage="required" type="com.eucalyptus.auth.euare.ServerCertificateMetadataType"/>
+     <value name="CertificateBody" field="certificateBody" usage="required"/>
+     <value name="CertificateChain" field="certificateChain" usage="optional"/>

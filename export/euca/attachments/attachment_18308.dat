@@ -1,0 +1,299 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.autoscaling.AmazonAutoScaling
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingGroupsRequest
+import com.amazonaws.services.autoscaling.model.SetDesiredCapacityRequest
+import com.amazonaws.services.ec2.AmazonEC2
+import com.amazonaws.services.ec2.AmazonEC2Client
+import com.amazonaws.services.ec2.model.CreateSecurityGroupRequest
+import com.amazonaws.services.ec2.model.DeleteSecurityGroupRequest
+import com.amazonaws.services.ec2.model.DescribeImagesRequest
+import com.amazonaws.services.ec2.model.DescribeInstanceAttributeRequest
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest
+import com.amazonaws.services.ec2.model.Filter
+import com.amazonaws.services.ec2.model.GroupIdentifier
+import com.amazonaws.services.ec2.model.InstanceAttributeName
+import com.amazonaws.services.ec2.model.RunInstancesRequest
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest
+
+/**
+ * Test functionality for multiple (EC2-Classic) security groups.
+ */
+class TestMultipleSecurityGroups {
+
+  private final String host = "10.111.1.53"
+
+  // Credentials with permissions to perform any action in account
+  private final AWSCredentialsProvider credentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIIQEP1Y7KO8JDBAIRS",
+      "O05QEvTSdX2Iuw8anmzHryzmGbaORF6zsQ7ZoZGG" ) )
+
+
+  public static void main( String[] args ) throws Exception {
+    new TestMultipleSecurityGroups( ).test( )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonEC2 getEc2Client( final AWSCredentialsProvider credentials ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials )
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) )
+    ec2
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( final AWSCredentialsProvider credentials ) {
+    final AmazonAutoScaling autoScaling = new AmazonAutoScalingClient( credentials )
+    autoScaling.setEndpoint( cloudUri( "/services/AutoScaling/" ) )
+    autoScaling
+  }
+
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final AmazonEC2 ec2 = getEc2Client( credentials )
+    final AmazonAutoScaling auto = getAutoScalingClient( credentials )
+
+    // Find an AZ to use
+    final String availabilityZone = ec2.describeAvailabilityZones().with {
+      assertThat( (availabilityZones?.size()?:0) > 0, "Availability zone not found" )
+      availabilityZones?.get( 0 )?.zoneName
+    }
+    print( "Using availability zone: ${availabilityZone}" )
+
+    // Find an image to use
+    final String imageId = ec2.describeImages( new DescribeImagesRequest(
+        filters: [
+            new Filter( name: "image-type", values: ["machine"] ),
+            new Filter( name: "root-device-type", values: ["instance-store"] ),
+        ]
+    ) ).with {
+      images?.getAt( 0 )?.imageId
+    }
+    assertThat( imageId != null , "Image not found" )
+    print( "Using image: ${imageId}" )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: " + namePrefix )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      // Test EC2 functionality
+      List<String> groupNames = ( 1 .. 3 ).collect{ Integer count -> "${namePrefix}Group${count}" as String }
+      groupNames.each { String groupName ->
+        println( "Creating security group: ${groupName}" )
+        ec2.createSecurityGroup( new CreateSecurityGroupRequest(
+            groupName: groupName,
+            description: "Test group: ${groupName}"
+        ) )
+        cleanupTasks.add {
+          print( "Deleting security group: ${groupName}" )
+          ec2.deleteSecurityGroup( new DeleteSecurityGroupRequest( groupName: groupName ) )
+        }
+      }
+
+      final String instanceClientToken = "${namePrefix}Instance1"
+      println( "Running instance with client token: ${instanceClientToken}" )
+      final String instanceId = ec2.runInstances( new RunInstancesRequest(
+        imageId: imageId,
+        instanceType: "m1.small",
+        minCount: 1,
+        maxCount: 1,
+        clientToken: instanceClientToken,
+        securityGroups: groupNames
+      ) ).with {
+        reservation?.with {
+          List<String> reservationGroupNames =
+              groups.collect { GroupIdentifier groupIdentifier -> groupIdentifier.groupName }
+          groupNames.each { String groupName ->
+            assertThat( reservationGroupNames.contains( groupName ), "Expected ${groupName} in reservation security groups: ${reservationGroupNames}" )
+          }
+
+          instances?.getAt( 0 )?.with{
+            List<String> instanceGroupNames =
+                securityGroups.collect { GroupIdentifier groupIdentifier -> groupIdentifier.groupName }
+            groupNames.each { String groupName ->
+              assertThat( instanceGroupNames.contains( groupName ), "Expected ${groupName} in instance security groups: ${instanceGroupNames}" )
+            }
+            instanceId
+          }
+        }
+      }
+
+      print( "Launched instance with id: ${instanceId}" )
+      cleanupTasks.add{
+        print( "Terminating instance: ${instanceId}" )
+        ec2.terminateInstances( new TerminateInstancesRequest( instanceIds: [ instanceId ] ) )
+        ( 1 .. 20 ).inject( "running" ) { String lastStatus, Integer value ->
+          if ( [ "terminated" ,"stopped" ].contains( lastStatus ) ) return lastStatus
+          print( "Waiting for instance to terminate: ${instanceId} - ${lastStatus}" )
+          sleep 5000
+          ec2.describeInstances( new DescribeInstancesRequest( instanceIds: [ instanceId ] ) ).with {
+            reservations?.getAt( 0 )?.instances?.getAt( 0 )?.state?.name ?: "terminated"
+          }
+        }
+      }
+
+      print( "Waiting for instance to start: ${instanceId}" )
+      ( 1 .. 20 ).inject( "pending" ) { String lastStatus, Integer value ->
+        if ( [ "running", "terminated" ].contains( lastStatus ) ) return lastStatus
+        print( "Waiting for instance to launch: ${instanceId} - ${lastStatus}" )
+        sleep 5000
+        ec2.describeInstances( new DescribeInstancesRequest( instanceIds: [ instanceId ] ) ).with {
+          reservations?.getAt( 0 )?.instances?.getAt( 0 )?.state?.name ?: "pending"
+        }
+      }
+
+      print( "Verifying describe instances reports all groups." )
+      ec2.describeInstances( new DescribeInstancesRequest( instanceIds: [ instanceId ] ) ).with{
+        reservations?.getAt( 0 )?.with {
+          List<String> reservationGroupNames =
+              groups.collect { GroupIdentifier groupIdentifier -> groupIdentifier.groupName }
+          groupNames.each { String groupName ->
+            assertThat( reservationGroupNames.contains( groupName ), "Expected ${groupName} in reservation security groups: ${reservationGroupNames}" )
+          }
+
+          instances?.getAt( 0 )?.with{
+            List<String> instanceGroupNames =
+                securityGroups.collect { GroupIdentifier groupIdentifier -> groupIdentifier.groupName }
+            groupNames.each { String groupName ->
+              assertThat( instanceGroupNames.contains( groupName ), "Expected ${groupName} in instance security groups: ${instanceGroupNames}" )
+            }
+            instanceId
+          }
+        }
+      }
+
+      print( "Verifying describe instance attributes reports all groups" )
+      ec2.describeInstanceAttribute( new DescribeInstanceAttributeRequest( instanceId: instanceId, attribute: InstanceAttributeName.GroupSet.toString( ) ) ).with {
+        // TODO - this currently requires a patched AWS Java SDK - https://github.com/aws/aws-sdk-java/pull/155
+        List<String> attributeGroupNames = instanceAttribute?.securityGroups?.collect{ GroupIdentifier groupIdentifier -> groupIdentifier.groupName } ?: []
+        groupNames.each { String groupName ->
+          assertThat( attributeGroupNames.contains( groupName ), "Expected ${groupName} in instance attribute security groups: ${attributeGroupNames}" )
+        }
+      }
+
+      print( "Terminating instance" )
+      ec2.terminateInstances( new TerminateInstancesRequest( instanceIds: [ instanceId ] ) )
+      String status = ( 1 .. 20 ).inject( "running" ) { String lastStatus, Integer value ->
+        if ( [ "terminated" ,"stopped" ].contains( lastStatus ) ) return lastStatus
+        print( "Waiting for instance to terminate: ${instanceId} - ${lastStatus}" )
+        sleep 5000
+        ec2.describeInstances( new DescribeInstancesRequest( instanceIds: [ instanceId ] ) ).with {
+          reservations?.getAt( 0 )?.instances?.getAt( 0 )?.state?.name ?: "running"
+        }
+      }
+      assertThat( [ "terminated" ,"stopped" ].contains( status ), "Unexpected instance status: ${status}"  )
+
+      // Test AutoScaling functionality
+      final String launchConfigurationName = "${namePrefix}Config1"
+      print( "Creating launch configuration: ${launchConfigurationName}" );
+      auto.createLaunchConfiguration( new CreateLaunchConfigurationRequest( 
+          imageId: imageId, 
+          instanceType: "m1.small",
+          securityGroups: groupNames,
+          launchConfigurationName: launchConfigurationName,
+      ) )
+      cleanupTasks.add{
+        print( "Deleting launch configuration: ${launchConfigurationName}" );
+        auto.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest( launchConfigurationName: launchConfigurationName ) )        
+      }
+      
+      final String autoScalingGroupName = "${namePrefix}Group1"
+      print( "Creating auto scaling group: ${autoScalingGroupName}" );
+      auto.createAutoScalingGroup( new CreateAutoScalingGroupRequest(
+        minSize: 0,
+        maxSize: 1,
+        desiredCapacity: 1,
+        availabilityZones: [ availabilityZone ],
+        launchConfigurationName: launchConfigurationName,
+        autoScalingGroupName: autoScalingGroupName
+      ) )
+      cleanupTasks.add{
+        print( "Deleting auto scaling group: ${autoScalingGroupName}" );
+        auto.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest( autoScalingGroupName: autoScalingGroupName, forceDelete: true ) )
+      }
+
+      final String autoScalingInstanceId = ( 1 .. 20 ).inject( null ) { String id, Integer value ->
+        if ( id != null ) return id
+        print( "Waiting for instance to launch in auto scaling group: ${autoScalingGroupName}" )
+        sleep 5000
+        auto.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest( autoScalingGroupNames: [ autoScalingGroupName ] ) ).with {
+          autoScalingGroups?.getAt( 0 )?.instances?.getAt( 0 )?.instanceId
+        }  
+      }
+      assertThat( autoScalingInstanceId != null, "Expected instance id for auto scaling group instance" )
+      
+      print( "Verifying describe instance attributes reports all groups for: ${autoScalingInstanceId}" )
+      ec2.describeInstances( new DescribeInstancesRequest( instanceIds: [ autoScalingInstanceId ] ) ).with{
+        reservations?.getAt( 0 )?.with {
+          List<String> reservationGroupNames =
+              groups.collect { GroupIdentifier groupIdentifier -> groupIdentifier.groupName }
+          groupNames.each { String groupName ->
+            assertThat( reservationGroupNames.contains( groupName ), "Expected ${groupName} in reservation security groups: ${reservationGroupNames}" )
+          }
+
+          instances?.getAt( 0 )?.with{
+            List<String> instanceGroupNames =
+                securityGroups.collect { GroupIdentifier groupIdentifier -> groupIdentifier.groupName }
+            groupNames.each { String groupName ->
+              assertThat( instanceGroupNames.contains( groupName ), "Expected ${groupName} in instance security groups: ${instanceGroupNames}" )
+            }
+            instanceId
+          }
+        }
+      }
+
+      print( "Setting auto scaling group capacity to 0: ${autoScalingGroupName}" );
+      auto.setDesiredCapacity( new SetDesiredCapacityRequest( autoScalingGroupName: autoScalingGroupName, desiredCapacity: 0 ) )
+
+      String autoScalingGroupInstanceStatus = ( 1 .. 30 ).inject( "running" ) { String lastStatus, Integer value ->
+        if ( [ "terminated" ,"stopped" ].contains( lastStatus ) ) return lastStatus
+        print( "Waiting for auto scaling group instance to terminate: ${autoScalingInstanceId} - ${lastStatus}" )
+        sleep 5000
+        ec2.describeInstances( new DescribeInstancesRequest( instanceIds: [ autoScalingInstanceId ] ) ).with {
+          reservations?.getAt( 0 )?.instances?.getAt( 0 )?.state?.name ?: "running"
+        }
+      }
+      assertThat( [ "terminated" ,"stopped" ].contains( autoScalingGroupInstanceStatus ), "Unexpected instance status: ${status}"  )
+
+      print( "Deleting auto scaling group: ${autoScalingGroupName}" );
+      auto.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest( autoScalingGroupName: autoScalingGroupName, forceDelete: true ) )
+
+      print( "Deleting launch configuration: ${launchConfigurationName}" );
+      auto.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest( launchConfigurationName: launchConfigurationName ) )
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

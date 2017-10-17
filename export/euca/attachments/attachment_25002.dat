@@ -1,0 +1,64 @@
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java
+index 52e8ab0..e7d7096 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/AtomicMarkedState.java
+@@ -493,7 +493,11 @@ public class AtomicMarkedState<P extends HasName<P>, S extends Automata.State, T
+           } catch ( Exception ex ) {}
+         }
+       } catch ( Exception t ) {
+-        this.fireException( t );
++        try {
++          this.fireException( t );
++        } catch ( Exception e ) {
++          LOG.error( e );
++        }
+ //      } finally {
+ //        this.transitionFuture.set( AtomicMarkedState.this.parent );
+       }
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/TransitionImpl.java b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/TransitionImpl.java
+index 7eecd53..e8e3c88 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/TransitionImpl.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/TransitionImpl.java
+@@ -225,7 +225,11 @@ public class TransitionImpl<P extends HasName<P>, S extends Automata.State, T ex
+         }, parent );
+       } catch ( Exception ex ) {
+         Logs.extreme( ).error( ex , ex );
+-        transitionCallback.fireException( new TransitionException( ex ) );
++        try {
++          transitionCallback.fireException( new TransitionException( ex ) );
++        } catch ( Exception e ) {
++          LOG.error( e );
++        }
+       }
+     }
+   }
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/Transitions.java b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/Transitions.java
+index e304574..96bea76 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/Transitions.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/util/fsm/Transitions.java
+@@ -181,7 +181,11 @@ public class Transitions {
+           transitionCallback.fire( );
+         } catch ( RuntimeException ex ) {
+           LOG.error( ex );
+-          transitionCallback.fireException( ex );
++          try {
++            transitionCallback.fireException( ex );
++          } catch ( Exception e ) {
++            LOG.error( e );
++          }
+         }
+       }
+     };
+@@ -208,7 +212,11 @@ public class Transitions {
+           }
+         } catch ( RuntimeException ex ) {
+           Logs.extreme( ).error( ex, ex );
+-          transitionCallback.fireException( ex );
++          try {
++            transitionCallback.fireException( ex );
++          } catch ( Exception e ) {
++            LOG.error( e );
++          }
+         }
+       }
+     };

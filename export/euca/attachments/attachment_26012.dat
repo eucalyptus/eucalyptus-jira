@@ -1,0 +1,16 @@
+{
+    "Parameters" : {
+     "BucketName" : {
+      "Description" : "Name of new bucket to be created",
+      "Type" : "String"
+    }
+    },
+    "Resources" : {
+       "mybucket" : {
+           "Type" : "AWS::S3::Bucket",
+           "Properties" : {
+              "BucketName" : { "Ref" : "BucketName" }
+           }
+       }
+    }
+}     

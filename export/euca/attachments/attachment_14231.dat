@@ -1,0 +1,24 @@
+START=`date`
+
+
+
+service eucalyptus-cc cleanrestart ; service eucalyptus-cloud restart ;
+
+
+while true
+do
+X=` euca-describe-services -A | cut -c1-70 | grep -v ENABLE`
+if [ "$X" ]; then 
+	echo "`date`: Waiting for `echo "$X" | wc -l ` services to start"
+#	echo " `echo "$X" | cut -f2,5 `"
+	sleep 4
+else
+	echo "Start: $START"
+	echo "`date`: All enabled"
+	 euca-describe-properties | grep cloud.euca_log_level
+	exit
+fi
+done
+
+
+

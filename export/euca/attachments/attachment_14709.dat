@@ -1,0 +1,28 @@
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.DeleteAlarmsRequest;
+
+public class DeleteMetricAlarmTest {
+
+  public static AmazonCloudWatchClient getCreds() {
+    BasicAWSCredentials props = new BasicAWSCredentials(
+      "A6PFZBJU2OKWKVH4KTZAQ",
+      "d0wSAheQlGS4IdQqrHZyjnrqxHXxV37Ltsk6HifF");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+    return cloudWatch;
+  }
+  public static void main(String[] args) {
+    AmazonCloudWatchClient cloudWatch = getCreds();
+    DeleteAlarmsRequest deleteAlarmsRequest = new DeleteAlarmsRequest();
+    Collection<String> alarmNames = new ArrayList<String>();
+    alarmNames.add("My Name");
+    deleteAlarmsRequest.setAlarmNames(alarmNames);
+    cloudWatch.deleteAlarms(deleteAlarmsRequest);
+  }
+}

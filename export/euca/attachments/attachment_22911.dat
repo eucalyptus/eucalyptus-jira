@@ -1,0 +1,2059 @@
+# Copyright (c) 2000-2009, JPackage Project
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the
+#    distribution.
+# 3. Neither the name of the JPackage Project nor the names of its
+#    contributors may be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+# Set build mode
+
+%define with_eclipse %{!?_with_eclipse:0}%{?_with_eclipse:1}
+%define without_eclipse %{?_with_eclipse:0}%{!?_with_eclipse:1}
+
+%define with_tests %{!?_without_tests:1}%{?_without_tests:0}
+%define without_tests %{?_without_tests:1}%{!?_without_tests:0}
+
+%define eclipseplugdir %{_datadir}/eclipse/plugins
+%define codegenplugindir %{eclipseplugdir}/Axis2_Codegen_Wizard_1.2.0
+%define sarchiverplugindir %{eclipseplugdir}/Axis_Service_Archiver_1.0.0
+
+%define gcj_support %{?_with_gcj_support:1}%{!?_with_gcj_support:%{?_without_gcj_support:0}%{!?_without_gcj_support:%{?_gcj_support:%{_gcj_support}}%{!?_gcj_support:0}}}
+
+# If you don't want to build with maven, and use straight ant instead,
+# give rpmbuild option '--without maven'
+
+%define with_maven %{!?_without_maven:1}%{?_without_maven:0}
+%define without_maven %{?_without_maven:1}%{!?_without_maven:0}
+
+%define section    free
+
+Name:          axis2
+Version:       1.4.1
+Release:       1%{?dist}
+Epoch:         0
+Summary:       A SOAP implementation in Java
+License:       Apache Software License
+Group:         Development/Libraries/Java
+Url:           http://ws.apache.org/%{name}/
+
+#svn export http://svn.apache.org/repos/asf/webservices/axis2/tags/java/v1.4.1/ axis2
+Source0:       %{name}-%{version}.tar.gz
+
+Source1:        %{name}-settings.xml
+Source2:        %{name}-maven2-jpp-depmap.xml
+
+Patch0:         axis2-noidea-pom_xml.patch
+Patch1:         axis2-noeclipse-pom_xml.patch
+Patch2:         axis2-modules-parent-pom_xml.patch
+Patch3:         axis2-modules-kernel-pom_xml.patch
+Patch4:         axis2-modules-jibx-pom_xml.patch
+Patch5:         axis2-modules-json-pom_xml.patch
+Patch6:         axis2-modules-eclipse-codegen-pom_xml.patch
+Patch7:         axis2-modules-eclipse-service-pom_xml.patch
+Patch8:         axis2-modules-adb-codegen-pom_xml.patch
+Patch9:         axis2-modules-tool-ant-plugin-pom_xml.patch
+Patch10:        axis2-modules-saaj-pom_xml.patch
+Patch11:        axis2-modules-jaxws-pom_xml.patch
+Patch12:        axis2-modules-kernel-XMPPConnectionFactory.patch
+Patch13:        axis2-modules-jaxws-integration-pom_xml.patch
+Patch14:        axis2-modules-jaxbri-pom_xml.patch
+Patch15:        axis2-modules-tool-idea-plugin-pom_xml.patch
+Patch16:        axis2-modules-documentation-pom_xml.patch
+
+
+BuildRequires:  jpackage-utils >= 0:1.7.4
+BuildRequires:  java-devel >= 0:1.5.0
+BuildRequires:  ant >= 0:1.6.5
+%if %{with_maven}
+BuildRequires:  maven2 >= 0:2.0.7
+BuildRequires:  maven2-plugin-ant
+BuildRequires:  maven2-plugin-antrun
+BuildRequires:  maven2-plugin-assembly
+BuildRequires:  maven2-plugin-clean
+BuildRequires:  maven2-plugin-compiler
+BuildRequires:  maven2-plugin-install
+BuildRequires:  maven2-plugin-jar
+BuildRequires:  maven2-plugin-javadoc
+BuildRequires:  maven2-plugin-plugin
+BuildRequires:  maven2-plugin-project-info-reports
+BuildRequires:  maven2-plugin-resources
+BuildRequires:  maven2-plugin-site
+BuildRequires:  maven2-plugin-war
+BuildRequires:  maven2-default-skin
+BuildRequires:  maven-surefire-plugin
+BuildRequires:  maven-shared-plugin-testing-harness
+BuildRequires:  mojo-maven2-plugin-build-helper
+%endif
+BuildRequires:  activemq4
+BuildRequires:  annogen >= 0:0.1.1
+BuildRequires:  backport-util-concurrent >= 0:2.1
+BuildRequires:  bcel >= 0:5.1
+BuildRequires:  geronimo-annotation
+BuildRequires:  geronimo-j2ee-management-1.0-api
+BuildRequires:  geronimo-jaf-1.1-api
+BuildRequires:  apache-commons-codec >= 0:1.3
+BuildRequires:  jakarta-commons-fileupload >= 0:1.1.1
+BuildRequires:  jakarta-commons-httpclient >= 0:3.0
+BuildRequires:  apache-commons-io >= 0:1.2
+BuildRequires:  apache-commons-logging >= 0:1.0.4
+BuildRequires:  jalopy 
+BuildRequires:  hc-httpcore >= 0:4.0-1
+BuildRequires:  jaxb_2_1_api
+BuildRequires:  jaxen >= 0:1.1
+BuildRequires:  jettison >= 0:1.0
+BuildRequires:  jibx >= 0:1.1.6a
+BuildRequires:  jms_1_1_api
+BuildRequires:  junit >= 0:3.8.2
+BuildRequires:  log4j >= 0:1.2.14
+BuildRequires:  qdox
+BuildRequires:  rhino
+BuildRequires:  servlet_2_4_api
+BuildRequires:  servlet_2_3_api
+BuildRequires:  smack >= 0:3.1.0
+BuildRequires:  spring-beans >= 0:1.2.7
+BuildRequires:  spring-context >= 0:1.2.7
+BuildRequires:  spring-core >= 0:1.2.7
+BuildRequires:  spring-web >= 0:1.2.7
+BuildRequires:  stax_1_0_api
+BuildRequires:  sun-fi >= 0:1.2.1
+BuildRequires:  sun-jaxb-2.1-impl
+BuildRequires:  glassfish-javamail >= 0:1.4
+BuildRequires:  tomcat
+BuildRequires:  ws-commons-axiom >= 0:1.2.4
+BuildRequires:  ws-commons-neethi >= 0:2.0.1
+BuildRequires:  ws-commons-XmlSchema >= 0:1.4
+BuildRequires:  ws-woden >= 0:1.0-0.m8
+BuildRequires:  ws-jaxme052
+BuildRequires:  wsdl4j >= 0:1.6.2
+BuildRequires:  wstx32
+BuildRequires:  xalan-j2 >= 2.7.0
+BuildRequires:  xml-commons-resolver
+BuildRequires:  xmlbeans >= 0:2.1.0
+BuildRequires:  xmlunit >= 0:1.0
+BuildRequires:  xpp3 >= 0:1.1.3.8
+# for  codegen and service-archiver plugins
+%if %{with_eclipse}
+BuildRequires:  eclipse-platform >= 0:3.2.0
+BuildRequires:  eclipse-rcp >= 0:3.2.0
+BuildRequires:  libswt3-gtk2
+%endif
+
+BuildRequires:  groovy
+
+Requires:       java >= 0:1.5.0
+Requires:       jpackage-utils >= 0:1.7.4
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-ant-plugin = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-integration = %{epoch}:%{version}-%{release}
+Requires:       %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires:       %{name}-jibx = %{epoch}:%{version}-%{release}
+Requires:       %{name}-json = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-mtompolicy = %{epoch}:%{version}-%{release}
+Requires:       %{name}-soapmonitor = %{epoch}:%{version}-%{release}
+Requires:       %{name}-spring = %{epoch}:%{version}-%{release}
+Requires:       %{name}-xmlbeans = %{epoch}:%{version}-%{release}
+Requires:       ant >= 0:1.6.5
+Requires:       annogen >= 0:0.1.1
+Requires:       ws-commons-axiom >= 0:1.2.4
+Requires:       backport-util-concurrent >= 0:2.1
+Requires:       wstx32
+Requires:       stax_1_0_api
+Requires:       jaf_1_1_api
+Requires:       jms_1_1_api
+Requires:       jakarta-commons-codec >= 0:1.3
+Requires:       jakarta-commons-fileupload >= 0:1.1.1
+Requires:       jakarta-commons-httpclient >= 0:3.0
+Requires:       jakarta-commons-logging >= 0:1.0.4
+Requires:       hc-httpcore >= 0:4.0-1
+Requires:       jaxen >= 0:1.1
+Requires:       glassfish-javamail >= 0:1.4
+Requires:       servlet_2_4_api
+Requires:       ws-commons-XmlSchema >= 0:1.4
+Requires:       ws-commons-neethi >= 0:2.0.1
+Requires:       wsdl4j >= 0:1.6.2
+Requires:       ws-jaxme052
+Requires:       ws-woden >= 0:1.0-0.m8
+Requires:       xmlbeans >= 0:2.1.0
+Provides:       %{name}-tools = %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}-tools < %{epoch}:%{version}-%{release}
+
+
+%if %{gcj_support}
+BuildRequires:    gnu-crypto
+BuildRequires:          java-gcj-compat-devel
+Requires(post):         java-gcj-compat
+Requires(postun):       java-gcj-compat
+%endif
+
+%if ! %{gcj_support}
+BuildArch:      noarch
+%endif
+BuildRoot:     %{_tmppath}/%{name}-%{version}-buildroot
+
+%description
+Axis2 is an effort to re-design and totally re-implement both
+Axis/Java and (eventually) Axis/C++ on a new architecture. 
+Evolving from the now standard "handler chain" model which 
+Axis1 pioneered, Axis2 is developing a more flexible pipeline 
+architecture which can yet be managed and packaged in a more
+organized manner. This new design acknowledges the maturing 
+of the Web services space in terms of new protocols such as 
+WS-ReliableMessaging, WS-Security and WS-Addressing that are 
+built on top of the base SOAP system. At the time Axis1 was 
+designed, while it was fully expected that other protocols 
+such as WS-ReliableMessaging would be built on top of it, 
+there was not a proper extension architecture defined to 
+enable clean composition of such layers. Thus, one of the 
+key motivations for Axis2 is to provide a clean and simple 
+environment for like Apache Sandesha and Apache WSS4J to 
+layer on top of the base SOAP system. Another driving force 
+for Axis2 as well as the move away from RPC oriented Web 
+services towards more document-oriented, message style 
+asynchronous service interactions. The Axis2 project is 
+centered on a new representation for SOAP messages called 
+AXIOM (AXIs Object Model). AXIOM consists of two parts: a 
+complete XML Infoset representation and a SOAP Infoset 
+representation on top of that. The XML Infoset representa-
+tion provides a JDOM-like simple API but is built on a
+deferred model via a StAX-based (Streaming API for XML) 
+pull parsing API. A key feature of AXIOM is that it allows 
+one to stop building the XML tree and just access the pull 
+stream directly; thus enabling both maximum flexibility 
+and maximum performance. This approach allows us to 
+support multiple levels of abstraction for consuming and 
+offering Web services: using plain AXIOM, using generated 
+code and statically data-bound data types and so on. At
+the time of Axis1's design, RPC-style, synchronous, 
+request-response interactions were the order of the day 
+for Web services. Today service interactions are much more 
+message-oriented and exploit many different message exchange 
+patterns. The Axis2 engine architecture is careful to not 
+build in any assumptions of request-response patterns to
+ensure that it can be used easily to support arbitrary 
+message exchange patterns.
+
+%package poms
+Summary:        Poms and depmap frags for %{name}
+Group:          Development/Libraries/Java
+
+%description poms
+%{summary}.
+
+%package adb-codegen
+Summary:        ADB-Codegen module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       ws-commons-XmlSchema
+Requires:       xalan-j2
+
+%description adb-codegen
+%{summary}.
+
+%package adb
+Summary:        ADB module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       ws-commons-axiom
+
+%description adb
+%{summary}.
+
+%package clustering
+Summary:        Clustering module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       tomcat6
+Requires:       tomcat6-lib
+
+%description clustering
+%{summary}.
+
+%package codegen
+Summary:        Codegen module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       ws-jaxme052
+Requires:       xmlbeans
+
+%description codegen
+%{summary}.
+
+%package corba
+Summary:        Corba module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-metadata = %{epoch}:%{version}-%{release}
+Requires:       antlr
+Requires:       jakarta-commons-logging
+
+%description corba
+%{summary}.
+
+%package fastinfoset
+Summary:        FastInfoset module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       annogen
+Requires:       backport-util-concurrent
+Requires:       jaf_1_1_api
+Requires:       jakarta-commons-codec
+Requires:       jakarta-commons-fileupload
+Requires:       jakarta-commons-httpclient
+Requires:       jakarta-commons-logging
+Requires:       hc-httpcore >= 0:4.0-1
+Requires:       stax_1_0_api
+Requires:       sun-fi
+Requires:       ws-commons-axiom
+Requires:       ws-commons-XmlSchema
+Requires:       wsdl4j
+Requires:       wstx32
+
+%description fastinfoset
+%{summary}.
+
+%if %{with_maven}
+%package integration
+Summary:        Integration module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-modules = %{epoch}:%{version}-%{release}
+Requires:       %{name}-samples = %{epoch}:%{version}-%{release}
+Requires:       %{name}-spring = %{epoch}:%{version}-%{release}
+Requires:       %{name}-xmlbeans = %{epoch}:%{version}-%{release}
+Requires:       activemq4
+Requires:       annogen
+Requires:       backport-util-concurrent
+Requires:       groovy15
+Requires:       jaf_1_1_api
+Requires:       jakarta-commons-codec
+Requires:       jakarta-commons-fileupload
+Requires:       jakarta-commons-httpclient
+Requires:       jakarta-commons-logging
+Requires:       hc-httpcore >= 0:4.0-1
+Requires:       jaxen
+Requires:       junit
+Requires:       log4j
+Requires:       spring-beans
+Requires:       spring-context
+Requires:       spring-core
+Requires:       spring-web
+Requires:       stax_1_0_api
+Requires:       glassfish-javamail >= 0:1.4
+Requires:       ws-commons-axiom
+Requires:       ws-commons-neethi
+Requires:       ws-commons-XmlSchema
+Requires:       ws-woden >= 0:1.0-0.m8
+Requires:       wsdl4j
+Requires:       wstx32
+Requires:       xalan-j2
+Requires:       xmlbeans
+Requires:       xmlunit
+
+%description integration
+%{summary}.
+%endif
+
+%package java2wsdl
+Summary:        Java2Wsdl module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       annogen
+Requires:       ant
+Requires:       jakarta-commons-logging
+Requires:       jaxen
+Requires:       stax_1_0_api
+Requires:       glassfish-javamail >= 0:1.4
+Requires:       ws-commons-XmlSchema
+Requires:       wstx32
+
+%description java2wsdl
+%{summary}.
+
+%package jaxbri
+Summary:        JAXB RI module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       jaxb_2_1_api
+Requires:       sun-jaxb-2.1-impl
+
+%description jaxbri
+%{summary}.
+
+%package jaxws-2.0-api
+Summary:        JAX-WS 2.0 API from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-saaj-1.1-api = %{epoch}:%{version}-%{release}
+Requires:       jakarta-commons-logging
+Requires:       jaxb_2_1_api
+Provides:       jaxws_2_0_api
+Provides:       jaxws_api = 0:2.0
+
+%description jaxws-2.0-api
+%{summary}.
+
+%package jaxws
+Summary:        JAX-WS 2.0 module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-jaxws-2.0-api = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-metadata = %{epoch}:%{version}-%{release}
+Requires:       %{name}-saaj-1.1-api = %{epoch}:%{version}-%{release}
+Requires:       %{name}-saaj = %{epoch}:%{version}-%{release}
+Requires:       jakarta-commons-codec
+Requires:       jaxb_2_1_api
+Requires:       sun-jaxb-2.1-impl
+Requires:       servlet_api
+Requires:       xalan-j2
+
+%description jaxws
+%{summary}.
+
+%package jibx
+Summary:        JIBX module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       ant
+Requires:       bcel
+Requires:       jakarta-commons-codec
+Requires:       jibx >= 0:1.1.6a
+Requires:       xalan-j2
+
+%description jibx
+%{summary}.
+
+%package json
+Summary:        Jettison module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       jettison
+
+%description json
+%{summary}.
+
+%package jws-api
+Summary:        Webservices Metadata v2.0 API
+Group:          Development/Libraries/Java
+Provides:    ws_metadata_2_0_api = %{version}-%{release}
+Provides:    ws_metadata_api = 0:2.0
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires(preun):  %{_sbindir}/update-alternatives
+Requires(post):  %{_sbindir}/update-alternatives
+
+%description jws-api
+%{summary}.
+
+%package kernel
+Summary:        Kernel module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires:       annogen
+Requires:       backport-util-concurrent
+Requires:       jaf_1_1_api
+Requires:       jakarta-commons-codec
+Requires:       jakarta-commons-fileupload
+Requires:       jakarta-commons-httpclient
+Requires:       jakarta-commons-logging
+Requires:       hc-httpcore >= 0:4.0-1
+Requires:       jms_1_1_api
+Requires:       servlet_api
+Requires:       smack >= 0:3.1.0
+Requires:       ws-commons-axiom
+Requires:       ws-commons-neethi
+Requires:       ws-commons-XmlSchema
+Requires:       ws-woden >= 0:1.0-0.m8
+Requires:       wsdl4j
+Requires:       wstx32
+
+%description kernel
+%{summary}.
+
+%package metadata
+Summary:        Metadata module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-jaxws-2.0-api = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-saaj = %{epoch}:%{version}-%{release}
+Requires:       jaxb_2_1_api
+Requires:       log4j
+Requires:       sun-jaxb-2.1-impl
+
+%description metadata
+%{summary}.
+
+%package mex
+Summary:        Mex module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+
+%description mex
+%{summary}.
+
+%package mtompolicy
+Summary:        Mtompolicy module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       ws-commons-neethi
+
+%description mtompolicy
+%{summary}.
+
+%package saaj-1.1-api
+Summary:        SAAJ 1.1 API from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       javamail_1_4_api
+Provides:       saaj_1_1_api
+Provides:       saaj_api = 0:1.1
+
+%description saaj-1.1-api
+%{summary}.
+
+%package saaj
+Summary:        SAAJ module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-saaj-1.1-api = %{epoch}:%{version}-%{release}
+Requires:       xalan-j2
+
+%description saaj
+%{summary}.
+
+%if %{with_maven}
+%package samples
+Summary:        Samples module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-modules = %{epoch}:%{version}-%{release}
+Requires:       annogen
+Requires:       backport-util-concurrent
+Requires:       groovy15
+Requires:       jaf_1_1_api
+Requires:       jakarta-commons-codec
+Requires:       jakarta-commons-httpclient
+Requires:       jakarta-commons-logging
+Requires:       jaxen
+Requires:       stax_1_0_api
+Requires:       glassfish-javamail >= 0:1.4
+Requires:       ws-commons-axiom
+Requires:       ws-commons-neethi
+Requires:       wsdl4j
+Requires:       wstx32
+Requires:       xmlbeans
+
+%description samples
+%{summary}.
+%endif
+
+%package soapmonitor
+Summary:        Soap-Monitor module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       jakarta-commons-logging
+Requires:       servlet_api
+Requires:       stax_1_0_api
+Requires:       ws-commons-axiom
+Requires:       ws-commons-neethi
+
+%description soapmonitor
+%{summary}.
+
+%package spring
+Summary:        Spring module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       spring-beans
+Requires:       spring-core
+Requires:       spring-context
+Requires:       spring-web
+Requires:       servlet_api
+
+%description spring
+%{summary}.
+
+%package xmlbeans
+Summary:        Xmlbeans module from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       ant
+Requires:       xalan-j2
+Requires:       xmlbeans
+
+%description xmlbeans
+%{summary}.
+
+%package ant-plugin
+Summary:        Ant plugin from %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       ant
+Requires:       jakarta-commons-codec
+Requires:       jakarta-commons-httpclient
+Requires:       jakarta-commons-logging
+Requires:       stax_1_0_api
+Requires:       glassfish-javamail >= 0:1.4
+Requires:       ws-commons-axiom
+Requires:       ws-commons-neethi
+Requires:       ws-commons-XmlSchema
+Requires:       wsdl4j
+Requires:       wstx32
+
+%description ant-plugin
+%{summary}.
+
+%package javadoc
+Summary:        Javadoc for %{name}
+Group:          Development/Libraries/Java
+Requires(post):   /bin/rm,/bin/ln
+Requires(postun): /bin/rm
+
+%description javadoc
+%{summary}.
+
+%package webapp
+Summary:        Webapp for %{name}
+Group:          Development/Libraries/java
+
+%description webapp
+%{summary}.
+
+%if %{with_maven}
+%package modules
+Summary:        Modules for %{name}
+Group:          Development/libraries/java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{epoch}:%{version}-%{release}
+
+%description modules
+Modules (.mar files) for %{name}.
+%endif
+
+%package scripts
+Summary:        Scripts for %{name}
+Group:          Development/libraries/java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       axis2 = %{epoch}:%{version}-%{release}
+Requires:       ws-commons-policy
+Requires:       ws-commons-XmlSchema
+Requires:       groovy15
+
+%description scripts
+%{summary}.
+
+%if %{with_eclipse}
+%package codegen-eclipse-plugin
+Summary:        Codegen eclipse plugin for %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-adb = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-adb-codegen = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires(post): annogen
+Requires(post): stax_1_0_api
+Requires(post): jakarta-commons-logging >= 0:1.0.4
+Requires(post): log4j >= 0:1.2.8
+Requires(post): glassfish-javamail >= 0:1.4
+Requires(post): ws-commons-axiom
+Requires(post): ws-commons-neethi
+Requires(post): ws-commons-XmlSchema
+Requires(post): ws-woden >= 0:1.0-0.m8
+Requires(post): wsdl4j >= 0:1.6.2
+Requires(post): wstx32
+Requires(post): xmlbeans >= 0:2.1.0
+
+Requires:       eclipse-platform >= 0:3.2.0
+Requires:       eclipse-rcp >= 0:3.2.0
+
+%description codegen-eclipse-plugin
+%{summary}.
+%endif
+
+%if %{with_eclipse}
+%package service-archiver-eclipse-plugin
+Summary:        Service archiver eclipse plugin for %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-adb = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-adb-codegen = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires(post): %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires(post): jakarta-commons-logging >= 0:1.0.4
+Requires(post): log4j >= 0:1.2.8
+Requires:       eclipse-platform >= 0:3.2.0
+Requires:       eclipse-rcp >= 0:3.2.0
+
+%description service-archiver-eclipse-plugin
+%{summary}.
+%endif
+
+%if %{with_maven}
+%package maven2-plugins
+Summary:        Maven2 plugins for %{name}
+Group:          Development/Libraries/Java
+Requires:       %{name}-poms = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb = %{epoch}:%{version}-%{release}
+Requires:       %{name}-adb-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-codegen = %{epoch}:%{version}-%{release}
+Requires:       %{name}-java2wsdl = %{epoch}:%{version}-%{release}
+Requires:       %{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-xmlbeans = %{epoch}:%{version}-%{release}
+Requires:       maven2 >= 0:2.0.4
+Requires:       plexus-utils
+
+%description maven2-plugins
+%{summary}.
+%endif
+
+%if %{with_maven}
+%package manual
+Summary:        Manual for %{name}
+Group:          Development/Libraries/Java
+
+%description manual
+%{summary}.
+%endif
+
+%prep
+%setup -q -n %{name}
+cp %{SOURCE1} settings.xml
+#cp %{SOURCE8} modules/samples/pom.xml
+#cp %{SOURCE9} modules/soapmonitor/pom.xml
+
+%if %{without_maven}
+gzip -dc %{SOURCE11} | tar xf -
+%endif
+
+# Remove provided binaries
+find . -name "*.jar" -exec rm -f {} \;
+find . -name "*.zip" -exec rm -f {} \;
+find . -name "*.class" -exec rm -f {} \;
+
+%patch0 -b .noidea
+%if ! %{with_eclipse}
+%patch1 -b .noeclipse
+%endif
+
+%patch2 -b .sav2
+%patch3 -b .sav3
+%patch4 -b .sav4
+%patch5 -b .sav5
+%patch6 -b .sav6
+%patch7 -b .sav7
+%patch8 -b .sav8
+%patch9 -b .sav9
+%patch10 -b .sav10
+%patch11 -b .sav11
+%patch12 -b .sav12
+%patch13 -b .sav13
+%patch14 -b .sav14
+%patch15 -b .sav15
+%patch16 -b .sav16
+
+%build
+export MAVEN_REPO_LOCAL=$(pwd)/.m2/repository
+
+%if %{with_eclipse}
+mkdir -p $MAVEN_REPO_LOCAL/ECLIPSE
+pushd $MAVEN_REPO_LOCAL/ECLIPSE
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.jface_*.jar \
+                                    org.eclipse.jface.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.equinox.common_*.jar \
+                                    org.eclipse.equinox.common.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.swt_*.jar \
+                                    org.eclipse.swt.jar
+ln -sf %{_libdir}/eclipse/plugins/org.eclipse.swt.*.jar \
+                                    org.eclipse.swt.arch.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.core.runtime_*.jar \
+                                    org.eclipse.core.runtime.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.core.jobs_*.jar \
+                                    org.eclipse.core.jobs.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.core.resources_*.jar \
+                                    org.eclipse.core.resources.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.osgi_*.jar \
+                                    org.eclipse.osgi.jar
+ln -sf %{_datadir}/eclipse/plugins/org.eclipse.ui.ide_*.jar \
+                                    org.eclipse.ui.ide.jar
+#ln -sf %{_datadir}/eclipse/plugins/org.eclipse.ui.workbench_*.jar \
+#                                    org.eclipse.ui.workbench.jar
+popd
+%endif
+
+%if %{with_maven}
+
+sed -i -e "s|<url>__JPP_URL_PLACEHOLDER__</url>|<url>file://`pwd`/.m2/repository</url>|g" settings.xml
+sed -i -e "s|<url>__JAVADIR_PLACEHOLDER__</url>|<url>file://`pwd`/external_repo</url>|g" settings.xml
+sed -i -e "s|<url>__MAVENREPO_DIR_PLACEHOLDER__</url>|<url>file://`pwd`/.m2/repository</url>|g" settings.xml
+sed -i -e "s|<url>__MAVENDIR_PLUGIN_PLACEHOLDER__</url>|<url>file:///usr/share/maven2/plugins</url>|g" settings.xml
+sed -i -e "s|<url>__ECLIPSEDIR_PLUGIN_PLACEHOLDER__</url>|<url>file:///usr/share/eclipse/plugins</url>|g" settings.xml
+
+export MAVEN_SETTINGS=$(pwd)/settings.xml
+
+mkdir external_repo
+ln -s %{_javadir} external_repo/JPP
+
+pushd modules/tool/axis2-mar-maven-plugin
+mvn-jpp \
+        -e \
+%if %{without_tests}
+        -Dmaven.test.skip=true \
+%endif
+        -s ${MAVEN_SETTINGS} \
+        -Dmaven2.jpp.depmap.file=%{SOURCE2} \
+        -Dmaven.repo.local=$MAVEN_REPO_LOCAL \
+        install javadoc:javadoc
+#       ant:ant install javadoc:javadoc
+popd
+pushd modules/tool/axis2-aar-maven-plugin
+mvn-jpp \
+        -e \
+%if %{without_tests}
+        -Dmaven.test.skip=true \
+%endif
+        -s ${MAVEN_SETTINGS} \
+        -Dmaven2.jpp.depmap.file=%{SOURCE2} \
+        -Dmaven.repo.local=$MAVEN_REPO_LOCAL \
+        install javadoc:javadoc
+#       ant:ant install javadoc:javadoc
+popd
+mkdir -p $MAVEN_REPO_LOCAL/JPP/maven2/default_poms/
+mkdir -p $MAVEN_REPO_LOCAL/org.apache.axis2/
+cp modules/tool/axis2-mar-maven-plugin/pom.xml \
+   $MAVEN_REPO_LOCAL/JPP/maven2/default_poms/org.apache.axis2-axis2-mar-maven-plugin.pom
+cp modules/tool/axis2-mar-maven-plugin/pom.xml \
+   $MAVEN_REPO_LOCAL/JPP/maven2/default_poms/JPP.axis2-mar-maven-plugin.pom
+ln -sf $(pwd)/modules/tool/axis2-mar-maven-plugin/target/axis2-mar-maven-plugin-%{version}.jar \
+   $MAVEN_REPO_LOCAL/org.apache.axis2/axis2-mar-maven-plugin.jar
+cp modules/tool/axis2-aar-maven-plugin/pom.xml \
+   $MAVEN_REPO_LOCAL/JPP/maven2/default_poms/org.apache.axis2-axis2-aar-maven-plugin.pom
+cp modules/tool/axis2-aar-maven-plugin/pom.xml \
+   $MAVEN_REPO_LOCAL/JPP/maven2/default_poms/JPP.axis2-aar-maven-plugin.pom
+ln -sf $(pwd)/modules/tool/axis2-aar-maven-plugin/target/axis2-aar-maven-plugin-%{version}.jar \
+   $MAVEN_REPO_LOCAL/org.apache.axis2/axis2-aar-maven-plugin.jar
+
+export MAVEN_OPTS="-Xmx256M"
+
+mvn-jpp \
+        -e \
+%if %{without_tests}
+        -Dmaven.test.skip=true \
+%endif
+        -s ${MAVEN_SETTINGS} \
+        -Drelease=true \
+        -Dmaven.test.error.ignore=true \
+        -Dmaven.test.failure.ignore=true \
+        -Dmaven2.jpp.depmap.file=%{SOURCE2} \
+        -Dmaven.repo.local=$MAVEN_REPO_LOCAL \
+        install
+#       ant:ant install javadoc:javadoc
+
+mvn-jpp \
+        -e \
+        -s ${MAVEN_SETTINGS} \
+        -Drelease=true \
+        -Dmaven2.jpp.depmap.file=%{SOURCE2} \
+        -Dmaven.repo.local=$MAVEN_REPO_LOCAL \
+        javadoc:javadoc
+
+%else
+pushd modules/java2wsdl
+export CLASSPATH=$(build-classpath \
+annogen \
+stax_1_0_api \
+commons-logging \
+jaxen \
+glassfish-javamail-monolithic \
+ws-commons-axiom-api \
+ws-commons-axiom-impl \
+ws-commons-XmlSchema \
+wstx32/wstx-asl \
+)
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/kernel
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+servletapi4 \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+CLASSPATH=$CLASSPATH:target/test-resources/java2sec/more/MorePermission.jar
+CLASSPATH=$CLASSPATH:target/test-resources/java2sec/less/LessPermission.jar
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/adb
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-logging \
+jaf_1_1_api \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+wsdl4j \
+wstx32/wstx-asl \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/codegen
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+jaxen \
+jaxme052/jaxme2 \
+jaxme052/jaxmejs \
+jaxme052/jaxmexs \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xmlbeans/xbean \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/adb-codegen
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+jaxen \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xalan-j2-serializer \
+xmlbeans/xbean \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/schema/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/addressing
+export CLASSPATH=$(build-classpath \
+stax_1_0_api \
+ws-commons-axiom-api \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-commons-XmlSchema \
+wsdl4j \
+wstx32/wstx-asl \
+)
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/schema/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only test javadoc
+popd
+
+pushd modules/fastinfoset
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jaf_1_1_api \
+httpcomponents/httpcore \
+stax_1_0_api \
+sun-fi \
+ws-commons-axiom-api \
+ws-commons-axiom-impl \
+ws-commons-XmlSchema \
+wsdl4j \
+wstx32/wstx-asl \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+
+pushd modules/jibx
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+bcel \
+stax_1_0_api \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+jaxen \
+jibx/bind \
+jibx/run \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xalan-j2-serializer \
+xmlbeans/xbean \
+xpp3 \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/json
+#cp %{SOURCE18} build.xml
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+jaxen \
+jettison \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/mtompolicy
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+jaxen \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/spring
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+servlet_2_4_api \
+httpcomponents/httpcore \
+jaxen \
+spring/beans \
+spring/context \
+spring/core \
+spring/web \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/xmlbeans
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jms_1_1_api \
+httpcomponents/httpcore \
+jaxen \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xalan-j2-serializer \
+xmlbeans/xbean \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+mkdir -p target/lib
+export ECLIPSE_HOME=$MAVEN_REPO_LOCAL/ECLIPSE
+pushd modules/tool/
+
+%if %{with_eclipse}
+export CLASSPATH=$(build-classpath \
+ws-commons-axiom-impl \
+wsdl4j \
+)
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.jface.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.equinox.common.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.swt.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.swt.arch.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.core.runtime.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.core.jobs.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.core.resources.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.osgi.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.ui.ide.jar
+CLASSPATH=${CLASSPATH}:${ECLIPSE_HOME}/org.eclipse.ui.workbench.jar
+CLASSPATH=$CLASSPATH:../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only generate-plugins
+mkdir axis2-eclipse-codegen-plugin/target
+cp target/eclipse_plugins/plugin/Axis2_Codegen_Wizard_1.2.0/Axis2CodegenWizard.jar axis2-eclipse-codegen-plugin/target/axis2.eclipse.codegen.plugin-%{version}.jar
+mkdir axis2-eclipse-service-plugin/target
+cp target/eclipse_plugins/plugin/Axis2_Service_Archiver_1.0.0/Axis_Service_Archiver.jar axis2-eclipse-service-plugin/target/axis2.eclipse.service.plugin-%{version}.jar
+%endif
+
+pushd axis2-ant-plugin
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+stax_1_0_api \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+httpcomponents/httpcore \
+jaxen \
+jms_1_1_api \
+jaf_1_1_api \
+glassfish-javamail-monolithic \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xmlbeans/xbean \
+)
+CLASSPATH=$CLASSPATH:../../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:../../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:../../adb-codegen/target/axis2-adb-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:../../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+popd
+
+pushd modules/jaxbri
+export CLASSPATH=$(build-classpath \
+jaxb_2_1_api \
+sun-codemodel \
+sun-jaxb-2.1-impl-xjc \
+ws-commons-XmlSchema \
+)
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/saaj-api
+export CLASSPATH=$(build-classpath \
+jaf_1_1_api \
+)
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/saaj
+export CLASSPATH=$(build-classpath \
+backport-util-concurrent \
+commons-codec \
+commons-httpclient \
+jaf_1_1_api \
+httpcomponents/httpcore \
+stax_1_0_api \
+glassfish-javamail-monolithic \
+ws-commons-axiom-api \
+ws-commons-axiom-dom \
+ws-commons-axiom-impl \
+ws-commons-XmlSchema \
+wsdl4j \
+wstx32/wstx-asl \
+xalan-j2-serializer \
+xmlunit \
+)
+CLASSPATH=$CLASSPATH:../saaj-api/target/axis2-saaj-api-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/jaxws-api
+export CLASSPATH=$(build-classpath \
+jaxb_2_1_api \
+)
+CLASSPATH=$CLASSPATH:../saaj-api/target/axis2-saaj-api-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/metadata
+export CLASSPATH=$(build-classpath \
+jaxb_2_1_api \
+relaxngDatatype \
+stax_1_0_api \
+sun-jaxb-2.1-impl \
+sun-jaxb-2.1-impl-xjc \
+ws_metadata_2_0_api \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+wsdl4j \
+)
+CLASSPATH=$CLASSPATH:../jaxws-api/target/axis2-jaxws-api-%{version}.jar
+CLASSPATH=$CLASSPATH:../saaj-api/target/axis2-saaj-api-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/jaxws
+export CLASSPATH=$(build-classpath \
+annogen \
+backport-util-concurrent \
+commons-codec \
+commons-fileupload \
+commons-httpclient \
+commons-logging \
+jaf_1_1_api \
+httpcomponents/httpcore \
+jaxb_2_1_api \
+jaxen \
+jms_1_1_api \
+log4j \
+msv-msv \
+msv-xsdlib \
+relaxngDatatype \
+servlet_2_4_api \
+stax_1_0_api \
+sun-jaxb-2.1-impl \
+sun-jaxb-2.1-impl-xjc \
+glassfish-javamail-monolithic \
+ws_metadata_2_0_api \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-impl \
+ws-commons-axiom-dom \
+ws-commons-neethi \
+ws-woden \
+wsdl4j \
+wstx32/wstx-asl \
+xalan-j2 \
+xalan-j2-serializer \
+)
+CLASSPATH=$CLASSPATH:../metadata/target/axis2-metadata-%{version}.jar
+CLASSPATH=$CLASSPATH:../jaxws-api/target/axis2-jaxws-api-%{version}.jar
+CLASSPATH=$CLASSPATH:../saaj-api/target/axis2-saaj-api-%{version}.jar
+CLASSPATH=$CLASSPATH:../saaj/target/axis2-saaj-%{version}.jar
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../adb/target/axis2-adb-%{version}.jar
+CLASSPATH=$CLASSPATH:../java2wsdl/target/axis2-java2wsdl-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/clustering
+export CLASSPATH=$(build-classpath \
+stax_1_0_api \
+../tomcat6/bin/tomcat-juli \
+tomcat6/catalina-tribes \
+ws-commons-XmlSchema \
+ws-commons-axiom-api \
+ws-commons-axiom-impl \
+ws-commons-neethi \
+wsdl4j \
+wstx32/wstx-asl \
+)
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../saaj/target/axis2-saaj-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only jar javadoc
+popd
+
+pushd modules/soapmonitor
+export CLASSPATH=$(build-classpath \
+servlet_2_4_api \
+ws-commons-axiom-api \
+ws-commons-neethi \
+)
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dbuild.sysclasspath=only -f generated-build.xml jar javadoc
+popd
+
+pushd modules/tool
+export CLASSPATH=$(build-classpath \
+wsdl4j \
+)
+CLASSPATH=$CLASSPATH:../kernel/target/axis2-kernel-%{version}.jar
+CLASSPATH=$CLASSPATH:../codegen/target/axis2-codegen-%{version}.jar
+CLASSPATH=$CLASSPATH:target/classes:target/test-classes
+ant -Dbuild.sysclasspath=only -f generated-build.xml jar javadoc
+popd
+
+ant -Dmaven.settings.offline=true -Dbuild.sysclasspath=only -f generated-build.xml jar
+%endif
+
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+### Jar files
+install -d -m 755 $RPM_BUILD_ROOT%{_javadir}/%{name}
+install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
+
+
+pushd modules
+  %add_to_maven_depmap org.apache.%{name} %{name}-parent %{version} JPP.%{name} parent
+  install -m 644 parent/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP.%{name}-parent.pom
+
+  for module in    adb-codegen \
+                   adb \
+                   clustering \
+                   codegen \
+                   corba \
+                   fastinfoset \
+%if %{with_maven}
+                   integration \
+%endif
+                   java2wsdl \
+                   jaxbri \
+                   jaxws-integration \
+                   jaxws \
+                   jibx \
+                   json \
+                   kernel \
+                   metadata \
+                   mtompolicy \
+                   saaj \
+%if %{with_maven}
+                   samples \
+%endif
+                   spring \
+                   xmlbeans ; do
+    install -m 644 $module/target/%{name}-$module-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}/$module-%{version}.jar
+    %add_to_maven_depmap org.apache.%{name} %{name}-$module %{version} JPP.%{name} $module
+    install -m 644 $module/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP.%{name}-$module.pom
+  done
+
+  install -m 644 soapmonitor/target/soapmonitor-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}/soapmonitor-%{version}.jar
+  %add_to_maven_depmap org.apache.%{name} soapmonitor %{version} JPP.%{name} soapmonitor
+
+  install -m 644 jws-api/target/%{name}-jws-api-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}-jws-api-%{version}.jar
+  %add_to_maven_depmap javax.xml.ws jws-api 2.0 JPP %{name}-jws-api
+  install -m 644 jws-api/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{name}-jws-api.pom
+
+  install -m 644 jaxws-api/target/%{name}-jaxws-api-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}-jaxws-2.0-api-%{version}.jar
+  %add_to_maven_depmap javax.xml.ws jaxws-api 2.0 JPP %{name}-jaxws-2.0-api
+  install -m 644 jaxws-api/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{name}-jaxws-2.0-api.pom
+
+  install -m 644 saaj-api/target/%{name}-saaj-api-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}-saaj-1.1-api-%{version}.jar
+  %add_to_maven_depmap javax.xml.soap saaj-api 1.1 JPP %{name}-saaj-1.1-api
+  install -m 644 saaj-api/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{name}-saaj-1.1-api.pom
+
+  install -m 644 mex/target/mex-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}/mex-%{version}.jar
+  install -m 644 mex/target/mex-%{version}-impl.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}/mex-impl-%{version}.jar
+  %add_to_maven_depmap org.apache.%{name} mex %{version} JPP.%{name} mex
+  install -m 644 mex/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP.%{name}-mex.pom
+
+  pushd tool
+    install -m 644 %{name}-ant-plugin/target/%{name}-ant-plugin-%{version}.jar \
+      $RPM_BUILD_ROOT%{_javadir}/%{name}/ant-plugin-%{version}.jar
+    install -m 644 %{name}-ant-plugin/pom.xml \
+      $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP.%{name}-maven2-ant-plugin.pom
+    %add_to_maven_depmap org.apache.%{name} %{name}-ant-plugin %{version} JPP.%{name} ant-plugin
+
+%if %{with_maven}
+    install -d -m 755 $RPM_BUILD_ROOT%{_javadir}/%{name}/maven2
+    for mp in aar-maven-plugin \
+              mar-maven-plugin \
+              java2wsdl-maven-plugin \
+              wsdl2code-maven-plugin ; do
+      install -m 644 %{name}-${mp}/target/%{name}-${mp}-%{version}.jar \
+        $RPM_BUILD_ROOT%{_javadir}/%{name}/maven2/${mp}-%{version}.jar
+      install -m 644 %{name}-${mp}/pom.xml \
+        $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP.%{name}-maven2-$mp.pom
+      %add_to_maven_depmap org.apache.%{name} %{name}-$mp %{version} JPP.%{name} $mp
+    done
+%endif
+%if %{with_eclipse}
+    install -m 644 %{name}-eclipse-codegen-plugin/target/%{name}.eclipse.codegen.plugin-%{version}.jar \
+        $RPM_BUILD_ROOT%{_javadir}/%{name}/eclipse.codegen.plugin-%{version}.jar
+    install -m 644 %{name}-eclipse-service-plugin/target/%{name}.eclipse.service.plugin-%{version}.jar \
+        $RPM_BUILD_ROOT%{_javadir}/%{name}/eclipse.service.plugin-%{version}.jar
+%endif
+  popd
+popd
+install -m 644 target/lib/%{name}-%{version}.jar \
+        $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
+
+%if %{with_maven}
+install -d -m 755 ${RPM_BUILD_ROOT}%{_datadir}/maven2/plugins
+pushd ${RPM_BUILD_ROOT}%{_datadir}/maven2/plugins
+    ln -sf %{_javadir}/%{name}/maven2/%{name}-aar-maven-plugin-%{version}.jar %{name}-aar-maven-plugin.jar
+    ln -sf %{_javadir}/%{name}/maven2/%{name}-mar-maven-plugin-%{version}.jar %{name}-mar-maven-plugin.jar
+    ln -sf %{_javadir}/%{name}/maven2/%{name}-java2wsdl-maven-plugin-%{version}.jar %{name}-java2wsdl-maven-plugin.jar
+    ln -sf %{_javadir}/%{name}/maven2/%{name}-wsdl2code-maven-plugin-%{version}.jar %{name}-wsdl2code-maven-plugin.jar
+popd
+%endif
+
+# unversioned symlinks
+pushd $RPM_BUILD_ROOT%{_javadir}
+   for vjar in *.jar ; do
+      jar=$(echo $vjar | sed s+-%{version}.jar+.jar+g)
+      ln -fs $vjar $jar
+   done
+   pushd %{name}
+      # compatibility symlinks wrt 1.0
+      ln -fs kernel-%{version}.jar common-%{version}.jar
+      ln -fs kernel-%{version}.jar core-%{version}.jar
+      ln -fs kernel-%{version}.jar security-%{version}.jar
+      for vjar in *.jar ; do
+         jar=$(echo $vjar | sed s+-%{version}.jar+.jar+g)
+         ln -fs $vjar $jar
+      done
+%if %{with_maven}
+      pushd maven2
+         for vjar in *.jar ; do
+            jar=$(echo $vjar | sed s+-%{version}.jar+.jar+g)
+            ln -fs $vjar $jar
+         done
+      popd
+%endif
+   popd
+popd
+touch $RPM_BUILD_ROOT%{_javadir}/jaxws_2_0_api.jar
+touch $RPM_BUILD_ROOT%{_javadir}/jaxws_api.jar
+touch $RPM_BUILD_ROOT%{_javadir}/saaj_1_1_api.jar
+touch $RPM_BUILD_ROOT%{_javadir}/saaj_api.jar
+touch $RPM_BUILD_ROOT%{_javadir}/ws_metadata_api.jar
+touch $RPM_BUILD_ROOT%{_javadir}/ws_metadata_2_0_api.jar
+
+
+%if %{with_maven}
+### Mar files
+install -d -m 755 $RPM_BUILD_ROOT%{_javadir}/%{name}/modules
+pushd modules
+  install -m 644 scripting/target/%{name}-scripting-%{version}.mar \
+    $RPM_BUILD_ROOT%{_javadir}/%{name}/modules/scripting-%{version}.mar
+  install -m 644 addressing/target/addressing-%{version}.mar \
+    $RPM_BUILD_ROOT%{_javadir}/%{name}/modules/addressing-%{version}.mar
+  install -m 644 ping/target/ping-%{version}.mar \
+    $RPM_BUILD_ROOT%{_javadir}/%{name}/modules/ping-%{version}.mar
+  install -m 644 soapmonitor/target/soapmonitor-%{version}.mar \
+    $RPM_BUILD_ROOT%{_javadir}/%{name}/modules/soapmonitor-%{version}.mar
+  install -m 644 kernel/target/smtpfault.mar \
+    $RPM_BUILD_ROOT%{_javadir}/%{name}/modules/smtpfault-%{version}.mar
+  install -m 644 mex/target/mex-%{version}.mar \
+    $RPM_BUILD_ROOT%{_javadir}/%{name}/modules/mex-%{version}.mar
+
+  pushd $RPM_BUILD_ROOT%{_javadir}/%{name}/modules
+      for vmar in *.mar ; do
+         mar=$(echo $vmar | sed s+-%{version}.mar+.mar+g)
+         ln -fs $vmar $mar
+      done
+  popd
+popd
+%endif
+
+### Javadoc
+install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+    cp -pr modules/documentation/target/apidocs/* \
+        $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}/
+
+### Manual
+install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+    cp -pr modules/documentation/target/site/* \
+        $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
+
+### Webapps and Samples
+install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
+%if %{with_maven}
+cp modules/webapp/target/axis2.war \
+        $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/%{name}-%{version}.war
+ln -s %{name}-%{version}.war $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/%{name}.war
+
+cp -pr modules/samples $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}
+%endif
+
+### Scripts
+install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
+
+install -p -m 0755 modules/tool/script/axis2server.sh $RPM_BUILD_ROOT%{_bindir}/%{name}-server
+install -p -m 0755 modules/tool/script/axis2.sh $RPM_BUILD_ROOT%{_bindir}/%{name}
+install -p -m 0755 modules/tool/script/wsdl2java.sh $RPM_BUILD_ROOT%{_bindir}/%{name}-wsdl2java
+install -p -m 0755 modules/tool/script/java2wsdl.sh $RPM_BUILD_ROOT%{_bindir}/%{name}-java2wsdl
+
+sed -i -e s:"export AXIS2_HOME=..":"export AXIS2_HOME=%{_javadir}/%{name}":g $RPM_BUILD_ROOT%{_bindir}/%{name}-server
+sed -i -e s:"export AXIS2_HOME=..":"export AXIS2_HOME=%{_javadir}/%{name}":g $RPM_BUILD_ROOT%{_bindir}/%{name}
+sed -i -e s:"export AXIS2_HOME=..":"export AXIS2_HOME=%{_javadir}/%{name}":g $RPM_BUILD_ROOT%{_bindir}/%{name}-wsdl2java
+sed -i -e s:"export AXIS2_HOME=..":"export AXIS2_HOME=%{_javadir}/%{name}":g $RPM_BUILD_ROOT%{_bindir}/%{name}-java2wsdl
+
+sed -i -e s:"for f in \$AXIS2_HOME/lib/\\*\\.jar":"for f in \$AXIS2_HOME/*.jar":g $RPM_BUILD_ROOT%{_bindir}/%{name}-server
+sed -i -e s:"for f in \$AXIS2_HOME/lib/\\*\\.jar":"for f in \$AXIS2_HOME/*.jar":g $RPM_BUILD_ROOT%{_bindir}/%{name}
+sed -i -e s:"for f in \$AXIS2_HOME/lib/\\*\\.jar":"for f in \$AXIS2_HOME/*.jar":g $RPM_BUILD_ROOT%{_bindir}/%{name}-wsdl2java
+sed -i -e s:"for f in \$AXIS2_HOME/lib/\\*\\.jar":"for f in \$AXIS2_HOME/*.jar":g $RPM_BUILD_ROOT%{_bindir}/%{name}-java2wsdl
+
+sed -i -e s:"export AXIS2_CLASSPATH":"ADDITIONAL_CLASSES=\$(build-classpath commons-logging log4j bea-stax-api bea-stax-ri neethi commons-httpclient)\nexport AXIS2_CLASSPATH=\${AXIS2_CLASSPATH}\:\${ADDITIONAL_CLASSES}":g $RPM_BUILD_ROOT%{_bindir}/%{name}-server
+sed -i -e s:"export AXIS2_CLASSPATH":"ADDITIONAL_CLASSES=\$(build-classpath commons-logging log4j bea-stax-api bea-stax-ri neethi commons-httpclient)\nexport AXIS2_CLASSPATH=\${AXIS2_CLASSPATH}\:\${ADDITIONAL_CLASSES}":g $RPM_BUILD_ROOT%{_bindir}/%{name}
+sed -i -e s:"export AXIS2_CLASSPATH":"ADDITIONAL_CLASSES=\$(build-classpath commons-logging log4j bea-stax-api bea-stax-ri neethi ws-commons-XmlSchema wsdl4j xmlbeans/xbean jalopy oro jdom)\nexport AXIS2_CLASSPATH=\${AXIS2_CLASSPATH}\:\${ADDITIONAL_CLASSES}":g $RPM_BUILD_ROOT%{_bindir}/%{name}-wsdl2java
+sed -i -e s:"export AXIS2_CLASSPATH":"ADDITIONAL_CLASSES=\$(build-classpath commons-logging log4j bea-stax-api bea-stax-ri neethi ws-commons-XmlSchema wsdl4j xmlbeans/xbean jalopy oro jdom)\nexport AXIS2_CLASSPATH=\${AXIS2_CLASSPATH}\:\${ADDITIONAL_CLASSES}":g $RPM_BUILD_ROOT%{_bindir}/%{name}-java2wsdl
+
+# Eclipse plugins
+%if %{with_eclipse}
+install -dm 0755 $RPM_BUILD_ROOT%{codegenplugindir}
+%if %{with_maven}
+cp -pr modules/tool/axis2-eclipse-codegen-plugin/target/plugin/Axis2_Codegen_Wizard_1.2.0/* $RPM_BUILD_ROOT%{codegenplugindir}/
+%else
+cp -pr modules/tool/target/eclipse_plugins/plugin/Axis2_Codegen_Wizard_1.2.0/* $RPM_BUILD_ROOT%{codegenplugindir}/
+%endif
+
+install -dm 0755 $RPM_BUILD_ROOT%{sarchiverplugindir}
+%if %{with_maven}
+cp -pr modules/tool/axis2-eclipse-service-plugin/target/plugin/Axis2_Service_Archiver_1.0.0/* $RPM_BUILD_ROOT%{sarchiverplugindir}/
+%else
+cp -pr modules/tool/target/eclipse_plugins/plugin/Axis2_Service_Archiver_1.0.0/* $RPM_BUILD_ROOT%{sarchiverplugindir}/
+%endif
+%endif
+
+%if %{gcj_support}
+export CLASSPATH=$(build-classpath gnu-crypto)
+%{_bindir}/aot-compile-rpm \
+           --exclude /usr/share/axis2-%{version}/axis2-%{version}.war \
+           --exclude /usr/share/java/axis2-%{version}.jar
+
+%endif
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%if %{with_eclipse}
+%post codegen-eclipse-plugin
+(cd %{codegenplugindir}/lib
+    build-jar-repository -s . \
+             annogen \
+             axis2/adb \
+             axis2/adb-codegen \
+             axis2/codegen \
+             axis2/java2wsdl \
+             axis2/kernel \
+             stax_1_0_api \
+             commons-logging \
+             log4j \
+             glassfish-javamail-monolithic \
+             ws-commons-axiom-api \
+             ws-commons-axiom-dom \
+             ws-commons-axiom-impl \
+             ws-commons-neethi \
+             ws-commons-XmlSchema \
+             ws-woden \
+             wstx32/wstx-asl \
+             wsdl4j \
+             xmlbeans/xbean
+
+)
+
+%post service-archiver-eclipse-plugin
+(cd %{sarchiverplugindir}/lib
+    build-jar-repository -s . \
+             axis2/adb \
+             axis2/adb-codegen \
+             axis2/codegen \
+             axis2/java2wsdl \
+             axis2/kernel \
+             commons-logging \
+             log4j \
+
+)
+
+%preun codegen-eclipse-plugin
+rm -rf %{codegenplugindir}/lib
+
+%preun service-archiver-eclipse-plugin
+rm -rf %{sarchiverplugindir}/lib
+%endif
+
+%post poms
+%update_maven_depmap
+
+%postun poms
+%update_maven_depmap
+
+%post jws-api
+/usr/sbin/update-alternatives --install %{_javadir}/ws_metadata_2_0_api.jar ws_metadata_2_0_api %{_javadir}/%{name}-jws-2.0-api.jar 20000
+/usr/sbin/update-alternatives --install %{_javadir}/ws_metadata_api.jar ws_metadata_api %{_javadir}/%{name}-jws-2.0-api.jar 20000
+
+%preun jws-api
+if [ "$1" = "0" ]; then
+    /usr/sbin/update-alternatives --remove ws_metadata_2_0_api %{_javadir}/%{name}-jws-2.0-api.jar
+    /usr/sbin/update-alternatives --remove ws_metadata_api %{_javadir}/%{name}-jws-2.0-api.jar
+fi
+
+%post jaxws-2.0-api
+/usr/sbin/update-alternatives --install %{_javadir}/jaxws_2_0_api.jar jaxws_2_0_api %{_javadir}/%{name}-jaxws-2.0-api.jar 20000
+/usr/sbin/update-alternatives --install %{_javadir}/jaxws_api.jar jaxws_api %{_javadir}/%{name}-jaxws-2.0-api.jar 20000
+
+%preun jaxws-2.0-api
+if [ "$1" = "0" ]; then
+    /usr/sbin/update-alternatives --remove jaxws_2_0_api %{_javadir}/%{name}-jaxws-2.0-api.jar
+    /usr/sbin/update-alternatives --remove jaxws_api %{_javadir}/%{name}-jaxws-2.0-api.jar
+fi
+
+%post saaj-1.1-api
+/usr/sbin/update-alternatives --install %{_javadir}/saaj_1_1_api.jar saaj_1_1_api %{_javadir}/%{name}-saaj-1.1-api.jar 10100
+/usr/sbin/update-alternatives --install %{_javadir}/saaj_api.jar saaj_api %{_javadir}/%{name}-saaj-1.1-api.jar 10100
+
+%preun saaj-1.1-api
+if [ "$1" = "0" ]; then
+    /usr/sbin/update-alternatives --remove saaj_1_1_api %{_javadir}/%{name}-saaj-1.1-api.jar
+    /usr/sbin/update-alternatives --remove saaj_api %{_javadir}/%{name}-saaj-1.1-api.jar
+fi
+
+%post
+%update_maven_depmap
+%if %{gcj_support}
+if [ -x %{_bindir}/rebuild-gcj-db ]
+then
+  %{_bindir}/rebuild-gcj-db
+fi
+%endif
+
+%postun
+%update_maven_depmap
+%if %{gcj_support}
+if [ -x %{_bindir}/rebuild-gcj-db ]
+then
+  %{_bindir}/rebuild-gcj-db
+fi
+%endif
+
+%files
+%defattr(0644,root,root,0755)
+%doc LICENSE.txt README.txt release-notes.html
+%dir %{_datadir}/%{name}-%{version}
+%dir %{_javadir}/%{name}
+%{_javadir}/%{name}.jar
+%{_javadir}/%{name}-%{version}.jar
+%if %{gcj_support}
+%attr(-,root,root) %dir %{_libdir}/gcj/%{name}
+%attr(-,root,root) %{_libdir}/gcj/%{name}/*.jar.*
+%attr(-,root,root) %{_libdir}/gcj/%{name}/*.mar.*
+%endif
+
+%files poms
+%defattr(0644,root,root,0755)
+%{_datadir}/maven2/poms/*
+%{_mavendepmapfragdir}
+
+%files adb-codegen
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/adb-codegen*.jar
+
+%files adb
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/adb-%{version}.jar
+%{_javadir}/%{name}/adb.jar
+
+%files clustering
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/clustering*.jar
+
+%files codegen
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/codegen*.jar
+
+%files corba
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/corba*.jar
+
+%files fastinfoset
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/fastinfoset*.jar
+
+%if %{with_maven}
+%files integration
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/integration*.jar
+%endif
+
+%files java2wsdl
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/java2wsdl*.jar
+
+%files jaxbri
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/jaxbri*.jar
+
+%files jaxws-2.0-api
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}-jaxws-2.0-api*.jar
+%ghost %{_javadir}/jaxws_2_0_api.jar
+%ghost %{_javadir}/jaxws_api.jar
+
+%files jaxws
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/jaxws*.jar
+
+%files jibx
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/jibx*.jar
+
+%files json
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/json*.jar
+
+%files jws-api
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}-jws-api*.jar
+%ghost %{_javadir}/ws_metadata_2_0_api.jar
+%ghost %{_javadir}/ws_metadata_api.jar
+
+%files kernel
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/kernel*.jar
+%{_javadir}/%{name}/common*.jar
+%{_javadir}/%{name}/core*.jar
+%{_javadir}/%{name}/security*.jar
+
+%files metadata
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/metadata*.jar
+
+%files mex
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/mex*.jar
+
+%files mtompolicy
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/mtompolicy*.jar
+
+%files saaj-1.1-api
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}-saaj-1.1-api*.jar
+%ghost %{_javadir}/saaj_1_1_api.jar
+%ghost %{_javadir}/saaj_api.jar
+
+%files saaj
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/saaj*.jar
+
+%files soapmonitor
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/soapmonitor*.jar
+
+%files spring
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/spring*.jar
+
+%files xmlbeans
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/xmlbeans*.jar
+
+%files ant-plugin
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/ant-plugin*.jar
+
+%files javadoc
+%defattr(0644,root,root,0755)
+%dir %{_javadocdir}/%{name}-%{version}
+%{_javadocdir}/%{name}-%{version}/*
+
+%if %{with_maven}
+%files webapp
+%defattr(0644,root,root,0755)
+%{_datadir}/%{name}-%{version}/%{name}*.war
+%endif
+
+%if %{with_maven}
+%files samples
+%defattr(0644,root,root,0755)
+%{_javadir}/%{name}/samples*.jar
+%{_datadir}/%{name}-%{version}/samples
+%endif
+
+%if %{with_maven}
+%files modules
+%defattr(0644,root,root,0755)
+%dir %{_javadir}/%{name}/modules
+%{_javadir}/%{name}/modules/*.mar
+%endif
+
+%files scripts
+%defattr(0644,root,root,0755)
+%attr(0755,root,root) %{_bindir}/%{name}*
+
+%if %{with_eclipse}
+%files codegen-eclipse-plugin
+%defattr(0644,root,root,0755)
+%dir %{codegenplugindir}
+%{codegenplugindir}/*
+%{_javadir}/%{name}/eclipse.codegen.plugin*.jar
+
+%files service-archiver-eclipse-plugin
+%defattr(0644,root,root,0755)
+%dir %{sarchiverplugindir}
+%{sarchiverplugindir}/*
+%{_javadir}/%{name}/eclipse.service.plugin*.jar
+%endif
+
+%if %{with_maven}
+%files maven2-plugins
+%defattr(0644,root,root,0755)
+%dir %{_javadir}/%{name}/maven2
+%{_javadir}/%{name}/maven2/aar-maven-plugin*.jar
+%{_javadir}/%{name}/maven2/mar-maven-plugin*.jar
+%{_javadir}/%{name}/maven2/java2wsdl-maven-plugin*.jar
+%{_javadir}/%{name}/maven2/wsdl2code-maven-plugin*.jar
+%{_datadir}/maven2/plugins/*
+%endif
+
+%if %{with_maven}
+%files manual
+%defattr(0644,root,root,0755)
+%doc %{_docdir}/%{name}-%{version}
+%endif
+
+%changelog
+* Wed Apr 01 2009 Ralph Apel <r.apel at r-apel.de> - 0:1.4.1-1.jpp5
+- 1.4.1
+
+* Wed Mar 05 2008 Ralph Apel <r.apel at r-apel.de> - 0:1.2-2jpp
+- Full Java5 build
+- Patch adb-codegen, jibx, xmlbeans, etc. module poms to bring in xalan-j2-serializer
+- Fix packaging to jar for plugins which aren't maven-plugins
+- Still partially building with maven1
+- Fix BuildRequires
+- Split off new subpackages from old main package 
+- New main package only keeps monolithic jar but Requires former elements
+- Add API subpackages with standard virtual provides and alternatives
+- Add -poms subpackage containing poms and depmap frags
+- Extend without_maven build; use full -autogenerated-files.tar.gz
+- Omit webapp, integration, modules, samples, maven-plugins when building with ant
+
+* Tue Jun 26 2007 Ralph Apel <r.apel at r-apel.de> - 0:1.2-1jpp
+- Upgrade to 1.2
+- Switch to (mostly) m2 build
+- Add maven2-plugins subpackage
+- Refloat -manual subpackage
+- Make Vendor, Distribution based on macro
+- Add gcj_support option
+- Drop stax-utils source: not required any more
+
+* Thu May 25 2006 Deepak Bhole <dbhole@redhat.com> - 0:1.0-1jpp
+- Upgraded to 1.0
+- From RH spec: Added subpackages for the codegen and service archiver eclipse plugins
+- From RH spec: Changed jar names to remove superfluous 'axis2-' at the start
+- From RH spec: Added a --without groovy support.
+
+* Tue Apr 04 2006 Ralph Apel <r.apel@r-apel.de> - 0:0.94-2jpp
+- Replace j-c-httpclient3 with j-c-httpclient >= 3.0
+
+* Mon Jan 23 2006 Deepak Bhole <dbhole@redhat.com> - 0:0.94-1jpp
+- Initial build
+

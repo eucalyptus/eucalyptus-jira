@@ -1,0 +1,125 @@
+#!/bin/bash
+if [ "$1" == "" ] || [ "$2" == "" ] || [ "$3"  == "" ] ; then
+    echo -e "\nUsage: $0 delta_count | concurrent_snapshots | total_snapshots\n"
+    exit
+fi
+ts=$(date +%s)
+total="$3"
+count="1"
+## 1G Volume (Zone1)
+volume_one="vol-9b8830bc"
+## 5G Volume (Zone2)
+#volume_one="vol-d75ec89e"
+region="000812402703:testuser@localhost"
+admin_region="000538917867:admin@localhost"
+clc="10.111.5.80"
+instance="i-0fd0aa74"
+inst_ip="10.111.31.71"
+source_bd="/dev/vdc"
+device="/dev/vde"
+delta="$1"
+snaps="$2"
+delta_log_file="delta-test-$delta-$snaps-$total-$ts-log.txt"
+md5sum_file="md5sums.txt"
+> $md5sum_file
+all_snapshots=($(ssh root@$clc "euca-describe-snapshots --region $region" | grep SNAPSHOT | awk '{ print $2 }' | tr '\n' ' '))
+snap_count=${#all_snapshots[@]}
+while [ "$snap_count" -gt "0" ] ; do
+    for snap in ${all_snapshots[@]} ; do
+        echo "Deleting snapshot: $snap"
+        ssh root@$clc "euca-delete-snapshot --region $region $snap"
+    done
+    all_snapshots=($(ssh root@$clc "euca-describe-snapshots --region $region" | grep SNAPSHOT | awk '{ print $2 }' | tr '\n' ' '))
+    snap_count=${#all_snapshots[@]}
+    sleep 10
+done
+echo ""
+ssh root@$clc "euctl --region $admin_region one.storage.maxsnapshotdeltas=$delta"
+ssh root@$clc "euctl --region $admin_region two.storage.maxsnapshotdeltas=$delta"
+delta_one=$(ssh root@$clc "euctl --region $admin_region one.storage.maxsnapshotdeltas")
+delta_two=$(ssh root@$clc "euctl --region $admin_region two.storage.maxsnapshotdeltas")
+> $delta_log_file
+echo "----------------------------------------" >> $delta_log_file
+echo -e "Snapshot Delta Test\n" >> $delta_log_file
+echo "$delta_one" >> $delta_log_file
+echo "$delta_two" >> $delta_log_file
+echo -e "----------------------------------------\n" >> $delta_log_file
+while [ $count -le $total ] ; do
+timer_start=$(date +%s)
+    for (( i=1; i<=$snaps; i++ )) ; do
+        echo -e "Writing random data to block device...\n"
+        dd if=/dev/urandom of=$source_bd bs=1024 count=10240
+        sync
+        echo -e "Done!\n"
+#        echo -e "md5sum source volume...\n"
+#        md5sum_source=$(md5sum $source_bd | awk '{ print $1 }')
+#        echo -e "Done!\n"
+        echo -e "Creating snapshot...\n"
+        snapshot=$(ssh root@$clc "euca-create-snapshot --region $region $volume_one" | awk '{ print $2 }')
+    done
+    check_snap=$(ssh root@$clc "euca-describe-snapshots --region $region $snapshot" | awk '{ print $4 }')
+    while [ "$check_snap" != "completed" ] ; do
+        echo "Waiting for snapshot: $check_snap"
+        check_snap=$(ssh root@$clc "euca-describe-snapshots --region $region $snapshot" | awk '{ print $4 }')
+        sleep 1
+    done
+    timer_stop=$(date +%s)
+    snap_time=$(($timer_stop - $timer_start))
+    volume_two=$(ssh root@$clc "euca-create-volume -z two --snapshot $snapshot --region $region" | awk '{ print $2 }')
+    echo "Creating volume: $volume_two"
+    check_vol=$(ssh root@$clc "euca-describe-volumes --region $region $volume_two" | awk '{ print $6 }')
+    while [ "$check_vol" != "available" ] ; do
+        echo "Waiting for volume: $check_vol"
+        check_vol=$(ssh root@$clc "euca-describe-volumes --region $region $volume_two" | awk '{ print $6 }')
+        sleep 1
+    done
+ #   echo "Attaching volume: $volume_two"
+ #   check_attach=$(ssh root@$clc "euca-attach-volume -i $instance -d $device $volume_two --region $region" | awk '{ print $5}')
+ #   while [ "$check_attach" != "attached" ] ; do
+ #       echo "Waiting for volume attachment: $check_attach"
+ #       check_attach=$(ssh root@$clc "euca-describe-volumes --region $region $volume_two" | grep ATTACHMENT | awk '{ print $5 }')
+ #       sleep 1
+ #   done
+ #   echo -e "Checking md5sums...\n"
+ #   dest_bd=$(ssh root@$inst_ip "fdisk -l" | grep Disk | grep -v ident | tail -1 | awk '{ print $2 }' | tr -d ":")
+ #   md5sum_target=$(ssh root@$inst_ip "md5sum $dest_bd" | awk '{ print $1 }')
+    echo "------------------ Count: $count ($snapshot) ------------------" | tee -a $delta_log_file
+    echo -e "$(date)\n" | tee -a $delta_log_file
+    echo -e "Snapshot time (secs): $snap_time\n" | tee -a $delta_log_file
+#    if [ "$md5sum_source" != "$md5sum_target" ] ; then
+#        echo "md5sums mismatch, TEST FAILED!" | tee -a  $delta_log_file
+#        echo "md5sum_source: $md5sum_source ($source_bd)" | tee -a  $delta_log_file
+#        echo "md5sum_target: $md5sum_target ($dest_bd)" | tee -a  $delta_log_file
+#    else
+#        echo -e "md5sums match, TEST PASSED!\n" | tee -a $delta_log_file
+#        echo "md5sum_source: $md5sum_source ($source_bd)" | tee -a  $delta_log_file
+#        echo "md5sum_target: $md5sum_target ($dest_bd)" | tee -a  $delta_log_file
+#    fi
+#    echo -e "\n***Dupe Test***" | tee -a  $delta_log_file
+#    grep -c $md5sum_target $md5sum_file
+#    if [ $? -eq 0 ] ; then
+#        echo -e "\nFound dupe md5sum, TEST FAILED!" | tee -a  $delta_log_file
+#    else
+#        echo -e "\nNo dupe md5sums found, TEST PASSED!" | tee -a  $delta_log_file
+#        echo "$md5sum_target" >> $md5sum_file
+#    fi
+    echo -e "--------------------------------------------------------------\n" | tee -a $delta_log_file
+ #   echo "Detaching volume: $volume_two"
+ #   check_detach=$(ssh root@$clc "euca-detach-volume -i $instance -d $device $volume_two --region $region" | awk '{ print $5 }')
+ #   while [ "$check_detach" == "detaching" ] ; do
+ #       echo "Waiting for volume detachment: $check_detach"
+ #       check_detach=$(ssh root@$clc "euca-describe-volumes --region $region $volume_two" | grep ATTACHMENT | awk '{ print $5 }')
+ #       sleep 1
+ #   done
+    echo "Deleting volume: $volume_two"
+    ssh root@$clc "euca-delete-volume $volume_two --region $region"
+    check_delete=$(ssh root@$clc "euca-describe-volumes --region $region $volume_two" | awk '{ print $6 }')
+    while [ "$check_delete" == "deleting" ] ; do
+        echo "Waiting for volume deletion: $check_delete"
+        check_delete=$(ssh root@$clc "euca-describe-volumes --region $region $volume_two" | awk '{ print $6 }')
+        sleep 1
+    done
+    ((count++))
+    echo -e "\n\n"
+done
+

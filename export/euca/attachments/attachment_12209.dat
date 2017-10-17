@@ -1,0 +1,23 @@
+#!/usr/bin/python
+
+import boto
+from boto.s3.connection import OrdinaryCallingFormat
+from boto.s3.key import Key
+
+access_key="xxxx"
+secret_key="xxxx"
+s3_host="xxxx"
+
+s3_conn = boto.connect_s3(aws_access_key_id=access_key,
+                       aws_secret_access_key=secret_key,
+                       is_secure=False,
+                       host=s3_host,
+                       port=8773,
+                       path="/services/Walrus",
+                       calling_format=OrdinaryCallingFormat())
+
+bucket = s3_conn.create_bucket("my-test-bucket")
+
+rs = bucket.get_all_keys()
+for key in rs:
+  print key.name

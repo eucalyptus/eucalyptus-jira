@@ -1,0 +1,65 @@
+import com.eucalyptus.auth.Accounts
+import com.eucalyptus.auth.AuthException
+import com.eucalyptus.auth.entities.AccountEntity
+import com.eucalyptus.entities.Entities
+
+import javax.persistence.EntityTransaction
+
+def doCanonicalUpdate() {
+    StringBuilder output = new StringBuilder();
+    output.append("Accounts with New CanonicalIds : ");
+    EntityTransaction tran = Entities.get(AccountEntity.class);
+    try {
+        List<AccountEntity> accounts = Entities.query(new AccountEntity());
+        if (accounts != null && accounts.size() > 0) {
+           for (AccountEntity account : accounts) {
+                if (account.getCanonicalId() == null || account.getCanonicalId().equals("")) {
+                    account.setCanonicalId( genCanonicalId( ) );
+                    output.append("\n AccountName = " + account.name + " , CanonicalId = " + account.getCanonicalId() )
+                }
+            }
+        }
+        if(!output.toString().count('AccountName'))
+            output.append("[ NONE ]")
+        tran.commit();
+    }
+    catch (Exception ex) {
+        tran.rollback();
+        return ex
+    }
+    return output.toString() ;
+}
+
+def String genCanonicalId( ) {
+    StringBuilder buf = new StringBuilder();
+    boolean notFinished = true;
+    while (notFinished) {
+        int rand = ((int) (Math.pow(10, 4) * Math.random()) ) % 100;
+        buf.append(Integer.toHexString(rand));
+        int len = buf.length();
+        if (len < 64) {
+            notFinished = true;
+        }
+        else if (len == 64) {
+            notFinished = false;
+        }
+        else {
+            buf.delete(64, len + 1); // end is exclusive, but if start == end, nothing is done
+            notFinished = false;
+        }
+        if (! notFinished) {
+            try {
+                Accounts.lookupAccountByCanonicalId(buf.toString());
+                // canonical id is a dupe
+                buf = new StringBuilder();
+                notFinished = true;
+            }
+            catch (AuthException aex) {
+                // canonical id is not in use
+            }
+        }
+    }
+    return buf.toString();
+}
+
+return doCanonicalUpdate();

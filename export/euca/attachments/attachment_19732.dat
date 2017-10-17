@@ -1,0 +1,201 @@
+2014-04-29 17:19:38  INFO 000001181 EucaRunWorkflow          | ======================= euca-run-workflow =======================
+2014-04-29 17:19:38  INFO 000001181 EucaRunWorkflow          | exit value: 1
+2014-04-29 17:19:38  INFO 000001181 EucaRunWorkflow          | stdout: 
+2014-04-29 17:19:38  INFO 000001181 EucaRunWorkflow          | stderr: 2014-04-29 17:19:15  INFO 000031401 set_global_parameter     | GLOBAL: debug=True
+                          | 2014-04-29 17:19:15  INFO 000031401 set_global_parameter     | GLOBAL: cache=/disk1/storage/eucalyptus/instances/vmware/work/euca-workflow-cache-cqTRF_
+                          | 2014-04-29 17:19:15  INFO 000031401 set_global_parameter     | GLOBAL: cache_size=195698130944
+                          | 2014-04-29 17:19:15  INFO 000031401 set_global_parameter     | GLOBAL: work=/disk1/storage/eucalyptus/instances/vmware/work/euca-workflow-work-rfdYVu
+                          | 2014-04-29 17:19:15  INFO 000031401 set_global_parameter     | GLOBAL: work_size=1
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | command: convert
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	in=-
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	out=https://10.111.5.176
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	login=/tmp/euca-vmwbroker-6973598424721973810.vsphere-login
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	password=/tmp/euca-vmwbroker-183491127694151578.vsphere-password
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	vsphere-datacenter=ha-datacenter
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	vsphere-vmdk=[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmdk
+                          | 2014-04-29 17:19:15  INFO 000031401 print_req                | 	vsphere-vmx=[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmx
+                          | 2014-04-29 17:19:15,783-DEBUG:DownloadImage(31379): Parsed Args: Namespace(cloudcert='/var/lib/eucalyptus/keys/cloud-cert.pem', debug=True, destination=<open file '<fdopen>', mode 'w' at 0x2b92b70>, destispipe=True, dumpmanifest=False, logfile=None, loglevel='INFO', manifest='http://10.111.1.176:8773/services/objectstorage/7d04ea-download-manifests/DM-r-bf413a58?Expires=1398827943&AWSAccessKeyId=AKIRLRZOD04262JBD9WI&Signature=GHAayqsNt5e5rKRN3tbNX2gTHz0%3D', privatekey='/var/lib/eucalyptus/keys/node-pk.pem', reportprogress=False, toolspath=None, xsd=None)
+                          | 2014-04-29 17:19:15  INFO 000031401 parse_loginpassword      | read in contents from '/tmp/euca-vmwbroker-6973598424721973810.vsphere-login'
+                          | 2014-04-29 17:19:15  INFO 000031401 parse_loginpassword      | read in contents from '/tmp/euca-vmwbroker-183491127694151578.vsphere-password'
+                          | 2014-04-29 17:19:15,783-DEBUG:DownloadImage(31379): Starting configure...
+                          | 2014-04-29 17:19:15,783-DEBUG:DownloadImage(31379): Create DownloadManifest obj from the manifest argument...
+                          | 2014-04-29 17:19:15  INFO 000031401 main                     | verified all parameters for 1 command(s)
+                          | 2014-04-29 17:19:15,783-DEBUG:DownloadImage(31379): Reading from remote manifest from url: http://10.111.1.176:8773/services/objectstorage/7d04ea-download-manifests/DM-r-bf413a58?Expires=1398827943&AWSAccessKeyId=AKIRLRZOD04262JBD9WI&Signature=GHAayqsNt5e5rKRN3tbNX2gTHz0%3D
+                          | 2014-04-29 17:19:15 DEBUG 000031401 art_alloc                | [convert] allocated artifact 001|https://10.111.5.176 size=0 vbr=(nil) cache=0 file=1
+                          | 2014-04-29 17:19:15 DEBUG 000031401 art_implement_tree       | [convert] implementing artifact 001|https://10.111.5.176
+                          | 2014-04-29 17:19:15 DEBUG 000031401 art_implement_tree       | [convert] created a blob for an artifact 001|https://10.111.5.176 on try 1
+                          | 2014-04-29 17:19:15  INFO 000031401 convert_creator          | converting from '-' to 'https://10.111.5.176'
+                          | 2014-04-29 17:19:15 DEBUG 000031401 alloc_shmem              | generated shared memory segment key [2835417976]
+                          | 2014-04-29 17:19:15 DEBUG 000031401 do_call                  | executing [/usr/libexec/eucalyptus/euca-vmdk-wrapper -1459549320]
+                          | child process 31403 executing: /usr/libexec/eucalyptus/euca-vmdk-wrapper -1459549320
+                          | 2014-04-29 17:19:15  INFO 000031407 log_func                 | VDDK: VixDiskLib: config options: libdir '<null>', tmpDir '/tmp/vmware-eucalyptus'.
+                          | 2014-04-29 17:19:15  INFO 000031407 log_func                 | VDDK: VMware VixDiskLib (1.1) Release build-163495
+                          | 2014-04-29 17:19:15  INFO 000031407 log_func                 | VDDK: Using system libcrypto, version 90807F
+                          | 2014-04-29 17:19:15  INFO 000031407 diskutil_init            | found grub 1 stage files in /boot/grub
+                          | 2014-04-29 17:19:15  INFO 000031407 vmdk_convert_to_remote   | intput file -:
+                          | 2014-04-29 17:19:15  INFO 000031407 vmdk_convert_to_remote   | 	vddk bytes=0            blocks=0         (blksize=512)
+                          | 2014-04-29 17:19:15  INFO 000031407 log_func                 | VDDK: TicketResolveHostName: Resolving IP address for hostname 10.111.5.176.
+                          | 2014-04-29 17:19:15  INFO 000031407 log_func                 | VDDK: TicketResolveHostName: Resolved to 10.111.5.176.
+                          | 2014-04-29 17:19:15  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketLogin
+                          | 2014-04-29 17:19:15,967-DEBUG:DownloadImage(31379): Running "euca-unbundle-stream" with args:euca-unbundle-stream,--enc-key,f27f56c3209fd08ee2aba6bc9f8eac33,--enc-iv,81a0bc00e5dd6899832d1d7e4782f7a6,--debug
+                          | 2014-04-29 17:19:15,974-DEBUG:DownloadImage(31379): Starting download parts process to feed unbundle
+                          | 2014-04-29 17:19:15,975-DEBUG:DownloadImage(31379): Starting process monitor
+                          | 2014-04-29 17:19:15,976-DEBUG:DownloadImage(31379): Downloading part#:0
+                          | 2014-04-29 17:19:15,976-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.00
+                          | 2014-04-29 17:19:16,107-DEBUG:DownloadImage(31379): subprocess stderr:2014-04-29 17:19:16,107 DEBUG   UnbundleStream parsed arguments: {'sha1_digest': None, 'show_progress': False, 'dest': None, 'region': None, 'enc_key': 'f27f56c3209fd08ee2aba6bc9f8eac33', 'enc_iv': '81a0bc00e5dd6899832d1d7e4782f7a6', 'source': None, 'image_size': None}
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketFindDatacenter: dcPath = -ha-datacenter- 
+                          | 2014-04-29 17:19:16,205-DEBUG:DownloadImage(31379): Part:"0". etag:"444880d0ba4ebe58b8c8e000802fb5dd" vs Written Digest:"444880d0ba4ebe58b8c8e000802fb5dd", etag == digest
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketFindVMByDatastorePath: vmxPath = -[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmx- 
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketLoadVM
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketLoadInternalSic 
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketLoadVMCb
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketLoadNfcTicket: Request RandomAccess diskKey = 2000, readOnly = 0, openSnapshot = 0 
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: VixDiskLibVim: TicketLogout 
+                          | 2014-04-29 17:19:16  INFO 000031407 log_func                 | VDDK: NBD_Clientopen: attempting to create connection to ha-nfc://[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmdk@10.111.5.176:902!5
+                          | 2014-04-29 17:19:17  INFO 000031407 log_func                 | VDDK: Opening file [datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmdk (ha-nfc://[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a
+                          | 2014-04-29 17:19:17  INFO 000031407 log_func                 | VDDK: DISKLIB-LINK  : Opened 'ha-nfc://[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmdk@10.111.5.176:902!52 3b cf 05 38 0f 7f 8d-7d c
+                          | 2014-04-29 17:19:17  INFO 000031407 log_func                 | VDDK: DISKLIB-LIB   : Opened "ha-nfc://[datastore1] emi-983394a8-AC23D39B-97C810FD/emi-983394a8-AC23D39B-97C810FD.vmdk@10.111.5.176:902!52 3b cf 05 38 0f 7f 8d-7d c
+                          | 2014-04-29 17:19:19,155-DEBUG:DownloadImage(31379): Wrote bytes:10485760/282720864, digest:444880d0ba4ebe58b8c8e000802fb5dd
+                          | 2014-04-29 17:19:19,155-DEBUG:DownloadImage(31379): Downloading part#:1
+                          | 2014-04-29 17:19:19,155-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.01
+                          | 2014-04-29 17:19:19,397-DEBUG:DownloadImage(31379): Part:"1". etag:"87b1d9d61d94046bc7bf69461059e13d" vs Written Digest:"87b1d9d61d94046bc7bf69461059e13d", etag == digest
+                          | 2014-04-29 17:19:19,840-DEBUG:DownloadImage(31379): Wrote bytes:20971520/282720864, digest:87b1d9d61d94046bc7bf69461059e13d
+                          | 2014-04-29 17:19:19,840-DEBUG:DownloadImage(31379): Downloading part#:2
+                          | 2014-04-29 17:19:19,840-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.02
+                          | 2014-04-29 17:19:20,042-DEBUG:DownloadImage(31379): Part:"2". etag:"3e185bde4d91a789f5863c2aee5dd063" vs Written Digest:"3e185bde4d91a789f5863c2aee5dd063", etag == digest
+                          | 2014-04-29 17:19:20 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 287232, zeros=183808, [0-0], bytes_written=147324928
+                          | 2014-04-29 17:19:20 DEBUG 000031407 vmdk_convert_to_remote   | reads took 983093 usec, writes took 942386 usec
+                          | 2014-04-29 17:19:20,806-DEBUG:DownloadImage(31379): Wrote bytes:31457280/282720864, digest:3e185bde4d91a789f5863c2aee5dd063
+                          | 2014-04-29 17:19:20,806-DEBUG:DownloadImage(31379): Downloading part#:3
+                          | 2014-04-29 17:19:20,806-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.03
+                          | 2014-04-29 17:19:21,068-DEBUG:DownloadImage(31379): Part:"3". etag:"34d2de6dcf6edc415a5151651f79885c" vs Written Digest:"34d2de6dcf6edc415a5151651f79885c", etag == digest
+                          | 2014-04-29 17:19:21,667-DEBUG:DownloadImage(31379): Wrote bytes:41943040/282720864, digest:34d2de6dcf6edc415a5151651f79885c
+                          | 2014-04-29 17:19:21,667-DEBUG:DownloadImage(31379): Downloading part#:4
+                          | 2014-04-29 17:19:21,667-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.04
+                          | 2014-04-29 17:19:21,910-DEBUG:DownloadImage(31379): Part:"4". etag:"e50b6c71d569c057e86780dc362f8b5c" vs Written Digest:"e50b6c71d569c057e86780dc362f8b5c", etag == digest
+                          | 2014-04-29 17:19:22 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 563200, zeros=294400, [0-0], bytes_written=288620544
+                          | 2014-04-29 17:19:22 DEBUG 000031407 vmdk_convert_to_remote   | reads took 967336 usec, writes took 913674 usec
+                          | 2014-04-29 17:19:22,487-DEBUG:DownloadImage(31379): Wrote bytes:52428800/282720864, digest:e50b6c71d569c057e86780dc362f8b5c
+                          | 2014-04-29 17:19:22,487-DEBUG:DownloadImage(31379): Downloading part#:5
+                          | 2014-04-29 17:19:22,487-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.05
+                          | 2014-04-29 17:19:22,714-DEBUG:DownloadImage(31379): Part:"5". etag:"90254dd66b32030273a2bd69092ca5e6" vs Written Digest:"90254dd66b32030273a2bd69092ca5e6", etag == digest
+                          | 2014-04-29 17:19:23,176-DEBUG:DownloadImage(31379): Wrote bytes:62914560/282720864, digest:90254dd66b32030273a2bd69092ca5e6
+                          | 2014-04-29 17:19:23,176-DEBUG:DownloadImage(31379): Downloading part#:6
+                          | 2014-04-29 17:19:23,176-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.06
+                          | 2014-04-29 17:19:23,403-DEBUG:DownloadImage(31379): Part:"6". etag:"5ab754588d38ce8baf4681635e88744f" vs Written Digest:"5ab754588d38ce8baf4681635e88744f", etag == digest
+                          | 2014-04-29 17:19:23,748-DEBUG:DownloadImage(31379): Wrote bytes:73400320/282720864, digest:5ab754588d38ce8baf4681635e88744f
+                          | 2014-04-29 17:19:23,748-DEBUG:DownloadImage(31379): Downloading part#:7
+                          | 2014-04-29 17:19:23,748-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.07
+                          | 2014-04-29 17:19:23,983-DEBUG:DownloadImage(31379): Part:"7". etag:"01984ee10d0e485d883be1b8344864c8" vs Written Digest:"01984ee10d0e485d883be1b8344864c8", etag == digest
+                          | 2014-04-29 17:19:24 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 766976, zeros=295936, [0-0], bytes_written=392953856
+                          | 2014-04-29 17:19:24 DEBUG 000031407 vmdk_convert_to_remote   | reads took 878354 usec, writes took 1119464 usec
+                          | 2014-04-29 17:19:24,322-DEBUG:DownloadImage(31379): Wrote bytes:83886080/282720864, digest:01984ee10d0e485d883be1b8344864c8
+                          | 2014-04-29 17:19:24,322-DEBUG:DownloadImage(31379): Downloading part#:8
+                          | 2014-04-29 17:19:24,322-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.08
+                          | 2014-04-29 17:19:24,557-DEBUG:DownloadImage(31379): Part:"8". etag:"490c801f4e38b8e465820663645a1f03" vs Written Digest:"490c801f4e38b8e465820663645a1f03", etag == digest
+                          | 2014-04-29 17:19:24,907-DEBUG:DownloadImage(31379): Wrote bytes:94371840/282720864, digest:490c801f4e38b8e465820663645a1f03
+                          | 2014-04-29 17:19:24,907-DEBUG:DownloadImage(31379): Downloading part#:9
+                          | 2014-04-29 17:19:24,907-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.09
+                          | 2014-04-29 17:19:25,111-DEBUG:DownloadImage(31379): Part:"9". etag:"025e5d08b91c0b1fd03ece2a22372395" vs Written Digest:"025e5d08b91c0b1fd03ece2a22372395", etag == digest
+                          | 2014-04-29 17:19:25,469-DEBUG:DownloadImage(31379): Wrote bytes:104857600/282720864, digest:025e5d08b91c0b1fd03ece2a22372395
+                          | 2014-04-29 17:19:25,469-DEBUG:DownloadImage(31379): Downloading part#:10
+                          | 2014-04-29 17:19:25,469-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.10
+                          | 2014-04-29 17:19:25,717-DEBUG:DownloadImage(31379): Part:"10". etag:"c7623974800e8334523e98e7ce2b3037" vs Written Digest:"c7623974800e8334523e98e7ce2b3037", etag == digest
+                          | 2014-04-29 17:19:26 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 963072, zeros=295936, [0-0], bytes_written=493355008
+                          | 2014-04-29 17:19:26 DEBUG 000031407 vmdk_convert_to_remote   | reads took 918780 usec, writes took 1080834 usec
+                          | 2014-04-29 17:19:26,249-DEBUG:DownloadImage(31379): Wrote bytes:115343360/282720864, digest:c7623974800e8334523e98e7ce2b3037
+                          | 2014-04-29 17:19:26,249-DEBUG:DownloadImage(31379): Downloading part#:11
+                          | 2014-04-29 17:19:26,249-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.11
+                          | 2014-04-29 17:19:26,457-DEBUG:DownloadImage(31379): Part:"11". etag:"cc9c10451afd40a55915997ca1fb5784" vs Written Digest:"cc9c10451afd40a55915997ca1fb5784", etag == digest
+                          | 2014-04-29 17:19:26,896-DEBUG:DownloadImage(31379): Wrote bytes:125829120/282720864, digest:cc9c10451afd40a55915997ca1fb5784
+                          | 2014-04-29 17:19:26,897-DEBUG:DownloadImage(31379): Downloading part#:12
+                          | 2014-04-29 17:19:26,897-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.12
+                          | 2014-04-29 17:19:27,137-DEBUG:DownloadImage(31379): Part:"12". etag:"eea272f4ccd413221f34f0fdc3cc831e" vs Written Digest:"eea272f4ccd413221f34f0fdc3cc831e", etag == digest
+                          | 2014-04-29 17:19:28 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 1260544, zeros=393728, [0-0], bytes_written=645660672
+                          | 2014-04-29 17:19:28 DEBUG 000031407 vmdk_convert_to_remote   | reads took 840925 usec, writes took 1094061 usec
+                          | 2014-04-29 17:19:28,110-DEBUG:DownloadImage(31379): Wrote bytes:136314880/282720864, digest:eea272f4ccd413221f34f0fdc3cc831e
+                          | 2014-04-29 17:19:28,110-DEBUG:DownloadImage(31379): Downloading part#:13
+                          | 2014-04-29 17:19:28,111-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.13
+                          | 2014-04-29 17:19:28,340-DEBUG:DownloadImage(31379): Part:"13". etag:"5830aa37145a82abcfbda76311fafebf" vs Written Digest:"5830aa37145a82abcfbda76311fafebf", etag == digest
+                          | 2014-04-29 17:19:30 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 1759232, zeros=824832, [0-0], bytes_written=900988928
+                          | 2014-04-29 17:19:30 DEBUG 000031407 vmdk_convert_to_remote   | reads took 1342273 usec, writes took 375814 usec
+                          | 2014-04-29 17:19:31,241-DEBUG:DownloadImage(31379): Wrote bytes:146800640/282720864, digest:5830aa37145a82abcfbda76311fafebf
+                          | 2014-04-29 17:19:31,241-DEBUG:DownloadImage(31379): Downloading part#:14
+                          | 2014-04-29 17:19:31,241-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.14
+                          | 2014-04-29 17:19:31,505-DEBUG:DownloadImage(31379): Part:"14". etag:"a0953cf0077669e143d42a51530728a4" vs Written Digest:"a0953cf0077669e143d42a51530728a4", etag == digest
+                          | 2014-04-29 17:19:31,776-DEBUG:DownloadImage(31379): Wrote bytes:157286400/282720864, digest:a0953cf0077669e143d42a51530728a4
+                          | 2014-04-29 17:19:31,776-DEBUG:DownloadImage(31379): Downloading part#:15
+                          | 2014-04-29 17:19:31,776-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.15
+                          | 2014-04-29 17:19:31,980-DEBUG:DownloadImage(31379): Part:"15". etag:"f5448ed50702907e0212b0482a94a0ba" vs Written Digest:"f5448ed50702907e0212b0482a94a0ba", etag == digest
+                          | 2014-04-29 17:19:32 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 2095104, zeros=1048064, [0-0], bytes_written=1072955392
+                          | 2014-04-29 17:19:32 DEBUG 000031407 vmdk_convert_to_remote   | reads took 1232180 usec, writes took 618186 usec
+                          | 2014-04-29 17:19:32,245-DEBUG:DownloadImage(31379): Wrote bytes:167772160/282720864, digest:f5448ed50702907e0212b0482a94a0ba
+                          | 2014-04-29 17:19:32,245-DEBUG:DownloadImage(31379): Downloading part#:16
+                          | 2014-04-29 17:19:32,245-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.16
+                          | 2014-04-29 17:19:32,481-DEBUG:DownloadImage(31379): Part:"16". etag:"0cb082dcee5885eeb400ef3e6ff0b827" vs Written Digest:"0cb082dcee5885eeb400ef3e6ff0b827", etag == digest
+                          | 2014-04-29 17:19:32,834-DEBUG:DownloadImage(31379): Wrote bytes:178257920/282720864, digest:0cb082dcee5885eeb400ef3e6ff0b827
+                          | 2014-04-29 17:19:32,834-DEBUG:DownloadImage(31379): Downloading part#:17
+                          | 2014-04-29 17:19:32,834-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.17
+                          | 2014-04-29 17:19:33,080-DEBUG:DownloadImage(31379): Part:"17". etag:"cc9997751cebe529af2e39c9c8d100b2" vs Written Digest:"cc9997751cebe529af2e39c9c8d100b2", etag == digest
+                          | 2014-04-29 17:19:33,536-DEBUG:DownloadImage(31379): Wrote bytes:188743680/282720864, digest:cc9997751cebe529af2e39c9c8d100b2
+                          | 2014-04-29 17:19:33,536-DEBUG:DownloadImage(31379): Downloading part#:18
+                          | 2014-04-29 17:19:33,536-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.18
+                          | 2014-04-29 17:19:33,778-DEBUG:DownloadImage(31379): Part:"18". etag:"a51f19df4bc68533fc76c99f37673a38" vs Written Digest:"a51f19df4bc68533fc76c99f37673a38", etag == digest
+                          | 2014-04-29 17:19:34 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 2283520, zeros=1048064, [0-0], bytes_written=1169424384
+                          | 2014-04-29 17:19:34 DEBUG 000031407 vmdk_convert_to_remote   | reads took 959672 usec, writes took 1042227 usec
+                          | 2014-04-29 17:19:34,198-DEBUG:DownloadImage(31379): Wrote bytes:199229440/282720864, digest:a51f19df4bc68533fc76c99f37673a38
+                          | 2014-04-29 17:19:34,198-DEBUG:DownloadImage(31379): Downloading part#:19
+                          | 2014-04-29 17:19:34,198-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.19
+                          | 2014-04-29 17:19:34,446-DEBUG:DownloadImage(31379): Part:"19". etag:"1e058249d7f740a459b35c4e0e5ae412" vs Written Digest:"1e058249d7f740a459b35c4e0e5ae412", etag == digest
+                          | 2014-04-29 17:19:34,824-DEBUG:DownloadImage(31379): Wrote bytes:209715200/282720864, digest:1e058249d7f740a459b35c4e0e5ae412
+                          | 2014-04-29 17:19:34,824-DEBUG:DownloadImage(31379): Downloading part#:20
+                          | 2014-04-29 17:19:34,824-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.20
+                          | 2014-04-29 17:19:35,047-DEBUG:DownloadImage(31379): Part:"20". etag:"729fa2a48235c44c7ac0a48df31fd4f5" vs Written Digest:"729fa2a48235c44c7ac0a48df31fd4f5", etag == digest
+                          | 2014-04-29 17:19:35,365-DEBUG:DownloadImage(31379): Wrote bytes:220200960/282720864, digest:729fa2a48235c44c7ac0a48df31fd4f5
+                          | 2014-04-29 17:19:35,365-DEBUG:DownloadImage(31379): Downloading part#:21
+                          | 2014-04-29 17:19:35,365-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.21
+                          | 2014-04-29 17:19:35,628-DEBUG:DownloadImage(31379): Part:"21". etag:"8a33b6b2bb2be81cd8ee1132e2cea60f" vs Written Digest:"8a33b6b2bb2be81cd8ee1132e2cea60f", etag == digest
+                          | 2014-04-29 17:19:36 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 2487296, zeros=1063936, [0-0], bytes_written=1273757696
+                          | 2014-04-29 17:19:36 DEBUG 000031407 vmdk_convert_to_remote   | reads took 952305 usec, writes took 1034092 usec
+                          | 2014-04-29 17:19:36,101-DEBUG:DownloadImage(31379): Wrote bytes:230686720/282720864, digest:8a33b6b2bb2be81cd8ee1132e2cea60f
+                          | 2014-04-29 17:19:36,102-DEBUG:DownloadImage(31379): Downloading part#:22
+                          | 2014-04-29 17:19:36,102-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.22
+                          | 2014-04-29 17:19:36,330-DEBUG:DownloadImage(31379): Part:"22". etag:"8aa15c9e150291a667624df081b725e7" vs Written Digest:"8aa15c9e150291a667624df081b725e7", etag == digest
+                          | 2014-04-29 17:19:36,663-DEBUG:DownloadImage(31379): Wrote bytes:241172480/282720864, digest:8aa15c9e150291a667624df081b725e7
+                          | 2014-04-29 17:19:36,663-DEBUG:DownloadImage(31379): Downloading part#:23
+                          | 2014-04-29 17:19:36,663-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.23
+                          | 2014-04-29 17:19:36,885-DEBUG:DownloadImage(31379): Part:"23". etag:"bde3ea20c4e9a5d550c93ecb846d742b" vs Written Digest:"bde3ea20c4e9a5d550c93ecb846d742b", etag == digest
+                          | 2014-04-29 17:19:37,472-DEBUG:DownloadImage(31379): Wrote bytes:251658240/282720864, digest:bde3ea20c4e9a5d550c93ecb846d742b
+                          | 2014-04-29 17:19:37,472-DEBUG:DownloadImage(31379): Downloading part#:24
+                          | 2014-04-29 17:19:37,472-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.24
+                          | 2014-04-29 17:19:37,683-DEBUG:DownloadImage(31379): Part:"24". etag:"66c70326ec18c851101f5b767fa8ebd0" vs Written Digest:"66c70326ec18c851101f5b767fa8ebd0", etag == digest
+                          | 2014-04-29 17:19:38 DEBUG 000031407 vmdk_convert_to_remote   | wrote sect 2710016, zeros=1088512, [0-0], bytes_written=1387790336
+                          | 2014-04-29 17:19:38 DEBUG 000031407 vmdk_convert_to_remote   | reads took 896303 usec, writes took 1087127 usec
+                          | 2014-04-29 17:19:38,426-DEBUG:DownloadImage(31379): Wrote bytes:262144000/282720864, digest:66c70326ec18c851101f5b767fa8ebd0
+                          | 2014-04-29 17:19:38,426-DEBUG:DownloadImage(31379): Downloading part#:25
+                          | 2014-04-29 17:19:38,426-DEBUG:DownloadImage(31379): Downloading part:http://10.111.1.176:8773/services/objectstorage/euca-internal-bnkcz-tmpzyn3p5utqm/precise-server-cloudimg-amd64-ext3.img.part.25
+                          | 2014-04-29 17:19:38,677-DEBUG:DownloadImage(31379): Part:"25". etag:"1d681ce05f9b6d9e576a2a94e72a2f79" vs Written Digest:"1d681ce05f9b6d9e576a2a94e72a2f79", etag == digest
+                          | 2014-04-29 17:19:38  INFO 000031407 log_func                 | VDDK: DISKLIB-LIB   : RWv failed ioId: #3289 (17) (17) .
+                          | 2014-04-29 17:19:38 FATAL 000031407 vmdk_convert_to_remote   | vmdk.c:725: You have requested access to an area of the virtual disk that is out of bounds
+                          | 2014-04-29 17:19:38 ERROR 000031401 convert_creator          | failed to convert '-' to 'https://10.111.5.176'
+                          | 2014-04-29 17:19:38 ERROR 000031401 art_implement_tree       | [convert] failed to create artifact https://10.111.5.176 (error=1, may retry) on try 1
+                          | 2014-04-29 17:19:38 DEBUG 000031401 art_implement_tree       | [convert] failed to implement artifact 001|https://10.111.5.176 on try 1
+                          | 2014-04-29 17:19:38  INFO 000031401 convert_cleanup          | cleaning up for 'convert'...
+                          | 2014-04-29 17:19:38  INFO 000031401 main                     | cleaning the work directory...
+                          | 2014-04-29 17:19:38  INFO 000031401 main                     | imager done (exit code=1)
+                          | Traceback (most recent call last):
+                          |   File "/usr/lib/python2.6/site-packages/eucatoolkit/stages/downloadimage.py", line 324, in _download_to_unbundlestream
+                          |     inactivity_timeout=inactivity_timeout)
+                          |   File "/usr/lib/python2.6/site-packages/eucatoolkit/stages/processutils.py", line 110, in monitor_subprocess_io
+                          |     outfile.write(chunk)
+                          | IOError: [Errno 32] Broken pipe
+                          | Traceback (most recent call last):
+                          |   File "/usr/libexec/eucalyptus/euca-run-workflow", line 471, in <module>
+                          |     WORKFLOWS[args.name].execute(args)
+                          |   File "/usr/libexec/eucalyptus/euca-run-workflow", line 287, in execute
+                          |     download.main()
+                          |   File "/usr/lib/python2.6/site-packages/eucatoolkit/stages/downloadimage.py", line 413, in main
+                          |     raise E
+                          | IOError: [Errno 32] Broken pipe
+2014-04-29 17:19:38  INFO 000001181 EucaRunWorkflow          | ===========================================================
+

@@ -1,0 +1,255 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.autoscaling.AmazonAutoScaling;
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient;
+import com.amazonaws.services.autoscaling.model.AutoScalingInstanceDetails;
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingInstancesRequest;
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingInstancesResult;
+import com.amazonaws.services.autoscaling.model.SetDesiredCapacityRequest;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
+
+/**
+ * This application tests launching and describing instances with auto scaling.
+ * 
+ * This is verification for the story:
+ * 
+ *   https://eucalyptus.atlassian.net/browse/EUCA-4896
+ */
+public class TestAutoScalingDescribeInstances {
+
+  public static void main( String[] args ) throws Exception {
+    final TestAutoScalingDescribeInstances test =  new TestAutoScalingDescribeInstances();
+    test.test();
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials(
+        "YPEV12JLRBMLCB4HNYAH7",
+        "azLEhCSgaVQlZzzsDgot6mrUdOVbj1QP9eaX5cYH"
+    );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://192.168.51.175:8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( ) {
+    final AmazonAutoScaling as = new AmazonAutoScalingClient( credentials() );
+    as.setEndpoint( cloudUri( "/services/AutoScaling/" ) );
+    return as;
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private String instanceType() {
+    return "m1.small";
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  private void test() throws Exception{
+    final AmazonAutoScaling as = getAutoScalingClient();
+    final AmazonEC2 ec2 = getEc2Client();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" ),
+        new Filter().withName( "root-device-type" ).withValues( "instance-store" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 0, "Availability zone not found" );
+
+    final String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    print( "Using availability zone: " + availabilityZone );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + ":";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Create launch configuration
+      final String configName = namePrefix + "DescribeTest";
+      print( "Creating launch configuration: " + configName );
+      as.createLaunchConfiguration( new CreateLaunchConfigurationRequest()
+          .withLaunchConfigurationName( configName )
+          .withImageId( imageId )
+          .withInstanceType( instanceType() ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting launch configuration: " + configName );
+          as.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest().withLaunchConfigurationName( configName ) );
+        }
+      } );
+
+      // Create scaling group    
+      final String groupName = namePrefix + "DescribeTest";
+      print( "Creating auto scaling group: " + groupName );
+      as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+          .withAutoScalingGroupName( groupName )
+          .withLaunchConfigurationName( configName )
+          .withDesiredCapacity( 1 )
+          .withMinSize( 0 )
+          .withMaxSize( 1 )
+          .withHealthCheckType( "EC2" )
+          .withAvailabilityZones( availabilityZone )
+          .withTerminationPolicies( "OldestInstance" ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting group: " + groupName );
+          as.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest().withAutoScalingGroupName( groupName ).withForceDelete( true ) );
+        }
+      } );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          final List<String> instanceIds = getInstancesForGroup( ec2, groupName, null );
+          print( "Terminating instances: " + instanceIds );
+          ec2.terminateInstances( new TerminateInstancesRequest().withInstanceIds( instanceIds ) );
+        }
+      } );
+
+      // Wait for instances to launch
+      print( "Waiting for instance to launch" );
+      final long startTime = System.currentTimeMillis();
+      final long launchTimeout = TimeUnit.MINUTES.toMillis( 2 );
+      boolean launched = false;
+      String instanceId = null;
+      while ( !launched && ( System.currentTimeMillis() - startTime ) < launchTimeout ) {
+        Thread.sleep( 5000 );
+        final List<String> instanceIds = getInstancesForGroup( ec2, groupName, "running" );
+        launched = instanceIds.size() == 1;
+        instanceId = launched ? instanceIds.get( 0 ) : null;
+      }
+      assertThat( launched, "Instance was not launched within the expected timeout" );
+      assertThat( instanceId != null, "Instance identifier null" );
+      print( "Instance launched in " + ( System.currentTimeMillis()-startTime ) + "ms" );
+
+      // Describe instance and verify details
+      final DescribeAutoScalingInstancesResult instancesResult = 
+          as.describeAutoScalingInstances( new DescribeAutoScalingInstancesRequest().withInstanceIds( instanceId ) );
+      assertThat( instancesResult.getAutoScalingInstances().size()==1, "Auto scaling instance found" );
+      final AutoScalingInstanceDetails details = instancesResult.getAutoScalingInstances().get( 0 );
+      print( "Verifying instance details: " + details );
+      assertThat( instanceId.equals( details.getInstanceId() ), "Incorrect instance id " + instanceId + " != " + details.getInstanceId() );
+      assertThat( groupName.equals( details.getAutoScalingGroupName() ), "Incorrect group name " + groupName + " != " + details.getAutoScalingGroupName() );
+      assertThat( configName.equals( details.getLaunchConfigurationName() ), "Incorrect config name " + configName + " != " + details.getLaunchConfigurationName() );
+      assertThat( availabilityZone.equals( details.getAvailabilityZone() ), "Incorrect AZ " + availabilityZone + " != " + details.getAvailabilityZone() );
+      assertThat( Arrays.asList( "Healthy", "Unhealthy" ).contains( details.getHealthStatus() ), "Invalid health status: " + details.getHealthStatus() );  
+      assertThat( Arrays.asList( "Pending", "Quarantined", "InService", "Terminating", "Terminated" ).contains( details.getLifecycleState() ), "Invalid lifecycle state: " + details.getLifecycleState() );  
+          
+      // Update group desired capacity and wait for instances to terminate
+      print( "Setting desired capacity to 0 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 0 ) );
+
+      // Wait for instances to terminate
+      print( "Waiting for instance to terminate" );
+      final long terminateStartTime = System.currentTimeMillis();
+      final long terminateTimeout = TimeUnit.MINUTES.toMillis( 2 );
+      boolean terminated = false;
+      while ( !terminated && ( System.currentTimeMillis() - terminateStartTime ) < terminateTimeout ) {
+        Thread.sleep( 5000 );
+        final List<String> instanceIds = getInstancesForGroup( ec2, groupName, null );
+        terminated = instanceIds.size() == 0;
+      }
+      assertThat( terminated, "Instance was not terminated within the expected timeout" );
+      print( "Instance terminated in " + ( System.currentTimeMillis()-terminateStartTime ) + "ms" );
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private List<String> getInstancesForGroup( final AmazonEC2 ec2,
+                                             final String groupName,
+                                             final String status ) {
+    final DescribeInstancesResult instancesResult = ec2.describeInstances( new DescribeInstancesRequest().withFilters(
+        new Filter().withName( "tag:aws:autoscaling:groupName" ).withValues( groupName )
+    ) );
+    final List<String> instanceIds = new ArrayList<String>();
+    for ( final Reservation reservation : instancesResult.getReservations() ) {
+      for ( final Instance instance : reservation.getInstances() ) {
+        if ( status == null || instance.getState()==null || status.equals( instance.getState().getName() ) ) {
+          instanceIds.add( instance.getInstanceId() );
+        }
+      }
+    }
+    return instanceIds;
+  }  
+}

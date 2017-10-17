@@ -1,0 +1,157 @@
+default_attributes:
+  cassandra:
+    topology:
+    - 10.111.5.152
+  eucalyptus:
+    ceph-config:
+      global:
+        auth-client-required: cephx
+        auth-cluster-required: cephx
+        auth-service-required: cephx
+        cluster-network: 10.107.0.0/16
+        filestore-xattr-use-omap: 'true'
+        fsid: 827b5d53-ac88-4079-a452-0e18aeb16fb8
+        mon-host: 10.111.5.121
+        mon-initial-members: g-15-07
+        osd-journal-size: '10240'
+        osd-pool-default-min size: '1'
+        osd-pool-default-pg-num: '128'
+        osd-pool-default-pgp-num: '128'
+        osd-pool-default-size: '3'
+        public-network: 10.111.0.0/16
+      mon.g-12-09:
+        host: g-12-09
+        mon addr: 10.111.5.124:6789
+      mon.g-15-07:
+        host: g-15-07
+        mon addr: 10.111.5.121:6789
+      mon.g-26-09:
+        host: g-26-09
+        mon addr: 10.111.5.129:6789
+    ceph-keyrings:
+      ceph-admin:
+        caps mds: allow
+        caps mon: allow *
+        caps osd: allow *
+        key: AQBuwo5XvHi9AhAA/XagQzOw4G1YPTmMbkPaBw==
+        keyring: /etc/ceph/ceph.client.admin.keyring
+        name: client.admin
+      radosgw:
+        caps mon: allow rwx
+        caps osd: allow rwx
+        key: AQBb5Y5XLeiVCRAAh2LET8BTXwoj4hObmgnuvg==
+        keyring: /etc/ceph/ceph.client.radosgw.keyring
+        name: client.radosgw.euca-osg
+      rbd-user:
+        key: AQDi345XWqo8HRAATptNk2rJ3yPorHjAz/P6gg==
+        keyring: /etc/ceph/ceph.client.qauser.keyring
+        name: client.qauser
+    ceph-repo: http://download.ceph.com/rpm-hammer/el7/x86_64/
+    cloud-properties:
+      cloudformation.url_domain_whitelist: '*s3.amazonaws.com, git.qa1.eucalyptus-systems.com'
+      objectstorage.dogetputoncopyfail: 'true'
+      objectstorage.s3provider.s3endpointheadresponse: '200'
+      one.storage.cephconfigfile: /etc/ceph/ceph.conf
+      one.storage.cephkeyringfile: /etc/ceph/ceph.client.qauser.keyring
+      one.storage.cephsnapshotpools: eucaqa_snap
+      one.storage.cephuser: qauser
+      one.storage.cephvolumepools: eucaqa_vol
+      two.storage.cephconfigfile: /etc/ceph/ceph.conf
+      two.storage.cephkeyringfile: /etc/ceph/ceph.client.qauser.keyring
+      two.storage.cephsnapshotpools: eucaqa_snap
+      two.storage.cephuser: qauser
+      two.storage.cephvolumepools: eucaqa_vol
+    default-img-url: http://images.objectstorage.cloud.qa1.eucalyptus-systems.com:8773/precise-server-cloudimg-amd64-disk1.img
+    dns-domain: c-19.autoqa.qa1.eucalyptus-systems.com
+    enterprise-repo: http://builds.qa1.eucalyptus-systems.com/packages/tags/enterprise-4.4/rhel/$releasever/$basearch/
+    euca2ools-repo: http://builds.qa1.eucalyptus-systems.com/packages/tags/euca2ools-devel/rhel/$releasever/$basearch/
+    eucalyptus-repo: http://builds.qa1.eucalyptus-systems.com/packages/tags/eucalyptus-4.4/rhel/$releasever/$basearch/
+    init-script-url: http://git.qa1.eucalyptus-systems.com/qa-repos/eucalele/raw/master/deploy-helpers/scripts/network-interfaces.sh
+    install-service-image: 'true'
+    install-type: packages
+    midolman:
+      max-heap-size: 1g
+    midonet:
+      auth: true
+      bgp-peers:
+      - local-as: 65939
+        peer-address: 10.116.133.173
+        port-ip: 10.116.133.152
+        remote-as: 65000
+        route: 10.116.150.0/24
+        router-name: eucart
+      gateways:
+      - 10.111.5.152
+      heap-newsize: 1g
+      max-heap-size: 1g
+      midolman-host-mapping:
+        b-01.qa1.eucalyptus-systems.com: 10.111.1.1
+        b-02.qa1.eucalyptus-systems.com: 10.111.1.2
+        d-19.qa1.eucalyptus-systems.com: 10.111.5.142
+        d-30.qa1.eucalyptus-systems.com: 10.111.1.100
+        g-08-11.qa1.eucalyptus-systems.com: 10.111.5.152
+        g-26-10.qa1.eucalyptus-systems.com: 10.111.5.130
+      repo-password: 8yU8Pj6h
+      repo-username: eucalyptus
+      yum-options: --nogpg
+    nc:
+      max-cores: 32
+    network:
+      EucanetdHost: g-26-10.qa1.eucalyptus-systems.com
+      Gateways:
+      - GatewayHost: g-08-11.qa1.eucalyptus-systems.com
+        GatewayIP: 10.116.133.152
+        GatewayInterface: em1.116
+      InstanceDnsServers:
+      - 10.111.1.54
+      - 10.111.1.19
+      PublicGatewayIP: 10.116.133.173
+      PublicIps:
+      - 10.116.150.0-10.116.150.255
+      PublicNetworkCidr: 10.116.128.0/17
+      bridge-interface: br0
+      bridged-nic: em1
+      dns-server: 10.111.1.54
+      mode: VPCMIDO
+      private-interface: br0
+      public-interface: br0
+    topology:
+      clc:
+      - 10.111.5.130
+      clusters:
+        one:
+          cc:
+          - 10.111.1.54
+          nodes:
+          - 10.111.1.1
+          - 10.111.1.2
+          sc:
+          - 10.111.1.54
+          storage-backend: ceph-rbd
+        two:
+          cc:
+          - 10.111.1.19
+          nodes:
+          - 10.111.1.100
+          - 10.111.5.142
+          sc:
+          - 10.111.1.19
+          storage-backend: ceph-rbd
+      objectstorage:
+        ceph-radosgw:
+          endpoint: localhost:7480
+          keyring: /etc/ceph/ceph.client.radosgw.keyring
+          log file: /var/log/ceph/radosgw.log
+          name: client.radosgw.euca-osg
+          rgw frontends: civetweb port=7480
+          username: shaon-460-maint-4-4
+        providerclient: ceph-rgw
+      user-facing:
+      - 10.111.1.54
+      - 10.111.1.19
+    yum-options: --nogpg
+  zookeeper:
+    topology:
+    - 10.111.5.152
+description: Eucalyptus Environment Name
+name: shaon-460-maint-4-4

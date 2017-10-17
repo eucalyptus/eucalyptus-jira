@@ -1,0 +1,12 @@
+diff --git a/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h b/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
+index 957ed95..26b4820 100644
+--- a/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
++++ b/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
+@@ -81,6 +81,7 @@
+ 				(1 << CAP_SETUID)+ \
+                 (1 << CAP_SETGID)+ \
+                 (1 << CAP_NET_BIND_SERVICE)+ \
++                (1 << CAP_SYS_ADMIN)+ \
+                 (1 << CAP_NET_RAW)+ \
+                 (1 << CAP_SYS_RESOURCE)
+ #define CAPSMIN \

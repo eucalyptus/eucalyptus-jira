@@ -1,0 +1,45 @@
+2017-10-09 09:05:32 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBEngineVersions in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:07:27 ERROR | Error deleting resource evaluateELB: java.util.concurrent.CancellationException
+2017-10-09 09:07:27 ERROR | Error deleting resource activateELB: java.util.concurrent.CancellationException
+2017-10-09 09:07:27 ERROR | Error deleting resource computeELB: java.util.concurrent.CancellationException
+2017-10-09 09:07:27 ERROR | Error deleting resource exportELB: java.util.concurrent.CancellationException
+2017-10-09 09:07:33 ERROR | null
+2017-10-09 09:08:23 ERROR | Error creating resource activateELB: com.eucalyptus.context.ServiceDispatchException: Failed to send message CreateLoadBalancerType to service loadbalancing-request because: nested exception is com.eucalyptus.loadbalancing.service.DuplicateAccessPointName: LoadBalancer name already exists for this account. Please choose another name.
+2017-10-09 09:08:24 ERROR | Error creating resource relevanceELB: com.eucalyptus.context.ServiceDispatchException: Failed to send message CreateLoadBalancerType to service loadbalancing-request because: nested exception is com.eucalyptus.loadbalancing.service.DuplicateAccessPointName: LoadBalancer name already exists for this account. Please choose another name.
+2017-10-09 09:08:26 ERROR | com.amazonaws.services.simpleworkflow.flow.ActivityTaskFailedException: com.eucalyptus.loadbalancing.service.DuplicateAccessPointName:LoadBalancer name already exists for this account. Please choose another name. for activityId="137" of activityType={Name: StackActivity.performCreateStep,Version: 1.0}
+2017-10-09 09:24:26 ERROR | Failure in thread SWF Activity  LoadBalancerTasks 1428
+2017-10-09 09:30:31 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBSubnetGroups in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:30:31 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBEngineVersions in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:31:47 ERROR | Error deleting resource plotELB: java.util.concurrent.CancellationException
+2017-10-09 09:31:47 ERROR | Error deleting resource evaluateELB: java.util.concurrent.CancellationException
+2017-10-09 09:31:47 ERROR | Error deleting resource activateELB: java.util.concurrent.CancellationException
+2017-10-09 09:31:47 ERROR | Error deleting resource exportELB: java.util.concurrent.CancellationException
+2017-10-09 09:31:57 ERROR | Error deleting resource maturityELB: java.util.concurrent.CancellationException
+2017-10-09 09:33:57 ERROR | Error creating resource evaluateELB: java.util.concurrent.CancellationException
+2017-10-09 09:33:57 ERROR | Error creating resource maturityELB: java.util.concurrent.CancellationException
+2017-10-09 09:34:07 ERROR | Error creating resource relevanceELB: java.util.concurrent.CancellationException
+2017-10-09 09:34:07 ERROR | Error creating resource exportELB: java.util.concurrent.CancellationException
+2017-10-09 09:34:21 ERROR | com.amazonaws.services.simpleworkflow.flow.ActivityTaskFailedException: java.util.concurrent.CancellationException:null for activityId="190" of activityType={Name: StackActivity.performCreateStep,Version: 1.0}
+2017-10-09 09:34:23 ERROR | com.amazonaws.services.simpleworkflow.flow.ActivityTaskFailedException: java.util.concurrent.CancellationException:null for activityId="190" of activityType={Name: StackActivity.performCreateStep,Version: 1.0}
+2017-10-09 09:35:31 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBSubnetGroups in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:35:31 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBEngineVersions in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:36:07 ERROR | Error deleting resource exportELB: java.util.concurrent.CancellationException
+2017-10-09 09:36:07 ERROR | Error deleting resource discoveryELB: java.util.concurrent.CancellationException
+2017-10-09 09:36:57 ERROR | Workflow for updating ELB service state has failed:
+2017-10-09 09:38:31 ERROR | Failure in thread SWF Activity  LoadBalancerTasks 1449
+2017-10-09 09:40:27 ERROR | Error deleting resource discoveryELB: java.util.concurrent.CancellationException
+2017-10-09 09:40:27 ERROR | Error deleting resource activateELB: java.util.concurrent.CancellationException
+2017-10-09 09:40:27 ERROR | Error deleting resource relevanceELB: java.util.concurrent.CancellationException
+2017-10-09 09:40:27 ERROR | Error deleting resource evaluateELB: java.util.concurrent.CancellationException
+2017-10-09 09:44:47 ERROR | Error deleting resource computeELB: java.util.concurrent.CancellationException
+2017-10-09 09:44:47 ERROR | Error deleting resource exportELB: java.util.concurrent.CancellationException
+2017-10-09 09:44:47 ERROR | Error deleting resource discoveryELB: java.util.concurrent.CancellationException
+2017-10-09 09:44:47 ERROR | Error deleting resource relevanceELB: java.util.concurrent.CancellationException
+2017-10-09 09:44:47 ERROR | Error deleting resource plotELB: java.util.concurrent.CancellationException
+2017-10-09 09:45:31 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBSubnetGroups in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:45:31 ERROR | Internal Error: Failed to find corresponding class mapping for element: DescribeDBEngineVersions in namespace: http://ec2.amazonaws.com/doc/2014-10-31/
+2017-10-09 09:46:52 ERROR | com.amazonaws.services.simpleworkflow.flow.ActivityTaskFailedException: com.eucalyptus.loadbalancing.service.DuplicateAccessPointName:LoadBalancer name already exists for this account. Please choose another name. for activityId="114" of activityType={Name: StackActivity.performCreateStep,Version: 1.0}
+2017-10-09 09:46:55 ERROR | com.amazonaws.services.simpleworkflow.flow.ActivityTaskFailedException: com.eucalyptus.loadbalancing.service.DuplicateAccessPointName:LoadBalancer name already exists for this account. Please choose another name. for activityId="114" of activityType={Name: StackActivity.performCreateStep,Version: 1.0}
+2017-10-09 09:49:07 ERROR | Error deleting resource exportELB: java.util.concurrent.CancellationException
+2017-10-09 09:49:07 ERROR | Error deleting resource relevanceELB: java.util.concurrent.CancellationException
+2017-10-09 09:49:17 ERROR | Error deleting resource activateELB: java.util.concurrent.CancellationException

@@ -1,0 +1,16 @@
+import com.eucalyptus.objectstorage.WalrusImageManager
+import com.eucalyptus.entities.Transactions
+import com.eucalyptus.objectstorage.entities.ImageCacheInfo
+import com.eucalyptus.objectstorage.WalrusControl
+
+returnVal=''
+Transactions.findAll(new ImageCacheInfo()).each {	
+	returnVal+='\nflushing...' + it.getBucketName() + '/' + it.getManifestName()
+	WalrusControl.walrusImageManager.flushCachedImage(it.getBucketName(), it.getManifestName())
+	returnVal+='\n\tflushed' + it.getBucketName() + '/' + it.getManifestName()
+}
+return returnVal
+
+
+
+

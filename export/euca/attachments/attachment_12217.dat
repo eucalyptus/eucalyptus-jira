@@ -1,0 +1,293 @@
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/keys/SshKeyPair.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/keys/SshKeyPair.java
+index 868a396..495112d 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/keys/SshKeyPair.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/keys/SshKeyPair.java
+@@ -79,6 +79,8 @@ import com.eucalyptus.component.ComponentIds;
+ import com.eucalyptus.component.id.Eucalyptus;
+ import com.eucalyptus.util.FullName;
+ import com.eucalyptus.util.OwnerFullName;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ 
+ @Entity
+ @javax.persistence.Entity
+@@ -91,6 +93,7 @@ public class SshKeyPair extends UserMetadata<SshKeyPair.State> implements KeyPai
+   }
+   
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "metadata_keypair_public_key" )
+   private String publicKey;
+   @Column( name = "metadata_keypair_finger_print" )
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volume.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volume.java
+index f92fafd..a96c01e 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volume.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volume.java
+@@ -72,6 +72,8 @@ import javax.persistence.Transient;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import org.hibernate.annotations.Entity;
++import org.hibernate.annotations.Type;
++
+ import com.eucalyptus.auth.principal.UserFullName;
+ import com.eucalyptus.cloud.CloudMetadata.VolumeMetadata;
+ import com.eucalyptus.cloud.UserMetadata;
+@@ -96,8 +98,8 @@ public class Volume extends UserMetadata<State> implements VolumeMetadata {
+   private String   partition;     //TODO:GRZE: change to injected ref.
+   @Column( name = "metadata_volume_parentsnapshot" )
+   private String   parentSnapshot;
+-  @Lob
+-  @Column( name = "metadata_volume_remotedevice" )
++ 
++  @Transient
+   private String   remoteDevice;
+   @Column( name = "metadata_volume_localdevice" )
+   private String   localDevice;
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/entities/AbstractStatefulPersistent.java b/clc/modules/msgs/src/main/java/com/eucalyptus/entities/AbstractStatefulPersistent.java
+index 1442629..19ffbe3 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/entities/AbstractStatefulPersistent.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/entities/AbstractStatefulPersistent.java
+@@ -83,8 +83,9 @@ public abstract class AbstractStatefulPersistent<STATE extends Enum<STATE>> exte
+   @Column( name = "metadata_last_state" )
+   @Enumerated( EnumType.STRING )
+   STATE                     lastState;
+-  @Lob
+-  @Column( name = "metadata_state_change_stack" )
++//  @Lob
++//  @Column( name = "metadata_state_change_stack" )
++  @Transient
+   protected String          stateChangeStack;
+   @Column( name = "metadata_display_name" )
+   protected String          displayName;
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/CertificateEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/CertificateEntity.java
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/CertificateEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/CertificateEntity.java
+@@ -13,6 +13,8 @@
+ import javax.persistence.Transient;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.eucalyptus.crypto.Crypto;
+ import com.eucalyptus.entities.AbstractPersistent;
+ 
+@@ -45,6 +47,7 @@
+ 
+   // The certificate
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "auth_certificate_pem" )
+   String pem;
+   
+diff -ur eucalyptus-3.1.0.orig/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java eucalyptus-3.1.0/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java
+--- eucalyptus-3.1.0.orig/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java	2012-08-17 09:00:15.797944730 -0400
+@@ -14,6 +14,8 @@
+ import javax.persistence.Transient;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ 
+ import com.eucalyptus.auth.principal.Authorization.EffectType;
+ import com.eucalyptus.entities.AbstractPersistent;
+@@ -43,6 +45,7 @@
+   // The original policy text in JSON
+   @Column( name = "auth_policy_text" )
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   String text;
+   
+   // The set of statements of this policy
+diff -ur eucalyptus-3.1.0.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmBootRecord.java eucalyptus-3.1.0/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmBootRecord.java
+--- eucalyptus-3.1.0.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmBootRecord.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmBootRecord.java	2012-08-17 08:58:16.707410079 -0400
+@@ -77,6 +77,8 @@
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import org.hibernate.annotations.Parent;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ 
+ import com.eucalyptus.blockstorage.Volume;
+ import com.eucalyptus.cloud.ImageMetadata;
+@@ -117,6 +119,7 @@
+   @Column( name = "metadata_vm_user_data" )
+   private byte[]                  userData;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "metadata_vm_sshkey" )
+   private String                  sshKeyString;
+   @ManyToOne
+diff -ur eucalyptus-3.1.0.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmRuntimeState.java eucalyptus-3.1.0/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmRuntimeState.java
+--- eucalyptus-3.1.0.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmRuntimeState.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmRuntimeState.java	2012-08-17 08:58:41.287772701 -0400
+@@ -83,6 +83,8 @@
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import org.hibernate.annotations.Parent;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.eucalyptus.cluster.Cluster;
+ import com.eucalyptus.cluster.Clusters;
+ import com.eucalyptus.cluster.Nodes;
+@@ -138,6 +140,7 @@
+   @Transient
+   private StringBuffer      consoleOutput       = new StringBuffer( );
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "metadata_vm_password_data" )
+   private String            passwordData;
+   @Column( name = "metadata_vm_pending" )
+diff -ur eucalyptus-3.1.0.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmVolumeAttachment.java eucalyptus-3.1.0/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmVolumeAttachment.java
+--- eucalyptus-3.1.0.orig/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmVolumeAttachment.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmVolumeAttachment.java	2012-08-17 08:59:10.813011661 -0400
+@@ -69,6 +69,8 @@
+ import javax.persistence.Embeddable;
+ import javax.persistence.Lob;
+ import org.hibernate.annotations.Parent;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.google.common.base.Function;
+ import com.google.common.base.Predicate;
+ import edu.ucsb.eucalyptus.msgs.AttachedVolume;
+@@ -164,6 +166,7 @@
+   @Column( name = "metadata_vm_volume_device" )
+   private String     device;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "metadata_vm_volume_remove_device" )
+   private String     remoteDevice;
+   @Column( name = "metadata_vm_volume_status" )
+diff -ur eucalyptus-3.1.0.orig/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/CHAPUserInfo.java eucalyptus-3.1.0/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/CHAPUserInfo.java
+--- eucalyptus-3.1.0.orig/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/CHAPUserInfo.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/CHAPUserInfo.java	2012-08-17 08:56:59.694433431 -0400
+@@ -72,6 +72,8 @@
+ import javax.persistence.Table;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.eucalyptus.entities.AbstractPersistent;
+ 
+ @Entity @javax.persistence.Entity
+@@ -82,6 +84,7 @@
+     @Column( name = "username" )
+     private String user;
+     @Lob
++    @Type(type="org.hibernate.type.StringClobType")
+     private String encryptedPassword;
+     
+     public CHAPUserInfo() {}
+diff -ur eucalyptus-3.1.0.orig/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/ISCSIVolumeInfo.java eucalyptus-3.1.0/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/ISCSIVolumeInfo.java
+--- eucalyptus-3.1.0.orig/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/ISCSIVolumeInfo.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/ISCSIVolumeInfo.java	2012-08-17 08:57:32.680943707 -0400
+@@ -71,6 +71,8 @@
+ import javax.persistence.Table;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ 
+ @PersistenceContext(name="eucalyptus_storage")
+ @Table( name = "ISCSIVolumeInfo" )
+@@ -82,6 +84,7 @@
+     private Integer lun;
+     private String storeUser;
+ 	@Lob
++    @Type(type="org.hibernate.type.StringClobType")
+     private String encryptedPassword;
+ 
+     public ISCSIVolumeInfo() {}
+diff -ur eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/component/Faults.java eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/component/Faults.java
+--- eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/component/Faults.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/component/Faults.java	2012-08-17 08:55:31.665453705 -0400
+@@ -96,6 +96,8 @@
+ import org.hibernate.annotations.Entity;
+ import org.hibernate.annotations.GenericGenerator;
+ import org.hibernate.annotations.NaturalId;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import org.jboss.netty.util.internal.LinkedTransferQueue;
+ import com.eucalyptus.bootstrap.Bootstrap;
+ import com.eucalyptus.bootstrap.BootstrapArgs;
+@@ -205,6 +207,7 @@
+     private final Component.State eventState;
+     @Column( name = "fault_stack_trace" )
+     @Lob
++    @Type(type="org.hibernate.type.StringClobType")
+     private String                stackString;
+     @Transient
+     private CheckException        other;
+diff -ur eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/component/Partition.java eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/component/Partition.java
+--- eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/component/Partition.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/component/Partition.java	2012-08-17 08:55:05.487300097 -0400
+@@ -81,6 +81,8 @@
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import org.hibernate.annotations.Entity;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.eucalyptus.bootstrap.SystemIds;
+ import com.eucalyptus.component.auth.SystemCredentials;
+ import com.eucalyptus.component.id.Eucalyptus;
+@@ -100,15 +102,19 @@
+   @Column( name = "config_partition_name", unique = true )
+   String                name;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "config_partition_x509_certificate" )
+   private String        pemCertificate;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "config_partition_node_x509_certificate" )
+   private String        pemNodeCertificate;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "config_partition_kp" )
+   private String        pemPrivateKey;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "config_partition_node_kp" )
+   private String        pemNodePrivateKey;
+   
+diff -ur eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/StaticDatabasePropertyEntry.java eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/StaticDatabasePropertyEntry.java
+--- eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/StaticDatabasePropertyEntry.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/StaticDatabasePropertyEntry.java	2012-08-17 08:56:28.580068642 -0400
+@@ -71,6 +71,8 @@
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import org.hibernate.annotations.Entity;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.eucalyptus.entities.AbstractPersistent;
+ import com.eucalyptus.entities.Entities;
+ import com.eucalyptus.entities.EntityWrapper;
+@@ -85,6 +87,7 @@
+   @Column( name = "config_static_field_name", nullable = false, unique = true )
+   private final String fieldName;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "config_static_field_value" )
+   private String       value;
+   @Column( name = "config_static_prop_name", nullable = false, unique = true )
+diff -ur eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/records/BaseRecord.java eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/records/BaseRecord.java
+--- eucalyptus-3.1.0.orig/clc/modules/msgs/src/main/java/com/eucalyptus/records/BaseRecord.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/records/BaseRecord.java	2012-08-17 08:56:01.470718804 -0400
+@@ -24,6 +24,8 @@
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import org.hibernate.annotations.GenericGenerator;
++import org.hibernate.annotations.Type;
++import org.hibernate.type.StringClobType;
+ import com.eucalyptus.bootstrap.Bootstrap;
+ import com.eucalyptus.entities.AbstractPersistent;
+ import com.google.common.collect.Lists;
+@@ -56,6 +58,7 @@
+   @Column( name = "record_correlation_id" )
+   private String                            correlationId;
+   @Lob
++  @Type(type="org.hibernate.type.StringClobType")
+   @Column( name = "record_extra" )
+   private String                            extra;
+   @Column( name = "record_level" )

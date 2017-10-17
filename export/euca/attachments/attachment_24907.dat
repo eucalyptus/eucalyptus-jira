@@ -1,0 +1,11 @@
+"Statement":[{
+"Effect":"Limit",
+"Action":"ec2:RunInstances",
+"Resource":"arn:aws:ec2:::vmtype/m1.large",
+"Condition":{
+"NumericLessThanEquals":{
+"ec2:quota-vminstancenumber":"2"
+}
+}
+}]
+}

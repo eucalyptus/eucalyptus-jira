@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import httplib
+try:
+    import json
+except ImportError, e:
+    pass
+
+def main():
+    if sys.version_info[0] * 10 + sys.version_info[1] < 26:
+        error("Multiple Metadata HTTP GET Test requires Python 2.6 or newer")
+        raise
+    if not 'json' in sys.modules:
+        error("Unable to test metadata for IAM Role - Missing module json")
+        raise
+
+    try:
+        conn = httplib.HTTPConnection(host='169.254.169.254', timeout = 2)
+        conn.request('GET', "/latest/meta-data/iam/security-credentials/")
+        resp = conn.getresponse()
+        iam_role = resp.read()
+        if resp.status == 200 and len(iam_role)>1:
+            conn.request('GET', "/latest/meta-data/iam/security-credentials/%s"%iam_role)
+            resp = conn.getresponse()
+            if resp.status == 200:
+                temp_creds = json.loads(resp.read())
+                print json.dumps(temp_creds, sort_keys=True, indent=4, separators=(',', ': '))
+            else:
+                raise IOError
+        else:
+            raise IOError
+    except:
+        raise
+
+if __name__ == "__main__":
+    main()

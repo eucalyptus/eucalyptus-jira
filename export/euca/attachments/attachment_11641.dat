@@ -1,0 +1,11 @@
+--- partition2disk	2009-12-09 17:17:32.858887188 -0700
++++ partition2disk.new	2009-12-09 17:17:09.718886995 -0700
+@@ -107,7 +107,7 @@
+ 
+ my $magic=`$FILE $partition`;
+ chomp($magic);
+-if (!($magic =~ /boot sector/) && !($magic =~ /Qcow/)) { # if not a disk image already
++if ((!($magic =~ /boot sector/) && !($magic =~ /Qcow/)) || ($magic =~ /OEM-ID "NTFS    "/)) { # if not a disk image already
+ 
+     # create the disk image
+     run ("$DD if=/dev/zero of=$partition.disk bs=1M seek=$disk_size_mb count=1 >/dev/null 2>&1", 2);

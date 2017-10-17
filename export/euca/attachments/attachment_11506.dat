@@ -1,0 +1,421 @@
+ESC[1;256rESC[256;256HESC[6n
+Google, Inc.
+Serial Graphics Adapter 12/07/11
+SGABIOS $Id: sgabios.S 8 2010-04-22 00:03:40Z nlaredo $ (mockbuild@c6b18n1.dev.centos.org) Wed Dec  7 17:04:47 UTC 2011
+Term: 80x24
+4 0
+ESC[2J^MSeaBIOS (version 0.6.1.2-20111208_030640-c6b6.bsys.dev.centos.org)^M
+^M
+
+^M
+^M^MgPXE (http://etherboot.org) - 00:03.0 C100 PCI2.10 PnP BBS PMM3FE0@10 C100
+^M^MPress Ctrl-B to configure gPXE (PCI 00:03.0)...^M^M                                                                               ^M
+^M
+^MESC[2JESC[2J[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 2.6.32-41-server (buildd@komainu) (gcc version 4.4.3 (Ubuntu 4.4.3-4ubuntu5.1) ) #91-Ubuntu SMP Wed Jun 13 11:58:56 UTC 2012 (Ubuntu 2.6.32-41.91-server 2.6.32.59+drm33.24)
+[    0.000000] Command line: root=/dev/vda1 console=ttyS0
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD
+[    0.000000]   Centaur CentaurHauls
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009d800 (usable)
+[    0.000000]  BIOS-e820: 000000000009d800 - 00000000000a0000 (reserved)
+[    0.000000]  BIOS-e820: 00000000000f0000 - 0000000000100000 (reserved)
+[    0.000000]  BIOS-e820: 0000000000100000 - 000000003fffd000 (usable)
+[    0.000000]  BIOS-e820: 000000003fffd000 - 0000000040000000 (reserved)
+[    0.000000]  BIOS-e820: 00000000fffbc000 - 0000000100000000 (reserved)
+[    0.000000] DMI 2.4 present.
+[    0.000000] last_pfn = 0x3fffd max_arch_pfn = 0x400000000
+[    0.000000] PAT not supported by CPU.
+[    0.000000] Scanning 1 areas for low memory corruption
+[    0.000000] modified physical RAM map:
+[    0.000000]  modified: 0000000000000000 - 0000000000001000 (usable)
+[    0.000000]  modified: 0000000000001000 - 0000000000006000 (reserved)
+[    0.000000]  modified: 0000000000006000 - 000000000009d800 (usable)
+[    0.000000]  modified: 000000000009d800 - 00000000000a0000 (reserved)
+[    0.000000]  modified: 00000000000f0000 - 0000000000100000 (reserved)
+[    0.000000]  modified: 0000000000100000 - 000000003fffd000 (usable)
+[    0.000000]  modified: 000000003fffd000 - 0000000040000000 (reserved)
+[    0.000000]  modified: 00000000fffbc000 - 0000000100000000 (reserved)
+[    0.000000] init_memory_mapping: 0000000000000000-000000003fffd000
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] RAMDISK: 3fbdd000 - 3ffef329
+[    0.000000] ACPI: RSDP 00000000000fda20 00014 (v00 BOCHS )
+[    0.000000] ACPI: RSDT 000000003fffd6f0 00030 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
+[    0.000000] ACPI: FACP 000000003ffffe40 00074 (v01 BOCHS  BXPCFACP 00000001 BXPC 00000001)
+[    0.000000] ACPI: DSDT 000000003fffd8b0 02544 (v01   BXPC   BXDSDT 00000001 INTL 20090123)
+[    0.000000] ACPI: FACS 000000003ffffe00 00040
+[    0.000000] ACPI: SSDT 000000003fffd810 0009E (v01 BOCHS  BXPCSSDT 00000001 BXPC 00000001)
+[    0.000000] ACPI: APIC 000000003fffd720 00078 (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
+[    0.000000] No NUMA configuration found
+[    0.000000] Faking a node at 0000000000000000-000000003fffd000
+[    0.000000] Bootmem setup node 0 0000000000000000-000000003fffd000
+[    0.000000]   NODE_DATA [0000000000009000 - 000000000000efff]
+[    0.000000]   bootmap [000000000000f000 -  0000000000016fff] pages 8
+[    0.000000] (7 early reservations) ==> bootmem [0000000000 - 003fffd000]
+[    0.000000]   #0 [0000000000 - 0000001000]   BIOS data page ==> [0000000000 - 0000001000]
+[    0.000000]   #1 [0000006000 - 0000008000]       TRAMPOLINE ==> [0000006000 - 0000008000]
+[    0.000000]   #2 [0001000000 - 0001a89544]    TEXT DATA BSS ==> [0001000000 - 0001a89544]
+[    0.000000]   #3 [003fbdd000 - 003ffef329]          RAMDISK ==> [003fbdd000 - 003ffef329]
+[    0.000000]   #4 [000009d800 - 0000100000]    BIOS reserved ==> [000009d800 - 0000100000]
+[    0.000000]   #5 [0001a8a000 - 0001a8a079]              BRK ==> [0001a8a000 - 0001a8a079]
+[    0.000000]   #6 [0000008000 - 0000009000]          PGTABLE ==> [0000008000 - 0000009000]
+[    0.000000] found SMP MP-table at [ffff8800000fda70] fda70
+[    0.000000] kvm-clock: cpu 0, msr 0:188bd81, boot clock
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA      0x00000000 -> 0x00001000
+[    0.000000]   DMA32    0x00001000 -> 0x00100000
+[    0.000000]   Normal   0x00100000 -> 0x00100000
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[3] active PFN ranges
+[    0.000000]     0: 0x00000000 -> 0x00000001
+[    0.000000]     0: 0x00000006 -> 0x0000009d
+[    0.000000]     0: 0x00000100 -> 0x0003fffd
+[    0.000000] ACPI: PM-Timer IO Port: 0xb008
+[    0.000000] ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)
+[    0.000000] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.000000] ACPI: IOAPIC (id[0x01] address[0xfec00000] gsi_base[0])
+[    0.000000] IOAPIC[0]: apic_id 1, version 17, address 0xfec00000, GSI 0-23
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+[    0.000000] Using ACPI (MADT) for SMP configuration information
+[    0.000000] SMP: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.000000] PM: Registered nosave memory: 0000000000001000 - 0000000000006000
+[    0.000000] PM: Registered nosave memory: 000000000009d000 - 000000000009e000
+[    0.000000] PM: Registered nosave memory: 000000000009e000 - 00000000000a0000
+[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 00000000000f0000
+[    0.000000] PM: Registered nosave memory: 00000000000f0000 - 0000000000100000
+[    0.000000] Allocating PCI resources starting at 40000000 (gap: 40000000:bffbc000)
+[    0.000000] Booting paravirtualized kernel on KVM
+[    0.000000] NR_CPUS:256 nr_cpumask_bits:256 nr_cpu_ids:1 nr_node_ids:1
+[    0.000000] PERCPU: Embedded 30 pages/cpu @ffff880001c00000 s92120 r8192 d22568 u2097152
+[    0.000000] pcpu-alloc: s92120 r8192 d22568 u2097152 alloc=1*2097152
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] kvm-clock: cpu 0, msr 0:1c15d81, primary cpu clock
+[    0.000000] Built 1 zonelists in Node order, mobility grouping on.  Total pages: 258351
+[    0.000000] Policy zone: DMA32
+[    0.000000] Kernel command line: root=/dev/vda1 console=ttyS0
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.000000] Initializing CPU#0
+[    0.000000] Checking aperture...
+[    0.000000] No AGP bridge found
+[    0.000000] Memory: 1018408k/1048564k available (5537k kernel code, 416k absent, 29740k reserved, 3121k data, 808k init)
+[    0.000000] SLUB: Genslabs=14, HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000] NR_IRQS:4352 nr_irqs:256
+[    0.000000] Console: colour dummy device 80x25
+[    0.000000] console [ttyS0] enabled
+[    0.000000] allocated 10485760 bytes of page_cgroup
+[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+[    0.000000] Detected 3100.020 MHz processor.
+[    0.020000] Calibrating delay loop (skipped) preset value.. 6200.04 BogoMIPS (lpj=31000200)
+[    0.020000] Security Framework initialized
+[    0.020000] AppArmor: AppArmor initialized
+[    0.020000] Dentry cache hash table entries: 131072 (order: 8, 1048576 bytes)
+[    0.020000] Inode-cache hash table entries: 65536 (order: 7, 524288 bytes)
+[    0.020000] Mount-cache hash table entries: 256
+[    0.020000] Initializing cgroup subsys ns
+[    0.020000] Initializing cgroup subsys cpuacct
+[    0.020000] Initializing cgroup subsys memory
+[    0.020000] Initializing cgroup subsys devices
+[    0.020000] Initializing cgroup subsys freezer
+[    0.020000] Initializing cgroup subsys net_cls
+[    0.020000] CPU: L1 I cache: 32K, L1 D cache: 32K
+[    0.020000] CPU: L2 cache: 4096K
+[    0.020000] CPU 0/0x0 -> Node 0
+[    0.020000] mce: CPU supports 10 MCE banks
+[    0.020000] Performance Events: p6 PMU driver.
+[    0.020000] ... version:                0
+[    0.020000] ... bit width:              32
+[    0.020000] ... generic registers:      2
+[    0.020000] ... value mask:             00000000ffffffff
+[    0.020000] ... max period:             000000007fffffff
+[    0.020000] ... fixed-purpose events:   0
+[    0.020000] ... event mask:             0000000000000003
+[    0.020000] SMP alternatives: switching to UP code
+[    0.032084] Freeing SMP alternatives: 41k freed
+[    0.032402] ACPI: Core revision 20090903
+[    0.033340] ftrace: converting mcount calls to 0f 1f 44 00 00
+[    0.033718] ftrace: allocating 22887 entries in 90 pages
+[    0.050025] Setting APIC routing to flat
+[    0.051178] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.051641] CPU0: Intel QEMU Virtual CPU version (cpu64-rhel6) stepping 03
+[    0.060000] Brought up 1 CPUs
+[    0.060000] Total of 1 processors activated (6200.04 BogoMIPS).
+[    0.060000] devtmpfs: initialized
+[    0.060000] regulator: core version 0.5
+[    0.060000] Time: 14:16:01  Date: 07/06/12
+[    0.060000] NET: Registered protocol family 16
+[    0.060000] ACPI: bus type pci registered
+[    0.060000] PCI: Using configuration type 1 for base access
+[    0.060000] bio: create slab <bio-0> at 0
+[    0.060000] ACPI: Interpreter enabled
+[    0.060000] ACPI: (supports S0 S5)
+[    0.060000] ACPI: Using IOAPIC for interrupt routing
+[    0.060090] ACPI: No dock devices found.
+[    0.060405] ACPI: PCI Root Bridge [PCI0] (0000:00)
+[    0.061570] pci 0000:00:01.3: quirk: region b000-b03f claimed by PIIX4 ACPI
+[    0.062111] pci 0000:00:01.3: quirk: region b100-b10f claimed by PIIX4 SMB
+[    0.066131] ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+[    0.066657] ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+[    0.067182] ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+[    0.067697] ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+[    0.068219] ACPI: PCI Interrupt Link [LNKS] (IRQs 9) *0
+[    0.068703] vgaarb: loaded
+[    0.068967] SCSI subsystem initialized
+[    0.069308] usbcore: registered new interface driver usbfs
+[    0.069731] usbcore: registered new interface driver hub
+[    0.070013] usbcore: registered new device driver usb
+[    0.070451] ACPI: WMI: Mapper loaded
+[    0.070733] PCI: Using ACPI for IRQ routing
+[    0.071148] NetLabel: Initializing
+[    0.071411] NetLabel:  domain hash size = 128
+[    0.071747] NetLabel:  protocols = UNLABELED CIPSOv4
+[    0.072129] NetLabel:  unlabeled traffic allowed by default
+[    0.072564] Switching to clocksource kvm-clock
+[    0.073672] AppArmor: AppArmor Filesystem Enabled
+[    0.074040] pnp: PnP ACPI init
+[    0.074280] ACPI: bus type pnp registered
+[    0.075047] pnp: PnP ACPI: found 7 devices
+[    0.075362] ACPI: ACPI bus type pnp unregistered
+[    0.079835] NET: Registered protocol family 2
+[    0.079835] IP route cache hash table entries: 32768 (order: 6, 262144 bytes)
+[    0.079835] TCP established hash table entries: 131072 (order: 9, 2097152 bytes)
+[    0.079835] TCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
+[    0.080199] TCP: Hash tables configured (established 131072 bind 65536)
+[    0.080702] TCP reno registered
+[    0.080977] NET: Registered protocol family 1
+[    0.081319] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[    0.081780] pci 0000:00:01.0: PIIX3: Enabling Passive Release
+[    0.082218] pci 0000:00:01.0: Activating ISA DMA hang workarounds
+[    0.082776] ACPI: PCI Interrupt Link [LNKD] enabled at IRQ 11
+[    0.083227] pci 0000:00:01.2: PCI INT D -> Link[LNKD] -> GSI 11 (level, high) -> IRQ 11
+[    0.083865] pci 0000:00:01.2: PCI INT D disabled
+[    0.084293] Scanning for low memory corruption every 60 seconds
+[    0.084800] audit: initializing netlink socket (disabled)
+[    0.085213] type=2000 audit(1341609363.076:1): initialized
+[    0.090362] Trying to unpack rootfs image as initramfs...
+[    0.100215] HugeTLB registered 2 MB page size, pre-allocated 0 pages
+[    0.101304] VFS: Disk quotas dquot_6.5.2
+[    0.101634] Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.110140] fuse init (API version 7.13)
+[    0.110494] msgmni has been set to 1989
+[    0.110888] alg: No test for stdrng (krng)
+[    0.111233] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+[    0.111798] io scheduler noop registered
+[    0.112098] io scheduler anticipatory registered
+[    0.112448] io scheduler deadline registered (default)
+[    0.112875] io scheduler cfq registered
+[    0.113202] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+[    0.113634] pciehp: PCI Express Hot Plug Controller Driver version: 0.4
+[    0.114183] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    0.114741] ACPI: Power Button [PWRF]
+[    0.115396] processor LNXCPU:00: registered as cooling_device0
+[    0.116499] virtio-pci 0000:00:04.0: PCI INT A -> Link[LNKD] -> GSI 11 (level, high) -> IRQ 11
+[    0.117496] ACPI: PCI Interrupt Link [LNKA] enabled at IRQ 10
+[    0.117953] virtio-pci 0000:00:05.0: PCI INT A -> Link[LNKA] -> GSI 10 (level, high) -> IRQ 10
+[    0.119209] hpet_acpi_add: no address or irqs in _CRS
+[    0.119612] Linux agpgart interface v0.103
+[    0.119952] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.120572] serial8250: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+[    0.121270] 00:05: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+[    0.122117] brd: module loaded
+[    0.122563] loop: module loaded
+[    0.137188]  vda: vda1 vda2 vda3
+[    0.160626] input: Macintosh mouse button emulation as /devices/virtual/input/input1
+[    0.170170] scsi0 : ata_piix
+[    0.170440] scsi1 : ata_piix
+[    0.170682] ata1: PATA max MWDMA2 cmd 0x1f0 ctl 0x3f6 bmdma 0xc000 irq 14
+[    0.171201] ata2: PATA max MWDMA2 cmd 0x170 ctl 0x376 bmdma 0xc008 irq 15
+[    0.171849] Fixed MDIO Bus: probed
+[    0.172131] PPP generic driver version 2.4.2
+[    0.172479] tun: Universal TUN/TAP device driver, 1.6
+[    0.172876] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    0.173390] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.173897] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    0.174367] uhci_hcd: USB Universal Host Controller Interface driver
+[    0.174865] uhci_hcd 0000:00:01.2: PCI INT D -> Link[LNKD] -> GSI 11 (level, high) -> IRQ 11
+[    0.175519] uhci_hcd 0000:00:01.2: UHCI Host Controller
+[    0.175935] uhci_hcd 0000:00:01.2: new USB bus registered, assigned bus number 1
+[    0.176556] uhci_hcd 0000:00:01.2: irq 11, io base 0x0000c020
+[    0.177055] usb usb1: configuration #1 chosen from 1 choice
+[    0.177532] hub 1-0:1.0: USB hub found
+[    0.177845] hub 1-0:1.0: 2 ports detected
+[    0.178200] PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    0.179221] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    0.179658] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    0.180100] mice: PS/2 mouse device common for all mice
+[    0.180575] rtc_cmos 00:01: RTC can wake from S4
+[    0.180966] rtc_cmos 00:01: rtc core: registered rtc_cmos as rtc0
+[    0.181493] rtc0: alarms up to one day, 114 bytes nvram
+[    0.181968] device-mapper: uevent: version 1.0.3
+[    0.182507] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input2
+[    0.190051] device-mapper: ioctl: 4.15.0-ioctl (2009-04-01) initialised: dm-devel@redhat.com
+[    0.193099] Freeing initrd memory: 4168k freed
+[    0.193784] device-mapper: multipath: version 1.1.0 loaded
+[    0.194222] device-mapper: multipath round-robin: version 1.0.0 loaded
+[    0.194812] cpuidle: using governor ladder
+[    0.195168] cpuidle: using governor menu
+[    0.195625] TCP cubic registered
+[    0.196001] NET: Registered protocol family 10
+[    0.196635] NET: Registered protocol family 17
+[    0.197063] registered taskstats version 1
+[    0.197509]   Magic number: 4:659:282
+[    0.197832] tty tty19: hash matches
+[    0.198168] rtc_cmos 00:01: setting system clock to 2012-07-06 14:16:01 UTC (1341584161)
+[    0.198818] BIOS EDD facility v0.16 2004-Jun-25, 0 devices found
+[    0.199292] EDD information not available.
+[    0.340252] Freeing unused kernel memory: 808k freed
+[    0.340750] Write protecting the kernel read-only data: 7836k
+Loading, please wait...
+Begin: Loading essential drivers... ...
+Done.
+[    0.351278] udev: starting version 151
+Begin: Running /scripts/init-premount ...
+Done.
+Begin: Mounting root file system... ...
+Begin: Running /scripts/local-top ...
+Done.
+[    0.386709] Intel(R) PRO/1000 Network Driver - version 7.3.21-k5-NAPI
+[    0.387234] Copyright (c) 1999-2006 Intel Corporation.
+[    0.387768] ACPI: PCI Interrupt Link [LNKC] enabled at IRQ 11
+[    0.388219] e1000 0000:00:03.0: PCI INT A -> Link[LNKC] -> GSI 11 (level, high) -> IRQ 11
+Begin: Running /scripts/local-premount ...
+Done.
+[    0.449565] kjournald starting.  Commit interval 5 seconds
+[    0.700994] e1000: 0000:00:03.0: e1000_probe: (PCI:33MHz:32-bit) d0:0d:cf:e8:40:12
+[    0.701745] EXT3-fs: mounted filesystem with ordered data mode.
+Begin: Running /scripts/local-bottom ...
+[    0.702892] FDC 0 is a S82078B
+Done.
+Done.
+Begin: Running /scripts/init-bottom ...
+Done.
+[    0.753505] e1000: eth0: e1000_probe: Intel(R) PRO/1000 Network Connection
+cloud-init running: Fri, 06 Jul 2012 14:16:13 +0000. up 11.99 seconds
+waiting for metadata service at http://169.254.169.254/2009-04-04/meta-data/instance-id
+  14:16:13 [ 1/100]: http error [404]
+  21:16:16 [ 2/100]: http error [404]
+  21:16:17 [ 3/100]: http error [404]
+  21:16:18 [ 4/100]: http error [404]
+  21:16:19 [ 5/100]: http error [404]
+  21:16:20 [ 6/100]: http error [404]
+  21:16:22 [ 7/100]: http error [404]
+  21:16:24 [ 8/100]: http error [404]
+  21:16:26 [ 9/100]: http error [404]
+  21:16:28 [10/100]: http error [404]
+  21:16:30 [11/100]: http error [404]
+  21:16:33 [12/100]: http error [404]
+  21:16:36 [13/100]: http error [404]
+  21:16:39 [14/100]: http error [404]
+  21:16:42 [15/100]: http error [404]
+  21:16:45 [16/100]: http error [404]
+  21:16:50 [17/100]: http error [404]
+  21:16:54 [18/100]: http error [404]
+  21:16:58 [19/100]: http error [404]
+  21:17:02 [20/100]: http error [404]
+  21:17:06 [21/100]: http error [404]
+  21:17:11 [22/100]: http error [404]
+  21:17:16 [23/100]: http error [404]
+  21:17:21 [24/100]: http error [404]
+  21:17:26 [25/100]: http error [404]
+  21:17:31 [26/100]: http error [404]
+  21:17:37 [27/100]: http error [404]
+  21:17:43 [28/100]: http error [404]
+  21:17:49 [29/100]: http error [404]
+  21:17:55 [30/100]: http error [404]
+  21:18:01 [31/100]: http error [404]
+  21:18:08 [32/100]: http error [404]
+  21:18:15 [33/100]: http error [404]
+  21:18:22 [34/100]: http error [404]
+  21:18:29 [35/100]: http error [404]
+  21:18:37 [36/100]: http error [404]
+  21:18:45 [37/100]: http error [404]
+  21:18:53 [38/100]: http error [404]
+  21:19:01 [39/100]: http error [404]
+  21:19:09 [40/100]: http error [404]
+.........
+  21:33:11 [99/100]: http error [404]
+  21:33:31 [100/100]: http error [404]
+giving up on md after 26257 seconds
+Could not find data source
+Failed to get instance data
+init: cloud-init main process (697) terminated with status 1^M
+mountall: Event failed
+ * Starting AppArmor profiles       ESC[80G ^MESC[74G[ OK ]
+Traceback (most recent call last):
+  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+    main()
+  File "/usr/bin/cloud-init-cfg", line 43, in main
+    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+Traceback (most recent call last):
+  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+    main()
+  File "/usr/bin/cloud-init-cfg", line 43, in main
+    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+Traceback (most recent call last):
+  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+    main()
+  File "/usr/bin/cloud-init-cfg", line 43, in main
+    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+    self.cfg = self.get_config_obj(cfgfile)
+  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+    f=file(cfgfile)
+IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+Traceback (most recent call last):
+  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+    main()
+  File "/usr/bin/cloud-init-cfg", line 43, in main
+    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+	    self.cfg = self.get_config_obj(cfgfile)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+	    f=file(cfgfile)
+	IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+	Traceback (most recent call last):
+	  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+	    main()
+	  File "/usr/bin/cloud-init-cfg", line 43, in main
+	    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+	    self.cfg = self.get_config_obj(cfgfile)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+	    f=file(cfgfile)
+	IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+	Traceback (most recent call last):
+	  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+	    main()
+	  File "/usr/bin/cloud-init-cfg", line 43, in main
+	    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+	    self.cfg = self.get_config_obj(cfgfile)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+	    f=file(cfgfile)
+	IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+	    self.cfg = self.get_config_obj(cfgfile)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+	    f=file(cfgfile)
+	IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+	    self.cfg = self.get_config_obj(cfgfile)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+	    f=file(cfgfile)
+	IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+	Traceback (most recent call last):
+	  File "/usr/bin/cloud-init-cfg", line 56, in <module>
+	    main()
+	  File "/usr/bin/cloud-init-cfg", line 43, in main
+	    cc = cloudinit.CloudConfig.CloudConfig(cfg_path)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 42, in __init__
+	    self.cfg = self.get_config_obj(cfgfile)
+	  File "/usr/lib/python2.6/dist-packages/cloudinit/CloudConfig.py", line 54, in get_config_obj
+	    f=file(cfgfile)
+	IOError: [Errno 2] No such file or directory: '/var/lib/cloud/data/cloud-config.txt'
+	landscape-client is not configured, please run landscape-config.

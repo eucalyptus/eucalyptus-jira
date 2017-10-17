@@ -1,0 +1,763 @@
+2015-07-24 11:40:00 DEBUG 000000300 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:00 DEBUG 000000300 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:00 DEBUG 000001940 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:00 DEBUG 000001940 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:00 DEBUG 000000300 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:00 DEBUG 000000300 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:00 DEBUG 000001941 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:00 DEBUG 000001941 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:01 DEBUG 000000887 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: Bm55Rc7JBtN/wC1KYn8iVlSwaGIkumYEUqL0n38dIVWPCC/Ni/Phdh3AIjZMtIMP8i/PGVPkBeKRwYfMT9HpWUJ9RLt12+d5VsfDSRe2gRVkyDDid2a6gnJVj1aFNtnUax/Z5+dwJZaQFcPqArOcKel2pPvRnXxxhsZ3REtJJkoJJFYnZEfDPi9bejYGMufXgwI1qEkInI5Oanbmh4xUoPhHDApzUlNnIXnZDC3EJ7zQ76xS9ylYUEAflfoHS55BG5wnBuo8YYITOcRapAE2wWtBMN9Gtt3yae6bHHZ1soApSnrNbI10XoOVjKsCzuIN3IL+OnHGUVLWb4q3UjUvhw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: ggvEEtFTlG/sJLFX4960XkLTne+HU+5px86FB+FbRssY02FtRjGtDcJucM2RWDtqjtlgffGx3Qa+fV+AGtOBK8YCCXksnC5fwoqsJNOp+998Ru1aFCWQ0tHBrL35aCgHaijN8gjbIrHjkoIhdgiiVYBiVsUfIvTDVUBLwXoe97whJOuUN45N3izFnrAuLoBkcYMMDFSX53BokusplyfItM89J70R3dB75Oscsmm+qwyly16xjiOu7iATcCQQRIpcEt3NqKtv6fmjfyGDto3TERxKJvga9ERzIUCT4YTdSrjuGFXhyzCSMQcjWJqANiPQyft4zjlEOxGpvTP8HtPvJw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: R/vwVYmW8QJA9skuFtj9BcG8zNxOuX+5avDy0O4q2kIQBOrIHBU11wg2n3su+LMWu3mwBtfYiYn9hcEOZ+dhqYvhHHSptvDqbzog6sLhmkXQUpUpSkddD8UWtL6TXWWii0YYZF9GmpDYlh4ZgepjSXDHIig+5LIeTjz5dw7zPi9bEnRcrQ4ZT8Yq5RA0hqAnrb2U+j7G5m2GLhj7TI7OYUKXc71MCY+lywr810+JWnNPCjEsWkcBzFCmS7qczaCWo+1UHVxRQM+ODbpLGRHHFThdtqnuqQ9QfmQwsBteO9xKF5wszP4QZtTHsCM7K5EbMTAPlmWITv3Wreqq5Ig3YQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: ZfRZz4fKjB4b/wmx89weosnwhyur25xFuVjTnnl6UQub0uGpS3hhELS/sBibgUTqkkzbbwI4gmlABosyPku58cqxqDDYrPeAcwzr+giR3eZ8zec5Pwo1xnBS28etx+kwjfJnV1oyuxKcUaPL2UjGkK1bXLQvOQpZ3CXH4LYsAex8m3lMMXZZwNrL2wiTfNZx1jbziYpAYw4e5jPwPsXtn+wGM9QurgyxYuvs93M+0+jJpYA2KKKXLiR1jCCVvjCSmWRsK/mNJhufoHo5CMB6UwSyGlEtT7SJge/Z5Zqeo/xZHwfxVsPQB7BqWo27pwvjdBtTpQLN99gC8iNXYMiVxA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: bVaAvXn43iKq58nZFRKsZnLykrSfp8tDDzHtb/s+cPQ0Q0Xo+fakZxTr9wBw8e/huASzSrQZBCx8d/RqWoCPaLAGtbVZvulVP7aVORn9KJ2XXOrPc3cplqkj7J+22r8BgQ4+BDmln4Uq6+GZ6gvJC+/PRLMlQcua330xgQF8rj8T1paBQEnubnlu9kp5z6jtEARfRE5v5kM331QEdNdp5gCFjXSrPDEMTxtIv69rWrdnLv0qxLjCbP/R2R73jIlgFBYhnFGpsePsFmg04vRFxVKO5urqL2pqe6Szv/ELdTbdBKLkRM4MGgHudZxj2IbdllGnYciwxeNJ4C4wWej5qg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: S1ebB624jw8uKSRL0BEvlGC7srT2aua2tAoF6gV9lshBwm+bU+Jm/HeFIHyRnuJK3UCA3S0ixTKgnHvgGnIO84wiwYQwIT6VaZN+xov2XR71Cb4JHYg71WL1mXJX41uOeiX3B+5uYbTekSnyBZxL5ePjpB0gIsCG7381JRsaE61G9mWdz0lvvpL1k4WsE/Ohtou9xudYMFHDDwQZCoCwmnI5fdiHnLMnZ/0u/h3/eX1eWS/dOGP0Vz8tn1hDjaWSRmRKBQ4fmn0GnW60pXVcgsJYWn+EjpRLnL1rlirBlbcl3ZezeWeKapNpGWWz2nHKJoSd06uC/hH/QbSlhV1ELw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: BRyflxnTPLqRDIyWbnJ2yduqJpBnsFj+5y9KbTJxrdjQlE1Fr0ivtqRthiH9e6UJtTisZ8aDUtkWasBKIOi4gw9ij+pZraaQWvEaxaiohY5JtWpQzrgce6Y3KKWtE3ILVvl5qz8OLClurA6hRXTWnbakTgKDPqlIqK0x4+Ld+vXVLS6dw8uTOBfnVjGRTpEu2LcGbgIm5c6CU6xcYD6tBuMvLsmdMxCxw6TEguPCtJqn0dx/lXOjGJWsLV/zBzPZ3LhOhLOZcRNxoqxoow+icW3KE3QF/eMaQDqtp7Wt5OcycyIk7rv1uAB8Cv9W6FLbaPCbignj8hecHfL6uLGTNg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:01 DEBUG 000000914 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: DUdOn9KL9ODxTbTPvaVD90LRQtViQIGQ/6rESrriJx5FSGKLjVQg4gwEjfrSJSfvQ3VMkJ0PZhSGlm2XaVWugG4n0QnEZc1vTYZGuxMzwRPZM9BXzJXsR6q4QDx6DGgzqi6/2jekKO2N7ELsTK6/b8g5kcmDne96FBnBL1BTREIpbAs0QD71LswHfMeO8KAUE08pax7pl6ZEkbo/9UYqYotc/+HL/FDxlL4PHqiB4UswIMwkKCIlvpOPBqSlQW6+AFy6HOhtUx9IcFiXdS6g73HuKV4bEqP5y4o63kLOYO6e6FEXR3eHajc0jpb6IcgOOrko+NiKhr6lp9UMuEnA0g== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:08 DEBUG 000004736 ComputeService           | MigrateInstancesType:0810ddd6-0456-4071-b6fa-dc948a310303:return=true:epoch=null:status=null
+2015-07-24 11:40:08 DEBUG 000001243 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:08 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:09  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:09  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:09  WARN 000004737 Contexts                 | Received a reply for absent client:  No channel to write response message: Found correlation id 0810ddd6-0456-4071-b6fa-dc948a310303::494e57a9-0457-4d23-a6b0-4f433a01968d but no corresponding context. for ExceptionResponseType
+2015-07-24 11:40:09 DEBUG 000004738 ComputeErrorHandler      | :1437763209163:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:40:09 DEBUG 000004736 ComputeService           | MigrateInstancesType:5b909158-c143-466a-ba7c-3a0e5a22eb39:return=true:epoch=null:status=null
+2015-07-24 11:40:09 DEBUG 000001244 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:09 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:09  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:09  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:09  WARN 000004737 Contexts                 | Received a reply for absent client:  No channel to write response message: Found correlation id 5b909158-c143-466a-ba7c-3a0e5a22eb39::414fd829-c144-4023-97ca-37466322aa30 but no corresponding context. for ExceptionResponseType
+2015-07-24 11:40:09 DEBUG 000004738 ComputeErrorHandler      | :1437763209992:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:40:10 DEBUG 000000074 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:10 DEBUG 000000074 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:10 DEBUG 000001947 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:10 DEBUG 000001947 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:10 DEBUG 000000074 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:10 DEBUG 000000074 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:10 DEBUG 000000739 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:10 DEBUG 000000739 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:11 DEBUG 000001682 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:11 DEBUG 000001682 request                  | Received successful response: 200, AWS Request ID: 7f77e35d-42e6-4030-a620-3f3c61080d20
+2015-07-24 11:40:11 DEBUG 000001682 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:11 DEBUG 000001682 GenericWorker            | poll task begin
+2015-07-24 11:40:11 DEBUG 000001682 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:11 DEBUG 000001682 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:673ae165-6597-40d0-bd9f-b4861de091c3
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184011Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:11 DEBUG 000001682 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184011Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | c30dae9450e42c38a7db33a828ecf1388571dc18221d4b8ab91a95e609273525"
+2015-07-24 11:40:11 DEBUG 000001682 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184011Z, Euca-Nonce: 673ae165-6597-40d0-bd9f-b4861de091c3, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=35cddb3785e4a8c514e171c834a2b2a847e49dc3e7f33928fe5aba5a7ac5c48d, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:11 DEBUG 000001682 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:11 DEBUG 000001681 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:11 DEBUG 000001681 request                  | Received successful response: 200, AWS Request ID: e8ea23d1-e88b-4f6c-8215-6d1f9e992a26
+2015-07-24 11:40:11 DEBUG 000001681 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:11 DEBUG 000001681 GenericWorker            | poll task begin
+2015-07-24 11:40:11 DEBUG 000001681 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:11 DEBUG 000001681 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:8f9e41a0-cc46-4588-a766-1b80b78bc97a
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184011Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:11 DEBUG 000001681 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184011Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | 2e4b0a50bef22fd3a8fbb2fed75a05406a022efc63f333375c12aa54720e83d3"
+2015-07-24 11:40:11 DEBUG 000001681 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184011Z, Euca-Nonce: 8f9e41a0-cc46-4588-a766-1b80b78bc97a, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=3303afa7d37f23e74fae132620ee34ca53d100a603000ee6ab5edf8aead27ead, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:11 DEBUG 000001681 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:11 DEBUG 000001680 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:11 DEBUG 000001680 request                  | Received successful response: 200, AWS Request ID: 2f86efb1-ffb6-41c4-a9ae-3b79edacd3da
+2015-07-24 11:40:11 DEBUG 000001680 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:11 DEBUG 000001680 GenericWorker            | poll task begin
+2015-07-24 11:40:11 DEBUG 000001680 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:11 DEBUG 000001682 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:11 DEBUG 000001681 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:11 DEBUG 000001680 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:453b1058-cf6f-4729-8040-71a919cd2481
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184011Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:11 DEBUG 000001680 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184011Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | 97c513261785d69f5e9e8b46120bb7222dfc10ba15b42b7f3350c13b378c603f"
+2015-07-24 11:40:11 DEBUG 000001691 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:11 DEBUG 000001691 request                  | Received successful response: 200, AWS Request ID: e9cfae88-c274-4288-9d0f-c5c1df5e48d1
+2015-07-24 11:40:11 DEBUG 000001691 ronousActivityTaskPoller | poll request returned no task
+2015-07-24 11:40:11 DEBUG 000001691 GenericWorker            | poll task begin
+2015-07-24 11:40:11 DEBUG 000001691 ronousActivityTaskPoller | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com}
+2015-07-24 11:40:11 DEBUG 000001691 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:133fe872-5d2b-49de-9099-a6b25edf8dac
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184011Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForActivityTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:11 DEBUG 000001691 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184011Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | 24ee3765b3f260beffdf03859396f1ccafeff030e2c5a582c0552a14ed1b04f8"
+2015-07-24 11:40:11 DEBUG 000001691 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184011Z, Euca-Nonce: 133fe872-5d2b-49de-9099-a6b25edf8dac, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=184abf4d04355d3b80c79d9ef760e79b3d2e2046443973f3b3307fc1a9d97bf4, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForActivityTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:11 DEBUG 000001691 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:11 DEBUG 000001680 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184011Z, Euca-Nonce: 453b1058-cf6f-4729-8040-71a919cd2481, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=713188dba11324d1267fea2097c122b90150cc1eb9c6493618e888e60bd83d40, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:11 DEBUG 000001680 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:11 DEBUG 000001679 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:11 DEBUG 000001691 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:11 DEBUG 000001680 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:11 DEBUG 000001679 request                  | Received successful response: 200, AWS Request ID: 7fbe4117-d66b-4a0f-a81a-cc34435e27d9
+2015-07-24 11:40:11 DEBUG 000001679 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:11 DEBUG 000001679 GenericWorker            | poll task begin
+2015-07-24 11:40:11 DEBUG 000001679 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:11 DEBUG 000001679 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:dcabe33b-a1e2-4c56-8462-9ef7f72e6e7b
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184011Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:11 DEBUG 000001679 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184011Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | fe01a6e3322a975d752ef7115d6811816e52d59d9988f392a3513cb2d5abc230"
+2015-07-24 11:40:11 DEBUG 000001679 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184011Z, Euca-Nonce: dcabe33b-a1e2-4c56-8462-9ef7f72e6e7b, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=d0d49c10b1e49c0abc564ed7110ff68efb7ed1a5bb1546dfb765b79b7e0991a9, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:11 DEBUG 000001679 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:11 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:40:11 DEBUG 000001679 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:11 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:40:11 DEBUG 000000886 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:40:11 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: LjyT2m3URzaTkE3cv6YZilizoaq1JXsxHu0OekjtxDVq5Mwa49qYacskaktjFIhP50mFZeW1qZomIB0QLyUgWLCABDYEqOQB2jNLfdvaWFlLwxwnnpPOx6em7vKSY7MGixMNgPc5HnX5STuyGF1IToj94C6tERfzCowgQhQESh18A4q44chb8g8GSeabGmpbbBpY8E7Zi3vCWocISvZcFOE5/II98j81lRqvCk95ut7LCuPWPWw1GMXlVvo8AhoigU/MUdC7GJ99C+H1ZMhDvR2SbpNRAwFNhnNQm3P2bQcFNWWxJCbNdGFCJ7Nu2vNZjx76jSRb/HFGIzds4sMtPw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: IankkWEA8h2s8ISTjnFmublLf9gxzDlTyEFHNZMlGxhdqM583hFuBsO9WG11mYQqS6KUwj/DPJFkLqA5mLQHwVt9GCohg2PNFoG2qIUjAYC9QmA/8qFa+EMy90MPfOs+nqXWxEHaBxeIrRJK5Ct7Y9R4ACa3HGcLOvWrGINvxs8zNgVI/hfJJ/S4bH6KlkHYNb6XFw3JFwq/31QlFMvIpFSiTgKZwLV1woZrYy/JPyk0AwCSs3nx3DlfGf1xu/QABHLWim4Tig2066Zm0wN/OnPs2ZBCjJ/2q/8nhHEkZnlo4Imp94cNHlJV/NiK4h2GACD1FlKENQ1c31rOpw2cow== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: SgMXu++umDnAxlxCarnhEdDZ+4naYIo43F/x9eghR4om+8Zh3ksctpbgNdwrN+U5WHMiMB3dXDml89jewwqyo9JdHktBYJvQOq9Sabikw5qFvg89NPh3HMAkmmqYxM2ET91LKpT/ag0jXoUoK4gMh8xOjkeMdLMlo5Z9vOeTrBtGlx99Jjqb38+CfcmurZaHb0e8lwdSmbJ5Q7aN9HsYIF5OkxFaXTRby9TfFQedCy6pKdNd6HduE1tG82T2G7Mrh/A/KRZ9f4XLPoCqUh0roURf2xyKH7H7NC6mFJU1ZvmTehrXUfqN+gjTKJmuZoCVuh6BH2RAuFAL5+Hh8PPukg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: JLgnZaILiKBaN2XOdsgjeaird8+aSPnigMkGaaOVaTkaErpU1KqMJDMhUmHLwnhw5alsKLrOaTtBOsqkdRC7MoPiWLPsRyS07MYq1gKnN8fO/QQZ/u2E+1Ua1j8tP8rqCsQ3icwbsDH36BogA9fZKv0ZmMgEbROI343ZVqKix54Mn/gnPPVCyh30DndAEt+4hjVyzzVwa8BgIPTolgNrTerLsqYThEvxvyZuxLbt/EVDsEDXy0dlx4g2IAoEoFzHdZA3VRjlcs05y4AAOE3LSEKw3mJHxlEpNPS9Jgk1YJzzmy6IMRHfwf1wrcmgDB65TBicQ7oICKo1Ie6+p1D81A== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: bNxXNa6kXdg422t3mIrK3zbG2U6vL2mjW7S+dCYRYshcXE7HhqeerlLaVHerBFECkZEMLA5qY2lyl5zOMdJkZ08PFJ3IJzI4sY1BNdfDXsUm0qWgbczVdShIWSntxsLXMvKfgUU195H3qH4wM7dl2MGMBGnfUZFZDuxjKZkUuPvPN0wgAixz63M2HKLu74s+7cONaMkyGXKTkQ9oFIfFtmKAXpf+VxhNmee0b34DL06CQCUjT/KSc1aFWeEjlSpp7liFgMWILvLwa911OvyyNhHPIAFQIIWWiva9oTiNCLkB7y2xliojIha9q6C/4EvEVbXQf/QfPnQMA5du52O72g== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: L48N2jyUcXaQLIFkRjpOQ6NuSRPMhrmaKewpnKVefL6FY2gxg8LYapO3WaFpxs9l6iFdWHMrnXFgUDgBvXtqAziYYitNw6QS54UlvPGw7qpqxywN21/7jvnZtn3T2QPAuLIWroJ0BEjlnqwglntCa9Cm8lPtJd8d6ef8LgHbCTmaH1Bh+eT3s/jiypNq5N5qczaUO/h/CnTEvlQvK5E7UaGRJ+ArOY1wIwdplkT4GMmc/yccLlt2Oel8dsTIluTDjRh7trpvRnDmoqBPEO7j+o2NStIkmB2Z21eJ2ebVTITgwmWhkeiWIz/PBBqjPr1Vo2siG40MfxfZvFb1F1dS2w== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: TZAzWK0HoGDiSze7xBVSitNqO2TRHf1BYt5vSminISesHj2X8A21w/ONqaQR4PBqUL1bKUcoMH/4XSflO4PCESxhqB5IyZ3htqvliTiRNGTH2rSVturf3KK39bXHGArpdFSLvyk1BeSO+kGKuZMXhKVb3oP+TqVXCWvAD68oJD7MxzxLcNrMTAWCfJckGQjyirx4euuerYQ5iAf9pfBRCekd+srclRpxoXnZnXgVYXsAhGLOWS7K3AMb4A4UHXuNPi8OUlgYbPCyAAEK3Wx7SJGcWhCzGJ/By2OYJn4BbW4Pl8EGQyNtgE1mCgmgGS5eINMtMi/zQvjAdyWdp9TZ1g== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000001245 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:11 DEBUG 000000919 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: UOo/Rs9k1DVYHIWusyImidKvq3dQ9eLD2S1nKoL18V8svw97e2lcNOl6PB8fWQv6rh6RyBmeLaElY31P/7Chu6OWfnd6HxcgB14iIEqgnNqPrg7JTgIEXk5bn5hJOvNyYOa/dtvE5xCBFbrmXNWuU0Zmt1QXEltEA1ujbQPNUkHqyl3azwvtXQXav0ZGmkZCYsf2A1Wna5v4MbEvHikzDyO54wJ/7/GIHpkIYYxavkQ/yG3LYieEAZYWMPeNBJCLToPFkeeToJunfgjOxDlDXz84+kORqp8UAbGQFawhKHjIuAZmfLu9jUgd84rgcUNdjC8+WspieWGFYQ/RB9i2lA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:11 DEBUG 000004736 ComputeService           | MigrateInstancesType:0e8779bd-5264-41e2-ab60-705f138da21c:return=true:epoch=null:status=null
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:11 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:11 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:40:11 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:40:11 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:40:11 DEBUG 000001246 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:12  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:12  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:12  WARN 000004737 Contexts                 | Received a reply for absent client:  No channel to write response message: Found correlation id 0e8779bd-5264-41e2-ab60-705f138da21c::d270165f-5265-4861-a990-4d9ca32070f4 but no corresponding context. for ExceptionResponseType
+2015-07-24 11:40:12 DEBUG 000004738 ComputeErrorHandler      | :1437763212345:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:40:12 DEBUG 000001247 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:12 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:13 DEBUG 000000791 tateEvaluationDispatcher | Kicking off AlarmStateEvaluationDispatcher
+2015-07-24 11:40:15 DEBUG 000004736 ComputeService           | MigrateInstancesType:4ed16572-d0b8-4af6-8a0b-512758ab6ea6:return=true:epoch=null:status=null
+2015-07-24 11:40:15 DEBUG 000001248 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:16 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:16  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:16  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:16  WARN 000004737 Contexts                 | Received a reply for absent client:  No channel to write response message: Found correlation id 4ed16572-d0b8-4af6-8a0b-512758ab6ea6::38674a65-d0b9-425c-a4f1-a53f79d4fbf9 but no corresponding context. for ExceptionResponseType
+2015-07-24 11:40:16 DEBUG 000004738 ComputeErrorHandler      | :1437763216212:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:40:19 DEBUG 000004736 ComputeService           | MigrateInstancesType:4074e3e5-7029-49a4-933f-b391da994514:return=true:epoch=null:status=null
+2015-07-24 11:40:19 DEBUG 000001249 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:19 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:19  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:19  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:19  WARN 000004737 Contexts                 | Received a reply for absent client:  No channel to write response message: Found correlation id 4074e3e5-7029-49a4-933f-b391da994514::d8343c9d-702a-4e0d-a835-bd4f8e09bf62 but no corresponding context. for ExceptionResponseType
+2015-07-24 11:40:19 DEBUG 000004738 ComputeErrorHandler      | :1437763219749:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:40:20 DEBUG 000000076 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:20 DEBUG 000000076 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:20 DEBUG 000000883 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:20 DEBUG 000000883 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:20 DEBUG 000000076 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:20 DEBUG 000000076 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:20 DEBUG 000001282 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:20 DEBUG 000001282 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:21 DEBUG 000000889 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: Xz8vKjtij+Yx/AWy4KqxVjm1z9TV+OqUhcMl3Wakaupy77EYziA0w8sBVVk6sSPOYwhDzRCuzNnFjPkfq3MhqBSrZEbo8e8quVaUTV6rI/qZSCmpvgYxqJYN6N35ql9J5n8K8tiCUJGFPwG+FL1jwtCywPUugSXzdlQd/Hsd+hblpMbBc/bR/cPcksAKqLudmdvdSen4ht1vEBIRmuZjeg3J9EULisplPcpHxdZS1Xiek/EjV010uCAMZ0cHrsz/Jn4mhvTysEhx1wetQvEsxeGwZIVQit718ZE+0x1J8QXeFsFZKWrvlkUfw0puu8ZU9VnrEVFPokFelgE9AQYajg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: DA69eQMq60D13vHZuc89RGpwL8jZjN8oUlMTJJnaHthAhwEgavupDNI0425RMcsBeAB+ySDNaDDhnESPeIR4xBzMXpD+xI+p0eup2POk4ZIMsc/idEjywbqeLYuysAXhaKgdgYh5GW5+TNzbZQrD1DOT42UVIssu834s/n0jetSnb3rabjZxBtLBqktRTzIwdFa+uBkxc6EYiggJj/p6xDpdbhyS/H7RAdw+RGnzM9buL5L/5/367LhP40yAAQqjqYlw69sk247KRHA42+2VklfP+F9aR1QLAJeFqHwC+9FS6ulkD8dfH5hQTK4J2MMOrluOrHyiKEIhKbJjxMNfWA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: UeJ1lOs1vxWfj20Bbx1cugyLEAdMll21Tv62Su2JPfasvzxxSdrttiZihtXT0zHQTm5NVMCSSviHols7GLg43gVZHE0CEDacB2qZSh9a7FcPOdLTudzcrIjcpy4/uTvK4Fb6SA/UPbheBC0DdMXK0x+g1frIf4ZKyPQSFn/crhkr/hVG6L4LkayFpzS89bQifiuZ+095CuzBGXJCp308B3joNiMLZYupEONILx2WF74wuP9qdKeAxdtjX1bgpzbzdRYYqW9NTjH5zt3qE4QpNN+4xSpkS3AK9Fayd9VZdz5/K7Ch1wOv21cv0mJ3P1fLbnUsxi/mYc+gMTod42FyBw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: V4CyB9EyKxHqmjRoOpkOyH/Fl4XvpxlFPia3wa5/QYXh+Sp2xHDfi3WwMNwGi53ZpWo+4LFxWiHv0j4/LW4lxhqrg6IA6yRYGlBhCcGfDHu7OWpLiqFq92iNleuldTT1CmqjEKJGDWbwBesAa6LxIS1AJdvKIaGsObkOi/4xQA+Mu7xVRBySW1+9a43ZEcGcx4vRPdRm4WqB55E/eKcLH9QkO4QSv8zt4QJEzgsR70hm4nTu9m5hfSedz2YbHCNz4YKVsYBSeIMxAzSUgxpWI5YqX4CMQ6N7KTwab4JGiAtizFV18ybGsT15P7bVdAOhf+abYJoIEwKs+2HKt8UmZA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: A/pQzOtZ17G6OchQjW//tN80GzYsKs9cU+0F2AXQlunW10L+gIQx+H5iCSqj8p3MxyWG7Q9YwbWjQxLrGmUSEtbgPqRna6lDc+VsV8/ESJf6PB5vJ4Lgif1n9yytcWMj1nCXPSU+4I+uy8elEM2gFpPiOZC6qg3pskvdXIwEbFhef+oNxwQ2MZ3QOZ3tSBtENi/DaBxi8wrb0tRRRv3wTT183o/OIDF6dyyEw4GEym8qAUPztFofqPc3ZGCcwwrIj8dvDIf50UgM1l/5KWPwzjq4jihP2HN+lMBCGGqPyTfc/m2sCIKOpJr/s/6Y1LQkb6SsvZnklPIqVcdw5HBoUA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: NSGKasppe06vJ7P0UM3Mm5e1Wn4XpcSBYiGqqInfHWAFtnUpmL9Q4xPVY3q6kxLfU4R0vhu2xNaOZnOmzIfQaOEHVZ5rlU0CIt63D/VPepdm0b7toQvGUGd2+LaGWkf2MCoBTD2LNvuVQJmS8BNHthBTFSbFeFZHvzpFdp4n0FysCGGZIq6cuZicbwjwdDetJq/uKqBdQL1LEeaDoz6IUu55c2OBkKNdT1Dum9ihRXVdQ4j35LMInl5nE7s+oFwe0epCrLM5wt0iEKlWYH5wHR81by3FzMrLYpjlTZicJlimhZcbkJgp5vvHgfAi5WPw2DJCURbiyYzaGJwjkQRBwQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: a6Nl73nAgO+77lbeakEPN/isVebYub2LIS5Wbl5Kjbz573/RW8ZtL8IhhOdYH5czZku+kibuQ+G4d2TqTc4+OvGjVfstDvBIK5HytpXU2WTCEz4Mbz99fLhM4W9Yl+iDRyQApymErXojNjMnJeL4a8ARwMeWJpp7bgaFavh6yZxP2bvGQKp2DXh03DaOHT1cuDK3MT7gtBM0t3MrbjmRWy7yLwd5x7z3WVZDpioeEtZ69fhA2NcTpFJktC4/dHuEbmFtZZYc2/zPvY1s1W9xDzRIlnW3ui8Z4WGMYI+e1+zpR2c4OPhhU54oXd0ugm2YxhUncUfhmjZtG55qu+5J8Q== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:21 DEBUG 000000921 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: R+TTVITC+6vNkH4E+XI9iMPc3H0Wtes3RC9DobpStRlQ/H6DGojNzxDqaYtJ/PAp8pDmP+VlTdxRFHObm993e4TwgguUdrZ89vyL5mYU8EY4nAXs4aTxexEzmFxmGjX4HlUaSe1IjPd5zWlpp2Khq8nOLSFahZ8SyK5dk2Ja29+juSoEqd5ZxkH/9BDk3jlF+41MkgGUKVpvW06Pk9zFcvIgkS+rrA6lSlcq1uY1EukQNj70R4Y97H7ngiLTAMJBcrCRwQIBwKYmqwSZiJpi/vO7yeb6Eww+gD9uj3HuV7BwGSpUqsJFB1h641hSTbA57wyM5CX3yZPhcxRHumR4Jw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:26 DEBUG 000001517 QuartzSchedulerThread    | batch acquisition of 1 triggers
+2015-07-24 11:40:30 DEBUG 000000073 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:30 DEBUG 000000073 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:30 DEBUG 000001295 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:30 DEBUG 000001295 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:30 DEBUG 000000073 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:30 DEBUG 000000073 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:30 DEBUG 000001498 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:30 DEBUG 000001498 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:31 DEBUG 000001500 DNSControl               | 0 DNS records populated from database
+2015-07-24 11:40:31 DEBUG 000000888 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: D6CSJqi81ShSONoDidBQvAHGhPIJVBxEJ8VF79uZzS+YIrgGUPLWH5jBEiE8q/NWdgF7HYVjO9idzZKlR8tBy/+XTS+soIZAlgPGSG9wn6yAIAbzrzr2vfwqbIU3FpaCRvd30nrQUNU1jQOGof5B7dJZNfIjV79Uw/VRMjRDSmq4eJN8hSmdu3DRXokecTjiRjTXZurvOB5xSsCFodtuFrvdI2baj6AyS+HScjbmdRTyZSL5m/QtSly1eM8fd3oeYykA0M3Ry0uBx3KFeOMGtL05VzrWSOsOPe5F9xN4Dxu4LqBlQq0BaPGw9FBPZtErB3ee8ZkURrkJGgYLhgGmjQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: Q5PE/qrD5TEMwJoNvudpy4NngjjBkpFTBqkam7Tl3cEzf/sKO5inK8yhpxqP3HvwFG0TlAvkWcKVLU2rpYCXPlNOXOyGjfSvW+kb7LCpCFCYEUEWGDRfDSGxaCwX71u+h8pzjnNYZwIAWsAUu33p8Gkz835jXnN8yQnrscioNHyGuJx7rVsEdy7IhJHytth3jK9/4p6fVW6cOWFJ9YbQ1EGaiXXrU+mSkW7Nu52yS8cgdv8glH1gvCC48zmfROOMMXNaDS1LEaN+lfsdjZtEyqsP4heb345eGfuFC1FO7l5cTswFSTAFYtKIP4pAlhrbXvRgTBSoAT/hsIr3Y6MKUQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: TNE98D2vIDIITyNIPCEh9ESVubzB8DS6Stu6ccP3aAmotyngGm3pfcaq3EHtvf3lj/bMZ8SphvAO4yiohLj1XFnQc/S5LHAPs53lWplyuCpOTwx9BaTWKOvHv/ZquZnsSUPYxzgy6HyVgCCRoVpu7ydYakpuQKV7brMMkeEqRY3zIqMiV2viJUmVlGYMqsYGKm8iMwqvT0/IW1/E0wZ9IdfLUix9c/ynQZ41/6esjLwOvam4Gm4nJE3Q+rXs86qJeMTbijI/ZUBcurt1bLNfbcH7l0rrAmct5PNMOmwowwC2M2YKeeZ+OKsJIVySgkdi3QIAdH/pFtbaH+ltx4UVew== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: IJp5H2sutN9hexx8qFQSEwRGVN+MgYXqzTjSNAK3PpCdmOKL43IWh19MeOeHQz3rS3xFJc5DLBsAqhF4h1NMsw1Ezoav5mOxtCNBvTcOjkLwdj539vidklMF18LdtqcNrGz4s6Zq+T5sFyQr1a9tsiFdbd6R8YKmJdMRghXxqTkQrdvgPnEXgL98z7YjwlHEAzEm3dw8msuRFD0XFU6lUI4wRovEYlixAD3sB0SXOQNhOKw+KjQyiX3LjTRr/aVnH+Qi7pbQvnpKR/y04th1Osgokw+sb0MUa9JThyc3sS271NOF+Tyc3tY3UlgmFbHM/8/aVOewYe5KfGnQCkWc3A== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: UkR1b62moi5Oce5zsaHzOwMjpu0cCLhpTCaYTyHiAtfsl8X0SkcvmAaSxauIK+eqTdRylsyi3CM5ef4PaJyeF+PSFzBzb/l6HIEM5n/15Ro/cSri5264V8yn71kWPTyQ1mE0+S72613ADloFpvqL4ExfIk1ZKQ4Kx2FBTMdwu7+ekW0v4E94W5WRP0+XrDLaRdhqJnUEEYhKmbwpUkK00FTP8k/iMVZJmxKoAWlI0e8fuR0uvilmoT805x/Igaswie/VzD5VNotZobZ+fE2NeJCXuEhTOmYwrHvJ5G8kHhqJy1xwL+ezp7KzXZAgTaV/XJ+b9N/tyPsdtmR+FWk2dQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: edY+hrB502BajDo7domrJvHQG3eO0QFd3eSMy4csS4Mg/rEhT4Agkv4r2bKjYcdUJMYfgJXIpHHhLFSQacfLZS5tzvHUTWBIPuw4cSgSZT3Jq/iII+aaKaG4oW3HMNh4CWv/CpioNCUlFyg20XLrMiAZDyqCtUwW1J5vIxnc2t/Wl5pMHAUrtYR79uT7B8vLv9DSdY2DNOMKnIgUqQzZM7hyQXCzAR6YZftSfSV8MxwQ+EClzynzsgJxxHkcN0gHNqtwKVTi4ru2hHZq6CUL5lBOQ1mii3Wdsu9JUEum69nxXuJZnG85TPRX4tgUOdwI7PiVPchj8QW8a4Oezv50mg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: D0TUSvoSPztDtKeRGQ/DldTS/uK2cIyXnDX/3X3H3cw4I2mfu6Ck+D14hlhqHNvpOrvrELsNY8y9qZcrytYgrCA8uxsH8l19P649tj9PaJMBY3aAxQlgASpnrD9BivxcGsy92FTBewPORo2eKVOa82l0j8/HngOAWW7RQcXjeOJ2SZZV+8O8ezaAcZD/lp8cjKuQzap2qPYjLJo7Xdlx97ODLG9jIRDsSYcuJA960SQkI/+MIgoc2PzYYbW+LuQYr6TV72X1hyURX/nerF35/Z31jzpoycwlq8Wcmg6XWL/TNwFzwbqh0WhzHisj5tbfw1yNT5Unmb0rcWSoH6EDEw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:31 DEBUG 000000922 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: AzXsAaIEfCFn07+gtnmgEw4DQDu9Cb2708smcHhIOvUa07Hs9Sda41g/ODkpRihPoiCxfg19PjE7VZnsf5UHPBynlmY87LQpC7eHzwjP6qc8zYGv39FxR8gQoUWS8sVEWViFBHVCiYYJovKoWa8GNAGBDOdtmy7YDFIHSOiFRKBlLjYpTgKimB8UwECpwcz9Ad1wij5SpAqEs/PfyCjt8B2H5ZAXXn6ACGjYYsttIoIqq1f11vNePJh8glPXF0phlcFSOhKb4/u9zczScvLgeu4gbVrM5XNSro4uOVwISHgq/KTdXiomymXZo1iIVlYuRNuykRizYIP8elpsQ1iUhg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:32 DEBUG 000004736 ComputeService           | MigrateInstancesType:be19c954-4131-4209-b5b7-e4e14a63773c:return=true:epoch=null:status=null
+2015-07-24 11:40:32 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:40:32 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:40:32 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:40:32 DEBUG 000001218 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:32  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:32  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:40:32  WARN 000004737 Contexts                 | Received a reply for absent client:  No channel to write response message: Found correlation id be19c954-4131-4209-b5b7-e4e14a63773c::cae323a3-4132-4087-b258-6872a7e18471 but no corresponding context. for ExceptionResponseType
+2015-07-24 11:40:32 DEBUG 000004738 ComputeErrorHandler      | :1437763232727:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:40:32 DEBUG 000001219 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:32 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:33 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:40:33 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:40:33 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:40:33 DEBUG 000001220 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:33 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:40 DEBUG 000000087 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:40 DEBUG 000000087 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:40 DEBUG 000001499 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:40 DEBUG 000001499 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:40 DEBUG 000000087 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:40 DEBUG 000000087 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:40 DEBUG 000001562 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:40 DEBUG 000001562 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:41 DEBUG 000000890 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: eCwiOTGqpKKdyh3u/6AWbJSa0rf6YWY0PacHiV+4VhG22K0emi/SLQkWQmHs39HjgyB9CsWKGxAb0E29BiQQR/R1ySeNmLDi1+/1dZcsGOnExXMhTwhqXTMgx1Ge/2Gj16p6CtQp7jiyIG5YmnGBdY4dqGZgonBkfV6KcIAb6BTpWEPZAqtEwCfWEiybsy81MmLASj4wqTrCQeVn1FjKhe+ZbDoLCdUeVRjSGtJ4Hxz7P+US8RPxyYL9O6mxiOLzWO627jR57FVAgfr2UkDsSwpUNESNo0pw4nOMz33z871yy1LV40qAF3Cbs7XcxvQ+B64R3gKQYk3f8u0ese1vhg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: AcHozCOtzkd2MhQVQCImfP+9xLlUyvTzkOPM7sNO2Oq2d64ma8ejhyD7obrNlWZlMg3PaO1Aoot/ccn+/KBS7RXSxvRmijtGXXmQi3OzqjxG7/5xFdn7HQK70lKQt3HeKHZ7puI9dHmCDTnOoBeXpZrJ2k9TLrTwGh/bQkUIe4ansuPhEFLAFiywqAZwatuEJEeat/TNTrkYRMl36nC7DxzXSH04KG+u5nqH1ZDDlP4k34+Zf7IIFmZ1GuJlwgKQ8/jYeD6DKX5FvrxnqhsgpwpL3oCrkKFTs+ELBav/M4J3UcNfRfdnzAwIWXeJiTgEJKGTyIgFSqEwbib82d0dPA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: aRcLAO06AgO0xCDh/w4Rk8+WBfMY3kmMvCm7IetfJWM+8BNXy0fIxG6KtwQfs1ClTmO6PFOt8uEmSx0Xdf+Myn/1RRdmKVi2skhZmK4++sfCgWi+5E1/Dumzx3JNC47QwWxsCf7mPCjIGZOvJM6eRx4pMrptREZxhjGD5VWAqqOHrR9po2LN6XJeWnX4bTRsGTKxNmWm2VlhW0+EQ8C98BFCK+RwjFWYtNuTwsQDrwqs5kjX9IRuSY7L6bWNdhT1u0ZgDXVzhzRRmZv88o8S6vVNMagu4AqCi0BrgtZmjR9079LNphKHk+U0mfMm7+Dz5vte5vQiDhKeODxfrQOy4Q== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: HpAdkOvE6jrZfo0nnn3pYtSa65aOuNUj0PfVwC7Z0WiR39pPlM6yFH0PB8rrc/lVVX/PCMazYRqE1hWoMBLTS1AJWtPFGmEXGM5+vNU9Rr8spllq2D3IWoI/Roownsq3LSGuoiYkBGLF+DxgeVOR9A6EhBd1kWYSILTHpOj3vA0yvW6NPIZLoPOlk+fH+LHP/yobFO6/mxDn9f+e+8wUYStGpW2//1/G/g2T/Qqp3Sjdu82iuctqHGNF3NQ5HEXBCcldOnlaVMZ6Xol/WYZFKUYbKUQ/u6iTNHvmdKjzalzQUk0jFpHf0fXS0Sy49eokLaG5hzGX72+P+/dxDPE0hQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: bbMbuZ7zch6pMprKXwmp/qpMIlnstOQyKhWUrEvttqUYqxqwBK0WlkbYRG1gtG/C+O8Oa3md89oxXVDjY9udcvSnUuahhdoPWEtfmor89r9Nj/srcUD7zz3Fg+l5v5wX90EvyPVNpAnt4bjTXMMKXmhPQ79kKYyBYNb8BeFF0KtN3xLo7hobltEwsAyQQhldrRrNq3yPzh/Bq0QyPZB/pqANpUhi1FjOVnFgb7X1Vi3aQ1ym3g6pkrKI/Mw5CyKuywG9rV1eJSGbzlE8sFLIRcIN9YGCwn/Vyc1G5j74+gKW4lhKfTK+X7gKVg1zhlo86oihjGke9yK6M7a4hk/JLw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: GBVlEuXwQWHx8YHSo428kfcXNPhjbX2kFQQbTk15gnwJb8AF0wp8dIzLFIO5Be0QofszcZi+boI3/DDpSYbj2mqbkuKGRr9ZCMczDkAaEKnxbSKr5uQBqA99WUNs9Q0NVM7drly2fVwdMiXiSNeLZEAYgIynaFQwdmAN+/vuxhwFdQmAklTqUia0RGr67tHd7Ha20WyIBx32olL+SXOreZTD6izNXB1JjNmeY3mARdt+hgjYl2PlWQrKcKoY09ushgHD4ngkyeIVZK2HWkb24L9YonhpId21JLQF4IeamWDxwhP+vsPTwzaNYRA9J8OZ9oUn1UYQLzG2G249S1prfA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: RrYCJ9dvLzYjvT6U3XmJbEr1VPgyn0XawC1ujAsMgos9u/4Ci9wOcari3wKHr+2cclmWiJzPnRiiKW/fbLLCIut8ZLjBmzuCHlxaUiUP+MY2AeOrDahZJhuNRAfayXS1Z9T+bmuL9twSkeXu/ubqahp9wrukUUXoz9xn+FC2fdgG96XAGyfScS/vmM4JqxDje/Nq1HiNzGDfR+B5WtCwqS1vdirWLVuAg3m0JK3IHvfDrMMl2Q1DegZsTg3czLZLUnJ946rW5rIb1FnYsjzrb9FdoVe2MOwK0nG7FrX7+Bw81dvcB8s/C75+XYEildHCg9y6sYD3a4xr022FDJIMww== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:41 DEBUG 000000920 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: E6PP/6SEi1Az81RaGJ0XXK61jFRpcbQm0fvG/FirlAgZJPhFZCbvqN7rjo49MHY5jEFScsTTkP6GzRuOCD1C/pw5YcJTG2WT+k7FS5UU991Tr85UeBi8fDIHz/T+UZn9ITSGP6U3BKweydgN/oSEdtjW+KXKeH74cr+EP5XnW8B50ppmz3MQNz+DUZDqPImrE+mjxMewg0+aa18FgsXmmZctDfTbkAri1NdvHf90Kzc2ZHwI9C0U7Co+mW0WDcY7IJm9HtOCZDZV+JWVdAtxICcTiMo7B74ez1NvkFyLM6OA2fidsldr9FI0jwxSRLoeNy5+nMqoIfAkU7ZgYNIYHQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:47 DEBUG 000001367 Faults                   | Fault notifications: waking up to service error queue.
+2015-07-24 11:40:50 DEBUG 000000173 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:50 DEBUG 000000173 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:50 DEBUG 000001565 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:50 DEBUG 000001565 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:50 DEBUG 000000173 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:40:50 DEBUG 000000173 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:40:50 DEBUG 000001566 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:50 DEBUG 000001566 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:40:51 DEBUG 000001680 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:51 DEBUG 000001680 request                  | Received successful response: 200, AWS Request ID: 0d9a4e5c-df17-4ac9-b66d-d3c35639a723
+2015-07-24 11:40:51 DEBUG 000001680 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:51 DEBUG 000001680 GenericWorker            | poll task begin
+2015-07-24 11:40:51 DEBUG 000001679 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:51 DEBUG 000001679 request                  | Received successful response: 200, AWS Request ID: 7e7e7b5a-48e8-46a5-b8be-1bae5811a30e
+2015-07-24 11:40:51 DEBUG 000001679 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:51 DEBUG 000001679 GenericWorker            | poll task begin
+2015-07-24 11:40:51 DEBUG 000001679 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:51 DEBUG 000001679 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:c827617d-650d-481a-af95-f086a8d66465
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184051Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:51 DEBUG 000001679 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184051Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | 58b942b169781f64e1f11fed198b9443b3e6a0ba033b8f7048faf53ef7caa186"
+2015-07-24 11:40:51 DEBUG 000001679 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184051Z, Euca-Nonce: c827617d-650d-481a-af95-f086a8d66465, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=d056fef53519b416ddb62fba92ca6f9901295e4bfb26b21ce833cf899a246381, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:51 DEBUG 000001679 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:51 DEBUG 000001681 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:51 DEBUG 000001681 request                  | Received successful response: 200, AWS Request ID: 3637a2c1-5ef6-422d-9baf-51ffa57c3bba
+2015-07-24 11:40:51 DEBUG 000001681 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:51 DEBUG 000001681 GenericWorker            | poll task begin
+2015-07-24 11:40:51 DEBUG 000001681 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:51 DEBUG 000001680 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:51 DEBUG 000001681 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:f9438bfb-5edb-4737-ab3b-4fc9f527620d
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184051Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:51 DEBUG 000001680 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:21436e3e-b6e8-460b-a455-5a1a7a493c84
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184051Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:51 DEBUG 000001680 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184051Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | 639407ebd7c0342df019c2f6ae09fcfac6839b68cfa1a31f2c22dd1550653355"
+2015-07-24 11:40:51 DEBUG 000001680 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184051Z, Euca-Nonce: 21436e3e-b6e8-460b-a455-5a1a7a493c84, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=d6207184c44bd8a13c2917279782636657040ed9c9ee8b0e396c64d3e300b5da, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:51 DEBUG 000001680 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:51 DEBUG 000001680 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:51 DEBUG 000001679 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:51 DEBUG 000001682 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:51 DEBUG 000001691 SdkHttpClient            | Connection can be kept alive indefinitely
+2015-07-24 11:40:51 DEBUG 000001682 request                  | Received successful response: 200, AWS Request ID: a30d3e94-1dad-4c88-9d76-6855c1bd4861
+2015-07-24 11:40:51 DEBUG 000001691 request                  | Received successful response: 200, AWS Request ID: 3cc58ba2-d300-47b4-893b-2181d04c84c8
+2015-07-24 11:40:51 DEBUG 000001691 ronousActivityTaskPoller | poll request returned no task
+2015-07-24 11:40:51 DEBUG 000001691 GenericWorker            | poll task begin
+2015-07-24 11:40:51 DEBUG 000001691 ronousActivityTaskPoller | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com}
+2015-07-24 11:40:51 DEBUG 000001691 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:1dd2101b-42a4-4274-88f3-1d7d5e109930
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184051Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForActivityTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:51 DEBUG 000001691 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184051Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | acc25dd25232f235c537954fbd57f642a3e84e3ef95c16264f7df48f9479ddb5"
+2015-07-24 11:40:51 DEBUG 000001691 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184051Z, Euca-Nonce: 1dd2101b-42a4-4274-88f3-1d7d5e109930, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=e68d9bb4b290a48e226eabb1bef19ba5e1af30aba16ba7e4b16825a4a571cfef, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForActivityTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:51 DEBUG 000001691 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:51 DEBUG 000001681 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184051Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | 6b1e1794aa5beb51f02649992ec01adb9778ea396ca335d2348ad5a69b35c0d9"
+2015-07-24 11:40:51 DEBUG 000001681 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184051Z, Euca-Nonce: f9438bfb-5edb-4737-ab3b-4fc9f527620d, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=92e3040dec63ad394f44afbfd82c60407997648b044e772b4dc4b22b389821ea, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:51 DEBUG 000001681 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:51 DEBUG 000001682 DecisionTaskPoller       | poll request returned decision task: workflowType=null, workflowExecution=null, startedEventId=null, previousStartedEventId=null
+2015-07-24 11:40:51 DEBUG 000001691 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:51 DEBUG 000001682 GenericWorker            | poll task begin
+2015-07-24 11:40:51 DEBUG 000001682 DecisionTaskPoller       | poll request begin: {Domain: CloudFormationDomain,TaskList: {Name: CloudFormationTaskList},Identity: 13728@c-32.qa1.eucalyptus-systems.com,}
+2015-07-24 11:40:51 DEBUG 000001682 AWS4Signer               | AWS4 Canonical Request: '"POST
+                          | /services/SimpleWorkflow/
+                          |
+                          | content-length:129
+                          | content-type:application/x-amz-json-1.0
+                          | euca-nonce:8b0a8a62-1a4e-450f-a2a4-aa4d9e6dc5e8
+                          | host:10.111.1.67:8773
+                          | user-agent:aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85
+                          | x-amz-date:20150724T184051Z
+                          | x-amz-security-token:ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==
+                          | x-amz-target:SimpleWorkflowService.PollForDecisionTask
+                          |
+                          | content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target
+                          | c3ba34d04c6267f48783beda9e9a275059dbf1b5d93f997d5086d3b5c0675a4c"
+2015-07-24 11:40:51 DEBUG 000001682 AWS4Signer               | AWS4 String to Sign: '"AWS4-HMAC-SHA256
+                          | 20150724T184051Z
+                          | 20150724/us-east-1/swf/aws4_request
+                          | cd2a6a0ae3101b8814458135f46ba3e0f7b379f969d311563b25fc7bd5dd9f58"
+2015-07-24 11:40:51 DEBUG 000001682 request                  | Sending Request: POST http://10.111.1.67:8773/services/SimpleWorkflow / Headers: (X-Amz-Date: 20150724T184051Z, Euca-Nonce: 8b0a8a62-1a4e-450f-a2a4-aa4d9e6dc5e8, Authorization: AWS4-HMAC-SHA256 Credential=AKIZQBBKMDYWGKE7YMH0/20150724/us-east-1/swf/aws4_request, SignedHeaders=content-length;content-type;euca-nonce;host;user-agent;x-amz-date;x-amz-security-token;x-amz-target, Signature=8f222a6d1493a44fa8f9cd73a205b896ee68ec096e0c46e65c567abf659e2c00, Host: 10.111.1.67:8773, X-Amz-Target: SimpleWorkflowService.PollForDecisionTask, Content-Length: 129, User-Agent: aws-sdk-java/1.7.1 Linux/2.6.32-504.30.3.el6.x86_64 OpenJDK_64-Bit_Server_VM/24.85-b03/1.7.0_85, x-amz-security-token: ZXVjYQABauf/HqCEmqNtQh8n7vt+mh8RV9JsF/Jq4k8s8Qx3s5v3Mk/ZtpXhifJf+On8O2caq3J5B8H9q0AICPbt5eqLonbQPyI8GxvCzaF3tZi37uGuFj6g7gapQYIVbnVJ3gwOXvoCr5uTnyNUo/B4txxNfyszPfcdyyjA7pGSlzf/D4Dmq8K3GybkD5QCWf6YlHeyZzek5dO2Qqp5pvU/WVkj2X6s5ddxLdykF/2rEMkhf+TvSOzHNs/s/A==, Content-Type: application/x-amz-json-1.0, )
+2015-07-24 11:40:51 DEBUG 000001682 SdkHttpClient            | Stale connection check
+2015-07-24 11:40:51 DEBUG 000001681 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:51 DEBUG 000001682 SdkHttpClient            | Attempt 1 to execute request
+2015-07-24 11:40:51 DEBUG 000000891 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: OClyWMBjQ7Cp/gSq5bmmqVpCJNeyU7y53z/MeVmQCZZwQGGPNxECE5V51TsYstgGm1FY+6dUwNQvNZHEpL37REFwpAPoRL6eNQHG1x+jpRrvUE7gJt1B+3Q7bT0ZC9lGqu3qQ2oj9WpyozaVVMqnteV1jhVG8oFgJ3vkqd6OzN8K7T90+E6QBCQ3y/ld+lRdrn4b/X5ERaBZKI9+e2Q/jCAjFFaQoJ3nZ48EE7KZ9xiAQy1THqmwTHl064q/Lg8MdNI+AJIqARDZe7r5J85QpvZYN91lTdWOXMQf6MlsI7/j692MRhPCMikMEnJei1UDwh4TYcCxeJKIZRvmNssOSQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: FOpMvpzgb1ReF92Tv93JElYXi2hRGfZGuKX3KTT8A9GO+cSdykutGLUnWivImzXGJaQYf8v7F1y+TyhOS3BLJT1ft5yqf8aKKnNr9pRHXeUub+BTfqc7QW11NlG12K9clVtWzNVJfaHrxE3afnAaE+UqoF5tRipRV7GpC0cIGcxUoWhSUfVnJwsTdcMuoR1msTKqPpgTllw4/Xz6umd1RG3IUK15HeAwglE4Z2zg71jsTeKwzAIQSGLdDn62QKz3jwN1HGHK3r9MlgAmJX+gdX29206wBq6GJU7LyCmKmFlNlnb5k0SqMiXRrJyw67ZALE0tanqNuoI/EQBPKmlbTQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: WDbU/KxCU7UoIA/viY245Pqevhcnsub7g7jptOC/tEZZaS54kO2egFTkdfRdFr6VY/d+PX2Gov+BQB/PC+JfZYC8nJJfVHYuxxHyZq+cjy9IVnbK50Y40UcLBrfejoRIEChnrg+6pYzktk3RPXEWkh3fZb3X+wrVSNcVquZN69W4KNGqxUqTrmv6rMVITPWAfA4NmJWpaXE3Jn1s5a9q7XGrbsN6xKmim838vFbfpLXNErg+b92sNZLcTpk8ZSHsLhu7KgrtcEqTpfgRbUko+kgFRN0/dWmK0Ag9LMvIOvNDapqr0E1DhBME30T59o53fVWpDNqFFbE57WczONoNEg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: ayWNFXYvCRIixKVwoRAd61KQcPABqJ0GChNLUDS3acpA+8k2+J20a4KxB5keiVPIjjHwO5NydMSXgqH2LoT1lkle4P05j73R7IPCDxlQIWbZwipRQR7J9oY9Jm+MQgaihFhVyNLUQWovThEQRQpSd+kewGa2WWKOKhkA9ZT7w9u7SInwNYEA4sqRMKCwSsdbQSeZAINOeEU/YXdEZj3qIgTUjN9Qei51VqisIt3+Ua4q5vh8dr2cXZt8D5bhJU1Jjd+3dpjD2G096/P2kNxak3UTdoXIL/1zWRj2XRIDeSpDjXkgxKLvHTrJ3ACOj/o6ilkc3PHpOXXj1/MB0ZUGiA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: GO1K2fDFyZryZ+I70DicLKEE0gp8wLN2NP18BdiePlT2ktUArvgBCGFz8hscxFw3a3sHJ5jwwLcJ24TvbNxkinDbKHwwcNOu9Qu77/4al+S6qziKuPvPfd2bdVCUDP1KNDL48c5Lg4ZzhZPqGP8TpZ2y8KKA3+sXO+cLr/61xsI50bJhuIB2zsBYdSuoIlBUnbiUasCGT1chFjIzxCWm6CzlAsfELMaM63lCC4wVrz+32XJ4oG+m96Q1RcsNgs8vHEJq2Nk3rj48K7d2WUAdc1X7MS7fYS6Zra8uX4o4VUiCHvNh+waz8NtqH8gnlog38CHYsOihOPJwZMtQB4Q7sQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: F5DqQay0MPlsibQWCia153c5cRfR3W/84u8vd9slwFYfOXYh+YisjEp+NdMNUSBE3cCpB4SCc7xvl+pXyWHM2rGPLG8Ifh1d1yMolVeD1pitgWpEJX+kgIVc9TdnPF6RpjRGqVdbe9GnesHU5lCg5dIGrdCxIOxVW7b+T6NArSUnk2hrMaBero/8GwSj80V0mAzdOFtDYGVPhPN1AYbDn1WTs5Cwxhi520BXIUeHzEBc4BXMJBzoVHKSA1Zm1VgytYtBBvYId+P4ZW80V6BJI5Q09ADW5j/UlKDIDAJ/R0OwdRNx+h4KoHjBcDdVgGaTdJEI4PSNQ+Y6/S+rRujC/w== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: Bz1zDQ1pAxaikNe57P/JA2qeCNTA9Vx67wJgvJt9AzLv3DNln4Tz/7c7Esd4VpIZa7nRucz+EBt/1NQUHFBqoni4wf8yM4MGe6/jRQYRQo6KkASqSSOEM6qFnd8rWcEADILxBEkbalTZBD8xRnQW7InYsyicFOvN3L1/FiMRmH4CedYac2t5MFDPA/Cv+CogpNf/BCnbO0xYWV4XWYgLWZhg8aiUfifHUmfXgI6xQXmo/rhQGyneBlBE9iwI0k+mYRi7alSy7OH9C+WM74737xa9/Zja/HFhg/9FZLcX4Cs8wTnkmXRMEMFTEGFK5neHE1gbYUFc74xKG3XAZy2aOw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:51 DEBUG 000000923 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: UcgXJlKcKJp53UUajknulXi2ScsRS+UfWsiE4Ar1f1kkmchcMjG3eSXugd0e5npHyIGH2rIhVMPfPr8ViSQVbm/QrqdW6AjvwrTdDIomqiU0T5jHBcaS3YqsBV7znodBsKxNM1e5Jw96Op5+SgOlxVn6ifxGWHytj+vFXuTvcQlTq4/0e0OlhG9SH2XGD/c/Qop612O8JIdVJrn2CbgMejRvhBtr+Uf+gB/AjbTIy2MFFmBEclUadiA8qmXHyFPVkiBDeYLzSNQyl3m0WgP/R9wWtayrawsU4LuWwwE/cTR/U6FFFAiMB3jKNuQgjsw7B4SeX0ZutgVXyPGlMVm+Yg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:40:52 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:40:52 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:40:52 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:40:52 DEBUG 000001221 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:52 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:52 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:40:52 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:40:52 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:40:53 DEBUG 000001222 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:40:53 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:40:56 DEBUG 000001517 ropertySettingJobFactory | Producing instance of Job 'OsgJobs.job2', class=com.eucalyptus.objectstorage.jobs.MainBucketReaperJob
+2015-07-24 11:40:56 DEBUG 000001517 QuartzSchedulerThread    | batch acquisition of 1 triggers
+2015-07-24 11:40:56 DEBUG 000001514 JobRunShell              | Calling execute on job OsgJobs.job2
+2015-07-24 11:40:57 DEBUG 000001517 ropertySettingJobFactory | Producing instance of Job 'OsgJobs.job3', class=com.eucalyptus.objectstorage.jobs.MainObjectReaperJob
+2015-07-24 11:40:57 DEBUG 000001517 QuartzSchedulerThread    | batch acquisition of 0 triggers
+2015-07-24 11:40:57 DEBUG 000001515 JobRunShell              | Calling execute on job OsgJobs.job3
+2015-07-24 11:40:57 DEBUG 000001515 ObjectReaperTask         | Initiating object-storage object reaper task
+2015-07-24 11:40:57 DEBUG 000001515 ObjectReaperTask         | Object reaper execution task took 12ms to complete
+2015-07-24 11:41:00 DEBUG 000000070 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:41:00 DEBUG 000000070 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:41:00 DEBUG 000001692 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:00 DEBUG 000001692 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:00 DEBUG 000000070 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:41:00 DEBUG 000000070 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:41:00 DEBUG 000001693 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:00 DEBUG 000001693 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:01 DEBUG 000004736 ComputeService           | MigrateInstancesType:fa6ba065-8b85-4a83-a184-dfe629a8f449:return=true:epoch=null:status=null
+2015-07-24 11:41:01 DEBUG 000001223 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:41:01 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:41:01 DEBUG 000000893 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: JvHDrE8QYEXBgnT0GDwANScIovW/IVdFF6KP9A9DczyP9BjH9KBUd0Qh/mibCSrzxjZIS962xXRN/mHE6MxLuNAgwUjbOaU3XHgdmhCqvXMi+9DgyUHcUzKQc3n/0WbHFftIp3yf+Qg8dy1tggXTFo76R6lwJxIUQ9B0WOpUsGwv6yPCTQYrMOo8a4sftZpF0itn140tKWxeXSifQHzos0AouMqd3cVDFAIgwkRnOI7xCazGyHvyK3ttvPFxyQpIG3geT/pH52zKgaMq9bI/iZ1IEJDbJDMZsaVegytaVXOkhLcrYmr53MJ1I6c9Q8gePBYKkVnC1X0+UpM8uNYCig== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: YOTIwqhnmiRol7gEuQMX0nX1UvcvYtaRknoX1/opPwrb3hT4z9bBJYQqUvA5yxL7NkYT1j4HEEW6mAxMoFvsX2pPZ2WTWUa9GN/Eea65qeDoOhz9g5nJchJCTelbfL8SiBMhjd1zGxGd7w4t/qF/dQW1Klvk+0V9PE28tvVoCXmzKUs+xErif1NS0cDPiLVwZ2P3bcmp7GiIGxCvOAbUgEA4B26qcK4PJzOB2AuVHsO/eK/W/Tfix2BYQNBZHIEpe+mBPEyWpF+4NMEGCUL/M/U3ZeftvQpbcKUek8jH1xauHPcocTasQbbdxCj3/2u64UxMnK+ucAm0RxXBYXJNsg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: Ed7PRcmyuYXiuOX7ObIR95lyaULP0peFheyM4iOMk9zYBOqbJ801B7lEXKDXDsv1Nlx8dUo3kIURPFVNvPCLXPMF04iTm9BDrXmESYp8MBtu64SboulQy1jg+jal5LXMyguwYZ8x+bzxHov6yqOBX1SNKE/CtDLOCNSbVSwlw2DOME+GlkgEgkQFsc/IOG4xNZ9vJHwfoAsNsWt9JT6/fhcefV0+jOgdnT1hLSdhYaqucgECQEeRmEw9m8bKLtRby/xnS/2wmgOTyYi7wErH+h6Sl0uZGAVrG7FAgB3uaBh8ZJ4YrkRSVZWMwFhnG3LTz3D0FDN5bK9yG5iBsW1cgw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: VmViR4MCBCpTORes3xg5J1qATrrzXG+6wMYqFe11Pe1vhbCrdvFnxevv2mwtDDbpfR1q3xQjEZFGn7cb2m2dRvscr7gieE+TZe6Qa2ciEtmEpSF2MHtm+k/gv0BLROqOc4BHLQY1wsJR+HmhRiM8Jx8KusOzqcVVLDBK6KHBMUK2tQi3jySDcqS0EZQsjGn8gxmHYu2ORl9ELcHCaAgj+ZDr9EHuITXz1fw1bdb768qP5hOWNlKXjVFjyu1SnfbjhUdjAtzqjiyXfu8HOCGCRswK0Df/QifgECAkaeLi2DPHavlEeNylePFQ17ItGk3EGrgNvJkpYmeBCeFiz1TZnA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: Uqt6OlZfJIkvQWI5WfXK1Gd0hUBPdWARSISvDxBz7oWiXKgwiIPH9ybgX3hFFUS7Kb991UuLYWGi1wK4ol8Loa0xL75wPjfhcgfB5G77/BPwApwGMM+30y7Quu/6VJ1g6CRXvm4EE+fuTvHx49NToDxIs3aERohmLwdbnkpGkNxwAcHRwChmQ4rR4xloYAhuhWyGwh//CUpCjbTgVW4y1R8Uq46sq9vNuUWPshsuzG39owEpiopBo3YCqLTBeeRmZTC/FQgFH26mryCJWQfQNfAhm/uo1aKyTHRDWtEg3QZRmjcYtB/gl5PLn3/6AE/sjs3bPAigxZ1G6wJWKREENQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: Lb690C4ecAtM0fHVkDwIq0zdT7FukYGy1WCclfUyS6VhH5r4MGVNmwc7pbHrVTd3HJOJw622oMZ+in4MSOevqEh4InW4/6ytwsu2aXA7biQI8YISHauosw5H0ACmwfDFd4Z3N5elO8GoYnOLybPyVDj+eEeW5X0X3J+qz4Na+dkzLEGYHZJCHBgGX0J2WfaW7GcGyhvvcniE4cxowDC1fz+hSHBhWySMTtU6pjPplY/5rsy4IoVk9qiqUMTkW46PasKOo+Dyf6lgW/KTGfmwRWm3f+eFi3XrgJaStIXUbcZTiEL0qH+T3R1lwDOd1mb6KUAvR0GapHsA5xe/bkP8eg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: R5Gp+JOK5fCTILs3TAzEpM5pbO/OoM66joulPrCvIGWqr4mN/RKizqG0AQaQj34iffveBIEGj85URGtIlYFqhqGHBy4sRIFjAdYZZhGeng7RljkUp3vKm8ayTzIK2ispG4cAv4mX87+FzpPY60PpZrT87iA0dkN7xg8Ylx/zwUvmo0aZoMcYFPwadwFVooh26D8A9DiiNb9nUiuRM0RayrDw+9pEiw/HRz4yFUMy+IBCyuVfXdLn8wBsnHYs/W5+yaRQkN4Uiyz5AXg/U82a8rXbYa08ttY0abFzYzhEcYTS/bTQEjP4TZhflD5yGlKC/heOwjN2nUWqyNBx3EOCLA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:01  INFO 000004736 Exceptions               | Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:41:01  INFO 000004736 Exceptions               | Failed to send message MigrateInstancesType to service EucalyptusRequestQueueSync because: Component that caused exception is: DefaultJavaComponent{ClusterEndpoint.component}. Message payload is of type: MigrateInstancesType
+2015-07-24 11:41:01 DEBUG 000004738 ComputeErrorHandler      | :1437763261597:ComputeErrorHandler:MSG_REPLY:MigrateInstancesType
+2015-07-24 11:41:01 DEBUG 000000924 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: WBFXmoxi8ih2nszKe/NQmP7vQB4HZixUS6eXPQaJMclOV1Hlei8X7p5x/qwj2fBGp45+XUWpD4Bv+lVv1v7Vj0HkOvWaVEOEOcxPSBWRty+SLUQizcefGw70q8e/IXYKswO97u1WzvTkW1YfrlzWkQT2HHPWVw+lo8CobTzvjpotlPmvP2yHDMjTLrHZ/KZoMrhJK+FQGN69i0CwygeuX2L2gaLWQ3y8B64ev20YiKAV6FQACijJv9imTwJXemwDRJWfbFzKGo2xacp6U9ecwPROk2nrSA3iKBLlhEZ5NzHHtXJhYtXgRWXhke/gTd0/OcrNOJQ6Snu69pEWiYHebA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:10 DEBUG 000000174 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:41:10 DEBUG 000000174 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:41:10 DEBUG 000001696 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:10 DEBUG 000001696 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:10 DEBUG 000000174 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:41:10 DEBUG 000000174 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:41:10 DEBUG 000001697 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:10 DEBUG 000001697 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:11 DEBUG 000001283 DNSControl               | 0 DNS records populated from database
+2015-07-24 11:41:11 DEBUG 000000892 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: VWaZzeDfhou8o+7Z3lGUR/yyTPmsETurzTn5tCSCYf8CE3Cwbs6SGpJx1o+r8sR+/riR4we+kJiygA2DCd1uVmzHohuPyUifrdAJ0AzFwk155MiknQALgjQ8KvW+E2zW4I1IG6vAYB0jdKqqtA+PLI4HiHCoAlz5dmvtfSGgkEZBTmRO/e524BH47Bw8bvsD/+Hn4uc+HXzwNwG3eB7Xs+TVKf1AsMizF8vuTdQstBdwNmdjZ3aq8nxZthbNt9trsdEVxTqMn+Vs+S3mZKcDS9GHOa7KpWDjMV0TOoUVJ3LFc+o8pwuArsCMg9G4fU+rtR5Ej5xbaaJXq+AiJewI6Q== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: Ven1AhjI50ikqGQNwOmHtnTQLad7mdpCQbBY9y/fb9oYTv1DBt1lE+7rPUhcWnk5eM72XHKCrEfERDqbM05LpbJxdoKO4K8BB2zWD7NU6ofAUUj9C2L2wtsEbT/cZ62kJh9PUc883eQXMxCks7n83Z+KDi3F798SICQ0XjbQ9anEpzK16ghhFiAS25iDNrM2r2dJRb+UQESsecbK4SXKSMtJ13+HoCcGCmLn3UldadhyH+PRDSewkbuJkHI5WBw7190MoNeyg6BGmcMSNg3xG6fvgwxvdpadO+TsP+wDizIVPA1Opkd0KqOBFwgv5Dc6ezR8FLlbc/xS853vJ/CL8w== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: fLvJ/Kh2w67GDWFRhTCQuOWjyVLBsLCuKc/OIq9Fe1AqYtC9/77R8eWWqrixpT+3CU8FYZSD2zJGCcPvK9LlPaDZxk3FXmI9EUBoynePMTPnb7+4dsANVtuhcN7GLSQ0trqUHOxFfSG5Uz+Kn22D7oHZx8XNBWDPVVcMojB1b+eJUcVFFY3KfmJBc5ATBHO/bGg8sG72Xd55w3k35SZO84r2Ei2JDOPfmV4q8slUAi01B8odO6BXEsl5M+dO+YobA57o2+tZqoqQ1erXzCj/QPl+6Ukty1YUEUhBZheOO+JMXflhGsWn2Ozs6fgwtEuxSU6t9WFJlV8Y7XSAeKtfDQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: PzA+RZPuLmTLVLdQbbnd1oYiiJsT8x57ySW1l+sjmW1UfxgYhP4MEMbdKKbpzQML3PRx2ZMhiYt+HAHEVcS96dGlIrIM4QwnuOBG4ZrgmeRGNtyZLzpPsQtAkJjAZHX6+zpOzLEGRSWb/MC1pajbwpKvbbE/QIvPdfwg+3U9jzRWv1wd6Mqv9WyV7O1/isj2hel7SoOm65lwNdwGRFzKkKMVBGt9mcn+zbwQwYpPkv7dLvWT7ZvM9vm44Y1gg/aF+bH8ir8zrvPQs9w/TM5C5hUGdXTQivA1O76QZUnO0IO2socLtBKUs6yHIZ4SFrMCRTYkCsxZic7z4s+16bylTQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: NhnzIA5P1DFF+x7zWx7yTr5OaBtfla1o2ytCd5w3BtZu+CRm7HoHaEM9nZmYk8+XpT8OE+Q75ko5a+A9xYDVRFlAnypBAsfNnyQ35KkghCGXCNmOOzh9kZDscuekbhFVNJzEQ25em38V5nSFnMtn2jzRenE+uddLaRyTLgom5XnoAOhzpW2zRqMxQoQJv58gZRfJjVY/mz5dlrYHHnOZ2K3mAaLr+LCIeTTAtNJXUkYfmYGFTtmBeMstAj0nDKs7PGtOB+WmJ30xDqIgrY10mzkWMSsMDKXjSgcVaz3hXtaFM/PnESV13WXkcYHNL3Jz4qpuahhtZ4xMjXUVE7exuA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: RMhu80cE3bmsshKQjNr32t+nQ37RFjf1tj8nuYmkcFJ14GECYKrJ9bRo9Ifs7sapObgB1y+wlw+3E72dOxIK5LLv5ivLTxWZS+VJXERcUSnRBN1mMIo6pSQtrC4cdZXo0t6MoWs3gcxcEEp7OvIhxuqemVPGSMzzBOQDuoWTczhWAJjc7N+25w5yDvRId4s046LVOgbtzlf9AS8EjWN3JN2e9pvSc4t8ed560EGl9iP7bdOsIRJpx2tPhFVFBrn50BmNLZbjktnFZAIVJj4JYgDQ4vw4+uKeFRtnN3cxpWI2BSwOtqkSPGPCi4ftuKgq8lSiIVdlOSkXnRadttui7Q== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: GlbQ4Fu1Y1nwBwTiICjCPPlHdsVgFFzyO4w1ZLxSN7C/ZcmjpNx+Y+3+ICA7O9VABv2N6P+eDVEOJfnpVmoGtX3GbHHI7dtM3JDV/4gOEQii2F0PTQ2oovgRdMVa+NaY0yNJkDvVWzCDlSQ8RW0Qa3jFPjvXV9b68C5ESgDcSXgy8hQNewrtAHr4LIn54OMEhU/7nELf1yLq85pFJg5AkKdqGdOy1un4YBIkpX1fmf4KU3gbEWxfvuaUdP1hiYds0l1GIt55h2eh9rgOrowngh1I57AsUD3+5ToOtLG64Txu7OW3ZvK9OtD47ylzBwGaxkpRSB2OcCwIjL/E1v2TZw== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:11 DEBUG 000000926 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: R3v9EkdGyhE4SO1oogWI/gHNHUIG+zYGp4p0GfSG/E5n2kn31D3yUVJa5Pn6XAJboH52gkjxXSHwr00t7xrkKZYAbt9jT0HFNC/DmjQZLBWNE+CfipZXSx+89iSpzRh20de9tZsJyyWzlF5O6e4ZJ9noZ5hScvCKGq7vzmEncEGmJH0h9yrJc+yEXnt17FN6XN917bgGqsiYJvqvMqo7OFnqA4JmQKWnPqVcS5Z9nN8m3x7DIL77urHe7RkOxCm7fb50RTzDMx9uimQJpjehSvThZvgYGgQJbMxow8ceTYl8bYqBJkQfT9NpcTImCNrFuZFrA22+Kt/zo0hqhahZqQ== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:12 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:41:12 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:41:12 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:41:12 DEBUG 000001224 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:41:12 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:41:12 DEBUG 000000047 S3ProviderClient         | Checking
+2015-07-24 11:41:12 DEBUG 000000047 S3ProviderClient         | Check completed successfully
+2015-07-24 11:41:12 DEBUG 000000052 TGTWrapper               | TGTWrapper executed: //usr/lib/eucalyptus/euca_rootwrap service tgtd status
+                          |  return=0
+                          |  stdout=tgtd (pid 12668 12667) is running...
+                          |
+                          |  stderr=
+2015-07-24 11:41:12 DEBUG 000001225 Nodes                    | Updated node info map: OLD:10.111.5.105:ENABLED OLD:10.111.5.139:ENABLED
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-70457ac4 intersection=[vol-1e250998] local=[] remote=[]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Reported state for: i-70457ac4[vol-1e250998:A]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-6f6f2091 intersection=[vol-186d7912] local=[] remote=[]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Reported state for: i-6f6f2091[vol-186d7912:A]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-2a130ddf intersection=[vol-94066213] local=[] remote=[]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Reported state for: i-2a130ddf[vol-94066213:A]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Updating volume attachments for: i-22e0f3b9 intersection=[vol-c892ddb2, vol-8430ee58] local=[] remote=[]
+2015-07-24 11:41:13 DEBUG 000000829 VmInstance               | Reported state for: i-22e0f3b9[vol-c892ddb2:A, vol-8430ee58:A]
+2015-07-24 11:41:13 DEBUG 000000791 tateEvaluationDispatcher | Kicking off AlarmStateEvaluationDispatcher
+2015-07-24 11:41:13  INFO 000000792 DBCleanupService         | Calling cloudwatch db cleanup service
+2015-07-24 11:41:14  INFO 000000792 DBCleanupService         | Done cleaning up cloudwatch db
+2015-07-24 11:41:20 DEBUG 000000172 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:41:20 DEBUG 000000172 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:41:20 DEBUG 000001717 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:20 DEBUG 000001717 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:20 DEBUG 000000172 Hosts                    | Hosts.entrySet(): 10.111.1.67 => Host 10.111.1.67 #33 /10.111.1.67 coordinator=10.111.1.67 booted db:synched(synced) dbpool:ok started=1437759638765 [/10.107.101.67, /10.111.1.67]
+2015-07-24 11:41:20 DEBUG 000000172 Hosts                    | Hosts.entrySet(): 10.111.1.67 finished.
+2015-07-24 11:41:20 DEBUG 000001718 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:20 DEBUG 000001718 Component                | com.eucalyptus.component.Component.initRemoteService(Component.java:231)
+                          | com.eucalyptus.component.Component.initService(Component.java:218)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:168)
+                          | com.eucalyptus.bootstrap.Hosts$3.apply(Hosts.java:163)
+2015-07-24 11:41:21 DEBUG 000000894 Snapshots                | SnapshotStateUpdate: one snap-68eed9c7 vol-fd9e61b0 EXTANT 100%  storage-snapshot available=>EXTANT 100%
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-11b01b8b CurrentState: BUSY Created: 2015-07-24 08:56:38.593 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:38.000Z DeviceName: ZmTJM4K6h7ae7ZPNl2sWAbJGUnNCquOwgEq0BxaLK/5vMO5FUOReiFwHphmvQt8+h3vaAjfqjbi/72v3AcWojsa+TnlDh7xIukbB4+ZzrX6RlSWwMYlmoqp4Wq0zU/zWeg6ZcwX+dpFz+thp7gUpLu9A0OpEE/3gBcaVmf1wJhJcVYaL06oHNTleywvA8i0KOYwrGJTbO6xtJ48VoHCUWZG8RjNfiQtJT2BvdRjx9n2uAh/JXjM4znG/YEIxmuhby7uWV69c/bOtRQSRA3wgtptIDW0V+xgL4M0xv0G3GvAdJxPpr/k9V+Umn1PfYqftOy36hHvsr6HIw8X9FclACA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-c892ddb2 CurrentState: BUSY Created: 2015-07-24 09:12:13.497 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: dYN20poe23t2RPM1kqv3LyVkWf5i75UusCT7RFFyfhvCbYbieSDxEmVk4QoGwIiNFWCX8SMIc5S5ws3vc/bTlh4mL6lF7xtCKKHlnA+RlhkcNNFR0F41NEIL2REy/ZT1fjX2ZbzC3rhL725hwaBO9o3ZkC+lBxOxtuab1PrBlnwoTcDIW1t7r42zQPEepjjxJH3/Rp/j6D3t9s0R0nH1YqDw07hr9Kq7Bu1gQspizxZbrs/erfy3CNREkEGkGJCFnh5Ym9pv6ZGZfdw4iduEPGYDu5MXPsBJ03j4AJw9TL3rZtU/SgMwcUy9KJx79nQrfgmW/ceEExaSoKvOwZO9Og== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-a08cf1b8 CurrentState: BUSY Created: 2015-07-24 09:12:13.666 ] Attachment: [ InstanceId: i-9680514f AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T16:12:13.000Z DeviceName: UJqjeLjGUqUjF9qtVwQQpNYrl7dhT1DWM3Cc7YP69SMM1LdlF7D6nSPdwEkqXF0Edf+AuF9auZ6bY/JWv6zAuLzjN7UNBcZya6YnSv1c8yWeV8GgTp9uVN+aKDKcFcav74ICqQ64lRwEa4HanOnI5g8B4rfSeEgOOWl+0lQUOnuHjJYSMCMW8I0kksRE4sddq7qMxxMNwC88+FWoOxx+pyStuq88+5J3xy9ceS8JWkEzs3oTjAVUjL6/I+7XJAQY1q1CDf1FKLs6qo9OW35yble68Yx8m3ug90uLfQjYKiJGdXuWABb0IpxN74d8+2M1GpPYr2da96fekK+hAyOBxg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-8430ee58 CurrentState: BUSY Created: 2015-07-24 08:56:41.672 ] Attachment: [ InstanceId: i-22e0f3b9 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:41.000Z DeviceName: J17GUOzoGnmKSZU+RAV/jy++ysdipJKAKMaSw+tmyWl1CId9tcNKOXE2YmGDaOkf/GukaqKR8LSYwSCSUybb4L6QFv7br7eEQ1Veq5pRigYdHzB0eQjsoTcqEQfl0rC9RE7FadZhdYfSYBDN/6wFORmpJbPMLTa9oOlEl6/kG5aGuW6O19vh61B6T/qCSEUOOOwvSwtsTIF5yvYa2GiRExJY2o9NWJCeUsygD6+gWgLPxvXtEFwOqiXh8yMlgCRjwEqM3bq9KbQ56IGZS+sbxGM5iZ2bd3Jpr5GLdWXvo9BPPiDrIueW4RJiqt6JPVmy1oeraf38XfO6MPwq2Y+i1w== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-1e250998 CurrentState: BUSY Created: 2015-07-24 10:24:10.317 ] Attachment: [ InstanceId: i-70457ac4 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: RuZSjjijVt84D/RWcwnXajC7paf1TCfRZEr8VNYVg/APojvPHJ9BUzmFq7o46nwGNd5nqn9CYYrJdHYbHYsHQR6jPGy6PacEVO25jrEBteBkgWJSGJqsca241QR5wnzr6Xafb+koz52RN03oWFQJLqAGUEvR8m2qz4PL9vw4wl/WtqXrckVJm2ezGBHt28SToH2k1lgvENs5bdR5qd05lwJD47f8HC10kuz+qa7ngnWu5RZ+Jzuoe0YZEocUJhhskMkg2J1KtvxB963WzedlZZYkiPOde/Zyn7cm2U/QFI98WUrDt5+uf77EKZFq92q7piBN9nrw2OXu8XcRbUqK1g== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-0e83ec38 CurrentState: BUSY Created: 2015-07-24 08:56:43.694 ] Attachment: [ InstanceId: i-572ad3a5 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:43.000Z DeviceName: PBTbQkWpIMluazFTREGKuELEYlwPsqN0lK/JK7oiNpOd2P5newyvZa+jj+poQKaIZeARC4ErcLDo//JdJpauoLv/ZTixx03cDBL/u4hX7bRxtWwzcKaq3fDmOBcJDdeKBX6muedRL57yypWv2F+bJ3U/vqtb4zk3I8bRc7L50WRQzv4G6/wLYb0me8U/+A/WBxRMqjdip55iaUp+0R5slQBpdLOntzG8e/X34w9JMYZltRpfuUHhllwl1BzUQmKtpMB0HCchQ6+4cfd81walkBscZWbgGLOk70yzTXuSsdn1+Iq4hUYrnXuuEyiDiB1GxB1JeouE1L9c8k4DWKN5yA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-186d7912 CurrentState: BUSY Created: 2015-07-24 10:24:10.207 ] Attachment: [ InstanceId: i-6f6f2091 AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 3GB SourceSnapshotId: snap-68eed9c7 CreationTime: 2015-07-24T17:24:10.000Z DeviceName: QS0Rx8MA+bL18vaTudmLFn7DG37NIg0UwHi7tNFNmi5VS0y/LIBxPJxPYff7lz5rWpcbDl2ppnYcTFwaPQD52/MGAN0g3Bi9jJwE3+cTM5aP8qjjY+dKIG8SKTJOpV30oFc0hTo0MtlYhaZlGS4J3prfRON8f9l/eqHK4nAo0BDJBzSfhHChgDgBCKsBg0WR/0YJVBOZ5rtuoqI0++0LSPAEU4UuY/ewKQV+kUQ0JFyYfnGFJPu9210cfRUwUdRAkuVrDEu8Du7btvEmZJh1075XnHZ77Jv3Adwnrj86azcbhmuvLEShjtOOmM2gkh9cRagD321n+IicBP/GQkEStg== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:21 DEBUG 000000927 Volumes                  | VolumeStateUpdate: Current Volume Info: [Partition: one Name: vol-94066213 CurrentState: BUSY Created: 2015-07-24 08:56:42.738 ] Attachment: [ InstanceId: i-2a130ddf AttachmentState: attached ] Incoming state update: [State: available=>BUSY Size: 1GB SourceSnapshotId: null CreationTime: 2015-07-24T15:56:42.000Z DeviceName: Ep85ETs1zMBaCDgMCeDH8yRCglWsMYv4gPtkR/XcMx2HrgkadWaAGWf2TEV1tIDU/F8ocdo1aKtTrAQaGn7gvoJ1Kb3n+qzMGFGVIeYqhtGYsNwfOvV79IfSexRkUnPpytdkYGN0pyACBgGmrQJNCG7HV4XX66psO2/RiOQtOmOPDU3wNR0S3PD+zTD0qtuqCqbMWvfGEL8gQ7p6e1+VvjFGK9FzK/x0L63rOcOGMbEyu/Dah5UjILokIEKtGctNn/JX7f50EBIwL/d4fumybJYk/eM67YXmsP6IICiQbE7wzIEdM2WeAu9ePLuu6w/lFQrWSOw6tx7xRaLrWR7CEA== ]  Resulting new-state: [BUSY]
+2015-07-24 11:41:22 DEBUG 000001517 QuartzSchedulerThread    | batch acquisition of 0 triggers

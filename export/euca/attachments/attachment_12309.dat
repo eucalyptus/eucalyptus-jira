@@ -1,0 +1,77 @@
+*** euca-describe-instances --debug
+2012-08-24 19:57:25,884 euca2ools [DEBUG]:Method: POST
+2012-08-24 19:57:25,885 euca2ools [DEBUG]:Path: /services/Eucalyptus/
+2012-08-24 19:57:25,885 euca2ools [DEBUG]:Data:
+2012-08-24 19:57:25,885 euca2ools [DEBUG]:Headers: {}
+2012-08-24 19:57:25,885 euca2ools [DEBUG]:Host: 172.16.1.10:8773
+2012-08-24 19:57:25,885 euca2ools [DEBUG]:establishing HTTP connection: kwargs={}
+2012-08-24 19:57:25,885 euca2ools [DEBUG]:Token: None
+2012-08-24 19:57:25,886 euca2ools [DEBUG]:using _calc_signature_2
+2012-08-24 19:57:25,887 euca2ools [DEBUG]:query string: AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeInstances&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A57%3A25Z&Version=2010-08-31
+2012-08-24 19:57:25,887 euca2ools [DEBUG]:string_to_sign: POST
+172.16.1.10:8773
+/services/Eucalyptus/
+AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeInstances&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A57%3A25Z&Version=2010-08-31
+2012-08-24 19:57:25,887 euca2ools [DEBUG]:len(b64)=44
+2012-08-24 19:57:25,887 euca2ools [DEBUG]:base64 encoded digest: I8jpIEY5MqXC+QnWib2BHUs0hDZhASbEV667qn37uY4=
+2012-08-24 19:57:25,887 euca2ools [DEBUG]:query_string: AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeInstances&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A57%3A25Z&Version=2010-08-31 Signature: I8jpIEY5MqXC+QnWib2BHUs0hDZhASbEV667qn37uY4=
+send: 'POST /services/Eucalyptus/ HTTP/1.1\r\nHost: 172.16.1.10:8773\r\nAccept-Encoding: identity\r\nContent-Length: 220\r\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\r\nUser-Agent: Boto/2.5.2 (linux2)\r\n\r\n'
+send: 'AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeInstances&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A57%3A25Z&Version=2010-08-31&Signature=I8jpIEY5MqXC%2BQnWib2BHUs0hDZhASbEV667qn37uY4%3D'
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Content-Length: 2169
+header: Content-Type: application/xml; charset=UTF-8
+2012-08-24 19:57:26,062 euca2ools [DEBUG]:<DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/"><reservationSet><item><reservationId>r-46954105</reservationId><ownerId>800348042005</ownerId><groupSet><item><groupId>default</groupId></item></groupSet><instancesSet><item><instanceId>i-A47340C8</instanceId><imageId>emi-B79E3832</imageId><instanceState><code>16</code><name>running</name></instanceState><privateDnsName>euca-192-168-157-110.eucalyptus.internal</privateDnsName><dnsName>euca-55-55-55-228.eucalyptus.mycloud.com</dnsName><reason>NORMAL:  -- []</reason><keyName>newwin</keyName><amiLaunchIndex>0</amiLaunchIndex><productCodes/><instanceType>m1.xlarge</instanceType><launchTime>2012-08-24T23:34:38.396Z</launchTime><placement><availabilityZone>cloud1</availabilityZone></placement><monitoring><state>false</state></monitoring><privateIpAddress>euca-192-168-157-110.eucalyptus.internal</privateIpAddress><ipAddress>euca-55-55-55-228.eucalyptus.mycloud.com</ipAddress><rootDeviceType>instance-store</rootDeviceType><rootDeviceName>/dev/sda1</rootDeviceName><blockDeviceMapping/></item></instancesSet></item><item><reservationId>r-BE3947B3</reservationId><ownerId>800348042005</ownerId><groupSet><item><groupId>default</groupId></item></groupSet><instancesSet><item><instanceId>i-79094472</instanceId><imageId>emi-7E8D3F2B</imageId><instanceState><code>16</code><name>running</name></instanceState><privateDnsName>euca-192-168-157-113.eucalyptus.internal</privateDnsName><dnsName>euca-55-55-55-227.eucalyptus.mycloud.com</dnsName><reason>NORMAL:  -- []</reason><keyName>newwin</keyName><amiLaunchIndex>0</amiLaunchIndex><productCodes/><instanceType>m1.xlarge</instanceType><launchTime>2012-08-24T23:55:41.997Z</launchTime><placement><availabilityZone>cloud1</availabilityZone></placement><monitoring><state>false</state></monitoring><privateIpAddress>euca-192-168-157-113.eucalyptus.internal</privateIpAddress><ipAddress>euca-55-55-55-227.eucalyptus.mycloud.com</ipAddress><rootDeviceType>instance-store</rootDeviceType><rootDeviceName>/dev/sda1</rootDeviceName><blockDeviceMapping/></item></instancesSet></item></reservationSet></DescribeInstancesResponse>
+RESERVATION     r-46954105      800348042005    default
+INSTANCE        i-A47340C8      emi-B79E3832    euca-55-55-55-228.eucalyptus.mycloud.com  euca-192-168-157-110.eucalyptus.internal        running newwin  0               m1.xlarge       2012-08-24T23:34:38.396Z        cloud1                          monitoring-disabled     euca-55-55-55-228.eucalyptus.mycloud.com  euca-192-168-157-110.eucalyptus.internal                       instance-store
+RESERVATION     r-BE3947B3      800348042005    default
+INSTANCE        i-79094472      emi-7E8D3F2B    euca-55-55-55-227.eucalyptus.mycloud.com  euca-192-168-157-113.eucalyptus.internal        running newwin  0               m1.xlarge       2012-08-24T23:55:41.997Z        cloud1                          monitoring-disabled     euca-55-55-55-227.eucalyptus.mycloud.com  euca-192-168-157-113.eucalyptus.internal                       instance-store
+
+*** euca-describe-images emi-B79E3832 --debug
+2012-08-24 19:58:50,318 euca2ools [DEBUG]:Method: POST
+2012-08-24 19:58:50,318 euca2ools [DEBUG]:Path: /services/Eucalyptus/
+2012-08-24 19:58:50,318 euca2ools [DEBUG]:Data:
+2012-08-24 19:58:50,318 euca2ools [DEBUG]:Headers: {}
+2012-08-24 19:58:50,318 euca2ools [DEBUG]:Host: 172.16.1.10:8773
+2012-08-24 19:58:50,319 euca2ools [DEBUG]:establishing HTTP connection: kwargs={}
+2012-08-24 19:58:50,319 euca2ools [DEBUG]:Token: None
+2012-08-24 19:58:50,319 euca2ools [DEBUG]:using _calc_signature_2
+2012-08-24 19:58:50,320 euca2ools [DEBUG]:query string: AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-B79E3832&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A58%3A50Z&Version=2010-08-31
+2012-08-24 19:58:50,321 euca2ools [DEBUG]:string_to_sign: POST
+172.16.1.10:8773
+/services/Eucalyptus/
+AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-B79E3832&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A58%3A50Z&Version=2010-08-31
+2012-08-24 19:58:50,321 euca2ools [DEBUG]:len(b64)=44
+2012-08-24 19:58:50,321 euca2ools [DEBUG]:base64 encoded digest: THGkxFkV4GjVI5m+G0k7xmxgrb5cGhOvyiV7UHrcqRo=
+2012-08-24 19:58:50,321 euca2ools [DEBUG]:query_string: AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-B79E3832&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A58%3A50Z&Version=2010-08-31 Signature: THGkxFkV4GjVI5m+G0k7xmxgrb5cGhOvyiV7UHrcqRo=
+send: 'POST /services/Eucalyptus/ HTTP/1.1\r\nHost: 172.16.1.10:8773\r\nAccept-Encoding: identity\r\nContent-Length: 240\r\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\r\nUser-Agent: Boto/2.5.2 (linux2)\r\n\r\n'
+send: 'AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-B79E3832&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A58%3A50Z&Version=2010-08-31&Signature=THGkxFkV4GjVI5m%2BG0k7xmxgrb5cGhOvyiV7UHrcqRo%3D'
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Content-Length: 608
+header: Content-Type: application/xml; charset=UTF-8
+2012-08-24 19:58:50,545 euca2ools [DEBUG]:<DescribeImagesResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/"><imagesSet><item><imageId>emi-B79E3832</imageId><imageLocation>win2008_base/windows.win2008r2x64_basic-instance_store.img.manifest.xml</imageLocation><imageState>available</imageState><imageOwnerId>800348042005</imageOwnerId><isPublic>true</isPublic><productCodes/><architecture>i386</architecture><imageType>machine</imageType><platform>windows</platform><name>emi-B79E3832</name><rootDeviceType>instance-store</rootDeviceType><rootDeviceName>/dev/sda1</rootDeviceName><blockDeviceMapping/></item></imagesSet></DescribeImagesResponse>
+IMAGE   emi-B79E3832    win2008_base/windows.win2008r2x64_basic-instance_store.img.manifest.xml 800348042005    available       public          i386    machine                 windows instance-store
+
+*** euca-describe-images emi-7E8D3F2B --debug
+2012-08-24 19:59:44,626 euca2ools [DEBUG]:Method: POST
+2012-08-24 19:59:44,627 euca2ools [DEBUG]:Path: /services/Eucalyptus/
+2012-08-24 19:59:44,627 euca2ools [DEBUG]:Data:
+2012-08-24 19:59:44,627 euca2ools [DEBUG]:Headers: {}
+2012-08-24 19:59:44,627 euca2ools [DEBUG]:Host: 172.16.1.10:8773
+2012-08-24 19:59:44,627 euca2ools [DEBUG]:establishing HTTP connection: kwargs={}
+2012-08-24 19:59:44,627 euca2ools [DEBUG]:Token: None
+2012-08-24 19:59:44,628 euca2ools [DEBUG]:using _calc_signature_2
+2012-08-24 19:59:44,629 euca2ools [DEBUG]:query string: AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-7E8D3F2B&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A59%3A44Z&Version=2010-08-31
+2012-08-24 19:59:44,629 euca2ools [DEBUG]:string_to_sign: POST
+172.16.1.10:8773
+/services/Eucalyptus/
+AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-7E8D3F2B&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A59%3A44Z&Version=2010-08-31
+2012-08-24 19:59:44,629 euca2ools [DEBUG]:len(b64)=44
+2012-08-24 19:59:44,629 euca2ools [DEBUG]:base64 encoded digest: M6BnuivnDw6GOTIoRb0/kTLrMnQ5cwNlVH8PnLDVb34=
+2012-08-24 19:59:44,630 euca2ools [DEBUG]:query_string: AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-7E8D3F2B&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A59%3A44Z&Version=2010-08-31 Signature: M6BnuivnDw6GOTIoRb0/kTLrMnQ5cwNlVH8PnLDVb34=
+send: 'POST /services/Eucalyptus/ HTTP/1.1\r\nHost: 172.16.1.10:8773\r\nAccept-Encoding: identity\r\nContent-Length: 240\r\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\r\nUser-Agent: Boto/2.5.2 (linux2)\r\n\r\n'
+send: 'AWSAccessKeyId=VEJDRQ7GRW2NBIQZYDEUF&Action=DescribeImages&ImageId.1=emi-7E8D3F2B&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2012-08-24T23%3A59%3A44Z&Version=2010-08-31&Signature=M6BnuivnDw6GOTIoRb0%2FkTLrMnQ5cwNlVH8PnLDVb34%3D'
+reply: 'HTTP/1.1 200 OK\r\n'
+header: Content-Length: 590
+header: Content-Type: application/xml; charset=UTF-8
+2012-08-24 19:59:44,834 euca2ools [DEBUG]:<DescribeImagesResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/"><imagesSet><item><imageId>emi-7E8D3F2B</imageId><imageLocation>windows8/windows.win8-instance_store.img.manifest.xml</imageLocation><imageState>available</imageState><imageOwnerId>800348042005</imageOwnerId><isPublic>true</isPublic><productCodes/><architecture>i386</architecture><imageType>machine</imageType><platform>windows</platform><name>emi-7E8D3F2B</name><rootDeviceType>instance-store</rootDeviceType><rootDeviceName>/dev/sda1</rootDeviceName><blockDeviceMapping/></item></imagesSet></DescribeImagesResponse>
+IMAGE   emi-7E8D3F2B    windows8/windows.win8-instance_store.img.manifest.xml   800348042005    available       public          i386    machine                 windows instance-store

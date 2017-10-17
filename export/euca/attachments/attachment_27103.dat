@@ -1,0 +1,89 @@
+Index: modules/tokens/src/test/java/com/eucalyptus/tokens/ws/TokensQueryPipelineSpecification.groovy
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/tokens/src/test/java/com/eucalyptus/tokens/ws/TokensQueryPipelineSpecification.groovy	(revision )
++++ modules/tokens/src/test/java/com/eucalyptus/tokens/ws/TokensQueryPipelineSpecification.groovy	(revision )
+@@ -0,0 +1,47 @@
++/*************************************************************************
++ * Copyright 2009-2015 Eucalyptus Systems, Inc.
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; version 3 of the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see http://www.gnu.org/licenses/.
++ *
++ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
++ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
++ * additional information or have any questions.
++ ************************************************************************/
++package com.eucalyptus.tokens.ws
++
++import spock.lang.Specification
++
++import static com.eucalyptus.tokens.ws.TokensQueryPipeline.AccountUsernamePasswordHandler.isChangePassword
++
++/**
++ *
++ */
++class TokensQueryPipelineSpecification extends Specification {
++
++  def 'should detect change password case'() {
++    expect: 'detected change password flag equals expected flag'
++    isChangePassword( unEncodedPassword ) == changePassword
++
++    where:
++    unEncodedPassword                                        | changePassword
++    'dXNlcg==@YWNjb3VudA==:password'                         | false
++    'dXNlcg==@YWNjb3VudA==:password-with-:'                  | false
++    'dXNlcg==@YWNjb3VudA==:password-with-;'                  | false
++    'dXNlcg==@YWNjb3VudA==:password-with-@'                  | false
++    'dXNlcg==@YWNjb3VudA==;cGFzc3dvcmQ=@new-password'        | true
++    'dXNlcg==@YWNjb3VudA==;cGFzc3dvcmQ=@new-password-with-:' | true
++    'dXNlcg==@YWNjb3VudA==;cGFzc3dvcmQ=@new-password-with-;' | true
++    'dXNlcg==@YWNjb3VudA==;cGFzc3dvcmQ=@new-password-with-@' | true
++  }
++
++}
+Index: modules/tokens/src/main/java/com/eucalyptus/tokens/ws/TokensQueryPipeline.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/tokens/src/main/java/com/eucalyptus/tokens/ws/TokensQueryPipeline.java	(date 1449711896000)
++++ modules/tokens/src/main/java/com/eucalyptus/tokens/ws/TokensQueryPipeline.java	(revision )
+@@ -168,11 +168,8 @@
+           // in an effort to not break basic auth when doing a password change, we'll use a ';' instead of ':'
+           // to indicate a new password is expected as well as encoded old password
+           if ( authorization.length==2 && "basic".equalsIgnoreCase(authorization[0]) ) {
+-            boolean isChangePassword = false;
+             final String unEncodedAuth = B64.standard.decString( authorization[1] );
+-            if ( unEncodedAuth.indexOf( ";" ) > -1 ) {
+-              isChangePassword = true;
+-            }
++            final boolean isChangePassword = isChangePassword( unEncodedAuth );
+             final String[] basicUsernamePassword = unEncodedAuth.split( (isChangePassword?";":":"), 2 );
+             final String[] encodedAccountUsername = basicUsernamePassword[0].split( "@" , 2 );
+ 
+@@ -225,6 +222,13 @@
+       if ( !NioServerHandler.isPersistentConnection( httpRequest )  ) {
+         writeFuture.addListener( ChannelFutureListener.CLOSE );
+       }
++    }
++
++    static boolean isChangePassword( final String unEncodedAuth ) {
++      if ( unEncodedAuth.indexOf( ";" ) > -1 ) {
++        return true;
++      }
++      return false;
+     }
+   }
+ }

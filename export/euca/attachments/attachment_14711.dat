@@ -1,0 +1,51 @@
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmsForMetricRequest;
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmsForMetricResult;
+import com.amazonaws.services.cloudwatch.model.Dimension;
+import com.amazonaws.services.cloudwatch.model.MetricAlarm;
+import com.amazonaws.services.cloudwatch.model.StandardUnit;
+
+public class DescribeAlarmsForMetric {
+  public static AmazonCloudWatchClient getCreds() {
+    BasicAWSCredentials props = new BasicAWSCredentials(
+      "A6PFZBJU2OKWKVH4KTZAQ",
+      "d0wSAheQlGS4IdQqrHZyjnrqxHXxV37Ltsk6HifF");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+    return cloudWatch;
+  }
+  public static void main(String[] args) {
+    AmazonCloudWatchClient cloudWatch = getCreds();
+    DescribeAlarmsForMetricRequest describeAlarmsForMetricRequest = new DescribeAlarmsForMetricRequest();
+    describeAlarmsForMetricRequest.setNamespace("namespace1");
+    describeAlarmsForMetricRequest.setMetricName("metric1");
+    describeAlarmsForMetricRequest.setPeriod(60);
+    describeAlarmsForMetricRequest.setUnit(StandardUnit.Kilobits);
+    Dimension dim1 = new Dimension();
+    dim1.setName("name1");
+    dim1.setValue("value1");
+    Dimension dim2 = new Dimension();
+    dim2.setName("name2");
+    dim2.setValue("value2");
+    Dimension dim3 = new Dimension();
+    dim3.setName("name3");
+    dim3.setValue("value3");
+    Collection<Dimension> dimensions = new ArrayList<Dimension>();
+    dimensions.add(dim1);
+    dimensions.add(dim3);
+    dimensions.add(dim2);
+    describeAlarmsForMetricRequest.setDimensions(dimensions);
+    cloudWatch.describeAlarmsForMetric(describeAlarmsForMetricRequest);
+    DescribeAlarmsForMetricResult describeAlarmForMetricsResult = cloudWatch.describeAlarmsForMetric(describeAlarmsForMetricRequest);
+    for (MetricAlarm metricAlarm: describeAlarmForMetricsResult.getMetricAlarms()) {
+      System.out.println(metricAlarm);
+    }
+  }
+
+}

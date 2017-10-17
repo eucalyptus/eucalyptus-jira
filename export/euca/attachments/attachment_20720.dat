@@ -1,0 +1,13 @@
+import com.eucalyptus.blockstorage.*
+import com.eucalyptus.util.async.AsyncRequests
+import com.eucalyptus.component.ServiceConfiguration
+import com.eucalyptus.component.Topology
+import com.eucalyptus.component.Partitions
+import com.eucalyptus.blockstorage.msgs.*
+
+DeleteStorageVolumeType deleteRequest = new DeleteStorageVolumeType()
+deleteRequest.setVolumeId ("vol-70ac1412")
+deleteRequest.regarding()
+ServiceConfiguration sc = Topology.lookup(Storage.class, Partitions.lookupByName("one"))
+response = AsyncRequests.sendSync(sc, deleteRequest)
+return response.toString()

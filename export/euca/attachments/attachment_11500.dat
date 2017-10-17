@@ -1,0 +1,1262 @@
+removed `///var/lib/eucalyptus/db/aclocal/mysql.m4'
+removed directory: `///var/lib/eucalyptus/db/aclocal'
+removed `///var/lib/eucalyptus/db/bin/mysql'
+removed `///var/lib/eucalyptus/db/bin/mysqld'
+removed directory: `///var/lib/eucalyptus/db/bin'
+removed `///var/lib/eucalyptus/db/charsets/hp8.xml'
+removed `///var/lib/eucalyptus/db/charsets/keybcs2.xml'
+removed `///var/lib/eucalyptus/db/charsets/koi8u.xml'
+removed `///var/lib/eucalyptus/db/charsets/armscii8.xml'
+removed `///var/lib/eucalyptus/db/charsets/hebrew.xml'
+removed `///var/lib/eucalyptus/db/charsets/macroman.xml'
+removed `///var/lib/eucalyptus/db/charsets/latin2.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp866.xml'
+removed `///var/lib/eucalyptus/db/charsets/macce.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp1251.xml'
+removed `///var/lib/eucalyptus/db/charsets/README'
+removed `///var/lib/eucalyptus/db/charsets/latin1.xml'
+removed `///var/lib/eucalyptus/db/charsets/swe7.xml'
+removed `///var/lib/eucalyptus/db/charsets/latin7.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp1257.xml'
+removed `///var/lib/eucalyptus/db/charsets/Index.xml'
+removed `///var/lib/eucalyptus/db/charsets/koi8r.xml'
+removed `///var/lib/eucalyptus/db/charsets/greek.xml'
+removed `///var/lib/eucalyptus/db/charsets/ascii.xml'
+removed `///var/lib/eucalyptus/db/charsets/latin5.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp850.xml'
+removed `///var/lib/eucalyptus/db/charsets/dec8.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp1256.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp852.xml'
+removed `///var/lib/eucalyptus/db/charsets/cp1250.xml'
+removed `///var/lib/eucalyptus/db/charsets/geostd8.xml'
+removed directory: `///var/lib/eucalyptus/db/charsets'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_account.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_auth_action_list.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_cert.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_auth_resource_list.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_user.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_policy.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_access_key.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_group_has_users.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_group_has_users.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_auth.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_cert.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_group.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_user_info_map.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_policy.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_account.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_condition_value_list.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_auth_action_list.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_statement.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_statement.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_auth_resource_list.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_condition.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_user.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_condition.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_auth.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_group.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_user_info_map.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_condition_value_list.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_auth/auth_access_key.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_auth'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_records/records.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_records/records_logs.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_records/records_logs.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_records/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_records/records.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_records'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/storage_stats_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/Snapshots.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/storage_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/storage_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/Snapshots.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/san_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/direct_storage_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/san_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/AOEMetaInfo.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/CHAPUserInfo.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/CHAPUserInfo.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/AOEVolumeInfo.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/Igroups.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/ISCSIMetadata.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/Igroups.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/EquallogicVolumeInfo.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/netapp_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/AOEVolumeInfo.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/direct_storage_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/das_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/netapp_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/Volumes.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/storage_stats_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/das_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/AOEMetaInfo.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/EquallogicVolumeInfo.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/ISCSIMetadata.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/ISCSIVolumeInfo.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/Volumes.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_storage/ISCSIVolumeInfo.frm'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_storage'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/WalrusSnapshots.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/MetaData.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/bucket_has_grants.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Objects.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Torrents.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/object_has_grants.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/ImageCache.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/object_has_metadata.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Grants.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/walrus_stats_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Objects.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/bucket_has_grants.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/walrus_stats_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Buckets.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/WalrusSnapshots.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/walrus_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/drbd_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/ImageCache.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Grants.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/drbd_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Torrents.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/Buckets.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/MetaData.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/object_has_grants.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/walrus_info.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_walrus/object_has_metadata.frm'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_walrus'
+removed `///var/lib/eucalyptus/db/data/ibdata1'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instances.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instance_has_group_names.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_volumes.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instance_has_vbrs.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_config.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_groups.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instance_has_volumes.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instance_has_volumes.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_vbrs.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instance_has_group_names.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instance_has_vbrs.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_vbrs.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_volumes.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_config.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_groups.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker/broker_instances.frm'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_vmwarebroker'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/reporting_instance.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/s3_usage_snapshot.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/storage_usage_snapshot.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/instance_usage_snapshot.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/instance_usage_snapshot.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/reporting_account.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/reporting_instance.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/storage_usage_snapshot.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/reporting_account.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/s3_usage_snapshot.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/reporting_user.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/reporting_user.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_reporting/db.opt'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_reporting'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/ARecords.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/Zones.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/SOARecords.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/NSRecords.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/CNAMERecords.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/Zones.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/NSRecords.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/ARecords.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/SOARecords.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_dns/CNAMERecords.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_dns'
+removed `///var/lib/eucalyptus/db/data/mysql/help_category.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/user.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_name.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_name.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/columns_priv.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_transition.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/ndb_binlog_index.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_transition_type.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/db.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/procs_priv.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/tables_priv.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/host.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/general_log.CSV'
+removed `///var/lib/eucalyptus/db/data/mysql/help_relation.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/ndb_binlog_index.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_leap_second.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_leap_second.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/host.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/tables_priv.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/proc.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_name.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/help_keyword.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/help_category.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/help_keyword.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/db.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/host.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/procs_priv.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/plugin.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/help_topic.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/help_category.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/slow_log.CSV'
+removed `///var/lib/eucalyptus/db/data/mysql/proc.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/func.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/servers.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/help_relation.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_transition_type.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_leap_second.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/func.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/proc.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/event.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/servers.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/event.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/general_log.CSM'
+removed `///var/lib/eucalyptus/db/data/mysql/plugin.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/help_relation.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_transition.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/user.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/servers.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/columns_priv.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/slow_log.CSM'
+removed `///var/lib/eucalyptus/db/data/mysql/help_topic.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/help_keyword.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/event.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_transition_type.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/general_log.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone_transition.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/db.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/ndb_binlog_index.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/func.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/slow_log.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/help_topic.frm'
+removed `///var/lib/eucalyptus/db/data/mysql/plugin.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/procs_priv.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/tables_priv.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/columns_priv.MYD'
+removed `///var/lib/eucalyptus/db/data/mysql/time_zone.MYI'
+removed `///var/lib/eucalyptus/db/data/mysql/user.frm'
+removed directory: `///var/lib/eucalyptus/db/data/mysql'
+removed `///var/lib/eucalyptus/db/data/ib_logfile1'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_faults/faults_records.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_faults/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_faults/faults_records.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_faults'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_unique_ids.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_component_base.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_partition.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_system.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_system.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_partition.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_static_property.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_static_property.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_component_base.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_config/config_unique_ids.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_config'
+removed `///var/lib/eucalyptus/db/data/ib_logfile0'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_general/system_info.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_general/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_general/system_info.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_general'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_images.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_device_mappings.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_extant_network.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_images_pcodes.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_group.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_volume_attachments.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_volumes.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_vm_types.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_group.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/config_component_base.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_extant_network.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_vm_types.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_image_configuration.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_indices.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_metadata_network_group.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_group_rule_peers.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_addresses.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_address_configuration.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_keypairs.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_rule_ip_ranges.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_cluster_configuration.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_images_permissions.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_images_permissions.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_group_rule_peers.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_state_reasons.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_images_pcodes.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_rule_ip_ranges.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_address_configuration.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_keypairs.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_snapshots.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_addresses.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_state_reasons.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_volumes.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/config_component_base.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_snapshots.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_rule.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_persistent_volumes.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/db.opt'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_volume_attachments.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_indices.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_images.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_device_mappings.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_image_configuration.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/cloud_cluster_configuration.frm'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_network_rule.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_metadata_network_group.ibd'
+removed `///var/lib/eucalyptus/db/data/eucalyptus_cloud/metadata_instances_persistent_volumes.ibd'
+removed directory: `///var/lib/eucalyptus/db/data/eucalyptus_cloud'
+removed directory: `///var/lib/eucalyptus/db/data'
+removed `///var/lib/eucalyptus/db/english/errmsg.sys'
+removed directory: `///var/lib/eucalyptus/db/english'
+removed `///var/lib/eucalyptus/db/errmsg.txt'
+removed `///var/lib/eucalyptus/db/fill_help_tables.sql'
+removed `///var/lib/eucalyptus/db/mi_test_all'
+removed `///var/lib/eucalyptus/db/mi_test_all.res'
+removed `///var/lib/eucalyptus/db/mysql_fix_privilege_tables.sql'
+removed `///var/lib/eucalyptus/db/mysql_system_tables.sql'
+removed `///var/lib/eucalyptus/db/mysql_system_tables_data.sql'
+removed `///var/lib/eucalyptus/db/mysql_test_data_timezone.sql'
+removed `///var/lib/eucalyptus/db/portuguese/errmsg.sys'
+removed directory: `///var/lib/eucalyptus/db/portuguese'
+removed `///var/lib/eucalyptus/db/share/english/errmsg.sys'
+removed directory: `///var/lib/eucalyptus/db/share/english'
+removed `///var/lib/eucalyptus/db/share/mysql_fix_privilege_tables.sql'
+removed `///var/lib/eucalyptus/db/share/mysql_system_tables.sql'
+removed `///var/lib/eucalyptus/db/share/mi_test_all'
+removed `///var/lib/eucalyptus/db/share/aclocal/mysql.m4'
+removed directory: `///var/lib/eucalyptus/db/share/aclocal'
+removed `///var/lib/eucalyptus/db/share/charsets/hp8.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/keybcs2.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/koi8u.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/armscii8.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/hebrew.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/macroman.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/latin2.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp866.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/macce.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp1251.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/README'
+removed `///var/lib/eucalyptus/db/share/charsets/latin1.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/swe7.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/latin7.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp1257.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/Index.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/koi8r.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/greek.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/ascii.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/latin5.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp850.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/dec8.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp1256.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp852.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/cp1250.xml'
+removed `///var/lib/eucalyptus/db/share/charsets/geostd8.xml'
+removed directory: `///var/lib/eucalyptus/db/share/charsets'
+removed `///var/lib/eucalyptus/db/share/portuguese/errmsg.sys'
+removed directory: `///var/lib/eucalyptus/db/share/portuguese'
+removed `///var/lib/eucalyptus/db/share/mysql_system_tables_data.sql'
+removed `///var/lib/eucalyptus/db/share/errmsg.txt'
+removed `///var/lib/eucalyptus/db/share/fill_help_tables.sql'
+removed `///var/lib/eucalyptus/db/share/mysql_test_data_timezone.sql'
+removed `///var/lib/eucalyptus/db/share/mi_test_all.res'
+removed directory: `///var/lib/eucalyptus/db/share'
+java -Xbootclasspath/p://usr/share/eucalyptus/openjdk-crypto.jar -classpath //etc/eucalyptus/cloud.d/upgrade://etc/eucalyptus/cloud.d/scripts://usr/share/eucalyptus/xpp3-1.1.3.4.O.jar://usr/share/eucalyptus/xom-1.1.jar://usr/share/eucalyptus/xml-security-1.4.2.jar://usr/share/eucalyptus/xercesImpl.jar://usr/share/eucalyptus/xalan2.jar://usr/share/eucalyptus/wss4j-1.5.7.jar://usr/share/eucalyptus/wsdl4j-1.6.2.jar://usr/share/eucalyptus/woodstox-core-asl-4.0.6.jar://usr/share/eucalyptus/vijava-2.1-euca-1316109169.jar://usr/share/eucalyptus/velocity-1.7.jar://usr/share/eucalyptus/stax2-api-3.0.1.jar://usr/share/eucalyptus/spring-web-2.5.1.jar://usr/share/eucalyptus/spring-core-2.5.1.jar://usr/share/eucalyptus/spring-context-support-2.5.1.jar://usr/share/eucalyptus/spring-context-2.5.1.jar://usr/share/eucalyptus/spring-beans-2.5.1.jar://usr/share/eucalyptus/slf4j-log4j12-1.5.8.jar://usr/share/eucalyptus/slf4j-api-1.5.8.jar://usr/share/eucalyptus/servlet-api-2.5.jar://usr/share/eucalyptus/serializer.jar://usr/share/eucalyptus/rhq-pluginAnnotations-3.0.1.jar://usr/share/eucalyptus/regexp-1.4.jar://usr/share/eucalyptus/quartz-1.6.5.jar://usr/share/eucalyptus/proxool-cglib.jar://usr/share/eucalyptus/proxool-0.9.1.jar://usr/share/eucalyptus/postgresql-jdbc.jar://usr/share/eucalyptus/org.simpleframework-3.1.3.jar://usr/share/eucalyptus/org.restlet.ext.velocity-1.1.5.jar://usr/share/eucalyptus/org.restlet-1.1.5.jar://usr/share/eucalyptus/openjdk-crypto.jar://usr/share/eucalyptus/netty-3.1.0.CR1.jar://usr/share/eucalyptus/mule-transport-vm-2.0.1.jar://usr/share/eucalyptus/mule-module-xml-2.0.1.jar://usr/share/eucalyptus/mule-module-spring-config-2.0.1.jar://usr/share/eucalyptus/mule-module-management-2.0.1.jar://usr/share/eucalyptus/mule-module-client-2.0.1.jar://usr/share/eucalyptus/mule-module-builders-2.0.1.jar://usr/share/eucalyptus/mule-core-2.0.1.jar://usr/share/eucalyptus/log4j-1.2.15.jar://usr/share/eucalyptus/kahadb-5.4.1.jar://usr/share/eucalyptus/junit4-4.8.1.jar://usr/share/eucalyptus/jul-to-slf4j-1.5.2.jar://usr/share/eucalyptus/jug-asl-2.0.0.jar://usr/share/eucalyptus/json-lib-2.2.2.jar://usr/share/eucalyptus/jsch-20091212.jar://usr/share/eucalyptus/jna-3.2.7.jar://usr/share/eucalyptus/jminix-0.9.jar://usr/share/eucalyptus/jibx-tools-1.2.3.jar://usr/share/eucalyptus/jibx-schema-1.2.3.jar://usr/share/eucalyptus/jibx-run-1.2.3.jar://usr/share/eucalyptus/jibx-extras-1.2.3.jar://usr/share/eucalyptus/jibx-bind-1.2.3.jar://usr/share/eucalyptus/jgroups-2.11.1.Final.jar://usr/share/eucalyptus/jetty6-util-6.1.19.jar://usr/share/eucalyptus/jetty6-sslengine-6.1.19.jar://usr/share/eucalyptus/jetty6-servlet-tester-6.1.19.jar://usr/share/eucalyptus/jetty6-rewrite-handler-6.1.19.jar://usr/share/eucalyptus/jetty6-naming-6.1.19.jar://usr/share/eucalyptus/jetty6-management-6.1.19.jar://usr/share/eucalyptus/jetty6-html-6.1.19.jar://usr/share/eucalyptus/jetty6-client-6.1.19.jar://usr/share/eucalyptus/jetty6-ajp-6.1.19.jar://usr/share/eucalyptus/jetty6-6.1.19.jar://usr/share/eucalyptus/jettison-1.0.jar://usr/share/eucalyptus/jcl-over-slf4j-1.5.2.jar://usr/share/eucalyptus/jcip-annotations-1.0.jar://usr/share/eucalyptus/jbosscache-core-3.2.1.GA.jar://usr/share/eucalyptus/jboss-river-1.2.3.GA.jar://usr/share/eucalyptus/jboss-marshalling-api-1.2.3.GA.jar://usr/share/eucalyptus/jboss-logging-spi.jar://usr/share/eucalyptus/jboss-common-core.jar://usr/share/eucalyptus/jaxp-1.3.jar://usr/share/eucalyptus/jaxen-1.1.1.jar://usr/share/eucalyptus/javassist-3.9.0.GA.jar://usr/share/eucalyptus/jasperreports-fonts-3.7.2.jar://usr/share/eucalyptus/jasperreports-3.7.2.jar://usr/share/eucalyptus/janino-2.5.15-1.jar://usr/share/eucalyptus/infinispan-core-4.2.1.CR4.jar://usr/share/eucalyptus/iText-2.1.7.jar://usr/share/eucalyptus/hsqldbutil-1.8.0.10.jar://usr/share/eucalyptus/hsqldb-1.8.0.10.jar://usr/share/eucalyptus/hibernate-3.5.6-Final.jar://usr/share/eucalyptus/hamcrest-all-1.2.jar://usr/share/eucalyptus/ha-jdbc-2.0.16-rc-1-jdk1.6.jar://usr/share/eucalyptus/gwt-servlet-2.2.jar://usr/share/eucalyptus/guava-r09.jar://usr/share/eucalyptus/guava-r09-gwt.jar://usr/share/eucalyptus/groovy-all-1.7.2.jar://usr/share/eucalyptus/geronimo-stax-1.0-spec-1.0.1.jar://usr/share/eucalyptus/geronimo-jta_1.1_spec-1.1.1.jar://usr/share/eucalyptus/geronimo-jpa_2.0_spec-1.1.jar://usr/share/eucalyptus/geronimo-jms-1.1-spec-1.1.jar://usr/share/eucalyptus/geronimo-javamail_1.4_spec-1.6.jar://usr/share/eucalyptus/geronimo-javamail_1.4_provider-1.6.jar://usr/share/eucalyptus/geronimo-j2ee-management_1.1_spec-1.0.1.jar://usr/share/eucalyptus/geronimo-j2ee-connector-1.5-spec-1.1.jar://usr/share/eucalyptus/geronimo-ejb-3.0-spec-1.0.1.jar://usr/share/eucalyptus/geronimo-activation-1.1-spec-1.0.1.jar://usr/share/eucalyptus/ezmorph-1.0.5.jar://usr/share/eucalyptus/excalibur-logkit.jar://usr/share/eucalyptus/eucalyptus-www-3.1.0.jar://usr/share/eucalyptus/eucalyptus-ws-3.1.0.jar://usr/share/eucalyptus/eucalyptus-walrus-3.1.0.jar://usr/share/eucalyptus/eucalyptus-vmware-broker-3.1.0.jar://usr/share/eucalyptus/eucalyptus-storagesan-3.1.0.jar://usr/share/eucalyptus/eucalyptus-storagecontroller-3.1.0.jar://usr/share/eucalyptus/eucalyptus-storage-common-3.1.0.jar://usr/share/eucalyptus/eucalyptus-reporting-3.1.0.jar://usr/share/eucalyptus/eucalyptus-postgresql-3.1.0.jar://usr/share/eucalyptus/eucalyptus-notifications-common-3.1.0.jar://usr/share/eucalyptus/eucalyptus-msgs-3.1.0.jar://usr/share/eucalyptus/eucalyptus-euare-common-3.1.0.jar://usr/share/eucalyptus/eucalyptus-euare-3.1.0.jar://usr/share/eucalyptus/eucalyptus-dns-3.1.0.jar://usr/share/eucalyptus/eucalyptus-core-3.1.0.jar://usr/share/eucalyptus/eucalyptus-config-3.1.0.jar://usr/share/eucalyptus/eucalyptus-component-3.1.0.jar://usr/share/eucalyptus/eucalyptus-clustermgr-3.1.0.jar://usr/share/eucalyptus/eucalyptus-cloud-3.1.0.jar://usr/share/eucalyptus/eucalyptus-bootstrap-3.1.0.jar://usr/share/eucalyptus/eucalyptus-auth-3.1.0.jar://usr/share/eucalyptus/el-api-2.1.jar://usr/share/eucalyptus/ehcache-core-1.7.2.jar://usr/share/eucalyptus/dom4j-1.6.1.jar://usr/share/eucalyptus/dnsjava-2.0.6.jar://usr/share/eucalyptus/commons-pool-1.4.jar://usr/share/eucalyptus/commons-logging-api-1.1.1.jar://usr/share/eucalyptus/commons-logging-adapters-1.1.1.jar://usr/share/eucalyptus/commons-logging-1.1.1.jar://usr/share/eucalyptus/commons-lang-2.4.jar://usr/share/eucalyptus/commons-jxpath-1.2.jar://usr/share/eucalyptus/commons-io-1.4.jar://usr/share/eucalyptus/commons-httpclient-3.1.jar://usr/share/eucalyptus/commons-fileupload-1.2.1.jar://usr/share/eucalyptus/commons-discovery-0.4.jar://usr/share/eucalyptus/commons-digester-1.8.1.jar://usr/share/eucalyptus/commons-compress-1.1.jar://usr/share/eucalyptus/commons-collections3-3.2.1.jar://usr/share/eucalyptus/commons-codec-1.3.jar://usr/share/eucalyptus/commons-cli-1.1.jar://usr/share/eucalyptus/commons-beanutils-1.8.0-BETA.jar://usr/share/eucalyptus/com.noelios.restlet.ext.simple-1.1.5.jar://usr/share/eucalyptus/com.noelios.restlet.ext.servlet-1.1.5.jar://usr/share/eucalyptus/com.noelios.restlet-1.1.5.jar://usr/share/eucalyptus/cglib-2.1.3.jar://usr/share/eucalyptus/btm-2.1.0.jar://usr/share/eucalyptus/bsf-2.4.0.jar://usr/share/eucalyptus/bcprov.jar://usr/share/eucalyptus/bcel-5.2.jar://usr/share/eucalyptus/batik-xml.jar://usr/share/eucalyptus/batik-util.jar://usr/share/eucalyptus/batik-svggen.jar://usr/share/eucalyptus/batik-svg-dom.jar://usr/share/eucalyptus/batik-script.jar://usr/share/eucalyptus/batik-parser.jar://usr/share/eucalyptus/batik-gvt.jar://usr/share/eucalyptus/batik-ext.jar://usr/share/eucalyptus/batik-dom.jar://usr/share/eucalyptus/batik-css.jar://usr/share/eucalyptus/batik-bridge.jar://usr/share/eucalyptus/batik-awt-util.jar://usr/share/eucalyptus/batik-anim.jar://usr/share/eucalyptus/backport-util-concurrent-2.2.jar://usr/share/eucalyptus/axiom-impl-1.2.8.jar://usr/share/eucalyptus/axiom-dom-1.2.8.jar://usr/share/eucalyptus/axiom-api-1.2.8.jar://usr/share/eucalyptus/avalon-framework-4.2.0.jar://usr/share/eucalyptus/asm2-2.2.3.jar://usr/share/eucalyptus/antlrall.jar://usr/share/eucalyptus/antlr-3.0.1.jar://usr/share/eucalyptus/ant-1.7.jar://usr/share/eucalyptus/activemq-core-5.4.1.jar::/var/lib/eucalyptus/upgrade/eucalyptus.backup.1341383885/usr/share/eucalyptus/eucalyptus-core-3.0.2.jar:/var/lib/eucalyptus/upgrade/eucalyptus.backup.1341383885/usr/share/eucalyptus/mysql-connector-java-commercial-5.1.18-bin.jar:/var/lib/eucalyptus/upgrade/eucalyptus.backup.1341383885/usr/share/eucalyptus/eucalyptus-mysqldb-3.0.2.jar -Deuca.log.level=DEBUG -Djava.security.egd=file:/dev/./urandom -XX:MaxPermSize=512m  -Deuca.upgrade.new.dir=/ -Deuca.upgrade.old.dir=/var/lib/eucalyptus/upgrade/eucalyptus.backup.1341383885 -Deuca.upgrade.source=groovy:mysqldbsource -Deuca.upgrade.destination=com.eucalyptus.upgrade.PgsqldbDestination -Deuca.upgrade.new.version=3.1.0 -Deuca.upgrade.old.version=3.0.2 com.eucalyptus.upgrade.StandalonePersistence
+Upgrading your database...
+Tue Jul 3 23:44:54 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.setupSystemProperties(StandalonePersistence.java):167] New install director /
+Tue Jul 3 23:44:54 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.setupSystemProperties(StandalonePersistence.java):168] Old install director /var/lib/eucalyptus/upgrade/eucalyptus.backup.1341383885
+Tue Jul 3 23:44:54 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.setupSystemProperties(StandalonePersistence.java):169] Upgrade data source: groovy:mysqldbsource
+Tue Jul 3 23:44:54 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.setupSystemProperties(StandalonePersistence.java):170] Upgrade data destina com.eucalyptus.upgrade.PgsqldbDestination
+Tue Jul 3 23:44:54 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-storagecontroller-3.1.0.jar
+Tue Jul 3 23:44:55 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-www-3.1.0.jar
+Tue Jul 3 23:44:56 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-notifications-common-3.1.0.jar
+Tue Jul 3 23:44:56 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-reporting-3.1.0.jar
+Tue Jul 3 23:44:56 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-cloud-3.1.0.jar
+Tue Jul 3 23:44:56 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-config-3.1.0.jar
+Tue Jul 3 23:44:56 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-auth-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-postgresql-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-ws-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-component-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-core-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-vmware-broker-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-walrus-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-storage-common-3.1.0.jar
+Tue Jul 3 23:44:57 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-msgs-3.1.0.jar
+Tue Jul 3 23:44:59 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-euare-3.1.0.jar
+Tue Jul 3 23:44:59 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-bootstrap-3.1.0.jar
+Tue Jul 3 23:44:59 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-dns-3.1.0.jar
+Tue Jul 3 23:44:59 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-clustermgr-3.1.0.jar
+Tue Jul 3 23:45:00 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-storagesan-3.1.0.jar
+Tue Jul 3 23:45:00 2012 DEBUG [com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java):186] Found eucalyptus component jar: eucalyptus-euare-common-3.1.0.jar
+Tue Jul 3 23:45:01 2012  INFO [com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java):219] --------------------------------------------------------------------------------
+ComponentDiscovery
+--------------------------------------------------------------------------------
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384301992:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Ldap
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Ldap
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302044:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.empyrean.Empyrean
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302053:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.HttpService
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.HttpService
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302058:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean.Arbitrator
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.empyrean.Empyrean.Arbitrator
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302063:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.config.ConfigurationService
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.config.ConfigurationService
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302066:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.ClusterController
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302069:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean.PropertiesService
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.empyrean.Empyrean.PropertiesService
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302073:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController.NodeController
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.ClusterController.NodeController
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302077:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Eucalyptus
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302081:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Walrus
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Walrus
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302085:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Dns
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Dns
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302089:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController.GatherLogService
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.ClusterController.GatherLogService
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302092:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ComponentService
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.ComponentService
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302096:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:null
+Tue Jul 3 23:45:02 2012 ERROR [com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java):84] java.lang.reflect.UndeclaredThrowableException
+java.lang.reflect.UndeclaredThrowableException
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:204)
+	at com.eucalyptus.util.Classes.newInstance(Classes.java:232)
+	at com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java:91)
+	at com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java:82)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.checkClass(ServiceJarDiscovery.java:231)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java:222)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java:195)
+	at com.eucalyptus.upgrade.StandalonePersistence.setupConfigurations(StandalonePersistence.java:176)
+	at com.eucalyptus.upgrade.StandalonePersistence.main(StandalonePersistence.java:54)
+Caused by: java.lang.NoSuchMethodException: com.eucalyptus.component.ComponentIds$1.<init>()
+	at java.lang.Class.getConstructor0(Class.java:2723)
+	at java.lang.Class.getConstructor(Class.java:1674)
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:196)
+	... 8 more
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java):85] Error occurred while trying to register ComponentId of type: null
+java.lang.reflect.UndeclaredThrowableException
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:204)
+	at com.eucalyptus.util.Classes.newInstance(Classes.java:232)
+	at com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java:91)
+	at com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java:82)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.checkClass(ServiceJarDiscovery.java:231)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java:222)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java:195)
+	at com.eucalyptus.upgrade.StandalonePersistence.setupConfigurations(StandalonePersistence.java:176)
+	at com.eucalyptus.upgrade.StandalonePersistence.main(StandalonePersistence.java:54)
+Caused by: java.lang.NoSuchMethodException: com.eucalyptus.component.ComponentIds$1.<init>()
+	at java.lang.Class.getConstructor0(Class.java:2723)
+	at java.lang.Class.getConstructor(Class.java:1674)
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:196)
+	... 8 more
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302127:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus.Database
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Eucalyptus.Database
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302128:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Storage
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Storage
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302129:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Euare
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Euare
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302133:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Reporting
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Reporting
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302133:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.broker.vmware.VMwareBroker
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.broker.vmware.VMwareBroker
+Tue Jul 3 23:45:02 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384302134:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus.Notifications
+Tue Jul 3 23:45:02 2012 DEBUG [com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java):94] Registered ComponentId: com.eucalyptus.component.id.Eucalyptus.Notifications
+Tue Jul 3 23:45:03 2012 DEBUG [com.eucalyptus.upgrade.StandalonePersistence.setupInitProviders(StandalonePersistence.java):146] Initializing SSL just in case: class com.eucalyptus.crypto.util.SslSetup
+Tue Jul 3 23:45:03 2012 DEBUG [com.eucalyptus.upgrade.StandalonePersistence.setupInitProviders(StandalonePersistence.java):147] Initializing db password: class com.eucalyptus.auth.util.Hashes
+Tue Jul 3 23:45:04 2012 DEBUG [com.eucalyptus.upgrade.StandalonePersistence.runDiscovery(StandalonePersistence.java):206] Trying to load what looks like an upgrade script: /etc/eucalyptus/cloud.d/upgrade/upgrade_30_31.groovy
+Tue Jul 3 23:45:10 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.registerUpgradeScript(StandalonePersistence.java):192] Found upgrade script for [3.0.2->3.1.0] in:      upgrade_30_31
+
+Tue Jul 3 23:45:10 2012 DEBUG [com.eucalyptus.upgrade.StandalonePersistence.runDiscovery(StandalonePersistence.java):206] Trying to load what looks like an upgrade script: /etc/eucalyptus/cloud.d/upgrade/upgrade_20_31.groovy
+Tue Jul 3 23:45:12 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.registerUpgradeScript(StandalonePersistence.java):195] Ignoring upgrade script for [3.0.2->3.1.0] in:   upgrade_20_31
+
+Tue Jul 3 23:45:12 2012  INFO [com.eucalyptus.auth.Accounts.setAccountProvider(Accounts.java):56] Setting the account provider to: class com.eucalyptus.auth.DatabaseAuthProvider
+Tue Jul 3 23:45:12 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384312361:Bootstrap:bootstrap:COMPONENT_REGISTERED:Component db=available service=not-local
+:1341384312361:Bootstrap::bootstrap:COMPONENT_REGISTERED:
+Tue Jul 3 23:45:13 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] PG_HOME = /usr/pgsql-9.1 : PG_BIN = /usr/pgsql-9.1/bin/pg_ctl : PG_INITDB  = /usr/pgsql-9.1/bin/initdb
+Tue Jul 3 23:45:13 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Reading '/proc' kernel parameters
+Tue Jul 3 23:45:13 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting page size
+Tue Jul 3 23:45:13 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Read system values [[250, 32000, 32, 1536]] [4295098368] [68719476736] [4096]
+Tue Jul 3 23:45:13 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Found kernel parameters semmni=1536, semmns=32000, shmall=4295098368, shmmax=68719476736
+Tue Jul 3 23:45:13 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384313881:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:eucalyptus
+Tue Jul 3 23:45:13 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384313882:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:eucalyptus
+Tue Jul 3 23:45:13 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384313895:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:eucalyptus:C=US,O=Cloud,OU=Eucalyptus,CN=eucalyptus
+Tue Jul 3 23:45:14 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Postgres 9.1 command : [/usr/pgsql-9.1/bin/initdb, -Ueucalyptus, --auth=password, --pwfile=/var/lib/eucalyptus/db/pass.txt, -D//var/lib/eucalyptus//db/data, -X/var/lib/eucalyptus/db/tx]
+Tue Jul 3 23:45:20 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Database init complete.
+Tue Jul 3 23:45:26 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Writing SSL certificate and key files
+Tue Jul 3 23:45:26 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384326144:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:db
+Tue Jul 3 23:45:26 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384326144:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:db
+Tue Jul 3 23:45:26 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384326145:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:db:C=US,O=Cloud,OU=Eucalyptus,CN=db
+Tue Jul 3 23:45:26 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384326353:PEMFiles:bootstrap:CERTIFICATE_WRITE:/var/lib/eucalyptus/db/data/server.crt
+Tue Jul 3 23:45:26 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384326387:PEMFiles:bootstrap:CERTIFICATE_WRITE:/var/lib/eucalyptus/db/data/server.key
+Tue Jul 3 23:45:26 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Postgres 9.1 command : [/usr/pgsql-9.1/bin/pg_ctl, status, -D//var/lib/eucalyptus//db/data]
+Tue Jul 3 23:45:26 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Postgres 9.1 command : [/usr/pgsql-9.1/bin/pg_ctl, start, -w, -s, -D//var/lib/eucalyptus//db/data, -o -h0.0.0.0/0 -p8777 -i]
+Tue Jul 3 23:45:30 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Postgres 9.1 command : [/usr/pgsql-9.1/bin/pg_ctl, status, -D//var/lib/eucalyptus//db/data]
+Tue Jul 3 23:45:30 2012  INFO [com.eucalyptus.util.Internets.determineLocalAddress(Internets.java):120] Trying to determine local bind address based on cli (--bind-addr)... 
+Tue Jul 3 23:45:30 2012  INFO [com.eucalyptus.util.Internets.determineLocalAddress(Internets.java):125] Trying to determine local bind address based on the default route... 
+Tue Jul 3 23:45:30 2012  INFO [com.eucalyptus.util.Internets.determineLocalAddress(Internets.java):132] ==> Decided to use local bind address: /192.168.35.17
+Tue Jul 3 23:45:31 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] PG_HOME = /usr/pgsql-9.1 : PG_BIN = /usr/pgsql-9.1/bin/pg_ctl : PG_INITDB  = /usr/pgsql-9.1/bin/initdb
+Tue Jul 3 23:45:42 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Postgres 9.1 command : [/usr/pgsql-9.1/bin/pg_ctl, status, -D//var/lib/eucalyptus//db/data]
+Tue Jul 3 23:45:42 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] executed successfully = CREATE USER root
+Tue Jul 3 23:45:43 2012  INFO [com.eucalyptus.records.BaseRecord.info(BaseRecord.java):108] :1341384343082:Component:bootstrap:COMPONENT_SERVICE_REGISTERED:db:local:ServiceConfiguration db arn:euca:eucalyptus:db:192.168.35.17/ 192.168.35.17:8777:/eucalyptus:vm-local:host-local:INITIALIZED
+Tue Jul 3 23:45:48 2012 DEBUG [com.eucalyptus.empyrean.EmpyreanTransactionManager.configureTm(EmpyreanTransactionManager.java):51] Setting up transaction manager: java:comp/UserTransaction
+Tue Jul 3 23:45:56 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_cloud
+Tue Jul 3 23:45:57 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_records
+Tue Jul 3 23:45:59 2012  INFO [com.eucalyptus.scripting.Groovyness.loadConfig(Groovyness.java):167] Trying to load config for com.eucalyptus.util.StorageProperties from //etc/eucalyptus/cloud.d//scripts/storageprops.groovy
+Tue Jul 3 23:45:59 2012 DEBUG [com.eucalyptus.scripting.Groovyness.loadConfig(Groovyness.java):177] import com.eucalyptus.util.StorageProperties
+com.eucalyptus.util.StorageProperties.TRANSFER_CHUNK_SIZE = 8192;
+Tue Jul 3 23:46:02 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_storage
+Tue Jul 3 23:46:06 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_walrus
+Tue Jul 3 23:46:08 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_dns
+Tue Jul 3 23:46:09 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_faults
+Tue Jul 3 23:46:12 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_vmwarebroker
+Tue Jul 3 23:46:15 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_reporting
+Tue Jul 3 23:46:16 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_general
+Tue Jul 3 23:46:20 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_auth
+Tue Jul 3 23:46:23 2012  INFO [com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java):136] -> Setup done for persistence context: eucalyptus_config
+Tue Jul 3 23:47:05 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_cloud?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_cloud to jdbc:mysql://localhost:8778/eucalyptus_cloud?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_records?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_records to jdbc:mysql://localhost:8778/eucalyptus_records?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_storage?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_storage to jdbc:mysql://localhost:8778/eucalyptus_storage?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_walrus?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_walrus to jdbc:mysql://localhost:8778/eucalyptus_walrus?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_dns?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_dns to jdbc:mysql://localhost:8778/eucalyptus_dns?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_vmwarebroker?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_vmwarebroker to jdbc:mysql://localhost:8778/eucalyptus_vmwarebroker?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_faults?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_faults to jdbc:mysql://localhost:8778/eucalyptus_faults?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_reporting?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_reporting to jdbc:mysql://localhost:8778/eucalyptus_reporting?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_auth?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_auth to jdbc:mysql://localhost:8778/eucalyptus_auth?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_general?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_general to jdbc:mysql://localhost:8778/eucalyptus_general?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_config?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.getConnection(StandalonePersistence.java):100] Created new connection for: eucalyptus_config to jdbc:mysql://localhost:8778/eucalyptus_config?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012  INFO [com.eucalyptus.upgrade.StandalonePersistence.runUpgrade(StandalonePersistence.java):79] [upgrade_30_31@2f963c7b]
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_auth?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_dns?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_records?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_vmwarebroker?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_cloud?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.GeneratedMethodAccessor147.invoke(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_faults?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.GeneratedMethodAccessor147.invoke(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_reporting?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.GeneratedMethodAccessor147.invoke(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_walrus?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.GeneratedMethodAccessor147.invoke(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_config?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:06 2012 ERROR [sun.reflect.GeneratedMethodAccessor147.invoke(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_general?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:07 2012 ERROR [sun.reflect.GeneratedMethodAccessor147.invoke(?):?] Getting connection to jdbc:mysql://localhost:8778/eucalyptus_storage?createDatabaseIfNotExist=false
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.auth.entities.AccessKeyEntity to auth_access_key
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.auth.entities.AccountEntity to auth_account
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.address.Address to metadata_addresses
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.address.AddressingConfiguration to cloud_address_configuration
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.AOEMetaInfo to AOEMetaInfo
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.AOEVolumeInfo to AOEVolumeInfo
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.records.BaseRecord to records
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.auth.entities.CertificateEntity to auth_cert
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.CHAPUserInfo to CHAPUserInfo
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.CNAMERecordInfo to CNAMERecords
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.config.ComponentConfiguration to config_component_base
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.auth.entities.ConditionEntity to auth_condition
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class com.eucalyptus.images.DeviceMapping to metadata_device_mappings
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.DirectStorageInfo to direct_storage_info
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.DRBDInfo to drbd_info
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.auth.entities.GroupEntity to auth_group
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.ImageCacheInfo to ImageCache
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.images.ImageConfiguration to cloud_image_configuration
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.images.ImageInfo to metadata_images
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.ISCSIMetaInfo to ISCSIMetadata
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.ISCSIVolumeInfo to ISCSIVolumeInfo
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.records.LogFileRecord to records_logs
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.MetaDataInfo to MetaData
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.NSRecordInfo to NSRecords
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.component.Partition to config_partition
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.auth.entities.PolicyEntity to auth_policy
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.reporting.user.ReportingAccount to reporting_account
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.reporting.user.ReportingUser to reporting_user
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.blockstorage.Snapshot to metadata_snapshots
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.SnapshotInfo to Snapshots
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.SOARecordInfo to SOARecords
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.keys.SshKeyPair to metadata_keypairs
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.auth.entities.StatementEntity to auth_statement
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.StorageInfo to storage_info
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.StorageStatsInfo to storage_stats_info
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.SystemConfiguration to system_info
+Tue Jul 3 23:47:07 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.TorrentInfo to Torrents
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.auth.entities.UserEntity to auth_user
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.vm.VmType to cloud_vm_types
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.blockstorage.Volume to metadata_volumes
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.VolumeInfo to Volumes
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.WalrusInfo to walrus_info
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.WalrusSnapshotInfo to WalrusSnapshots
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.WalrusStatsInfo to walrus_stats_info
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.ZoneInfo to Zones
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.cloud.ws.BrokerVolumeInfo to broker_volumes
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.cloud.ws.BrokerGroupInfo to broker_groups
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class com.eucalyptus.broker.vmware.VMwareBrokerInfo to broker_config
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.SANInfo to san_info
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.DASInfo to das_info
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.IgroupInfo to Igroups
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.SANVolumeInfo to EquallogicVolumeInfo
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Mapping class edu.ucsb.eucalyptus.cloud.entities.NetappInfo to netapp_info
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Columns for auth_account: id, creation_timestamp, last_update_timestamp, metadata_perm_uuid, version, auth_account_number, auth_account_name
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] auth_account_number is set by: setAccountNumber
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] auth_account_name is set by: setName
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.NativeMethodAccessorImpl.invoke0(?):?] creation_timestamp is set by: setCreationTimestamp
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] last_update_timestamp is set by: setLastUpdateTimestamp
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] metadata_perm_uuid is set by: setNaturalId
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] version is set by: setVersion
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_account_number is set by: setAccountNumber
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_account_name is set by: setName
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_account.id found
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Columns for auth_group: id, creation_timestamp, last_update_timestamp, metadata_perm_uuid, version, auth_group_id_external, auth_group_name, auth_group_path, auth_group_user_group, auth_group_owning_account
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] java.lang.NoSuchMethodException: com.eucalyptus.auth.entities.GroupEntity.setGroupId(java.lang.String)
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_group_name is set by: setName
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_group_path is set by: setPath
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_group_user_group is set by: setUserGroup
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] creation_timestamp is set by: setCreationTimestamp
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] last_update_timestamp is set by: setLastUpdateTimestamp
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] metadata_perm_uuid is set by: setNaturalId
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] version is set by: setVersion
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_group_name is set by: setName
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_group_path is set by: setPath
+Tue Jul 3 23:47:08 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_group_user_group is set by: setUserGroup
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_group.id found
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_group.auth_group_id_external found
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_group.auth_group_owning_account found
+Tue Jul 3 23:47:08 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Columns for auth_user: id, creation_timestamp, last_update_timestamp, metadata_perm_uuid, version, auth_user_confirmation_code, auth_user_is_enabled, auth_user_name, auth_user_password, auth_user_password_expires, auth_user_path, auth_user_reg_stat, auth_user_token, auth_user_id_external
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_confirmation_code is set by: setConfirmationCode
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_is_enabled is set by: setEnabled
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_name is set by: setName
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_password is set by: setPassword
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_password_expires is set by: setPasswordExpires
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_path is set by: setPath
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] java.lang.NoSuchMethodException: com.eucalyptus.auth.entities.UserEntity.setRegStat(com.eucalyptus.auth.principal.User$RegistrationStatus)
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_token is set by: setToken
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] java.lang.NoSuchMethodException: com.eucalyptus.auth.entities.UserEntity.setUserId(java.lang.String)
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] creation_timestamp is set by: setCreationTimestamp
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] last_update_timestamp is set by: setLastUpdateTimestamp
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] metadata_perm_uuid is set by: setNaturalId
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] version is set by: setVersion
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_confirmation_code is set by: setConfirmationCode
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_is_enabled is set by: setEnabled
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_name is set by: setName
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_password is set by: setPassword
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_password_expires is set by: setPasswordExpires
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_path is set by: setPath
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_user_token is set by: setToken
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_user.id found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_user.auth_user_reg_stat found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_user.auth_user_id_external found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Columns for auth_access_key: id, creation_timestamp, last_update_timestamp, metadata_perm_uuid, version, auth_access_key_query_id, auth_access_key_active, auth_access_key_create_date, auth_access_key_key, auth_access_key_owning_user
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] java.lang.NoSuchMethodException: com.eucalyptus.auth.entities.AccessKeyEntity.setAccessKey(java.lang.String)
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_access_key_active is set by: setActive
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_access_key_create_date is set by: setCreateDate
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] java.lang.NoSuchMethodException: com.eucalyptus.auth.entities.AccessKeyEntity.setKey(java.lang.String)
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] creation_timestamp is set by: setCreationTimestamp
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] last_update_timestamp is set by: setLastUpdateTimestamp
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] metadata_perm_uuid is set by: setNaturalId
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] version is set by: setVersion
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_access_key_active is set by: setActive
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_access_key_create_date is set by: setCreateDate
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_access_key.id found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_access_key.auth_access_key_query_id found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_access_key.auth_access_key_key found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_access_key.auth_access_key_owning_user found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Columns for auth_cert: id, creation_timestamp, last_update_timestamp, metadata_perm_uuid, version, auth_certificate_active, auth_certificate_id, auth_certificate_create_date, auth_certificate_pem, auth_certificate_revoked, auth_certificate_owning_user
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_active is set by: setActive
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] java.lang.NoSuchMethodException: com.eucalyptus.auth.entities.CertificateEntity.setCertificateId(java.lang.String)
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_create_date is set by: setCreateDate
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_pem is set by: setPem
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_revoked is set by: setRevoked
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] creation_timestamp is set by: setCreationTimestamp
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] last_update_timestamp is set by: setLastUpdateTimestamp
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] metadata_perm_uuid is set by: setNaturalId
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] version is set by: setVersion
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_active is set by: setActive
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_create_date is set by: setCreateDate
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_pem is set by: setPem
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] auth_certificate_revoked is set by: setRevoked
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_cert.id found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_cert.auth_certificate_id found
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] No corresponding field for column: auth_cert.auth_certificate_owning_user found
+Tue Jul 3 23:47:09 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:09 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] setting account number to 594888695171
+Tue Jul 3 23:47:10 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Getting groups for account 594888695171
+Tue Jul 3 23:47:10 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group H8HLUAPRLBNAI4FDL45AU in eucalyptus
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_group_path was NULL
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:10 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding user GS1DMW4T0KEOEFIX78YJO in eucalyptus
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_user_confirmation_code was NULL
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_reg_stat, trying auth_user_reg_stat
+Tue Jul 3 23:47:10 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_id_external, trying auth_user_id_external
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:11 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] setting account number to 243725449853
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Getting groups for account 243725449853
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group RKRSM5F1NAV13WNVHN7UP in sales
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_group_path was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group WIJIJ22YBYKUM2KGGS2K0 in sales
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group NGBAMWMVM1RH9LWJGS8WA in sales
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_group_path was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding user VDO14TYR25NBLXVIAWFXH in sales
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_reg_stat, trying auth_user_reg_stat
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_id_external, trying auth_user_id_external
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:12 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding user DJMHOOONYOGU95OR9MQYP in sales
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_user_confirmation_code was NULL
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_reg_stat, trying auth_user_reg_stat
+Tue Jul 3 23:47:12 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_id_external, trying auth_user_id_external
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Adding user DJMHOOONYOGU95OR9MQYP ( deependra ) to group sales-usa
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:14 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:14 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] setting account number to 323069976499
+Tue Jul 3 23:47:15 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Getting groups for account 323069976499
+Tue Jul 3 23:47:15 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group H0XVOCNMVCP0N2XFAAREA in lester
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_group_path was NULL
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:15 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group HHJJUK7KFW6Z9DJ4UTITM in lester
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_group_path was NULL
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:15 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group PDA89WHJKGRX3YBDF2ZBO in lester
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:15 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:16 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding user 28NE9CDEBK1EFRQ0D7HWX in lester
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_user_password was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_reg_stat, trying auth_user_reg_stat
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_id_external, trying auth_user_id_external
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:16 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding user CDJLTHNRP3KSUPFDQ2YXQ in lester
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_user_confirmation_code was NULL
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_reg_stat, trying auth_user_reg_stat
+Tue Jul 3 23:47:16 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_user_id_external, trying auth_user_id_external
+Tue Jul 3 23:47:17 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Adding user CDJLTHNRP3KSUPFDQ2YXQ ( bob ) to group bobgroup
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_query_id, trying auth_access_key_query_id
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_query_id was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_key, trying auth_access_key_key
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_key was NULL
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_access_key_owning_user, trying auth_access_key_owning_user
+Tue Jul 3 23:47:18 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.AccessKeyEntity.auth_access_key_owning_user was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_id, trying auth_certificate_id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_id was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_certificate_create_date was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_certificate_owning_user, trying auth_certificate_owning_user
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Setter for com.eucalyptus.auth.entities.CertificateEntity.auth_certificate_owning_user was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:19 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] setting account number to 363863921415
+Tue Jul 3 23:47:19 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] Getting groups for account 363863921415
+Tue Jul 3 23:47:19 2012  INFO [sun.reflect.GeneratedMethodAccessor151.invoke(?):?] adding group BOP5JQA9WGNWCBJNTTI18 in support
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for id, trying id
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_id_external, trying auth_group_id_external
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Column auth_group_path was NULL
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] No setter for auth_group_owning_account, trying auth_group_owning_account
+Tue Jul 3 23:47:19 2012 ERROR [com.eucalyptus.auth.Debugging.logError(Debugging.java):49] net.sf.json.JSONException: Condition type 'NumericLessThanEquals' is not supported
+net.sf.json.JSONException: Condition type 'NumericLessThanEquals' is not supported
+	at com.eucalyptus.auth.policy.PolicyParser.checkConditionType(PolicyParser.java:283)
+	at com.eucalyptus.auth.policy.PolicyParser.parseConditions(PolicyParser.java:230)
+	at com.eucalyptus.auth.policy.PolicyParser.parseStatement(PolicyParser.java:118)
+	at com.eucalyptus.auth.policy.PolicyParser.parseStatements(PolicyParser.java:93)
+	at com.eucalyptus.auth.policy.PolicyParser.parse(PolicyParser.java:73)
+	at com.eucalyptus.auth.DatabaseGroupProxy.addPolicy(DatabaseGroupProxy.java:218)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:129)
+	at upgrade_30_31$_upgradeAuth_closure2_closure15_closure17.doCall(upgrade_30_31.groovy:331)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1067)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1176)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1152)
+	at org.codehaus.groovy.runtime.dgm$114.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:270)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at upgrade_30_31$_upgradeAuth_closure2_closure15.doCall(upgrade_30_31.groovy:328)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1067)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1176)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1152)
+	at org.codehaus.groovy.runtime.dgm$114.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:270)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at upgrade_30_31$_upgradeAuth_closure2.doCall(upgrade_30_31.groovy:318)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1067)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1176)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1152)
+	at org.codehaus.groovy.runtime.dgm$114.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:270)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at upgrade_30_31.upgradeAuth(upgrade_30_31.groovy:299)
+	at upgrade_30_31.this$3$upgradeAuth(upgrade_30_31.groovy)
+	at upgrade_30_31$this$3$upgradeAuth.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:147)
+	at upgrade_30_31.upgrade(upgrade_30_31.groovy:206)
+	at com.eucalyptus.upgrade.StandalonePersistence.runUpgrade(StandalonePersistence.java:82)
+	at com.eucalyptus.upgrade.StandalonePersistence.main(StandalonePersistence.java:66)
+Tue Jul 3 23:47:19 2012 DEBUG [com.eucalyptus.auth.Debugging.logError(Debugging.java):50] Syntax error in input policy with exception net.sf.json.JSONException: Condition type 'NumericLessThanEquals' is not supported | com.eucalyptus.auth.policy.PolicyParser.checkConditionType(PolicyParser.java:283) | com.eucalyptus.auth.policy.PolicyParser.parseConditions(PolicyParser.java:230) | com.eucalyptus.auth.policy.PolicyParser.parseStatement(PolicyParser.java:118) | com.eucalyptus.auth.policy.PolicyParser.parseStatements(PolicyParser.java:93) | com.eucalyptus.auth.policy.PolicyParser.parse(PolicyParser.java:73) | com.eucalyptus.auth.DatabaseGroupProxy.addPolicy(DatabaseGroupProxy.java:218) | com.eucalyptus.upgrade.StandalonePersistence.runUpgrade(StandalonePersistence.java:82) | com.eucalyptus.upgrade.StandalonePersistence.main(StandalonePersistence.java:66) | 
+Tue Jul 3 23:47:19 2012 ERROR [com.eucalyptus.upgrade.StandalonePersistence.main(StandalonePersistence.java):70] com.eucalyptus.auth.PolicyParseException: net.sf.json.JSONException: Condition type 'NumericLessThanEquals' is not supported
+com.eucalyptus.auth.PolicyParseException: net.sf.json.JSONException: Condition type 'NumericLessThanEquals' is not supported
+	at com.eucalyptus.auth.policy.PolicyParser.parse(PolicyParser.java:78)
+	at com.eucalyptus.auth.DatabaseGroupProxy.addPolicy(DatabaseGroupProxy.java:218)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:129)
+	at upgrade_30_31$_upgradeAuth_closure2_closure15_closure17.doCall(upgrade_30_31.groovy:331)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1067)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1176)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1152)
+	at org.codehaus.groovy.runtime.dgm$114.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:270)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at upgrade_30_31$_upgradeAuth_closure2_closure15.doCall(upgrade_30_31.groovy:328)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1067)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1176)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1152)
+	at org.codehaus.groovy.runtime.dgm$114.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:270)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at upgrade_30_31$_upgradeAuth_closure2.doCall(upgrade_30_31.groovy:318)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1067)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1176)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:1152)
+	at org.codehaus.groovy.runtime.dgm$114.invoke(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:270)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at upgrade_30_31.upgradeAuth(upgrade_30_31.groovy:299)
+	at upgrade_30_31.this$3$upgradeAuth(upgrade_30_31.groovy)
+	at upgrade_30_31$this$3$upgradeAuth.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:147)
+	at upgrade_30_31.upgrade(upgrade_30_31.groovy:206)
+	at com.eucalyptus.upgrade.StandalonePersistence.runUpgrade(StandalonePersistence.java:82)
+	at com.eucalyptus.upgrade.StandalonePersistence.main(StandalonePersistence.java:66)
+Caused by: net.sf.json.JSONException: Condition type 'NumericLessThanEquals' is not supported
+	at com.eucalyptus.auth.policy.PolicyParser.checkConditionType(PolicyParser.java:283)
+	at com.eucalyptus.auth.policy.PolicyParser.parseConditions(PolicyParser.java:230)
+	at com.eucalyptus.auth.policy.PolicyParser.parseStatement(PolicyParser.java:118)
+	at com.eucalyptus.auth.policy.PolicyParser.parseStatements(PolicyParser.java:93)
+	at com.eucalyptus.auth.policy.PolicyParser.parse(PolicyParser.java:73)
+	... 73 more
+Tue Jul 3 23:47:19 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Postgres 9.1 command : [/usr/pgsql-9.1/bin/pg_ctl, stop, -mf, -D//var/lib/eucalyptus//db/data]
+Tue Jul 3 23:47:26 2012 DEBUG [sun.reflect.GeneratedMethodAccessor157.invoke(?):?] Database server stopped.
+Tue Jul 3 23:47:26 2012  INFO [com.eucalyptus.upgrade.MysqldbSource$MysqlSourceDatabaseBootstrapper$1.run(MysqldbSource.java):117] Shutting down database.

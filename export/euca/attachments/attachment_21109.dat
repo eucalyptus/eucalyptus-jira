@@ -1,0 +1,333 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+/**
+ * This application tests SWF workflow timers.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9819
+ */
+class TestSWFTimers {
+
+  private final String host;
+  private final AWSCredentialsProvider credentials;
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFTimers( '10.111.5.8', 'AKICA1TJM0PTNWALL2MZ', 'QGnDhXsFVKB239wuWdpPoSBBUCJ4tw39uerjOAoT' ).test( )
+  }
+
+  public TestSWFTimers( String host,
+                        String accessKey,
+                        String secretKey ) {
+    this.host = host
+    this.credentials = new StaticCredentialsProvider( new BasicAWSCredentials( accessKey, secretKey ) )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        String domainName = "${namePrefix}domain"
+        print("Registering domain ${domainName}")
+        registerDomain(new RegisterDomainRequest(
+            name: domainName,
+            description: 'test domain',
+            workflowExecutionRetentionPeriodInDays: 1))
+        cleanupTasks.add {
+          print("Deprecating domain ${domainName}")
+          deprecateDomain(new DeprecateDomainRequest(name: domainName))
+        }
+
+        String activityTypeName = "${namePrefix}activity-type"
+        print("Registering activity type ${activityTypeName}")
+        registerActivityType(new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultTaskHeartbeatTimeout: '60',
+            defaultTaskScheduleToCloseTimeout: '60',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultTaskScheduleToStartTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating activity type ${domainName}")
+          deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeName, version: '1')))
+        }
+
+        String workflowTypeName = "${namePrefix}workflow-type"
+        print("Registering workflow type ${workflowTypeName}")
+        registerWorkflowType(new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultChildPolicy: 'TERMINATE',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultExecutionStartToCloseTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating workflow type ${domainName}")
+          deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeName, version: '1')))
+        }
+
+        String workflowId = "${namePrefix}workflow-id"
+        print( "Starting workflow execution ${workflowId}" )
+        String runId = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId,
+            domain: domainName,
+            workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+            tagList: [ 'tags', 'go', 'here' ],
+            taskList: new TaskList( name: 'list' ),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat( runId != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId}" )
+
+        print( "Verifying timer count for workflow execution" )
+        describeWorkflowExecution( new DescribeWorkflowExecutionRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId,
+                runId: runId
+            )
+        ) ).with {
+          assertThat( openCounts != null, "Expected open counts")
+          openCounts.with {
+            assertThat( 0 == openTimers, "Expected open timers 0, but was :${openTimers}" )
+          }
+        }
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken1 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+        assertThat( decisionTaskToken1 != null && !decisionTaskToken1.isEmpty( ), "Expected task token" )
+
+        print( "Responding with start timer tasks" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken1,
+            decisions: [
+                new Decision(
+                  decisionType: 'StartTimer',
+                  startTimerDecisionAttributes: new StartTimerDecisionAttributes(
+                    control: 'control-here-1',
+                    startToFireTimeout: 2,
+                    timerId: "${namePrefix}timer-1",
+                  )
+                ),
+                new Decision(
+                    decisionType: 'StartTimer',
+                    startTimerDecisionAttributes: new StartTimerDecisionAttributes(
+                        control: 'control-here-2',
+                        startToFireTimeout: 20,
+                        timerId: "${namePrefix}timer-2",
+                    )
+                ),
+                new Decision(
+                    decisionType: 'StartTimer',
+                    startTimerDecisionAttributes: new StartTimerDecisionAttributes(
+                        control: 'control-here-3',
+                        startToFireTimeout: 20,
+                        timerId: "${namePrefix}timer-3",
+                    )
+                )
+            ]
+        ))
+
+        print( "Verifying timer count for workflow execution" )
+        describeWorkflowExecution( new DescribeWorkflowExecutionRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId,
+                runId: runId
+            )
+        ) ).with {
+          assertThat( openCounts != null, "Expected open counts")
+          openCounts.with {
+            assertThat( 3 == openTimers, "Expected open timers 3, but was :${openTimers}" )
+          }
+        }
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken2 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+        assertThat( decisionTaskToken2 != null && !decisionTaskToken2.isEmpty( ), "Expected task token" )
+
+        print( "Responding with cancel timer" );
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken2,
+            decisions: [
+                new Decision(
+                    decisionType: 'CancelTimer',
+                    cancelTimerDecisionAttributes: new CancelTimerDecisionAttributes(
+                      timerId: "${namePrefix}timer-2"
+                    )
+                )
+            ]
+        ))
+
+        print( "Verifying execution history" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId,
+                runId: runId
+            )
+        ) ).with {
+          print( events.toString( ) )
+          assertThat( events != null && events.size() == 12, "Expected 12 events, but was: ${events?.size()}" )
+          events[4].with {
+            assertThat( 5 == eventId, "Expected event id 5, but was: ${eventId}" )
+            assertThat( 'TimerStarted' == eventType, "Expected TimerStarted event type, but was: ${eventType}" )
+            assertThat( timerStartedEventAttributes != null, "Expected timerStartedEventAttributes" )
+            timerStartedEventAttributes.with {
+              assertThat( "${namePrefix}timer-1" == timerId, "Expected timer id ${namePrefix}timer-1, but was: ${timerId}" )
+              assertThat( 'control-here-1' == control, "Expected control control-here-1, but was: ${control}" )
+              assertThat( '2' == startToFireTimeout , "Expected start to fire timeout 2, but was: ${startToFireTimeout}" )
+              assertThat( 4 == decisionTaskCompletedEventId , "Expected decision task completed event id 4, but was: ${decisionTaskCompletedEventId}" )
+            }
+          }
+          events[5].with {
+            assertThat( 6 == eventId, "Expected event id 6, but was: ${eventId}" )
+            assertThat( 'TimerStarted' == eventType, "Expected TimerStarted event type, but was: ${eventType}" )
+            assertThat( timerStartedEventAttributes != null, "Expected timerStartedEventAttributes" )
+            timerStartedEventAttributes.with {
+              assertThat( "${namePrefix}timer-2" == timerId, "Expected timer id ${namePrefix}timer-2, but was: ${timerId}" )
+              assertThat( 'control-here-2' == control, "Expected control control-here-2, but was: ${control}" )
+              assertThat( '20' == startToFireTimeout , "Expected start to fire timeout 20, but was: ${startToFireTimeout}" )
+              assertThat( 4 == decisionTaskCompletedEventId , "Expected decision task completed event id 4, but was: ${decisionTaskCompletedEventId}" )
+            }
+          }
+          events[6].with {
+            assertThat( 7 == eventId, "Expected event id 7, but was: ${eventId}" )
+            assertThat( 'TimerStarted' == eventType, "Expected TimerStarted event type, but was: ${eventType}" )
+            assertThat( timerStartedEventAttributes != null, "Expected timerStartedEventAttributes" )
+            timerStartedEventAttributes.with {
+              assertThat( "${namePrefix}timer-3" == timerId, "Expected timer id ${namePrefix}timer-3, but was: ${timerId}" )
+              assertThat( 'control-here-3' == control, "Expected control control-here-3, but was: ${control}" )
+              assertThat( '20' == startToFireTimeout , "Expected start to fire timeout 20, but was: ${startToFireTimeout}" )
+              assertThat( 4 == decisionTaskCompletedEventId , "Expected decision task completed event id 4, but was: ${decisionTaskCompletedEventId}" )
+            }
+          }
+          events[7].with {
+            assertThat( 8 == eventId, "Expected event id 8, but was: ${eventId}" )
+            assertThat( 'TimerFired' == eventType, "Expected TimerFired event type, but was: ${eventType}" )
+            assertThat( timerFiredEventAttributes != null, "Expected timerFiredEventAttributes" )
+            timerFiredEventAttributes.with {
+              assertThat( "${namePrefix}timer-1" == timerId, "Expected timer id ${namePrefix}timer-1, but was: ${timerId}" )
+              assertThat( 5 == startedEventId , "Expected started event id 5, but was: ${startedEventId}" )
+            }
+          }
+          events[8].with {
+            assertThat( 9 == eventId, "Expected event id 9, but was: ${eventId}" )
+            assertThat( 'DecisionTaskScheduled' == eventType, "Expected DecisionTaskScheduled event type, but was: ${eventType}" )
+          }
+          events[9].with {
+            assertThat( 10 == eventId, "Expected event id 10, but was: ${eventId}" )
+            assertThat( 'DecisionTaskStarted' == eventType, "Expected DecisionTaskStarted event type, but was: ${eventType}" )
+          }
+          events[10].with {
+            assertThat( 11 == eventId, "Expected event id 11, but was: ${eventId}" )
+            assertThat( 'DecisionTaskCompleted' == eventType, "Expected DecisionTaskCompleted event type, but was: ${eventType}" )
+          }
+          events[11].with {
+            assertThat( 12 == eventId, "Expected event id 12, but was: ${eventId}" )
+            assertThat( 'TimerCanceled' == eventType, "Expected TimerCanceled event type, but was: ${eventType}" )
+            assertThat( timerCanceledEventAttributes != null, "Expected timerCanceledEventAttributes" )
+            timerCanceledEventAttributes.with {
+              assertThat( "${namePrefix}timer-2" == timerId, "Expected timer id ${namePrefix}timer-2, but was: ${timerId}" )
+              assertThat( 6 == startedEventId , "Expected started event id 6, but was: ${startedEventId}" )
+              assertThat( 11 == decisionTaskCompletedEventId , "Expected decision task completed event id 11, but was: ${decisionTaskCompletedEventId}" )
+            }
+          }
+        }
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken3 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding workflow complete" );
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+          taskToken: decisionTaskToken3,
+          decisions: [
+              new Decision(
+                decisionType: 'CompleteWorkflowExecution',
+                completeWorkflowExecutionDecisionAttributes: new CompleteWorkflowExecutionDecisionAttributes(
+                  result: '42'
+                )
+              )
+          ]
+        ))
+
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

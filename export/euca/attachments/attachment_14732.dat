@@ -1,0 +1,334 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.autoscaling.AmazonAutoScaling;
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient;
+import com.amazonaws.services.autoscaling.model.AutoScalingGroup;
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingGroupsRequest;
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingGroupsResult;
+import com.amazonaws.services.autoscaling.model.DescribeScalingProcessTypesResult;
+import com.amazonaws.services.autoscaling.model.ProcessType;
+import com.amazonaws.services.autoscaling.model.ResumeProcessesRequest;
+import com.amazonaws.services.autoscaling.model.SetDesiredCapacityRequest;
+import com.amazonaws.services.autoscaling.model.SuspendProcessesRequest;
+import com.amazonaws.services.autoscaling.model.SuspendedProcess;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
+
+/**
+ *
+ */
+public class TestAutoScalingSuspendAndResumeProcesses {
+
+  private final String host;
+  private final String accessKey;
+  private final String secretKey;
+
+  public static void main( String[] args ) throws Exception {
+    final TestAutoScalingSuspendAndResumeProcesses test =  new TestAutoScalingSuspendAndResumeProcesses(
+        "192.168.51.180",
+        "5DPN2SGGPOVOFXNXZBU6H",
+        "gayiJDuIIoV2hR7HdYF5lJtzcIvzQSnrN2mxRulM"
+    );
+    test.test();
+  }
+
+  public TestAutoScalingSuspendAndResumeProcesses( final String host,
+                                                   final String accessKey,
+                                                   final String secretKey ) {
+    this.host = host;
+    this.accessKey = accessKey;
+    this.secretKey = secretKey;
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials( accessKey, secretKey );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://" + host + ":8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( ) {
+    final AmazonAutoScaling as = new AmazonAutoScalingClient( credentials() );
+    as.setEndpoint( cloudUri( "/services/AutoScaling/" ) );
+    return as;
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private String instanceType() {
+    return "m1.small";
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  public void test() throws Exception{
+    final AmazonAutoScaling as = getAutoScalingClient();
+    final AmazonEC2 ec2 = getEc2Client();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" ),
+        new Filter().withName( "root-device-type" ).withValues( "instance-store" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 0, "Availability zone not found" );
+
+    final String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    print( "Using availability zone: " + availabilityZone );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Create launch configuration
+      final String configName = namePrefix + "SuspendResumeTest";
+      print( "Creating launch configuration: " + configName );
+      as.createLaunchConfiguration( new CreateLaunchConfigurationRequest()
+          .withLaunchConfigurationName( configName )
+          .withImageId( imageId )
+          .withInstanceType( instanceType() ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting launch configuration: " + configName );
+          as.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest().withLaunchConfigurationName( configName ) );
+        }
+      } );
+
+      // Create scaling group
+      final String groupName = namePrefix + "SuspendResumeTest";
+      print( "Creating auto scaling group: " + groupName );
+      as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+          .withAutoScalingGroupName( groupName )
+          .withLaunchConfigurationName( configName )
+          .withDesiredCapacity( 0 )
+          .withMinSize( 0 )
+          .withMaxSize( 1 )
+          .withHealthCheckType( "EC2" )
+          .withAvailabilityZones( availabilityZone )
+          .withTerminationPolicies( "OldestInstance" ) );
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting group: " + groupName );
+          as.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest().withAutoScalingGroupName( groupName ).withForceDelete( true ) );
+        }
+      } );
+
+      // Check process types
+      print( "Verifying process types." );
+      final Set<String> expectedProcessTypes = new HashSet<String>();
+      expectedProcessTypes.add( "Launch" );
+      expectedProcessTypes.add( "Terminate" );
+      expectedProcessTypes.add( "HealthCheck" );
+      expectedProcessTypes.add( "ReplaceUnhealthy" );
+      expectedProcessTypes.add( "AZRebalance" );
+      expectedProcessTypes.add( "AlarmNotification" );
+      expectedProcessTypes.add( "ScheduledActions" );
+      expectedProcessTypes.add( "AddToLoadBalancer" );
+      final DescribeScalingProcessTypesResult scalingProcessTypesResult = as.describeScalingProcessTypes();
+      assertThat( scalingProcessTypesResult.getProcesses() != null, "Expected processes" );
+      assertThat( scalingProcessTypesResult.getProcesses().size() == 8, "Expected 8 processes, but got " + scalingProcessTypesResult.getProcesses().size() );
+      final Set<String> foundProcessTypes = new HashSet<String>();
+      for ( final ProcessType processType : scalingProcessTypesResult.getProcesses() ) {
+        foundProcessTypes.add( processType.getProcessName() );
+      }
+      assertThat( expectedProcessTypes.equals( foundProcessTypes ), "Process types incorrect: " + foundProcessTypes );
+
+      // Disable all processes
+      print( "Suspending all processes" );
+      as.suspendProcesses( new SuspendProcessesRequest().withAutoScalingGroupName( groupName ) );
+
+      // Verify all disabled
+      print( "Verifying all processes suspended" );
+      assertProcessesSuspended( as, groupName, expectedProcessTypes );
+
+      // Enable all processes
+      print( "Resuming all processes" );
+      as.resumeProcesses( new ResumeProcessesRequest().withAutoScalingGroupName( groupName ) );
+
+      // Verify all enabled
+      print( "Verifying all processes resumed" );
+      assertProcessesSuspended( as, groupName, Collections.<String>emptySet() );
+
+      // Disable launch process
+      print( "Suspending launch process" );
+      as.suspendProcesses( new SuspendProcessesRequest()
+          .withAutoScalingGroupName( groupName )
+          .withScalingProcesses( "Launch" ) );
+
+      // Verifying launch disabled
+      print( "Verify launch process suspended" );
+      assertProcessesSuspended( as, groupName, Collections.singleton( "Launch" ) );
+
+      // Update group desired capacity and wait for instances to launch
+      print( "Setting desired capacity to 1 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 1 ) );
+
+      // Verify no instances launch
+      print( "Waiting to verify no instances launch" );
+      Thread.sleep( TimeUnit.SECONDS.toMillis( 30 ) );
+      assertThat( getInstancesForGroup( ec2, groupName, null ).isEmpty(), "Instance launched when launch suspended" );
+
+      // Resume launch process
+      print( "Resuming launch process" );
+      as.resumeProcesses( new ResumeProcessesRequest()
+          .withAutoScalingGroupName( groupName )
+          .withScalingProcesses( "Launch" ) );
+
+      // Verify launch enabled
+      print( "Verifying launch process resumed" );
+      assertProcessesSuspended( as, groupName, Collections.<String>emptySet() );
+
+      // Wait for instances to launch
+      print( "Waiting for instance to launch" );
+      final long startTime = System.currentTimeMillis();
+      final long launchTimeout = TimeUnit.MINUTES.toMillis( 2 );
+      boolean launched = false;
+      while ( !launched && ( System.currentTimeMillis() - startTime ) < launchTimeout ) {
+        Thread.sleep( 5000 );
+        final List<String> instanceIds = getInstancesForGroup( ec2, groupName, "running" );
+        launched = instanceIds.size() == 1;
+      }
+      assertThat( launched, "Instance was not launched within the expected timeout" );
+      print( "Instance launched in " + ( System.currentTimeMillis()-startTime ) + "ms" );
+
+      // Update group desired capacity and wait for instances to terminate
+      print( "Setting desired capacity to 0 for group: " + groupName );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest()
+          .withAutoScalingGroupName( groupName )
+          .withDesiredCapacity( 0 ) );
+
+      // Wait for instances to terminate
+      print( "Waiting for instance to terminate" );
+      final long terminateStartTime = System.currentTimeMillis();
+      final long terminateTimeout = TimeUnit.MINUTES.toMillis( 2 );
+      boolean terminated = false;
+      while ( !terminated && ( System.currentTimeMillis() - terminateStartTime ) < terminateTimeout ) {
+        Thread.sleep( 5000 );
+        final List<String> instanceIds = getInstancesForGroup( ec2, groupName, null );
+        terminated = instanceIds.size() == 0;
+      }
+      assertThat( terminated, "Instance was not terminated within the expected timeout" );
+      print( "Instance terminated in " + ( System.currentTimeMillis()-terminateStartTime ) + "ms" );
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private void assertProcessesSuspended( final AmazonAutoScaling as,
+                                         final String groupName,
+                                         final Set<String> processNames ) {
+    final DescribeAutoScalingGroupsResult groupsResult =
+        as.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest().withAutoScalingGroupNames( groupName ) );
+
+    assertThat( groupsResult.getAutoScalingGroups() != null, "Expected groups" );
+    assertThat( groupsResult.getAutoScalingGroups().size() == 1, "Expected 1 group" );
+    final AutoScalingGroup group = groupsResult.getAutoScalingGroups().get( 0 );
+    assertThat( groupName.equals( group.getAutoScalingGroupName() ), "Unexpected group: " + group.getAutoScalingGroupName() );
+    if ( processNames.isEmpty() ) {
+      assertThat( group.getSuspendedProcesses() == null || group.getSuspendedProcesses().isEmpty(), "Expected no processes: " + group.getSuspendedProcesses() );
+    } else {
+      final Set<String> groupProcessNames = new HashSet<String>();
+      for ( final SuspendedProcess suspendedProcess : group.getSuspendedProcesses() ) {
+        groupProcessNames.add( suspendedProcess.getProcessName() );
+      }
+      assertThat( processNames.equals( groupProcessNames ), "Expected processes " + processNames + ", but got: " + groupProcessNames );
+    }
+  }
+
+  private List<String> getInstancesForGroup( final AmazonEC2 ec2,
+                                             final String groupName,
+                                             final String status ) {
+    final DescribeInstancesResult instancesResult = ec2.describeInstances( new DescribeInstancesRequest().withFilters(
+        new Filter().withName( "tag:aws:autoscaling:groupName" ).withValues( groupName )
+    ) );
+    final List<String> instanceIds = new ArrayList<String>();
+    for ( final Reservation reservation : instancesResult.getReservations() ) {
+      for ( final Instance instance : reservation.getInstances() ) {
+        if ( status == null || instance.getState()==null || status.equals( instance.getState().getName() ) ) {
+          instanceIds.add( instance.getInstanceId() );
+        }
+      }
+    }
+    return instanceIds;
+  }
+}

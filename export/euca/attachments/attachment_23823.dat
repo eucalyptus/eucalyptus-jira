@@ -1,0 +1,196 @@
+/*************************************************************************
+ * Copyright 2009-2015 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.github.sjones4.youcan.youprop.YouProp
+import com.github.sjones4.youcan.youprop.YouPropClient
+import com.github.sjones4.youcan.youprop.model.ModifyPropertyValueRequest
+
+import javax.net.ssl.*
+import javax.xml.bind.DatatypeConverter
+import java.security.MessageDigest
+import java.security.cert.X509Certificate
+
+/**
+ * Tests configuration of region federation
+ *
+ * Uses:
+ *   https://github.com/sjones4/you-are-sdk
+ *
+ * This is verification for the story:
+ *   https://eucalyptus.atlassian.net/browse/EUCA-10442
+ *
+ */
+class TestIAMGlobRegionConfiguration {
+
+  private final String host1 = '10.X.Y.Z'
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials1 = new StaticCredentialsProvider( new BasicAWSCredentials(
+      'AKI...',
+      'W7p...'
+  ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestIAMGlobRegionConfiguration().test()
+  }
+
+  private String cloudUri( String host, String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private YouProp getYouPropClient( final String host, final AWSCredentialsProvider credentials ) {
+    final YouProp youProp = new YouPropClient( credentials )
+    youProp.setEndpoint( cloudUri( host, '/services/Properties' ) )
+    youProp
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    // Discover the X.509 certificate for the region
+    List<X509Certificate> certificates = [ ]
+    SSLContext context = SSLContext.getInstance("TLS")
+    context.init( null, [
+      new X509TrustManager() {
+        @Override void checkClientTrusted(final X509Certificate[] x509Certificates, final String s) { }
+        @Override void checkServerTrusted(final X509Certificate[] x509Certificates, final String s) {
+          certificates << x509Certificates[0]
+        }
+        @Override X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0] }
+      } ] as TrustManager[]
+    , null)
+    SSLSocketFactory socketFactory = context.getSocketFactory( )
+
+    HttpsURLConnection urlConnection1 = (HttpsURLConnection) new URL( "https://${host1}:8773/" ).openConnection( )
+    urlConnection1.setSSLSocketFactory( socketFactory )
+    try { urlConnection1.getResponseCode( ) } catch ( Exception ) { }
+
+    assertThat( certificates.size() == 1, "Expected one certificate: ${certificates.size()}" )
+
+    List<String> certFingerprints = certificates.collect { X509Certificate certificate ->
+      DatatypeConverter.printHexBinary( MessageDigest.getInstance( "SHA-256" ).digest( certificate.getEncoded( ) ) ).replaceAll( '([a-fA-F0-9]{2})(?=.)', '$1:' )
+    }
+
+    println certFingerprints
+
+    String regionConfiguration = """\
+        {
+            "Regions": [
+                {
+                    "Name": "region-1",
+                    "CertificateFingerprintDigest": "SHA-256",
+                    "CertificateFingerprint": "${certFingerprints[0]}",
+                    "IdentifierPartitions": [
+                      100
+                    ],
+                    "Services": [
+                        {
+                          "Type": "identity",
+                          "Endpoints": [
+                            "https://${host1}:8773/services/Identity"
+                          ]
+                        }
+                    ]
+                }
+            ]
+        }
+        """.stripIndent( )
+
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      getYouPropClient( host1, eucalyptusCredentials1 ).with {
+        print( "Testing rejection of invalid region names" )
+        [ 'region 1', '-region-1', 'region-1-', 'REGION-1', ' ', '-', '---'  ].each { String region ->
+          print( "Updating region.region_name to ${region}" )
+          try {
+            modifyPropertyValue( new ModifyPropertyValueRequest( name: 'region.region_name', value: region ) )
+            assertThat( false, 'Expected property modification failure for region.region_name=${region}' )
+          } catch( AmazonServiceException e ) {
+            print( "Expected service exception: ${e.errorMessage}" )
+          }
+        }
+
+        // Invalid region configuration tests
+        [  // target                      replacement       description
+            [ 'region-1',                 'region 1',       'invalid region name' ],
+            [ '"Name": "region-1",',      '',               'missing region name' ],
+            [ 'SHA-256',                  'SHA-MWOW',       'invalid certificate fingerprint digest' ],
+            [ "${certFingerprints[0]}" as String,
+                                          '---BEGIN ',      'invalid certificate fingerprint' ],
+            [ """"CertificateFingerprint": "${certFingerprints[0]}",""" as String,
+                                          '', 'missing certificate fingerprint' ],
+            [ '100',                      '0',              'invalid identifier partition' ],
+            [ '100',                      '',               'missing identifier partition' ],
+            [ 'identity',                 'auth',           'invalid service type' ],
+        ].each { String target, String replacement, String description ->
+          print( "Testing rejection of configuration with ${description}" )
+          try {
+            print( "Updating region.region_configuration" )
+            modifyPropertyValue( new ModifyPropertyValueRequest(
+                name: 'region.region_configuration',
+                value: regionConfiguration.replace( target, replacement ) ) )
+            assertThat( false, 'Expected property modification failure for region.region_configuration' )
+          } catch( AmazonServiceException e ) {
+            print("Expected service exception: ${e.errorMessage}")
+          }
+        }
+
+        print( "Testing that valid configuration is accepted" )
+        print( "Updating region.region_name to region-1" )
+        modifyPropertyValue( new ModifyPropertyValueRequest( name: 'region.region_name', value: 'region-1' ) )
+
+        print( "Updating region.region_configuration" )
+        modifyPropertyValue( new ModifyPropertyValueRequest( name: 'region.region_configuration', value: regionConfiguration ) )
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

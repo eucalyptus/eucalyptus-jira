@@ -1,0 +1,38 @@
+--- F:/java/S3/Eucalyptus/eucalyptus-2.0.2/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BuildBindings.java.original	Thu Dec 16 01:24:15 2010
++++ F:/java/S3/Eucalyptus/eucalyptus-2.0.2/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BuildBindings.java	Thu Mar 10 00:26:42 2011
+@@ -39,10 +39,14 @@
+   
+   private String[] paths( ) {
+     Set<String> dirs = new HashSet<String>( );
++    String expr = "build/.*";
++    if (File.separator.equals("\\")){
++      expr = "build\\\\.*";
++    }
+     for ( FileSet fs : this.classFileSets ) {
+       final String dirName = fs.getDir( getProject( ) ).getAbsolutePath( );
+       for ( String d : fs.getDirectoryScanner( getProject( ) ).getIncludedFiles( ) ) {
+-        final String buildDir = dirName + File.separator + d.replaceAll( "build/.*", "build" );
++        final String buildDir = dirName + File.separator + d.replaceAll( expr, "build" );
+         if ( !dirs.contains( buildDir ) ) {
+           log( "Found class directory: " + buildDir );
+           dirs.add( buildDir );
+@@ -122,11 +126,18 @@
+         BindingGenerator.MSG_TYPE = loader.forceLoadClass( "edu.ucsb.eucalyptus.msgs.BaseMessage" );
+         BindingGenerator.DATA_TYPE = loader.forceLoadClass( "edu.ucsb.eucalyptus.msgs.EucalyptusData" );
+         loader.forceLoadClass( "org.jibx.binding.model.JiBX_bindingFactory" );
++        String expr1 = "[^/]*/[^/]*/";
++        String expr2 = "/";
++        if (File.separator.equals("\\")){
++          expr1 = "[^\\\\]*\\\\[^\\\\]*\\\\";
++          expr2 = "\\\\";
++        }
+         for ( FileSet fs : this.classFileSets ) {
+           for ( String classFileName : fs.getDirectoryScanner( getProject( ) ).getIncludedFiles( ) ) {
+             try {
+               if( !classFileName.endsWith( "class" ) ) continue;
+-              Class c = loader.forceLoadClass( classFileName.replaceFirst( "[^/]*/[^/]*/", "" ).replaceAll( "/", "." ).replaceAll( "\\.class.{0,1}", "" ) );
++
++              Class c = loader.forceLoadClass( classFileName.replaceFirst( expr1, "" ).replaceAll( expr2, "." ).replaceAll( "\\.class.{0,1}", "" ) );
+               if ( BindingGenerator.MSG_TYPE.isAssignableFrom( c ) || BindingGenerator.DATA_TYPE.isAssignableFrom( c ) ) {
+                 for( BindingGenerator gen : generators ) {
+                   gen.processClass( c );

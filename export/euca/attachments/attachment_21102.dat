@@ -1,0 +1,176 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+/**
+ * This application tests SWF workflow execution retention / deletion.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9811
+ */
+class TestSWFWorkflowExecutionRetention {
+
+  private final String host;
+  private final AWSCredentialsProvider credentials;
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFWorkflowExecutionRetention( '10.111.5.8', 'AKICA1TJM0PTNWALL2MZ', 'QGnDhXsFVKB239wuWdpPoSBBUCJ4tw39uerjOAoT' ).test( )
+  }
+
+  public TestSWFWorkflowExecutionRetention( String host,
+                              String accessKey,
+                              String secretKey ) {
+    this.host = host
+    this.credentials = new StaticCredentialsProvider( new BasicAWSCredentials( accessKey, secretKey ) )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        [0, 1].each { int retentionPeriodInDays ->
+          String domainName = "${namePrefix}${retentionPeriodInDays}-domain"
+          print("Registering domain ${domainName}")
+          registerDomain(new RegisterDomainRequest(
+              name: domainName,
+              description: 'test domain',
+              workflowExecutionRetentionPeriodInDays: retentionPeriodInDays))
+          cleanupTasks.add {
+            print("Deprecating domain ${domainName}")
+            deprecateDomain(new DeprecateDomainRequest(name: domainName))
+          }
+
+          String activityTypeName = "${namePrefix}activity-type"
+          print("Registering activity type ${activityTypeName}")
+          registerActivityType(new RegisterActivityTypeRequest(
+              domain: domainName,
+              name: activityTypeName,
+              version: '1',
+              description: 'test activity type',
+              defaultTaskList: new TaskList(name: 'list'),
+              defaultTaskHeartbeatTimeout: '60',
+              defaultTaskScheduleToCloseTimeout: '60',
+              defaultTaskStartToCloseTimeout: '60',
+              defaultTaskScheduleToStartTimeout: '60'
+          ))
+          cleanupTasks.add {
+            print("Deprecating activity type ${domainName}")
+            deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeName, version: '1')))
+          }
+
+          String workflowTypeName = "${namePrefix}workflow-type"
+          print("Registering workflow type ${workflowTypeName}")
+          registerWorkflowType(new RegisterWorkflowTypeRequest(
+              domain: domainName,
+              name: workflowTypeName,
+              version: '1',
+              description: 'test workflow type',
+              defaultTaskList: new TaskList(name: 'list'),
+              defaultChildPolicy: 'TERMINATE',
+              defaultTaskStartToCloseTimeout: '60',
+              defaultExecutionStartToCloseTimeout: '60'
+          ))
+          cleanupTasks.add {
+            print("Deprecating workflow type ${domainName}")
+            deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeName, version: '1')))
+          }
+
+          String workflowId1 = "${namePrefix}workflow-id"
+          print("Starting workflow execution ${workflowId1} to test termination")
+          String runId1 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+              workflowId: workflowId1,
+              domain: domainName,
+              workflowType: new WorkflowType(name: workflowTypeName, version: '1'),
+              taskList: new TaskList(name: 'list'),
+              input: 'input-here',
+          )).with {
+            runId
+          }
+          assertThat(runId1 != null, "Expected run-id")
+          print("Started workflow execution with runId: ${runId1}")
+
+          print("Terminating workflow execution ${workflowId1}")
+          terminateWorkflowExecution(new TerminateWorkflowExecutionRequest(
+              domain: domainName,
+              workflowId: workflowId1,
+              reason: 'test',
+              details: 'unit test'
+          ))
+        }
+
+        print( "Waiting 15s for workflow retention period expiry processing" )
+        sleep( 15000 )
+
+        String domainName0 = "${namePrefix}0-domain"
+        print("Verifying no workflow executions for ${domainName0}")
+        listClosedWorkflowExecutions( new ListClosedWorkflowExecutionsRequest(
+            domain: domainName0,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos == null || executionInfos.isEmpty(), "Expected no executions, but was: ${executionInfos?.size()}" )
+        }
+
+        String domainName1 = "${namePrefix}1-domain"
+        print("Verifying one workflow executions for ${domainName1}")
+        listClosedWorkflowExecutions( new ListClosedWorkflowExecutionsRequest(
+            domain: domainName1,
+            startTimeFilter: new ExecutionTimeFilter(
+                oldestDate: Date.parse( 'yyyy-MM-dd HH:mm:ss', '2000-01-01 00:00:00')
+            )
+        ) ).with {
+          assertThat( executionInfos != null && executionInfos.size()==1, "Expected one executions, but was: ${executionInfos?.size()}" )
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

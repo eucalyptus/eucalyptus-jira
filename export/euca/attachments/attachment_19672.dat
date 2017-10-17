@@ -1,0 +1,17 @@
+diff --git a/clc/modules/imaging/src/main/java/com/eucalyptus/imaging/ImagingTaskStateManager.java b/clc/modules/imaging/src/main/java/com/eucalyptus/imaging/ImagingTaskStateManager.java
+index c8490e4..a458568 100644
+--- a/clc/modules/imaging/src/main/java/com/eucalyptus/imaging/ImagingTaskStateManager.java
++++ b/clc/modules/imaging/src/main/java/com/eucalyptus/imaging/ImagingTaskStateManager.java
+@@ -476,6 +476,12 @@ public class ImagingTaskStateManager implements EventListener<ClockTick> {
+     if(volumeTask.getImportManifestUrl() !=null){
+       try{
+         if(! doesManifestExist(volumeTask.getOwnerUserId(), volumeTask.getImportManifestUrl())) {
++          // if we can't check manifest there is no reason to try it again and again
++          try{
++            ImagingTasks.transitState(volumeTask, ImportTaskState.NEW, ImportTaskState.FAILED, "Failed to locate manifest");
++          }catch(final Exception ex){
++            ;
++          }
+           return;
+         }
+       }catch(final Exception ex){

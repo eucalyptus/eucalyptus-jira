@@ -1,0 +1,92 @@
+From 07d7ff4a2fd618563c423bce952073ba3fb1e992 Mon Sep 17 00:00:00 2001
+From: Stanislav Ievlev <stanislav.ievlev@gmail.com>
+Date: Fri, 21 May 2010 12:36:42 +0400
+Subject: [PATCH] improve compatibility with standard amazon library (aws-sdk-for-java)
+
+---
+ .../ws/handlers/WalrusAuthenticationHandler.java   |   45 +++++++++++++++----
+ 1 files changed, 35 insertions(+), 10 deletions(-)
+
+diff --git a/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/handlers/WalrusAuthenticationHandler.java b/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/handlers/WalrusAuthenticationHandler.java
+index c926130..fe445f3 100644
+--- a/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/handlers/WalrusAuthenticationHandler.java
++++ b/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/handlers/WalrusAuthenticationHandler.java
+@@ -199,11 +199,6 @@ public class WalrusAuthenticationHandler extends MessageStackHandler {
+ 			}  
+ 		}  else {
+ 			//external user request
+-			String content_md5 = httpRequest.getAndRemoveHeader("Content-MD5");
+-			content_md5 = content_md5 == null ? "" : content_md5;
+-			String content_type = httpRequest.getHeader(WalrusProperties.CONTENT_TYPE);
+-			content_type = content_type == null ? "" : content_type;
+-
+ 			String targetHost = httpRequest.getHeader(HttpHeaders.Names.HOST);
+ 			if(targetHost.contains(".walrus")) {
+ 				String bucket = targetHost.substring(0, targetHost.indexOf(".walrus"));
+@@ -242,12 +237,20 @@ public class WalrusAuthenticationHandler extends MessageStackHandler {
+ 				} catch(Exception ex) {
+ 					throw new AuthenticationException("Unable to parse date.");
+ 				}
+-				String data = verb + "\n" + content_md5 + "\n" + content_type + "\n" + date + "\n" +  getCanonicalizedAmzHeaders(httpRequest) + addrString;
+ 
+ 				String auth_part = httpRequest.getAndRemoveHeader(SecurityParameter.Authorization.toString());
+ 				String sigString[] = getSigInfo(auth_part);
+-				String signature = sigString[1];
+-				authenticate(httpRequest, sigString[0], signature, data);
++
++				try {
++					authenticate(httpRequest, sigString[0], sigString[1], getCanonicalString(httpRequest, date, addrString));
++				} catch (AuthenticationException e) {
++					//workaround over broken amazon clients
++					String addrString2 = getRealAddress(addrString);
++					if (addrString2 != null)
++						authenticate(httpRequest, sigString[0], sigString[1], getCanonicalString(httpRequest, date, addrString2));
++					else
++						throw e;
++				}
+ 			} else if(parameters.containsKey(SecurityParameter.AWSAccessKeyId.toString())) {
+ 				//query string authentication
+ 				String accesskeyid = parameters.remove(SecurityParameter.AWSAccessKeyId.toString());
+@@ -261,8 +264,8 @@ public class WalrusAuthenticationHandler extends MessageStackHandler {
+ 						throw new AuthenticationException("Authentication failed. Expires must be specified.");
+ 					}
+ 					if(checkExpires(expires)) {
+-						String stringToSign = verb + "\n" + content_md5 + "\n" + content_type + "\n" + Long.parseLong(expires) + "\n" + getCanonicalizedAmzHeaders(httpRequest) + addrString;
+-						authenticate(httpRequest, accesskeyid, signature, stringToSign);
++						Long.parseLong(expires); // check for long
++						authenticate(httpRequest, accesskeyid, signature, getCanonicalString(httpRequest, expires, addrString));
+ 					} else {
+ 						throw new AuthenticationException("Cannot process request. Expired.");
+ 					}
+@@ -275,6 +278,28 @@ public class WalrusAuthenticationHandler extends MessageStackHandler {
+ 		}
+ 	}
+ 
++	private String getRealAddress(String addrString) {
++		if (!addrString.startsWith(WalrusProperties.walrusServicePath))
++			return null;
++
++		String result = addrString.substring(WalrusProperties.walrusServicePath.length());
++		if (result.isEmpty()) result = "/";
++		return result;
++	}
++
++	private String getCanonicalString(MappingHttpRequest httpRequest, String date, String addrString)
++	{
++		String verb = httpRequest.getMethod().getName();
++
++		String content_md5 = httpRequest.getHeader("Content-MD5");
++		content_md5 = content_md5 == null ? "" : content_md5;
++		String content_type = httpRequest.getHeader(WalrusProperties.CONTENT_TYPE);
++		content_type = content_type == null ? "" : content_type;
++
++		String data = verb + "\n" + content_md5 + "\n" + content_type + "\n" + date + "\n" +  getCanonicalizedAmzHeaders(httpRequest) + addrString;
++		return data;
++	}
++
+ 	private boolean checkExpires(String expires) {
+ 		Long expireTime = Long.parseLong(expires);
+ 		Long currentTime = new Date().getTime() / 1000;
+-- 
+1.6.6.1
+

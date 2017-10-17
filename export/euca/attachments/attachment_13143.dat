@@ -1,0 +1,59 @@
+From dc1896f7765bd28e2d51277a5ffa7f4ae40164f5 Mon Sep 17 00:00:00 2001
+From: Andy Grimm <agrimm@gmail.com>
+Date: Thu, 1 Nov 2012 14:07:25 -0400
+Subject: [PATCH] Allow cloud admin to delete volumes and snapshots
+
+In the "delete" functions for volumes and snapshots, objects were being
+unnecessarily filtered by owner prior to checking permissions on the
+object.  This filter has been removed, allowing the cloud admin to
+delete volumes and snapshots owned by other accounts.
+
+Also changed the message for unauthorized deletions to display the
+account name along with the user name.
+
+Fixes EUCA-3650
+---
+ .../src/main/java/com/eucalyptus/blockstorage/SnapshotManager.java    | 4 ++--
+ .../src/main/java/com/eucalyptus/blockstorage/VolumeManager.java      | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/SnapshotManager.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/SnapshotManager.java
+index 592862a..dde6331 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/SnapshotManager.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/SnapshotManager.java
+@@ -162,14 +162,14 @@ public class SnapshotManager {
+     final Context ctx = Contexts.lookup( );
+     boolean result = false;
+     try {
+-      result = Transactions.delete( Snapshot.named( ctx.getUserFullName( ).asAccountFullName( ), request.getSnapshotId( ) ), new Predicate<Snapshot>( ) {
++      result = Transactions.delete( Snapshot.named( null, request.getSnapshotId( ) ), new Predicate<Snapshot>( ) {
+         
+         @Override
+         public boolean apply( Snapshot snap ) {
+           if ( !State.EXTANT.equals( snap.getState( ) ) && !State.FAIL.equals( snap.getState( ) ) ) {
+             return false;
+           } else if ( !RestrictedTypes.filterPrivileged( ).apply( snap ) ) {
+-            throw Exceptions.toUndeclared( "Not authorized to delete snapshot " + request.getSnapshotId( ) + " by " + ctx.getUser( ).getName( ),
++            throw Exceptions.toUndeclared( "Not authorized to delete snapshot " + request.getSnapshotId( ) + " by " + ctx.getAccount( ).getName( ) + ":" + ctx.getUser( ).getName( ),
+                                            new EucalyptusCloudException( ) );
+           } else if ( isReservedSnapshot( request.getSnapshotId( ) ) ) {
+             throw Exceptions.toUndeclared( "Snapshot " + request.getSnapshotId( ) + " is in use, deletion not permitted", new EucalyptusCloudException( ) );
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/VolumeManager.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/VolumeManager.java
+index 05206ec..8285b8f 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/VolumeManager.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/VolumeManager.java
+@@ -188,9 +188,9 @@ public class VolumeManager {
+       @Override
+       public Volume apply( final String input ) {
+         try {
+-          Volume vol = Entities.uniqueResult( Volume.named( ctx.getUserFullName( ).asAccountFullName( ), input ) );
++          Volume vol = Entities.uniqueResult( Volume.named( null, input ) );
+           if ( !RestrictedTypes.filterPrivileged( ).apply( vol ) ) {
+-            throw Exceptions.toUndeclared( "Not authorized to delete volume by " + ctx.getUser( ).getName( ) );
++            throw Exceptions.toUndeclared( "Not authorized to delete volume by " + ctx.getAccount( ).getName( ) + ":" + ctx.getUser( ).getName( ) );
+           }
+           try {
+             VmVolumeAttachment attachment = VmInstances.lookupVolumeAttachment( input );
+-- 
+1.7.11.7
+

@@ -1,0 +1,165 @@
+
+#### 1st command debugging mode ##### 
+
+[eucademo@euca-clc ~]$ euca-describe-keypairs --region us-east-1 --debug
+2015-06-26 15:25:02,437 DEBUG   DescribeKeyPairs parsed arguments: {'filters': None, 'security_token': None, 'url': None, 'region': 'us-east-1', 'KeyName': [], 'show_empty_fields': False, 'key_id': None, 'secret_key': None}
+2015-06-26 15:25:02,437 INFO    Config finding region option user
+2015-06-26 15:25:02,438 DEBUG   Config   section us-east-1
+2015-06-26 15:25:02,438 INFO    Config   found   us-east-1::user = 'aws-user'
+2015-06-26 15:25:02,438 INFO    Config finding region option ec2-url
+2015-06-26 15:25:02,438 DEBUG   Config   section us-east-1
+2015-06-26 15:25:02,438 INFO    Config   found   us-east-1::ec2-url = 'https://ec2.us-east-1.amazonaws.com/'
+2015-06-26 15:25:02,439 INFO    Config finding region option name
+2015-06-26 15:25:02,439 DEBUG   Config   section us-east-1
+2015-06-26 15:25:02,439 INFO    Config   found   us-east-1::name = 'us-east-1'
+2015-06-26 15:25:02,439 INFO    Config finding global option max-retries
+2015-06-26 15:25:02,439 INFO    Config   novalue for max-retries
+2015-06-26 15:25:02,439 INFO    Config finding global option timeout
+2015-06-26 15:25:02,440 INFO    Config   novalue for timeout
+2015-06-26 15:25:02,440 INFO    Config finding region option verify-ssl
+2015-06-26 15:25:02,440 DEBUG   Config   section us-east-1
+2015-06-26 15:25:02,440 DEBUG   Config   jump-to aws:us-east-1::verify-ssl (from us-east-1)
+2015-06-26 15:25:02,441 DEBUG   Config   section aws:us-east-1
+2015-06-26 15:25:02,441 DEBUG   Config   section aws:*
+2015-06-26 15:25:02,441 INFO    Config   found   aws:*::verify-ssl = 'true'
+2015-06-26 15:25:02,441 INFO    Config finding user option key-id
+2015-06-26 15:25:02,441 DEBUG   Config   section aws-user
+2015-06-26 15:25:02,442 INFO    Config   found   aws-user::key-id = 'AKIAIBQOPPRI7XDCYOMA'
+2015-06-26 15:25:02,442 INFO    Config finding user option secret-key
+2015-06-26 15:25:02,442 DEBUG   Config   section aws-user
+2015-06-26 15:25:02,442 INFO    Config   found   aws-user::secret-key = <redacted>
+2015-06-26 15:25:02,449 INFO    DescribeKeyPairs parameters: {'Action': 'DescribeKeyPairs', 'Version': '2014-06-15'}
+2015-06-26 15:25:02,450 INFO    EC2 sending request (attempt 1 of 3)
+2015-06-26 15:25:02,452 DEBUG   QuerySigV2Auth string to sign: 'POST\nec2.us-east-1.amazonaws.com\n/\nAWSAccessKeyId=AKIAIBQOPPRI7XDCYOMA&Action=DescribeKeyPairs&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2015-06-26T07%3A25%3A02Z&Version=2014-06-15'
+2015-06-26 15:25:02,452 DEBUG   QuerySigV2Auth b64-encoded signature: x7J9WUhAjucv6MPK0qrLJvuh3G/HS425837msYx2qLg=
+2015-06-26 15:25:02,452 DEBUG   QuerySigV2Auth converting params to POST data
+2015-06-26 15:25:02,459 DEBUG   EC2 request method: POST
+2015-06-26 15:25:02,459 DEBUG   EC2 request url:    https://ec2.us-east-1.amazonaws.com/
+2015-06-26 15:25:02,460 DEBUG   EC2 request header: Content-Length: 218
+2015-06-26 15:25:02,460 DEBUG   EC2 request header: Content-Type: application/x-www-form-urlencoded
+2015-06-26 15:25:02,460 DEBUG   EC2 request header: Host: ec2.us-east-1.amazonaws.com
+2015-06-26 15:25:02,460 DEBUG   EC2 request header: User-Agent: euca2ools/3.2.0 (CPython 2.6.6; Linux 2.6.32-504.16.2.el6.x86_64; x86_64) requestbuilder/0.2.3 requests/1.1.0
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   AWSAccessKeyId: AKIAIBQOPPRI7XDCYOMA
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   Action: DescribeKeyPairs
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   Signature: x7J9WUhAjucv6MPK0qrLJvuh3G/HS425837msYx2qLg=
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   SignatureMethod: HmacSHA256
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   SignatureVersion: 2
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   Timestamp: 2015-06-26T07:25:02Z
+2015-06-26 15:25:02,460 DEBUG   EC2 request data:   Version: 2014-06-15
+2015-06-26 15:25:32,719 DEBUG   EC2 request error
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/site-packages/requestbuilder/service.py", line 168, in send_request
+    method, url, params, data, files, headers, auth)
+  File "/usr/lib/python2.6/site-packages/requestbuilder/service.py", line 256, in __log_and_send_request
+    return self.session.send(p_request, stream=True, timeout=self.timeout)
+  File "/usr/lib/python2.6/site-packages/requests/sessions.py", line 374, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.6/site-packages/requests/adapters.py", line 215, in send
+    raise Timeout(e)
+Timeout: HTTPSConnectionPool(host='ec2.us-east-1.amazonaws.com', port=443): Request timed out. (timeout=30)
+euca-describe-keypairs: error: HTTPSConnectionPool(host='ec2.us-east-1.amazonaws.com', port=443): Request timed out. (timeout=30)
+Traceback (most recent call last):
+  File "/usr/bin/euca-describe-keypairs", line 6, in <module>
+    euca2ools.commands.ec2.describekeypairs.DescribeKeyPairs.run()
+  File "/usr/lib/python2.6/site-packages/requestbuilder/command.py", line 298, in run
+    cmd.handle_cli_exception(err)
+  File "/usr/lib/python2.6/site-packages/requestbuilder/request.py", line 237, in handle_cli_exception
+    BaseCommand.handle_cli_exception(self, err)
+  File "/usr/lib/python2.6/site-packages/requestbuilder/command.py", line 295, in run
+    result = cmd.main()
+  File "/usr/lib/python2.6/site-packages/requestbuilder/request.py", line 218, in main
+    response = self.send()
+  File "/usr/lib/python2.6/site-packages/requestbuilder/request.py", line 167, in send
+    auth=self.auth)
+  File "/usr/lib/python2.6/site-packages/requestbuilder/service.py", line 210, in send_request
+    raise ClientError(exc)
+requestbuilder.exceptions.ClientError: HTTPSConnectionPool(host='ec2.us-east-1.amazonaws.com', port=443): Request timed out. (timeout=30)
+{code}
+
+
+
+#### 2nd command debugging mode #####
+
+[eucademo@euca-clc ~]$ aws ec2 describe-key-pairs --debug
+2015-06-26 15:27:55,648 - MainThread - awscli.clidriver - DEBUG - CLI version: aws-cli/1.7.27 Python/2.6.6 Linux/2.6.32-504.16.2.el6.x86_64, botocore version: 0.108.0
+2015-06-26 15:27:55,649 - MainThread - awscli.clidriver - DEBUG - Arguments entered to CLI: ['ec2', 'describe-key-pairs', '--debug']
+2015-06-26 15:27:55,649 - MainThread - botocore.hooks - DEBUG - Event session-initialized: calling handler <function add_scalar_parsers at 0x21e19b0>
+2015-06-26 15:27:55,649 - MainThread - botocore.hooks - DEBUG - Event session-initialized: calling handler <function inject_assume_role_provider at 0x2165848>
+2015-06-26 15:27:55,979 - MainThread - botocore.hooks - DEBUG - Event service-data-loaded.ec2: calling handler <function register_retries_for_service at 0x1cd9398>
+2015-06-26 15:27:55,981 - MainThread - botocore.handlers - DEBUG - Registering retry handlers for service: ec2
+2015-06-26 15:27:55,990 - MainThread - botocore.hooks - DEBUG - Event building-command-table.ec2: calling handler <functools.partial object at 0x21e0c00>
+2015-06-26 15:27:55,990 - MainThread - awscli.customizations.removals - DEBUG - Removing operation: import-instance
+2015-06-26 15:27:55,990 - MainThread - awscli.customizations.removals - DEBUG - Removing operation: import-volume
+2015-06-26 15:27:55,990 - MainThread - botocore.hooks - DEBUG - Event building-command-table.ec2: calling handler <function add_waiters at 0x2173938>
+2015-06-26 15:27:55,998 - MainThread - awscli.clidriver - DEBUG - OrderedDict([(u'dry-run', <awscli.arguments.BooleanArgument object at 0x2983d10>), (u'no-dry-run', <awscli.arguments.BooleanArgument object at 0x2983d50>), (u'key-names', <awscli.arguments.ListArgument object at 0x2983d90>), (u'filters', <awscli.arguments.ListArgument object at 0x2983dd0>)])
+2015-06-26 15:27:55,998 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <function add_streaming_output_arg at 0x1f9d2a8>
+2015-06-26 15:27:55,998 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <function _rename_arg at 0x21ebd70>
+2015-06-26 15:27:55,999 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <function _rename_arg at 0x21f30c8>
+2015-06-26 15:27:55,999 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <functools.partial object at 0x21e0d08>
+2015-06-26 15:27:55,999 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <function add_cli_input_json at 0x215bb90>
+2015-06-26 15:27:55,999 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <function unify_paging_params at 0x1fa50c8>
+2015-06-26 15:27:56,001 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.describe-key-pairs: calling handler <function add_generate_skeleton at 0x215d758>
+2015-06-26 15:27:56,001 - MainThread - botocore.hooks - DEBUG - Event before-building-argument-table-parser.ec2.describe-key-pairs: calling handler <bound method CliInputJSONArgument.override_required_args of <awscli.customizations.cliinputjson.CliInputJSONArgument object at 0x2983fd0>>
+2015-06-26 15:27:56,001 - MainThread - botocore.hooks - DEBUG - Event before-building-argument-table-parser.ec2.describe-key-pairs: calling handler <bound method GenerateCliSkeletonArgument.override_required_args of <awscli.customizations.generatecliskeleton.GenerateCliSkeletonArgument object at 0x2983e50>>
+2015-06-26 15:27:56,002 - MainThread - botocore.hooks - DEBUG - Event operation-args-parsed.ec2.describe-key-pairs: calling handler <functools.partial object at 0x2984260>
+2015-06-26 15:27:56,002 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.describe-key-pairs.dry-run: calling handler <function uri_param at 0x1f7e410>
+2015-06-26 15:27:56,002 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.describe-key-pairs.key-names: calling handler <function uri_param at 0x1f7e410>
+2015-06-26 15:27:56,002 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.describe-key-pairs.filters: calling handler <function uri_param at 0x1f7e410>
+2015-06-26 15:27:56,003 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.describe-key-pairs.cli-input-json: calling handler <function uri_param at 0x1f7e410>
+2015-06-26 15:27:56,003 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.describe-key-pairs.generate-cli-skeleton: calling handler <function uri_param at 0x1f7e410>
+2015-06-26 15:27:56,003 - MainThread - botocore.hooks - DEBUG - Event calling-command.ec2.describe-key-pairs: calling handler <bound method GenerateCliSkeletonArgument.generate_json_skeleton of <awscli.customizations.generatecliskeleton.GenerateCliSkeletonArgument object at 0x2983e50>>
+2015-06-26 15:27:56,003 - MainThread - botocore.hooks - DEBUG - Event calling-command.ec2.describe-key-pairs: calling handler <bound method CliInputJSONArgument.add_to_call_parameters of <awscli.customizations.cliinputjson.CliInputJSONArgument object at 0x2983fd0>>
+2015-06-26 15:27:56,003 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: env
+2015-06-26 15:27:56,003 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: assume-role
+2015-06-26 15:27:56,003 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: shared-credentials-file
+2015-06-26 15:27:56,004 - MainThread - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2015-06-26 15:27:56,008 - MainThread - botocore.client - DEBUG - Registering retry handlers for service: ec2
+2015-06-26 15:27:56,018 - MainThread - botocore.endpoint - DEBUG - Making request for <botocore.model.OperationModel object at 0x2a503d0> (verify_ssl=True) with params: {'query_string': '', 'headers': {}, 'url_path': '/', 'body': {'Action': u'DescribeKeyPairs', 'Version': u'2015-04-15'}, 'method': u'POST'}
+2015-06-26 15:27:56,019 - MainThread - botocore.hooks - DEBUG - Event request-created.ec2.DescribeKeyPairs: calling handler <bound method ec2._sign_request of <botocore.client.ec2 object at 0x29a9e10>>
+2015-06-26 15:27:56,020 - MainThread - botocore.auth - DEBUG - Calculating signature using v4 auth.
+2015-06-26 15:27:56,020 - MainThread - botocore.auth - DEBUG - CanonicalRequest:
+POST
+/
+
+host:ec2.us-east-1.amazonaws.com
+user-agent:aws-cli/1.7.27 Python/2.6.6 Linux/2.6.32-504.16.2.el6.x86_64
+x-amz-date:20150626T072756Z
+
+host;user-agent;x-amz-date
+7d15415c30191fa6329d451dc18f045576d993a049c80bdf750357b62d7aa3d6
+2015-06-26 15:27:56,020 - MainThread - botocore.auth - DEBUG - StringToSign:
+AWS4-HMAC-SHA256
+20150626T072756Z
+20150626/us-east-1/ec2/aws4_request
+1d68732ba32a4b34eac34821841a6d4eb4abc408600f13d9ee82609b777d8198
+2015-06-26 15:27:56,020 - MainThread - botocore.auth - DEBUG - Signature:
+d7e4381613a17bb1db47ad948d066ec81e3d68e2c86ab1b52e5eda367d9b2cb7
+2015-06-26 15:27:56,027 - MainThread - botocore.endpoint - DEBUG - Sending http request: <PreparedRequest [POST]>
+2015-06-26 15:27:56,027 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - INFO - Starting new HTTPS connection (1): ec2.us-east-1.amazonaws.com
+2015-06-26 15:27:57,759 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - DEBUG - "POST / HTTP/1.1" 200 None
+2015-06-26 15:27:57,761 - MainThread - botocore.parsers - DEBUG - Response headers:
+{'content-type': 'text/xml;charset=UTF-8',
+ 'date': 'Fri, 26 Jun 2015 07:27:57 GMT',
+ 'server': 'AmazonEC2',
+ 'transfer-encoding': 'chunked',
+ 'vary': 'Accept-Encoding'}
+2015-06-26 15:27:57,762 - MainThread - botocore.parsers - DEBUG - Response body:
+<?xml version="1.0" encoding="UTF-8"?>
+<DescribeKeyPairsResponse xmlns="http://ec2.amazonaws.com/doc/2015-04-15/">
+    <requestId>c7239826-389c-4396-9670-1d236e4e3de6</requestId>
+    <keySet>
+        <item>
+            <keyName>default</keyName>
+            <keyFingerprint>fa:0d:fd:8c:b2:93:fd:89:49:42:be:d6:53:2e:3b:0a</keyFingerprint>
+        </item>
+    </keySet>
+</DescribeKeyPairsResponse>
+2015-06-26 15:27:57,763 - MainThread - botocore.hooks - DEBUG - Event needs-retry.ec2.DescribeKeyPairs: calling handler <botocore.retryhandler.RetryHandler object at 0x27fea90>
+2015-06-26 15:27:57,763 - MainThread - botocore.retryhandler - DEBUG - No retry needed.
+2015-06-26 15:27:57,764 - MainThread - botocore.hooks - DEBUG - Event after-call.ec2.DescribeKeyPairs: calling handler <awscli.errorhandler.ErrorHandler object at 0x21e5ad0>
+2015-06-26 15:27:57,764 - MainThread - awscli.errorhandler - DEBUG - HTTP Response Code: 200
+2015-06-26 15:27:57,764 - MainThread - awscli.formatter - DEBUG - RequestId: c7239826-389c-4396-9670-1d236e4e3de6
+KEYPAIRS        fa:0d:fd:8c:b2:93:fd:89:49:42:be:d6:53:2e:3b:0a default
+
+
+

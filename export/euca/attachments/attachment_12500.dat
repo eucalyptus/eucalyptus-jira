@@ -1,0 +1,22 @@
+import javax.persistence.EntityTransaction
+import com.eucalyptus.entities.Entities
+import com.eucalyptus.network.ExtantNetwork
+import com.eucalyptus.network.NetworkGroup
+import com.eucalyptus.scripting.Groovyness
+import com.eucalyptus.vm.VmInstance
+import com.eucalyptus.vm.VmInstances;
+
+
+VmInstances.list( ).collect{ VmInstance vm ->
+  VmInstance v = Groovyness.expandoMetaClass(vm );
+  EntityTransaction db = Entities.get( VmInstance.class );
+  try {
+    VmInstance entity = Groovyness.expandoMetaClass( VmInstances.lookup( v.getInstanceId() ) );
+    entity.networkConfig.updateDns( );
+    db.commit( );
+    return entity.networkConfig.publicDnsName;
+  } catch ( Exception ex ) {
+    db.rollback( );
+  }
+
+}

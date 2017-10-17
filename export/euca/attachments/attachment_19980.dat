@@ -1,0 +1,59 @@
+Index: modules/cloudwatch-backend/src/main/java/com/eucalyptus/cloudwatch/domain/alarms/AlarmManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudwatch-backend/src/main/java/com/eucalyptus/cloudwatch/domain/alarms/AlarmManager.java	(date 1400107981000)
++++ modules/cloudwatch-backend/src/main/java/com/eucalyptus/cloudwatch/domain/alarms/AlarmManager.java	(revision )
+@@ -434,7 +434,7 @@
+       @Nullable final Integer maxRecords,
+       @Nullable final StateValue stateValue,
+       @Nullable final String nextToken,
+-                final Predicate<CloudWatchMetadata.AlarmMetadata> filter
++                final Predicate<? super CloudWatchMetadata.AlarmMetadata> filter
+   ) throws CloudWatchException {
+     final List<AlarmEntity> results = Lists.newArrayList();
+     final EntityTransaction db = Entities.get(AlarmEntity.class);
+@@ -498,7 +498,7 @@
+     @Nullable final Integer period,
+     @Nullable final Statistic statistic,
+     @Nullable final Units unit,
+-    @Nonnull  final Predicate<CloudWatchMetadata.AlarmMetadata> filter
++    @Nonnull  final Predicate<? super CloudWatchMetadata.AlarmMetadata> filter
+   ) {
+     final List<AlarmEntity> results = Lists.newArrayList();
+     final EntityTransaction db = Entities.get(AlarmEntity.class);
+Index: modules/cloudwatch-backend/src/main/java/com/eucalyptus/cloudwatch/backend/CloudWatchBackendService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudwatch-backend/src/main/java/com/eucalyptus/cloudwatch/backend/CloudWatchBackendService.java	(date 1400107981000)
++++ modules/cloudwatch-backend/src/main/java/com/eucalyptus/cloudwatch/backend/CloudWatchBackendService.java	(revision )
+@@ -359,7 +359,7 @@
+           false);
+       final List<AlarmEntity> results = AlarmManager.describeAlarms(accountId,
+           actionPrefix, alarmNamePrefix, alarmNames, maxRecords, stateValue,
+-          nextToken, RestrictedTypes.<CloudWatchMetadata.AlarmMetadata>filterPrivileged());
++          nextToken, RestrictedTypes.filteringFor( CloudWatchMetadata.AlarmMetadata.class ).byPrivileges( ).buildPredicate( ) );
+       if (maxRecords != null && results.size() == maxRecords) {
+         reply.getDescribeAlarmsResult().setNextToken(
+             results.get(results.size() - 1).getNaturalId());
+@@ -395,7 +395,7 @@
+       final Units unit = validateUnits(request.getUnit(), true);
+       final Collection<AlarmEntity> results = AlarmManager.describeAlarmsForMetric(
+           accountId, dimensionMap, metricName, namespace, period, statistic,
+-          unit, RestrictedTypes.<CloudWatchMetadata.AlarmMetadata>filterPrivileged() );
++          unit, RestrictedTypes.filteringFor( CloudWatchMetadata.AlarmMetadata.class ).byPrivileges( ).buildPredicate( ) );
+       final MetricAlarms metricAlarms = new MetricAlarms();
+       metricAlarms.setMember(Lists.newArrayList(Collections2
+           .<AlarmEntity, MetricAlarm> transform(results,
+@@ -428,7 +428,7 @@
+       final List<AlarmHistory> results = AlarmManager.describeAlarmHistory(
+           accountId, alarmName, endDate, historyItemType,
+           maxRecords, startDate, nextToken, Predicates.compose(
+-            RestrictedTypes.<CloudWatchMetadata.AlarmMetadata>filterPrivileged(),
++            RestrictedTypes.filteringFor( CloudWatchMetadata.AlarmMetadata.class ).byPrivileges( ).buildPredicate( ),
+             TransformationFunctions.AlarmHistoryToAlarmMetadata.INSTANCE ) );
+       if (maxRecords != null && results.size() == maxRecords) {
+         reply.getDescribeAlarmHistoryResult().setNextToken(

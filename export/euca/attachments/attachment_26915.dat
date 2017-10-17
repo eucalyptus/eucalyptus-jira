@@ -1,0 +1,140 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Instance with multiple ENIs in a VPC",
+    "Parameters": {
+        "Emi": {
+            "Description": "Name of an existing machine image",
+            "Type": "String",
+            "ConstraintDescription": "The name of an existing image."
+        },
+        "KeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+            "Type": "String",
+            "ConstraintDescription": "The name of an existing EC2 KeyPair."
+        }
+    },
+    "Resources": {
+        "Vpc": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.20.0.0/16"
+            }
+        },
+        "InternetGateway": {
+            "Type": "AWS::EC2::InternetGateway"
+        },
+        "AttachInternetGateway": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "Properties": {
+                "InternetGatewayId": {
+                    "Ref": "InternetGateway"
+                },
+                "VpcId": {
+                    "Ref": "Vpc"
+                }
+            }
+        },
+        "Subnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "CidrBlock": "10.20.10.0/24",
+                "VpcId": {
+                    "Ref": "Vpc"
+                }
+            }
+        },
+        "Subnet2": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "CidrBlock": "10.20.20.0/24",
+                "VpcId": {
+                    "Ref": "Vpc"
+                }
+            }
+        },
+        "SecurityGroup1": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Security group 1",
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "IpProtocol": "tcp"
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "Vpc"
+                }
+            }
+        },
+        "SecurityGroup2": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Security group 2",
+                "SecurityGroupIngress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "IpProtocol": "tcp"
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "Vpc"
+                }
+            }
+        },
+        "Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "Emi"
+                },
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "AssociatePublicIpAddress": true,
+                        "GroupSet": [
+                            {
+                                "Ref": "SecurityGroup1"
+                            }
+                        ],
+                        "SubnetId": {
+                            "Ref": "Subnet1"
+                        }
+                    },
+                    {
+                        "DeviceIndex": "1",
+                        "GroupSet": [
+                            {
+                                "Ref": "SecurityGroup2"
+                            }
+                        ],
+                        "SubnetId": {
+                            "Ref": "Subnet2"
+                        }
+                    }
+                ]
+            },
+            "DependsOn": "AttachInternetGateway"
+        }
+    },
+    "Outputs": {
+        "VpcId": {
+            "Value": {
+                "Ref": "Vpc"
+            }
+        },
+        "InstanceId": {
+            "Value": {
+                "Ref": "Instance"
+            }
+        }
+    }
+}
+

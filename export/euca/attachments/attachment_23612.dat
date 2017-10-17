@@ -1,0 +1,15 @@
+{
+  "Statement": [
+    {
+      "Effect": "Limit",
+      "Resource": "*",
+      "Action": "ec2:RunInstances",
+      "Condition": {
+        "NumericLessThanEquals": {
+          "ec2:quota-vminstancenumber": "0"
+        }
+      }
+    }
+  ]
+}
+

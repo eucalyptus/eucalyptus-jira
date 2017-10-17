@@ -1,0 +1,213 @@
+diff --git a/storage-san-common/src/main/java/com/eucalyptus/storage/SANProvider.java b/storage-san-common/src/main/java/com/eucalyptus/storage/SANProvider.java
+index 033bca9..011bd69 100644
+--- a/storage-san-common/src/main/java/com/eucalyptus/storage/SANProvider.java
++++ b/storage-san-common/src/main/java/com/eucalyptus/storage/SANProvider.java
+@@ -113,7 +113,13 @@ public interface SANProvider {
+ 	public String cloneVolume(String volumeId, String parentVolumeId) throws EucalyptusCloudException;
+ 
+ 	/**
+-	 * Connect to the lun specified by the given iqn.
++	 * Connect to the lun specified by the given iqn. 
++	 * 
++	 * <p>This method may invoke connect iSCSI script on SC in which case the call out to the script should be <strong>synchronized</strong>. 
++	 * This is to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the process).</p>
++	 *  
++	 * <p>See {@link #disconnectTarget(String, String)}</p>
++	 * 
+ 	 * @param iqn
+ 	 * @return
+ 	 * @throws EucalyptusCloudException
+@@ -181,6 +187,12 @@ public interface SANProvider {
+ 
+ 	/**
+ 	 * Disconnects the SC from the specified snapshot. The iqn is that of the SC itself.
++	 * 
++	 * <p>This method may invoke disconnect iSCSI script on SC in which case the call out to the script should be <strong>synchronized</strong>. 
++	 * This is to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the process).</p>
++	 *  
++	 * <p>See {@link #connectTarget(String)}</p>
++	 * 
+ 	 * @param snapshotId
+ 	 * @param iqn
+ 	 * @throws EucalyptusCloudException
+diff --git a/storage-san-emc/src/main/java/com/eucalyptus/storage/emc/EmcVnxProvider.java b/storage-san-emc/src/main/java/com/eucalyptus/storage/emc/EmcVnxProvider.java
+index de06e6e..e923a14 100644
+--- a/storage-san-emc/src/main/java/com/eucalyptus/storage/emc/EmcVnxProvider.java
++++ b/storage-san-emc/src/main/java/com/eucalyptus/storage/emc/EmcVnxProvider.java
+@@ -696,9 +696,18 @@ public class EmcVnxProvider implements SANProvider {
+ 				if (Strings.isNullOrEmpty(scDeviceString)) {
+ 					throw new EucalyptusCloudException("Unable to get device string for the volume");
+ 				}
+-				SystemUtil.CommandOutput output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "connect_iscsitarget_sc.pl", scDeviceString});
+-				if (output.returnValue != 0 || Strings.isNullOrEmpty(output.output)) {
+-					throw new EucalyptusCloudException("Unable to get device name. Connect failed: " + output.output + "\n" + output.error);
++				SystemUtil.CommandOutput output = null;
++				// Connect and disconnect scripts are synchronized to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the process) 
++				synchronized (this) {
++					output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "connect_iscsitarget_sc.pl", scDeviceString});
++				}
++				if(output != null) {
++					LOG.debug("Dump from connect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output + "\nDebug=" + output.error);
++					if (output.returnValue != 0 || Strings.isNullOrEmpty(output.output)) {
++						throw new EucalyptusCloudException("Unable to get device name. Connect failed: " + output.output + "\n" + output.error);
++					}
++				} else {
++					throw new EucalyptusCloudException("Unable to connect to storage target. No output from the connect script");
+ 				}
+ 				return output.output;
+ 			} catch (EucalyptusCloudException e) {
+@@ -716,9 +725,6 @@ public class EmcVnxProvider implements SANProvider {
+ 
+ 	@Override
+ 	public void disconnectTarget(String snapshotId, String iqn) throws EucalyptusCloudException {
+-		// Unexport the snapshot
+-		unexportVolumeFromAll(snapshotId);
+-
+ 		EntityWrapper<CHAPUserInfo> db = StorageProperties.getEntityWrapper();
+ 		try {
+ 			SANInfo vnxInfo = SANInfo.getStorageInfo();
+@@ -735,10 +741,22 @@ public class EmcVnxProvider implements SANProvider {
+ 			if (Strings.isNullOrEmpty(scDeviceString)) {
+ 				throw new EucalyptusCloudException("Unable to get device string for the volume");
+ 			}
+-			SystemUtil.CommandOutput output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "disconnect_iscsitarget_sc.pl", scDeviceString});
+-			if (output.returnValue != 0) {
+-				throw new EucalyptusCloudException("Unable to disconnect target: " + output.output + "\n" + output.error);
++			SystemUtil.CommandOutput output = null;
++			// Connect and disconnect scripts are synchronized to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the process) 
++			synchronized (this) {
++				// Adding norescan argument. This lets us clean up client side connection before unexporting the volume on server side.
++				output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "disconnect_iscsitarget_sc.pl", scDeviceString, "norescan"});
++			}
++			if(output != null) {
++				LOG.debug("Dump from disconnect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output + "\nDebug=" + output.error);
++				if (output.returnValue != 0) {
++					throw new EucalyptusCloudException("Unable to disconnect target: " + output.output + "\n" + output.error);
++				}
++			} else {
++				throw new EucalyptusCloudException("Unable to disconnect target. No output from the disconnect script");
+ 			}
++			// Unexport the snapshot. Moved this down to fix the order of operations: Clean up iSCSI stuff on client side -> Unexport tge volume
++			unexportVolumeFromAll(snapshotId);
+ 		} catch (EucalyptusCloudException e) {
+ 			db.rollback();
+ 			LOG.error(e, e);
+diff --git a/storage-san-equallogic/src/main/java/com/eucalyptus/storage/equallogic/EquallogicProvider.java b/storage-san-equallogic/src/main/java/com/eucalyptus/storage/equallogic/EquallogicProvider.java
+index 2a607da..6e1eeee 100644
+--- a/storage-san-equallogic/src/main/java/com/eucalyptus/storage/equallogic/EquallogicProvider.java
++++ b/storage-san-equallogic/src/main/java/com/eucalyptus/storage/equallogic/EquallogicProvider.java
+@@ -239,9 +239,18 @@ public class EquallogicProvider implements SANProvider {
+ 			db.commit();
+ 			try {
+ 				String scDeviceString = constructScDeviceString(iqn, userInfo.getUser(), encryptedPassword);
+-				SystemUtil.CommandOutput output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "connect_iscsitarget_sc.pl", scDeviceString}); 
+-				if (output.returnValue != 0 || Strings.isNullOrEmpty(output.output)) {
+-					throw new EucalyptusCloudException("Unable to get device name. Connect failed: " + output.output + "\n" + output.error);
++				SystemUtil.CommandOutput output = null;
++				// Connect and disconnect scripts are synchronized to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the process) 
++				synchronized (this) {
++					output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "connect_iscsitarget_sc.pl", scDeviceString}); 
++				}
++				if(output != null) {
++					LOG.debug("Dump from connect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output + "\nDebug=" + output.error);
++					if (output.returnValue != 0 || Strings.isNullOrEmpty(output.output)) {
++						throw new EucalyptusCloudException("Unable to get device name. Connect failed: " + output.output + "\n" + output.error);
++					}
++				} else {
++					throw new EucalyptusCloudException("Unable to connect to storage target. No output from the connect script");
+ 				}
+ 				return output.output;
+ 			} catch (EucalyptusCloudException e) {
+@@ -487,9 +496,18 @@ public class EquallogicProvider implements SANProvider {
+ 			db.commit();
+ 			SANInfo sanInfo = SANInfo.getStorageInfo();
+ 			String scDeviceString = constructScDeviceString(iqn, userInfo.getUser(), encryptedPassword);
+-			SystemUtil.CommandOutput output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "disconnect_iscsitarget_sc.pl", scDeviceString});
+-			if (output.returnValue != 0) {
+-				throw new EucalyptusCloudException("Unable to disconnect target: " + output.output + "\n" + output.error);
++			SystemUtil.CommandOutput output = null;
++			// Connect and disconnect scripts are synchronized to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the process) 
++			synchronized (this) {
++				output = SystemUtil.runWithRawOutput(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, BaseDirectory.LIB.toString() + File.separator + "disconnect_iscsitarget_sc.pl", scDeviceString});
++			}
++			if(output != null) {
++				LOG.debug("Dump from disconnect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output + "\nDebug=" + output.error);
++				if (output.returnValue != 0) {
++					throw new EucalyptusCloudException("Unable to disconnect target: " + output.output + "\n" + output.error);
++				}
++			} else {
++				throw new EucalyptusCloudException("Unable to disconnect target. No output from the disconnect script");
+ 			}
+ 		} catch (EucalyptusCloudException ex) {
+ 			db.rollback();
+diff --git a/storage-san-netapp/src/main/java/com/eucalyptus/storage/netapp/NetappONTAP81Provider.java b/storage-san-netapp/src/main/java/com/eucalyptus/storage/netapp/NetappONTAP81Provider.java
+index 69dadef..6cc0142 100644
+--- a/storage-san-netapp/src/main/java/com/eucalyptus/storage/netapp/NetappONTAP81Provider.java
++++ b/storage-san-netapp/src/main/java/com/eucalyptus/storage/netapp/NetappONTAP81Provider.java
+@@ -363,12 +363,21 @@ public class NetappONTAP81Provider implements SANProvider {
+ 	public String connectTarget(String iqn) throws EucalyptusCloudException {
+ 		try {
+ 			String deviceString = constructScDeviceString(iqn);
+-			SystemUtil.CommandOutput output = SystemUtil.runWithRawOutput(new String[] { StorageProperties.EUCA_ROOT_WRAPPER,
+-					BaseDirectory.LIB.toString() + File.separator + "connect_iscsitarget_sc.pl", deviceString });
+-			LOG.debug("#connectTarget: Dump from connect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output + "\nError="
+-					+ output.error);
+-			if (output.returnValue != 0 || Strings.isNullOrEmpty(output.output)) {
+-				throw new EucalyptusCloudException("Unable to get device name. Connect failed: " + output.output + "\n" + output.error);
++			SystemUtil.CommandOutput output = null;
++			// Connect and disconnect scripts are synchronized to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during the
++			// process)
++			synchronized (this) {
++				output = SystemUtil.runWithRawOutput(new String[] { StorageProperties.EUCA_ROOT_WRAPPER,
++						BaseDirectory.LIB.toString() + File.separator + "connect_iscsitarget_sc.pl", deviceString });
++			}
++			if (output != null) {
++				LOG.debug("#connectTarget: Dump from connect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output + "\nDebug="
++						+ output.error);
++				if (output.returnValue != 0 || Strings.isNullOrEmpty(output.output)) {
++					throw new EucalyptusCloudException("Unable to get device name. Connect failed: " + output.output + "\n" + output.error);
++				}
++			} else {
++				throw new EucalyptusCloudException("Unable to connect to storage target. No output from the connect script");
+ 			}
+ 			return output.output;
+ 		} catch (Exception ex) {
+@@ -385,13 +394,22 @@ public class NetappONTAP81Provider implements SANProvider {
+ 			try {
+ 				// Disconnect the SC from SAN
+ 				String deviceString = constructScDeviceString(iqn);
+-				// Adding norescan argument. This lets us clean up client side connection before unexporting the volume on server side.
+-				SystemUtil.CommandOutput output = SystemUtil.runWithRawOutput(new String[] { StorageProperties.EUCA_ROOT_WRAPPER,
+-						BaseDirectory.LIB.toString() + File.separator + "disconnect_iscsitarget_sc.pl", deviceString, "norescan" });
+-				LOG.debug("#disconnectTarget: Dump from disconnect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output
+-						+ "\nError=" + output.error);
+-				if (output.returnValue != 0) {
+-					throw new EucalyptusCloudException("Unable to disconnect target: " + output.output + "\n" + output.error);
++				SystemUtil.CommandOutput output = null;
++				// Connect and disconnect scripts are synchronized to ensure clean bring up and take down of iSCSI sessions (and avoid session rescans during
++				// the process)
++				synchronized (this) {
++					// Adding norescan argument. This lets us clean up client side connection before unexporting the volume on server side.
++					output = SystemUtil.runWithRawOutput(new String[] { StorageProperties.EUCA_ROOT_WRAPPER,
++							BaseDirectory.LIB.toString() + File.separator + "disconnect_iscsitarget_sc.pl", deviceString, "norescan" });
++				}
++				if (output != null) {
++					LOG.debug("#disconnectTarget: Dump from disconnect_iscsitarget_sc.pl:\nReturn value=" + output.returnValue + "\nOutput=" + output.output
++							+ "\nDebug=" + output.error);
++					if (output.returnValue != 0) {
++						throw new EucalyptusCloudException("Unable to disconnect target: " + output.output + "\n" + output.error);
++					}
++				} else {
++					throw new EucalyptusCloudException("Unable to disconnect target. No output from the disconnect script");
+ 				}
+ 
+ 				// Unmap the SC igroup associated with this snapshot
+@@ -910,7 +928,7 @@ public class NetappONTAP81Provider implements SANProvider {
+ 		SANInfo info = SANInfo.getStorageInfo();
+ 
+ 		if (info == null || SANProperties.DUMMY_SAN_HOST.equals(info.getSanHost()) || SANProperties.SAN_PASSWORD.equals(info.getSanPassword())
+-				|| SANProperties.SAN_USERNAME.equals(info.getSanUser()) || SANInfo.DEFAULT_CHAP_USER.equals(info.getChapUser()) ) {
++				|| SANProperties.SAN_USERNAME.equals(info.getSanUser()) || SANInfo.DEFAULT_CHAP_USER.equals(info.getChapUser())) {
+ 			return false;
+ 		} else {
+ 			return true;

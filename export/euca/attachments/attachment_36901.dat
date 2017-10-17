@@ -1,0 +1,769 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "Stack with 40 security groups with a few rules each",
+
+  "Resources" : {
+    "ServerSecurityGroup1" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup2" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup3" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup4" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup5" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup6" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup7" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup8" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup9" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup10" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup11" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup12" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup13" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup14" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup15" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup16" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup17" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup18" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup19" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup20" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup21" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup22" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup23" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup24" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup25" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup26" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup27" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup28" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup29" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup30" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup31" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup32" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup33" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup34" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup35" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup36" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup37" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup38" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup39" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    },
+    "ServerSecurityGroup40" : {
+     "Type" : "AWS::EC2::SecurityGroup",
+     "Properties" : {
+         "GroupDescription" : "allow connections from specified CIDR ranges",
+         "SecurityGroupIngress" : [
+             {
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "80",
+                 "ToPort" : "80",
+                 "CidrIp" : "0.0.0.0/0"
+             },{
+                 "IpProtocol" : "tcp",
+                 "FromPort" : "22",
+                 "ToPort" : "22",
+                 "CidrIp" : "192.168.1.1/32"
+             }
+         ]
+     }
+    }     
+  }
+}
+

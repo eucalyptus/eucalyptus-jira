@@ -1,0 +1,13 @@
+#cloud-config
+apt_update: true
+apt_upgrade: true
+disable_root: true
+packages:
+ - less
+runcmd:
+ - [ sh, -xc, "META_HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/local-hostname`; META_IP=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`; echo ${META_IP}   ${META_HOSTNAME} >> /etc/hosts" ]
+ - [ sh, -xc, "META_HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/local-hostname`; hostname ${META_HOSTNAME}; sysctl -w kernel.hostname=${META_HOSTNAME}" ]
+ - [ apt-get, install, -y, --force-yes, dnsutils ]
+ - [ apt-get, install, -y, --force-yes, bind9utils ]
+ - [ apt-get, install, -y, --force-yes, mlocate ]
+ - [ apt-get, install, -y, --force-yes, nginx ]

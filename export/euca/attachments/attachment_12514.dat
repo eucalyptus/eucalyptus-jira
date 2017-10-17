@@ -1,0 +1,33 @@
+import javax.persistence.EntityTransaction
+import com.eucalyptus.auth.Accounts
+import com.eucalyptus.auth.principal.User
+import com.eucalyptus.auth.principal.UserFullName
+import com.eucalyptus.blockstorage.Volume
+import com.eucalyptus.blockstorage.Volumes
+import com.eucalyptus.component.Partitions
+import com.eucalyptus.component.ServiceConfiguration
+import com.eucalyptus.component.Topology
+import com.eucalyptus.component.id.Storage
+import com.eucalyptus.entities.Entities
+import com.eucalyptus.scripting.Groovyness
+
+User user = Accounts.lookupUserById("KWL8CFBU2ORWHBS8O3EPN");
+UserFullName ufn = UserFullName.getInstance(user);
+ServiceConfiguration sc = Topology.lookup(Storage.class, Partitions.lookupByName("cloud3" ) );
+
+[ "vol-0D7441FE" , "vol-AFF83C65" ].collect{ String volId ->
+  EntityTransaction db = Entities.get( Volume.class );
+  try {
+    Volume vol = Groovyness.expandoMetaClass( Volumes.lookup( null, volId ) );
+    vol.setOwner(ufn );
+    db.commit( );
+    vol.getOwner( );
+  } catch ( Exception ex ) {
+    db.rollback( );
+    throw ex;
+  }
+}
+
+
+
+

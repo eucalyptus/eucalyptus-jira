@@ -1,0 +1,53 @@
+{
+    "Parameters": {
+	"MyImageId": {
+	    "Description":"Image id",
+	    "Type":"String"
+	},
+	"MyKeyPair": {
+	    "Description":"Key Pair",
+	    "Type":"String"
+	}
+    },
+    "Resources" : {
+	"MySecurityGroup": {
+	    "Type": "AWS::EC2::SecurityGroup",
+	    "Properties": {
+		"GroupDescription" : "Security Group with Ingress Rule for MyInstance",
+		"SecurityGroupIngress" : [
+		    {
+			"IpProtocol" : "tcp",
+			"FromPort" : "22",
+			"ToPort" : "22",
+			"CidrIp" : "0.0.0.0/0"
+		    }
+		]
+	    }
+	},
+	"moshSecurityGroup": {
+	    "Type": "AWS::EC2::SecurityGroup",
+	    "Properties": {
+		"GroupDescription" : "Security Group with Ingress Rule for MyInstance",
+		"SecurityGroupIngress" : [
+		    {
+			"IpProtocol" : "udp",
+			"FromPort" : "60001",
+			"ToPort" : "60999",
+			"CidrIp" : "0.0.0.0/0"
+		    }
+		]
+	    }
+	},
+	"MyInstance": {
+	    "Type": "AWS::EC2::Instance",
+	    "Properties": {
+		"ImageId" : { "Ref":"MyImageId" },
+		"SecurityGroups" : [
+		    { "Ref" : "MySecurityGroup" },
+		    { "Ref" : "moshSecurityGroup" }
+		],
+		"KeyName" : { "Ref" : "MyKeyPair" }
+	    }
+	}
+    }
+} 

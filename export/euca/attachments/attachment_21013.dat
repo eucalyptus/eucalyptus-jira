@@ -1,0 +1,454 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+/**
+ * This application tests SWF cancellation for activities and workflows.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9622
+ */
+class TestSWFCancellation {
+
+  private final String host = "10.111.1.174"
+
+  // Credentials with permissions to perform any action in account
+  private final AWSCredentialsProvider credentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIKC38UJB56C3S0V8ID",
+      "jI3YRTIv63V5tToZYFYwEjZX3A4TaASvnGyZf0Wc" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFCancellation( ).test( )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        String domainName = "${namePrefix}domain"
+        print("Registering domain ${domainName}")
+        registerDomain(new RegisterDomainRequest(
+            name: domainName,
+            description: 'test domain',
+            workflowExecutionRetentionPeriodInDays: 1))
+        cleanupTasks.add {
+          print("Deprecating domain ${domainName}")
+          deprecateDomain(new DeprecateDomainRequest(name: domainName))
+        }
+
+        String activityTypeName = "${namePrefix}activity-type"
+        print("Registering activity type ${activityTypeName}")
+        registerActivityType(new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultTaskHeartbeatTimeout: '60',
+            defaultTaskScheduleToCloseTimeout: '60',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultTaskScheduleToStartTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating activity type ${domainName}")
+          deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeName, version: '1')))
+        }
+
+        String workflowTypeName = "${namePrefix}workflow-type"
+        print("Registering workflow type ${workflowTypeName}")
+        registerWorkflowType(new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultChildPolicy: 'TERMINATE',
+            defaultTaskStartToCloseTimeout: '60',
+            defaultExecutionStartToCloseTimeout: '60'
+        ))
+        cleanupTasks.add {
+          print("Deprecating workflow type ${domainName}")
+          deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeName, version: '1')))
+        }
+
+        String workflowId1 = "${namePrefix}workflow-1-id"
+        print("Starting workflow execution ${workflowId1} to test workflow cancellation")
+        String runId1 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId1,
+            domain: domainName,
+            workflowType: new WorkflowType(name: workflowTypeName, version: '1'),
+            tagList: ['tags', 'go', 'here'],
+            taskList: new TaskList(name: 'list'),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat(runId1 != null, "Expected run-id")
+        print("Started workflow execution with runId: ${runId1}")
+
+        print("Polling for decision task ${domainName}/list")
+        String decisionTaskToken1 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print("Responding with cancel workflow ${workflowId1}")
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken1,
+            decisions: [
+                new Decision(
+                    decisionType: 'CancelWorkflowExecution',
+                    cancelWorkflowExecutionDecisionAttributes: new CancelWorkflowExecutionDecisionAttributes(
+                        details: 'details-here'
+                    )
+                )
+            ]
+        ))
+
+        print("Verifying workflow execution history shows workflow cancellation for ${workflowId1}")
+        getWorkflowExecutionHistory(new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId1,
+                workflowId: workflowId1
+            )
+        )).with {
+          assertThat(events != null && events.size() == 5, "Expected 5 events, but was: ${events?.size()}")
+          events.get(4).with {
+            assertThat(eventId == 5, "Expected event ID 5, but was: ${eventId}")
+            assertThat(eventType == 'WorkflowExecutionCanceled', "Expected event type WorkflowExecutionCanceled, but was: ${eventType}")
+            assertThat(workflowExecutionCanceledEventAttributes != null, "Expected event attributes")
+            workflowExecutionCanceledEventAttributes.with {
+              assertThat(decisionTaskCompletedEventId == 4, "Expected decision task completed event id 4, but was: ${decisionTaskCompletedEventId}")
+              assertThat(details == 'details-here', "Expected details 'details-here', but was: ${details}")
+            }
+          }
+        }
+
+        String workflowId2 = "${namePrefix}workflow-2-id"
+        print("Starting workflow execution ${workflowId2} to test activity cancellation")
+        String runId2 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId2,
+            domain: domainName,
+            workflowType: new WorkflowType(name: workflowTypeName, version: '1'),
+            taskList: new TaskList(name: 'list'),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat(runId2 != null, "Expected run-id")
+        print("Started workflow execution with runId: ${runId2}")
+
+        print("Polling for decision task ${domainName}/list")
+        String decisionTaskToken2 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding with schedule activity tasks" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken2,
+            decisions: [
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-1',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list-1' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-2',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list-2' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-3',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list-3' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'RecordMarker',
+                    recordMarkerDecisionAttributes: new RecordMarkerDecisionAttributes(
+                        markerName: 'marker-name-here',
+                        details: 'marker-details-here'
+                    )
+                )
+            ]
+        ))
+
+        print( "Polling for activity task ${domainName}/list-1" )
+        String activityTaskToken2_1 = pollForActivityTask(new PollForActivityTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list-1'),
+            identity: 'test-activity-processor-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Polling for activity task ${domainName}/list-2" )
+        String activityTaskToken2_2 = pollForActivityTask(new PollForActivityTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list-2'),
+            identity: 'test-activity-processor-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding activity task completed (activity-1)" )
+        respondActivityTaskCompleted(new RespondActivityTaskCompletedRequest(
+            taskToken: activityTaskToken2_1,
+            result: 'activity-1-result-here'
+        ))
+
+        print("Polling for decision task ${domainName}/list")
+        String decisionTaskToken2_2 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+
+        print( "Responding with cancel activity tasks" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken2_2,
+            decisions: [
+                new Decision(
+                    decisionType: 'RequestCancelActivityTask',
+                    requestCancelActivityTaskDecisionAttributes: new RequestCancelActivityTaskDecisionAttributes(
+                        activityId: 'activity-2'
+                    )
+                ),
+                new Decision(
+                    decisionType: 'RequestCancelActivityTask',
+                    requestCancelActivityTaskDecisionAttributes: new RequestCancelActivityTaskDecisionAttributes(
+                        activityId: 'activity-3'
+                    )
+                )
+            ]
+        ))
+
+        print( "Sending heartbeat for activity (activity-2)" )
+        recordActivityTaskHeartbeat( new RecordActivityTaskHeartbeatRequest(
+          taskToken: activityTaskToken2_2,
+          details: 'heartbeat-details-here'
+        ) ).with {
+          assertThat( cancelRequested != null && cancelRequested, "Expected cancel requested true, but was: ${cancelRequested}" )
+        }
+
+        print( "Responding activity cancelled (activity-2)" )
+        respondActivityTaskCanceled( new RespondActivityTaskCanceledRequest(
+          taskToken: activityTaskToken2_2,
+          details: 'cancellation-details-here'
+        ) )
+
+        print( "Verifying workflow execution history for ${workflowId2}" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId2,
+                workflowId: workflowId2
+            )
+        ) ).with {
+          assertThat( events != null && events.size()==19 , "Expected 19 events, but was: ${events?.size()}" )
+          events.get( 7 ).with {
+            assertThat( eventId == 8, "Expected event ID 8, but was: ${eventId}" )
+            assertThat( eventType == 'MarkerRecorded', "Expected event type MarkerRecorded, but was: ${eventType}" )
+            assertThat( markerRecordedEventAttributes != null, "Expected event attributes" )
+            markerRecordedEventAttributes.with {
+              assertThat( markerName == 'marker-name-here', "Expected markerName 'marker-name-here', but was: ${markerName}")
+              assertThat( details == 'marker-details-here', "Expected details 'marker-details-here', but was: ${details}")
+            }
+          }
+          events.get( 8 ).with {
+            assertThat(eventId == 9, "Expected event ID 9, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskStarted', "Expected event type ActivityTaskStarted, but was: ${eventType}")
+          }
+          events.get( 9 ).with {
+            assertThat(eventId == 10, "Expected event ID 10, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskStarted', "Expected event type ActivityTaskStarted, but was: ${eventType}")
+          }
+          events.get( 10 ).with {
+            assertThat(eventId == 11, "Expected event ID 11, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskCompleted', "Expected event type ActivityTaskCompleted, but was: ${eventType}")
+          }
+          events.get( 11 ).with {
+            assertThat(eventId == 12, "Expected event ID 12, but was: ${eventId}")
+            assertThat(eventType == 'DecisionTaskScheduled', "Expected event type DecisionTaskScheduled, but was: ${eventType}")
+          }
+          events.get( 12 ).with {
+            assertThat(eventId == 13, "Expected event ID 13, but was: ${eventId}")
+            assertThat(eventType == 'DecisionTaskStarted', "Expected event type DecisionTaskStarted, but was: ${eventType}")
+          }
+          events.get( 13 ).with {
+            assertThat(eventId == 14, "Expected event ID 14, but was: ${eventId}")
+            assertThat(eventType == 'DecisionTaskCompleted', "Expected event type DecisionTaskCompleted, but was: ${eventType}")
+          }
+          events.get( 14 ).with {
+            assertThat(eventId == 15, "Expected event ID 15, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskCancelRequested', "Expected event type ActivityTaskCancelRequested, but was: ${eventType}")
+            assertThat( activityTaskCancelRequestedEventAttributes != null, "Expected event attributes" )
+            activityTaskCancelRequestedEventAttributes.with {
+              assertThat( decisionTaskCompletedEventId == 14, "Expected decision task completed event id 14, but was: ${decisionTaskCompletedEventId}")
+              assertThat( activityId == 'activity-2', "Expected activity id 'activity-2', but was: ${activityId}")
+            }
+          }
+          events.get( 15 ).with {
+            assertThat(eventId == 16, "Expected event ID 16, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskCancelRequested', "Expected event type ActivityTaskCancelRequested, but was: ${eventType}")
+            assertThat( activityTaskCancelRequestedEventAttributes != null, "Expected event attributes" )
+            activityTaskCancelRequestedEventAttributes.with {
+              assertThat( decisionTaskCompletedEventId == 14, "Expected decision task completed event id 14, but was: ${decisionTaskCompletedEventId}")
+              assertThat( activityId == 'activity-3', "Expected activity id 'activity-3', but was: ${activityId}")
+            }
+          }
+          events.get( 16 ).with {
+            assertThat(eventId == 17, "Expected event ID 17, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskCanceled', "Expected event type ActivityTaskCanceled, but was: ${eventType}")
+            assertThat( activityTaskCanceledEventAttributes != null, "Expected event attributes" )
+            activityTaskCanceledEventAttributes.with {
+              assertThat( latestCancelRequestedEventId == 16, "Expected latest cancel requested event id 16, but was: ${latestCancelRequestedEventId}")
+              assertThat( scheduledEventId == 7, "Expected scheduled event id 7, but was: ${scheduledEventId}")
+              assertThat( startedEventId == 0, "Expected started event id 0, but was: ${startedEventId}")
+            }
+          }
+          events.get( 17 ).with {
+            assertThat(eventId == 18, "Expected event ID 18, but was: ${eventId}")
+            assertThat(eventType == 'DecisionTaskScheduled', "Expected event type DecisionTaskScheduled, but was: ${eventType}")
+          }
+          events.get( 18 ).with {
+            assertThat(eventId == 19, "Expected event ID 19, but was: ${eventId}")
+            assertThat(eventType == 'ActivityTaskCanceled', "Expected event type ActivityTaskCanceled, but was: ${eventType}")
+            assertThat( activityTaskCanceledEventAttributes != null, "Expected event attributes" )
+            activityTaskCanceledEventAttributes.with {
+              assertThat( details == 'cancellation-details-here', "Expected details 'cancellation-details-here', but was: ${details}")
+              assertThat( latestCancelRequestedEventId == 15, "Expected latest cancel requested event id 16, but was: ${latestCancelRequestedEventId}")
+              assertThat( scheduledEventId == 6, "Expected scheduled event id 7, but was: ${scheduledEventId}")
+              assertThat( startedEventId == 10, "Expected started event id 0, but was: ${startedEventId}")
+            }
+          }
+        }
+
+        String workflowId3 = "${namePrefix}workflow-3-id"
+        print("Starting workflow execution ${workflowId3} to test workflow signalling and cancellation")
+        String runId3 = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId3,
+            domain: domainName,
+            workflowType: new WorkflowType(name: workflowTypeName, version: '1'),
+            taskList: new TaskList(name: 'list'),
+            input: 'input-here',
+        )).with {
+          runId
+        }
+        assertThat(runId3 != null, "Expected run-id")
+        print("Started workflow execution with runId: ${runId3}")
+
+        print( "Signalling workflow execution ${workflowId3}" )
+        signalWorkflowExecution( new SignalWorkflowExecutionRequest(
+            workflowId: workflowId3,
+            domain: domainName,
+            signalName: 'signal-name-here',
+            input: 'signal-input-here'
+        ) )
+
+        print( "Requesting cancellation of workflow execution ${workflowId3}" )
+        requestCancelWorkflowExecution( new RequestCancelWorkflowExecutionRequest(
+            workflowId: workflowId3,
+            domain: domainName
+        ) )
+
+        print("Verifying workflow execution history shows signal and requested cancellation for ${workflowId3}")
+        getWorkflowExecutionHistory(new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                runId: runId3,
+                workflowId: workflowId3
+            )
+        )).with {
+          assertThat(events != null && events.size() == 4, "Expected 4 events, but was: ${events?.size()}")
+          events.get(2).with {
+            assertThat(eventId == 3, "Expected event ID 3, but was: ${eventId}")
+            assertThat(eventType == 'WorkflowExecutionSignaled', "Expected event type WorkflowExecutionSignaled, but was: ${eventType}")
+            assertThat(workflowExecutionSignaledEventAttributes != null, "Expected event attributes")
+            workflowExecutionSignaledEventAttributes.with {
+              assertThat(externalInitiatedEventId == 0, "Expected external initiated event id 0, but was: ${externalInitiatedEventId}")
+              assertThat(input == 'signal-input-here', "Expected input 'signal-input-here', but was: ${input}")
+              assertThat(signalName == 'signal-name-here', "Expected signal name 'signal-name-here', but was: ${signalName}")
+            }
+          }
+          events.get(3).with {
+            assertThat(eventId == 4, "Expected event ID 4, but was: ${eventId}")
+            assertThat(eventType == 'WorkflowExecutionCancelRequested', "Expected event type WorkflowExecutionCancelRequested, but was: ${eventType}")
+            assertThat(workflowExecutionCancelRequestedEventAttributes != null, "Expected event attributes")
+            workflowExecutionCancelRequestedEventAttributes.with {
+              assertThat(externalInitiatedEventId == 0, "Expected external initiated event id 0, but was: ${externalInitiatedEventId}")
+            }
+          }
+        }      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

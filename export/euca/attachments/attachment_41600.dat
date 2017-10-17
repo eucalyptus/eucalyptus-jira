@@ -1,0 +1,199 @@
+<html>
+<head>
+<title>Eucalyptus Machine Image Catalog</title>
+<style type="text/css" title="currentStyle">
+  @import "jquery.css";
+  @import "jquery-table.css";
+</style>
+<script type="text/javascript" language="javascript" src="jquery.js"></script>
+<script type="text/javascript" language="javascript" src="jquery.dataTables.js"></script>
+
+<style type="text/css">
+
+body {
+	font-size: 1em;
+	font-family: arial, "sans-serif";
+}
+
+a {
+	color: #000;
+	font-weight: bold;
+	text-decoration: underline;
+	/* border-bottom: 3px solid #ffed00; */
+}
+
+table {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 18px;
+  line-height: 1.125rem;
+  border: 2px solid #cccccc;
+  background-color: #ffffff; }
+
+
+th,
+thead th,
+tbody th,
+td,
+tbody td {
+  padding: 15px 20px;
+  background-color: #fff;
+  }
+
+thead th {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #767676;
+  border-right: 1px solid #ffffff;
+  text-align: left;
+  vertical-align: bottom; }
+
+tbody td {
+  vertical-align: top;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+
+tr.odd td.sorting_1,
+tr.even td.sorting_1 {
+  background-color: #fff;
+}
+
+
+</style>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+	var urlAsLink = function (o) {
+        return '<a href="' + o.url + '">' + 'Download </a>';
+	};
+    var imageCatagory = function (o) {
+        var word = o.url;
+        var ctgy = word.split("/");
+        return ctgy[0];
+    };
+    $('#example').dataTable( {
+	    "bProcessing": true,
+		"sAjaxSource": "catalog-web",
+		"sAjaxDataProp": "images",
+		"fnServerData":  function ( src, data, cb ) { $.ajax({'dataType': 'json', 'type': 'GET', 'url': src, 'data': data, 'success': cb}); },
+		"aoColumns": [
+		              { "mDataProp": urlAsLink },
+		              { "mDataProp": "version" },
+                  { "mDataProp": "description",  "sWidth": "60%"  }
+		]
+	} );
+} );
+</script>
+</head>
+
+<body>
+<div  style="width: 964px; margin: 0 auto;">
+
+<h1>Eucalyptus Machine Image Catalog</h1>
+
+<p>This page provides Eucalyptus Machine Images (EMIs) to get you started with learning and using Eucalyptus.</p>
+<div class="messages messages--warning">These images are not intended for production use and might be out of date with the latest patches.</div>
+
+
+
+<h2>Images</h2>
+<div id="dynamic">
+<table id="example" class="display">
+<thead>
+        <tr>
+                <th>Download</th>
+                <th>Distribution</th>
+                <th>Description</th>
+        </tr>
+</thead>
+<tbody>
+        <tr>
+                <td colspan="7" class="dataTables_empty">Loading data from server</td>
+        </tr>
+</tbody>
+</table>
+<br /><br />
+
+<h2>SUSE images</h2>
+<p>Unfortunately, SUSE does not provide an official cloud image at this time.  To create one, you can use their <a href="https://susestudio.com/" target="_blank">SUSE Studio</a> service.</p>
+
+
+<h2>Quick start</h2>
+Ensure that you are running on a RHEL/CentOS 7.2 or later host with <a href='https://docs.eucalyptus.com/eucalyptus/latest/#install-guide/installing_euca2ools_standalone.html'>Euca2ools 3.4</a> or later installed.
+
+<p>Then run:</p>
+<pre>yum install -y xz<br>bash &lt;(curl -Ls&nbsp; http://eucalyptus.com/install-emis)</pre>
+
+<h2>Documentation</h2>
+<ul>
+	<li><a href="https://docs.eucalyptus.com/eucalyptus/latest/#shared/image_section.html">Image Management Guide</a></li>
+	<li><a href="https://docs.eucalyptus.com/eucalyptus/latest/#shared/comparing_instance_types.html">Comparing Instance Types</a></li>
+	<li><a href="https://docs.eucalyptus.com/eucalyptus/latest/#user-guide/working_instance.html">Instance Tasks: Running an instance from an image</a></li>
+</ul>
+
+
+<h2>Instance-store image installation</h2>
+<p>Instance store images use the local storage of your Node Controllers. When the instance is terminated all instance storage is permanently deleted.</p>
+
+<ol>
+	<li>Download the image using the appropriate link above</li>
+	<li>Decompress the image, if necessary
+	<pre>xz -d &lt;path-to-downloaded-file&gt;.xz</pre>
+	</li>
+	<li>Convert the image to raw format, if required
+        <pre>qemu-img convert -f qcow2 -O raw image.qcow2 image.raw</pre>
+        </li>
+	<li>Use <a href="http://docs.hpcloud.com/eucalyptus/4.2.2/#euca2ools-guide/index.html">euca2ools</a> to install the image
+	<pre>euca-install-image -b my-bucket&nbsp;-r x86_64 -i &lt;path-to-downloaded-file&gt;.raw&nbsp;-n my-image-name --virtualization-type hvm</pre>
+	</li>
+</ol>
+
+<h2>EBS image installation </h2>
+
+<p>EBS backed images use the shared storage of your Storage Controllers. These instances can be stopped and started. When they are stopped the instance storage is retained and can be recovered when it is started again. If these instances are terminated instance storage will be permanently deleted from the Storage Controller.</p>
+
+
+<p>Note: These instructions require an <a href="https://docs.eucalyptus.com/eucalyptus/latest/#install-guide/configure_imaging_service.html">enabled imaging service</a> on a 4.x cloud.</p>
+
+<ol>
+	<li>Download the image using the appropriate link above</li>
+	<li>Decompress the image, if necessary
+	<pre>xz -d &lt;path-to-downloaded-file&gt;.xz</pre>
+	</li>
+	<li>Convert the image to raw format
+        <pre>qemu-img convert -f qcow2 -O raw image.qcow2 image.raw</pre>
+        </li>
+	<li>Use <a href="https://docs.eucalyptus.com/eucalyptus/latest/#shared/euca2ools_section.html">euca2ools</a> to import the image as a volume
+	<pre>euca-import-instance&nbsp;--key my-keypair -b my-bucket&nbsp;-f raw&nbsp;-a&nbsp;x86_64&nbsp;-p Linux&nbsp;-t m1.small &lt;path-to-downloaded-file&gt;.raw&nbsp;</pre>
+	<li>Wait for your instance to import. You can check the status of the task by running the following command. This operation can take up to 20 minutes depending on your hardware profile.
+<pre>euca-describe-conversion-tasks</pre>
+	</li>
+	<li>Once your task is complete you will have a new running instance of the image.</li>
+	<li>You can now make any customizations necessary to the instance and then run euca-create-image to save your result as an EMI.
+	<pre>euca-create-image &lt;your-imported-instance-id&gt; --name your-new-image-name</pre>
+</li>
+</ol>
+
+<h2>Modifying an existing image</h2>
+<p>After downloading an image above you might wish to update it or add some software of your own.  Instructions on updating an image can be found <a href="http://iamfuzz.blogspot.com/2015/03/modifying-existing-cloud-image.html">here</a>.</p>
+
+<h2>Creating your own base image</h2>
+
+<p>In order to build your own images from scratch follow the directions on the <a href="https://github.com/viglesiasce/cloud-images">cloud-images README</a>. You can tweak the post_install.sh script in each image directory in order to customize your image. </p>
+
+
+<h2>Need help?</h2>
+<ul>
+	<li><a href="https://kiwiirc.com/client/irc.freenode.net/eucalyptus">Join us on IRC</a></li>
+	<li><a href="https://github.com/eucalyptus/eucalyptus/wiki/Eucalyptus-Mailing-Lists">Connect with the euca-users mailing list</a></li>
+</ul>
+
+
+<p style="margin-top: 3em;">&copy; Copyright 2017 Ent. Services Development Corporation LP</p>
+</div>
+</div>
+</body>
+
+
+</html>

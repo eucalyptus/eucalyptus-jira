@@ -1,0 +1,228 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.services.ec2.AmazonEC2
+import com.amazonaws.services.ec2.model.*
+import com.amazonaws.services.s3.AmazonS3
+import org.testng.annotations.BeforeClass
+
+import static com.eucalyptus.tests.awssdk.N4j.ACCESS_KEY
+import static com.eucalyptus.tests.awssdk.N4j.SECRET_KEY
+import static com.eucalyptus.tests.awssdk.N4j.ec2
+import static com.eucalyptus.tests.awssdk.N4j.s3
+import static com.eucalyptus.tests.awssdk.N4j.getCloudInfo
+import static com.eucalyptus.tests.awssdk.N4j.print
+
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
+import java.nio.charset.StandardCharsets
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+
+import static org.testng.Assert.*
+import org.testng.annotations.Test
+
+/**
+ *
+ */
+class TestEC2InstanceBundleTerminate {
+
+  @BeforeClass
+  void init( ) {
+    print("### SETUP - ${getClass().simpleName}")
+    getCloudInfo( )
+  }
+
+  private AmazonEC2 getEC2Client( ) {
+    ec2
+  }
+
+  private AmazonS3 getS3Client( ) {
+    s3
+  }
+
+  @Test
+  void testEc2InstanceBundleTerminate( ) {
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones()
+
+    assertTrue( azResult.getAvailabilityZones().size() > 0, 'Availability zone not found' )
+
+    String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName()
+    assertNotNull( availabilityZone,'Availability zone not found' )
+
+    // Find an image to use
+    final String imageId = ec2.describeImages( new DescribeImagesRequest(
+        filters: [
+            new Filter( name: 'image-type', values: ['machine'] ),
+            new Filter( name: 'root-device-type', values: ['instance-store'] ),
+            new Filter( name: 'is-public', values: ['true'] ),
+        ]
+    ) ).with {
+      images?.getAt( 0 )?.imageId
+    }
+    assertNotNull( imageId,'Image not found' )
+    print( "Using image: ${imageId}" )
+
+    String instanceType = 'm1.small'
+    print( "Using instance type ${instanceType} and availability zone ${availabilityZone}" )
+
+    // Find a key pair
+    final String key = ec2.describeKeyPairs( ).with {
+      keyPairs?.getAt( 0 )?.keyName
+    }
+    print( "Using key: ${key}" )
+
+    final String namePrefix = UUID.randomUUID().toString().substring(0, 13) + "-"
+    print( "Using resource prefix for test: " + namePrefix )
+
+    final long startTime = System.currentTimeMillis( )
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final int iterations = 3
+      print( "Churning launch, bundle, terminate" )
+      getEC2Client().with {
+        getS3Client().with {
+          def getInstanceState = { String instanceId ->
+            describeInstances(new DescribeInstancesRequest(
+                filters: [
+                    new Filter(name: 'instance-id', values: [instanceId]),
+                ]
+            )).with {
+              String resState = null
+              reservations?.each { Reservation reservation ->
+                reservation?.instances?.each { Instance instance ->
+                  if (instance.instanceId == instanceId) {
+                    resState = instance?.state?.name
+                  }
+                }
+              }
+              resState
+            }
+          }
+
+          String bucket = "${namePrefix}bundling"
+          print("Creating bucket ${bucket}")
+          createBucket( bucket )
+          cleanupTasks.add{
+            print("Deleting bucket ${bucket}")
+            deleteBucket( bucket )
+          }
+
+          (1..iterations).each { Integer count ->  // bundling loop
+            print("Running instance ${count}")
+            String instanceId
+            runInstances(new RunInstancesRequest(
+                imageId: imageId,
+                instanceType: instanceType,
+                placement: new Placement(
+                    availabilityZone: availabilityZone
+                ),
+                keyName: key,
+                minCount: 1,
+                maxCount: 1,
+                clientToken: "${namePrefix}${count}"
+            )).with {
+              reservation?.instances?.each { Instance instance ->
+                cleanupTasks.add {
+                  terminateInstances(new TerminateInstancesRequest(
+                      instanceIds: [instance.instanceId]
+                  ))
+                }
+                instanceId = instance.instanceId
+              }
+            }
+
+            (1..100).find { Integer iter ->
+              sleep(5000)
+              print("Waiting for instance ${instanceId} ${count} to be running (${5 * iter}s)")
+              String instanceState = getInstanceState(instanceId)
+              if (instanceState == 'running') {
+                instanceState
+              } else if (instanceState == 'pending') {
+                null
+              } else {
+                fail("Unexpected instance ${instanceId} state ${instanceState}")
+              }
+            }
+            assertEquals( getInstanceState(instanceId), 'running', "Expected running state for instance ${instanceId}" )
+
+            print("Bundle instance ${instanceId} ${count}")
+            String expiry = Instant.now( ).plus( 1, ChronoUnit.DAYS ).toString( )
+            String prefix = "bundle${count}"
+            String uploadPolicy = """{"expiration":"${expiry}","conditions": [{"acl": "ec2-bundle-read"},{"bucket":"${bucket}"},["starts-with","\$key","${prefix}"]]}"""
+            String encodedUploadPolicy = Base64.encoder.encodeToString( uploadPolicy.getBytes(StandardCharsets.UTF_8) )
+            Mac digest = Mac.getInstance('HmacSHA1')
+            digest.init( new SecretKeySpec( SECRET_KEY.getBytes( StandardCharsets.UTF_8 ), 'HmacSHA1' ) )
+            String uploadPolicySignature = Base64.encoder.encodeToString( digest.doFinal( encodedUploadPolicy.getBytes(StandardCharsets.UTF_8) ) )
+
+            bundleInstance(new BundleInstanceRequest(instanceId: instanceId, storage: new Storage(
+                s3: new S3Storage(
+                    bucket: bucket,
+                    prefix: prefix,
+                    aWSAccessKeyId: ACCESS_KEY,
+                    uploadPolicy: encodedUploadPolicy,
+                    uploadPolicySignature: uploadPolicySignature,
+                )
+            )))
+
+            print("Waiting 25 seconds for ${instanceId} ${count} bundling")
+            sleep(25000)
+
+            print("Terminating instance ${instanceId} ${count} (may close fd 0)")
+            terminateInstances(new TerminateInstancesRequest(
+                instanceIds: [instanceId]
+            ))
+
+            (1..100).find { Integer iter ->
+              sleep(5000)
+              print("Waiting for instance ${instanceId} ${count} to be terminated (${5 * iter}s)")
+              String instanceState = getInstanceState(instanceId)
+              if (instanceState == 'terminated') {
+                instanceState
+              } else if (instanceState == 'shutting-down') {
+                null
+              } else {
+                println("Unexpected instance ${instanceId} state ${instanceState}")
+                instanceState // try to continue?
+              }
+            }
+
+            print("Deleting bundle artifacts ${instanceId} ${count}")
+            try {
+              listObjects( bucket ).with {
+                objectSummaries.each{ summary ->
+                  print("Deleting bundle artifact ${summary.key} from ${bucket} for ${instanceId} ${count}")
+                  deleteObject( bucket, summary.key )
+                }
+              }
+            } catch ( AmazonServiceException e ) {
+              if ( 'NoSuchBucket'.equals( e.getErrorCode( ) ) ) {
+                print("Bucket ${bucket} was deleted for ${instanceId} ${count}, re-creating")
+                createBucket( bucket )
+              } else {
+                throw e
+              }
+            }
+          }
+        }
+      }
+
+      print( "Test complete in ${System.currentTimeMillis()-startTime}ms" )
+    } finally {
+      // Attempt to clean up anything we created
+      print( "Running cleanup tasks" )
+      final long cleanupStart = System.currentTimeMillis( )
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( AmazonServiceException e ) {
+          print( "${e.serviceName}/${e.errorCode}: ${e.errorMessage}" )
+        } catch ( Exception e ) {
+          e.printStackTrace( )
+        }
+      }
+      print( "Completed cleanup tasks in ${System.currentTimeMillis()-cleanupStart}ms" )
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+   
+  "Resources" : {
+    "MySourceQueue" : {
+      "Type" : "AWS::SQS::Queue",
+      "Properties" : {
+        "RedrivePolicy": {
+          "deadLetterTargetArn" : {"Fn::GetAtt" : [ "MyDeadLetterQueue" , "Arn" ]},
+          "maxReceiveCount" : 5
+        },
+        "DelaySeconds" : "10",
+        "MaximumMessageSize" : "65536",
+        "MessageRetentionPeriod" : "1209600",
+        "VisibilityTimeout" : "20",
+        "ReceiveMessageWaitTimeSeconds" : "5",
+        "QueueName" : "bob"
+      }
+    },    
+    "MyDeadLetterQueue" : {
+      "Type" : "AWS::SQS::Queue"
+    }
+  },
+
+  "Outputs" : {
+    "SourceQueueURL" : {
+      "Description" : "URL of the source queue",
+      "Value" : { "Ref" : "MySourceQueue" }
+    },
+    "SourceQueueARN" : {
+      "Description" : "ARN of the source queue",
+      "Value" : { "Fn::GetAtt" : ["MySourceQueue", "Arn"]}
+    },
+    "DeadLetterQueueURL" : {
+      "Description" : "URL of the dead letter queue",
+      "Value" : { "Ref" : "MyDeadLetterQueue" }
+    },
+    "DeadLetterQueueARN" : {
+      "Description" : "ARN of the dead letter queue",
+      "Value" : { "Fn::GetAtt" : ["MyDeadLetterQueue", "Arn"]}
+    }    
+  }
+}

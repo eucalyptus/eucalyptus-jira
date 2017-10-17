@@ -1,0 +1,39 @@
+From 119213912d33de51b27bc881d3e7e6ef9a4bb32a Mon Sep 17 00:00:00 2001
+From: Stanislav Ievlev <stanislav.ievlev@gmail.com>
+Date: Wed, 9 Jun 2010 10:45:45 +0400
+Subject: [PATCH] fix processing of empty parameters in REST request
+
+---
+ .../java/com/eucalyptus/ws/MappingHttpRequest.java |    2 +-
+ .../ws/server/EucalyptusQueryPipeline.java         |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/MappingHttpRequest.java b/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/MappingHttpRequest.java
+index 5bc9d1d..954f5f8 100644
+--- a/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/MappingHttpRequest.java
++++ b/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/MappingHttpRequest.java
+@@ -109,7 +109,7 @@ public class MappingHttpRequest extends MappingHttpMessage implements HttpReques
+   private void populateParameters( ) {
+     if ( this.query != null && !"".equals(  this.query ) ) {
+       for ( String p : this.query.split( "&" ) ) {
+-        String[] splitParam = p.split( "=" );
++        String[] splitParam = p.split("=", 2);
+         String lhs = splitParam[0];
+         String rhs = splitParam.length == 2 ? splitParam[1] : null;
+         try {
+diff --git a/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/server/EucalyptusQueryPipeline.java b/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/server/EucalyptusQueryPipeline.java
+index df2f252..91352f1 100644
+--- a/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/server/EucalyptusQueryPipeline.java
++++ b/clc/modules/wsstack/src/main/java/com/eucalyptus/ws/server/EucalyptusQueryPipeline.java
+@@ -102,7 +102,7 @@ public class EucalyptusQueryPipeline extends FilteredPipeline {
+         String query = new String( read );
+         buffer.resetReaderIndex( );
+         for ( String p : query.split( "&" ) ) {          
+-          String[] splitParam = p.split( "=" );
++          String[] splitParam = p.split("=", 2);
+           String lhs = splitParam[0];
+           String rhs = splitParam.length == 2 ? splitParam[1] : null;
+           try {
+-- 
+1.6.6.1
+

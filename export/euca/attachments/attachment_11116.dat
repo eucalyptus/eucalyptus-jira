@@ -1,0 +1,84 @@
+#!/bin/bash
+
+
+if [ $# -lt 1 ]; then
+	echo "Usage:"
+	echo "./upgrade.sh <2btested file>"
+	exit 1
+fi
+
+file=$1 
+
+	url=`curl "http://192.168.51.243:5000/genrepo/?distro=centos&releasever=5&arch=x86_64&url=repo-euca@git.eucalyptus-systems.com:eucalyptus&ref=master"`
+	baseurl="baseurl=$url"
+	echo "eucalyptus repo url is: $baseurl"
+	eucarepo="/etc/yum.repos.d/eucalyptus.repo" 
+	echo "[eucalyptus]" > $eucarepo 
+	echo "name=eucalyptus" >> $eucarepo
+	echo "$baseurl" >> $eucarepo
+	echo "enabled=1" >> $eucarepo
+
+
+		
+	url=`curl "http://192.168.51.243:5000/genrepo/?distro=centos&releasever=5&arch=x86_64&url=repo-euca@git.eucalyptus-systems.com:internal&ref=master"`
+	baseurl="baseurl=$url"
+	echo "enterprise repo url: $baseurl"
+	entrepo="/etc/yum.repos.d/eucalyptus-enterprise.repo" 
+	echo "[eucalyptus-enterprise]" > $entrepo
+	echo "name=eucalyptus-enterprise" >> $entrepo
+	echo "$baseurl" >> $entrepo
+	echo "enabled=1" >> $entrepo
+
+#	euca2repo="/etc/yum.repos.d/euca2ools.repo" 
+#	echo "[euca2ools]" > $euca2repo
+#	echo "name=euca2ools" >> $euca2repo
+#	echo "baseurl=http://mirror.eucalyptus/qa-pkg-storage/qa-euca2ools-pkgbuild/latest-success/phase3/centos/5/x86_64" >> $euca2repo
+#	echo "enabled=1" >> $euca2repo
+
+echo "file is $file"
+
+cat $file | grep "^[0-9]" | while read line; do
+  	echo "line is $line"
+	echo "updating yum on $line " 
+	ip=`echo $line | awk '{print $1}'`
+	type=`echo $line | tr "\s" "-" | awk '{print $6}'`
+	
+	scp /etc/yum.repos.d/euca* root@$ip:/etc/yum.repos.d/.
+	ret=$?
+	if [ $ret -ne 0 ]; then
+		echo "scp failure"
+		exit $ret
+	fi
+	echo "type is $type"
+
+	if [[  "$type" =~ "NC" ]]; then
+		installcmd="yum update eucalyptus --nogpgcheck -y"
+		startcmd="service eucalyptus-nc restart"
+	fi 
+	
+	if [[  "$type" =~ "CC" ]]; then
+		installcmd="yum update eucalyptus --nogpgcheck -y"
+		startcmd="service eucalyptus-cc restart"
+	fi
+
+	if [[  "$type" =~ "WS" ]]; then
+		installcmd="yum update eucalyptus --nogpgcheck -y"
+		startcmd="service eucalyptus-cloud restart"
+	fi 
+	
+	if [[  "$type" =~ "CLC" ]] || [[  "$type" =~ "SC" ]] ; then
+		installcmd="yum update eucalyptus --nogpgcheck -y && yum install eucalyptus-enterprise-storage-san-libs --nogpgcheck -y"
+                startcmd="service eucalyptus-cloud restart"
+		
+        fi
+	
+	upcmd="$installcmd && sleep 20 && $startcmd"
+	echo "cmd is: $upcmd"
+	ssh -n root@$ip "$upcmd"  
+	ret=$?
+	if [ $ret -ne 0 ]; then
+                echo "ssh command returned error"
+                exit $ret
+        fi
+  
+done 

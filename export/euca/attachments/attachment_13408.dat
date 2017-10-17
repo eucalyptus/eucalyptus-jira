@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export xmlns="http://www.eucalyptus.com/ns/reporting/export/2012-08-24/">
+  <UsageBag>
+    <Usage 
+Metric="DiskReadOps" 
+Id="4028b31c3a1d5756013a1d755a0a0118" 
+Dimension="vda" 
+Type="ec2.instance" 
+Created="2012-01-01T12:52:40.970Z" 
+Value="100000000.0" 
+Occurred="2012-01-01T12:05:22.875Z" 
+Sequence="0" 
+TargetId="5ed642e0-fb16-472a-94f5-e6a1e02552f2"/>
+    <Usage 
+Metric="DiskWriteOps" 
+Id="4028b31c3a1d5756013a1d755a1a0119" 
+Dimension="vda" 
+Type="ec2.instance" 
+Created="2012-01-01T12:52:40.986Z" 
+Value="100000000.0" 
+Occurred="2012-01-01T12:05:22.875Z" 
+Sequence="0" 
+TargetId="5ed642e0-fb16-472a-94f5-e6a1e02552f2"/>
+  </UsageBag>
+  <EventBag>
+    <Event 
+Subtype="m1.small" 
+Action="Create" 
+AccountId="117703182335" 
+Id="4028b31c3a1d5756013a1d7418000114" 
+TargetName="i-8C9E40B6" 
+Type="ec2.instance" 
+UserName="admin" 
+AccountName="eucalyptus" 
+Scope="PARTI00" 
+UserId="USTKYC62N1AMRUUZYTLJQ" 
+Occurred="2012-01-01T09:52:18.527Z" 
+Created="2012-01-01T09:51:18.528Z" 
+TargetId="5ed642e0-fb16-472a-94f5-e6a1e02552f2"/>
+  </EventBag>
+</Export>
+
+

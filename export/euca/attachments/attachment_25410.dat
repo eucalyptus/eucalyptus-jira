@@ -1,0 +1,48 @@
+#!/bin/bash
+
+event=$1
+euca_home=$2
+inst_home=$3
+
+if [ "$event" == "" ] ; then
+    echo "an NC hook is called without an event"
+    exit 1;
+fi
+
+if [ "$euca_home" == "" ] ; then
+    echo "an NC hook is called without EUCALYPTUS home"
+    exit 1;
+fi
+
+log_file=${euca_home}/var/log/eucalyptus/nc-hooks.log
+
+if [ "$event" = "euca-nc-pre-boot" ]; then
+    echo `date` "$event $euca_home $inst_home: started" >>$log_file
+
+    instid=`echo $inst_home | awk -F'/' '{print $NF}'`
+    MAXWAIT=300
+    COUNT=0
+
+#    RAW=`xmllint --format ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml  | grep "$instid" -A4`
+#    echo `date` "$event $euca_home $inst_home: $RAW" >>$log_file
+
+#    echo `date` "$event $euca_home $inst_home: waiting $MAXWAIT seconds for $instid to appear in ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml" >>$log_file
+
+    for i in `seq 1 $MAXWAIT`
+    do
+        if ( cat ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml | grep "instance name=\"$instid\"" >/dev/null 2>&1 ); then
+            if ( cat ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml | grep "<value>$instid</value>" >/dev/null 2>&1 ); then
+#                   echo `date` "$event $euca_home $inst_home: instance $instid found in ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml: success" >>$log_file
+                    exit 0
+            fi
+        fi
+#        echo `date` "$event $euca_home $inst_home: instance $instid not yet in ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml: attempt $COUNT/$MAXWAIT" >>$log_file
+        COUNT=$(($COUNT+1))
+        sleep 1
+    done
+
+    echo `date` "$event $euca_home $inst_home: timed out waiting for $instid to appear in ${euca_home}/var/lib/eucalyptus/eucanetd_global_network_info.xml: failure" >>$log_file
+    exit 1
+fi
+
+exit 0;

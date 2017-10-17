@@ -1,0 +1,431 @@
+10:15:51 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] java.lang.NullPointerException
+java.lang.NullPointerException
+	at com.eucalyptus.ws.handlers.ChannelStateMonitor.split(ChannelStateMonitor.java:36)
+	at com.eucalyptus.ws.handlers.ChannelStateMonitor.channelClosed(ChannelStateMonitor.java:43)
+	at org.jboss.netty.channel.Channels.fireChannelClosed(Channels.java:564)
+	at org.jboss.netty.channel.socket.nio.NioWorker.close(NioWorker.java:569)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink.eventSunk(NioClientSocketPipelineSink.java:81)
+	at org.jboss.netty.handler.codec.oneone.OneToOneEncoder.handleDownstream(OneToOneEncoder.java:66)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at org.jboss.netty.channel.Channels.close(Channels.java:1043)
+	at org.jboss.netty.channel.AbstractChannel.close(AbstractChannel.java:185)
+	at org.jboss.netty.channel.ChannelFutureListener$2.operationComplete(ChannelFutureListener.java:64)
+	at org.jboss.netty.channel.DefaultChannelFuture.notifyListener(DefaultChannelFuture.java:326)
+	at org.jboss.netty.channel.DefaultChannelFuture.notifyListeners(DefaultChannelFuture.java:312)
+	at org.jboss.netty.channel.DefaultChannelFuture.setFailure(DefaultChannelFuture.java:281)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:356)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:15:51 DEBUG [ChannelUtil:New I/O client boss #2] java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:592)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:351)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:110)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:15:51 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] :1257153408.0000:AbstractClusterMessageDispatcher/AbstractClusterMessageDispatcher.operationComplete.133:eucalyptus:eucalyptus:MSG_SENT:<edu.ucsb.eucalyptus.msgs.GetKeysType@b52338 serviceTag=self correlationId=d6058c8b-4d5b-4dfa-9dc2-56b6180f4ffc userId=null effectiveUserId=null _return=false statusMessage=null>                      :
+10:15:51 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:592)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:351)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:15:55 DEBUG [ChannelStateMonitor:New I/O server boss #1 (channelId: 25054359, /0.0.0.0:8773)] :1257153408.0000:NioServerHandler/ChannelStateMonitor.channelConnected.50:eucalyptus:eucalyptus:SOCKET_OPEN:/192.168.1.103:8773:/192.168.1.120:57378:
+10:15:55 DEBUG [FilteredPipeline:New I/O server worker #1-2] :1257153408.0000:EucalyptusQueryPipeline/FilteredPipeline.accepts.102:eucalyptus:eucalyptus:PIPELINE_UNROLL:EucalyptusQueryPipeline:
+10:15:55 DEBUG [FilteredPipeline:New I/O server worker #1-2] :1257153408.0000:InternalQueryPipeline/FilteredPipeline.accepts.102:eucalyptus:eucalyptus:PIPELINE_UNROLL:InternalQueryPipeline:
+10:15:55 DEBUG [PipelineRegistry:New I/O server worker #1-2] :1257153408.0000:PipelineRegistry/PipelineRegistry.find.105:eucalyptus:eucalyptus:PIPELINE_DUPLICATE:internal-query-pipeline-Eucalyptus:InternalQueryPipeline:
+10:15:55 DEBUG [EntityWrapper:New I/O server worker #1-2] :1257153408.0000:db/EntityWrapper.<init>.106:eucalyptus:eucalyptus:CREATE:END:30:eucalyptus_auth:com.eucalyptus.auth.CredentialProvider.getSecretKey(CredentialProvider.java:150):35de1f1f-b7fb-4cae-bd51-c7257bbc9ac6:
+10:15:55 DEBUG [HmacUtils:New I/O server worker #1-2] VERSION2: GET
+192.168.1.103
+/services/Eucalyptus/
+AWSAccessKeyId=WKy3rMzOWPouVOxK1p3Ar1C2uRBwa2FBXnCw&Action=RegisterImage&ImageLocation=jaunty-scripts%2Fjaunty-scripts.manifest&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2009-11-02T09%3A15%3A55&Version=2009-04-04
+10:15:55 DEBUG [HmacUtils:New I/O server worker #1-2] VERSION2: GET
+192.168.1.103:8773
+/services/Eucalyptus/
+AWSAccessKeyId=WKy3rMzOWPouVOxK1p3Ar1C2uRBwa2FBXnCw&Action=RegisterImage&ImageLocation=jaunty-scripts%2Fjaunty-scripts.manifest&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2009-11-02T09%3A15%3A55&Version=2009-04-04
+10:15:55 DEBUG [HmacV2Handler:New I/O server worker #1-2] VERSION2-STRING:        GET
+192.168.1.103
+/services/Eucalyptus/
+AWSAccessKeyId=WKy3rMzOWPouVOxK1p3Ar1C2uRBwa2FBXnCw&Action=RegisterImage&ImageLocation=jaunty-scripts%2Fjaunty-scripts.manifest&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2009-11-02T09%3A15%3A55&Version=2009-04-04
+10:15:55 DEBUG [HmacV2Handler:New I/O server worker #1-2] VERSION2-SHA256:        1EJX9qMpgaBCx9WO+df4uS5URm8fFaYsyYDesdWQUWc -- F3uDyYUBf4Z271/TV+pSR4Ux8xn31yMoyzfK809VgrA=
+10:15:55 DEBUG [HmacV2Handler:New I/O server worker #1-2] VERSION2-STRING-PORT:        GET
+192.168.1.103
+/services/Eucalyptus/
+AWSAccessKeyId=WKy3rMzOWPouVOxK1p3Ar1C2uRBwa2FBXnCw&Action=RegisterImage&ImageLocation=jaunty-scripts%2Fjaunty-scripts.manifest&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2009-11-02T09%3A15%3A55&Version=2009-04-04
+10:15:55 DEBUG [HmacV2Handler:New I/O server worker #1-2] VERSION2-SHA256-PORT: F3uDyYUBf4Z271/TV+pSR4Ux8xn31yMoyzfK809VgrA -- F3uDyYUBf4Z271/TV+pSR4Ux8xn31yMoyzfK809VgrA=
+10:15:55 DEBUG [EntityWrapper:New I/O server worker #1-2] :1257153408.0000:db/EntityWrapper.<init>.106:eucalyptus:eucalyptus:CREATE:END:12:eucalyptus_auth:com.eucalyptus.auth.CredentialProvider.getUserName(CredentialProvider.java:167):441d481b-96e7-49b1-9f20-db73c600314f:
+10:15:55 DEBUG [EntityWrapper:New I/O server worker #1-2] :1257153408.0000:db/EntityWrapper.<init>.106:eucalyptus:eucalyptus:CREATE:END:1:eucalyptus_auth:com.eucalyptus.auth.CredentialProvider.getUser(CredentialProvider.java:268):d6291180-3e53-4a0b-87b3-7011ce1e7233:
+10:15:55 DEBUG [EntityWrapper:New I/O server worker #1-2] :1257153408.0000:db/EntityWrapper.<init>.106:eucalyptus:eucalyptus:CREATE:END:5:eucalyptus_auth:com.eucalyptus.auth.CredentialProvider.getUserName(CredentialProvider.java:167):7283c640-4224-45a4-8abe-af0446e7a071:
+10:15:55  INFO [ServiceSinkHandler:New I/O server worker #1-2] :1257153408.0000:eucalyptus/ServiceSinkHandler.handleUpstream.189:eucalyptus:eucalyptus:MSG_RECEIVED:RegisterImageType:
+10:15:56 DEBUG [EntityWrapper:Image.7] :1257153408.0000:db/EntityWrapper.<init>.106:eucalyptus:1b88eef8-e778-4b83-b835-88d923a032ce:CREATE:END:23:eucalyptus_walrus:edu.ucsb.eucalyptus.cloud.ws.WalrusManager.getObject(WalrusManager.java:1417):c7c76496-8533-4123-a34c-b7d1283a537a:
+10:15:56 ERROR [DefaultServiceExceptionStrategy:Image.7] 
+********************************************************************************
+Message               : Component that caused exception is: BukkitInternal. Message payload is of type: GetObjectType
+Type                  : org.mule.api.service.ServiceException
+Code                  : MULE_ERROR--2
+Payload               : <?xml version="1.0" encoding="UTF-8"?>
+<euca:GetObject xmlns:euca="http://msgs.eucalyptus.ucsb.edu">
+  <euca:WalrusDataGetRequest>
+    <euca:WalrusDataRequest>
+      <euca:WalrusRequest>
+        <euca:correlationId>1b88eef8-e778-4b83-b835-88d923a032ce</euca:correlationId>
+        <euca:userId>eucalyptus</euca:userId>
+        <euca:effectiveUserId>eucalyptus</euca:effectiveUserId>
+      </euca:WalrusRequest>
+      <euca:bucket>jaunty-scripts</euca:bucket>
+      <euca:key>jaunty-scripts.manifest</euca:key>
+    </euca:WalrusDataRequest>
+  </euca:WalrusDataGetRequest>
+  <euca:getMetaData>false</euca:getMetaData>
+  <euca:getData>true</euca:getData>
+  <euca:inlineData>true</euca:inlineData>
+</euca:GetObject>
+JavaDoc               : http://mule.mulesource.org/docs/apidocs/org/mule/api/service/ServiceException.html
+********************************************************************************
+Exception stack is:
+1. The specified entity was not found (edu.ucsb.eucalyptus.cloud.NoSuchEntityException)
+  edu.ucsb.eucalyptus.cloud.ws.WalrusManager:1558 (null)
+2. Component that caused exception is: BukkitInternal. Message payload is of type: GetObjectType (org.mule.api.service.ServiceException)
+  org.mule.component.DefaultLifecycleAdapter:214 (http://mule.mulesource.org/docs/apidocs/org/mule/api/service/ServiceException.html)
+********************************************************************************
+Root Exception stack trace:
+edu.ucsb.eucalyptus.cloud.NoSuchEntityException: The specified entity was not found
+	at edu.ucsb.eucalyptus.cloud.ws.WalrusManager.getObject(WalrusManager.java:1558)
+	at edu.ucsb.eucalyptus.cloud.ws.WalrusControl.GetObject(WalrusControl.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService.doSend(SedaService.java:234)
+	at org.mule.service.AbstractService.sendEvent(AbstractService.java:510)
+	at org.mule.DefaultMuleSession.sendEvent(DefaultMuleSession.java:351)
+	at org.mule.routing.inbound.DefaultInboundRouterCollection.send(DefaultInboundRouterCollection.java:196)
+	at org.mule.routing.inbound.DefaultInboundRouterCollection.route(DefaultInboundRouterCollection.java:164)
+	at org.mule.transport.AbstractMessageReceiver$DefaultInternalMessageListener.onMessage(AbstractMessageReceiver.java:604)
+	at org.mule.transport.AbstractMessageReceiver.routeMessage(AbstractMessageReceiver.java:346)
+	at org.mule.transport.AbstractMessageReceiver.routeMessage(AbstractMessageReceiver.java:269)
+	at org.mule.transport.vm.VMMessageReceiver.onCall(VMMessageReceiver.java:106)
+	at org.mule.transport.vm.VMMessageDispatcher.doSend(VMMessageDispatcher.java:104)
+	at org.mule.transport.AbstractMessageDispatcher.send(AbstractMessageDispatcher.java:157)
+	at org.mule.transport.AbstractConnector.send(AbstractConnector.java:1889)
+	at org.mule.endpoint.DefaultOutboundEndpoint.send(DefaultOutboundEndpoint.java:76)
+	at org.mule.DefaultMuleSession.sendEvent(DefaultMuleSession.java:324)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:653)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:630)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:583)
+	at com.eucalyptus.ws.client.LocalDispatcher.send(LocalDispatcher.java:41)
+	at com.eucalyptus.images.util.WalrusUtil.verifyManifestIntegrity(WalrusUtil.java:162)
+	at edu.ucsb.eucalyptus.cloud.ws.ImageManager.register(ImageManager.java:298)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService$ComponentStageWorker.run(SedaService.java:533)
+	at org.mule.work.WorkerContext.run(WorkerContext.java:310)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1061)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:575)
+	at java.lang.Thread.run(Thread.java:636)
+
+********************************************************************************
+
+10:15:56 ERROR [LocalDispatcher:Image.7] com.eucalyptus.util.EucalyptusCloudException: The specified entity was not found
+com.eucalyptus.util.EucalyptusCloudException: The specified entity was not found
+	at com.eucalyptus.ws.client.LocalDispatcher.send(LocalDispatcher.java:43)
+	at com.eucalyptus.images.util.WalrusUtil.verifyManifestIntegrity(WalrusUtil.java:162)
+	at edu.ucsb.eucalyptus.cloud.ws.ImageManager.register(ImageManager.java:298)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService$ComponentStageWorker.run(SedaService.java:533)
+	at org.mule.work.WorkerContext.run(WorkerContext.java:310)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1061)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:575)
+	at java.lang.Thread.run(Thread.java:636)
+Caused by: edu.ucsb.eucalyptus.cloud.NoSuchEntityException: The specified entity was not found
+	at edu.ucsb.eucalyptus.cloud.ws.WalrusManager.getObject(WalrusManager.java:1558)
+	at edu.ucsb.eucalyptus.cloud.ws.WalrusControl.GetObject(WalrusControl.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService.doSend(SedaService.java:234)
+	at org.mule.service.AbstractService.sendEvent(AbstractService.java:510)
+	at org.mule.DefaultMuleSession.sendEvent(DefaultMuleSession.java:351)
+	at org.mule.routing.inbound.DefaultInboundRouterCollection.send(DefaultInboundRouterCollection.java:196)
+	at org.mule.routing.inbound.DefaultInboundRouterCollection.route(DefaultInboundRouterCollection.java:164)
+	at org.mule.transport.AbstractMessageReceiver$DefaultInternalMessageListener.onMessage(AbstractMessageReceiver.java:604)
+	at org.mule.transport.AbstractMessageReceiver.routeMessage(AbstractMessageReceiver.java:346)
+	at org.mule.transport.AbstractMessageReceiver.routeMessage(AbstractMessageReceiver.java:269)
+	at org.mule.transport.vm.VMMessageReceiver.onCall(VMMessageReceiver.java:106)
+	at org.mule.transport.vm.VMMessageDispatcher.doSend(VMMessageDispatcher.java:104)
+	at org.mule.transport.AbstractMessageDispatcher.send(AbstractMessageDispatcher.java:157)
+	at org.mule.transport.AbstractConnector.send(AbstractConnector.java:1889)
+	at org.mule.endpoint.DefaultOutboundEndpoint.send(DefaultOutboundEndpoint.java:76)
+	at org.mule.DefaultMuleSession.sendEvent(DefaultMuleSession.java:324)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:653)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:630)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:583)
+	at com.eucalyptus.ws.client.LocalDispatcher.send(LocalDispatcher.java:41)
+	... 18 more
+10:15:56 ERROR [ImageManager:Image.7] com.eucalyptus.util.EucalyptusCloudException: Internal Error.
+10:15:56 DEBUG [ImageManager:Image.7] com.eucalyptus.util.EucalyptusCloudException: Internal Error.
+com.eucalyptus.util.EucalyptusCloudException: Internal Error.
+	at com.eucalyptus.ws.client.LocalDispatcher.send(LocalDispatcher.java:49)
+	at com.eucalyptus.images.util.WalrusUtil.verifyManifestIntegrity(WalrusUtil.java:162)
+	at edu.ucsb.eucalyptus.cloud.ws.ImageManager.register(ImageManager.java:298)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService$ComponentStageWorker.run(SedaService.java:533)
+	at org.mule.work.WorkerContext.run(WorkerContext.java:310)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1061)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:575)
+	at java.lang.Thread.run(Thread.java:636)
+Caused by: com.eucalyptus.util.EucalyptusCloudException: The specified entity was not found
+	at com.eucalyptus.ws.client.LocalDispatcher.send(LocalDispatcher.java:43)
+	... 18 more
+Caused by: edu.ucsb.eucalyptus.cloud.NoSuchEntityException: The specified entity was not found
+	at edu.ucsb.eucalyptus.cloud.ws.WalrusManager.getObject(WalrusManager.java:1558)
+	at edu.ucsb.eucalyptus.cloud.ws.WalrusControl.GetObject(WalrusControl.java:344)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService.doSend(SedaService.java:234)
+	at org.mule.service.AbstractService.sendEvent(AbstractService.java:510)
+	at org.mule.DefaultMuleSession.sendEvent(DefaultMuleSession.java:351)
+	at org.mule.routing.inbound.DefaultInboundRouterCollection.send(DefaultInboundRouterCollection.java:196)
+	at org.mule.routing.inbound.DefaultInboundRouterCollection.route(DefaultInboundRouterCollection.java:164)
+	at org.mule.transport.AbstractMessageReceiver$DefaultInternalMessageListener.onMessage(AbstractMessageReceiver.java:604)
+	at org.mule.transport.AbstractMessageReceiver.routeMessage(AbstractMessageReceiver.java:346)
+	at org.mule.transport.AbstractMessageReceiver.routeMessage(AbstractMessageReceiver.java:269)
+	at org.mule.transport.vm.VMMessageReceiver.onCall(VMMessageReceiver.java:106)
+	at org.mule.transport.vm.VMMessageDispatcher.doSend(VMMessageDispatcher.java:104)
+	at org.mule.transport.AbstractMessageDispatcher.send(AbstractMessageDispatcher.java:157)
+	at org.mule.transport.AbstractConnector.send(AbstractConnector.java:1889)
+	at org.mule.endpoint.DefaultOutboundEndpoint.send(DefaultOutboundEndpoint.java:76)
+	at org.mule.DefaultMuleSession.sendEvent(DefaultMuleSession.java:324)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:653)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:630)
+	at org.mule.module.client.MuleClient.send(MuleClient.java:583)
+	at com.eucalyptus.ws.client.LocalDispatcher.send(LocalDispatcher.java:41)
+	... 18 more
+10:15:56 ERROR [DefaultServiceExceptionStrategy:Image.7] 
+********************************************************************************
+Message               : Component that caused exception is: Image. Message payload is of type: RegisterImageType
+Type                  : org.mule.api.service.ServiceException
+Code                  : MULE_ERROR--2
+Payload               : <?xml version="1.0" encoding="UTF-8"?>
+<euca:RegisterImage xmlns:euca="http://msgs.eucalyptus.ucsb.edu">
+  <euca:VmImageMessage>
+    <euca:correlationId>76c9af94-8aa1-424f-9099-e190006a9ade</euca:correlationId>
+    <euca:userId>admin</euca:userId>
+    <euca:effectiveUserId>eucalyptus</euca:effectiveUserId>
+  </euca:VmImageMessage>
+  <euca:imageLocation>jaunty-scripts/jaunty-scripts.manifest</euca:imageLocation>
+</euca:RegisterImage>
+JavaDoc               : http://mule.mulesource.org/docs/apidocs/org/mule/api/service/ServiceException.html
+********************************************************************************
+Exception stack is:
+1. Image registration failed because the manifest referenced is invalid or unavailable. (com.eucalyptus.util.EucalyptusCloudException)
+  edu.ucsb.eucalyptus.cloud.ws.ImageManager:300 (null)
+2. Component that caused exception is: Image. Message payload is of type: RegisterImageType (org.mule.api.service.ServiceException)
+  org.mule.component.DefaultLifecycleAdapter:214 (http://mule.mulesource.org/docs/apidocs/org/mule/api/service/ServiceException.html)
+********************************************************************************
+Root Exception stack trace:
+com.eucalyptus.util.EucalyptusCloudException: Image registration failed because the manifest referenced is invalid or unavailable.
+	at edu.ucsb.eucalyptus.cloud.ws.ImageManager.register(ImageManager.java:300)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.mule.model.resolvers.AbstractEntryPointResolver.invokeMethod(AbstractEntryPointResolver.java:147)
+	at org.mule.model.resolvers.ReflectionEntryPointResolver.invoke(ReflectionEntryPointResolver.java:127)
+	at org.mule.model.resolvers.DefaultEntryPointResolverSet.invoke(DefaultEntryPointResolverSet.java:50)
+	at org.mule.component.DefaultLifecycleAdapter.intercept(DefaultLifecycleAdapter.java:202)
+	at org.mule.component.AbstractJavaComponent.invokeComponentInstance(AbstractJavaComponent.java:82)
+	at org.mule.component.AbstractJavaComponent.doOnCall(AbstractJavaComponent.java:73)
+	at org.mule.component.AbstractComponent.onCall(AbstractComponent.java:87)
+	at org.mule.model.seda.SedaService$ComponentStageWorker.run(SedaService.java:533)
+	at org.mule.work.WorkerContext.run(WorkerContext.java:310)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1061)
+	at edu.emory.mathcs.backport.java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:575)
+	at java.lang.Thread.run(Thread.java:636)
+
+********************************************************************************
+
+10:15:56 ERROR [DefaultServiceExceptionStrategy:Image.7] Message being processed is: org.mule.transport.DefaultMessageAdapter/org.mule.transport.DefaultMessageAdapter@17956d8{id=53a20aae-c790-11de-8473-9b06056731a5, payload=edu.ucsb.eucalyptus.msgs.RegisterImageType, correlationId=53a20aae-c790-11de-8473-9b06056731a5, correlationGroup=-1, correlationSeq=-1, encoding=UTF-8, exceptionPayload=org.mule.message.DefaultExceptionPayload@134accc}
+10:15:56  INFO [ReplyQueue:Image.7] Message: edu.ucsb.eucalyptus.msgs.EucalyptusErrorMessageType:76c9af94-8aa1-424f-9099-e190006a9ade
+10:15:56  INFO [ServiceSinkHandler:Image.7] :1257153408.0000:eucalyptus/ServiceSinkHandler.sendDownstreamNewEvent.162:eucalyptus:eucalyptus:MSG_SERVICED:EucalyptusErrorMessageType:
+10:15:56 DEBUG [ChannelStateMonitor:New I/O server worker #1-2] :1257153408.0000:ServiceSinkHandler/ChannelStateMonitor.split.36:eucalyptus:eucalyptus:SOCKET_CLOSE:1257153356333:509:/192.168.1.103:8773:/192.168.1.120:57378:
+10:15:57 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] java.lang.NullPointerException
+java.lang.NullPointerException
+	at com.eucalyptus.ws.handlers.ChannelStateMonitor.split(ChannelStateMonitor.java:36)
+	at com.eucalyptus.ws.handlers.ChannelStateMonitor.channelClosed(ChannelStateMonitor.java:43)
+	at org.jboss.netty.channel.Channels.fireChannelClosed(Channels.java:564)
+	at org.jboss.netty.channel.socket.nio.NioWorker.close(NioWorker.java:569)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink.eventSunk(NioClientSocketPipelineSink.java:81)
+	at org.jboss.netty.handler.codec.oneone.OneToOneEncoder.handleDownstream(OneToOneEncoder.java:66)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at org.jboss.netty.channel.Channels.close(Channels.java:1043)
+	at org.jboss.netty.channel.AbstractChannel.close(AbstractChannel.java:185)
+	at org.jboss.netty.channel.ChannelFutureListener$2.operationComplete(ChannelFutureListener.java:64)
+	at org.jboss.netty.channel.DefaultChannelFuture.notifyListener(DefaultChannelFuture.java:326)
+	at org.jboss.netty.channel.DefaultChannelFuture.notifyListeners(DefaultChannelFuture.java:312)
+	at org.jboss.netty.channel.DefaultChannelFuture.setFailure(DefaultChannelFuture.java:281)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:356)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:15:57 DEBUG [ChannelUtil:New I/O client boss #2] java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:592)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:351)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:110)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:15:57 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] :1257153408.0000:AbstractClusterMessageDispatcher/AbstractClusterMessageDispatcher.operationComplete.133:eucalyptus:eucalyptus:MSG_SENT:<edu.ucsb.eucalyptus.msgs.GetKeysType@1566bb1 serviceTag=self correlationId=5a271da6-698f-4851-8110-bd3deeb5cf6a userId=null effectiveUserId=null _return=false statusMessage=null>                     :
+10:15:57 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:592)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:351)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:16:03 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] java.lang.NullPointerException
+java.lang.NullPointerException
+	at com.eucalyptus.ws.handlers.ChannelStateMonitor.split(ChannelStateMonitor.java:36)
+	at com.eucalyptus.ws.handlers.ChannelStateMonitor.channelClosed(ChannelStateMonitor.java:43)
+	at org.jboss.netty.channel.Channels.fireChannelClosed(Channels.java:564)
+	at org.jboss.netty.channel.socket.nio.NioWorker.close(NioWorker.java:569)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink.eventSunk(NioClientSocketPipelineSink.java:81)
+	at org.jboss.netty.handler.codec.oneone.OneToOneEncoder.handleDownstream(OneToOneEncoder.java:66)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at com.eucalyptus.ws.handlers.MessageStackHandler.handleDownstream(MessageStackHandler.java:98)
+	at org.jboss.netty.channel.Channels.close(Channels.java:1043)
+	at org.jboss.netty.channel.AbstractChannel.close(AbstractChannel.java:185)
+	at org.jboss.netty.channel.ChannelFutureListener$2.operationComplete(ChannelFutureListener.java:64)
+	at org.jboss.netty.channel.DefaultChannelFuture.notifyListener(DefaultChannelFuture.java:326)
+	at org.jboss.netty.channel.DefaultChannelFuture.notifyListeners(DefaultChannelFuture.java:312)
+	at org.jboss.netty.channel.DefaultChannelFuture.setFailure(DefaultChannelFuture.java:281)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:356)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:16:03 DEBUG [ChannelUtil:New I/O client boss #2] java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:592)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:351)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:110)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)
+10:16:03 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] :1257153408.0000:AbstractClusterMessageDispatcher/AbstractClusterMessageDispatcher.operationComplete.133:eucalyptus:eucalyptus:MSG_SENT:<edu.ucsb.eucalyptus.msgs.GetKeysType@1527bec serviceTag=self correlationId=cab57fe5-f730-496f-a364-86e087f051b7 userId=null effectiveUserId=null _return=false statusMessage=null>                     :
+10:16:03 DEBUG [AbstractClusterMessageDispatcher:New I/O client boss #2] java.net.ConnectException: Connection refused
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:592)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.connect(NioClientSocketPipelineSink.java:351)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.processSelectedKeys(NioClientSocketPipelineSink.java:322)
+	at org.jboss.netty.channel.socket.nio.NioClientSocketPipelineSink$Boss.run(NioClientSocketPipelineSink.java:247)
+	at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:53)
+	at org.jboss.netty.handler.execution.MemoryAwareThreadPoolExecutor$MemoryAwareRunnable.run(MemoryAwareThreadPoolExecutor.java:502)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)

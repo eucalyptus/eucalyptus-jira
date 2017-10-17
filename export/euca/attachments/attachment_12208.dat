@@ -1,0 +1,63 @@
+From 5e5c542af6654f9373481fd0f342c5ed1e256824 Mon Sep 17 00:00:00 2001
+From: Matt Spaulding <mspaulding06@gmail.com>
+Date: Wed, 15 Aug 2012 11:25:28 -0700
+Subject: [PATCH] Fix localization settings not getting properly sourced
+
+Localization settings are not getting properly sourced on
+distributions that use the functions script (e.g., RHEL).
+Source the functions script for Eucalyptus services
+Fixes EUCA-3200
+---
+ tools/eucalyptus-cc.in    | 4 ++++
+ tools/eucalyptus-cloud.in | 4 ++++
+ tools/eucalyptus-nc.in    | 4 ++++
+ 3 files changed, 12 insertions(+)
+
+diff --git a/tools/eucalyptus-cc.in b/tools/eucalyptus-cc.in
+index b986d25..9d72842 100755
+--- a/tools/eucalyptus-cc.in
++++ b/tools/eucalyptus-cc.in
+@@ -76,6 +76,10 @@
+ 
+ # Do NOT "set -e"
+ 
++# Use the functions script for distributions that support it (e.g., RHEL)
++# This allows Eucalyptus to use correct localization settings
++[ -f /etc/init.d/functions ] && . /etc/init.d/functions
++
+ # if we have lsb functions let's source them
+ WE_HAVE_LSB="N"
+ if [ -e /lib/lsb/init-functions ]; then
+diff --git a/tools/eucalyptus-cloud.in b/tools/eucalyptus-cloud.in
+index 4bb8760..4d17afc 100755
+--- a/tools/eucalyptus-cloud.in
++++ b/tools/eucalyptus-cloud.in
+@@ -89,6 +89,10 @@ if [ "$EUID" != "0" ]; then
+ 	exit 1
+ fi
+ 
++# Use the functions script for distributions that support it (e.g., RHEL)
++# This allows Eucalyptus to use correct localization settings
++[ -f /etc/init.d/functions ] && . /etc/init.d/functions
++
+ # if we have lsb functions let's source them
+ WE_HAVE_LSB="N"
+ if [ -e /lib/lsb/init-functions ]; then
+diff --git a/tools/eucalyptus-nc.in b/tools/eucalyptus-nc.in
+index 6b39572..c4c5629 100755
+--- a/tools/eucalyptus-nc.in
++++ b/tools/eucalyptus-nc.in
+@@ -77,6 +77,10 @@
+ 
+ # Do NOT "set -e"
+ 
++# Use the functions script for distributions that support it (e.g., RHEL)
++# This allows Eucalyptus to use correct localization settings
++[ -f /etc/init.d/functions ] && . /etc/init.d/functions
++
+ # if we have lsb functions let's source them
+ WE_HAVE_LSB="N"
+ if [ -e /lib/lsb/init-functions ]; then
+-- 
+1.7.11.2
+

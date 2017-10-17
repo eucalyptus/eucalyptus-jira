@@ -1,0 +1,199 @@
+diff -ur eucalyptus-3.bzr1505/clc/modules/www/src/main/java/com/eucalyptus/www/Redirect.java eucalyptus-3.bzr1505.new/clc/modules/www/src/main/java/com/eucalyptus/www/Redirect.java
+--- eucalyptus-3.bzr1505/clc/modules/www/src/main/java/com/eucalyptus/www/Redirect.java	2012-02-09 02:24:49.000000000 -0500
++++ eucalyptus-3.bzr1505.new/clc/modules/www/src/main/java/com/eucalyptus/www/Redirect.java	2012-02-09 04:33:05.473353310 -0500
+@@ -7,7 +7,7 @@
+ import javax.servlet.http.HttpServletResponse;
+ 
+ import org.apache.log4j.Logger;
+-import org.mortbay.jetty.handler.rewrite.Rule;
++import org.eclipse.jetty.rewrite.handler.Rule;
+ import com.eucalyptus.bootstrap.HttpServerBootstrapper;
+ import com.eucalyptus.component.ServiceConfiguration;
+ import com.eucalyptus.component.Topology;
+diff -ur eucalyptus-3.bzr1505/clc/modules/msgs/src/main/java/com/eucalyptus/empyrean/EmpyreanTransactionManager.java eucalyptus-3.bzr1505.new/clc/modules/msgs/src/main/java/com/eucalyptus/empyrean/EmpyreanTransactionManager.java
+--- eucalyptus-3.bzr1505/clc/modules/msgs/src/main/java/com/eucalyptus/empyrean/EmpyreanTransactionManager.java	2012-02-09 02:24:49.000000000 -0500
++++ eucalyptus-3.bzr1505.new/clc/modules/msgs/src/main/java/com/eucalyptus/empyrean/EmpyreanTransactionManager.java	2012-02-09 05:31:39.500028619 -0500
+@@ -13,7 +13,7 @@
+ import com.eucalyptus.bootstrap.SystemIds;
+ import com.eucalyptus.system.SubDirectory;
+ 
+-public class EmpyreanTransactionManager extends org.mortbay.component.AbstractLifeCycle implements org.jboss.cache.transaction.TransactionManagerLookup, org.hibernate.transaction.TransactionManagerLookup {
++public class EmpyreanTransactionManager extends org.eclipse.jetty.util.component.AbstractLifeCycle implements org.jboss.cache.transaction.TransactionManagerLookup, org.hibernate.transaction.TransactionManagerLookup {
+ //  public static final String JNDI_NAME = "eucalyptusTransactionManager";
+   private static Logger             LOG = Logger.getLogger( EmpyreanTransactionManager.class );
+   private static Context            ctx = getContext( );
+diff -ur eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/http/NioHttpDecoder.java eucalyptus-3.1.0.new/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/http/NioHttpDecoder.java
+--- eucalyptus-3.1.0/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/http/NioHttpDecoder.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.new/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/http/NioHttpDecoder.java	2012-06-19 14:41:48.000000000 -0400
+@@ -64,7 +64,7 @@
+ import org.jboss.netty.handler.codec.http.HttpResponse;
+ import org.jboss.netty.handler.codec.http.HttpVersion;
+ import org.jboss.netty.handler.codec.replay.ReplayingDecoder;
+-import org.mortbay.log.Log;
++import org.eclipse.jetty.util.log.Log;
+ 
+ import com.eucalyptus.context.Context;
+ import com.eucalyptus.context.Contexts;
+diff -ur eucalyptus-3.1.0/clc/modules/www.orig/conf/www/admin.xml eucalyptus-3.1.0/clc/modules/www/conf/www/admin.xml
+--- eucalyptus-3.1.0/clc/modules/www.orig/conf/www/admin.xml	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/www/conf/www/admin.xml	2012-08-07 11:34:32.191760020 -0400
+@@ -64,7 +64,7 @@
+   -->
+ 
+ <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+-<Configure class="org.mortbay.jetty.webapp.WebAppContext">
++<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+   <Set name="contextPath">/</Set>
+   <Set name="parentLoaderPriority">true</Set>
+   <Set name="logUrlOnStart">true</Set>
+diff -ur eucalyptus-3.1.0/clc/modules/www.orig/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java eucalyptus-3.1.0/clc/modules/www/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java
+--- eucalyptus-3.1.0/clc/modules/www.orig/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java	2012-08-07 11:29:11.908789566 -0400
++++ eucalyptus-3.1.0/clc/modules/www/src/main/java/com/eucalyptus/bootstrap/HttpServerBootstrapper.java	2012-08-07 11:34:41.070759181 -0400
+@@ -62,12 +62,14 @@
+ 
+ import static com.eucalyptus.crypto.util.SslSetup.getEnabledCipherSuites;
+ import java.io.File;
++import java.io.FileNotFoundException;
+ import java.io.IOException;
+ import java.net.URL;
++import java.nio.channels.SocketChannel;
+ import org.apache.log4j.Logger;
+-import org.mortbay.jetty.Server;
+-import org.mortbay.jetty.security.SslSelectChannelConnector;
+-import org.mortbay.xml.XmlConfiguration;
++import org.eclipse.jetty.server.Server;
++import org.eclipse.jetty.server.ssl.SslSelectChannelConnector;
++import org.eclipse.jetty.xml.XmlConfiguration;
+ import com.eucalyptus.component.id.Eucalyptus;
+ import com.eucalyptus.component.id.HttpService;
+ import com.eucalyptus.configurable.ConfigurableClass;
+@@ -119,7 +119,8 @@
+     if ( System.getProperty( "http.proxyPort" ) != null ) {
+       httpProxyPort = System.getProperty( "http.proxyPort" );
+     }
+-    jettyServer = new org.mortbay.jetty.Server( );
++    jettyServer = new org.eclipse.jetty.server.Server( );
++    System.setProperty( "org.eclipse.jetty.util.log.DEBUG", "true" );
+     System.setProperty( "euca.http.port", "" + HTTP_PORT );
+     System.setProperty( "euca.https.port", "" + HTTPS_PORT );
+     URL defaultConfig = ClassLoader.getSystemResource( "eucalyptus-jetty.xml" );
+@@ -241,9 +251,14 @@
+   }
+ 
+   public static final class ConfiguredSslSelectChannelConnector extends SslSelectChannelConnector {
+-    @Override
+     protected SSLEngine createSSLEngine() throws IOException {
+-      final SSLEngine engine = super.createSSLEngine();
++      SocketChannel channel = SocketChannel.open();
++      return super.createSSLEngine(channel);
++    }
++
++    @Override
++    protected SSLEngine createSSLEngine(SocketChannel channel) throws IOException {
++      final SSLEngine engine = super.createSSLEngine(channel);
+       engine.setEnabledCipherSuites( getEnabledCipherSuites(HTTPS_CIPHERS, engine.getSupportedCipherSuites()) );
+       return engine;
+     }
+diff -ur eucalyptus-3.1.0/clc/modules/www.orig/src/main/resources/eucalyptus-jetty.xml eucalyptus-3.1.0/clc/modules/www/src/main/resources/eucalyptus-jetty.xml
+--- eucalyptus-3.1.0/clc/modules/www.orig/src/main/resources/eucalyptus-jetty.xml	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0/clc/modules/www/src/main/resources/eucalyptus-jetty.xml	2012-08-07 11:34:25.586760613 -0400
+@@ -62,7 +62,7 @@
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ~ Author: chris grzegorczyk grze@eucalyptus.com
+   -->
+-<Configure id="Server" class="org.mortbay.jetty.Server">
++<Configure id="Server" class="org.eclipse.jetty.server.Server">
+   <Call name="addConnector">
+     <Arg>
+       <New class="com.eucalyptus.bootstrap.HttpServerBootstrapper$ConfiguredSslSelectChannelConnector">
+@@ -77,14 +77,12 @@
+         <Set name="password">eucalyptus</Set>
+         <Set name="keyPassword">eucalyptus</Set>
+         <Set name="trustPassword">eucalyptus</Set>
+-        <Set name="ThreadPool">
+-          <New class="org.mortbay.thread.QueuedThreadPool">
++        <!-- Set name="ThreadPool">
++          <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+             <Set name="minThreads">10</Set>
+             <Set name="maxThreads">25</Set>
+-            <Set name="lowThreads">5</Set>
+-            <Set name="SpawnOrShrinkAt">2</Set>
+           </New>
+-        </Set>
++        </Set -->
+       </New>
+     </Arg>
+   </Call>
+@@ -90,7 +90,7 @@
+   </Call>
+   <Call name="addConnector">
+     <Arg>
+-      <New class="org.mortbay.jetty.nio.SelectChannelConnector">
++      <New class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+         <Set name="Port">
+           <SystemProperty name="euca.http.port" default="8080" />
+         </Set>
+@@ -98,26 +98,26 @@
+     </Arg>
+   </Call>
+   <Set name="handler">
+-    <New id="Handlers" class="org.mortbay.jetty.handler.rewrite.RewriteHandler">
++    <New id="Handlers" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
+       <Set name="rules">
+-        <Array type="org.mortbay.jetty.handler.rewrite.Rule">
++        <Array type="org.eclipse.jetty.rewrite.handler.Rule">
+           <Item>
+             <New id="httpsRedirect" class="com.eucalyptus.www.Redirect" />
+           </Item>
+         </Array>
+       </Set>
+       <Set name="handler">
+-        <New id="Handlers" class="org.mortbay.jetty.handler.HandlerCollection">
++        <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+           <Set name="handlers">
+-            <Array type="org.mortbay.jetty.Handler">
++            <Array type="org.eclipse.jetty.server.Handler">
+               <Item>
+-                <New id="Contexts" class="org.mortbay.jetty.handler.ContextHandlerCollection" />
++                <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection" />
+               </Item>
+               <Item>
+-                <New id="DefaultHandler" class="org.mortbay.jetty.handler.DefaultHandler" />
++                <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler" />
+               </Item>
+               <Item>
+-                <New id="RequestLog" class="org.mortbay.jetty.handler.RequestLogHandler" />
++                <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler" />
+               </Item>
+             </Array>
+           </Set>
+@@ -132,7 +132,7 @@
+   </Call>
+   <Call name="addLifeCycle">
+     <Arg>
+-      <New class="org.mortbay.jetty.deployer.ContextDeployer">
++      <New class="org.eclipse.jetty.deploy.ContextDeployer">
+         <Set name="contexts">
+           <Ref id="Contexts" />
+         </Set>
+@@ -144,7 +144,7 @@
+   </Call>
+   <Ref id="RequestLog">
+     <Set name="requestLog">
+-      <New id="RequestLogImpl" class="org.mortbay.jetty.NCSARequestLog">
++      <New id="RequestLogImpl" class="org.eclipse.jetty.server.NCSARequestLog">
+         <Set name="filename"><SystemProperty name="euca.log.dir" default="./log" />/jetty-request-yyyy_mm_dd.log</Set>
+         <Set name="filenameDateFormat">yyyy_MM_dd</Set>
+         <Set name="retainDays">90</Set>
+diff -ur eucalyptus-3.1.0/clc/modules/core/src/main/resources/log4j.xml eucalyptus-3.1.0.patched/clc/modules/core/src/main/resources/log4j.xml
+--- eucalyptus-3.1.0/clc/modules/core/src/main/resources/log4j.xml	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.patched/clc/modules/core/src/main/resources/log4j.xml	2012-08-08 14:44:16.357733943 -0400
+@@ -301,7 +301,7 @@
+     <priority value="${euca.log.level}" />
+     <appender-ref ref="cloud-exhaust" />
+   </category>
+-  <category name="org.mortbay" additivity="false">
++  <category name="org.eclipse.jetty" additivity="false">
+     <priority value="${euca.log.level}" />
+     <appender-ref ref="cloud-exhaust" />
+   </category>

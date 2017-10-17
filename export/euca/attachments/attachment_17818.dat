@@ -1,0 +1,57 @@
+diff --git a/clc/eucadmin/eucadmin/getcredentials.py b/clc/eucadmin/eucadmin/getcredentials.py
+index 543a928..5bf3d63 100644
+--- a/clc/eucadmin/eucadmin/getcredentials.py
++++ b/clc/eucadmin/eucadmin/getcredentials.py
+@@ -36,12 +36,37 @@ import pgdb as db
+ import hashlib
+ import binascii
+ from M2Crypto import RSA
++import httplib
++import socket
++import ssl
++import urllib2
+ 
+ GetCertURL = 'https://localhost:8443/getX509?account=%s&user=%s&code=%s'
+ 
+ EucaP12File = '%s/var/lib/eucalyptus/keys/euca.p12'
+ CloudPKFile = '%s/var/lib/eucalyptus/keys/cloud-pk.pem'
+ 
++
++# Adapted from code written by Ian Wetherbee
++# http://bugs.python.org/msg128686
++# This is required to force an SSLv3 connection under RHEL 6.5
++class HTTPSConnectionV3(httplib.HTTPSConnection):
++    def __init__(self, *args, **kwargs):
++        httplib.HTTPSConnection.__init__(self, *args, **kwargs)
++
++    def connect(self):
++        sock = socket.create_connection((self.host, self.port), self.timeout)
++        self.sock = ssl.wrap_socket(sock, self.key_file, self.cert_file,
++                                    ssl_version=ssl.PROTOCOL_SSLv3)
++
++
++class HTTPSHandlerV3(urllib2.HTTPSHandler):
++    def https_open(self, req):
++        return self.do_open(HTTPSConnectionV3, req)
++
++urllib2.install_opener(urllib2.build_opener(HTTPSHandlerV3()))
++
++
+ class GetCredentials(AWSQueryRequest):
+     ServiceClass = eucadmin.EucAdmin
+     Description = ("Download a user's credentials to <zipfile>.  New X.509 "
+@@ -83,12 +108,9 @@ class GetCredentials(AWSQueryRequest):
+         cmd = Command(cmd_string % (self.eucap12_file, self.cloudpk_file))
+ 
+     def get_credentials(self):
+-        data = boto.utils.retry_url(GetCertURL % (self.account,
+-                                                  self.user,
+-                                                  self.token),
+-                                    num_retries=1)
++        data = urllib2.urlopen(GetCertURL % (self.account, self.user, self.token))
+         fp = open(self.zipfile, 'wb')
+-        fp.write(data)
++        fp.write(data.read())
+         fp.close()
+ 
+     def get_dbpass(self):

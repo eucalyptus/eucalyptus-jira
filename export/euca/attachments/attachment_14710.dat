@@ -1,0 +1,40 @@
+
+
+import java.text.SimpleDateFormat;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.AlarmHistoryItem;
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmHistoryRequest;
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmHistoryResult;
+import com.amazonaws.services.cloudwatch.model.HistoryItemType;
+
+public class DescribeAlarmHistoryTest {
+  public static AmazonCloudWatchClient getCreds() {
+    BasicAWSCredentials props = new BasicAWSCredentials(
+      "A6PFZBJU2OKWKVH4KTZAQ",
+      "d0wSAheQlGS4IdQqrHZyjnrqxHXxV37Ltsk6HifF");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+    return cloudWatch;
+  }
+  public static void main(String[] args) throws Exception {
+    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+    AmazonCloudWatchClient cloudWatch = getCreds();
+    DescribeAlarmHistoryRequest describeAlarmHistoryRequest = new DescribeAlarmHistoryRequest();
+    describeAlarmHistoryRequest.setAlarmName("My Name");
+    describeAlarmHistoryRequest.setStartDate(sdf.parse("Thu Mar 07 07:50:00 PST 2013"));
+    describeAlarmHistoryRequest.setEndDate(sdf.parse("Thu Mar 07 12:26:48 PST 2013"));
+    describeAlarmHistoryRequest.setHistoryItemType(HistoryItemType.ConfigurationUpdate);
+    describeAlarmHistoryRequest.setMaxRecords(5);
+    DescribeAlarmHistoryResult describeAlarmHistoryResults = cloudWatch.describeAlarmHistory(describeAlarmHistoryRequest);
+    
+    //DescribeAlarmHistoryResult describeAlarmHistoryResults = cloudWatch.describeAlarmHistory();
+    for (AlarmHistoryItem alarmHistoryItem: describeAlarmHistoryResults.getAlarmHistoryItems()) {
+      System.out.println(alarmHistoryItem);
+    }
+
+    
+  }
+
+}

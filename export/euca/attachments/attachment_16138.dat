@@ -1,0 +1,103 @@
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/ClusterAllocator.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/ClusterAllocator.java
+index f861db1..21eeb76 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/ClusterAllocator.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/ClusterAllocator.java
+@@ -65,6 +65,7 @@ package com.eucalyptus.cloud.run;
+ import static com.eucalyptus.images.Images.findEbsRootOptionalSnapshot;
+ 
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.List;
+ import java.util.Map.Entry;
+ import java.util.NoSuchElementException;
+@@ -436,6 +437,11 @@ public class ClusterAllocator implements Runnable {
+     	}
+     	
+     	LOG.debug("Instance information: " + childVmInfo.dump());
++    } else {
++      if ( Iterables.any( this.allocInfo.getRequest().getBlockDeviceMapping(), Images.findDiskDevice(Arrays.asList(new String[] {"/dev/sda1", "sda1"})) ) ) {
++    	VirtualBootRecord rootVbr = childVmInfo.lookupRoot();
++    	rootVbr.setType("disk");
++      }
+     }
+     return childVmInfo;
+   }
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/VerifyMetadata.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/VerifyMetadata.java
+index 8842297..90bbd9e 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/VerifyMetadata.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/VerifyMetadata.java
+@@ -63,6 +63,7 @@
+ package com.eucalyptus.cloud.run;
+ 
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Set;
+@@ -363,7 +364,19 @@ public class VerifyMetadata {
+         }
+       } else { // Instance store image
+         //Verify all block device mappings. EBS mappings must be considered invalid since AWS doesn't support it
+-        Images.isDeviceMappingListValid (instanceMappings, Boolean.TRUE, Boolean.FALSE );
++        //Images.isDeviceMappingListValid (instanceMappings, Boolean.TRUE, Boolean.FALSE );
++        // HACK for Dima. Allow the special EBS mapping: '/dev/sda1=disk'. All other EBS mappings are considered invalid since AWS doesn't support it
++    	switch ( Iterables.size( Iterables.filter( instanceMappings, Images.findEbsDevices( ) ) ) ) {
++    	  case 0:
++    		break;
++    	  case 1:
++    		if ( !Iterables.any( instanceMappings, Images.findDiskDevice( Arrays.asList( new String[] {"/dev/sda1", "sda1"}) ) ) ) {
++    		  throw new InvalidMetadataException( "Invalid EBS device mapping" ); 	
++    		}
++    		break;
++    	  default:
++    		throw new InvalidMetadataException( "Multiple EBS device mappings are not supported." );
++    	}
+       }
+       
+       // Set the final list of block device mappings in the run instance request (necessary if the instance mappings were null). Checked with grze that its okay
+@@ -371,6 +384,7 @@ public class VerifyMetadata {
+       return true;
+     }
+   }
++  
+   enum UserDataVerifier implements MetadataVerifier {
+     INSTANCE;
+   
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/images/Images.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/images/Images.java
+index d3e080c..695987f 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/images/Images.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/images/Images.java
+@@ -414,7 +414,7 @@ public class Images {
+    * @param bdms List of <code>BlockDeviceMappingItemType</code>
+    * @param isSuppressMappingValid Boolean value to indicate if the suppress mapping should be considered valid
+    * @param isEbsMappingValid Boolean value to indicate if the ebs mapping should be considered valid
+-   * @return true if the mapping is valid
++   * @return true if all the block device mappings in the list are valid
+    */
+   public static boolean isDeviceMappingListValid(List<BlockDeviceMappingItemType> bdms, Boolean isSuppressMappingValid, Boolean isEbsMappingValid) {
+ 	if ( bdms != null ) {
+@@ -1063,4 +1063,24 @@ public class Images {
+       }
+     }
+   }
++  
++  public static Predicate<BlockDeviceMappingItemType> findDiskDevice( final List<String> deviceList ) {
++	return new Predicate<BlockDeviceMappingItemType>( ) {
++	  @Override
++	  public boolean apply( BlockDeviceMappingItemType input ) {
++		  return ( input != null && deviceList.contains( input.getDeviceName( ).toLowerCase() ) 
++				  &&  input.getEbs() != null && StringUtils.equalsIgnoreCase(input.getEbs().getSnapshotId(), "disk") );
++	  }
++	};
++  }
++  
++  public static Predicate<BlockDeviceMappingItemType> findEbsDevices( ) {
++	return new Predicate<BlockDeviceMappingItemType>( ) {
++	@Override
++	public boolean apply( BlockDeviceMappingItemType input ) {
++	  return ( input != null && input.getDeviceName() != null && input.getEbs() != null );
++	  }
++	};
++  }
++  
+ }

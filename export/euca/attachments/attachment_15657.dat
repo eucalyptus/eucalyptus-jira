@@ -1,0 +1,84 @@
+#!/bin/bash 
+#set -x
+CMD=${0}
+
+remoteCmd() {
+  PREFIX=$1; shift;
+  HOST=$1; shift;
+  CMD=${@};
+  REMOTECMD="ssh root@${HOST} ${CMD}"
+  echo ${REMOTECMD} | awk -vPREFIX="${PREFIX}" '{print PREFIX" "$0;system($0);}'
+}
+
+failRoute() { 
+  RULE=$1; shift;
+  ROUTERIP=$1; shift;
+  RULEIP=$1; shift;
+#  RULEIP="$(ping -c1 $1 | head -n1 | awk -F\( '{print $2}' | sed 's/).*//g')"; shift;
+  SOURCEIP=$1; shift;
+  DESTIP=$1; shift;
+  PREFIX=$(printf "%16.16s/%-25.25s:" ${ROUTERIP} $(echo ${RULE} | sed 's/.* \([^ ]*\)$/\1/g'))
+  IFACE=$(ssh ${SOURCEIP} ip -o  route show | awk '/^default/{print $5}')
+  TESTS=(
+    "arping -I ${IFACE} -c2  ${DESTIP} | egrep ^Unicast"
+    "fping -A  ${DESTIP} | head -n1"
+    "ping -c2 ${DESTIP} | grep icmp_"
+    "ip -o neigh show ${DESTIP}"
+  )
+  echo " CLEAN =================="
+  ssh root@${ROUTERIP} ip route del ${RULE} ${RULEIP} >/dev/null 2>&1
+  for cmd in "${TESTS[@]}" ; do
+    remoteCmd "${PREFIX}" ${SOURCEIP} $cmd
+  done
+  remoteCmd "${PREFIX}" ${ROUTERIP} ip route add ${RULE} ${RULEIP}
+  echo " BROKE ------------------"
+  sleep 2;
+  remoteCmd "${PREFIX}" ${ROUTERIP} "ip -o route show ${DESTIP}"
+  for f in \
+    "${SOURCEIP} --> ${ROUTERIP} --> ${DESTIP}" \
+    "ip route add ${RULE} ${RULEIP}"; do
+    echo "${PREFIX}" ${f}
+  done
+  for cmd in "${TESTS[@]}" ; do
+    remoteCmd "${PREFIX}" ${SOURCEIP} $cmd
+  done
+  echo " WAIT! ------------------"
+  echo ${PREFIX} "Waiting for neighbor STALE or INCOMPLETE or FAILED to ${DESTIP}"
+  remoteCmd "${PREFIX}" ${SOURCEIP} "ip neigh show ${DESTIP}"
+  while ! ssh ${SOURCEIP} ip neigh show ${DESTIP} | egrep 'STALE|INCOMPLETE|FAILED' >/dev/null 2>&1; do
+    sleep 1
+    ssh ${SOURCEIP} fping -A ${DESTIP} >/dev/null 2>&1
+    printf "." >&2
+  done
+  echo >&2
+  echo ${PREFIX} "Waiting for neighbor FAILED to ${DESTIP}"
+  remoteCmd "${PREFIX}" ${SOURCEIP} "ip neigh show ${DESTIP}"
+  while ! ssh ${SOURCEIP} ip neigh show ${DESTIP} | grep FAILED >/dev/null 2>&1; do
+    sleep 1
+    ssh ${SOURCEIP} fping -A ${DESTIP} >/dev/null 2>&1
+    printf "." >&2
+  done
+  echo >&2
+  ssh root@${ROUTERIP} ip route del ${RULE} ${RULEIP} >/dev/null 2>&1
+  echo " DONE  =================="
+}
+
+if [ "dateline" != "${1}" ]; then
+  for f in unreachable prohibit blackhole throw; do 
+    # 10.0.0.4 --> 10.0.0.254 X-> 54.224.98.241
+#    failRoute $f 10.0.0.254 54.224.98.241 10.0.0.4 54.224.98.241
+    # 10.0.0.4 ->X 10.0.0.254 --> 54.224.98.241
+#    failRoute $f 10.0.0.254 10.0.0.4 10.0.0.4 54.224.98.241
+    # 10.0.0.4 X-> 10.0.0.254 --> 54.224.98.241
+#    failRoute "table local $f" 10.0.0.4 54.224.98.241 10.0.0.4 54.224.98.241
+    # 10.0.0.4 ->X 10.0.0.3
+#    failRoute "table local $f" 10.0.0.3 10.0.0.4 10.0.0.4 10.0.0.3 
+    failRoute "$f" 10.0.0.3 10.0.0.4 10.0.0.4 10.0.0.3 
+    # 10.0.0.4 X-> 10.0.0.3
+#    failRoute "table local $f" 10.0.0.4 10.0.0.3 10.0.0.4 10.0.0.3
+  done | xargs -i ${CMD} dateline {}
+else
+  shift
+  echo "$(date) ${@}"
+  exit 0
+fi

@@ -1,0 +1,61 @@
+# /etc/eucalyptus/eucalyptus.conf
+#
+# These are the Ubuntu Enterprise Cloud's default Eucalyptus parameters.
+
+# Affects: All
+# See: **NOTE** below
+EUCALYPTUS="/"
+EUCA_USER="eucalyptus"
+
+# Affects: CLC, Walrus, SC
+DISABLE_DNS="Y"
+DISABLE_ISCSI="Y"
+JVM_MEM="512m"
+
+# Affects: CC, NC
+# See: **NOTE** below
+ENABLE_WS_SECURITY="Y"
+LOGLEVEL="DEBUG"
+VNET_PUBINTERFACE="eth0"
+VNET_PRIVINTERFACE="eth0"
+VNET_MODE="MANAGED-NOVLAN"
+
+# Affects: CC
+# See: **NOTE** below
+CC_PORT="8774"
+SCHEDPOLICY="ROUNDROBIN"
+POWER_IDLETHRESH="300"
+POWER_WAKETHRESH="300"
+NC_SERVICE="axis2/services/EucalyptusNC"
+VNET_DHCPDAEMON="/usr/sbin/dhcpd3"
+VNET_DHCPUSER="dhcpd"
+NODES=""
+VNET_ADDRSPERNET="32"
+#VNET_SUBNET=""
+#VNET_NETMASK=""
+#VNET_DNS=""
+#VNET_PUBLICIPS=""
+
+# Affects: NC
+NC_PORT="8775"
+HYPERVISOR="kvm"
+MANUAL_INSTANCES_CLEANUP=0
+VNET_BRIDGE="br0"
+INSTANCE_PATH="/var/lib/eucalyptus/instances/"
+
+
+##########################################################################
+#
+# Administrative overrides and customizations may go below, in accordance
+# with the manpage for eucalyptus.conf(5).
+#
+# However, to modify Eucalyptus parameters, you are advised to use
+# euca_conf(8), which will update eucalyptus.local.conf(5) and ensure
+# smooth package upgrades.
+#
+# **NOTE**: To activate changes of these parameters on a CC, you must:
+#           sudo restart eucalyptus-cc CLEAN=1
+#           HOWEVER, if you do this, all currently running virtual
+#           machines in this cluster will lose network connectivity.
+#
+##########################################################################

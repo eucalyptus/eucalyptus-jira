@@ -1,0 +1,2597 @@
+I: using fakeroot in build.
+I: Current time: Fri Dec 10 11:35:27 GMT 2010
+I: pbuilder-time-stamp: 1291980927
+I: Building the build Environment
+I: extracting base tarball [/home/dave/pbuilder/maverick-base.tgz]
+I: creating local configuration
+I: copying local configuration
+I: Installing apt-lines
+I: mounting /proc filesystem
+I: mounting /dev/pts filesystem
+I: Mounting /var/cache/pbuilder/ccache
+I: policy-rc.d already exists
+I: Obtaining the cached apt archive contents
+I: Setting up ccache
+I: Installing the build-deps
+I: user script /var/cache/pbuilder/build//31379/tmp/hooks/D10Shell starting
+Reading package lists...
+Building dependency tree...
+Reading state information...
+bash is already the newest version.
+Suggested packages:
+  spell
+The following NEW packages will be installed:
+  less nano
+debconf: delaying package configuration, since apt-utils is not installed
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+Need to get 0B/351kB of archives.
+After this operation, 2146kB of additional disk space will be used.
+Selecting previously deselected package less.
+(Reading database ... 13248 files and directories currently installed.)
+Unpacking less (from .../archives/less_436-1_amd64.deb) ...
+Selecting previously deselected package nano.
+Unpacking nano (from .../nano_2.2.4-1_amd64.deb) ...
+Setting up less (436-1) ...
+Setting up nano (2.2.4-1) ...
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode.
+update-alternatives: using /bin/nano to provide /usr/bin/pico (pico) in auto mode.
+I: user script /var/cache/pbuilder/build//31379/tmp/hooks/D10Shell finished
+ -> Attempting to satisfy build-dependencies
+ -> Creating pbuilder-satisfydepends-dummy package
+Package: pbuilder-satisfydepends-dummy
+Version: 0.invalid.0
+Architecture: amd64
+Maintainer: Debian Pbuilder Team <pbuilder-maint@lists.alioth.debian.org>
+Description: Dummy package to satisfy dependencies with aptitude - created by pbuilder
+ This package was created automatically by pbuilder to satisfy the
+ build-dependencies of the package being currently built.
+Depends: ant, ant-optional, cdbs, debhelper (>= 7), default-jdk, groovy (>= 1.7), junit, libantlr-java, libavahi-core-dev (>= 0.6.27-2ubuntu2), libavahi-client-dev (>= 0.6.27-2ubuntu2), libaxiom-java, libaxis2c-dev, libbackport-util-concurrent-java, libbcprov-java, libcap-dev, libcommons-fileupload-java, libcommons-httpclient-java, libcommons-io-java, libcommons-lang-java, libcommons-pool-java (>= 1.4), libcurl4-gnutls-dev, libdebian-installer-dev, libdnsjava-java, libdrools-core-java, libecj-java, libeucalyptus-commons-ext-java (>= 0.5.0), libgeronimo-j2ee-connector-1.5-spec-java, libgeronimo-jpa-3.0-spec-java, libgnumail-java, libgoogle-collections-java, libgwt-dev-java, libgwt-user-java, libhsqldb-java, libjaxp1.3-java, libjetty-java, libjibx-java (>= 1.1.6a), libjson-java, liblog4j1.2-java, libnetty-java, librampart-dev (>= 1.3.0-0ubuntu6), libservlet2.5-java, libssl-dev, libvirt-dev, libwsdl4j-java, libwss4j-java, libxalan2-java, libxerces2-java, libxml-security-java (>= 1.4.2-1ubuntu1), pkg-config, quilt, zlib1g-dev, libjavassist-java, libjetty-extra-java
+dpkg-deb: building package `pbuilder-satisfydepends-dummy' in `/tmp/satisfydepends-aptitude/pbuilder-satisfydepends-dummy.deb'.
+Selecting previously deselected package pbuilder-satisfydepends-dummy.
+(Reading database ... 13325 files and directories currently installed.)
+Unpacking pbuilder-satisfydepends-dummy (from .../pbuilder-satisfydepends-dummy.deb) ...
+dpkg: dependency problems prevent configuration of pbuilder-satisfydepends-dummy:
+ pbuilder-satisfydepends-dummy depends on ant; however:
+  Package ant is not installed.
+ pbuilder-satisfydepends-dummy depends on ant-optional; however:
+  Package ant-optional is not installed.
+ pbuilder-satisfydepends-dummy depends on cdbs; however:
+  Package cdbs is not installed.
+ pbuilder-satisfydepends-dummy depends on debhelper (>= 7); however:
+  Package debhelper is not installed.
+ pbuilder-satisfydepends-dummy depends on default-jdk; however:
+  Package default-jdk is not installed.
+ pbuilder-satisfydepends-dummy depends on groovy (>= 1.7); however:
+  Package groovy is not installed.
+ pbuilder-satisfydepends-dummy depends on junit; however:
+  Package junit is not installed.
+ pbuilder-satisfydepends-dummy depends on libantlr-java; however:
+  Package libantlr-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libavahi-core-dev (>= 0.6.27-2ubuntu2); however:
+  Package libavahi-core-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libavahi-client-dev (>= 0.6.27-2ubuntu2); however:
+  Package libavahi-client-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libaxiom-java; however:
+  Package libaxiom-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libaxis2c-dev; however:
+  Package libaxis2c-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libbackport-util-concurrent-java; however:
+  Package libbackport-util-concurrent-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libbcprov-java; however:
+  Package libbcprov-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libcap-dev; however:
+  Package libcap-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libcommons-fileupload-java; however:
+  Package libcommons-fileupload-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libcommons-httpclient-java; however:
+  Package libcommons-httpclient-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libcommons-io-java; however:
+  Package libcommons-io-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libcommons-lang-java; however:
+  Package libcommons-lang-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libcommons-pool-java (>= 1.4); however:
+  Package libcommons-pool-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libcurl4-gnutls-dev; however:
+  Package libcurl4-gnutls-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libdebian-installer-dev; however:
+  Package libdebian-installer-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libdnsjava-java; however:
+  Package libdnsjava-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libdrools-core-java; however:
+  Package libdrools-core-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libecj-java; however:
+  Package libecj-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libeucalyptus-commons-ext-java (>= 0.5.0); however:
+  Package libeucalyptus-commons-ext-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libgeronimo-j2ee-connector-1.5-spec-java; however:
+  Package libgeronimo-j2ee-connector-1.5-spec-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libgeronimo-jpa-3.0-spec-java; however:
+  Package libgeronimo-jpa-3.0-spec-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libgnumail-java; however:
+  Package libgnumail-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libgoogle-collections-java; however:
+  Package libgoogle-collections-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libgwt-dev-java; however:
+  Package libgwt-dev-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libgwt-user-java; however:
+  Package libgwt-user-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libhsqldb-java; however:
+  Package libhsqldb-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libjaxp1.3-java; however:
+  Package libjaxp1.3-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libjetty-java; however:
+  Package libjetty-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libjibx-java (>= 1.1.6a); however:
+  Package libjibx-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libjson-java; however:
+  Package libjson-java is not installed.
+ pbuilder-satisfydepends-dummy depends on liblog4j1.2-java; however:
+  Package liblog4j1.2-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libnetty-java; however:
+  Package libnetty-java is not installed.
+ pbuilder-satisfydepends-dummy depends on librampart-dev (>= 1.3.0-0ubuntu6); however:
+  Package librampart-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libservlet2.5-java; however:
+  Package libservlet2.5-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libssl-dev; however:
+  Package libssl-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libvirt-dev; however:
+  Package libvirt-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libwsdl4j-java; however:
+  Package libwsdl4j-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libwss4j-java; however:
+  Package libwss4j-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libxalan2-java; however:
+  Package libxalan2-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libxerces2-java; however:
+  Package libxerces2-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libxml-security-java (>= 1.4.2-1ubuntu1); however:
+  Package libxml-security-java is not installed.
+ pbuilder-satisfydepends-dummy depends on pkg-config; however:
+  Package pkg-config is not installed.
+ pbuilder-satisfydepends-dummy depends on quilt; however:
+  Package quilt is not installed.
+ pbuilder-satisfydepends-dummy depends on zlib1g-dev; however:
+  Package zlib1g-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libjavassist-java; however:
+  Package libjavassist-java is not installed.
+ pbuilder-satisfydepends-dummy depends on libjetty-extra-java; however:
+  Package libjetty-extra-java is not installed.
+dpkg: error processing pbuilder-satisfydepends-dummy (--install):
+ dependency problems - leaving unconfigured
+Errors were encountered while processing:
+ pbuilder-satisfydepends-dummy
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Initializing package states...
+Writing extended state information...
+The following NEW packages will be installed:
+  ant{a} ant-optional{a} antlr{a} autoconf{a} automake{a} autotools-dev{a} 
+  bsdmainutils{a} ca-certificates{a} ca-certificates-java{a} cdbs{a} 
+  comerr-dev{a} debhelper{a} default-jdk{a} default-jre{a} 
+  default-jre-headless{a} defoma{a} diffstat{a} fdupes{a} file{a} 
+  fontconfig{a} fontconfig-config{a} gettext{a} gettext-base{a} 
+  groff-base{a} groovy{a} html2text{a} intltool{a} intltool-debian{a} 
+  ivy{a} java-common{a} junit{a} junit4{a} krb5-multidev{a} 
+  libaccess-bridge-java{a} libaccess-bridge-java-jni{a} libantlr-java{a} 
+  libapparmor1{a} libapr1{a} libapr1-dev{a} libasm3-java{a} libasound2{a} 
+  libatk1.0-0{a} libavahi-client-dev{a} libavahi-client3{a} 
+  libavahi-common-data{a} libavahi-common-dev{a} libavahi-common3{a} 
+  libavahi-core-dev{a} libavahi-core7{a} libaxiom-java{a} libaxis2c-dev{a} 
+  libaxis2c0{a} libbackport-util-concurrent-java{a} libbcel-java{a} 
+  libbcprov-java{a} libbsf-java{a} libcairo2{a} libcap-dev{a} libcap-ng0{a} 
+  libcap2{a} libcommons-beanutils-java{a} libcommons-cli-java{a} 
+  libcommons-codec-java{a} libcommons-collections3-java{a} 
+  libcommons-dbcp-java{a} libcommons-fileupload-java{a} 
+  libcommons-httpclient-java{a} libcommons-io-java{a} 
+  libcommons-lang-java{a} libcommons-logging-java{a} 
+  libcommons-pool-java{a} libcroco3{a} libcups2{a} libcurl3-gnutls{a} 
+  libcurl4-gnutls-dev{a} libdatrie1{a} libdbus-1-dev{a} 
+  libdebian-installer-extra4{a} libdebian-installer4{a} 
+  libdebian-installer4-dev{a} libdnsjava-java{a} libdrools-core-java{a} 
+  libecj-java{a} libeucalyptus-commons-ext-java{a} libexpat1{a} 
+  libezmorph-java{a} libflac8{a} libfontconfig1{a} libfreetype6{a} 
+  libgcj-common{a} libgcrypt11{a} libgcrypt11-dev{a} libgdk-pixbuf2.0-0{a} 
+  libgeronimo-j2ee-connector-1.5-spec-java{a} 
+  libgeronimo-jpa-3.0-spec-java{a} libgeronimo-jta-1.0.1b-spec-java{a} 
+  libgif4{a} libgnuinet-java{a} libgnujaf-java{a} libgnumail-java{a} 
+  libgnutls-dev{a} libgnutls26{a} libgoogle-collections-java{a} 
+  libgpg-error-dev{a} libgpg-error0{a} libgssapi-krb5-2{a} libgssrpc4{a} 
+  libgtk2.0-0{a} libgtk2.0-common{a} libgwt-dev-java{a} libgwt-user-java{a} 
+  libhamcrest-java{a} libhsqldb-java{a} libhtml-parser-perl{a} 
+  libhtml-tagset-perl{a} libhtml-tree-perl{a} libice6{a} libidn11{a} 
+  libidn11-dev{a} libjasper1{a} libjavassist-java{a} libjaxen-java{a} 
+  libjaxp1.3-java{a} libjetty-extra-java{a} libjetty-java{a} 
+  libjibx-java{a} libjibx1.1-java{a} libjline-java{a} libjpeg62{a} 
+  libjson-java{a} libk5crypto3{a} libkadm5clnt-mit7{a} libkadm5srv-mit7{a} 
+  libkdb5-4{a} libkeyutils1{a} libkrb5-3{a} libkrb5-dev{a} 
+  libkrb5support0{a} liblcms1{a} libldap-2.4-2{a} libldap2-dev{a} 
+  liblog4j1.2-java{a} libmagic1{a} libmockobjects-java{a} libmx4j-java{a} 
+  libnetty-java{a} libnewt0.52{a} libnl1{a} libnspr4-0d{a} libnss3-1d{a} 
+  libogg0{a} liboro-java{a} libpango1.0-0{a} libpango1.0-common{a} 
+  libpixman-1-0{a} libpopt0{a} libproxool-java{a} libpulse0{a} 
+  libpython2.6{a} librampart-dev{a} librampart0{a} libregexp-java{a} 
+  libsasl2-2{a} libservlet2.5-java{a} libslf4j-java{a} libsm6{a} 
+  libsndfile1{a} libssl-dev{a} libtasn1-3{a} libtasn1-3-dev{a} 
+  libthai-data{a} libthai0{a} libtiff4{a} libtomcat6-java{a} 
+  libunistring0{a} liburi-perl{a} libvirt-dev{a} libvirt0{a} libvorbis0a{a} 
+  libvorbisenc2{a} libwrap0{a} libwsdl4j-java{a} libwss4j-java{a} 
+  libwww-perl{a} libx11-6{a} libx11-data{a} libx11-xcb1{a} 
+  libxalan2-java{a} libxau6{a} libxcb-atom1{a} libxcb-render0{a} 
+  libxcb-shm0{a} libxcb1{a} libxcomposite1{a} libxcursor1{a} libxdamage1{a} 
+  libxdmcp6{a} libxen3{a} libxen3-dev{a} libxerces2-java{a} libxext6{a} 
+  libxfixes3{a} libxft2{a} libxi6{a} libxinerama1{a} libxml-parser-perl{a} 
+  libxml-security-java{a} libxml2{a} libxml2-dev{a} libxom-java{a} 
+  libxpp3-java{a} libxrandr2{a} libxrender1{a} libxstream-java{a} 
+  libxtst6{a} m4{a} man-db{a} mime-support{a} openjdk-6-jdk{a} 
+  openjdk-6-jre{a} openjdk-6-jre-headless{a} openjdk-6-jre-lib{a} 
+  openssl{a} pkg-config{a} po-debconf{a} python{a} python-central{a} 
+  python2.6{a} quilt{a} shared-mime-info{a} ttf-dejavu-core{a} 
+  tzdata-java{a} ucf{a} uuid-dev{a} whiptail{a} x11-common{a} zlib1g-dev{a} 
+The following packages will be upgraded:
+  libssl0.9.8 
+The following partially installed packages will be configured:
+  pbuilder-satisfydepends-dummy 
+1 packages upgraded, 237 newly installed, 0 to remove and 8 not upgraded.
+Need to get 0B/137MB of archives. After unpacking 340MB will be used.
+WARNING: untrusted versions of the following packages will be installed!
+
+Untrusted packages could compromise your system's security.
+You should only proceed with the installation if you are certain that
+this is what you want to do.
+
+  libjibx1.1-java libgnumail-java libbcprov-java libatk1.0-0 libpopt0 
+  libjaxp1.3-java libcommons-pool-java libgtk2.0-common libproxool-java 
+  libxfixes3 junit4 libaccess-bridge-java libbcel-java libxcb-atom1 
+  libecj-java libxcomposite1 liboro-java libldap-2.4-2 liblcms1 
+  libunistring0 libxerces2-java diffstat libidn11 debhelper libwrap0 
+  pkg-config libcommons-fileupload-java whiptail libjibx-java 
+  libgwt-dev-java libxml-parser-perl libgpg-error-dev liburi-perl 
+  libwss4j-java ttf-dejavu-core libdnsjava-java libx11-data antlr 
+  libxom-java libcommons-beanutils-java libxalan2-java comerr-dev 
+  libhtml-parser-perl libgwt-user-java junit libmockobjects-java 
+  libgnuinet-java libaxiom-java libwsdl4j-java libpython2.6 libcap2 quilt 
+  libeucalyptus-commons-ext-java libnetty-java bsdmainutils libezmorph-java 
+  libxen3-dev m4 java-common libapr1 po-debconf autoconf 
+  libgeronimo-j2ee-connector-1.5-spec-java libhsqldb-java libnspr4-0d 
+  groff-base python-central gettext-base libcommons-cli-java 
+  default-jre-headless libcairo2 libjaxen-java libx11-xcb1 libgnutls26 
+  libcommons-logging-java libavahi-client-dev python2.6 intltool-debian 
+  libdebian-installer-extra4 libtasn1-3 libapr1-dev libthai-data 
+  shared-mime-info cdbs libexpat1 libhtml-tree-perl libdatrie1 fontconfig 
+  intltool libavahi-common-data libavahi-core7 libjavassist-java 
+  libxstream-java libgdk-pixbuf2.0-0 libxcb1 gettext libaxis2c0 ant 
+  libpango1.0-common libaccess-bridge-java-jni libvirt0 libgnujaf-java 
+  default-jdk libxau6 libpixman-1-0 fdupes libxml-security-java default-jre 
+  libxen3 ant-optional libtomcat6-java libxinerama1 libaxis2c-dev libgif4 
+  python libxft2 fontconfig-config libbsf-java libdebian-installer4 
+  libmx4j-java libcroco3 tzdata-java libcommons-dbcp-java libidn11-dev 
+  libtasn1-3-dev libice6 libgoogle-collections-java 
+  libgeronimo-jpa-3.0-spec-java ivy libxdmcp6 libgcrypt11 libthai0 
+  libkeyutils1 zlib1g-dev libcurl4-gnutls-dev libantlr-java libcap-dev file 
+  libgeronimo-jta-1.0.1b-spec-java libasound2 libflac8 libservlet2.5-java 
+  libxrender1 libcommons-httpclient-java librampart-dev libvorbisenc2 ucf 
+  libxpp3-java libslf4j-java libtiff4 libgcrypt11-dev libasm3-java 
+  mime-support libjasper1 uuid-dev automake libjpeg62 libcap-ng0 
+  libapparmor1 libregexp-java libnewt0.52 libxtst6 libnl1 libavahi-client3 
+  x11-common librampart0 libx11-6 libsasl2-2 man-db libavahi-core-dev 
+  libcommons-codec-java libfontconfig1 ca-certificates-java html2text 
+  libhtml-tagset-perl libcommons-lang-java libhamcrest-java libpango1.0-0 
+  libsm6 libpulse0 groovy libcurl3-gnutls libxdamage1 libgnutls-dev 
+  libcommons-collections3-java libgcj-common libwww-perl libxcb-render0 
+  libdrools-core-java libdbus-1-dev libxi6 autotools-dev libvorbis0a 
+  libavahi-common-dev libjson-java libxcursor1 libvirt-dev libxcb-shm0 
+  libxext6 libbackport-util-concurrent-java libjetty-java defoma 
+  libavahi-common3 liblog4j1.2-java libjline-java libcommons-io-java 
+  libxrandr2 ca-certificates libdebian-installer4-dev libsndfile1 
+  libgtk2.0-0 libmagic1 libgpg-error0 libogg0 libldap2-dev 
+  libjetty-extra-java 
+
+*** WARNING ***   Ignoring these trust violations because
+                  aptitude::CmdLine::Ignore-Trust-Violations is 'true'!
+Writing extended state information...
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously deselected package openjdk-6-jre-lib.
+(Reading database ... 13325 files and directories currently installed.)
+Unpacking openjdk-6-jre-lib (from .../openjdk-6-jre-lib_6b20-1.9.2-0ubuntu1_all.deb) ...
+Preparing to replace libssl0.9.8 0.9.8o-1ubuntu4 (using .../libssl0.9.8_0.9.8o-1ubuntu4.3_amd64.deb) ...
+Unpacking replacement libssl0.9.8 ...
+Setting up libssl0.9.8 (0.9.8o-1ubuntu4.3) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+Selecting previously deselected package openssl.
+(Reading database ... 13376 files and directories currently installed.)
+Unpacking openssl (from .../openssl_0.9.8o-1ubuntu4.3_amd64.deb) ...
+Selecting previously deselected package ca-certificates.
+Unpacking ca-certificates (from .../ca-certificates_20090814_all.deb) ...
+Selecting previously deselected package ca-certificates-java.
+Unpacking ca-certificates-java (from .../ca-certificates-java_20100412_all.deb) ...
+Selecting previously deselected package tzdata-java.
+Unpacking tzdata-java (from .../tzdata-java_2010l-1_all.deb) ...
+Selecting previously deselected package java-common.
+Unpacking java-common (from .../java-common_0.38_all.deb) ...
+Selecting previously deselected package libavahi-common-data.
+Unpacking libavahi-common-data (from .../libavahi-common-data_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package libavahi-common3.
+Unpacking libavahi-common3 (from .../libavahi-common3_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package libavahi-client3.
+Unpacking libavahi-client3 (from .../libavahi-client3_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package libgpg-error0.
+Unpacking libgpg-error0 (from .../libgpg-error0_1.6-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package libgcrypt11.
+Unpacking libgcrypt11 (from .../libgcrypt11_1.4.5-2ubuntu1_amd64.deb) ...
+Selecting previously deselected package libtasn1-3.
+Unpacking libtasn1-3 (from .../libtasn1-3_2.7-1_amd64.deb) ...
+Selecting previously deselected package libgnutls26.
+Unpacking libgnutls26 (from .../libgnutls26_2.8.6-1_amd64.deb) ...
+Selecting previously deselected package libkeyutils1.
+Unpacking libkeyutils1 (from .../libkeyutils1_1.4-1_amd64.deb) ...
+Selecting previously deselected package libkrb5support0.
+Unpacking libkrb5support0 (from .../libkrb5support0_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libk5crypto3.
+Unpacking libk5crypto3 (from .../libk5crypto3_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libkrb5-3.
+Unpacking libkrb5-3 (from .../libkrb5-3_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libgssapi-krb5-2.
+Unpacking libgssapi-krb5-2 (from .../libgssapi-krb5-2_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libcups2.
+Unpacking libcups2 (from .../libcups2_1.4.4-6ubuntu2.2_amd64.deb) ...
+Selecting previously deselected package liblcms1.
+Unpacking liblcms1 (from .../liblcms1_1.18.dfsg-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package libjpeg62.
+Unpacking libjpeg62 (from .../libjpeg62_6b-16.1_amd64.deb) ...
+Selecting previously deselected package libnspr4-0d.
+Unpacking libnspr4-0d (from .../libnspr4-0d_4.8.6-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package libnss3-1d.
+Unpacking libnss3-1d (from .../libnss3-1d_3.12.8-0ubuntu0.10.10.1_amd64.deb) ...
+Selecting previously deselected package libfreetype6.
+Unpacking libfreetype6 (from .../libfreetype6_2.4.2-2ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package openjdk-6-jre-headless.
+Unpacking openjdk-6-jre-headless (from .../openjdk-6-jre-headless_6b20-1.9.2-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package default-jre-headless.
+Unpacking default-jre-headless (from .../default-jre-headless_1.6-38_amd64.deb) ...
+Selecting previously deselected package libjaxp1.3-java.
+Unpacking libjaxp1.3-java (from .../libjaxp1.3-java_1.3.04-5ubuntu3_amd64.deb) ...
+Selecting previously deselected package libxerces2-java.
+Unpacking libxerces2-java (from .../libxerces2-java_2.9.1-4.1ubuntu2_all.deb) ...
+Selecting previously deselected package ant.
+Unpacking ant (from .../archives/ant_1.8.0-4_all.deb) ...
+Selecting previously deselected package ant-optional.
+Unpacking ant-optional (from .../ant-optional_1.8.0-4_all.deb) ...
+Selecting previously deselected package libmagic1.
+Unpacking libmagic1 (from .../libmagic1_5.03-5ubuntu1_amd64.deb) ...
+Selecting previously deselected package file.
+Unpacking file (from .../file_5.03-5ubuntu1_amd64.deb) ...
+Selecting previously deselected package html2text.
+Unpacking html2text (from .../html2text_1.3.2a-15_amd64.deb) ...
+Selecting previously deselected package libxml2.
+Unpacking libxml2 (from .../libxml2_2.7.7.dfsg-4ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libcroco3.
+Unpacking libcroco3 (from .../libcroco3_0.6.2-1_amd64.deb) ...
+Selecting previously deselected package libunistring0.
+Unpacking libunistring0 (from .../libunistring0_0.9.3-1_amd64.deb) ...
+Selecting previously deselected package gettext-base.
+Unpacking gettext-base (from .../gettext-base_0.18.1.1-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package gettext.
+Unpacking gettext (from .../gettext_0.18.1.1-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package intltool-debian.
+Unpacking intltool-debian (from .../intltool-debian_0.35.0+20060710.1_all.deb) ...
+Selecting previously deselected package po-debconf.
+Unpacking po-debconf (from .../po-debconf_1.0.16_all.deb) ...
+Selecting previously deselected package groff-base.
+Unpacking groff-base (from .../groff-base_1.20.1-10_amd64.deb) ...
+Selecting previously deselected package bsdmainutils.
+Unpacking bsdmainutils (from .../bsdmainutils_8.0.11ubuntu1_amd64.deb) ...
+Selecting previously deselected package man-db.
+Unpacking man-db (from .../man-db_2.5.7-4_amd64.deb) ...
+Selecting previously deselected package debhelper.
+Unpacking debhelper (from .../debhelper_8.0.0ubuntu1_all.deb) ...
+Selecting previously deselected package fdupes.
+Unpacking fdupes (from .../fdupes_1.50-PR2-3_amd64.deb) ...
+Selecting previously deselected package m4.
+Unpacking m4 (from .../archives/m4_1.4.14-3_amd64.deb) ...
+Selecting previously deselected package autoconf.
+Unpacking autoconf (from .../autoconf_2.67-2ubuntu1_all.deb) ...
+Selecting previously deselected package autotools-dev.
+Unpacking autotools-dev (from .../autotools-dev_20100122.1_all.deb) ...
+Selecting previously deselected package automake.
+Unpacking automake (from .../automake_1%3a1.11.1-1_all.deb) ...
+Selecting previously deselected package liburi-perl.
+Unpacking liburi-perl (from .../liburi-perl_1.54-1_all.deb) ...
+Selecting previously deselected package libhtml-tagset-perl.
+Unpacking libhtml-tagset-perl (from .../libhtml-tagset-perl_3.20-2_all.deb) ...
+Selecting previously deselected package libhtml-parser-perl.
+Unpacking libhtml-parser-perl (from .../libhtml-parser-perl_3.65-1_amd64.deb) ...
+Selecting previously deselected package libhtml-tree-perl.
+Unpacking libhtml-tree-perl (from .../libhtml-tree-perl_3.23-2_all.deb) ...
+Selecting previously deselected package libwww-perl.
+Unpacking libwww-perl (from .../libwww-perl_5.836-1_all.deb) ...
+Selecting previously deselected package libexpat1.
+Unpacking libexpat1 (from .../libexpat1_2.0.1-7ubuntu1_amd64.deb) ...
+Selecting previously deselected package libxml-parser-perl.
+Unpacking libxml-parser-perl (from .../libxml-parser-perl_2.36-1.1build3_amd64.deb) ...
+Selecting previously deselected package intltool.
+Unpacking intltool (from .../intltool_0.41.1-1_all.deb) ...
+Selecting previously deselected package cdbs.
+Unpacking cdbs (from .../cdbs_0.4.83ubuntu2_all.deb) ...
+Selecting previously deselected package mime-support.
+Unpacking mime-support (from .../mime-support_3.48-1ubuntu2_all.deb) ...
+Selecting previously deselected package python2.6.
+Unpacking python2.6 (from .../python2.6_2.6.6-5ubuntu1_amd64.deb) ...
+Selecting previously deselected package libpython2.6.
+Unpacking libpython2.6 (from .../libpython2.6_2.6.6-5ubuntu1_amd64.deb) ...
+Selecting previously deselected package libasound2.
+Unpacking libasound2 (from .../libasound2_1.0.23-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package libgif4.
+Unpacking libgif4 (from .../libgif4_4.1.6-9_amd64.deb) ...
+Selecting previously deselected package x11-common.
+Unpacking x11-common (from .../x11-common_1%3a7.5+6ubuntu3_all.deb) ...
+Selecting previously deselected package libice6.
+Unpacking libice6 (from .../libice6_2%3a1.0.6-1_amd64.deb) ...
+Selecting previously deselected package libsm6.
+Unpacking libsm6 (from .../libsm6_2%3a1.1.1-1_amd64.deb) ...
+Selecting previously deselected package libogg0.
+Unpacking libogg0 (from .../libogg0_1.2.0~dfsg-1_amd64.deb) ...
+Selecting previously deselected package libflac8.
+Unpacking libflac8 (from .../libflac8_1.2.1-3_amd64.deb) ...
+Selecting previously deselected package libvorbis0a.
+Unpacking libvorbis0a (from .../libvorbis0a_1.3.1-1_amd64.deb) ...
+Selecting previously deselected package libvorbisenc2.
+Unpacking libvorbisenc2 (from .../libvorbisenc2_1.3.1-1_amd64.deb) ...
+Selecting previously deselected package libsndfile1.
+Unpacking libsndfile1 (from .../libsndfile1_1.0.21-2_amd64.deb) ...
+Selecting previously deselected package libwrap0.
+Unpacking libwrap0 (from .../libwrap0_7.6.q-19_amd64.deb) ...
+Selecting previously deselected package libxau6.
+Unpacking libxau6 (from .../libxau6_1%3a1.0.6-1_amd64.deb) ...
+Selecting previously deselected package libxdmcp6.
+Unpacking libxdmcp6 (from .../libxdmcp6_1%3a1.0.3-2_amd64.deb) ...
+Selecting previously deselected package libxcb1.
+Unpacking libxcb1 (from .../libxcb1_1.6-1_amd64.deb) ...
+Selecting previously deselected package libx11-data.
+Unpacking libx11-data (from .../libx11-data_2%3a1.3.3-3ubuntu1_all.deb) ...
+Selecting previously deselected package libx11-6.
+Unpacking libx11-6 (from .../libx11-6_2%3a1.3.3-3ubuntu1_amd64.deb) ...
+Selecting previously deselected package libx11-xcb1.
+Unpacking libx11-xcb1 (from .../libx11-xcb1_2%3a1.3.3-3ubuntu1_amd64.deb) ...
+Selecting previously deselected package libxcb-atom1.
+Unpacking libxcb-atom1 (from .../libxcb-atom1_0.3.6-1build1_amd64.deb) ...
+Selecting previously deselected package libxext6.
+Unpacking libxext6 (from .../libxext6_2%3a1.1.2-1_amd64.deb) ...
+Selecting previously deselected package libxi6.
+Unpacking libxi6 (from .../libxi6_2%3a1.3-4_amd64.deb) ...
+Selecting previously deselected package libxtst6.
+Unpacking libxtst6 (from .../libxtst6_2%3a1.1.0-3_amd64.deb) ...
+Selecting previously deselected package libpulse0.
+Unpacking libpulse0 (from .../libpulse0_1%3a0.9.22~0.9.21+stable-queue-32-g8478-0ubuntu21_amd64.deb) ...
+Selecting previously deselected package libxrender1.
+Unpacking libxrender1 (from .../libxrender1_1%3a0.9.6-1_amd64.deb) ...
+Selecting previously deselected package libatk1.0-0.
+Unpacking libatk1.0-0 (from .../libatk1.0-0_1.32.0-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package ucf.
+Unpacking ucf (from .../archives/ucf_3.0025_all.deb) ...
+Moving old data out of the way
+Selecting previously deselected package ttf-dejavu-core.
+Unpacking ttf-dejavu-core (from .../ttf-dejavu-core_2.31-1_all.deb) ...
+Selecting previously deselected package fontconfig-config.
+Unpacking fontconfig-config (from .../fontconfig-config_2.8.0-2ubuntu1_all.deb) ...
+Selecting previously deselected package libfontconfig1.
+Unpacking libfontconfig1 (from .../libfontconfig1_2.8.0-2ubuntu1_amd64.deb) ...
+Selecting previously deselected package libpixman-1-0.
+Unpacking libpixman-1-0 (from .../libpixman-1-0_0.18.4-1_amd64.deb) ...
+Selecting previously deselected package libxcb-render0.
+Unpacking libxcb-render0 (from .../libxcb-render0_1.6-1_amd64.deb) ...
+Selecting previously deselected package libxcb-shm0.
+Unpacking libxcb-shm0 (from .../libxcb-shm0_1.6-1_amd64.deb) ...
+Selecting previously deselected package libcairo2.
+Unpacking libcairo2 (from .../libcairo2_1.10.0-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package libgtk2.0-common.
+Unpacking libgtk2.0-common (from .../libgtk2.0-common_2.22.0-0ubuntu1_all.deb) ...
+Selecting previously deselected package libjasper1.
+Unpacking libjasper1 (from .../libjasper1_1.900.1-7_amd64.deb) ...
+Selecting previously deselected package libtiff4.
+Unpacking libtiff4 (from .../libtiff4_3.9.4-2_amd64.deb) ...
+Selecting previously deselected package libgdk-pixbuf2.0-0.
+Unpacking libgdk-pixbuf2.0-0 (from .../libgdk-pixbuf2.0-0_2.22.0-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package libnewt0.52.
+Unpacking libnewt0.52 (from .../libnewt0.52_0.52.11-1_amd64.deb) ...
+Selecting previously deselected package libpopt0.
+Unpacking libpopt0 (from .../libpopt0_1.16-1_amd64.deb) ...
+Selecting previously deselected package whiptail.
+Unpacking whiptail (from .../whiptail_0.52.11-1_amd64.deb) ...
+Selecting previously deselected package defoma.
+Unpacking defoma (from .../defoma_0.11.11ubuntu1_all.deb) ...
+Selecting previously deselected package fontconfig.
+Unpacking fontconfig (from .../fontconfig_2.8.0-2ubuntu1_amd64.deb) ...
+Selecting previously deselected package libpango1.0-common.
+Unpacking libpango1.0-common (from .../libpango1.0-common_1.28.1-1ubuntu3_all.deb) ...
+Selecting previously deselected package libdatrie1.
+Unpacking libdatrie1 (from .../libdatrie1_0.2.3-1_amd64.deb) ...
+Selecting previously deselected package libthai-data.
+Unpacking libthai-data (from .../libthai-data_0.1.14-2_all.deb) ...
+Selecting previously deselected package libthai0.
+Unpacking libthai0 (from .../libthai0_0.1.14-2_amd64.deb) ...
+Selecting previously deselected package libxft2.
+Unpacking libxft2 (from .../libxft2_2.1.14-2ubuntu1_amd64.deb) ...
+Selecting previously deselected package libpango1.0-0.
+Unpacking libpango1.0-0 (from .../libpango1.0-0_1.28.1-1ubuntu3_amd64.deb) ...
+Selecting previously deselected package libxfixes3.
+Unpacking libxfixes3 (from .../libxfixes3_1%3a4.0.5-1_amd64.deb) ...
+Selecting previously deselected package libxcomposite1.
+Unpacking libxcomposite1 (from .../libxcomposite1_1%3a0.4.2-1_amd64.deb) ...
+Selecting previously deselected package libxcursor1.
+Unpacking libxcursor1 (from .../libxcursor1_1%3a1.1.10-2_amd64.deb) ...
+Selecting previously deselected package libxdamage1.
+Unpacking libxdamage1 (from .../libxdamage1_1%3a1.1.3-1_amd64.deb) ...
+Selecting previously deselected package libxinerama1.
+Unpacking libxinerama1 (from .../libxinerama1_2%3a1.1-3_amd64.deb) ...
+Selecting previously deselected package libxrandr2.
+Unpacking libxrandr2 (from .../libxrandr2_2%3a1.3.0-3_amd64.deb) ...
+Selecting previously deselected package shared-mime-info.
+Unpacking shared-mime-info (from .../shared-mime-info_0.71-3_amd64.deb) ...
+Selecting previously deselected package libgtk2.0-0.
+Unpacking libgtk2.0-0 (from .../libgtk2.0-0_2.22.0-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package libaccess-bridge-java.
+Unpacking libaccess-bridge-java (from .../libaccess-bridge-java_1.26.2-5_all.deb) ...
+Selecting previously deselected package libaccess-bridge-java-jni.
+Unpacking libaccess-bridge-java-jni (from .../libaccess-bridge-java-jni_1.26.2-5_amd64.deb) ...
+Selecting previously deselected package openjdk-6-jre.
+Unpacking openjdk-6-jre (from .../openjdk-6-jre_6b20-1.9.2-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package default-jre.
+Unpacking default-jre (from .../default-jre_1.6-38_amd64.deb) ...
+Selecting previously deselected package openjdk-6-jdk.
+Unpacking openjdk-6-jdk (from .../openjdk-6-jdk_6b20-1.9.2-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package default-jdk.
+Unpacking default-jdk (from .../default-jdk_1.6-38_amd64.deb) ...
+Selecting previously deselected package libantlr-java.
+Unpacking libantlr-java (from .../libantlr-java_2.7.7-16ubuntu1_all.deb) ...
+Selecting previously deselected package antlr.
+Unpacking antlr (from .../antlr_2.7.7-16ubuntu1_all.deb) ...
+Selecting previously deselected package libasm3-java.
+Unpacking libasm3-java (from .../libasm3-java_3.2-3ubuntu1_all.deb) ...
+Selecting previously deselected package libbsf-java.
+Unpacking libbsf-java (from .../libbsf-java_1%3a2.4.0-3_all.deb) ...
+Selecting previously deselected package libcommons-lang-java.
+Unpacking libcommons-lang-java (from .../libcommons-lang-java_2.4-4_all.deb) ...
+Selecting previously deselected package libcommons-cli-java.
+Unpacking libcommons-cli-java (from .../libcommons-cli-java_1.2-3_all.deb) ...
+Selecting previously deselected package libcommons-logging-java.
+Unpacking libcommons-logging-java (from .../libcommons-logging-java_1.1.1-8_all.deb) ...
+Selecting previously deselected package libhamcrest-java.
+Unpacking libhamcrest-java (from .../libhamcrest-java_1.1-8_all.deb) ...
+Selecting previously deselected package junit4.
+Unpacking junit4 (from .../junit4_4.8.2-1_all.deb) ...
+Selecting previously deselected package libmockobjects-java.
+Unpacking libmockobjects-java (from .../libmockobjects-java_0.09-4_all.deb) ...
+Selecting previously deselected package libregexp-java.
+Unpacking libregexp-java (from .../libregexp-java_1.5-2_all.deb) ...
+Selecting previously deselected package libservlet2.5-java.
+Unpacking libservlet2.5-java (from .../libservlet2.5-java_6.0.28-2ubuntu1_all.deb) ...
+Selecting previously deselected package libjline-java.
+Unpacking libjline-java (from .../libjline-java_0.9.94-5_all.deb) ...
+Selecting previously deselected package libxpp3-java.
+Unpacking libxpp3-java (from .../libxpp3-java_1.1.4c-1_all.deb) ...
+Selecting previously deselected package libxstream-java.
+Unpacking libxstream-java (from .../libxstream-java_1.3.1-6_all.deb) ...
+Selecting previously deselected package ivy.
+Unpacking ivy (from .../archives/ivy_2.1.0-1_all.deb) ...
+Selecting previously deselected package groovy.
+Unpacking groovy (from .../groovy_1.7.0-3ubuntu1_all.deb) ...
+Selecting previously deselected package junit.
+Unpacking junit (from .../archives/junit_3.8.2-4_all.deb) ...
+Selecting previously deselected package libavahi-core7.
+Unpacking libavahi-core7 (from .../libavahi-core7_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package libavahi-common-dev.
+Unpacking libavahi-common-dev (from .../libavahi-common-dev_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package libavahi-core-dev.
+Unpacking libavahi-core-dev (from .../libavahi-core-dev_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package pkg-config.
+Unpacking pkg-config (from .../pkg-config_0.25-1_amd64.deb) ...
+Selecting previously deselected package libdbus-1-dev.
+Unpacking libdbus-1-dev (from .../libdbus-1-dev_1.4.0-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package libavahi-client-dev.
+Unpacking libavahi-client-dev (from .../libavahi-client-dev_0.6.27-2ubuntu3_amd64.deb) ...
+Selecting previously deselected package libaxiom-java.
+Unpacking libaxiom-java (from .../libaxiom-java_1.2.8-1fakesync1_all.deb) ...
+Selecting previously deselected package libaxis2c0.
+Unpacking libaxis2c0 (from .../libaxis2c0_1.6.0-0ubuntu8_amd64.deb) ...
+Selecting previously deselected package libxml2-dev.
+Unpacking libxml2-dev (from .../libxml2-dev_2.7.7.dfsg-4ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libapr1.
+Unpacking libapr1 (from .../libapr1_1.4.2-3ubuntu1_amd64.deb) ...
+Selecting previously deselected package uuid-dev.
+Unpacking uuid-dev (from .../uuid-dev_2.17.2-0ubuntu1_amd64.deb) ...
+Selecting previously deselected package libapr1-dev.
+Unpacking libapr1-dev (from .../libapr1-dev_1.4.2-3ubuntu1_amd64.deb) ...
+Selecting previously deselected package libaxis2c-dev.
+Unpacking libaxis2c-dev (from .../libaxis2c-dev_1.6.0-0ubuntu8_amd64.deb) ...
+Selecting previously deselected package libbackport-util-concurrent-java.
+Unpacking libbackport-util-concurrent-java (from .../libbackport-util-concurrent-java_3.1-2ubuntu2_all.deb) ...
+Selecting previously deselected package python.
+Unpacking python (from .../python_2.6.6-2ubuntu1_all.deb) ...
+Selecting previously deselected package python-central.
+Unpacking python-central (from .../python-central_0.6.15ubuntu2_all.deb) ...
+Selecting previously deselected package libgcj-common.
+Unpacking libgcj-common (from .../libgcj-common_1%3a4.4.4-1ubuntu2_all.deb) ...
+Selecting previously deselected package libbcprov-java.
+Unpacking libbcprov-java (from .../libbcprov-java_1.44+dfsg-2ubuntu1_amd64.deb) ...
+Selecting previously deselected package libcap2.
+Unpacking libcap2 (from .../libcap2_1%3a2.19-2_amd64.deb) ...
+Selecting previously deselected package libcap-dev.
+Unpacking libcap-dev (from .../libcap-dev_1%3a2.19-2_amd64.deb) ...
+Selecting previously deselected package libcommons-collections3-java.
+Unpacking libcommons-collections3-java (from .../libcommons-collections3-java_3.2.1-4_all.deb) ...
+Selecting previously deselected package libcommons-beanutils-java.
+Unpacking libcommons-beanutils-java (from .../libcommons-beanutils-java_1.8.3-1_all.deb) ...
+Selecting previously deselected package libcommons-io-java.
+Unpacking libcommons-io-java (from .../libcommons-io-java_1.4-3_all.deb) ...
+Selecting previously deselected package libcommons-fileupload-java.
+Unpacking libcommons-fileupload-java (from .../libcommons-fileupload-java_1.2.1-5ubuntu1_all.deb) ...
+Selecting previously deselected package libcommons-codec-java.
+Unpacking libcommons-codec-java (from .../libcommons-codec-java_1.4-2_all.deb) ...
+Selecting previously deselected package libcommons-httpclient-java.
+Unpacking libcommons-httpclient-java (from .../libcommons-httpclient-java_3.1-9_all.deb) ...
+Selecting previously deselected package libcommons-pool-java.
+Unpacking libcommons-pool-java (from .../libcommons-pool-java_1.5.4-2_all.deb) ...
+Selecting previously deselected package libidn11.
+Unpacking libidn11 (from .../libidn11_1.18-1_amd64.deb) ...
+Selecting previously deselected package libsasl2-2.
+Unpacking libsasl2-2 (from .../libsasl2-2_2.1.23.dfsg1-5ubuntu2_amd64.deb) ...
+Selecting previously deselected package libldap-2.4-2.
+Unpacking libldap-2.4-2 (from .../libldap-2.4-2_2.4.23-0ubuntu3_amd64.deb) ...
+Selecting previously deselected package libcurl3-gnutls.
+Unpacking libcurl3-gnutls (from .../libcurl3-gnutls_7.21.0-1ubuntu1_amd64.deb) ...
+Selecting previously deselected package libgpg-error-dev.
+Unpacking libgpg-error-dev (from .../libgpg-error-dev_1.6-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package libgcrypt11-dev.
+Unpacking libgcrypt11-dev (from .../libgcrypt11-dev_1.4.5-2ubuntu1_amd64.deb) ...
+Selecting previously deselected package zlib1g-dev.
+Unpacking zlib1g-dev (from .../zlib1g-dev_1%3a1.2.3.4.dfsg-3ubuntu1_amd64.deb) ...
+Selecting previously deselected package libtasn1-3-dev.
+Unpacking libtasn1-3-dev (from .../libtasn1-3-dev_2.7-1_amd64.deb) ...
+Selecting previously deselected package libgnutls-dev.
+Unpacking libgnutls-dev (from .../libgnutls-dev_2.8.6-1_amd64.deb) ...
+Selecting previously deselected package libidn11-dev.
+Unpacking libidn11-dev (from .../libidn11-dev_1.18-1_amd64.deb) ...
+Selecting previously deselected package libgssrpc4.
+Unpacking libgssrpc4 (from .../libgssrpc4_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libkdb5-4.
+Unpacking libkdb5-4 (from .../libkdb5-4_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libkadm5srv-mit7.
+Unpacking libkadm5srv-mit7 (from .../libkadm5srv-mit7_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libkadm5clnt-mit7.
+Unpacking libkadm5clnt-mit7 (from .../libkadm5clnt-mit7_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package comerr-dev.
+Unpacking comerr-dev (from .../comerr-dev_2.1-1.41.12-1ubuntu2_amd64.deb) ...
+Selecting previously deselected package krb5-multidev.
+Unpacking krb5-multidev (from .../krb5-multidev_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libkrb5-dev.
+Unpacking libkrb5-dev (from .../libkrb5-dev_1.8.1+dfsg-5ubuntu0.1_amd64.deb) ...
+Selecting previously deselected package libldap2-dev.
+Unpacking libldap2-dev (from .../libldap2-dev_2.4.23-0ubuntu3_amd64.deb) ...
+Selecting previously deselected package libcurl4-gnutls-dev.
+Unpacking libcurl4-gnutls-dev (from .../libcurl4-gnutls-dev_7.21.0-1ubuntu1_amd64.deb) ...
+Selecting previously deselected package libdebian-installer4.
+Unpacking libdebian-installer4 (from .../libdebian-installer4_0.76ubuntu2_amd64.deb) ...
+Selecting previously deselected package libdebian-installer-extra4.
+Unpacking libdebian-installer-extra4 (from .../libdebian-installer-extra4_0.76ubuntu2_amd64.deb) ...
+Selecting previously deselected package libdebian-installer4-dev.
+Unpacking libdebian-installer4-dev (from .../libdebian-installer4-dev_0.76ubuntu2_amd64.deb) ...
+Selecting previously deselected package libdnsjava-java.
+Unpacking libdnsjava-java (from .../libdnsjava-java_2.0.8-1_all.deb) ...
+Selecting previously deselected package libdrools-core-java.
+Unpacking libdrools-core-java (from .../libdrools-core-java_4.0.7-0ubuntu1_all.deb) ...
+Selecting previously deselected package libecj-java.
+Unpacking libecj-java (from .../libecj-java_3.5.1-1_all.deb) ...
+Selecting previously deselected package libproxool-java.
+Unpacking libproxool-java (from .../libproxool-java_0.9.1-4ubuntu1_all.deb) ...
+Selecting previously deselected package libeucalyptus-commons-ext-java.
+Unpacking libeucalyptus-commons-ext-java (from .../libeucalyptus-commons-ext-java_0.5.0-0ubuntu2_all.deb) ...
+Selecting previously deselected package libgeronimo-j2ee-connector-1.5-spec-java.
+Unpacking libgeronimo-j2ee-connector-1.5-spec-java (from .../libgeronimo-j2ee-connector-1.5-spec-java_2.0.0-1_all.deb) ...
+Selecting previously deselected package libgeronimo-jpa-3.0-spec-java.
+Unpacking libgeronimo-jpa-3.0-spec-java (from .../libgeronimo-jpa-3.0-spec-java_1.1.1-1fakesync1_all.deb) ...
+Selecting previously deselected package libgnujaf-java.
+Unpacking libgnujaf-java (from .../libgnujaf-java_1.1.1-5_all.deb) ...
+Selecting previously deselected package libgnuinet-java.
+Unpacking libgnuinet-java (from .../libgnuinet-java_1.1.1-4_all.deb) ...
+Selecting previously deselected package libgnumail-java.
+Unpacking libgnumail-java (from .../libgnumail-java_1.1.2-5_all.deb) ...
+Selecting previously deselected package libgoogle-collections-java.
+Unpacking libgoogle-collections-java (from .../libgoogle-collections-java_0~20080808-3ubuntu1_all.deb) ...
+Selecting previously deselected package libgwt-user-java.
+Unpacking libgwt-user-java (from .../libgwt-user-java_1.6.4-0ubuntu5_all.deb) ...
+Selecting previously deselected package libgwt-dev-java.
+Unpacking libgwt-dev-java (from .../libgwt-dev-java_1.6.4-0ubuntu5_all.deb) ...
+Selecting previously deselected package libhsqldb-java.
+Unpacking libhsqldb-java (from .../libhsqldb-java_1.8.0.10-6.1ubuntu1_all.deb) ...
+Selecting previously deselected package libslf4j-java.
+Unpacking libslf4j-java (from .../libslf4j-java_1.5.11-2_all.deb) ...
+Selecting previously deselected package libjetty-java.
+Unpacking libjetty-java (from .../libjetty-java_6.1.24-6_all.deb) ...
+Selecting previously deselected package libbcel-java.
+Unpacking libbcel-java (from .../libbcel-java_5.2-6_all.deb) ...
+Selecting previously deselected package libjibx1.1-java.
+Unpacking libjibx1.1-java (from .../libjibx1.1-java_1.1.6a-1ubuntu1_all.deb) ...
+Selecting previously deselected package libjibx-java.
+Unpacking libjibx-java (from .../libjibx-java_1.1.6a-1ubuntu1_all.deb) ...
+Selecting previously deselected package liboro-java.
+Unpacking liboro-java (from .../liboro-java_2.0.8a-7_all.deb) ...
+Selecting previously deselected package libezmorph-java.
+Unpacking libezmorph-java (from .../libezmorph-java_1.0.6-2_all.deb) ...
+Selecting previously deselected package libjaxen-java.
+Unpacking libjaxen-java (from .../libjaxen-java_1.1.2-1_all.deb) ...
+Selecting previously deselected package libxom-java.
+Unpacking libxom-java (from .../libxom-java_1.2.1-2_all.deb) ...
+Selecting previously deselected package libjson-java.
+Unpacking libjson-java (from .../libjson-java_2.3-2_all.deb) ...
+Selecting previously deselected package liblog4j1.2-java.
+Unpacking liblog4j1.2-java (from .../liblog4j1.2-java_1.2.15-11ubuntu1_amd64.deb) ...
+Selecting previously deselected package libnetty-java.
+Unpacking libnetty-java (from .../libnetty-java_1%3a3.1.0.CR1-1_all.deb) ...
+Selecting previously deselected package librampart0.
+Unpacking librampart0 (from .../librampart0_1.3.0-1ubuntu1_amd64.deb) ...
+Selecting previously deselected package librampart-dev.
+Unpacking librampart-dev (from .../librampart-dev_1.3.0-1ubuntu1_amd64.deb) ...
+Selecting previously deselected package libssl-dev.
+Unpacking libssl-dev (from .../libssl-dev_0.9.8o-1ubuntu4.3_amd64.deb) ...
+Selecting previously deselected package libapparmor1.
+Unpacking libapparmor1 (from .../libapparmor1_2.5.1~rc1-0ubuntu2_amd64.deb) ...
+Selecting previously deselected package libcap-ng0.
+Unpacking libcap-ng0 (from .../libcap-ng0_0.6.3-1_amd64.deb) ...
+Selecting previously deselected package libnl1.
+Unpacking libnl1 (from .../libnl1_1.1-5build1_amd64.deb) ...
+Selecting previously deselected package libxen3.
+Unpacking libxen3 (from .../libxen3_3.3.0-1ubuntu12_amd64.deb) ...
+Selecting previously deselected package libvirt0.
+Unpacking libvirt0 (from .../libvirt0_0.8.3-1ubuntu14_amd64.deb) ...
+Selecting previously deselected package libxen3-dev.
+Unpacking libxen3-dev (from .../libxen3-dev_3.3.0-1ubuntu12_amd64.deb) ...
+Selecting previously deselected package libvirt-dev.
+Unpacking libvirt-dev (from .../libvirt-dev_0.8.3-1ubuntu14_amd64.deb) ...
+Selecting previously deselected package libwsdl4j-java.
+Unpacking libwsdl4j-java (from .../libwsdl4j-java_1.6.2-2_all.deb) ...
+Selecting previously deselected package libwss4j-java.
+Unpacking libwss4j-java (from .../libwss4j-java_1.5.8+svntag-1_all.deb) ...
+Selecting previously deselected package libxalan2-java.
+Unpacking libxalan2-java (from .../libxalan2-java_2.7.1-5ubuntu1_amd64.deb) ...
+Selecting previously deselected package libxml-security-java.
+Unpacking libxml-security-java (from .../libxml-security-java_1.4.3-2fakesync1_all.deb) ...
+Selecting previously deselected package diffstat.
+Unpacking diffstat (from .../diffstat_1.53-1_amd64.deb) ...
+Selecting previously deselected package quilt.
+Unpacking quilt (from .../archives/quilt_0.48-7_all.deb) ...
+Selecting previously deselected package libjavassist-java.
+Unpacking libjavassist-java (from .../libjavassist-java_1%3a3.12-2_all.deb) ...
+Selecting previously deselected package libmx4j-java.
+Unpacking libmx4j-java (from .../libmx4j-java_3.0.2-9_all.deb) ...
+Selecting previously deselected package libcommons-dbcp-java.
+Unpacking libcommons-dbcp-java (from .../libcommons-dbcp-java_1.4-1ubuntu1_all.deb) ...
+Selecting previously deselected package libtomcat6-java.
+Unpacking libtomcat6-java (from .../libtomcat6-java_6.0.28-2ubuntu1_all.deb) ...
+Selecting previously deselected package libgeronimo-jta-1.0.1b-spec-java.
+Unpacking libgeronimo-jta-1.0.1b-spec-java (from .../libgeronimo-jta-1.0.1b-spec-java_1.1-1fakesync1_all.deb) ...
+Selecting previously deselected package libjetty-extra-java.
+Unpacking libjetty-extra-java (from .../libjetty-extra-java_6.1.24-6_all.deb) ...
+Setting up openssl (0.9.8o-1ubuntu4.3) ...
+Setting up ca-certificates (20090814) ...
+Updating certificates in /etc/ssl/certs... WARNING: Skipping duplicate certificate brasil.gov.br.pem
+141 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d....done.
+Setting up java-common (0.38) ...
+Setting up tzdata-java (2010l-1) ...
+Setting up libavahi-common-data (0.6.27-2ubuntu3) ...
+Setting up libavahi-common3 (0.6.27-2ubuntu3) ...
+Setting up libavahi-client3 (0.6.27-2ubuntu3) ...
+Setting up libgpg-error0 (1.6-1ubuntu2) ...
+Setting up libgcrypt11 (1.4.5-2ubuntu1) ...
+Setting up libtasn1-3 (2.7-1) ...
+Setting up libgnutls26 (2.8.6-1) ...
+Setting up libkeyutils1 (1.4-1) ...
+Setting up libkrb5support0 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libk5crypto3 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libkrb5-3 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libgssapi-krb5-2 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libcups2 (1.4.4-6ubuntu2.2) ...
+Setting up liblcms1 (1.18.dfsg-1ubuntu2) ...
+Setting up libjpeg62 (6b-16.1) ...
+Setting up libnspr4-0d (4.8.6-0ubuntu1) ...
+Setting up libnss3-1d (3.12.8-0ubuntu0.10.10.1) ...
+Setting up libfreetype6 (2.4.2-2ubuntu0.1) ...
+Setting up libmagic1 (5.03-5ubuntu1) ...
+Setting up file (5.03-5ubuntu1) ...
+Setting up html2text (1.3.2a-15) ...
+Setting up libxml2 (2.7.7.dfsg-4ubuntu0.1) ...
+Setting up libcroco3 (0.6.2-1) ...
+Setting up libunistring0 (0.9.3-1) ...
+Setting up gettext-base (0.18.1.1-1ubuntu2) ...
+Setting up gettext (0.18.1.1-1ubuntu2) ...
+Setting up intltool-debian (0.35.0+20060710.1) ...
+Setting up po-debconf (1.0.16) ...
+Setting up groff-base (1.20.1-10) ...
+Setting up bsdmainutils (8.0.11ubuntu1) ...
+update-alternatives: using /usr/bin/bsd-write to provide /usr/bin/write (write) in auto mode.
+update-alternatives: using /usr/bin/bsd-from to provide /usr/bin/from (from) in auto mode.
+Setting up man-db (2.5.7-4) ...
+Building database of manual pages ...
+Setting up debhelper (8.0.0ubuntu1) ...
+Setting up fdupes (1.50-PR2-3) ...
+Setting up m4 (1.4.14-3) ...
+Setting up autoconf (2.67-2ubuntu1) ...
+Setting up autotools-dev (20100122.1) ...
+Setting up automake (1:1.11.1-1) ...
+update-alternatives: using /usr/bin/automake-1.11 to provide /usr/bin/automake (automake) in auto mode.
+Setting up liburi-perl (1.54-1) ...
+Setting up libhtml-tagset-perl (3.20-2) ...
+Setting up libhtml-parser-perl (3.65-1) ...
+Setting up libhtml-tree-perl (3.23-2) ...
+Setting up libwww-perl (5.836-1) ...
+Setting up libexpat1 (2.0.1-7ubuntu1) ...
+Setting up libxml-parser-perl (2.36-1.1build3) ...
+Setting up intltool (0.41.1-1) ...
+Setting up cdbs (0.4.83ubuntu2) ...
+Setting up mime-support (3.48-1ubuntu2) ...
+update-alternatives: using /usr/bin/see to provide /usr/bin/view (view) in auto mode.
+Setting up python2.6 (2.6.6-5ubuntu1) ...
+Setting up libpython2.6 (2.6.6-5ubuntu1) ...
+Setting up libasound2 (1.0.23-1ubuntu2) ...
+Setting up libgif4 (4.1.6-9) ...
+Setting up x11-common (1:7.5+6ubuntu3) ...
+Setting up libice6 (2:1.0.6-1) ...
+Setting up libsm6 (2:1.1.1-1) ...
+Setting up libogg0 (1.2.0~dfsg-1) ...
+Setting up libflac8 (1.2.1-3) ...
+Setting up libvorbis0a (1.3.1-1) ...
+Setting up libvorbisenc2 (1.3.1-1) ...
+Setting up libsndfile1 (1.0.21-2) ...
+Setting up libwrap0 (7.6.q-19) ...
+Setting up libxau6 (1:1.0.6-1) ...
+Setting up libxdmcp6 (1:1.0.3-2) ...
+Setting up libxcb1 (1.6-1) ...
+Setting up libx11-data (2:1.3.3-3ubuntu1) ...
+Setting up libx11-6 (2:1.3.3-3ubuntu1) ...
+Setting up libx11-xcb1 (2:1.3.3-3ubuntu1) ...
+Setting up libxcb-atom1 (0.3.6-1build1) ...
+Setting up libxext6 (2:1.1.2-1) ...
+Setting up libxi6 (2:1.3-4) ...
+Setting up libxtst6 (2:1.1.0-3) ...
+Setting up libpulse0 (1:0.9.22~0.9.21+stable-queue-32-g8478-0ubuntu21) ...
+Setting up libxrender1 (1:0.9.6-1) ...
+Setting up libatk1.0-0 (1.32.0-0ubuntu1) ...
+Setting up ucf (3.0025) ...
+Setting up ttf-dejavu-core (2.31-1) ...
+Setting up fontconfig-config (2.8.0-2ubuntu1) ...
+Setting up libfontconfig1 (2.8.0-2ubuntu1) ...
+Setting up libpixman-1-0 (0.18.4-1) ...
+Setting up libxcb-render0 (1.6-1) ...
+Setting up libxcb-shm0 (1.6-1) ...
+Setting up libcairo2 (1.10.0-1ubuntu2) ...
+Setting up libgtk2.0-common (2.22.0-0ubuntu1) ...
+Setting up libjasper1 (1.900.1-7) ...
+Setting up libtiff4 (3.9.4-2) ...
+Setting up libgdk-pixbuf2.0-0 (2.22.0-0ubuntu1) ...
+Setting up libnewt0.52 (0.52.11-1) ...
+Setting up libpopt0 (1.16-1) ...
+Setting up whiptail (0.52.11-1) ...
+Setting up defoma (0.11.11ubuntu1) ...
+Setting up fontconfig (2.8.0-2ubuntu1) ...
+Updating font configuration of fontconfig...
+Cleaning up category cid..
+Cleaning up category truetype..
+Cleaning up category type1..
+Updating category type1..
+Updating category truetype..
+Updating category cid..
+Cleaning up old fontconfig caches... done.
+Regenerating fonts cache... done.
+Setting up libpango1.0-common (1.28.1-1ubuntu3) ...
+Cleaning up font configuration of pango...
+Updating font configuration of pango...
+Cleaning up category xfont..
+Updating category xfont..
+*** You don't have any defomized font packages.
+*** So we are trying to force to generate pangox.aliases...
+Setting up libdatrie1 (0.2.3-1) ...
+Setting up libthai-data (0.1.14-2) ...
+Setting up libthai0 (0.1.14-2) ...
+Setting up libxft2 (2.1.14-2ubuntu1) ...
+Setting up libpango1.0-0 (1.28.1-1ubuntu3) ...
+Setting up libxfixes3 (1:4.0.5-1) ...
+Setting up libxcomposite1 (1:0.4.2-1) ...
+Setting up libxcursor1 (1:1.1.10-2) ...
+Setting up libxdamage1 (1:1.1.3-1) ...
+Setting up libxinerama1 (2:1.1-3) ...
+Setting up libxrandr2 (2:1.3.0-3) ...
+Setting up shared-mime-info (0.71-3) ...
+Setting up libgtk2.0-0 (2.22.0-0ubuntu1) ...
+Setting up libantlr-java (2.7.7-16ubuntu1) ...
+Setting up libhamcrest-java (1.1-8) ...
+Setting up libservlet2.5-java (6.0.28-2ubuntu1) ...
+Setting up libxpp3-java (1.1.4c-1) ...
+Setting up libxstream-java (1.3.1-6) ...
+Setting up libavahi-core7 (0.6.27-2ubuntu3) ...
+Setting up libavahi-common-dev (0.6.27-2ubuntu3) ...
+Setting up libavahi-core-dev (0.6.27-2ubuntu3) ...
+Setting up pkg-config (0.25-1) ...
+Setting up libdbus-1-dev (1.4.0-0ubuntu1) ...
+Setting up libavahi-client-dev (0.6.27-2ubuntu3) ...
+Setting up libaxis2c0 (1.6.0-0ubuntu8) ...
+Setting up libxml2-dev (2.7.7.dfsg-4ubuntu0.1) ...
+Setting up libapr1 (1.4.2-3ubuntu1) ...
+Setting up uuid-dev (2.17.2-0ubuntu1) ...
+Setting up libapr1-dev (1.4.2-3ubuntu1) ...
+Setting up libaxis2c-dev (1.6.0-0ubuntu8) ...
+Setting up python (2.6.6-2ubuntu1) ...
+Setting up python-central (0.6.15ubuntu2) ...
+Setting up libgcj-common (1:4.4.4-1ubuntu2) ...
+Setting up libcap2 (1:2.19-2) ...
+Setting up libcap-dev (1:2.19-2) ...
+Setting up libcommons-io-java (1.4-3) ...
+Setting up libidn11 (1.18-1) ...
+Setting up libsasl2-2 (2.1.23.dfsg1-5ubuntu2) ...
+Setting up libldap-2.4-2 (2.4.23-0ubuntu3) ...
+Setting up libcurl3-gnutls (7.21.0-1ubuntu1) ...
+Setting up libgpg-error-dev (1.6-1ubuntu2) ...
+Setting up libgcrypt11-dev (1.4.5-2ubuntu1) ...
+Setting up zlib1g-dev (1:1.2.3.4.dfsg-3ubuntu1) ...
+Setting up libtasn1-3-dev (2.7-1) ...
+Setting up libgnutls-dev (2.8.6-1) ...
+Setting up libidn11-dev (1.18-1) ...
+Setting up libgssrpc4 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libkdb5-4 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libkadm5srv-mit7 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libkadm5clnt-mit7 (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up comerr-dev (2.1-1.41.12-1ubuntu2) ...
+Setting up krb5-multidev (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libkrb5-dev (1.8.1+dfsg-5ubuntu0.1) ...
+Setting up libldap2-dev (2.4.23-0ubuntu3) ...
+Setting up libcurl4-gnutls-dev (7.21.0-1ubuntu1) ...
+Setting up libdebian-installer4 (0.76ubuntu2) ...
+Setting up libdebian-installer-extra4 (0.76ubuntu2) ...
+Setting up libdebian-installer4-dev (0.76ubuntu2) ...
+Setting up libecj-java (3.5.1-1) ...
+Setting up libgoogle-collections-java (0~20080808-3ubuntu1) ...
+Setting up liblog4j1.2-java (1.2.15-11ubuntu1) ...
+Setting up librampart0 (1.3.0-1ubuntu1) ...
+Setting up librampart-dev (1.3.0-1ubuntu1) ...
+Setting up libssl-dev (0.9.8o-1ubuntu4.3) ...
+Setting up libapparmor1 (2.5.1~rc1-0ubuntu2) ...
+Setting up libcap-ng0 (0.6.3-1) ...
+Setting up libnl1 (1.1-5build1) ...
+Setting up libxen3 (3.3.0-1ubuntu12) ...
+Setting up libvirt0 (0.8.3-1ubuntu14) ...
+Setting up libxen3-dev (3.3.0-1ubuntu12) ...
+Setting up libvirt-dev (0.8.3-1ubuntu14) ...
+Setting up diffstat (1.53-1) ...
+Setting up quilt (0.48-7) ...
+Setting up libaccess-bridge-java (1.26.2-5) ...
+Setting up openjdk-6-jre-headless (6b20-1.9.2-0ubuntu1) ...
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/java to provide /usr/bin/java (java) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/keytool to provide /usr/bin/keytool (keytool) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/pack200 to provide /usr/bin/pack200 (pack200) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/rmid to provide /usr/bin/rmid (rmid) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/rmiregistry to provide /usr/bin/rmiregistry (rmiregistry) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/unpack200 to provide /usr/bin/unpack200 (unpack200) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/orbd to provide /usr/bin/orbd (orbd) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/servertool to provide /usr/bin/servertool (servertool) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/tnameserv to provide /usr/bin/tnameserv (tnameserv) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/lib/jexec to provide /usr/bin/jexec (jexec) in auto mode.
+Setting up openjdk-6-jre-lib (6b20-1.9.2-0ubuntu1) ...
+Setting up libjaxp1.3-java (1.3.04-5ubuntu3) ...
+Setting up libxerces2-java (2.9.1-4.1ubuntu2) ...
+Setting up ant (1.8.0-4) ...
+Setting up ant-optional (1.8.0-4) ...
+Setting up libaccess-bridge-java-jni (1.26.2-5) ...
+Setting up openjdk-6-jre (6b20-1.9.2-0ubuntu1) ...
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/javaws to provide /usr/bin/javaws (javaws) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/pluginappletviewer to provide /usr/bin/pluginappletviewer (pluginappletviewer) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/jre/bin/policytool to provide /usr/bin/policytool (policytool) in auto mode.
+Setting up openjdk-6-jdk (6b20-1.9.2-0ubuntu1) ...
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/appletviewer to provide /usr/bin/appletviewer (appletviewer) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/apt to provide /usr/bin/apt (apt) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/extcheck to provide /usr/bin/extcheck (extcheck) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/idlj to provide /usr/bin/idlj (idlj) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jar to provide /usr/bin/jar (jar) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jarsigner to provide /usr/bin/jarsigner (jarsigner) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/javac to provide /usr/bin/javac (javac) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/javadoc to provide /usr/bin/javadoc (javadoc) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/javah to provide /usr/bin/javah (javah) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/javap to provide /usr/bin/javap (javap) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jconsole to provide /usr/bin/jconsole (jconsole) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jdb to provide /usr/bin/jdb (jdb) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jhat to provide /usr/bin/jhat (jhat) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jinfo to provide /usr/bin/jinfo (jinfo) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jmap to provide /usr/bin/jmap (jmap) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jps to provide /usr/bin/jps (jps) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jrunscript to provide /usr/bin/jrunscript (jrunscript) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jsadebugd to provide /usr/bin/jsadebugd (jsadebugd) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jstack to provide /usr/bin/jstack (jstack) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jstat to provide /usr/bin/jstat (jstat) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/jstatd to provide /usr/bin/jstatd (jstatd) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/native2ascii to provide /usr/bin/native2ascii (native2ascii) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/rmic to provide /usr/bin/rmic (rmic) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/schemagen to provide /usr/bin/schemagen (schemagen) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/serialver to provide /usr/bin/serialver (serialver) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/wsgen to provide /usr/bin/wsgen (wsgen) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/wsimport to provide /usr/bin/wsimport (wsimport) in auto mode.
+update-alternatives: using /usr/lib/jvm/java-6-openjdk/bin/xjc to provide /usr/bin/xjc (xjc) in auto mode.
+Setting up antlr (2.7.7-16ubuntu1) ...
+Setting up libasm3-java (3.2-3ubuntu1) ...
+Setting up libbsf-java (1:2.4.0-3) ...
+Setting up libcommons-lang-java (2.4-4) ...
+Setting up libcommons-cli-java (1.2-3) ...
+Setting up libcommons-logging-java (1.1.1-8) ...
+Setting up junit4 (4.8.2-1) ...
+Setting up libmockobjects-java (0.09-4) ...
+Setting up libregexp-java (1.5-2) ...
+Setting up libjline-java (0.9.94-5) ...
+Setting up ivy (2.1.0-1) ...
+Setting up groovy (1.7.0-3ubuntu1) ...
+Setting up junit (3.8.2-4) ...
+Setting up libaxiom-java (1.2.8-1fakesync1) ...
+Setting up libbackport-util-concurrent-java (3.1-2ubuntu2) ...
+Setting up libcommons-collections3-java (3.2.1-4) ...
+Setting up libcommons-beanutils-java (1.8.3-1) ...
+Setting up libcommons-fileupload-java (1.2.1-5ubuntu1) ...
+Setting up libcommons-codec-java (1.4-2) ...
+Setting up libcommons-httpclient-java (3.1-9) ...
+Setting up libcommons-pool-java (1.5.4-2) ...
+Setting up libdnsjava-java (2.0.8-1) ...
+Setting up libdrools-core-java (4.0.7-0ubuntu1) ...
+Setting up libproxool-java (0.9.1-4ubuntu1) ...
+Setting up libeucalyptus-commons-ext-java (0.5.0-0ubuntu2) ...
+Setting up libgeronimo-j2ee-connector-1.5-spec-java (2.0.0-1) ...
+Setting up libgeronimo-jpa-3.0-spec-java (1.1.1-1fakesync1) ...
+Setting up libgnujaf-java (1.1.1-5) ...
+Setting up libgnuinet-java (1.1.1-4) ...
+Setting up libgnumail-java (1.1.2-5) ...
+Setting up libgwt-user-java (1.6.4-0ubuntu5) ...
+Setting up libgwt-dev-java (1.6.4-0ubuntu5) ...
+Setting up libhsqldb-java (1.8.0.10-6.1ubuntu1) ...
+Setting up libslf4j-java (1.5.11-2) ...
+Setting up libjetty-java (6.1.24-6) ...
+Setting up libbcel-java (5.2-6) ...
+Setting up libjibx1.1-java (1.1.6a-1ubuntu1) ...
+Setting up libjibx-java (1.1.6a-1ubuntu1) ...
+Setting up liboro-java (2.0.8a-7) ...
+Setting up libezmorph-java (1.0.6-2) ...
+Setting up libjaxen-java (1.1.2-1) ...
+Setting up libxom-java (1.2.1-2) ...
+Setting up libjson-java (2.3-2) ...
+Setting up libnetty-java (1:3.1.0.CR1-1) ...
+Setting up libwsdl4j-java (1.6.2-2) ...
+Setting up libwss4j-java (1.5.8+svntag-1) ...
+Setting up libxalan2-java (2.7.1-5ubuntu1) ...
+Setting up libxml-security-java (1.4.3-2fakesync1) ...
+Setting up libjavassist-java (1:3.12-2) ...
+Setting up libmx4j-java (3.0.2-9) ...
+Setting up libcommons-dbcp-java (1.4-1ubuntu1) ...
+Setting up libtomcat6-java (6.0.28-2ubuntu1) ...
+Setting up libgeronimo-jta-1.0.1b-spec-java (1.1-1fakesync1) ...
+Setting up libjetty-extra-java (6.1.24-6) ...
+Setting up default-jre-headless (1.6-38) ...
+Setting up ca-certificates-java (20100412) ...
+creating /etc/ssl/certs/java/cacerts...
+done.
+Setting up default-jre (1.6-38) ...
+Setting up default-jdk (1.6-38) ...
+Processing triggers for python-central ...
+Setting up libbcprov-java (1.44+dfsg-2ubuntu1) ...
+Setting up pbuilder-satisfydepends-dummy (0.invalid.0) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Reading extended state information...
+Initializing package states...
+Writing extended state information...
+ -> Finished parsing the build-deps
+Reading package lists...
+Building dependency tree...
+Reading state information...
+fakeroot is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 8 not upgraded.
+I: Copying back the cached apt archive contents
+I: Copying source file
+I: copying [eucalyptus_2.0+bzr1241-0ubuntu4.dsc]
+I: copying [./eucalyptus_2.0+bzr1241.orig.tar.gz]
+I: copying [./eucalyptus_2.0+bzr1241-0ubuntu4.debian.tar.gz]
+I: Extracting source
+dpkg-source: warning: extracting unsigned source package (eucalyptus_2.0+bzr1241-0ubuntu4.dsc)
+dpkg-source: info: extracting eucalyptus in eucalyptus-2.0+bzr1241
+dpkg-source: info: unpacking eucalyptus_2.0+bzr1241.orig.tar.gz
+dpkg-source: info: unpacking eucalyptus_2.0+bzr1241-0ubuntu4.debian.tar.gz
+dpkg-source: info: applying 01-wsdl-stubs.patch
+dpkg-source: info: applying 02-Makefile.patch
+dpkg-source: info: applying 03-pkg-config.patch
+dpkg-source: info: applying 05-ubuntu-axis-locations.patch
+dpkg-source: info: applying 06-UEC-webinterface.patch
+dpkg-source: info: applying 07-local_support_euca_conf-in.patch
+dpkg-source: info: applying 08-ubuntu-default-networking.patch
+dpkg-source: info: applying 09-small-128-192MB.patch
+dpkg-source: info: applying 14-tools-eucalyptus-nc_in.patch
+dpkg-source: info: applying 18-priv_security.patch
+dpkg-source: info: applying 21-eucalyptus-1.7-with-gwt-1.6.4.patch
+dpkg-source: info: applying 22-uec-multiboot-kvm.patch
+dpkg-source: info: applying 23-add-munin-monitor.patch
+dpkg-source: info: applying 24-label-metadata-ip.patch
+dpkg-source: info: applying 25-uec-logo-png.patch
+I: Building the package
+W: no hooks of type A found -- ignoring
+I: Running cd tmp/buildd/*/ && dpkg-buildpackage -us -uc  -rfakeroot
+dpkg-buildpackage: export CFLAGS from dpkg-buildflags (origin: vendor): -g -O2
+dpkg-buildpackage: export CPPFLAGS from dpkg-buildflags (origin: vendor): 
+dpkg-buildpackage: export CXXFLAGS from dpkg-buildflags (origin: vendor): -g -O2
+dpkg-buildpackage: export FFLAGS from dpkg-buildflags (origin: vendor): -g -O2
+dpkg-buildpackage: export LDFLAGS from dpkg-buildflags (origin: vendor): -Wl,-Bsymbolic-functions
+dpkg-buildpackage: source package eucalyptus
+dpkg-buildpackage: source version 2.0+bzr1241-0ubuntu4
+dpkg-buildpackage: source changed by Dave Walker (Daviey) <DaveWalker@ubuntu.com>
+ dpkg-source --before-build eucalyptus-2.0+bzr1241
+dpkg-buildpackage: host architecture amd64
+ fakeroot debian/rules clean
+test -x debian/rules
+dh_testroot
+rm -f debian/stamp-makefile-build debian/stamp-makefile-install
+/usr/bin/make  -C .  -k distclean
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+Makefile:5: Makedefs: No such file or directory
+you have to run ./configure!
+make[1]: *** [config.status] Error 1
+make[1]: Failed to remake makefile `Makedefs'.
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/tools'
+Makefile:5: ../Makedefs: No such file or directory
+make[2]: *** No rule to make target `../Makedefs'.
+make[2]: Failed to remake makefile `../Makedefs'.
+rm -f -f *~ *.o
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/tools'
+make[1]: *** [clean] Error 2
+make[1]: Target `distclean' not remade because of errors.
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+make: [makefile-clean] Error 2 (ignored)
+rm -f debian/stamp-autotools
+rmdir --ignore-fail-on-non-empty .
+rmdir: failed to remove `.': Invalid argument
+make: [makefile-clean] Error 1 (ignored)
+dh_clean 
+/usr/bin/make -f debian/rules reverse-config
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+make[1]: Nothing to be done for `reverse-config'.
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+if [ -d "." ]; then \
+	  cd . && QUILT_PATCHES=/tmp/buildd/eucalyptus-2.0+bzr1241/debian/patches quilt --quiltrc /dev/null pop -a -R || test $? = 2 ; \
+	fi
+Removing patch 25-uec-logo-png.patch
+Restoring clc/modules/www/conf/eucalyptus-web-default.properties
+Restoring clc/modules/www/src/main/java/edu/ucsb/eucalyptus/admin/public/themes/ubuntu/code.js
+Restoring clc/modules/www/src/main/java/edu/ucsb/eucalyptus/admin/server/EucalyptusManagement.java
+
+Removing patch 24-label-metadata-ip.patch
+Restoring cluster/handlers.c
+Restoring net/vnetwork.c
+
+Removing patch 23-add-munin-monitor.patch
+Restoring extras/ganglia.sh
+
+Removing patch 22-uec-multiboot-kvm.patch
+Restoring node/handlers.c
+Restoring tools/Makefile
+Removing tools/mk-mb-loader
+Restoring tools/gen_kvm_libvirt_xml
+
+Removing patch 21-eucalyptus-1.7-with-gwt-1.6.4.patch
+Restoring clc/build.xml
+Restoring clc/modules/www/build.xml
+
+Removing patch 18-priv_security.patch
+Restoring cluster/handlers.c
+Restoring node/handlers_xen.c
+Restoring util/euca_rootwrap.c
+Removing util/chgrp-dhcpd
+Removing util/chmod-dhcpd
+Removing util/dd-lv
+Removing util/modprobe-aoe
+Removing util/wrappers.conf
+
+Removing patch 14-tools-eucalyptus-nc_in.patch
+Restoring tools/eucalyptus-nc.in
+
+Removing patch 09-small-128-192MB.patch
+Restoring clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/VmTypes.java
+Restoring clc/modules/authentication/src/main/java/com/eucalyptus/auth/DatabaseAuthBootstrapper.java
+
+Removing patch 08-ubuntu-default-networking.patch
+Restoring tools/add_key.pl
+Restoring tools/eucalyptus.conf
+
+Removing patch 07-local_support_euca_conf-in.patch
+Restoring cluster/handlers.c
+Restoring tools/euca_conf.in
+Restoring tools/euca_upgrade
+Restoring util/eucalyptus.h
+
+Removing patch 06-UEC-webinterface.patch
+Restoring clc/modules/www/src/main/java/edu/ucsb/eucalyptus/admin/public/EucalyptusWebInterface.html
+Restoring clc/modules/www/src/main/java/edu/ucsb/eucalyptus/admin/public/extensions/store/stylesheet.css
+Restoring clc/modules/www/src/main/java/edu/ucsb/eucalyptus/admin/public/themes/ubuntu/stylesheet.css
+Restoring clc/modules/www/src/main/java/edu/ucsb/eucalyptus/admin/client/EucalyptusWebInterface.java
+
+Removing patch 05-ubuntu-axis-locations.patch
+Restoring tools/httpd.conf
+Restoring tools/run_axis.sh
+
+Removing patch 03-pkg-config.patch
+Removing aclocal.m4
+
+Removing patch 02-Makefile.patch
+Restoring cluster/Makefile
+Restoring node/Makefile
+Restoring util/Makefile
+Restoring gatherlog/Makefile
+
+Removing patch 01-wsdl-stubs.patch
+Removing cluster/generated/adb_virtualMachineType.c
+Removing cluster/generated/adb_ncStartNetwork.h
+Removing cluster/generated/adb_ccResourceType.h
+Removing cluster/generated/adb_DescribeInstancesResponse.c
+Removing cluster/generated/adb_assignAddressType.h
+Removing cluster/generated/adb_AttachVolumeResponse.c
+Removing cluster/generated/adb_ncStartNetworkResponse.h
+Removing cluster/generated/adb_ncRunInstanceResponse.h
+Removing cluster/generated/adb_StopNetwork.h
+Removing cluster/generated/adb_describePublicAddressesResponseType.h
+Removing cluster/generated/adb_ConfigureNetworkResponse.c
+Removing cluster/generated/adb_ncPowerDownResponse.h
+Removing cluster/generated/adb_ncDetachVolume.c
+Removing cluster/generated/adb_ncRebootInstanceType.h
+Removing cluster/generated/adb_TerminateInstancesResponse.h
+Removing cluster/generated/adb_ncAttachVolumeType.h
+Removing cluster/generated/adb_stopNetworkType.h
+Removing cluster/generated/adb_ncRunInstanceType.h
+Removing cluster/generated/adb_ncDescribeInstancesType.c
+Removing cluster/generated/adb_ncRebootInstance.h
+Removing cluster/generated/adb_DetachVolume.h
+Removing cluster/generated/adb_rebootInstancesResponseType.c
+Removing cluster/generated/adb_ncRebootInstanceResponse.h
+Removing cluster/generated/adb_ncDescribeResourceResponseType.h
+Removing cluster/generated/adb_describePublicAddressesResponseType.c
+Removing cluster/generated/adb_networkRule.c
+Removing cluster/generated/adb_runInstancesType.h
+Removing cluster/generated/adb_TerminateInstances.c
+Removing cluster/generated/adb_RunInstancesResponse.c
+Removing cluster/generated/adb_ncTerminateInstanceResponse.h
+Removing cluster/generated/adb_ncGetConsoleOutputResponse.h
+Removing cluster/generated/adb_detachVolumeResponseType.h
+Removing cluster/generated/axis2_stub_EucalyptusCC.c
+Removing cluster/generated/adb_rebootInstancesType.c
+Removing cluster/generated/adb_StopNetworkResponse.c
+Removing cluster/generated/adb_runInstancesResponseType.h
+Removing cluster/generated/adb_rebootInstancesResponseType.h
+Removing cluster/generated/adb_ConfigureNetworkResponse.h
+Removing cluster/generated/adb_unassignAddressType.h
+Removing cluster/generated/adb_ncDescribeInstancesResponse.c
+Removing cluster/generated/adb_ncTerminateInstanceResponseType.h
+Removing cluster/generated/adb_DescribeResources.h
+Removing cluster/generated/adb_describeInstancesResponseType.h
+Removing cluster/generated/adb_ncGetConsoleOutputType.h
+Removing cluster/generated/adb_getConsoleOutputResponseType.c
+Removing cluster/generated/adb_assignAddressResponseType.h
+Removing cluster/generated/adb_GetConsoleOutputResponse.c
+Removing cluster/generated/adb_configureNetworkResponseType.c
+Removing cluster/generated/adb_startNetworkResponseType.h
+Removing cluster/generated/adb_netConfigType.c
+Removing cluster/generated/adb_describeInstancesType.c
+Removing cluster/generated/adb_describeNetworksType.h
+Removing cluster/generated/adb_UnassignAddress.c
+Removing cluster/generated/adb_ncDescribeResourceType.c
+Removing cluster/generated/adb_describeNetworksType.c
+Removing cluster/generated/adb_volumeType.h
+Removing cluster/generated/adb_RebootInstances.c
+Removing cluster/generated/adb_stopNetworkResponseType.c
+Removing cluster/generated/adb_ncDetachVolumeResponseType.c
+Removing cluster/generated/adb_ncRunInstanceType.c
+Removing cluster/generated/adb_StartNetwork.c
+Removing cluster/generated/adb_describePublicAddressesType.c
+Removing cluster/generated/adb_TerminateInstancesResponse.c
+Removing cluster/generated/adb_DescribeInstances.c
+Removing cluster/generated/adb_describeInstancesType.h
+Removing cluster/generated/adb_unassignAddressResponseType.h
+Removing cluster/generated/adb_DescribeNetworksResponse.h
+Removing cluster/generated/adb_attachVolumeType.c
+Removing cluster/generated/adb_ncGetConsoleOutput.c
+Removing cluster/generated/adb_DescribeNetworks.c
+Removing cluster/generated/adb_ncAttachVolumeResponseType.c
+Removing cluster/generated/adb_ncRunInstanceResponse.c
+Removing cluster/generated/adb_configureNetworkType.h
+Removing cluster/generated/adb_deviceMappingType.h
+Removing cluster/generated/axis2_skel_EucalyptusCC.h
+Removing cluster/generated/adb_ncGetConsoleOutputType.c
+Removing cluster/generated/adb_terminateInstancesResponseType.c
+Removing cluster/generated/adb_ncRebootInstanceResponseType.h
+Removing cluster/generated/adb_DescribeNetworks.h
+Removing cluster/generated/adb_ncAttachVolume.c
+Removing cluster/generated/adb_ncStartNetwork.c
+Removing cluster/generated/adb_terminateInstancesType.h
+Removing cluster/generated/adb_networkRule.h
+Removing cluster/generated/adb_TerminateInstances.h
+Removing cluster/generated/adb_DescribeNetworksResponse.c
+Removing cluster/generated/adb_ncRebootInstanceResponseType.c
+Removing cluster/generated/adb_getConsoleOutputType.h
+Removing cluster/generated/adb_DescribePublicAddresses.c
+Removing cluster/generated/adb_detachVolumeType.h
+Removing cluster/generated/adb_describeInstancesResponseType.c
+Removing cluster/generated/adb_ncDescribeInstancesResponse.h
+Removing cluster/generated/adb_ncDescribeResourceResponse.c
+Removing cluster/generated/adb_networkType.c
+Removing cluster/generated/adb_ncRunInstanceResponseType.c
+Removing cluster/generated/adb_eucalyptusMessage.c
+Removing cluster/generated/adb_ncDescribeInstancesResponseType.c
+Removing cluster/generated/adb_RunInstancesResponse.h
+Removing cluster/generated/adb_ncStartNetworkType.c
+Removing cluster/generated/adb_instanceType.c
+Removing cluster/generated/adb_ncStartNetworkResponseType.h
+Removing cluster/generated/adb_startNetworkResponseType.c
+Removing cluster/generated/adb_UnassignAddressResponse.c
+Removing cluster/generated/axis2_stub_EucalyptusNC.h
+Removing cluster/generated/adb_UnassignAddressResponse.h
+Removing cluster/generated/adb_describeResourcesType.c
+Removing cluster/generated/adb_ncDetachVolumeResponse.h
+Removing cluster/generated/adb_networkType.h
+Removing cluster/generated/adb_assignAddressResponseType.c
+Removing cluster/generated/adb_describePublicAddressesType.h
+Removing cluster/generated/adb_unassignAddressType.c
+Removing cluster/generated/adb_DescribeInstances.h
+Removing cluster/generated/adb_ncStartNetworkResponse.c
+Removing cluster/generated/adb_StopNetworkResponse.h
+Removing cluster/generated/adb_ncPowerDown.h
+Removing cluster/generated/adb_ncDescribeResource.h
+Removing cluster/generated/adb_attachVolumeType.h
+Removing cluster/generated/adb_ccInstanceType.c
+Removing cluster/generated/adb_ncPowerDownResponseType.c
+Removing cluster/generated/adb_DescribeInstancesResponse.h
+Removing cluster/generated/adb_describeResourcesType.h
+Removing cluster/generated/adb_DetachVolumeResponse.c
+Removing cluster/generated/adb_virtualMachineType.h
+Removing cluster/generated/build.sh
+Removing cluster/generated/adb_ccTerminatedInstanceType.h
+Removing cluster/generated/adb_ncDescribeResourceType.h
+Removing cluster/generated/adb_instanceType.h
+Removing cluster/generated/adb_ncTerminateInstance.c
+Removing cluster/generated/adb_AssignAddressResponse.h
+Removing cluster/generated/adb_ncAttachVolumeResponse.c
+Removing cluster/generated/adb_ncPowerDown.c
+Removing cluster/generated/adb_ncStartNetworkType.h
+Removing cluster/generated/adb_detachVolumeType.c
+Removing cluster/generated/adb_AttachVolume.c
+Removing cluster/generated/adb_getConsoleOutputResponseType.h
+Removing cluster/generated/adb_RunInstances.c
+Removing cluster/generated/adb_ncDetachVolumeResponse.c
+Removing cluster/generated/adb_ncRunInstance.h
+Removing cluster/generated/adb_describeResourcesResponseType.h
+Removing cluster/generated/adb_ncDetachVolumeType.c
+Removing cluster/generated/adb_ncTerminateInstanceResponse.c
+Removing cluster/generated/adb_ConfigureNetwork.c
+Removing cluster/generated/adb_DescribeResources.c
+Removing cluster/generated/adb_ConfigureNetwork.h
+Removing cluster/generated/adb_terminateInstancesResponseType.h
+Removing cluster/generated/adb_ncTerminateInstance.h
+Removing cluster/generated/adb_AssignAddressResponse.c
+Removing cluster/generated/adb_ncPowerDownResponseType.h
+Removing cluster/generated/adb_runInstancesType.c
+Removing cluster/generated/adb_ncDetachVolumeResponseType.h
+Removing cluster/generated/adb_ncAttachVolume.h
+Removing cluster/generated/adb_ncAttachVolumeType.c
+Removing cluster/generated/adb_ncPowerDownResponse.c
+Removing cluster/generated/adb_ncPowerDownType.c
+Removing cluster/generated/adb_ccResourceType.c
+Removing cluster/generated/adb_StartNetworkResponse.c
+Removing cluster/generated/adb_ncGetConsoleOutput.h
+Removing cluster/generated/adb_eucalyptusMessage.h
+Removing cluster/generated/adb_StopNetwork.c
+Removing cluster/generated/adb_ncDetachVolume.h
+Removing cluster/generated/adb_DetachVolumeResponse.h
+Removing cluster/generated/adb_ncRebootInstanceResponse.c
+Removing cluster/generated/adb_ncDescribeResource.c
+Removing cluster/generated/adb_runInstancesResponseType.c
+Removing cluster/generated/adb_startNetworkType.c
+Removing cluster/generated/adb_GetConsoleOutput.c
+Removing cluster/generated/adb_attachVolumeResponseType.h
+Removing cluster/generated/adb_volumeType.c
+Removing cluster/generated/adb_attachVolumeResponseType.c
+Removing cluster/generated/adb_ncPowerDownType.h
+Removing cluster/generated/adb_stopNetworkType.c
+Removing cluster/generated/adb_StartNetworkResponse.h
+Removing cluster/generated/adb_RebootInstancesResponse.h
+Removing cluster/generated/adb_describeNetworksResponseType.h
+Removing cluster/generated/adb_ncDescribeResourceResponse.h
+Removing cluster/generated/adb_ccTerminatedInstanceType.c
+Removing cluster/generated/adb_ncGetConsoleOutputResponseType.h
+Removing cluster/generated/adb_ncGetConsoleOutputResponse.c
+Removing cluster/generated/adb_DescribePublicAddresses.h
+Removing cluster/generated/adb_ncStartNetworkResponseType.c
+Removing cluster/generated/adb_deviceMappingType.c
+Removing cluster/generated/adb_ncDescribeResourceResponseType.c
+Removing cluster/generated/services.xml
+Removing cluster/generated/adb_DescribeResourcesResponse.h
+Removing cluster/generated/adb_ccInstanceType.h
+Removing cluster/generated/adb_ncTerminateInstanceType.c
+Removing cluster/generated/adb_unassignAddressResponseType.c
+Removing cluster/generated/adb_ncAttachVolumeResponse.h
+Removing cluster/generated/adb_netConfigType.h
+Removing cluster/generated/adb_ncRebootInstance.c
+Removing cluster/generated/adb_ncRunInstanceResponseType.h
+Removing cluster/generated/adb_startNetworkType.h
+Removing cluster/generated/adb_DescribePublicAddressesResponse.h
+Removing cluster/generated/adb_configureNetworkType.c
+Removing cluster/generated/adb_stopNetworkResponseType.h
+Removing cluster/generated/adb_ncDescribeInstances.h
+Removing cluster/generated/adb_ncTerminateInstanceResponseType.c
+Removing cluster/generated/adb_GetConsoleOutput.h
+Removing cluster/generated/axis2_stub_EucalyptusCC.h
+Removing cluster/generated/adb_assignAddressType.c
+Removing cluster/generated/axis2_stub_EucalyptusNC.c
+Removing cluster/generated/adb_ncDescribeInstancesType.h
+Removing cluster/generated/adb_RebootInstancesResponse.c
+Removing cluster/generated/adb_AttachVolume.h
+Removing cluster/generated/adb_UnassignAddress.h
+Removing cluster/generated/adb_describeNetworksResponseType.c
+Removing cluster/generated/adb_detachVolumeResponseType.c
+Removing cluster/generated/adb_ncRebootInstanceType.c
+Removing cluster/generated/adb_GetConsoleOutputResponse.h
+Removing cluster/generated/adb_ncAttachVolumeResponseType.h
+Removing cluster/generated/adb_RunInstances.h
+Removing cluster/generated/adb_ncDescribeInstances.c
+Removing cluster/generated/adb_rebootInstancesType.h
+Removing cluster/generated/adb_AssignAddress.h
+Removing cluster/generated/adb_ncRunInstance.c
+Removing cluster/generated/adb_StartNetwork.h
+Removing cluster/generated/adb_ncDescribeInstancesResponseType.h
+Removing cluster/generated/adb_AttachVolumeResponse.h
+Removing cluster/generated/adb_DescribePublicAddressesResponse.c
+Removing cluster/generated/axis2_svc_skel_EucalyptusCC.c
+Removing cluster/generated/adb_ncGetConsoleOutputResponseType.c
+Removing cluster/generated/adb_ncTerminateInstanceType.h
+Removing cluster/generated/adb_DetachVolume.c
+Removing cluster/generated/adb_ncDetachVolumeType.h
+Removing cluster/generated/adb_describeResourcesResponseType.c
+Removing cluster/generated/adb_AssignAddress.c
+Removing cluster/generated/axis2_skel_EucalyptusCC.c
+Removing cluster/generated/adb_getConsoleOutputType.c
+Removing cluster/generated/adb_terminateInstancesType.c
+Removing cluster/generated/adb_configureNetworkResponseType.h
+Removing cluster/generated/adb_DescribeResourcesResponse.c
+Removing cluster/generated/adb_RebootInstances.h
+Removing node/generated/adb_virtualMachineType.c
+Removing node/generated/adb_ncStartNetwork.h
+Removing node/generated/adb_ncStartNetworkResponse.h
+Removing node/generated/adb_ncRunInstanceResponse.h
+Removing node/generated/adb_ncPowerDownResponse.h
+Removing node/generated/adb_ncDetachVolume.c
+Removing node/generated/adb_ncRebootInstanceType.h
+Removing node/generated/adb_ncAttachVolumeType.h
+Removing node/generated/adb_ncRunInstanceType.h
+Removing node/generated/adb_ncDescribeInstancesType.c
+Removing node/generated/adb_ncRebootInstance.h
+Removing node/generated/adb_ncRebootInstanceResponse.h
+Removing node/generated/adb_ncDescribeResourceResponseType.h
+Removing node/generated/adb_ncTerminateInstanceResponse.h
+Removing node/generated/adb_ncGetConsoleOutputResponse.h
+Removing node/generated/adb_ncDescribeInstancesResponse.c
+Removing node/generated/adb_ncTerminateInstanceResponseType.h
+Removing node/generated/adb_ncGetConsoleOutputType.h
+Removing node/generated/adb_netConfigType.c
+Removing node/generated/adb_ncDescribeResourceType.c
+Removing node/generated/adb_volumeType.h
+Removing node/generated/adb_ncDetachVolumeResponseType.c
+Removing node/generated/adb_ncRunInstanceType.c
+Removing node/generated/axis2_skel_EucalyptusNC.h
+Removing node/generated/adb_ncGetConsoleOutput.c
+Removing node/generated/adb_ncAttachVolumeResponseType.c
+Removing node/generated/adb_ncRunInstanceResponse.c
+Removing node/generated/adb_deviceMappingType.h
+Removing node/generated/adb_ncGetConsoleOutputType.c
+Removing node/generated/adb_ncRebootInstanceResponseType.h
+Removing node/generated/adb_ncAttachVolume.c
+Removing node/generated/adb_ncStartNetwork.c
+Removing node/generated/adb_ncRebootInstanceResponseType.c
+Removing node/generated/axis2_skel_EucalyptusNC.c
+Removing node/generated/adb_ncDescribeInstancesResponse.h
+Removing node/generated/adb_ncDescribeResourceResponse.c
+Removing node/generated/adb_ncRunInstanceResponseType.c
+Removing node/generated/adb_eucalyptusMessage.c
+Removing node/generated/adb_ncDescribeInstancesResponseType.c
+Removing node/generated/adb_ncStartNetworkType.c
+Removing node/generated/adb_instanceType.c
+Removing node/generated/adb_ncStartNetworkResponseType.h
+Removing node/generated/axis2_stub_EucalyptusNC.h
+Removing node/generated/adb_ncDetachVolumeResponse.h
+Removing node/generated/adb_ncStartNetworkResponse.c
+Removing node/generated/adb_ncPowerDown.h
+Removing node/generated/adb_ncDescribeResource.h
+Removing node/generated/adb_ncPowerDownResponseType.c
+Removing node/generated/adb_virtualMachineType.h
+Removing node/generated/build.sh
+Removing node/generated/adb_ncDescribeResourceType.h
+Removing node/generated/adb_instanceType.h
+Removing node/generated/adb_ncTerminateInstance.c
+Removing node/generated/axis2_svc_skel_EucalyptusNC.c
+Removing node/generated/adb_ncAttachVolumeResponse.c
+Removing node/generated/adb_ncPowerDown.c
+Removing node/generated/adb_ncStartNetworkType.h
+Removing node/generated/adb_ncDetachVolumeResponse.c
+Removing node/generated/adb_ncRunInstance.h
+Removing node/generated/adb_ncDetachVolumeType.c
+Removing node/generated/adb_ncTerminateInstanceResponse.c
+Removing node/generated/adb_ncTerminateInstance.h
+Removing node/generated/adb_ncPowerDownResponseType.h
+Removing node/generated/adb_ncDetachVolumeResponseType.h
+Removing node/generated/adb_ncAttachVolume.h
+Removing node/generated/adb_ncAttachVolumeType.c
+Removing node/generated/adb_ncPowerDownResponse.c
+Removing node/generated/adb_ncPowerDownType.c
+Removing node/generated/adb_ncGetConsoleOutput.h
+Removing node/generated/adb_eucalyptusMessage.h
+Removing node/generated/adb_ncDetachVolume.h
+Removing node/generated/adb_ncRebootInstanceResponse.c
+Removing node/generated/adb_ncDescribeResource.c
+Removing node/generated/adb_volumeType.c
+Removing node/generated/adb_ncPowerDownType.h
+Removing node/generated/adb_ncDescribeResourceResponse.h
+Removing node/generated/adb_ncGetConsoleOutputResponseType.h
+Removing node/generated/adb_ncGetConsoleOutputResponse.c
+Removing node/generated/adb_ncStartNetworkResponseType.c
+Removing node/generated/adb_deviceMappingType.c
+Removing node/generated/adb_ncDescribeResourceResponseType.c
+Removing node/generated/services.xml
+Removing node/generated/adb_ncTerminateInstanceType.c
+Removing node/generated/adb_ncAttachVolumeResponse.h
+Removing node/generated/adb_netConfigType.h
+Removing node/generated/adb_ncRebootInstance.c
+Removing node/generated/adb_ncRunInstanceResponseType.h
+Removing node/generated/adb_ncDescribeInstances.h
+Removing node/generated/adb_ncTerminateInstanceResponseType.c
+Removing node/generated/axis2_stub_EucalyptusNC.c
+Removing node/generated/adb_ncDescribeInstancesType.h
+Removing node/generated/adb_ncRebootInstanceType.c
+Removing node/generated/adb_ncAttachVolumeResponseType.h
+Removing node/generated/adb_ncDescribeInstances.c
+Removing node/generated/adb_ncRunInstance.c
+Removing node/generated/adb_ncDescribeInstancesResponseType.h
+Removing node/generated/adb_ncGetConsoleOutputResponseType.c
+Removing node/generated/adb_ncTerminateInstanceType.h
+Removing node/generated/adb_ncDetachVolumeType.h
+Removing gatherlog/generated/adb_getLogsResponseType.c
+Removing gatherlog/generated/adb_GetLogsResponse.h
+Removing gatherlog/generated/adb_getLogsResponseType.h
+Removing gatherlog/generated/axis2_skel_EucalyptusGL.c
+Removing gatherlog/generated/adb_getLogsType.h
+Removing gatherlog/generated/adb_getKeysType.c
+Removing gatherlog/generated/adb_GetLogs.h
+Removing gatherlog/generated/axis2_skel_EucalyptusGL.h
+Removing gatherlog/generated/adb_eucalyptusMessage.c
+Removing gatherlog/generated/adb_getKeysType.h
+Removing gatherlog/generated/adb_GetKeys.h
+Removing gatherlog/generated/build.sh
+Removing gatherlog/generated/axis2_svc_skel_EucalyptusGL.c
+Removing gatherlog/generated/adb_getKeysResponseType.c
+Removing gatherlog/generated/adb_getLogsType.c
+Removing gatherlog/generated/adb_eucalyptusMessage.h
+Removing gatherlog/generated/adb_GetLogsResponse.c
+Removing gatherlog/generated/adb_getKeysResponseType.h
+Removing gatherlog/generated/axis2_stub_EucalyptusGL.h
+Removing gatherlog/generated/adb_GetLogs.c
+Removing gatherlog/generated/services.xml
+Removing gatherlog/generated/adb_GetKeys.c
+Removing gatherlog/generated/adb_GetKeysResponse.h
+Removing gatherlog/generated/adb_GetKeysResponse.c
+Removing gatherlog/generated/axis2_stub_EucalyptusGL.c
+
+No patches applied
+rm -rf ./.pc
+rm -f debian/stamp-patch*
+rm -f debian/stamp-autotools-files
+/usr/bin/make -C debian/local clean
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/debian/local'
+rm -f euca_find_component
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/debian/local'
+/usr/bin/make -C debian/registration clean
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/debian/registration'
+rm -f uec_component_listener
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/debian/registration'
+rm -rf clc/lib setup-libs clc/modules/msgs/src/main/resources/msgs-binding.xml clc/modules/storage-controller/lib/liblvm2control.so clc/modules/storage-manager/lib/libfsstorage.so clc/modules/www/webapps/root.war node/test_nc node/test config.status clc/modules/storage-controller/include/edu_ucsb_eucalyptus_storage_LVM2Manager.h clc/modules/storage-controller/include/edu_ucsb_eucalyptus_storage_AOEManager.h clc/modules/storage-manager/include/edu_ucsb_eucalyptus_storage_fs_FileSystemStorageManager.h cluster/cc-client-policy.xml node/nc-client-policy.xml util/config.h config.log Makedefs clc/modules/bootstrap/eucalyptus-bootstrap.o clc/modules/bootstrap/eucalyptus-opts.o clc/modules/bootstrap/eucalyptus-cloud tools/eucalyptus-nc tools/eucalyptus-java-ws tools/eucalyptus-cc tools/euca_conf util/eucalyptus-config.h extras/euca_
+ dpkg-source -b eucalyptus-2.0+bzr1241
+dpkg-source: warning: Version number suggests Ubuntu changes, but there is no XSBC-Original-Maintainer field
+dpkg-source: info: using source format `3.0 (quilt)'
+dpkg-source: warning: patches have not been applied, applying them now (use --no-preparation to override)
+dpkg-source: info: applying 01-wsdl-stubs.patch
+dpkg-source: info: applying 02-Makefile.patch
+dpkg-source: info: applying 03-pkg-config.patch
+dpkg-source: info: applying 05-ubuntu-axis-locations.patch
+dpkg-source: info: applying 06-UEC-webinterface.patch
+dpkg-source: info: applying 07-local_support_euca_conf-in.patch
+dpkg-source: info: applying 08-ubuntu-default-networking.patch
+dpkg-source: info: applying 09-small-128-192MB.patch
+dpkg-source: info: applying 14-tools-eucalyptus-nc_in.patch
+dpkg-source: info: applying 18-priv_security.patch
+dpkg-source: info: applying 21-eucalyptus-1.7-with-gwt-1.6.4.patch
+dpkg-source: info: applying 22-uec-multiboot-kvm.patch
+dpkg-source: info: applying 23-add-munin-monitor.patch
+dpkg-source: info: applying 24-label-metadata-ip.patch
+dpkg-source: info: applying 25-uec-logo-png.patch
+dpkg-source: info: building eucalyptus using existing ./eucalyptus_2.0+bzr1241.orig.tar.gz
+diff: standard output: Broken pipe
+diff: standard output: Broken pipe
+diff: standard output: Broken pipe
+dpkg-source: info: building eucalyptus in eucalyptus_2.0+bzr1241-0ubuntu4.debian.tar.gz
+dpkg-source: info: building eucalyptus in eucalyptus_2.0+bzr1241-0ubuntu4.dsc
+ debian/rules build
+test -x debian/rules
+if md5sum -c debian/wsdl.md5sums; then \
+		echo "SUCCESS: WSDL stubs are valid."; \
+	else \
+		echo "ERROR: WSDL stubs must be updated!"; \
+		echo "HINT: ./debian/wsdl_generator"; \
+		exit 1; \
+	fi
+wsdl/eucalyptus_cc.wsdl: OK
+wsdl/eucalyptus_gl.wsdl: OK
+wsdl/eucalyptus_nc.wsdl: OK
+SUCCESS: WSDL stubs are valid.
+cd clc && mkdir -p lib && \
+		for jar in `cat ../debian/build-jars`; do \
+			ln -fsv $jar lib; done
+`lib/commons-collections3.jar' -> `/usr/share/java/commons-collections3.jar'
+`lib/geronimo-j2ee-connector-1.5-spec.jar' -> `/usr/share/java/geronimo-j2ee-connector-1.5-spec.jar'
+`lib/commons-codec.jar' -> `/usr/share/java/commons-codec.jar'
+`lib/commons-io.jar' -> `/usr/share/java/commons-io.jar'
+`lib/jetty-util.jar' -> `/usr/share/java/jetty-util.jar'
+`lib/hsqldb.jar' -> `/usr/share/java/hsqldb.jar'
+`lib/jibx-bind.jar' -> `/usr/share/java/jibx-bind.jar'
+`lib/backport-util-concurrent.jar' -> `/usr/share/java/backport-util-concurrent.jar'
+`lib/antlr.jar' -> `/usr/share/java/antlr.jar'
+`lib/axiom-api.jar' -> `/usr/share/java/axiom-api.jar'
+`lib/axiom-dom.jar' -> `/usr/share/java/axiom-dom.jar'
+`lib/axiom-impl.jar' -> `/usr/share/java/axiom-impl.jar'
+`lib/bcprov.jar' -> `/usr/share/java/bcprov.jar'
+`lib/commons-fileupload.jar' -> `/usr/share/java/commons-fileupload.jar'
+`lib/commons-httpclient.jar' -> `/usr/share/java/commons-httpclient.jar'
+`lib/commons-lang.jar' -> `/usr/share/java/commons-lang.jar'
+`lib/commons-pool.jar' -> `/usr/share/java/commons-pool.jar'
+`lib/commons-cli.jar' -> `/usr/share/java/commons-cli.jar'
+`lib/dnsjava.jar' -> `/usr/share/java/dnsjava.jar'
+`lib/drools-core.jar' -> `/usr/share/java/drools-core.jar'
+`lib/drools-compiler.jar' -> `/usr/share/java/drools-compiler.jar'
+`lib/eucalyptus-commons-ext-0.4.jar' -> `/usr/share/eucalyptus/eucalyptus-commons-ext-0.4.jar'
+`lib/gnumail.jar' -> `/usr/share/java/gnumail.jar'
+`lib/geronimo-jpa-3.0-spec.jar' -> `/usr/share/java/geronimo-jpa-3.0-spec.jar'
+`lib/google-collections.jar' -> `/usr/share/java/google-collections.jar'
+`lib/groovy.jar' -> `/usr/share/java/groovy.jar'
+`lib/gwt-servlet.jar' -> `/usr/share/java/gwt-servlet.jar'
+`lib/gwt-user.jar' -> `/usr/share/java/gwt-user.jar'
+`lib/jaxp-1.3.jar' -> `/usr/share/java/jaxp-1.3.jar'
+`lib/jetty.jar' -> `/usr/share/java/jetty.jar'
+`lib/jibx-run.jar' -> `/usr/share/java/jibx-run.jar'
+`lib/json-lib.jar' -> `/usr/share/java/json-lib.jar'
+`lib/junit.jar' -> `/usr/share/java/junit.jar'
+`lib/log4j-1.2.jar' -> `/usr/share/java/log4j-1.2.jar'
+`lib/netty.jar' -> `/usr/share/java/netty.jar'
+`lib/servlet-api-2.5.jar' -> `/usr/share/java/servlet-api-2.5.jar'
+`lib/wss4j.jar' -> `/usr/share/java/wss4j.jar'
+`lib/xalan2.jar' -> `/usr/share/java/xalan2.jar'
+`lib/xercesImpl.jar' -> `/usr/share/java/xercesImpl.jar'
+`lib/xml-security.jar' -> `/usr/share/java/xml-security.jar'
+`lib/gwt-dev-linux.jar' -> `/usr/share/java/gwt-dev-linux.jar'
+`lib/ecj.jar' -> `/usr/share/java/ecj.jar'
+`lib/ant.jar' -> `/usr/share/java/ant.jar'
+`lib/asm3-all.jar' -> `/usr/share/java/asm3-all.jar'
+`lib/javassist.jar' -> `/usr/share/java/javassist.jar'
+`lib/jetty-rewrite-handler.jar' -> `/usr/share/java/jetty-rewrite-handler.jar'
+touch setup-libs
+mkdir -p "."
+/usr/bin/make -f debian/rules reverse-config
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+make[1]: Nothing to be done for `reverse-config'.
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+cd . && QUILT_PATCHES=/tmp/buildd/eucalyptus-2.0+bzr1241/debian/patches quilt --quiltrc /dev/null push -a || test $? = 2
+File series fully applied, ends at patch 25-uec-logo-png.patch
+touch debian/stamp-patched
+/usr/bin/make -f debian/rules update-config
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+make[1]: Nothing to be done for `update-config'.
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+touch debian/stamp-autotools-files
+chmod a+x /tmp/buildd/eucalyptus-2.0+bzr1241/./configure
+mkdir -p .
+cd . &&   CFLAGS="-g -O2 -g -Wall -O2" CXXFLAGS="-g -O2 -g -Wall -O2" CPPFLAGS="" LDFLAGS="-Wl,-Bsymbolic-functions" /tmp/buildd/eucalyptus-2.0+bzr1241/./configure --build=x86_64-linux-gnu  --prefix=/usr --includedir="\${prefix}/include" --mandir="\${prefix}/share/man" --infodir="\${prefix}/share/info" --sysconfdir=/etc --localstatedir=/var --libexecdir="\${prefix}/lib/eucalyptus" --disable-maintainer-mode --disable-dependency-tracking --disable-silent-rules --srcdir=.  --with-axis2=/usr/share/eucalyptus --with-axis2c=/usr/lib/axis2 --prefix=/ --with-interface-theme=ubuntu --enable-appliance-store 
+configure: WARNING: unrecognized options: --disable-maintainer-mode, --disable-dependency-tracking, --disable-silent-rules
+checking for gcc... gcc
+checking for C compiler default output file name... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking for gawk... no
+checking for mawk... mawk
+checking for gcc... (cached) gcc
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc accepts -g... (cached) yes
+checking for gcc option to accept ISO C89... (cached) none needed
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether make sets $(MAKE)... yes
+checking for rm... /bin/rm
+checking for /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh... yes
+checking for /usr/lib/axis2/WSDL2C.sh... no
+checking for ant... /usr/bin/ant
+checking for java... /usr/lib/jvm/default-java/bin/java
+checking for main in -laxis2_axiom... yes
+checking for main in -laxis2_engine... yes
+checking for main in -laxis2_http_common... yes
+checking for main in -laxis2_http_receiver... yes
+checking for main in -laxis2_http_sender... yes
+checking for main in -lguththila... yes
+checking for axiom_xml_reader_init in -laxis2_parser... yes
+checking for main in -laxutil... yes
+checking for main in -lm... yes
+checking for main in -lmod_rampart... yes
+checking for main in -lneethi... yes
+checking for main in -lpthread... yes
+checking for main in -lrt... yes
+checking for main in -lvirt... yes
+checking for main in -lcurl... yes
+checking for inflate in -lz... yes
+checking for cap_from_name in -lcap... yes
+checking for dirent.h that defines DIR... yes
+checking for library containing opendir... none required
+checking for ANSI C header files... (cached) yes
+checking for sys/wait.h that is POSIX.1 compatible... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking for stdint.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking for strings.h... (cached) yes
+checking sys/ioctl.h usability... yes
+checking sys/ioctl.h presence... yes
+checking for sys/ioctl.h... yes
+checking for unistd.h... (cached) yes
+checking sys/vfs.h usability... yes
+checking sys/vfs.h presence... yes
+checking for sys/vfs.h... yes
+checking zlib.h usability... yes
+checking zlib.h presence... yes
+checking for zlib.h... yes
+checking curl/curl.h usability... yes
+checking curl/curl.h presence... yes
+checking for curl/curl.h... yes
+checking for an ANSI C-conforming const... yes
+checking for mode_t... yes
+checking for pid_t... yes
+checking for size_t... yes
+checking for ssize_t... yes
+checking whether time.h and sys/time.h may both be included... yes
+checking whether struct tm is in sys/time.h or time.h... time.h
+checking for uint32_t... yes
+checking whether closedir returns void... no
+checking vfork.h usability... no
+checking vfork.h presence... no
+checking for vfork.h... no
+checking for fork... yes
+checking for vfork... yes
+checking for working fork... yes
+checking for working vfork... (cached) yes
+checking whether lstat dereferences a symlink specified with a trailing slash... yes
+checking whether lstat accepts an empty string... no
+checking whether lstat dereferences a symlink specified with a trailing slash... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... yes
+checking for working memcmp... yes
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking for unistd.h... (cached) yes
+checking for alarm... yes
+checking for working mktime... yes
+checking for stdlib.h... (cached) yes
+checking for unistd.h... (cached) yes
+checking for getpagesize... yes
+checking for working mmap... yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible realloc... yes
+checking sys/select.h usability... yes
+checking sys/select.h presence... yes
+checking for sys/select.h... yes
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking types of arguments for select... int,fd_set *,struct timeval *
+checking whether stat accepts an empty string... no
+checking for working strnlen... yes
+checking for vprintf... yes
+checking for _doprnt... no
+checking for bzero... yes
+checking for dup2... yes
+checking for ftruncate... yes
+checking for gettimeofday... yes
+checking for mkdir... yes
+checking for pow... yes
+checking for select... yes
+checking for strchr... yes
+checking for strdup... yes
+checking for strerror... yes
+checking for strncasecmp... yes
+checking for strstr... yes
+checking for rmdir... yes
+configure: creating ./config.status
+config.status: creating Makedefs
+config.status: creating tools/eucalyptus-cc
+config.status: creating tools/eucalyptus-nc
+config.status: creating tools/euca_conf
+config.status: creating tools/eucalyptus-cloud
+config.status: creating util/eucalyptus-config.h
+configure: WARNING: unrecognized options: --disable-maintainer-mode, --disable-dependency-tracking, --disable-silent-rules
+touch debian/stamp-autotools
+/usr/bin/make  -C .  
+make[1]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/tools'
+make[2]: Nothing to be done for `build'.
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/tools'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/util'
+gcc -c -std=gnu99 -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 misc.c
+gcc -c -std=gnu99 -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 data.c
+gcc -c -std=gnu99 -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 euca_auth.c
+gcc -c -std=gnu99 -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 euca_axis.c
+gcc -c -std=gnu99 -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 ipc.c
+gcc -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -o euca_rootwrap euca_rootwrap.c -lcap
+gcc -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -o euca_mountwrap euca_mountwrap.c
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/util'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/net'
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 vnetwork.c
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/net'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/storage'
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 storage.c
+gcc -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -c walrus.c 
+gcc -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 Wclient.c -o Wclient ../util/euca_auth.o ../util/misc.o walrus.o -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lcurl
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/storage'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/gatherlog'
+if test -n ""; \
+	then \
+	rm -rf generated; \
+	mkdir -p generated; \
+	echo Generating client stubs; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl//eucalyptus_gl.wsdl -g -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Generating server stubs; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl//eucalyptus_gl.wsdl -sd -ss -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Adding marshalling calls to server stubs; \
+	../tools/add_marshalling.pl generated/axis2_skel_*.c; \
+	fi
+Compiling the stubs
+cd generated; gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -I../../util *.c; cd ..
+Stubs generated.
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 gl-client-marshal-adb.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 server-marshal.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 handlers.c
+gcc -shared generated/*.o server-marshal.o handlers.o  -L/usr/lib/axis2/lib -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   ../util/misc.o ../util/euca_auth.o ./gl-client-marshal-adb.o -o libEucalyptusGL.so
+gcc -o GLclient -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   generated/adb_*.o generated/axis2_stub_*.o  ../util/misc.o ../util/euca_auth.o GLclient.c gl-client-marshal-adb.c -DMODE=1
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/gatherlog'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/node'
+if test -n ""; \
+	then \
+	echo Generating server stubs; \
+	rm -rf generated; \
+	mkdir -p generated; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl//eucalyptus_nc.wsdl -sd -ss -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Adding marshalling calls to server stubs; \
+	../tools/add_marshalling.pl generated/axis2_skel_*.c; \
+	echo Generating client stubs; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl//eucalyptus_nc.wsdl -g -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Patching; \
+	patch -d generated -p1 < axis2_svc_generated.patch; \
+	fi
+Compiling the stubs
+cd generated; gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 *.c
+Stubs generated.
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 server-marshal.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 handlers.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 handlers_xen.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 handlers_kvm.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 handlers_default.c
+gcc -o libEucalyptusNC.so -shared -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lvirt -lcurl -lssl generated/adb_*.o generated/axis2*_skel_*.o server-marshal.o handlers.o handlers_xen.o handlers_kvm.o handlers_default.o ../storage/walrus.o ../storage/storage.o ../net/*.o ../util/*.o
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 client-marshal-adb.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 client-marshal-local.c
+gcc -o NCclient -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lvirt -lcurl -lssl generated/adb_*.o generated/axis2_stub_*.o client-marshal-adb.o ../util/*.o ../storage/storage.o ../storage/walrus.o ../net/*.o NCclient.c
+gcc -o NCclient_local -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H client-marshal-local.o ../util/*.o ../storage/storage.o ../storage/walrus.o ../net/*.o handlers.o handlers_xen.o handlers_kvm.o handlers_default.o NCclient.c -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lvirt -lcurl -lssl
+gcc -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lvirt -lcurl -lssl -o test_nc test_nc.c ../util/misc.o
+gcc -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lvirt -lcurl -lssl -o test test.c ../util/misc.o ../util/data.o
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/node'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/cluster'
+if test -n ""; \
+	then \
+	rm -rf generated; \
+	mkdir -p generated; \
+	echo Generating client stubs; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl/eucalyptus_cc.wsdl -g -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Generating NCclient stubs; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl/eucalyptus_nc.wsdl -g -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Generating server stubs; \
+	sh /usr/lib/axis2/bin/tools/wsdl2c/WSDL2C.sh -uri ../wsdl/eucalyptus_cc.wsdl -sd -ss -d adb -u -uw -f -o generated | grep -v 'the classpath'; \
+	echo Adding marshalling calls to server stubs; \
+	../tools/add_marshalling.pl generated/axis2_skel_*.c; \
+	echo Patching; \
+	patch -d generated -p1 < axis2_svc_generated.patch; \
+	fi
+Compiling the stubs
+cd generated; gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 *.c
+adb_networkType.c: In function 'adb_networkType_set_activeAddrs_at':
+adb_networkType.c:1541: warning: 'k' may be used uninitialized in this function
+adb_runInstancesType.c: In function 'adb_runInstancesType_set_networkIndexList_at':
+adb_runInstancesType.c:8079: warning: 'k' may be used uninitialized in this function
+adb_terminateInstancesResponseType.c: In function 'adb_terminateInstancesResponseType_serialize':
+adb_terminateInstancesResponseType.c:1170: warning: cast from pointer to integer of different size
+adb_terminateInstancesResponseType.c: In function 'adb_terminateInstancesResponseType_set_isTerminated_at':
+adb_terminateInstancesResponseType.c:1782: warning: 'k' may be used uninitialized in this function
+Stubs generated.
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 server-marshal.c
+gcc -c -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 handlers.c
+gcc -shared generated/*.o server-marshal.o handlers.o ../storage/storage.o  ../util/data.o ../node/client-marshal-adb.o ../util/ipc.o ../net/vnetwork.o ../util/misc.o ../util/euca_axis.o ../util/euca_auth.o -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lcurl -o libEucalyptusCC.so
+gcc -o CCclient_full -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lcurl generated/adb_*.o generated/axis2_stub_*.o  ../util/misc.o ../util/euca_axis.o ../util/euca_auth.o CCclient.c cc-client-marshal-adb.c -DMODE=1
+gcc -o euca_killall -D_LARGEFILE64_SOURCE -Wall -Wno-unused-variable -fPIC -DHAVE_CONFIG_H -I. -I.. -Igenerated -I/tmp/buildd/eucalyptus-2.0+bzr1241/storage -I/tmp/buildd/eucalyptus-2.0+bzr1241/node -I/tmp/buildd/eucalyptus-2.0+bzr1241/util -I/tmp/buildd/eucalyptus-2.0+bzr1241/net -I/usr/lib/axis2/include/axis2-1.6.0 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -L/usr/lib/axis2/modules/rampart -L/usr/lib/axis2/lib   -lcurl generated/adb_*.o generated/axis2_stub_*.o  ../util/misc.o ../util/euca_axis.o ../util/euca_auth.o CCclient.c cc-client-marshal-adb.c -DMODE=0
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/cluster'
+make[2]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/clc'
+Buildfile: /tmp/buildd/eucalyptus-2.0+bzr1241/clc/build.xml
+
+deps:
+
+download-deps:
+
+untar:
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+Copied defaults to /tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/www/conf/eucalyptus-web.properties
+make[3]: Entering directory `/tmp/buildd/eucalyptus-2.0+bzr1241/clc'
+Making 'ubuntu' the active theme
+make[3]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/clc'
+Buildfile: /tmp/buildd/eucalyptus-2.0+bzr1241/clc/build.xml
+
+build:
+
+builder:
+[BUILDER] build-groovy for eucalyptus-msgs
+
+build-groovy:
+
+do-build-groovy:
+[COMPILE] build-groovy for eucalyptus-msgs
+
+clean:
+Created dir: /tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/build
+Compiling 232 source files to /tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/build
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/config/ConfigurationEntities.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/BaseEntities.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/CompositeHelper.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/LogUtil.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/cloud/Extra.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/Configuration.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/DNS.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/Messages.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/Properties.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/StorageController.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/Unimplemented.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/Users.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VPN.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmAddresses.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmBlockDevice.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmControl.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmImages.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmKeys.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmLocation.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmNetwork.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/VmSecurity.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/Walrus.groovy
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/BaseException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Authentication.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/GroupExistsException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Groups.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchGroupException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchUserException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserExistsException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserInfo.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserInfoStore.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Users.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/BaseLoginModule.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/BaseSecurityException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/BaseSecurityProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/CertificateProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/CryptoProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/GroupProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/HmacProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/NoSuchCertificateException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/UserInfoProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/api/UserProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/crypto/Certs.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/crypto/Crypto.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/crypto/Digest.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/crypto/Hmac.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/crypto/Hmacs.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/crypto/Signatures.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/AuthenticationException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/HmacCredentials.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/Hmacv1LoginModule.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/Hmacv2LoginModule.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/SecurityContext.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedComponentCredentials.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedCredentials.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WrappedCredentials.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WsSecCredentials.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WsSecLoginModule.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Authorization.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/AvailabilityZonePermission.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/BaseAuthorization.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/BasePrincipal.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Cluster.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/ComponentPrincipal.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Eucalyptus.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Group.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Node.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Storage.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/User.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/Walrus.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/credential/CredentialPrincipal.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/credential/HmacPrincipal.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/credential/X509Principal.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/domain/ClusterDomain.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/domain/Domain.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/domain/ExternalDomain.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/domain/UserDomain.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/B64.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/PEMFiles.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/SecurityParameter.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/Timestamps.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/WSSecurity.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/Binding.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingGenerator.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingManager.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BuildBindings.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HoldMe.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpEmbedded.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpParameterMapping.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/InternalSoapBindingGenerator.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrap.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/BootstrapException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrapper.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/BootstrapperDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Component.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/DatabaseBootstrapper.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/DependsLocal.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/DependsRemote.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Provides.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/RunDuring.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/ServiceJarDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/SystemBootstrapper.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/transitions/BootstrapTransition.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/transitions/LoadConfigs.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/AbstractServiceBuilder.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ComponentInformation.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Components.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Configuration.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Configurations.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Credentials.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DatabaseServiceBuilder.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DatabaseServiceConfigurationProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DefaultServiceBuilder.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DefaultTransition.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DefaultTransitionList.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DiscoverableServiceBuilder.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Dispatcher.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DispatcherFactory.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DispatcherFactoryDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Lifecycle.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Lifecycles.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Resource.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Service.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceBuilder.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceBuilderDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceConfiguration.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceConfigurationProvider.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceConfigurations.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceEndpoint.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/ServiceRegistrationException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Services.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/event/LifecycleEvent.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/event/StartComponentEvent.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/event/StopComponentEvent.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/AbstractConfigurableProperty.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableClass.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableField.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableFieldType.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableIdentifier.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableProperty.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurablePropertyBuilder.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurablePropertyException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurationProperties.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/MultiDatabasePropertyEntry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertiesBootstrapper.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertiesDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertyDirectory.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/PropertyTypeParser.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/SingletonDatabasePropertyEntry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/StaticPropertyEntry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/context/Context.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/context/Contexts.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/context/IllegalContextAccessException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/context/NoSuchContextException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/context/ServiceContext.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/context/ServiceInitializationException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/Counters.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityWrapper.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/PersistenceContextDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/PersistenceContexts.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/TxHandle.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/VmType.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/_anon.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/AbstractNamedRegistry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/ClockTick.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/Event.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/EventListener.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/EventListenerDiscovery.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/EventVetoedException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/GenericEvent.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/ListenerRegistry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/PassiveEventListener.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/ReentrantListenerRegistry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/StateEvent.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/StatefulNamedRegistry.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/SystemClock.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpMessage.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpRequest.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpResponse.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/Image.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ImageAuthorization.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ImageInfo.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/Images.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/NoSuchImageException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ProductCode.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/BaseRecord.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventClass.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventRecord.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventType.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/LogFileRecord.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/Record.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/records/RecordLevel.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/scripting/ScriptExecutionFailedException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/scripting/groovy/GroovyUtil.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/Ats.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/BaseDirectory.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/DirectoryBootstrapper.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/EucaLayout.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/LogLevels.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/SubDirectory.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/system/Threads.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Committor.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Composite.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Composites.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/EucalyptusCloudException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/EucalyptusClusterException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Exceptions.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/ExecutionException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Expendable.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/FinalReturn.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/HasName.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/HasParent.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/JoinTx.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Mappable.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/NetworkUtil.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/SimpleTransition.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/TimedEvictionSet.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/TransactionException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/TransactionFireException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Transactions.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Transition.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Tx.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/async/Callback.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/ws/Client.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/ws/WebServicesException.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/cloud/BucketLogData.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/constants/IsData.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/edu/ucsb/eucalyptus/msgs/BaseMessage.java
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/org/apache/tools/ant/util/DateUtils.java
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+Compile error during compilation with javac.
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Authentication.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Authentication.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Authentication.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchGroupException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchGroupException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchGroupException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchUserException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchUserException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/NoSuchUserException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserExistsException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserExistsException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserExistsException.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserInfo.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserInfo.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/UserInfo.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Users.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Users.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/Users.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/AuthenticationException.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/AuthenticationException.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/AuthenticationException.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedComponentCredentials.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedComponentCredentials.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedComponentCredentials.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedCredentials.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedCredentials.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/login/WalrusWrappedCredentials.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/User.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/User.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/principal/User.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/WSSecurity.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/WSSecurity.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/auth/util/WSSecurity.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/Binding.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/Binding.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/Binding.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingException.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingException.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingException.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingManager.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingManager.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/BindingManager.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpEmbedded.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpEmbedded.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpEmbedded.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpParameterMapping.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpParameterMapping.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/binding/HttpParameterMapping.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrapper.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrapper.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrapper.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Component.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Component.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Component.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Provides.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Provides.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Provides.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/SystemBootstrapper.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/SystemBootstrapper.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/SystemBootstrapper.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Component.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DatabaseServiceBuilder.java:57: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DatabaseServiceBuilder.java:57: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/DatabaseServiceBuilder.java:57: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Services.java:54: warning: unmappable character for encoding ASCII
+ * REMEDY, WHICH IN THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION,
+                               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Services.java:54: warning: unmappable character for encoding ASCII
+ * REMEDY, WHICH IN THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION,
+                                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Services.java:54: warning: unmappable character for encoding ASCII
+ * REMEDY, WHICH IN THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION,
+                                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableFieldType.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableFieldType.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/configurable/ConfigurableFieldType.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/Counters.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/Counters.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/Counters.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityWrapper.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityWrapper.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityWrapper.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/VmType.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/VmType.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/entities/VmType.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/AbstractNamedRegistry.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/AbstractNamedRegistry.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/AbstractNamedRegistry.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/SystemClock.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/SystemClock.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/event/SystemClock.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpMessage.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+              ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpMessage.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+               ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpMessage.java:56: warning: unmappable character for encoding ASCII
+ * THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpRequest.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpRequest.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpRequest.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpResponse.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpResponse.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/http/MappingHttpResponse.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ImageInfo.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                 ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ImageInfo.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                  ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ImageInfo.java:56: warning: unmappable character for encoding ASCII
+ *    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                   ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/images/ProductCode.java:56: warning: unmappable character for encoding ASCII
+*    THE REGENTS??? DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
+                ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrap.java:46: invalid inferred types for S; inferred type does not conform to declared bound(s)
+inferred: com.eucalyptus.util.Transition<A,B>
+bound(s): com.eucalyptus.util.Transition<A,com.eucalyptus.bootstrap.Bootstrap.Stage>
+      return ( Transition<A, Bootstrap.Stage> ) Transition.anonymous( this, s, c );
+                                                                    ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrap.java:53: invalid inferred types for S; inferred type does not conform to declared bound(s)
+inferred: com.eucalyptus.util.Transition<A,B>
+bound(s): com.eucalyptus.util.Transition<A,java.lang.Comparable<? extends java.lang.Comparable<?>>>
+      return ( Transition<A,Comparable<? extends Comparable<?>>> ) Transition.anonymous( this, s, c );
+                                                                                       ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/bootstrap/Bootstrap.java:255: invalid inferred types for S; inferred type does not conform to declared bound(s)
+inferred: com.eucalyptus.util.Transition<A,B>
+bound(s): com.eucalyptus.util.Transition<com.eucalyptus.bootstrap.Bootstrap.Stage,com.eucalyptus.component.Lifecycles.State>
+    Transition.anonymous( LoadConfigs.class ).transition( Stage.list( ) );
+                        ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/util/Transition.java:45: invalid inferred types for S; inferred type does not conform to declared bound(s)
+inferred: com.eucalyptus.util.Transition<A,B>
+bound(s): com.eucalyptus.util.Transition<A,B>
+    Transition<A, B> anon = anonymous( from, to, r );
+                                     ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Lifecycles.java:32: invalid inferred types for S; inferred type does not conform to declared bound(s)
+inferred: com.eucalyptus.util.Transition<A,B>
+bound(s): com.eucalyptus.util.Transition<A,com.eucalyptus.component.Lifecycles.State>
+      return ( Transition<A, Lifecycles.State> ) Transition.anonymous( this, s, new Committor<A>( ) {
+                                                                     ^
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/msgs/src/main/java/com/eucalyptus/component/Lifecycles.java:44: invalid inferred types for S; inferred type does not conform to declared bound(s)
+inferred: com.eucalyptus.util.Transition<A,B>
+bound(s): com.eucalyptus.util.Transition<A,com.eucalyptus.component.Lifecycles.State>
+      return ( Transition<A, Lifecycles.State> ) Transition.anonymous( this, s, new Committor<A>( ) {
+                                                                     ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+6 errors
+100 warnings
+
+
+1 error
+
+
+BUILD FAILED
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/build.xml:90: The following error occurred while executing this line:
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/module-inc.xml:133: The following error occurred while executing this line:
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/module-inc.xml:151: The following error occurred while executing this line:
+/tmp/buildd/eucalyptus-2.0+bzr1241/clc/modules/module-inc.xml:158: Compilation Failed
+
+Total time: 10 seconds
+make[2]: *** [build] Error 1
+make[2]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241/clc'
+make[1]: *** [build] Error 2
+make[1]: Leaving directory `/tmp/buildd/eucalyptus-2.0+bzr1241'
+make: *** [debian/stamp-makefile-build] Error 2
+dpkg-buildpackage: error: debian/rules build gave error exit status 2
+E: Failed autobuilding of package
+I: user script /var/cache/pbuilder/build//31379/tmp/hooks/C10shell starting
+Reading package lists...
+Building dependency tree...
+Reading state information...
+bash is already the newest version.
+less is already the newest version.
+nano is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 8 not upgraded.
+I: user script /var/cache/pbuilder/build//31379/tmp/hooks/C10shell finished
+I: unmounting /var/cache/pbuilder/ccache filesystem
+I: unmounting dev/pts filesystem
+I: unmounting proc filesystem
+I: cleaning the build env 
+I: removing directory /var/cache/pbuilder/build//31379 and its subdirectories

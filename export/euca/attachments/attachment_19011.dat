@@ -1,0 +1,49 @@
+TEST_NAME	chuck-4.0
+
+TEST_SEQ	build-n-conf-ui-4.0
+
+EMAIL	gelinasc@gmail.com
+EMAIL_POLICY	NORMAL
+
+DURATION	FREEZE
+
+PXE_TYPE	QAIMAGE
+BUILD_TYPE	NORMAL
+TEST_TYPE	NORMAL
+
+BZR_BRANCH	sftp://root@192.168.7.1/home/repositories/eucalyptus/eee
+BZR_REVISION	LATEST
+
+GIT_REPO	git+ssh://repo-euca@git.eucalyptus-systems.com/internal#dev/chuck/4.0.DNS
+
+NETWORK	MANAGED
+SUBNET_IP	main
+MANAGED_IPS	develop:8
+
+MACHINE_POOL	qa00
+
+CONFIG
+10.111.1.14 	CENTOS	6.5	64	BZR	[CLC WS OSG UI]
+10.111.1.55 	CENTOS	6.5	64	BZR	[CC00 SC00]
+10.111.1.61		CENTOS	6.5	64	BZR	[NC00]
+END_CONFIG
+
+MEMO
+CLOUD_OPTS=--debug --db-home=/usr/pgsql-9.1/ --java-home=/usr/lib/jvm/java-1.7.0  -Dagentlib:hprof=cpu=samples,monitor=y,thread=y
+
+SAN_PROVIDER=NO-SAN
+
+EXTRA_REPO=pgrpms http://packages.release.eucalyptus-systems.com/yum/tags/euca-master-bootstrap/rhel/6/x86_64/
+EXTRA_REPO=elrepo http://mirror.eucalyptus-systems.com/mirrors/elrepo/el6/x86_64/
+CUSTOM_EUCA_BUILDER=newdatacenter
+EUCA2OOLS_BRANCH=bundle-stream
+CUSTOM_EUCA_BUILDER=euca2ools-srcEXTRA_PKG=postgresql91-server PyGreSQL java-1.7.0-openjdk-devel drbd83 drbd83-kmod m2crypto python-boto
+USE_EPEL_REPO=YES
+
+JAVA_HOME_FOR_BUILD=/usr/lib/jvm/java-1.7.0
+JAVA_HOME=/usr/lib/jvm/java-1.7.0
+
+SET_VNET_NETMASK=255.255.0.0
+MAX_CORES=16
+END_MEMO
+

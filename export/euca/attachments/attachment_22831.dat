@@ -1,0 +1,45 @@
+2014-12-26 18:04:32,085 boto [DEBUG]:Using access key provided by client.
+2014-12-26 18:04:32,088 boto [DEBUG]:Using secret key provided by client.
+2014-12-26 18:04:38,996 boto [DEBUG]:path=/buckettaggingtest/
+2014-12-26 18:04:38,997 boto [DEBUG]:auth_path=/buckettaggingtest/
+2014-12-26 18:04:38,997 boto [DEBUG]:Method: HEAD
+2014-12-26 18:04:38,997 boto [DEBUG]:Path: /buckettaggingtest/
+2014-12-26 18:04:38,997 boto [DEBUG]:Data: 
+2014-12-26 18:04:38,997 boto [DEBUG]:Headers: {}
+2014-12-26 18:04:38,998 boto [DEBUG]:Host: objectstorage.h-12.autoqa.qa1.eucalyptus-systems.com:8773
+2014-12-26 18:04:38,998 boto [DEBUG]:Port: 8773
+2014-12-26 18:04:38,998 boto [DEBUG]:Params: {}
+2014-12-26 18:04:38,998 boto [DEBUG]:establishing HTTP connection: kwargs={'port': 8773, 'timeout': 70}
+2014-12-26 18:04:38,999 boto [DEBUG]:Token: None
+2014-12-26 18:04:38,999 boto [DEBUG]:StringToSign:
+HEAD
+
+
+Sat, 27 Dec 2014 00:04:38 GMT
+/buckettaggingtest/
+2014-12-26 18:04:39,000 boto [DEBUG]:Signature:
+AWS AKISVIWPLSGR6BRPMJE0:TZmZUY3n7WRAlxP24TDnXGbYF4M=
+2014-12-26 18:04:39,000 boto [DEBUG]:Final headers: {'Date': 'Sat, 27 Dec 2014 00:04:38 GMT', 'Content-Length': 0, 'Authorization': u'AWS AKISVIWPLSGR6BRPMJE0:TZmZUY3n7WRAlxP24TDnXGbYF4M=', 'User-Agent': 'Boto/2.34.0 Python/2.7.8 Darwin/14.0.0'}
+2014-12-26 18:04:39,498 boto [DEBUG]:Response headers: [('date', 'Sat, 27 Dec 2014 00:04:39 GMT'), ('x-amz-request-id', 'e779a73f-fd94-4d66-b773-adfa1b187102')]
+2014-12-26 18:04:43,893 boto [DEBUG]:path=/buckettaggingtest/
+2014-12-26 18:04:43,893 boto [DEBUG]:auth_path=/buckettaggingtest/
+2014-12-26 18:04:43,893 boto [DEBUG]:path=/buckettaggingtest/?tagging
+2014-12-26 18:04:43,894 boto [DEBUG]:auth_path=/buckettaggingtest/?tagging
+2014-12-26 18:04:43,894 boto [DEBUG]:Method: GET
+2014-12-26 18:04:43,894 boto [DEBUG]:Path: /buckettaggingtest/?tagging
+2014-12-26 18:04:43,894 boto [DEBUG]:Data: 
+2014-12-26 18:04:43,894 boto [DEBUG]:Headers: {}
+2014-12-26 18:04:43,894 boto [DEBUG]:Host: objectstorage.h-12.autoqa.qa1.eucalyptus-systems.com:8773
+2014-12-26 18:04:43,894 boto [DEBUG]:Port: 8773
+2014-12-26 18:04:43,895 boto [DEBUG]:Params: {}
+2014-12-26 18:04:43,895 boto [DEBUG]:Token: None
+2014-12-26 18:04:43,895 boto [DEBUG]:StringToSign:
+GET
+
+
+Sat, 27 Dec 2014 00:04:43 GMT
+/buckettaggingtest/?tagging
+2014-12-26 18:04:43,895 boto [DEBUG]:Signature:
+AWS AKISVIWPLSGR6BRPMJE0:+VIYiRu2oASsaOEuuzP+SuOYZEI=
+2014-12-26 18:04:43,895 boto [DEBUG]:Final headers: {'Date': 'Sat, 27 Dec 2014 00:04:43 GMT', 'Content-Length': 0, 'Authorization': u'AWS AKISVIWPLSGR6BRPMJE0:+VIYiRu2oASsaOEuuzP+SuOYZEI=', 'User-Agent': 'Boto/2.34.0 Python/2.7.8 Darwin/14.0.0'}
+2014-12-26 18:04:44,167 boto [DEBUG]:Response headers: [('date', 'Sat, 27 Dec 2014 00:04:44 GMT'), ('content-length', '268'), ('x-amz-request-id', 'f8b7e967-3575-4180-832c-381ddf2eff1e'), ('content-type', 'application/xml')]

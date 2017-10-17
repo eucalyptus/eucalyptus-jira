@@ -1,0 +1,19 @@
+commit 3e9798fce68f3b8b5f4365197b4efe30a178e946
+Author: Garrett Holmstrom <gholms@fedoraproject.org>
+Date:   Tue Jun 5 11:19:26 2012 -0700
+
+    Clarify subnet-out-of-space error message
+
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/AdmissionControl.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/AdmissionControl.java
+index 8602d3c..8e02063 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/AdmissionControl.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/cloud/run/AdmissionControl.java
+@@ -402,7 +402,7 @@ public class AdmissionControl {
+             db.commit( );
+           } catch ( Exception ex ) {
+             db.rollback( );
+-            throw new NotEnoughResourcesException( "Not enough addresses left in the network subnet assigned to requested group: " + rscToken, ex );
++            throw new NotEnoughResourcesException( "Not enough addresses left in the private network subnet assigned to requested group: " + rscToken, ex );
+           }
+         }
+       }

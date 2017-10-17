@@ -1,0 +1,418 @@
+Thu May 24 14:22:36 2012  INFO SystemBootstrapper      | Creating Bootstrapper instance.
+Thu May 24 14:22:37 2012  INFO root                    | --------------------------------------------------------------------------------
+                                                       | Starting system with debugging set as: INFO
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:22:37 2012  INFO Internets               | Trying to determine local bind address based on cli (--bind-addr)... 
+Thu May 24 14:22:37 2012  INFO Internets               | Trying to determine local bind address based on the default route... 
+Thu May 24 14:22:37 2012  INFO Internets               | ==> Decided to use local bind address: /192.168.51.99
+Thu May 24 14:22:37 2012  INFO DirectoryBootstrapper   | :1337894557991:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:HOME:/
+Thu May 24 14:22:37 2012  INFO DirectoryBootstrapper   | :1337894557993:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:VAR://var/lib/eucalyptus
+Thu May 24 14:22:37 2012  INFO DirectoryBootstrapper   | :1337894557993:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:CONF://etc/eucalyptus/cloud.d
+Thu May 24 14:22:37 2012  INFO DirectoryBootstrapper   | :1337894557994:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:LIB://usr/share/eucalyptus
+Thu May 24 14:22:37 2012  INFO DirectoryBootstrapper   | :1337894557995:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:LOG://var/log/eucalyptus
+Thu May 24 14:22:37 2012  INFO DirectoryBootstrapper   | :1337894557996:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:DB://var/lib/eucalyptus/db
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558050:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:TX:///var/run/eucalyptus/tx
+Thu May 24 14:22:38 2012  INFO SubDirectory            | :1337894558051:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:TX:///var/run/eucalyptus/tx
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558052:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:CLASSCACHE:///var/run/eucalyptus/classcache
+Thu May 24 14:22:38 2012  INFO SubDirectory            | :1337894558053:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:CLASSCACHE:///var/run/eucalyptus/classcache
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558054:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:WWW://etc/eucalyptus/cloud.d/www
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558070:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:WEBAPPS://var/lib/eucalyptus/webapps
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558087:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:KEYS://var/lib/eucalyptus/keys
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558128:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:SCRIPTS://etc/eucalyptus/cloud.d/scripts
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558145:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:MANAGEMENT://etc/eucalyptus/cloud.d/jmx
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558161:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:UPGRADE://etc/eucalyptus/cloud.d/upgrade
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558177:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:REPORTS://etc/eucalyptus/cloud.d/reports
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558194:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:CONF://etc/eucalyptus/cloud.d/conf
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558210:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:QUEUE://var/lib/eucalyptus/queue
+Thu May 24 14:22:38 2012  INFO SubDirectory            | :1337894558211:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:QUEUE://var/lib/eucalyptus/queue
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558226:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:LIB:///usr/share/eucalyptus
+Thu May 24 14:22:38 2012  INFO DirectoryBootstrapper   | :1337894558247:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:RUNDB:///var/run/eucalyptus/db
+Thu May 24 14:22:38 2012  INFO SubDirectory            | :1337894558248:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:RUNDB:///var/run/eucalyptus/db
+Thu May 24 14:22:40 2012  INFO ServiceJarDiscovery     | --------------------------------------------------------------------------------
+                                                       | ComponentDiscovery
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560005:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Storage
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560009:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Dns
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560010:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus.Database
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560011:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560013:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean.PropertiesService
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560013:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ComponentService
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560014:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560015:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.config.ConfigurationService
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560016:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560017:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean.Arbitrator
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560018:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Ldap
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560019:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:null
+Thu May 24 14:22:40 2012 ERROR ComponentDiscovery      | java.lang.reflect.UndeclaredThrowableException
+java.lang.reflect.UndeclaredThrowableException
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:204)
+	at com.eucalyptus.util.Classes.newInstance(Classes.java:232)
+	at com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java:91)
+	at com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java:82)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.checkClass(ServiceJarDiscovery.java:231)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java:222)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java:195)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery$doSingleDiscovery.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at Script3.run(Script3.groovy:28)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:314)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:111)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:103)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:96)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:113)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:117)
+	at com.eucalyptus.bootstrap.Bootstrap.initializeSystem(Bootstrap.java:615)
+	at com.eucalyptus.bootstrap.SystemBootstrapper.load(SystemBootstrapper.java:213)
+Caused by: java.lang.NoSuchMethodException: com.eucalyptus.component.ComponentIds$1.<init>()
+	at java.lang.Class.getConstructor0(Class.java:2723)
+	at java.lang.Class.getConstructor(Class.java:1674)
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:196)
+	... 19 more
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | Error occurred while trying to register ComponentId of type: null
+java.lang.reflect.UndeclaredThrowableException
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:204)
+	at com.eucalyptus.util.Classes.newInstance(Classes.java:232)
+	at com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java:91)
+	at com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java:82)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.checkClass(ServiceJarDiscovery.java:231)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java:222)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java:195)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery$doSingleDiscovery.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at Script3.run(Script3.groovy:28)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:314)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:111)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:103)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:96)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:113)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:117)
+	at com.eucalyptus.bootstrap.Bootstrap.initializeSystem(Bootstrap.java:615)
+	at com.eucalyptus.bootstrap.SystemBootstrapper.load(SystemBootstrapper.java:213)
+Caused by: java.lang.NoSuchMethodException: com.eucalyptus.component.ComponentIds$1.<init>()
+	at java.lang.Class.getConstructor0(Class.java:2723)
+	at java.lang.Class.getConstructor(Class.java:1674)
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:196)
+	... 19 more
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560023:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Euare
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560024:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus.Notifications
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560025:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Walrus
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560026:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController.NodeController
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560027:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Reporting
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560028:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController.GatherLogService
+Thu May 24 14:22:40 2012  INFO ComponentDiscovery      | :1337894560029:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.HttpService
+Thu May 24 14:22:40 2012  INFO ServiceJarDiscovery     | --------------------------------------------------------------------------------
+                                                       | ServiceBuilderDiscovery
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:22:40 2012  INFO ServiceJarDiscovery     | --------------------------------------------------------------------------------
+                                                       | PersistenceContextDiscovery
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:22:41 2012  INFO DefaultCryptoProvider   | :1337894561512:DefaultCryptoProvider:bootstrap:GENERATE_CERTIFICATE:CN=eucalyptus, OU=Eucalyptus, O=Cloud, C=US:CN=eucalyptus, OU=Eucalyptus, O=Cloud, C=US
+Thu May 24 14:22:41 2012  INFO PEMFiles                | :1337894561583:PEMFiles:bootstrap:CERTIFICATE_WRITE://var/lib/eucalyptus/keys/cloud-cert.pem
+Thu May 24 14:22:41 2012  INFO PEMFiles                | :1337894561588:PEMFiles:bootstrap:CERTIFICATE_WRITE://var/lib/eucalyptus/keys/cloud-pk.pem
+Thu May 24 14:22:41 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:41 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:41 2012  INFO SystemCredentials       | :1337894561698:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:eucalyptus
+Thu May 24 14:22:41 2012  INFO SystemCredentials       | :1337894561699:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:eucalyptus
+Thu May 24 14:22:41 2012  INFO SystemCredentials       | :1337894561699:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:eucalyptus:C=US,O=Cloud,OU=Eucalyptus,CN=eucalyptus
+Thu May 24 14:22:42 2012  INFO DefaultCryptoProvider   | :1337894562682:DefaultCryptoProvider:bootstrap:GENERATE_CERTIFICATE:CN=db, OU=Eucalyptus, O=Cloud, C=US:CN=db, OU=Eucalyptus, O=Cloud, C=US
+Thu May 24 14:22:42 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:42 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:42 2012  INFO SystemCredentials       | :1337894562733:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:db
+Thu May 24 14:22:42 2012  INFO SystemCredentials       | :1337894562734:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:db
+Thu May 24 14:22:42 2012  INFO SystemCredentials       | :1337894562735:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:db:C=US,O=Cloud,OU=Eucalyptus,CN=db
+Thu May 24 14:22:43 2012  INFO DefaultCryptoProvider   | :1337894563647:DefaultCryptoProvider:bootstrap:GENERATE_CERTIFICATE:CN=bootstrap, OU=Eucalyptus, O=Cloud, C=US:CN=bootstrap, OU=Eucalyptus, O=Cloud, C=US
+Thu May 24 14:22:43 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:43 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:43 2012  INFO SystemCredentials       | :1337894563692:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:bootstrap
+Thu May 24 14:22:43 2012  INFO SystemCredentials       | :1337894563693:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:bootstrap
+Thu May 24 14:22:43 2012  INFO SystemCredentials       | :1337894563694:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:bootstrap:C=US,O=Cloud,OU=Eucalyptus,CN=bootstrap
+Thu May 24 14:22:43 2012  INFO DefaultCryptoProvider   | :1337894563954:DefaultCryptoProvider:bootstrap:GENERATE_CERTIFICATE:CN=storage, OU=Eucalyptus, O=Cloud, C=US:CN=storage, OU=Eucalyptus, O=Cloud, C=US
+Thu May 24 14:22:43 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:43 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:44 2012  INFO SystemCredentials       | :1337894564007:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:storage
+Thu May 24 14:22:44 2012  INFO SystemCredentials       | :1337894564007:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:storage
+Thu May 24 14:22:44 2012  INFO SystemCredentials       | :1337894564008:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:storage:C=US,O=Cloud,OU=Eucalyptus,CN=storage
+Thu May 24 14:22:44 2012  INFO DefaultCryptoProvider   | :1337894564604:DefaultCryptoProvider:bootstrap:GENERATE_CERTIFICATE:CN=jetty, OU=Eucalyptus, O=Cloud, C=US:CN=jetty, OU=Eucalyptus, O=Cloud, C=US
+Thu May 24 14:22:44 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:44 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:44 2012  INFO SystemCredentials       | :1337894564659:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:jetty
+Thu May 24 14:22:44 2012  INFO SystemCredentials       | :1337894564660:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:jetty
+Thu May 24 14:22:44 2012  INFO SystemCredentials       | :1337894564661:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:jetty:C=US,O=Cloud,OU=Eucalyptus,CN=jetty
+Thu May 24 14:22:45 2012  INFO DefaultCryptoProvider   | :1337894565768:DefaultCryptoProvider:bootstrap:GENERATE_CERTIFICATE:CN=walrus, OU=Eucalyptus, O=Cloud, C=US:CN=walrus, OU=Eucalyptus, O=Cloud, C=US
+Thu May 24 14:22:45 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:45 2012  INFO AbstractKeyStore        | Writing back keystore: //var/lib/eucalyptus/keys/euca.p12
+Thu May 24 14:22:45 2012  INFO SystemCredentials       | :1337894565825:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:walrus
+Thu May 24 14:22:45 2012  INFO SystemCredentials       | :1337894565826:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:walrus
+Thu May 24 14:22:45 2012  INFO SystemCredentials       | :1337894565826:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:walrus:C=US,O=Cloud,OU=Eucalyptus,CN=walrus
+Thu May 24 14:22:46 2012  INFO setup_db                | Found kernel parameters semmni=8192, semmns=32000, shmall=4194304, shmmax=17179869184
+Thu May 24 14:22:49 2012  INFO PEMFiles                | :1337894569629:PEMFiles:bootstrap:CERTIFICATE_WRITE:/var/lib/eucalyptus/db/data/server.crt
+Thu May 24 14:22:49 2012  INFO PEMFiles                | :1337894569636:PEMFiles:bootstrap:CERTIFICATE_WRITE:/var/lib/eucalyptus/db/data/server.key
+Thu May 24 14:22:50 2012  INFO Bootstrap               | :1337894570715:Bootstrap:bootstrap:COMPONENT_REGISTERED:Component db=available service=not-local
+                                                       | :1337894570715:Bootstrap::bootstrap:COMPONENT_REGISTERED:
+Thu May 24 14:22:58 2012  INFO Component               | :1337894578826:Component:bootstrap:COMPONENT_SERVICE_REGISTERED:db:local:ServiceConfiguration db arn:euca:eucalyptus:db:192.168.51.99/ 192.168.51.99:8777:/eucalyptus:vm-local:host-local:INITIALIZED
+Thu May 24 14:23:00 2012 ERROR SystemBootstrapper      | java.lang.ExceptionInInitializerError
+java.lang.ExceptionInInitializerError
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:532)
+	at java.lang.Class.newInstance0(Class.java:372)
+	at java.lang.Class.newInstance(Class.java:325)
+	at org.jboss.cache.factories.TransactionManagerFactory.construct(TransactionManagerFactory.java:56)
+	at org.jboss.cache.factories.ComponentRegistry.getOrCreateComponent(ComponentRegistry.java:318)
+	at org.jboss.cache.factories.ComponentRegistry.invokeInjectionMethod(ComponentRegistry.java:279)
+	at org.jboss.cache.factories.ComponentRegistry$Component.injectDependencies(ComponentRegistry.java:981)
+	at org.jboss.cache.factories.ComponentRegistry.registerComponent(ComponentRegistry.java:255)
+	at org.jboss.cache.factories.ComponentRegistry.getOrCreateComponent(ComponentRegistry.java:325)
+	at org.jboss.cache.factories.ComponentRegistry.invokeInjectionMethod(ComponentRegistry.java:279)
+	at org.jboss.cache.factories.ComponentRegistry$Component.injectDependencies(ComponentRegistry.java:981)
+	at org.jboss.cache.factories.ComponentRegistry.registerComponent(ComponentRegistry.java:255)
+	at org.jboss.cache.factories.InterceptorChainFactory.createInterceptor(InterceptorChainFactory.java:60)
+	at org.jboss.cache.factories.InterceptorChainFactory.buildInterceptorChain(InterceptorChainFactory.java:75)
+	at org.jboss.cache.factories.InterceptorChainFactory.construct(InterceptorChainFactory.java:225)
+	at org.jboss.cache.factories.ComponentRegistry.getOrCreateComponent(ComponentRegistry.java:318)
+	at org.jboss.cache.factories.ComponentRegistry.invokeInjectionMethod(ComponentRegistry.java:279)
+	at org.jboss.cache.factories.ComponentRegistry$Component.injectDependencies(ComponentRegistry.java:981)
+	at org.jboss.cache.factories.ComponentRegistry.registerComponent(ComponentRegistry.java:255)
+	at org.jboss.cache.DefaultCacheFactory.bootstrap(DefaultCacheFactory.java:154)
+	at org.jboss.cache.DefaultCacheFactory.createAndWire(DefaultCacheFactory.java:140)
+	at org.jboss.cache.DefaultCacheFactory.createCache(DefaultCacheFactory.java:119)
+	at org.jboss.cache.DefaultCacheFactory.createCache(DefaultCacheFactory.java:92)
+	at org.hibernate.cache.jbc.builder.SharedCacheInstanceManager.createSharedCache(SharedCacheInstanceManager.java:212)
+	at org.hibernate.cache.jbc.builder.SharedCacheInstanceManager.start(SharedCacheInstanceManager.java:166)
+	at org.hibernate.cache.jbc.JBossCacheRegionFactory.start(JBossCacheRegionFactory.java:107)
+	at org.hibernate.impl.SessionFactoryImpl.<init>(SessionFactoryImpl.java:250)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1385)
+	at org.hibernate.cfg.AnnotationConfiguration.buildSessionFactory(AnnotationConfiguration.java:954)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:892)
+	at com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java:133)
+	at com.eucalyptus.entities.PersistenceContexts$registerPersistenceContext.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:129)
+	at Script3.run(Script3.groovy:71)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:314)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:111)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:103)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:96)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:113)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:117)
+	at com.eucalyptus.bootstrap.Bootstrap.initializeSystem(Bootstrap.java:615)
+	at com.eucalyptus.bootstrap.SystemBootstrapper.load(SystemBootstrapper.java:213)
+Caused by: bitronix.tm.utils.InitializationException: cannot open disk journal
+	at bitronix.tm.BitronixTransactionManager.<init>(BitronixTransactionManager.java:75)
+	at bitronix.tm.TransactionManagerServices.getTransactionManager(TransactionManagerServices.java:62)
+	at bitronix.tm.jndi.BitronixContext.lookup(BitronixContext.java:76)
+	at com.eucalyptus.empyrean.EmpyreanTransactionManager.getContext(EmpyreanTransactionManager.java:30)
+	at com.eucalyptus.empyrean.EmpyreanTransactionManager.<clinit>(EmpyreanTransactionManager.java:19)
+	... 47 more
+Caused by: java.io.FileNotFoundException: /var/run/eucalyptus/tx/btm2.tx (No such file or directory)
+	at java.io.RandomAccessFile.open(Native Method)
+	at java.io.RandomAccessFile.<init>(RandomAccessFile.java:233)
+	at bitronix.tm.journal.DiskJournal.createLogfile(DiskJournal.java:231)
+	at bitronix.tm.journal.DiskJournal.open(DiskJournal.java:136)
+	at bitronix.tm.BitronixTransactionManager.<init>(BitronixTransactionManager.java:62)
+	... 51 more
+Thu May 24 14:23:00 2012  INFO OrderedShutdown         | Executing Pre-Shutdown Hooks...
+Thu May 24 14:23:00 2012  INFO OrderedShutdown         | Executing Shutdown Hooks...
+Thu May 24 14:23:00 2012  WARN BasicService            | SHUTDOWN Service: 192.168.51.99
+Thu May 24 14:23:00 2012  INFO OrderedShutdown         | Executing Post-Shutdown Hooks...
+Thu May 24 14:23:00 2012  WARN Threads                 | SHUTDOWN:Eucalyptus.SYSTEM Stopping thread pool...
+Thu May 24 14:23:01 2012  WARN Threads                 | SHUTDOWN:Eucalyptus.bootstrap:Futures Stopping thread pool...
+Thu May 24 14:25:56 2012  INFO SystemBootstrapper      | Creating Bootstrapper instance.
+Thu May 24 14:25:56 2012  INFO root                    | --------------------------------------------------------------------------------
+                                                       | Starting system with debugging set as: INFO
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:25:56 2012  INFO Internets               | Trying to determine local bind address based on cli (--bind-addr)... 
+Thu May 24 14:25:56 2012  INFO Internets               | Trying to determine local bind address based on the default route... 
+Thu May 24 14:25:56 2012  INFO Internets               | ==> Decided to use local bind address: /192.168.51.99
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757456:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:HOME:/
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757457:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:VAR://var/lib/eucalyptus
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757458:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:CONF://etc/eucalyptus/cloud.d
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757459:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:LIB://usr/share/eucalyptus
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757459:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:LOG://var/log/eucalyptus
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757460:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:DB://var/lib/eucalyptus/db
+Thu May 24 14:25:57 2012  INFO SubDirectory            | :1337894757461:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:DB://var/lib/eucalyptus/db
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757515:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:TX:///var/run/eucalyptus/tx
+Thu May 24 14:25:57 2012  INFO SubDirectory            | :1337894757516:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:TX:///var/run/eucalyptus/tx
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757517:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:CLASSCACHE:///var/run/eucalyptus/classcache
+Thu May 24 14:25:57 2012  INFO SubDirectory            | :1337894757518:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:CLASSCACHE:///var/run/eucalyptus/classcache
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757518:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:WWW://etc/eucalyptus/cloud.d/www
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757535:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:WEBAPPS://var/lib/eucalyptus/webapps
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757552:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:KEYS://var/lib/eucalyptus/keys
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757593:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:SCRIPTS://etc/eucalyptus/cloud.d/scripts
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757611:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:MANAGEMENT://etc/eucalyptus/cloud.d/jmx
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757627:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:UPGRADE://etc/eucalyptus/cloud.d/upgrade
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757643:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:REPORTS://etc/eucalyptus/cloud.d/reports
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757661:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:CONF://etc/eucalyptus/cloud.d/conf
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757677:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:QUEUE://var/lib/eucalyptus/queue
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757693:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:LIB:///usr/share/eucalyptus
+Thu May 24 14:25:57 2012  INFO DirectoryBootstrapper   | :1337894757715:DirectoryBootstrapper:bootstrap:SYSTEM_DIR_CHECK:RUNDB:///var/run/eucalyptus/db
+Thu May 24 14:25:57 2012  INFO SubDirectory            | :1337894757716:SubDirectory:bootstrap:SYSTEM_DIR_CREATE:RUNDB:///var/run/eucalyptus/db
+Thu May 24 14:25:59 2012  INFO ServiceJarDiscovery     | --------------------------------------------------------------------------------
+                                                       | ComponentDiscovery
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759478:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.HttpService
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759482:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759483:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController.NodeController
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759484:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean.PropertiesService
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759485:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus.Database
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759486:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759487:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean.Arbitrator
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759488:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.config.ConfigurationService
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759489:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Dns
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759490:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Euare
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759491:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ClusterController.GatherLogService
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759492:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Reporting
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759493:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Storage
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759494:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.ComponentService
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759495:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Ldap
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759495:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Eucalyptus.Notifications
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759496:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.empyrean.Empyrean
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759497:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:com.eucalyptus.component.id.Walrus
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | :1337894759498:ComponentDiscovery:bootstrap:BOOTSTRAP_INIT_COMPONENT:null
+Thu May 24 14:25:59 2012 ERROR ComponentDiscovery      | java.lang.reflect.UndeclaredThrowableException
+java.lang.reflect.UndeclaredThrowableException
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:204)
+	at com.eucalyptus.util.Classes.newInstance(Classes.java:232)
+	at com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java:91)
+	at com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java:82)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.checkClass(ServiceJarDiscovery.java:231)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java:222)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java:195)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery$doSingleDiscovery.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at Script3.run(Script3.groovy:28)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:314)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:111)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:103)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:96)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:113)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:117)
+	at com.eucalyptus.bootstrap.Bootstrap.initializeSystem(Bootstrap.java:615)
+	at com.eucalyptus.bootstrap.SystemBootstrapper.load(SystemBootstrapper.java:213)
+Caused by: java.lang.NoSuchMethodException: com.eucalyptus.component.ComponentIds$1.<init>()
+	at java.lang.Class.getConstructor0(Class.java:2723)
+	at java.lang.Class.getConstructor(Class.java:1674)
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:196)
+	... 19 more
+Thu May 24 14:25:59 2012  INFO ComponentDiscovery      | Error occurred while trying to register ComponentId of type: null
+java.lang.reflect.UndeclaredThrowableException
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:204)
+	at com.eucalyptus.util.Classes.newInstance(Classes.java:232)
+	at com.eucalyptus.component.ComponentIds.lookup(ComponentIds.java:91)
+	at com.eucalyptus.component.ComponentDiscovery.processClass(ComponentDiscovery.java:82)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.checkClass(ServiceJarDiscovery.java:231)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.runDiscovery(ServiceJarDiscovery.java:222)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery.doSingleDiscovery(ServiceJarDiscovery.java:195)
+	at com.eucalyptus.bootstrap.ServiceJarDiscovery$doSingleDiscovery.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at Script3.run(Script3.groovy:28)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:314)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:111)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:103)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:96)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:113)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:117)
+	at com.eucalyptus.bootstrap.Bootstrap.initializeSystem(Bootstrap.java:615)
+	at com.eucalyptus.bootstrap.SystemBootstrapper.load(SystemBootstrapper.java:213)
+Caused by: java.lang.NoSuchMethodException: com.eucalyptus.component.ComponentIds$1.<init>()
+	at java.lang.Class.getConstructor0(Class.java:2723)
+	at java.lang.Class.getConstructor(Class.java:1674)
+	at com.eucalyptus.util.Classes$InstanceBuilder.newInstance(Classes.java:196)
+	... 19 more
+Thu May 24 14:25:59 2012  INFO ServiceJarDiscovery     | --------------------------------------------------------------------------------
+                                                       | ServiceBuilderDiscovery
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:25:59 2012  INFO ServiceJarDiscovery     | --------------------------------------------------------------------------------
+                                                       | PersistenceContextDiscovery
+                                                       | --------------------------------------------------------------------------------
+Thu May 24 14:26:00 2012  INFO setup_db                | Found kernel parameters semmni=8192, semmns=32000, shmall=4194304, shmmax=17179869184
+Thu May 24 14:26:00 2012  INFO SystemCredentials       | :1337894760689:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:eucalyptus
+Thu May 24 14:26:00 2012  INFO SystemCredentials       | :1337894760690:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:eucalyptus
+Thu May 24 14:26:00 2012  INFO SystemCredentials       | :1337894760693:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:eucalyptus:C=US,O=Cloud,OU=Eucalyptus,CN=eucalyptus
+Thu May 24 14:26:04 2012  INFO SystemCredentials       | :1337894764069:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:db
+Thu May 24 14:26:04 2012  INFO SystemCredentials       | :1337894764070:SystemCredentials:bootstrap:COMPONENT_INFO:initializing:db
+Thu May 24 14:26:04 2012  INFO SystemCredentials       | :1337894764070:SystemCredentials:bootstrap:COMPONENT_INFO:initialized:db:C=US,O=Cloud,OU=Eucalyptus,CN=db
+Thu May 24 14:26:04 2012  INFO PEMFiles                | :1337894764088:PEMFiles:bootstrap:CERTIFICATE_WRITE:/var/lib/eucalyptus/db/data/server.crt
+Thu May 24 14:26:04 2012  INFO PEMFiles                | :1337894764098:PEMFiles:bootstrap:CERTIFICATE_WRITE:/var/lib/eucalyptus/db/data/server.key
+Thu May 24 14:26:05 2012  INFO Bootstrap               | :1337894765193:Bootstrap:bootstrap:COMPONENT_REGISTERED:Component db=available service=not-local
+                                                       | :1337894765193:Bootstrap::bootstrap:COMPONENT_REGISTERED:
+Thu May 24 14:26:13 2012  INFO Component               | :1337894773241:Component:bootstrap:COMPONENT_SERVICE_REGISTERED:db:local:ServiceConfiguration db arn:euca:eucalyptus:db:192.168.51.99/ 192.168.51.99:8777:/eucalyptus:vm-local:host-local:INITIALIZED
+Thu May 24 14:26:14 2012 ERROR SystemBootstrapper      | java.lang.ExceptionInInitializerError
+java.lang.ExceptionInInitializerError
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:532)
+	at java.lang.Class.newInstance0(Class.java:372)
+	at java.lang.Class.newInstance(Class.java:325)
+	at org.jboss.cache.factories.TransactionManagerFactory.construct(TransactionManagerFactory.java:56)
+	at org.jboss.cache.factories.ComponentRegistry.getOrCreateComponent(ComponentRegistry.java:318)
+	at org.jboss.cache.factories.ComponentRegistry.invokeInjectionMethod(ComponentRegistry.java:279)
+	at org.jboss.cache.factories.ComponentRegistry$Component.injectDependencies(ComponentRegistry.java:981)
+	at org.jboss.cache.factories.ComponentRegistry.registerComponent(ComponentRegistry.java:255)
+	at org.jboss.cache.factories.ComponentRegistry.getOrCreateComponent(ComponentRegistry.java:325)
+	at org.jboss.cache.factories.ComponentRegistry.invokeInjectionMethod(ComponentRegistry.java:279)
+	at org.jboss.cache.factories.ComponentRegistry$Component.injectDependencies(ComponentRegistry.java:981)
+	at org.jboss.cache.factories.ComponentRegistry.registerComponent(ComponentRegistry.java:255)
+	at org.jboss.cache.factories.InterceptorChainFactory.createInterceptor(InterceptorChainFactory.java:60)
+	at org.jboss.cache.factories.InterceptorChainFactory.buildInterceptorChain(InterceptorChainFactory.java:75)
+	at org.jboss.cache.factories.InterceptorChainFactory.construct(InterceptorChainFactory.java:225)
+	at org.jboss.cache.factories.ComponentRegistry.getOrCreateComponent(ComponentRegistry.java:318)
+	at org.jboss.cache.factories.ComponentRegistry.invokeInjectionMethod(ComponentRegistry.java:279)
+	at org.jboss.cache.factories.ComponentRegistry$Component.injectDependencies(ComponentRegistry.java:981)
+	at org.jboss.cache.factories.ComponentRegistry.registerComponent(ComponentRegistry.java:255)
+	at org.jboss.cache.DefaultCacheFactory.bootstrap(DefaultCacheFactory.java:154)
+	at org.jboss.cache.DefaultCacheFactory.createAndWire(DefaultCacheFactory.java:140)
+	at org.jboss.cache.DefaultCacheFactory.createCache(DefaultCacheFactory.java:119)
+	at org.jboss.cache.DefaultCacheFactory.createCache(DefaultCacheFactory.java:92)
+	at org.hibernate.cache.jbc.builder.SharedCacheInstanceManager.createSharedCache(SharedCacheInstanceManager.java:212)
+	at org.hibernate.cache.jbc.builder.SharedCacheInstanceManager.start(SharedCacheInstanceManager.java:166)
+	at org.hibernate.cache.jbc.JBossCacheRegionFactory.start(JBossCacheRegionFactory.java:107)
+	at org.hibernate.impl.SessionFactoryImpl.<init>(SessionFactoryImpl.java:250)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1385)
+	at org.hibernate.cfg.AnnotationConfiguration.buildSessionFactory(AnnotationConfiguration.java:954)
+	at org.hibernate.ejb.Ejb3Configuration.buildEntityManagerFactory(Ejb3Configuration.java:892)
+	at com.eucalyptus.entities.PersistenceContexts.registerPersistenceContext(PersistenceContexts.java:133)
+	at com.eucalyptus.entities.PersistenceContexts$registerPersistenceContext.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:129)
+	at Script3.run(Script3.groovy:71)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:314)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:111)
+	at org.codehaus.groovy.jsr223.GroovyScriptEngineImpl.eval(GroovyScriptEngineImpl.java:103)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:96)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:113)
+	at com.eucalyptus.scripting.Groovyness.run(Groovyness.java:117)
+	at com.eucalyptus.bootstrap.Bootstrap.initializeSystem(Bootstrap.java:615)
+	at com.eucalyptus.bootstrap.SystemBootstrapper.load(SystemBootstrapper.java:213)
+Caused by: bitronix.tm.utils.InitializationException: cannot open disk journal
+	at bitronix.tm.BitronixTransactionManager.<init>(BitronixTransactionManager.java:75)
+	at bitronix.tm.TransactionManagerServices.getTransactionManager(TransactionManagerServices.java:62)
+	at bitronix.tm.jndi.BitronixContext.lookup(BitronixContext.java:76)
+	at com.eucalyptus.empyrean.EmpyreanTransactionManager.getContext(EmpyreanTransactionManager.java:30)
+	at com.eucalyptus.empyrean.EmpyreanTransactionManager.<clinit>(EmpyreanTransactionManager.java:19)
+	... 47 more
+Caused by: java.io.FileNotFoundException: /var/run/eucalyptus/tx/btm2.tx (No such file or directory)
+	at java.io.RandomAccessFile.open(Native Method)
+	at java.io.RandomAccessFile.<init>(RandomAccessFile.java:233)
+	at bitronix.tm.journal.DiskJournal.createLogfile(DiskJournal.java:231)
+	at bitronix.tm.journal.DiskJournal.open(DiskJournal.java:136)
+	at bitronix.tm.BitronixTransactionManager.<init>(BitronixTransactionManager.java:62)
+	... 51 more
+Thu May 24 14:26:14 2012  INFO OrderedShutdown         | Executing Pre-Shutdown Hooks...
+Thu May 24 14:26:14 2012  INFO OrderedShutdown         | Executing Shutdown Hooks...
+Thu May 24 14:26:14 2012  WARN BasicService            | SHUTDOWN Service: 192.168.51.99
+Thu May 24 14:26:14 2012  INFO OrderedShutdown         | Executing Post-Shutdown Hooks...
+Thu May 24 14:26:14 2012  WARN Threads                 | SHUTDOWN:Eucalyptus.SYSTEM Stopping thread pool...
+Thu May 24 14:26:15 2012  WARN Threads                 | SHUTDOWN:Eucalyptus.bootstrap:Futures Stopping thread pool...

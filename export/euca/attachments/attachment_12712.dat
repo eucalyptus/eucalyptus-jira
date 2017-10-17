@@ -1,0 +1,17 @@
+# REMOVE THESE QUOTES!!
+# This policy limits the total number of instances within a particular availability zone or cluster 
+# Apply this policy to the account or user only
+
+{
+"Statement":[{
+"Sid":"1",
+"Effect":"Limit",
+"Action":"ec2:RunInstances",
+"Resource":"arn:aws:ec2:::availabilityzone/cluster01",
+"Condition": {
+                "NumericLessThanEquals":{
+                        "ec2:quota-vminstancenumber":"2"
+                                        }
+                }
+}]
+}

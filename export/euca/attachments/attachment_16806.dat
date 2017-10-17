@@ -1,0 +1,26 @@
+--- eucalyptus-3.3.0.orig/node/handlers_default.c	2013-05-27 14:52:29.000000000 -0700
++++ eucalyptus-3.3.0/node/handlers_default.c	2013-08-27 15:50:12.086536803 -0700
+@@ -857,9 +857,8 @@
+             close(fd);
+
+             char cmd[MAX_PATH];
+-            //! @todo does this work?
+-            snprintf(cmd, MAX_PATH, "[%s] executing '%s %s `which virsh` %s %s %s'", instanceId, nc->detach_cmd_path, nc->rootwrap_cmd_path, instanceId, devReal, tmpfile);
+-            LOGDEBUG("%s\n", cmd);
++            snprintf(cmd, MAX_PATH, "%s %s `which virsh` %s %s %s", nc->detach_cmd_path, nc->rootwrap_cmd_path, instanceId, devReal, tmpfile);
++            LOGDEBUG("[%s] executing '%s'\n", instanceId, cmd);
+             rc = system(cmd);
+             rc = rc >> 8;
+             unlink(tmpfile);
+@@ -1295,7 +1294,10 @@
+         }
+         // protect libvirt calls because we've seen problems during concurrent libvirt invocation
+         int err = virDomainDetachDevice(dom, xml);
+-        if (!strcmp(nc->H->name, "xen")) {
++
++        // Sometimes fails under Xen, so fallback to virsh detach
++        if (err && !strcmp(nc->H->name, "xen")) {
++            LOGERROR("[%s][%s] virDomainDetachDevice failed (err=%d), falling back to xen_detach_helper", instanceId, volumeId, err);
+             err = xen_detach_helper(nc, instanceId, localDevReal, xml);
+         }
+

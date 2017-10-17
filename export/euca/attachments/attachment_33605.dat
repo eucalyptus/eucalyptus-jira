@@ -1,0 +1,519 @@
+root@a-15-r DAS_Ded_RHEL7_CC2_SC2 18:30:09  ~
+# yum install eucalyptus-cluster eucalyptus-sc
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+This system is not registered to Red Hat Subscription Management. You can use subscription-manager to register.
+euca2ools-ci                                                                                                 | 1.5 kB  00:00:00
+eucalyptus-ci                                                                                                | 1.5 kB  00:00:00
+(1/2): euca2ools-ci/7Server/x86_64/primary                                                                   | 6.6 kB  00:00:00
+(2/2): eucalyptus-ci/7Server/x86_64/primary                                                                  |  65 kB  00:00:00
+euca2ools-ci                                                                                                                  13/13
+eucalyptus-ci                                                                                                               418/418
+Resolving Dependencies
+--> Running transaction check
+---> Package eucalyptus-cc.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: eucanetd = 4.3.0-0.25053.379.20160729gitdb010c2.el7 for package: eucalyptus-cc-4.3.0-0.25053.379.20160729                                                                 gitdb010c2.el7.x86_64
+--> Processing Dependency: eucalyptus-axis2c-common = 4.3.0-0.25053.379.20160729gitdb010c2.el7 for package: eucalyptus-cc-4.3.0-0.25                                                                 053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: eucalyptus = 4.3.0-0.25053.379.20160729gitdb010c2.el7 for package: eucalyptus-cc-4.3.0-0.25053.379.201607                                                                 29gitdb010c2.el7.x86_64
+--> Processing Dependency: dhcp >= 4.1.1-33.P1 for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: vtun for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: vconfig for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: httpd for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: eucalyptus-selinux for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: librampart.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libneethi.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libmod_rampart.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libguththila.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libaxutil.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libaxis2_parser.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libaxis2_http_sender.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x8                                                                 6_64
+--> Processing Dependency: libaxis2_http_receiver.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.                                                                 x86_64
+--> Processing Dependency: libaxis2_http_common.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x8                                                                 6_64
+--> Processing Dependency: libaxis2_engine.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: libaxis2_axiom.so.0()(64bit) for package: eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+---> Package eucalyptus-sc.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: eucalyptus-common-java = 4.3.0-0.25053.379.20160729gitdb010c2.el7 for package: eucalyptus-sc-4.3.0-0.2505                                                                 3.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: eucalyptus-blockdev-utils = 4.3.0-0.25053.379.20160729gitdb010c2.el7 for package: eucalyptus-sc-4.3.0-0.2                                                                 5053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: scsi-target-utils for package: eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: librbd1(x86-64) for package: eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: librados2(x86-64) for package: eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: iscsi-initiator-utils for package: eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: device-mapper-multipath for package: eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Running transaction check
+---> Package axis2c.x86_64 0:1.6.0-0.8.el7 will be installed
+---> Package device-mapper-multipath.x86_64 0:0.4.9-85.el7_2.5 will be installed
+--> Processing Dependency: device-mapper-multipath-libs = 0.4.9-85.el7_2.5 for package: device-mapper-multipath-0.4.9-85.el7_2.5.x86                                                                 _64
+--> Processing Dependency: libmultipath.so.0()(64bit) for package: device-mapper-multipath-0.4.9-85.el7_2.5.x86_64
+--> Processing Dependency: libmpathpersist.so.0()(64bit) for package: device-mapper-multipath-0.4.9-85.el7_2.5.x86_64
+---> Package dhcp.x86_64 12:4.2.5-42.el7 will be installed
+---> Package eucalyptus.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+---> Package eucalyptus-axis2c-common.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: perl(Digest::MD5) for package: eucalyptus-axis2c-common-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+---> Package eucalyptus-blockdev-utils.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: perl(Data::Dumper) for package: eucalyptus-blockdev-utils-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+--> Processing Dependency: perl(Crypt::OpenSSL::Random) for package: eucalyptus-blockdev-utils-4.3.0-0.25053.379.20160729gitdb010c2.                                                                 el7.x86_64
+--> Processing Dependency: perl(Crypt::OpenSSL::RSA) for package: eucalyptus-blockdev-utils-4.3.0-0.25053.379.20160729gitdb010c2.el7                                                                 .x86_64
+---> Package eucalyptus-common-java.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: eucalyptus-common-java-libs = 4.3.0-0.25053.379.20160729gitdb010c2.el7 for package: eucalyptus-common-jav                                                                 a-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+---> Package eucalyptus-selinux.noarch 0:0.1.13-1.el7 will be installed
+---> Package eucanetd.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: ipset for package: eucanetd-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+---> Package httpd.x86_64 0:2.4.6-40.el7_2.4 will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-40.el7_2.4 for package: httpd-2.4.6-40.el7_2.4.x86_64
+--> Processing Dependency: /etc/mime.types for package: httpd-2.4.6-40.el7_2.4.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-40.el7_2.4.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-40.el7_2.4.x86_64
+---> Package iscsi-initiator-utils.x86_64 0:6.2.0.873-33.el7_2.2 will be installed
+--> Processing Dependency: iscsi-initiator-utils-iscsiuio >= 6.2.0.873-33.el7_2.2 for package: iscsi-initiator-utils-6.2.0.873-33.el                                                                 7_2.2.x86_64
+---> Package librados2.x86_64 1:0.80.7-3.el7 will be installed
+---> Package librbd1.x86_64 1:0.80.7-3.el7 will be installed
+---> Package rampartc.x86_64 0:1.3.0-0.6.el7 will be installed
+---> Package scsi-target-utils.x86_64 0:1.0.55-4.el7 will be installed
+--> Processing Dependency: sg3_utils for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: perl(Config::General) for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: librdmacm.so.1(RDMACM_1.0)(64bit) for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: librdmacm for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: libibverbs.so.1(IBVERBS_1.1)(64bit) for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: libibverbs.so.1(IBVERBS_1.0)(64bit) for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: libibverbs for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: librdmacm.so.1()(64bit) for package: scsi-target-utils-1.0.55-4.el7.x86_64
+--> Processing Dependency: libibverbs.so.1()(64bit) for package: scsi-target-utils-1.0.55-4.el7.x86_64
+---> Package vconfig.x86_64 0:1.9-16.el7 will be installed
+---> Package vtun.x86_64 0:3.0.1-7.el7 will be installed
+--> Processing Dependency: xinetd for package: vtun-3.0.1-7.el7.x86_64
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-3.el7 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+---> Package device-mapper-multipath-libs.x86_64 0:0.4.9-85.el7_2.5 will be installed
+---> Package eucalyptus-common-java-libs.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7 will be installed
+--> Processing Dependency: java-1.8.0-openjdk >= 1:1.8.0 for package: eucalyptus-common-java-libs-4.3.0-0.25053.379.20160729gitdb010                                                                 c2.el7.x86_64
+--> Processing Dependency: osgi(org.apache.xerces) for package: eucalyptus-common-java-libs-4.3.0-0.25053.379.20160729gitdb010c2.el7                                                                 .x86_64
+--> Processing Dependency: jpackage-utils for package: eucalyptus-common-java-libs-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64
+---> Package httpd-tools.x86_64 0:2.4.6-40.el7_2.4 will be installed
+---> Package ipset.x86_64 0:6.19-4.el7 will be installed
+--> Processing Dependency: ipset-libs = 6.19-4.el7 for package: ipset-6.19-4.el7.x86_64
+--> Processing Dependency: libipset.so.3(LIBIPSET_3.0)(64bit) for package: ipset-6.19-4.el7.x86_64
+--> Processing Dependency: libipset.so.3(LIBIPSET_2.0)(64bit) for package: ipset-6.19-4.el7.x86_64
+--> Processing Dependency: libipset.so.3(LIBIPSET_1.0)(64bit) for package: ipset-6.19-4.el7.x86_64
+--> Processing Dependency: libipset.so.3()(64bit) for package: ipset-6.19-4.el7.x86_64
+---> Package iscsi-initiator-utils-iscsiuio.x86_64 0:6.2.0.873-33.el7_2.2 will be installed
+---> Package libibverbs.x86_64 0:1.1.8-8.el7 will be installed
+---> Package librdmacm.x86_64 0:1.0.21-1.el7 will be installed
+---> Package mailcap.noarch 0:2.1.41-2.el7 will be installed
+---> Package perl-Config-General.noarch 0:2.61-1.el7 will be installed
+---> Package perl-Crypt-OpenSSL-RSA.x86_64 0:0.28-7.el7 will be installed
+--> Processing Dependency: perl(Crypt::OpenSSL::Bignum) for package: perl-Crypt-OpenSSL-RSA-0.28-7.el7.x86_64
+---> Package perl-Crypt-OpenSSL-Random.x86_64 0:0.04-21.el7 will be installed
+---> Package perl-Data-Dumper.x86_64 0:2.145-3.el7 will be installed
+---> Package perl-Digest-MD5.x86_64 0:2.52-3.el7 will be installed
+--> Processing Dependency: perl(Digest::base) >= 1.00 for package: perl-Digest-MD5-2.52-3.el7.x86_64
+---> Package sg3_utils.x86_64 0:1.37-5.el7 will be installed
+---> Package xinetd.x86_64 2:2.3.15-12.el7 will be installed
+--> Running transaction check
+---> Package ipset-libs.x86_64 0:6.19-4.el7 will be installed
+---> Package java-1.8.0-openjdk.x86_64 1:1.8.0.101-3.b13.el7_2 will be installed
+--> Processing Dependency: java-1.8.0-openjdk-headless = 1:1.8.0.101-3.b13.el7_2 for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.e                                                                 l7_2.x86_64
+--> Processing Dependency: xorg-x11-fonts-Type1 for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libjvm.so(SUNWprivate_1.1)(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libjli.so(SUNWprivate_1.1)(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libjava.so(SUNWprivate_1.1)(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: fontconfig for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libjvm.so()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libjli.so()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libjava.so()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libgif.so.4()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libawt.so()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libXtst.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libXrender.so.1()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libXi.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: libXext.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64
+---> Package javapackages-tools.noarch 0:3.4.1-11.el7 will be installed
+--> Processing Dependency: python-javapackages = 3.4.1-11.el7 for package: javapackages-tools-3.4.1-11.el7.noarch
+---> Package perl-Crypt-OpenSSL-Bignum.x86_64 0:0.04-18.el7 will be installed
+---> Package perl-Digest.noarch 0:1.17-245.el7 will be installed
+---> Package xerces-j2.noarch 0:2.11.0-17.el7_0 will be installed
+--> Processing Dependency: xml-commons-resolver >= 1.2 for package: xerces-j2-2.11.0-17.el7_0.noarch
+--> Processing Dependency: xml-commons-apis >= 1.4.01 for package: xerces-j2-2.11.0-17.el7_0.noarch
+--> Processing Dependency: xalan-j2 >= 2.7.1 for package: xerces-j2-2.11.0-17.el7_0.noarch
+--> Processing Dependency: osgi(org.apache.xml.resolver) for package: xerces-j2-2.11.0-17.el7_0.noarch
+--> Processing Dependency: osgi(javax.xml) for package: xerces-j2-2.11.0-17.el7_0.noarch
+--> Running transaction check
+---> Package fontconfig.x86_64 0:2.10.95-7.el7 will be installed
+--> Processing Dependency: fontpackages-filesystem for package: fontconfig-2.10.95-7.el7.x86_64
+---> Package giflib.x86_64 0:4.1.6-9.el7 will be installed
+--> Processing Dependency: libSM.so.6()(64bit) for package: giflib-4.1.6-9.el7.x86_64
+--> Processing Dependency: libICE.so.6()(64bit) for package: giflib-4.1.6-9.el7.x86_64
+---> Package java-1.8.0-openjdk-headless.x86_64 1:1.8.0.101-3.b13.el7_2 will be installed
+--> Processing Dependency: tzdata-java >= 2015d for package: 1:java-1.8.0-openjdk-headless-1.8.0.101-3.b13.el7_2.x86_64
+--> Processing Dependency: lksctp-tools for package: 1:java-1.8.0-openjdk-headless-1.8.0.101-3.b13.el7_2.x86_64
+---> Package libXext.x86_64 0:1.3.3-3.el7 will be installed
+---> Package libXi.x86_64 0:1.7.4-2.el7 will be installed
+---> Package libXrender.x86_64 0:0.9.8-2.1.el7 will be installed
+---> Package libXtst.x86_64 0:1.2.2-2.1.el7 will be installed
+---> Package python-javapackages.noarch 0:3.4.1-11.el7 will be installed
+---> Package xalan-j2.noarch 0:2.7.1-23.el7 will be installed
+---> Package xml-commons-apis.noarch 0:1.4.01-16.el7 will be installed
+---> Package xml-commons-resolver.noarch 0:1.2-15.el7 will be installed
+---> Package xorg-x11-fonts-Type1.noarch 0:7.5-9.el7 will be installed
+--> Processing Dependency: ttmkfdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Processing Dependency: ttmkfdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Processing Dependency: mkfontdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Processing Dependency: mkfontdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Running transaction check
+---> Package fontpackages-filesystem.noarch 0:1.44-8.el7 will be installed
+---> Package libICE.x86_64 0:1.0.9-2.el7 will be installed
+---> Package libSM.x86_64 0:1.2.2-2.el7 will be installed
+---> Package lksctp-tools.x86_64 0:1.0.13-3.el7 will be installed
+---> Package ttmkfdir.x86_64 0:3.0.9-42.el7 will be installed
+---> Package tzdata-java.noarch 0:2016f-1.el7 will be installed
+---> Package xorg-x11-font-utils.x86_64 1:7.5-20.el7 will be installed
+--> Processing Dependency: libfontenc.so.1()(64bit) for package: 1:xorg-x11-font-utils-7.5-20.el7.x86_64
+--> Processing Dependency: libXfont.so.1()(64bit) for package: 1:xorg-x11-font-utils-7.5-20.el7.x86_64
+--> Running transaction check
+---> Package libXfont.x86_64 0:1.5.1-2.el7 will be installed
+---> Package libfontenc.x86_64 0:1.1.2-3.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+====================================================================================================================================
+ Package                             Arch        Version                                        Repository                     Size
+====================================================================================================================================
+Installing:
+ eucalyptus-cc                       x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                 1.8 M
+ eucalyptus-sc                       x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                  16 k
+Installing for dependencies:
+ apr                                 x86_64      1.4.8-3.el7                                    rhel-7-server-rpms_local      103 k
+ apr-util                            x86_64      1.5.2-6.el7                                    rhel-7-server-rpms_local       92 k
+ axis2c                              x86_64      1.6.0-0.8.el7                                  eucalyptus-ci                 519 k
+ device-mapper-multipath             x86_64      0.4.9-85.el7_2.5                               rhel-7-server-rpms_local      119 k
+ device-mapper-multipath-libs        x86_64      0.4.9-85.el7_2.5                               rhel-7-server-rpms_local      222 k
+ dhcp                                x86_64      12:4.2.5-42.el7                                rhel-7-server-rpms_local      511 k
+ eucalyptus                          x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                 108 k
+ eucalyptus-axis2c-common            x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                 172 k
+ eucalyptus-blockdev-utils           x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                  34 k
+ eucalyptus-common-java              x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                  64 k
+ eucalyptus-common-java-libs         x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                  72 M
+ eucalyptus-selinux                  noarch      0.1.13-1.el7                                   eucalyptus-ci                  23 k
+ eucanetd                            x86_64      4.3.0-0.25053.379.20160729gitdb010c2.el7       eucalyptus-ci                 316 k
+ fontconfig                          x86_64      2.10.95-7.el7                                  rhel-7-server-rpms_local      228 k
+ fontpackages-filesystem             noarch      1.44-8.el7                                     rhel-7-server-rpms_local      9.9 k
+ giflib                              x86_64      4.1.6-9.el7                                    rhel-7-server-rpms_local       40 k
+ httpd                               x86_64      2.4.6-40.el7_2.4                               rhel-7-server-rpms_local      1.2 M
+ httpd-tools                         x86_64      2.4.6-40.el7_2.4                               rhel-7-server-rpms_local       82 k
+ ipset                               x86_64      6.19-4.el7                                     rhel-7-server-rpms_local       36 k
+ ipset-libs                          x86_64      6.19-4.el7                                     rhel-7-server-rpms_local       46 k
+ iscsi-initiator-utils               x86_64      6.2.0.873-33.el7_2.2                           rhel-7-server-rpms_local      419 k
+ iscsi-initiator-utils-iscsiuio      x86_64      6.2.0.873-33.el7_2.2                           rhel-7-server-rpms_local       82 k
+ java-1.8.0-openjdk                  x86_64      1:1.8.0.101-3.b13.el7_2                        rhel-7-server-rpms_local      221 k
+ java-1.8.0-openjdk-headless         x86_64      1:1.8.0.101-3.b13.el7_2                        rhel-7-server-rpms_local       31 M
+ javapackages-tools                  noarch      3.4.1-11.el7                                   rhel-7-server-rpms_local       73 k
+ libICE                              x86_64      1.0.9-2.el7                                    rhel-7-server-rpms_local       65 k
+ libSM                               x86_64      1.2.2-2.el7                                    rhel-7-server-rpms_local       39 k
+ libXext                             x86_64      1.3.3-3.el7                                    rhel-7-server-rpms_local       39 k
+ libXfont                            x86_64      1.5.1-2.el7                                    rhel-7-server-rpms_local      150 k
+ libXi                               x86_64      1.7.4-2.el7                                    rhel-7-server-rpms_local       40 k
+ libXrender                          x86_64      0.9.8-2.1.el7                                  rhel-7-server-rpms_local       26 k
+ libXtst                             x86_64      1.2.2-2.1.el7                                  rhel-7-server-rpms_local       20 k
+ libfontenc                          x86_64      1.1.2-3.el7                                    rhel-7-server-rpms_local       30 k
+ libibverbs                          x86_64      1.1.8-8.el7                                    rhel-7-server-rpms_local       56 k
+ librados2                           x86_64      1:0.80.7-3.el7                                 rhel-7-server-rpms_local      1.5 M
+ librbd1                             x86_64      1:0.80.7-3.el7                                 rhel-7-server-rpms_local      350 k
+ librdmacm                           x86_64      1.0.21-1.el7                                   rhel-7-server-rpms_local       64 k
+ lksctp-tools                        x86_64      1.0.13-3.el7                                   rhel-7-server-rpms_local       87 k
+ mailcap                             noarch      2.1.41-2.el7                                   rhel-7-server-rpms_local       31 k
+ perl-Config-General                 noarch      2.61-1.el7                                     epel-7-x86_64                  75 k
+ perl-Crypt-OpenSSL-Bignum           x86_64      0.04-18.el7                                    rhel-7-server-rpms_local       34 k
+ perl-Crypt-OpenSSL-RSA              x86_64      0.28-7.el7                                     rhel-7-server-rpms_local       38 k
+ perl-Crypt-OpenSSL-Random           x86_64      0.04-21.el7                                    rhel-7-server-rpms_local       24 k
+ perl-Data-Dumper                    x86_64      2.145-3.el7                                    rhel-7-server-rpms_local       47 k
+ perl-Digest                         noarch      1.17-245.el7                                   rhel-7-server-rpms_local       23 k
+ perl-Digest-MD5                     x86_64      2.52-3.el7                                     rhel-7-server-rpms_local       30 k
+ python-javapackages                 noarch      3.4.1-11.el7                                   rhel-7-server-rpms_local       31 k
+ rampartc                            x86_64      1.3.0-0.6.el7                                  eucalyptus-ci                 157 k
+ scsi-target-utils                   x86_64      1.0.55-4.el7                                   epel-7-x86_64                 209 k
+ sg3_utils                           x86_64      1.37-5.el7                                     rhel-7-server-rpms_local      640 k
+ ttmkfdir                            x86_64      3.0.9-42.el7                                   rhel-7-server-rpms_local       48 k
+ tzdata-java                         noarch      2016f-1.el7                                    rhel-7-server-rpms_local      179 k
+ vconfig                             x86_64      1.9-16.el7                                     epel-7-x86_64                  26 k
+ vtun                                x86_64      3.0.1-7.el7                                    eucalyptus-ci                  57 k
+ xalan-j2                            noarch      2.7.1-23.el7                                   rhel-7-server-rpms_local      1.9 M
+ xerces-j2                           noarch      2.11.0-17.el7_0                                rhel-7-server-rpms_local      1.1 M
+ xinetd                              x86_64      2:2.3.15-12.el7                                rhel-7-server-rpms_local      128 k
+ xml-commons-apis                    noarch      1.4.01-16.el7                                  rhel-7-server-rpms_local      227 k
+ xml-commons-resolver                noarch      1.2-15.el7                                     rhel-7-server-rpms_local      108 k
+ xorg-x11-font-utils                 x86_64      1:7.5-20.el7                                   rhel-7-server-rpms_local       87 k
+ xorg-x11-fonts-Type1                noarch      7.5-9.el7                                      rhel-7-server-rpms_local      521 k
+
+Transaction Summary
+====================================================================================================================================
+Install  2 Packages (+61 Dependent packages)
+
+Total download size: 118 M
+Installed size: 231 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/63): apr-1.4.8-3.el7.x86_64.rpm                                                                           | 103 kB  00:00:00
+(2/63): apr-util-1.5.2-6.el7.x86_64.rpm                                                                      |  92 kB  00:00:00
+(3/63): axis2c-1.6.0-0.8.el7.x86_64.rpm                                                                      | 519 kB  00:00:00
+(4/63): device-mapper-multipath-0.4.9-85.el7_2.5.x86_64.rpm                                                  | 119 kB  00:00:00
+(5/63): eucalyptus-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                                       | 108 kB  00:00:00
+(6/63): device-mapper-multipath-libs-0.4.9-85.el7_2.5.x86_64.rpm                                             | 222 kB  00:00:00
+(7/63): eucalyptus-blockdev-utils-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                        |  34 kB  00:00:00
+(8/63): dhcp-4.2.5-42.el7.x86_64.rpm                                                                         | 511 kB  00:00:00
+(9/63): eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                                    | 1.8 MB  00:00:00
+(10/63): eucalyptus-axis2c-common-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                        | 172 kB  00:00:00
+(11/63): eucalyptus-common-java-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                          |  64 kB  00:00:00
+(12/63): eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                                   |  16 kB  00:00:00
+(13/63): eucalyptus-selinux-0.1.13-1.el7.noarch.rpm                                                          |  23 kB  00:00:00
+(14/63): fontconfig-2.10.95-7.el7.x86_64.rpm                                                                 | 228 kB  00:00:00
+(15/63): giflib-4.1.6-9.el7.x86_64.rpm                                                                       |  40 kB  00:00:00
+(16/63): eucanetd-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                                        | 316 kB  00:00:00
+(17/63): fontpackages-filesystem-1.44-8.el7.noarch.rpm                                                       | 9.9 kB  00:00:00
+(18/63): httpd-tools-2.4.6-40.el7_2.4.x86_64.rpm                                                             |  82 kB  00:00:00
+(19/63): ipset-6.19-4.el7.x86_64.rpm                                                                         |  36 kB  00:00:00
+(20/63): ipset-libs-6.19-4.el7.x86_64.rpm                                                                    |  46 kB  00:00:00
+(21/63): iscsi-initiator-utils-6.2.0.873-33.el7_2.2.x86_64.rpm                                               | 419 kB  00:00:00
+(22/63): httpd-2.4.6-40.el7_2.4.x86_64.rpm                                                                   | 1.2 MB  00:00:00
+(23/63): iscsi-initiator-utils-iscsiuio-6.2.0.873-33.el7_2.2.x86_64.rpm                                      |  82 kB  00:00:00
+(24/63): java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64.rpm                                                 | 221 kB  00:00:00
+(25/63): javapackages-tools-3.4.1-11.el7.noarch.rpm                                                          |  73 kB  00:00:00
+(26/63): libICE-1.0.9-2.el7.x86_64.rpm                                                                       |  65 kB  00:00:00
+(27/63): libSM-1.2.2-2.el7.x86_64.rpm                                                                        |  39 kB  00:00:00
+(28/63): libXext-1.3.3-3.el7.x86_64.rpm                                                                      |  39 kB  00:00:00
+(29/63): libXfont-1.5.1-2.el7.x86_64.rpm                                                                     | 150 kB  00:00:00
+(30/63): libXi-1.7.4-2.el7.x86_64.rpm                                                                        |  40 kB  00:00:00
+(31/63): libXrender-0.9.8-2.1.el7.x86_64.rpm                                                                 |  26 kB  00:00:00
+(32/63): libXtst-1.2.2-2.1.el7.x86_64.rpm                                                                    |  20 kB  00:00:00
+(33/63): libfontenc-1.1.2-3.el7.x86_64.rpm                                                                   |  30 kB  00:00:00
+(34/63): libibverbs-1.1.8-8.el7.x86_64.rpm                                                                   |  56 kB  00:00:00
+(35/63): librados2-0.80.7-3.el7.x86_64.rpm                                                                   | 1.5 MB  00:00:00
+(36/63): librbd1-0.80.7-3.el7.x86_64.rpm                                                                     | 350 kB  00:00:00
+(37/63): librdmacm-1.0.21-1.el7.x86_64.rpm                                                                   |  64 kB  00:00:00
+(38/63): lksctp-tools-1.0.13-3.el7.x86_64.rpm                                                                |  87 kB  00:00:00
+(39/63): mailcap-2.1.41-2.el7.noarch.rpm                                                                     |  31 kB  00:00:00
+(40/63): perl-Crypt-OpenSSL-Bignum-0.04-18.el7.x86_64.rpm                                                    |  34 kB  00:00:00
+(41/63): perl-Crypt-OpenSSL-RSA-0.28-7.el7.x86_64.rpm                                                        |  38 kB  00:00:00
+(42/63): perl-Crypt-OpenSSL-Random-0.04-21.el7.x86_64.rpm                                                    |  24 kB  00:00:00
+(43/63): perl-Config-General-2.61-1.el7.noarch.rpm                                                           |  75 kB  00:00:00
+(44/63): perl-Data-Dumper-2.145-3.el7.x86_64.rpm                                                             |  47 kB  00:00:00
+(45/63): perl-Digest-1.17-245.el7.noarch.rpm                                                                 |  23 kB  00:00:00
+(46/63): perl-Digest-MD5-2.52-3.el7.x86_64.rpm                                                               |  30 kB  00:00:00
+(47/63): python-javapackages-3.4.1-11.el7.noarch.rpm                                                         |  31 kB  00:00:00
+(48/63): rampartc-1.3.0-0.6.el7.x86_64.rpm                                                                   | 157 kB  00:00:00
+(49/63): scsi-target-utils-1.0.55-4.el7.x86_64.rpm                                                           | 209 kB  00:00:00
+(50/63): sg3_utils-1.37-5.el7.x86_64.rpm                                                                     | 640 kB  00:00:00
+(51/63): ttmkfdir-3.0.9-42.el7.x86_64.rpm                                                                    |  48 kB  00:00:00
+(52/63): tzdata-java-2016f-1.el7.noarch.rpm                                                                  | 179 kB  00:00:00
+(53/63): vtun-3.0.1-7.el7.x86_64.rpm                                                                         |  57 kB  00:00:00
+(54/63): vconfig-1.9-16.el7.x86_64.rpm                                                                       |  26 kB  00:00:00
+(55/63): xalan-j2-2.7.1-23.el7.noarch.rpm                                                                    | 1.9 MB  00:00:00
+(56/63): eucalyptus-common-java-libs-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64.rpm                     |  72 MB  00:00:01
+(57/63): xerces-j2-2.11.0-17.el7_0.noarch.rpm                                                                | 1.1 MB  00:00:00
+(58/63): java-1.8.0-openjdk-headless-1.8.0.101-3.b13.el7_2.x86_64.rpm                                        |  31 MB  00:00:01
+(59/63): xinetd-2.3.15-12.el7.x86_64.rpm                                                                     | 128 kB  00:00:00
+(60/63): xml-commons-resolver-1.2-15.el7.noarch.rpm                                                          | 108 kB  00:00:00
+(61/63): xorg-x11-font-utils-7.5-20.el7.x86_64.rpm                                                           |  87 kB  00:00:00
+(62/63): xml-commons-apis-1.4.01-16.el7.noarch.rpm                                                           | 227 kB  00:00:00
+(63/63): xorg-x11-fonts-Type1-7.5-9.el7.noarch.rpm                                                           | 521 kB  00:00:00
+------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                78 MB/s | 118 MB  00:00:01
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : eucalyptus-selinux-0.1.13-1.el7.noarch                                                                          1/63
+/usr/sbin/semodule: SELinux policy is not managed or store cannot be accessed.
+  Installing : eucalyptus-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                      2/63
+  Installing : axis2c-1.6.0-0.8.el7.x86_64                                                                                     3/63
+  Installing : libXext-1.3.3-3.el7.x86_64                                                                                      4/63
+  Installing : apr-1.4.8-3.el7.x86_64                                                                                          5/63
+  Installing : apr-util-1.5.2-6.el7.x86_64                                                                                     6/63
+  Installing : libXi-1.7.4-2.el7.x86_64                                                                                        7/63
+  Installing : rampartc-1.3.0-0.6.el7.x86_64                                                                                   8/63
+  Installing : libibverbs-1.1.8-8.el7.x86_64                                                                                   9/63
+  Installing : libfontenc-1.1.2-3.el7.x86_64                                                                                  10/63
+  Installing : libICE-1.0.9-2.el7.x86_64                                                                                      11/63
+  Installing : 12:dhcp-4.2.5-42.el7.x86_64                                                                                    12/63
+  Installing : perl-Crypt-OpenSSL-Random-0.04-21.el7.x86_64                                                                   13/63
+  Installing : 1:librados2-0.80.7-3.el7.x86_64                                                                                14/63
+  Installing : 1:librbd1-0.80.7-3.el7.x86_64                                                                                  15/63
+  Installing : libSM-1.2.2-2.el7.x86_64                                                                                       16/63
+  Installing : giflib-4.1.6-9.el7.x86_64                                                                                      17/63
+  Installing : libXfont-1.5.1-2.el7.x86_64                                                                                    18/63
+  Installing : 1:xorg-x11-font-utils-7.5-20.el7.x86_64                                                                        19/63
+  Installing : librdmacm-1.0.21-1.el7.x86_64                                                                                  20/63
+  Installing : libXtst-1.2.2-2.1.el7.x86_64                                                                                   21/63
+  Installing : httpd-tools-2.4.6-40.el7_2.4.x86_64                                                                            22/63
+  Installing : iscsi-initiator-utils-6.2.0.873-33.el7_2.2.x86_64                                                              23/63
+  Installing : iscsi-initiator-utils-iscsiuio-6.2.0.873-33.el7_2.2.x86_64                                                     24/63
+  Installing : perl-Digest-1.17-245.el7.noarch                                                                                25/63
+  Installing : perl-Digest-MD5-2.52-3.el7.x86_64                                                                              26/63
+  Installing : lksctp-tools-1.0.13-3.el7.x86_64                                                                               27/63
+  Installing : perl-Crypt-OpenSSL-Bignum-0.04-18.el7.x86_64                                                                   28/63
+  Installing : perl-Crypt-OpenSSL-RSA-0.28-7.el7.x86_64                                                                       29/63
+  Installing : tzdata-java-2016f-1.el7.noarch                                                                                 30/63
+  Installing : perl-Config-General-2.61-1.el7.noarch                                                                          31/63
+  Installing : perl-Data-Dumper-2.145-3.el7.x86_64                                                                            32/63
+  Installing : eucalyptus-blockdev-utils-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                      33/63
+  Installing : 2:xinetd-2.3.15-12.el7.x86_64                                                                                  34/63
+  Installing : vtun-3.0.1-7.el7.x86_64                                                                                        35/63
+  Installing : libXrender-0.9.8-2.1.el7.x86_64                                                                                36/63
+  Installing : device-mapper-multipath-libs-0.4.9-85.el7_2.5.x86_64                                                           37/63
+  Installing : device-mapper-multipath-0.4.9-85.el7_2.5.x86_64                                                                38/63
+  Installing : vconfig-1.9-16.el7.x86_64                                                                                      39/63
+  Installing : python-javapackages-3.4.1-11.el7.noarch                                                                        40/63
+  Installing : javapackages-tools-3.4.1-11.el7.noarch                                                                         41/63
+  Installing : 1:java-1.8.0-openjdk-headless-1.8.0.101-3.b13.el7_2.x86_64                                                     42/63
+  Installing : fontpackages-filesystem-1.44-8.el7.noarch                                                                      43/63
+  Installing : fontconfig-2.10.95-7.el7.x86_64                                                                                44/63
+  Installing : ipset-libs-6.19-4.el7.x86_64                                                                                   45/63
+  Installing : ipset-6.19-4.el7.x86_64                                                                                        46/63
+  Installing : eucanetd-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                       47/63
+  Installing : ttmkfdir-3.0.9-42.el7.x86_64                                                                                   48/63
+  Installing : xorg-x11-fonts-Type1-7.5-9.el7.noarch                                                                          49/63
+  Installing : 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64                                                              50/63
+  Installing : xml-commons-apis-1.4.01-16.el7.noarch                                                                          51/63
+  Installing : xml-commons-resolver-1.2-15.el7.noarch                                                                         52/63
+  Installing : xalan-j2-2.7.1-23.el7.noarch                                                                                   53/63
+  Installing : xerces-j2-2.11.0-17.el7_0.noarch                                                                               54/63
+  Installing : eucalyptus-common-java-libs-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                    55/63
+  Installing : eucalyptus-common-java-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                         56/63
+  Installing : sg3_utils-1.37-5.el7.x86_64                                                                                    57/63
+  Installing : scsi-target-utils-1.0.55-4.el7.x86_64                                                                          58/63
+  Installing : mailcap-2.1.41-2.el7.noarch                                                                                    59/63
+  Installing : httpd-2.4.6-40.el7_2.4.x86_64                                                                                  60/63
+  Installing : eucalyptus-axis2c-common-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                       61/63
+  Installing : eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                  62/63
+  Installing : eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                  63/63
+  Verifying  : device-mapper-multipath-0.4.9-85.el7_2.5.x86_64                                                                 1/63
+  Verifying  : eucalyptus-common-java-libs-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                     2/63
+  Verifying  : xalan-j2-2.7.1-23.el7.noarch                                                                                    3/63
+  Verifying  : giflib-4.1.6-9.el7.x86_64                                                                                       4/63
+  Verifying  : iscsi-initiator-utils-iscsiuio-6.2.0.873-33.el7_2.2.x86_64                                                      5/63
+  Verifying  : 1:librbd1-0.80.7-3.el7.x86_64                                                                                   6/63
+  Verifying  : mailcap-2.1.41-2.el7.noarch                                                                                     7/63
+  Verifying  : rampartc-1.3.0-0.6.el7.x86_64                                                                                   8/63
+  Verifying  : libXtst-1.2.2-2.1.el7.x86_64                                                                                    9/63
+  Verifying  : eucalyptus-common-java-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                         10/63
+  Verifying  : 1:java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64                                                              11/63
+  Verifying  : eucalyptus-axis2c-common-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                       12/63
+  Verifying  : fontconfig-2.10.95-7.el7.x86_64                                                                                13/63
+  Verifying  : eucalyptus-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                     14/63
+  Verifying  : 1:librados2-0.80.7-3.el7.x86_64                                                                                15/63
+  Verifying  : vtun-3.0.1-7.el7.x86_64                                                                                        16/63
+  Verifying  : sg3_utils-1.37-5.el7.x86_64                                                                                    17/63
+  Verifying  : ttmkfdir-3.0.9-42.el7.x86_64                                                                                   18/63
+  Verifying  : xml-commons-apis-1.4.01-16.el7.noarch                                                                          19/63
+  Verifying  : ipset-libs-6.19-4.el7.x86_64                                                                                   20/63
+  Verifying  : librdmacm-1.0.21-1.el7.x86_64                                                                                  21/63
+  Verifying  : ipset-6.19-4.el7.x86_64                                                                                        22/63
+  Verifying  : apr-1.4.8-3.el7.x86_64                                                                                         23/63
+  Verifying  : perl-Crypt-OpenSSL-Random-0.04-21.el7.x86_64                                                                   24/63
+  Verifying  : fontpackages-filesystem-1.44-8.el7.noarch                                                                      25/63
+  Verifying  : perl-Digest-MD5-2.52-3.el7.x86_64                                                                              26/63
+  Verifying  : python-javapackages-3.4.1-11.el7.noarch                                                                        27/63
+  Verifying  : vconfig-1.9-16.el7.x86_64                                                                                      28/63
+  Verifying  : 12:dhcp-4.2.5-42.el7.x86_64                                                                                    29/63
+  Verifying  : xorg-x11-fonts-Type1-7.5-9.el7.noarch                                                                          30/63
+  Verifying  : httpd-tools-2.4.6-40.el7_2.4.x86_64                                                                            31/63
+  Verifying  : device-mapper-multipath-libs-0.4.9-85.el7_2.5.x86_64                                                           32/63
+  Verifying  : eucalyptus-blockdev-utils-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                      33/63
+  Verifying  : libXrender-0.9.8-2.1.el7.x86_64                                                                                34/63
+  Verifying  : libXext-1.3.3-3.el7.x86_64                                                                                     35/63
+  Verifying  : 2:xinetd-2.3.15-12.el7.x86_64                                                                                  36/63
+  Verifying  : xml-commons-resolver-1.2-15.el7.noarch                                                                         37/63
+  Verifying  : eucalyptus-selinux-0.1.13-1.el7.noarch                                                                         38/63
+  Verifying  : perl-Data-Dumper-2.145-3.el7.x86_64                                                                            39/63
+  Verifying  : iscsi-initiator-utils-6.2.0.873-33.el7_2.2.x86_64                                                              40/63
+  Verifying  : apr-util-1.5.2-6.el7.x86_64                                                                                    41/63
+  Verifying  : libXfont-1.5.1-2.el7.x86_64                                                                                    42/63
+  Verifying  : 1:java-1.8.0-openjdk-headless-1.8.0.101-3.b13.el7_2.x86_64                                                     43/63
+  Verifying  : xerces-j2-2.11.0-17.el7_0.noarch                                                                               44/63
+  Verifying  : libICE-1.0.9-2.el7.x86_64                                                                                      45/63
+  Verifying  : perl-Config-General-2.61-1.el7.noarch                                                                          46/63
+  Verifying  : httpd-2.4.6-40.el7_2.4.x86_64                                                                                  47/63
+  Verifying  : javapackages-tools-3.4.1-11.el7.noarch                                                                         48/63
+  Verifying  : tzdata-java-2016f-1.el7.noarch                                                                                 49/63
+  Verifying  : perl-Crypt-OpenSSL-RSA-0.28-7.el7.x86_64                                                                       50/63
+  Verifying  : perl-Crypt-OpenSSL-Bignum-0.04-18.el7.x86_64                                                                   51/63
+  Verifying  : libXi-1.7.4-2.el7.x86_64                                                                                       52/63
+  Verifying  : libSM-1.2.2-2.el7.x86_64                                                                                       53/63
+  Verifying  : eucalyptus-sc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                  54/63
+  Verifying  : libfontenc-1.1.2-3.el7.x86_64                                                                                  55/63
+  Verifying  : eucanetd-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                       56/63
+  Verifying  : axis2c-1.6.0-0.8.el7.x86_64                                                                                    57/63
+  Verifying  : libibverbs-1.1.8-8.el7.x86_64                                                                                  58/63
+  Verifying  : lksctp-tools-1.0.13-3.el7.x86_64                                                                               59/63
+  Verifying  : perl-Digest-1.17-245.el7.noarch                                                                                60/63
+  Verifying  : eucalyptus-cc-4.3.0-0.25053.379.20160729gitdb010c2.el7.x86_64                                                  61/63
+  Verifying  : scsi-target-utils-1.0.55-4.el7.x86_64                                                                          62/63
+  Verifying  : 1:xorg-x11-font-utils-7.5-20.el7.x86_64                                                                        63/63
+
+Installed:
+  eucalyptus-cc.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7  eucalyptus-sc.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+
+Dependency Installed:
+  apr.x86_64 0:1.4.8-3.el7
+  apr-util.x86_64 0:1.5.2-6.el7
+  axis2c.x86_64 0:1.6.0-0.8.el7
+  device-mapper-multipath.x86_64 0:0.4.9-85.el7_2.5
+  device-mapper-multipath-libs.x86_64 0:0.4.9-85.el7_2.5
+  dhcp.x86_64 12:4.2.5-42.el7
+  eucalyptus.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+  eucalyptus-axis2c-common.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+  eucalyptus-blockdev-utils.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+  eucalyptus-common-java.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+  eucalyptus-common-java-libs.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+  eucalyptus-selinux.noarch 0:0.1.13-1.el7
+  eucanetd.x86_64 0:4.3.0-0.25053.379.20160729gitdb010c2.el7
+  fontconfig.x86_64 0:2.10.95-7.el7
+  fontpackages-filesystem.noarch 0:1.44-8.el7
+  giflib.x86_64 0:4.1.6-9.el7
+  httpd.x86_64 0:2.4.6-40.el7_2.4
+  httpd-tools.x86_64 0:2.4.6-40.el7_2.4
+  ipset.x86_64 0:6.19-4.el7
+  ipset-libs.x86_64 0:6.19-4.el7
+  iscsi-initiator-utils.x86_64 0:6.2.0.873-33.el7_2.2
+  iscsi-initiator-utils-iscsiuio.x86_64 0:6.2.0.873-33.el7_2.2
+  java-1.8.0-openjdk.x86_64 1:1.8.0.101-3.b13.el7_2
+  java-1.8.0-openjdk-headless.x86_64 1:1.8.0.101-3.b13.el7_2
+  javapackages-tools.noarch 0:3.4.1-11.el7
+  libICE.x86_64 0:1.0.9-2.el7
+  libSM.x86_64 0:1.2.2-2.el7
+  libXext.x86_64 0:1.3.3-3.el7
+  libXfont.x86_64 0:1.5.1-2.el7
+  libXi.x86_64 0:1.7.4-2.el7
+  libXrender.x86_64 0:0.9.8-2.1.el7
+  libXtst.x86_64 0:1.2.2-2.1.el7
+  libfontenc.x86_64 0:1.1.2-3.el7
+  libibverbs.x86_64 0:1.1.8-8.el7
+  librados2.x86_64 1:0.80.7-3.el7
+  librbd1.x86_64 1:0.80.7-3.el7
+  librdmacm.x86_64 0:1.0.21-1.el7
+  lksctp-tools.x86_64 0:1.0.13-3.el7
+  mailcap.noarch 0:2.1.41-2.el7
+  perl-Config-General.noarch 0:2.61-1.el7
+  perl-Crypt-OpenSSL-Bignum.x86_64 0:0.04-18.el7
+  perl-Crypt-OpenSSL-RSA.x86_64 0:0.28-7.el7
+  perl-Crypt-OpenSSL-Random.x86_64 0:0.04-21.el7
+  perl-Data-Dumper.x86_64 0:2.145-3.el7
+  perl-Digest.noarch 0:1.17-245.el7
+  perl-Digest-MD5.x86_64 0:2.52-3.el7
+  python-javapackages.noarch 0:3.4.1-11.el7
+  rampartc.x86_64 0:1.3.0-0.6.el7
+  scsi-target-utils.x86_64 0:1.0.55-4.el7
+  sg3_utils.x86_64 0:1.37-5.el7
+  ttmkfdir.x86_64 0:3.0.9-42.el7
+  tzdata-java.noarch 0:2016f-1.el7
+  vconfig.x86_64 0:1.9-16.el7
+  vtun.x86_64 0:3.0.1-7.el7
+  xalan-j2.noarch 0:2.7.1-23.el7
+  xerces-j2.noarch 0:2.11.0-17.el7_0
+  xinetd.x86_64 2:2.3.15-12.el7
+  xml-commons-apis.noarch 0:1.4.01-16.el7
+  xml-commons-resolver.noarch 0:1.2-15.el7
+  xorg-x11-font-utils.x86_64 1:7.5-20.el7
+  xorg-x11-fonts-Type1.noarch 0:7.5-9.el7
+
+Complete!
+

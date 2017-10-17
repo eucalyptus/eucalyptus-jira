@@ -1,0 +1,62 @@
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    "Description" : "Cloudformation template to demonstrate Wait Conditions",
+    "Parameters": {
+        "EMImageId": {
+            "Description":"Eucalyptus Machine Image id",
+            "Type":"String",
+            "NoEcho":"False"
+        },
+        "UserKeyPair": {
+            "Description":"User Key Pair",
+            "Type":"String",
+            "NoEcho":"False"
+        }
+    },
+    "Resources" : {
+        "Ec2SecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+                "Properties": {
+                    "GroupDescription" : "Security Group with Ingress Rule for DockerInstance",
+                    "SecurityGroupIngress" : [
+                        {
+                            "IpProtocol" : "tcp",
+                            "FromPort" : "22",
+                            "ToPort" : "22",
+                            "CidrIp" : "0.0.0.0/0"
+                        }
+                    ]
+                }
+        },
+        "Ec2Instance" : {
+            "Type" : "AWS::EC2::Instance",
+            "Properties" : {
+                "UserData" : { "Fn::Base64" : {"Ref" : "myWaitHandle"}},
+                "SecurityGroups" : [
+                        { "Ref" : "Ec2SecurityGroup" }
+                ],
+                "ImageId" : { "Ref":"EMImageId" },
+                "KeyName" : { "Ref" : "UserKeyPair" }
+            }
+        },
+        "myWaitHandle" : {
+            "Type" : "AWS::CloudFormation::WaitConditionHandle",
+            "Properties" : {
+            }
+        },
+        "myWaitCondition" : {
+            "Type" : "AWS::CloudFormation::WaitCondition",
+            "DependsOn" : "Ec2Instance",
+            "Properties" : {
+                "Handle" : { "Ref" : "myWaitHandle" },
+                "Timeout" : "1000"
+            }
+        }
+    },
+    "Outputs" : {
+        "ApplicationData" : {
+            "Value" : { "Fn::GetAtt" : [ "myWaitCondition", "Data" ]},
+            "Description" : "The data passed back as part of signalling the WaitCondition."
+        }
+    }
+}

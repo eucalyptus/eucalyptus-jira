@@ -1,0 +1,2369 @@
+diff -ur eucalyptus-3.1.0.old/clc/Makefile eucalyptus-3.1.0.good/clc/Makefile
+--- eucalyptus-3.1.0.old/clc/Makefile	2012-08-14 11:22:13.567771622 -0400
++++ eucalyptus-3.1.0.good/clc/Makefile	2012-08-14 11:47:48.896124048 -0400
+@@ -83,8 +83,8 @@
+ 
+ uninstall:
+ 	make -C eucadmin uninstall
+-	$(RM) -rf $(DESTDIR)$(etcdir)/eucalyptus/cloud.d
+-	$(RM) -rf $(DESTDIR)$(datarootdir)/eucalyptus/*jar
++	$(RM) -rf $(DESTDIR)$(eucaconfdir)/cloud.d
++	$(RM) -rf $(DESTDIR)$(eucadatadir)/*jar
+ 	$(RM) -rf $(DESTDIR)$(vardir)/eucalyptus/webapps
+ 
+ # cleaning up after run-test currently requires a few iterations of:
+diff -ur eucalyptus-3.1.0.old/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c eucalyptus-3.1.0.good/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c
+--- eucalyptus-3.1.0.old/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c	2012-08-14 14:26:18.884830420 -0400
+@@ -647,12 +647,12 @@
+ #define JAVA_PATH_LEN 65536
+ 	char lib_dir[256], etc_dir[256], script_dir[256], class_cache_dir[256], *jar_list =
+ 			(char*) malloc(JAVA_PATH_LEN * sizeof(char));
+-	__die((strlen(GETARG(args, home)) + strlen(EUCA_LIB_DIR) >= 254),
+-			"Directory path too long: %s/%s", GETARG(args, home), EUCA_LIB_DIR);
+-	snprintf(lib_dir, 255, "%s%s", GETARG(args, home), EUCA_LIB_DIR);
+-	snprintf(etc_dir, 255, "%s%s", GETARG(args, home), EUCA_ETC_DIR);
+-	snprintf(class_cache_dir, 255, "%s%s", GETARG(args, home), EUCA_CLASSCACHE_DIR);
+-	snprintf(script_dir, 255, "%s%s", GETARG(args, home), EUCA_SCRIPT_DIR);
++	__die((strlen(GETARG(args, home)) + strlen(EUCALYPTUS_JAVA_LIB_DIR) >= 256),
++			"Directory path too long: " EUCALYPTUS_JAVA_LIB_DIR, GETARG(args, home));
++	snprintf(lib_dir, 255, EUCALYPTUS_JAVA_LIB_DIR, GETARG(args, home));
++	snprintf(etc_dir, 255, EUCA_ETC_DIR, GETARG(args, home));
++	snprintf(class_cache_dir, 255, EUCA_CLASSCACHE_DIR, GETARG(args, home));
++	snprintf(script_dir, 255, EUCA_SCRIPT_DIR, GETARG(args, home));
+ 	if (!CHECK_ISDIR(lib_dir))
+ 		__die(1, "Can't find library directory %s", lib_dir);
+	int wb = 0;
+diff -ur eucalyptus-3.1.0.old/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h eucalyptus-3.1.0.good/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
+--- eucalyptus-3.1.0.old/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h	2012-08-14 14:24:56.325112398 -0400
+@@ -35,6 +35,8 @@
+ #include <sys/stat.h>
+ #include <linux/capability.h>
+ #include "eucalyptus-opts.h"
++#include <eucalyptus.h>
++
+ #define PRINT_NULL(x) ((x) == NULL ? "null" : (x))
+ #define LIMIT_FILENO 65535
+ #define LIMIT_NPROC RLIM_INFINITY
+@@ -81,10 +83,6 @@
+ #define __abort(r,condition,format,...) do { if(condition) {fprintf(stderr,"[error:%04d] ", __LINE__);fprintf(stderr, format "\n", ##__VA_ARGS__ ); fflush(stderr); return r;} } while(0)
+ #define __debug(format,...) do { if(debug){fprintf(stdout,"[debug:%04d] ", __LINE__);fprintf(stdout, format "\n", ##__VA_ARGS__ );fflush(stdout); } } while(0)
+ #define __error(format,...) do { fprintf(stderr,"[error:%04d] ", __LINE__);fprintf(stderr, format "\n", ##__VA_ARGS__ );fflush(stderr); } while(0)
+-#define EUCA_LIB_DIR "/usr/share/eucalyptus"
+-#define EUCA_ETC_DIR "/etc/eucalyptus/cloud.d"
+-#define EUCA_CLASSCACHE_DIR "/var/run/eucalyptus/classcache"
+-#define EUCA_SCRIPT_DIR "/etc/eucalyptus/cloud.d/scripts"
+ #define EUCA_MAIN "com/eucalyptus/bootstrap/SystemBootstrapper"
+ #define EUCA_RET_RELOAD 123
+ #define java_load_bootstrapper euca_load_bootstrapper
+@@ -125,23 +123,25 @@
+     jvm_opt.optionString=strdup(temp); \
+ } while(0)
+ static char *jvm_default_opts[] = {
+-	    "-Xbootclasspath/p:%1$s/usr/share/eucalyptus/openjdk-crypto.jar",
++	    "-Xbootclasspath/p:%1$s" EUCALYPTUS_DATA_DIR "/openjdk-crypto.jar",
+ 	    "-Xmx1024m",
+ 	    "-XX:MaxPermSize=256m",
+ 	    "-XX:+UseConcMarkSweepGC",
+ 	    "-Djava.net.preferIPv4Stack=true",
+-	    "-Djava.security.policy=%1$s/etc/eucalyptus/cloud.d/security.policy", 
+-	    "-Djava.library.path=%1$s/usr/lib/eucalyptus",
++	    "-Djava.security.policy=" EUCA_ETC_DIR "/security.policy", 
++	    "-Djava.library.path=" EUCALYPTUS_LIB_DIR,
+ 	    "-Djava.awt.headless=true",
+ 	    "-Dsun.java.command=Eucalyptus",
+ 	    "-Deuca.home=%1$s",
+             "-Deuca.db.home=",
+             "-Deuca.extra_version=",
+-	    "-Deuca.var.dir=%1$s/var/lib/eucalyptus",
+-	    "-Deuca.run.dir=%1$s/var/run/eucalyptus",
+-	    "-Deuca.lib.dir=%1$s/usr/share/eucalyptus",
+-	    "-Deuca.conf.dir=%1$s/etc/eucalyptus/cloud.d",
+-	    "-Deuca.log.dir=%1$s/var/log/eucalyptus",
++	    "-Deuca.var.dir=" EUCALYPTUS_STATE_DIR,
++	    "-Deuca.state.dir=" EUCALYPTUS_STATE_DIR,
++	    "-Deuca.run.dir=" EUCALYPTUS_RUN_DIR,
++	    "-Deuca.lib.dir=" EUCALYPTUS_JAVA_LIB_DIR,
++	    "-Deuca.libexec.dir=" EUCALYPTUS_LIBEXEC_DIR,
++	    "-Deuca.conf.dir=" EUCALYPTUS_CONF_DIR "/cloud.d",
++	    "-Deuca.log.dir=" EUCALYPTUS_LOG_DIR,
+ 	    "-Djava.util.prefs.PreferencesFactory=com.eucalyptus.util.NoopPreferencesFactory",
+ 	    NULL,
+ };
+diff -ur eucalyptus-3.1.0.old/clc/modules/bootstrap/src/main/native/Makefile eucalyptus-3.1.0.good/clc/modules/bootstrap/src/main/native/Makefile
+--- eucalyptus-3.1.0.old/clc/modules/bootstrap/src/main/native/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/bootstrap/src/main/native/Makefile	2012-08-14 12:11:52.852681831 -0400
+@@ -37,7 +37,7 @@
+ all: eucalyptus-cloud
+ build: eucalyptus-cloud
+ .c.o:
+-	$(CC) $(CFLAGS) -c $< -o $@
++	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+ 
+ eucalyptus-cloud: eucalyptus-opts.h $(OBJS)
+ 	$(LDCMD) $(OBJS) -o eucalyptus-cloud $(LDFLAGS)
+@@ -48,8 +48,8 @@
+ 	gengetopt --input=arguments.ggo --file-name=eucalyptus-opts --func-name=arguments --arg-struct-name=eucalyptus_opts
+ 
+ install: eucalyptus-cloud
+-	$(INSTALL) -d $(DESTDIR)$(sbindir)
+-	$(INSTALL) -m 0755 eucalyptus-cloud $(DESTDIR)$(sbindir)/eucalyptus-cloud
++	$(INSTALL) -d $(DESTDIR)$(eucasbindir)
++	$(INSTALL) -m 0755 eucalyptus-cloud $(DESTDIR)$(eucasbindir)/eucalyptus-cloud
+ 
+ clean:
+ 	@$(RM) -f $(OBJS) eucalyptus-cloud
+@@ -58,4 +58,4 @@
+ 	@$(RM) -f $(OBJS) eucalyptus-cloud arguments.ggo
+ 
+ uninstall:
+-	@$(RM) -f $(DESTDIR)$(sbindir)/eucalyptus-cloud 
++	@$(RM) -f $(DESTDIR)$(eucasbindir)/eucalyptus-cloud 
+diff -ur eucalyptus-3.1.0.old/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java eucalyptus-3.1.0.good/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java
+--- eucalyptus-3.1.0.old/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java	2012-08-14 11:08:49.270776821 -0400
+@@ -110,8 +110,7 @@
+ 	public static boolean trackUsageStatistics = true;
+ 	public static String STORAGE_HOST = "127.0.0.1";
+ 
+-	public static String eucaHome = BaseDirectory.HOME.toString( );
+-	public static final String EUCA_ROOT_WRAPPER = "/usr/lib/eucalyptus/euca_rootwrap";
++	public static final String EUCA_ROOT_WRAPPER = BaseDirectory.LIBEXEC.toString() + "/euca_rootwrap";
+ 	public static final String blockSize = "1M";
+ 
+ 	static { Groovyness.loadConfig("storageprops.groovy"); }
+diff -ur eucalyptus-3.1.0.old/clc/modules/core/src/main/java/com/eucalyptus/util/WalrusProperties.java eucalyptus-3.1.0.good/clc/modules/core/src/main/java/com/eucalyptus/util/WalrusProperties.java
+--- eucalyptus-3.1.0.old/clc/modules/core/src/main/java/com/eucalyptus/util/WalrusProperties.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/core/src/main/java/com/eucalyptus/util/WalrusProperties.java	2012-08-14 11:08:49.271776830 -0400
+@@ -149,9 +149,8 @@
+ 	public static String TRACKER_DIR = BaseDirectory.VAR.toString() + "/bt";
+ 	public static String TRACKER_URL = "http://localhost:6969/announce";
+ 	public static String TRACKER_PORT = "6969";
+-	public static final String eucaHome = System.getProperty("euca.home");
+-	public static final String EUCA_ROOT_WRAPPER = "/usr/lib/eucalyptus/euca_rootwrap";
+-	public static final String EUCA_MOUNT_WRAPPER = "/usr/lib/eucalyptus/euca_mountwrap";
++	public static final String EUCA_ROOT_WRAPPER = BaseDirectory.LIBEXEC.toString() + "/euca_rootwrap";
++	public static final String EUCA_MOUNT_WRAPPER = BaseDirectory.LIBEXEC.toString() + "/euca_mountwrap";
+ 	public static final String EUCA_USER = System.getProperty("euca.user");
+ 
+ 	//15 minutes
+diff -ur eucalyptus-3.1.0.old/clc/modules/msgs/src/main/java/com/eucalyptus/system/BaseDirectory.java eucalyptus-3.1.0.good/clc/modules/msgs/src/main/java/com/eucalyptus/system/BaseDirectory.java
+--- eucalyptus-3.1.0.old/clc/modules/msgs/src/main/java/com/eucalyptus/system/BaseDirectory.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/msgs/src/main/java/com/eucalyptus/system/BaseDirectory.java	2012-08-14 11:08:49.272776839 -0400
+@@ -70,7 +70,8 @@
+ import com.eucalyptus.scripting.ScriptExecutionFailedException;
+ 
+ public enum BaseDirectory {
+-  HOME( "euca.home" ), VAR( "euca.var.dir" ), CONF( "euca.conf.dir" ), LIB( "euca.lib.dir" ), LOG( "euca.log.dir" );
++  HOME( "euca.home" ), VAR( "euca.var.dir" ), CONF( "euca.conf.dir" ), LIB( "euca.lib.dir" ), LOG( "euca.log.dir" ),
++  RUN( "euca.run.dir" ), LIBEXEC( "euca.libexec.dir" ), STATE( "euca.state.dir" );
+   private static Logger LOGG = Logger.getLogger( BaseDirectory.class );
+   
+   private String        key;
+diff -ur eucalyptus-3.1.0.old/clc/modules/msgs/src/main/java/com/eucalyptus/system/SubDirectory.java eucalyptus-3.1.0.good/clc/modules/msgs/src/main/java/com/eucalyptus/system/SubDirectory.java
+--- eucalyptus-3.1.0.old/clc/modules/msgs/src/main/java/com/eucalyptus/system/SubDirectory.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/msgs/src/main/java/com/eucalyptus/system/SubDirectory.java	2012-08-14 11:08:49.273776848 -0400
+@@ -72,7 +72,7 @@
+ 
+ 
+ public enum SubDirectory {
+-  DB( BaseDirectory.VAR, "db" ){
++  DB( BaseDirectory.STATE, "db" ){
+       @Override
+       protected void assertPermissions() {
+   	
+@@ -84,7 +84,7 @@
+   	 }
+       }
+   },
+-  TX( BaseDirectory.HOME, "/var/run/eucalyptus/tx" ) { 
++  TX( BaseDirectory.RUN, "/tx" ) { 
+ 	@Override
+ 	protected void assertPermissions() {
+ 
+@@ -96,10 +96,10 @@
+ 	    }
+ 	}
+     },
+-  CLASSCACHE( BaseDirectory.HOME, "/var/run/eucalyptus/classcache" ),
++  CLASSCACHE( BaseDirectory.RUN, "/classcache" ),
+   WWW( BaseDirectory.CONF, "www" ),
+-  WEBAPPS( BaseDirectory.VAR, "webapps" ),
+-  KEYS( BaseDirectory.VAR, "keys" ){ 
++  WEBAPPS( BaseDirectory.STATE, "webapps" ),
++  KEYS( BaseDirectory.STATE, "keys" ){ 
+       @Override
+       protected void assertPermissions() {
+   	
+@@ -119,8 +119,8 @@
+   REPORTS( BaseDirectory.CONF, "reports" ),
+   CONF( BaseDirectory.CONF, "conf" ),
+   QUEUE( BaseDirectory.VAR, "queue" ),
+-  LIB( BaseDirectory.HOME, "/usr/share/eucalyptus" ),
+-  RUNDB( BaseDirectory.HOME, "/var/run/eucalyptus/db") {
++  LIB( BaseDirectory.LIB, "" ),
++  RUNDB( BaseDirectory.STATE, "/db") {
+ 
+     @Override
+     protected void assertPermissions() {
+diff -ur eucalyptus-3.1.0.old/clc/modules/storage-common/src/main/java/edu/ucsb/eucalyptus/storage/fs/FileSystemStorageManager.java eucalyptus-3.1.0.good/clc/modules/storage-common/src/main/java/edu/ucsb/eucalyptus/storage/fs/FileSystemStorageManager.java
+--- eucalyptus-3.1.0.old/clc/modules/storage-common/src/main/java/edu/ucsb/eucalyptus/storage/fs/FileSystemStorageManager.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/storage-common/src/main/java/edu/ucsb/eucalyptus/storage/fs/FileSystemStorageManager.java	2012-08-14 11:08:49.274776857 -0400
+@@ -97,14 +97,14 @@
+ import edu.ucsb.eucalyptus.storage.StorageManager;
+ import edu.ucsb.eucalyptus.util.StreamConsumer;
+ import edu.ucsb.eucalyptus.util.SystemUtil;
++import com.eucalyptus.system.BaseDirectory;
+ 
+ public class FileSystemStorageManager implements StorageManager {
+ 
+ 	public static final String FILE_SEPARATOR = "/";
+ 	public static final String lvmRootDirectory = "/dev";
+ 	private static boolean initialized = false;
+-	private static String eucaHome = "/opt/eucalyptus";
+-	public static final String EUCA_ROOT_WRAPPER = "/usr/lib/eucalyptus/euca_rootwrap";
++	public static final String EUCA_ROOT_WRAPPER = BaseDirectory.LIBEXEC.toString() + "/euca_rootwrap";
+ 	public static final int MAX_LOOP_DEVICES = 256;
+ 	private static Logger LOG = Logger.getLogger(FileSystemStorageManager.class);
+ 
+@@ -113,12 +113,7 @@
+ 
+ 	public void checkPreconditions() throws EucalyptusCloudException {
+ 		try {
+-			String eucaHomeDir = System.getProperty("euca.home");
+-			if(eucaHomeDir == null) {
+-				throw new EucalyptusCloudException("euca.home not set");
+-			}
+-			eucaHome = eucaHomeDir;
+-			if(!new File(eucaHome + EUCA_ROOT_WRAPPER).exists()) {
++			if(!new File(EUCA_ROOT_WRAPPER).exists()) {
+ 				throw new EucalyptusCloudException("root wrapper (euca_rootwrap) does not exist");
+ 			}
+ 			String returnValue = getLvmVersion();
+@@ -432,14 +427,14 @@
+ 	}
+ 
+ 	private String removeLoopback(String loDevName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "losetup", "-d", loDevName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "losetup", "-d", loDevName});
+ 	}
+ 
+ 	private int losetup(String absoluteFileName, String loDevName) {
+ 		try
+ 		{
+ 			Runtime rt = Runtime.getRuntime();
+-			Process proc = rt.exec(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "losetup", loDevName, absoluteFileName});
++			Process proc = rt.exec(new String[]{EUCA_ROOT_WRAPPER, "losetup", loDevName, absoluteFileName});
+ 			StreamConsumer error = new StreamConsumer(proc.getErrorStream());
+ 			StreamConsumer output = new StreamConsumer(proc.getInputStream());
+ 			error.start();
+@@ -457,39 +452,39 @@
+ 	}
+ 
+ 	private String findFreeLoopback() throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "losetup", "-f"}).replaceAll("\n", "");
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "losetup", "-f"}).replaceAll("\n", "");
+ 	}
+ 
+ 	private String removeLogicalVolume(String lvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "lvremove", "-f", lvName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "lvremove", "-f", lvName});
+ 	}
+ 
+ 	private String reduceVolumeGroup(String vgName, String pvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "vgreduce", vgName, pvName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "vgreduce", vgName, pvName});
+ 	}
+ 
+ 	private String removePhysicalVolume(String loDevName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "pvremove", loDevName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "pvremove", loDevName});
+ 	}
+ 
+ 	private String createVolumeFromLv(String lvName, String volumeKey) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "dd", "if=" + lvName, "of=" + volumeKey, "bs=1M"});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "dd", "if=" + lvName, "of=" + volumeKey, "bs=1M"});
+ 	}
+ 
+ 	private String enableLogicalVolume(String lvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "lvchange", "-ay", lvName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "lvchange", "-ay", lvName});
+ 	}
+ 
+ 	private String disableLogicalVolume(String lvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "lvchange", "-an", lvName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "lvchange", "-an", lvName});
+ 	}
+ 
+ 	private String removeVolumeGroup(String vgName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "vgremove", vgName});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "vgremove", vgName});
+ 	}
+ 
+ 	private String getLvmVersion() throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "lvm", "version"});
++		return SystemUtil.run(new String[]{EUCA_ROOT_WRAPPER, "lvm", "version"});
+ 	}
+ 
+ 
+diff -ur eucalyptus-3.1.0.old/clc/modules/storage-controller/native/Makefile eucalyptus-3.1.0.good/clc/modules/storage-controller/native/Makefile
+--- eucalyptus-3.1.0.old/clc/modules/storage-controller/native/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/storage-controller/native/Makefile	2012-08-14 12:10:58.064205350 -0400
+@@ -11,11 +11,11 @@
+ all: $(LIBDIR)/$(LVM2_SO) 
+ 
+ .c.o:
+-	gcc -c $(WARN) $(CFLAGS) $<
++	gcc -c $(WARN) $(CFLAGS) $(CPPFLAGS) $<
+ 
+ $(LIBDIR)/$(LVM2_SO): 
+ 	mkdir -p $(LIBDIR)
+-	gcc -shared $(CFLAGS) -o $(LIBDIR)/$(LVM2_SO) *.c
++	gcc -shared $(CFLAGS) $(CPPFLAGS) -o $(LIBDIR)/$(LVM2_SO) *.c
+ 
+ clean:
+ 	rm -rf $(LIBDIR)
+@@ -24,8 +24,8 @@
+ distclean: clean
+ 
+ install:
+-	mkdir -p $(DESTDIR)$(EUCALYPTUS)/usr/lib/eucalyptus/
+-	cp $(LIBDIR)/$(LVM2_SO) $(DESTDIR)$(EUCALYPTUS)/usr/lib/eucalyptus/
++	mkdir -p $(DESTDIR)$(eucalibdir)
++	cp $(LIBDIR)/$(LVM2_SO) $(DESTDIR)$(eucalibdir)
+ 
+ uninstall:
+-	rm -r $(DESTDIR)$(EUCALYPTUS)/usr/lib/eucalyptus/$(LVM2_SO)
++	rm -r $(DESTDIR)$(eucalibdir)/$(LVM2_SO)
+diff -ur eucalyptus-3.1.0.old/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/AOEManager.java eucalyptus-3.1.0.good/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/AOEManager.java
+--- eucalyptus-3.1.0.old/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/AOEManager.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/AOEManager.java	2012-08-14 11:08:49.275776865 -0400
+@@ -89,7 +89,7 @@
+ 	@Override
+ 	public void checkPreconditions() throws EucalyptusCloudException {
+ 		String returnValue;
+-		returnValue = SystemUtil.run(new String[]{OverlayManager.eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "which", "vblade"});
++		returnValue = SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "which", "vblade"});
+ 		if(returnValue.length() == 0) {
+ 			throw new EucalyptusCloudException("vblade not found: Is it installed?");
+ 		} else {
+@@ -101,7 +101,7 @@
+ 		try
+ 		{
+ 			Runtime rt = Runtime.getRuntime();
+-			Process proc = rt.exec(new String[]{OverlayManager.eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "kill", String.valueOf(vbladePid)});
++			Process proc = rt.exec(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "kill", String.valueOf(vbladePid)});
+ 			StreamConsumer error = new StreamConsumer(proc.getErrorStream());
+ 			StreamConsumer output = new StreamConsumer(proc.getInputStream());
+ 			error.start();
+@@ -117,7 +117,7 @@
+ 		try
+ 		{
+ 			Runtime rt = Runtime.getRuntime();
+-			Process proc = rt.exec(new String[]{OverlayManager.eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "modprobe", "aoe"});
++			Process proc = rt.exec(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "modprobe", "aoe"});
+ 			StreamConsumer error = new StreamConsumer(proc.getErrorStream());
+ 			StreamConsumer output = new StreamConsumer(proc.getInputStream());
+ 			error.start();
+diff -ur eucalyptus-3.1.0.old/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/ISCSIManager.java eucalyptus-3.1.0.good/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/ISCSIManager.java
+--- eucalyptus-3.1.0.old/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/ISCSIManager.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/ISCSIManager.java	2012-08-14 11:08:49.276776873 -0400
+@@ -95,7 +95,7 @@
+ 
+ public class ISCSIManager implements StorageExportManager {
+ 	private static Logger LOG = Logger.getLogger(ISCSIManager.class);
+-	private static String ROOT_WRAP = BaseDirectory.HOME.toString() + StorageProperties.EUCA_ROOT_WRAPPER;
++	private static String ROOT_WRAP = StorageProperties.EUCA_ROOT_WRAPPER;
+ 	@Override
+ 	public void checkPreconditions() throws EucalyptusCloudException {
+ 		String returnValue;
+diff -ur eucalyptus-3.1.0.old/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/OverlayManager.java eucalyptus-3.1.0.good/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/OverlayManager.java
+--- eucalyptus-3.1.0.old/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/OverlayManager.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/storage-controller/src/main/java/com/eucalyptus/storage/OverlayManager.java	2012-08-14 11:08:49.278776890 -0400
+@@ -111,9 +111,8 @@
+ 	public static final String PATH_SEPARATOR = File.separator;
+ 	public static boolean initialized = false;
+ 	public static final int MAX_LOOP_DEVICES = 256;
+-	public static final String EUCA_VAR_RUN_PATH = "/var/run/eucalyptus";
++	public static final String EUCA_VAR_RUN_PATH = System.getProperty("euca.run.dir");
+ 	private static Logger LOG = Logger.getLogger(OverlayManager.class);
+-	public static String eucaHome = System.getProperty("euca.home");
+ 	private static final long LVM_HEADER_LENGTH = 4 * StorageProperties.MB;
+ 	public static StorageExportManager exportManager;
+ 
+@@ -122,15 +121,10 @@
+ 
+ 	public void checkPreconditions() throws EucalyptusCloudException {
+ 		//check if binaries exist, commands can be executed, etc.
+-		String eucaHomeDir = System.getProperty("euca.home");
+-		if(eucaHomeDir == null) {
+-			throw new EucalyptusCloudException("euca.home not set");
+-		}
+-		eucaHome = eucaHomeDir;
+-		if(!new File(eucaHome + StorageProperties.EUCA_ROOT_WRAPPER).exists()) {
+-			throw new EucalyptusCloudException("root wrapper (euca_rootwrap) does not exist in " + eucaHome + StorageProperties.EUCA_ROOT_WRAPPER);
++		if(!new File(StorageProperties.EUCA_ROOT_WRAPPER).exists()) {
++			throw new EucalyptusCloudException("root wrapper (euca_rootwrap) does not exist in " + StorageProperties.EUCA_ROOT_WRAPPER);
+ 		}
+-		File varDir = new File(eucaHome + EUCA_VAR_RUN_PATH);
++		File varDir = new File(EUCA_VAR_RUN_PATH);
+ 		if(!varDir.exists()) {
+ 			varDir.mkdirs();
+ 		}
+@@ -155,68 +149,68 @@
+ 	}
+ 
+ 	private String getLvmVersion() throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "lvm", "version"});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "lvm", "version"});
+ 	}
+ 
+ 	private String findFreeLoopback() throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "losetup", "-f"}).replaceAll("\n", "");
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "losetup", "-f"}).replaceAll("\n", "");
+ 	}
+ 
+ 	private  String getLoopback(String loDevName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "losetup", loDevName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "losetup", loDevName});
+ 	}
+ 
+ 	private String createPhysicalVolume(String loDevName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "pvcreate", loDevName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "pvcreate", loDevName});
+ 	}
+ 
+ 	private String createVolumeGroup(String pvName, String vgName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "vgcreate", vgName, pvName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "vgcreate", vgName, pvName});
+ 	}
+ 
+ 	private String extendVolumeGroup(String pvName, String vgName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "vgextend", vgName, pvName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "vgextend", vgName, pvName});
+ 	}
+ 
+ 	private String scanVolumeGroups() throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "vgscan"});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "vgscan"});
+ 	}
+ 
+ 	private String createLogicalVolume(String vgName, String lvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "lvcreate", "-n", lvName, "-l", "100%FREE", vgName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "lvcreate", "-n", lvName, "-l", "100%FREE", vgName});
+ 	}
+ 
+ 	private String createSnapshotLogicalVolume(String lvName, String snapLvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "lvcreate", "-n", snapLvName, "-s", "-l", "100%FREE", lvName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "lvcreate", "-n", snapLvName, "-s", "-l", "100%FREE", lvName});
+ 	}
+ 
+ 	private String removeLogicalVolume(String lvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "lvremove", "-f", lvName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "lvremove", "-f", lvName});
+ 	}
+ 
+ 	private String removeVolumeGroup(String vgName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "vgremove", vgName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "vgremove", vgName});
+ 	}
+ 
+ 	private String removePhysicalVolume(String loDevName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "pvremove", loDevName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "pvremove", loDevName});
+ 	}
+ 
+ 	private String removeLoopback(String loDevName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "losetup", "-d", loDevName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "losetup", "-d", loDevName});
+ 	}
+ 
+ 	private String reduceVolumeGroup(String vgName, String pvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "vgreduce", vgName, pvName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "vgreduce", vgName, pvName});
+ 	}
+ 
+ 	private String enableLogicalVolume(String lvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "lvchange", "-ay", lvName});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "lvchange", "-ay", lvName});
+ 	}
+ 
+ 	private boolean logicalVolumeExists(String lvName) {
+ 		boolean success = false;
+-		String returnValue = SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "lvdisplay", lvName});
++		String returnValue = SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "lvdisplay", lvName});
+ 		if(returnValue.length() > 0) {
+ 			success = true;
+ 		}
+@@ -225,7 +219,7 @@
+ 
+ 	private boolean volumeGroupExists(String vgName) {
+ 		boolean success = false;
+-		String returnValue = SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "vgdisplay", vgName});
++		String returnValue = SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "vgdisplay", vgName});
+ 		if(returnValue.length() > 0) {
+ 			success = true;
+ 		}
+@@ -234,7 +228,7 @@
+ 
+ 	private boolean physicalVolumeExists(String pvName) {
+ 		boolean success = false;
+-		String returnValue = SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "pvdisplay", pvName});
++		String returnValue = SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "pvdisplay", pvName});
+ 		if(returnValue.length() > 0) {
+ 			success = true;
+ 		}
+@@ -245,7 +239,7 @@
+ 		try
+ 		{
+ 			Runtime rt = Runtime.getRuntime();
+-			Process proc = rt.exec(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "losetup", loDevName, absoluteFileName});
++			Process proc = rt.exec(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "losetup", loDevName, absoluteFileName});
+ 			StreamConsumer error = new StreamConsumer(proc.getErrorStream());
+ 			StreamConsumer output = new StreamConsumer(proc.getInputStream());
+ 			error.start();
+@@ -263,14 +257,14 @@
+ 	}
+ 
+ 	private String duplicateLogicalVolume(String oldLvName, String newLvName) throws EucalyptusCloudException {
+-		return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "dd", "if=" + oldLvName, "of=" + newLvName, "bs=" + StorageProperties.blockSize});
++		return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "dd", "if=" + oldLvName, "of=" + newLvName, "bs=" + StorageProperties.blockSize});
+ 	}
+ 
+ 	private String createFile(String fileName, long size) throws EucalyptusCloudException {
+ 		if(!DirectStorageInfo.getStorageInfo().getZeroFillVolumes())
+-			return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "dd", "if=/dev/zero", "of=" + fileName, "count=1", "bs=" + StorageProperties.blockSize, "seek=" + (size -1)});
++			return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "dd", "if=/dev/zero", "of=" + fileName, "count=1", "bs=" + StorageProperties.blockSize, "seek=" + (size -1)});
+ 		else
+-			return SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, "dd", "if=/dev/zero", "of=" + fileName, "count=" + size, "bs=" + StorageProperties.blockSize});
++			return SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, "dd", "if=/dev/zero", "of=" + fileName, "count=" + size, "bs=" + StorageProperties.blockSize});
+ 	}
+ 
+ 	private String createEmptyFile(String fileName, int size) throws EucalyptusCloudException {
+@@ -980,7 +974,7 @@
+ 							int minorNumber = aoeVolumeInfo.getMinorNumber();
+ 							pid = exportManager.exportVolume(DirectStorageInfo.getStorageInfo().getStorageInterface(), absoluteLVName, majorNumber, minorNumber);
+ 							aoeVolumeInfo.setVbladePid(pid);
+-							File vbladePidFile = new File(eucaHome + EUCA_VAR_RUN_PATH + "/vblade-" + majorNumber + minorNumber + ".pid");
++							File vbladePidFile = new File(EUCA_VAR_RUN_PATH + "/vblade-" + majorNumber + minorNumber + ".pid");
+ 							FileOutputStream fileOutStream = null;
+ 							try {
+ 								fileOutStream = new FileOutputStream(vbladePidFile);
+@@ -1087,7 +1081,7 @@
+ 						manager.unexportVolume(pid);
+ 						int majorNumber = aoeVolumeInfo.getMajorNumber();
+ 						int minorNumber = aoeVolumeInfo.getMinorNumber();
+-						File vbladePidFile = new File(eucaHome + EUCA_VAR_RUN_PATH + "/vblade-" + majorNumber + minorNumber + ".pid");
++						File vbladePidFile = new File(EUCA_VAR_RUN_PATH + "/vblade-" + majorNumber + minorNumber + ".pid");
+ 						if(vbladePidFile.exists()) {
+ 							vbladePidFile.delete();
+ 						}
+@@ -1213,7 +1207,7 @@
+ 					throw new EucalyptusCloudException("Could not export AoE device " + absoluteLVName + " StorageInfo.getStorageInfo().getStorageInterface(): " + DirectStorageInfo.getStorageInfo().getStorageInterface() + " pid: " + pid + " returnValue: " + returnValue);
+ 				}
+ 
+-				File vbladePidFile = new File(eucaHome + EUCA_VAR_RUN_PATH + "/vblade-" + majorNumber + minorNumber + ".pid");
++				File vbladePidFile = new File(EUCA_VAR_RUN_PATH + "/vblade-" + majorNumber + minorNumber + ".pid");
+ 				FileOutputStream fileOutStream = null;
+ 				try {
+ 					fileOutStream = new FileOutputStream(vbladePidFile);
+@@ -1331,7 +1325,7 @@
+ 		volumeManager = new VolumeEntityWrapperManager();
+ 		LVMVolumeInfo volumeInfo = volumeManager.getVolumeInfo(volumeId);
+ 		if(volumeInfo != null) {
+-			SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, 
++			SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, 
+ 					"dd", "if=" + volumePath, 
+ 					"of=" + lvmRootDirectory + File.separator + volumeInfo.getVgName() + 
+ 					File.separator + volumeInfo.getLvName(), "bs=" + StorageProperties.blockSize});
+@@ -1367,7 +1361,7 @@
+ 		}
+ 		volumeManager.finish();
+ 		String snapFileName = getStorageRootDirectory() + File.separator + snapshotId;
+-		SystemUtil.run(new String[]{eucaHome + StorageProperties.EUCA_ROOT_WRAPPER, 
++		SystemUtil.run(new String[]{StorageProperties.EUCA_ROOT_WRAPPER, 
+ 				"dd", "if=" + snapPath, 
+ 				"of=" + snapFileName, "bs=" + StorageProperties.blockSize});
+ 		volumeManager = new VolumeEntityWrapperManager();
+@@ -1394,15 +1388,10 @@
+ 	@Override
+ 	public void checkReady() throws EucalyptusCloudException {
+ 		//check if binaries exist, commands can be executed, etc.
+-		String eucaHomeDir = System.getProperty("euca.home");
+-		if(eucaHomeDir == null) {
+-			throw new EucalyptusCloudException("euca.home not set");
+-		}
+-		eucaHome = eucaHomeDir;
+-		if(!new File(eucaHome + StorageProperties.EUCA_ROOT_WRAPPER).exists()) {
+-			throw new EucalyptusCloudException("root wrapper (euca_rootwrap) does not exist in " + eucaHome + StorageProperties.EUCA_ROOT_WRAPPER);
++		if(!new File(StorageProperties.EUCA_ROOT_WRAPPER).exists()) {
++			throw new EucalyptusCloudException("root wrapper (euca_rootwrap) does not exist in " + StorageProperties.EUCA_ROOT_WRAPPER);
+ 		}
+-		File varDir = new File(eucaHome + EUCA_VAR_RUN_PATH);
++		File varDir = new File(EUCA_VAR_RUN_PATH);
+ 		if(!varDir.exists()) {
+ 			varDir.mkdirs();
+ 		}
+diff -ur eucalyptus-3.1.0.old/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/WalrusControl.java eucalyptus-3.1.0.good/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/WalrusControl.java
+--- eucalyptus-3.1.0.old/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/WalrusControl.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/WalrusControl.java	2012-08-14 11:08:49.280776908 -0400
+@@ -170,7 +170,7 @@
+ 	public static void checkPreconditions() throws EucalyptusCloudException, ExecutionException {
+ 		// TODO Auto-generated method stub
+ 		String returnValue;
+-		returnValue = SystemUtil.run(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "status"});
++		returnValue = SystemUtil.run(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "status"});
+ 		if(returnValue.length() == 0) {
+ 		  Faults.advisory(Components.lookup(Walrus.class).getLocalServiceConfiguration(), 
+ 		                                      new EucalyptusCloudException("drbdadm not found: Is drbd installed?"));
+diff -ur eucalyptus-3.1.0.old/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/storage/fs/DRBDStorageManager.java eucalyptus-3.1.0.good/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/storage/fs/DRBDStorageManager.java
+--- eucalyptus-3.1.0.old/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/storage/fs/DRBDStorageManager.java	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/storage/fs/DRBDStorageManager.java	2012-08-14 11:08:49.281776917 -0400
+@@ -98,7 +98,7 @@
+ 	}
+ 
+ 	private String getConnectionStatus() throws ExecutionException, EucalyptusCloudException {
+-		String returnValue = SystemUtil.run(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "cstate", DRBDInfo.getDRBDInfo().getResource()});
++		String returnValue = SystemUtil.run(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "cstate", DRBDInfo.getDRBDInfo().getResource()});
+ 		if(returnValue.length() == 0) {
+ 			throw new EucalyptusCloudException("Unable to get connection status for resource: " + DRBDInfo.getDRBDInfo().getResource());
+ 		}
+@@ -106,7 +106,7 @@
+ 	}
+ 
+ 	private String getDataStatus() throws ExecutionException, EucalyptusCloudException {
+-		String returnValue = SystemUtil.run(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "dstate", DRBDInfo.getDRBDInfo().getResource()});
++		String returnValue = SystemUtil.run(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "dstate", DRBDInfo.getDRBDInfo().getResource()});
+ 		if(returnValue.length() == 0) {
+ 			throw new EucalyptusCloudException("Unable to get data status for resource: " + DRBDInfo.getDRBDInfo().getResource());
+ 		}
+@@ -119,7 +119,7 @@
+ 	 * @throws EucalyptusCloudException
+ 	 */
+ 	private String getRole() throws ExecutionException, EucalyptusCloudException {
+-		String returnValue = SystemUtil.run(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "role", DRBDInfo.getDRBDInfo().getResource()});
++		String returnValue = SystemUtil.run(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "role", DRBDInfo.getDRBDInfo().getResource()});
+ 		if(returnValue.length() == 0) {
+ 			throw new EucalyptusCloudException("Unable to get role for resource: " + DRBDInfo.getDRBDInfo().getResource());
+ 		}
+@@ -132,7 +132,7 @@
+ 	 * @throws EucalyptusCloudException
+ 	 */
+ 	private void makePrimary() throws ExecutionException, EucalyptusCloudException {
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "primary", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "primary", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to make resource " + DRBDInfo.getDRBDInfo().getResource() + " primary");
+ 		}
+ 	}
+@@ -143,19 +143,19 @@
+ 	 * @throws EucalyptusCloudException
+ 	 */
+ 	private void makeSecondary() throws ExecutionException, EucalyptusCloudException {		
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "secondary", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "secondary", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to make resource " + DRBDInfo.getDRBDInfo().getResource() + " secondary");
+ 		}
+ 	}
+ 
+ 	private void connectResource() throws ExecutionException, EucalyptusCloudException {
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "connect", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "connect", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to connect resource: " + DRBDInfo.getDRBDInfo().getResource());
+ 		}
+ 	}
+ 
+ 	private void disconnectResource() throws ExecutionException, EucalyptusCloudException {
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "disconnect", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "disconnect", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to disconnect resource: " + DRBDInfo.getDRBDInfo().getResource());
+ 		}
+ 	}
+@@ -166,14 +166,14 @@
+ 	}
+ 
+ 	private void mountPrimary() throws ExecutionException, EucalyptusCloudException {
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_MOUNT_WRAPPER, "mount", DRBDInfo.getDRBDInfo().getBlockDevice(), WalrusInfo.getWalrusInfo().getStorageDir(), WalrusProperties.EUCA_USER}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_MOUNT_WRAPPER, "mount", DRBDInfo.getDRBDInfo().getBlockDevice(), WalrusInfo.getWalrusInfo().getStorageDir(), WalrusProperties.EUCA_USER}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to mount " + DRBDInfo.getDRBDInfo().getBlockDevice() + " as " + WalrusInfo.getWalrusInfo().getStorageDir());
+ 		}
+ 		SystemUtil.setEucaReadWriteOnly(WalrusInfo.getWalrusInfo().getStorageDir());
+ 	}
+ 
+ 	private void unmountPrimary() throws ExecutionException, EucalyptusCloudException {
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_MOUNT_WRAPPER, "umount", WalrusInfo.getWalrusInfo().getStorageDir()}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_MOUNT_WRAPPER, "umount", WalrusInfo.getWalrusInfo().getStorageDir()}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to unmount " + DRBDInfo.getDRBDInfo().getBlockDevice());
+ 		}
+ 	}
+@@ -184,7 +184,7 @@
+ 	 * @throws ExecutionException
+ 	 */
+ 	private boolean isMounted() throws EucalyptusCloudException {
+-		String returnValue = SystemUtil.run(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "cat", "/proc/mounts"});
++		String returnValue = SystemUtil.run(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "cat", "/proc/mounts"});
+ 		if(returnValue.length() > 0) {
+ 			if(returnValue.contains(DRBDInfo.getDRBDInfo().getBlockDevice())) {
+ 				return true;
+@@ -347,7 +347,7 @@
+ 	//check status
+ 
+ 	public void secondaryDrasticRecovery() throws ExecutionException, EucalyptusCloudException {
+-		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.eucaHome + WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "--", "--discard-my-data", "connect", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
++		if(SystemUtil.runAndGetCode(new String[]{WalrusProperties.EUCA_ROOT_WRAPPER, "drbdadm", "--", "--discard-my-data", "connect", DRBDInfo.getDRBDInfo().getResource()}) != 0) {
+ 			throw new EucalyptusCloudException("Unable to recover from split brain for resource: " + DRBDInfo.getDRBDInfo().getResource());
+ 		}
+ 	}
+diff -ur eucalyptus-3.1.0.old/cluster/CCclient.c eucalyptus-3.1.0.good/cluster/CCclient.c
+--- eucalyptus-3.1.0.old/cluster/CCclient.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/cluster/CCclient.c	2012-08-14 11:08:49.299777073 -0400
+@@ -64,6 +64,8 @@
+ #include <data.h>
+ #include <cc-client-marshal.h>
+ 
++#include <eucalyptus.h>
++
+ #ifndef MODE
+ #define MODE 0
+ #endif
+@@ -102,12 +104,10 @@
+   
+   euca_home = getenv("EUCALYPTUS");
+   if (!euca_home) {
+-    snprintf(configFile, 1024, "/etc/eucalyptus/eucalyptus.conf");
+-    snprintf(policyFile, 1024, "/var/lib/eucalyptus/keys/cc-client-policy.xml");
+-  } else {
+-    snprintf(configFile, 1024, "%s/etc/eucalyptus/eucalyptus.conf", euca_home);
+-    snprintf(policyFile, 1024, "%s/var/lib/eucalyptus/keys/cc-client-policy.xml", euca_home);
++    euca_home = "";
+   }
++  snprintf(configFile, 1024, EUCALYPTUS_CONF_LOCATION, euca_home);
++  snprintf(policyFile, 1024, EUCALYPTUS_KEYS_DIR "/cc-client-policy.xml", euca_home);
+ 
+   rc = get_conf_var(configFile, "CC_PORT", &tmpstr);
+   if (rc != 1) {
+diff -ur eucalyptus-3.1.0.old/cluster/handlers.c eucalyptus-3.1.0.good/cluster/handlers.c
+--- eucalyptus-3.1.0.old/cluster/handlers.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/cluster/handlers.c	2012-08-14 14:17:28.294215967 -0400
+@@ -90,6 +90,8 @@
+ 
+ #include <handlers-state.h>
+ 
++#include <eucalyptus.h>
++
+ #define SUPERUSER "eucalyptus"
+ 
+ // Globals
+@@ -1736,9 +1738,9 @@
+     rc = 0;
+     ret = 0;
+     if (strcmp(res->mac, "00:00:00:00:00:00")) {
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap powerwake -b %s %s", vnetconfig->eucahome, bc, res->mac);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " powerwake -b %s %s", vnetconfig->eucahome, bc, res->mac);
+     } else if (strcmp(res->ip, "0.0.0.0")) {
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap powerwake -b %s %s", vnetconfig->eucahome, bc, res->ip);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " powerwake -b %s %s", vnetconfig->eucahome, bc, res->ip);
+     } else {
+       ret = rc = 1;
+     }
+@@ -2223,9 +2225,9 @@
+ 	      //if (strstr(platform, "windows")) {
+ 	      char cdir[MAX_PATH];
+ 	      
+-	      snprintf(cdir, MAX_PATH, "%s/var/lib/eucalyptus/windows/", config->eucahome);
++	      snprintf(cdir, MAX_PATH, EUCALYPTUS_STATE_DIR "/windows/", config->eucahome);
+ 	      if (check_directory(cdir)) mkdir(cdir, 0700);
+-	      snprintf(cdir, MAX_PATH, "%s/var/lib/eucalyptus/windows/%s/", config->eucahome, instId);
++	      snprintf(cdir, MAX_PATH, EUCALYPTUS_STATE_DIR "/windows/%s/", config->eucahome, instId);
+ 	      if (check_directory(cdir)) mkdir(cdir, 0700);
+ 	      if (check_directory(cdir)) {
+ 		logprintfl(EUCAERROR, "RunInstances(): could not create console/floppy cache directory '%s'\n", cdir);
+@@ -2372,7 +2374,7 @@
+     if (!strstr(resourceCacheLocal.resources[j].ncURL, "EucalyptusNC")) {
+             char pwfile[MAX_PATH];
+             *outConsoleOutput = NULL;
+-            snprintf(pwfile, MAX_PATH, "%s/var/lib/eucalyptus/windows/%s/console.append.log", config->eucahome, instId);
++            snprintf(pwfile, MAX_PATH, EUCALYPTUS_STATE_DIR  "/windows/%s/console.append.log", config->eucahome, instId);
+ 
+             char *rawconsole=NULL;
+             if (!check_file(pwfile)) { // the console log file should exist for a Windows guest (with encrypted password in it)
+@@ -2526,7 +2528,7 @@
+ 	if (!strstr(resourceCacheLocal.resources[j].ncURL, "EucalyptusNC")) {
+ 	  char cdir[MAX_PATH];
+ 	  char cfile[MAX_PATH];
+-	  snprintf(cdir, MAX_PATH, "%s/var/lib/eucalyptus/windows/%s/", config->eucahome, instId);
++	  snprintf(cdir, MAX_PATH, EUCALYPTUS_STATE_DIR "/windows/%s/", config->eucahome, instId);
+ 	  if (!check_directory(cdir)) {
+ 	    snprintf(cfile, MAX_PATH, "%s/floppy", cdir);
+ 	    if (!check_file(cfile)) unlink(cfile);
+@@ -2653,9 +2655,9 @@
+     
+     tmpstr = getenv(EUCALYPTUS_ENV_VAR_NAME);
+     if (!tmpstr) {
+-      snprintf(path, MAX_PATH, "/var/lib/eucalyptus/CC/%s", bufname);
++      snprintf(path, MAX_PATH, EUCALYPTUS_STATE_DIR "/CC/%s", bufname);
+     } else {
+-      snprintf(path, MAX_PATH, "%s/var/lib/eucalyptus/CC/%s", tmpstr, bufname);
++      snprintf(path, MAX_PATH, EUCALYPTUS_STATE_DIR "/CC/%s", tmpstr, bufname);
+     }
+     fd = open(path, O_RDWR | O_CREAT, 0600);
+     if (fd<0) {
+@@ -2863,13 +2865,13 @@
+   
+   // shellouts
+   {
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap", config->eucahome);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP, config->eucahome);
+     if (check_file(cmd)) {
+       logprintfl(EUCAERROR, "ccCheckState(): cannot find shellout '%s'\n", cmd);
+       ret++;
+     }
+ 
+-    snprintf(cmd, MAX_PATH, "%s/usr/share/eucalyptus/dynserv.pl", config->eucahome);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_HELPER_DIR "/dynserv.pl", config->eucahome);
+     if (check_file(cmd)) {
+       logprintfl(EUCAERROR, "ccCheckState(): cannot find shellout '%s'\n", cmd);
+       ret++;
+@@ -3138,7 +3140,7 @@
+ 	  logprintfl(EUCAERROR, "monitor_thread(): cannot invalidate image cache\n");
+ 	}
+ 	
+-	snprintf(pidfile, MAX_PATH, "%s/var/run/eucalyptus/httpd-dynserv.pid", config->eucahome);
++	snprintf(pidfile, MAX_PATH, EUCALYPTUS_RUN_DIR "/httpd-dynserv.pid", config->eucahome);
+ 	pidstr = file2str(pidfile);
+ 	if (pidstr) {
+ 	  if (check_process(atoi(pidstr), "dynserv-httpd.conf")) {
+@@ -3237,7 +3239,7 @@
+     
+     snprintf(configFiles[1], MAX_PATH, EUCALYPTUS_CONF_LOCATION, home);
+     snprintf(configFiles[0], MAX_PATH, EUCALYPTUS_CONF_OVERRIDE_LOCATION, home);
+-    snprintf(logFile, MAX_PATH, "%s/var/log/eucalyptus/cc.log", home);  
++    snprintf(logFile, MAX_PATH, EUCALYPTUS_LOG_DIR "/cc.log", home);  
+     
+     tmpstr = getConfString(configFiles, 2, "LOGLEVEL");
+     if (!tmpstr) {
+@@ -3479,7 +3481,7 @@
+   snprintf(configFiles[1], MAX_PATH, EUCALYPTUS_CONF_LOCATION, home);
+   snprintf(configFiles[0], MAX_PATH, EUCALYPTUS_CONF_OVERRIDE_LOCATION, home);
+   snprintf(netPath, MAX_PATH, CC_NET_PATH_DEFAULT, home);
+-  snprintf(policyFile, MAX_PATH, "%s/var/lib/eucalyptus/keys/nc-client-policy.xml", home);
++  snprintf(policyFile, MAX_PATH, EUCALYPTUS_KEYS_DIR "/nc-client-policy.xml", home);
+   snprintf(eucahome, MAX_PATH, "%s/", home);
+ 
+   sem_mywait(INIT);
+@@ -3905,14 +3907,14 @@
+     snprintf(proxyPath, MAX_PATH, "%s", tmpstr);
+     free(tmpstr);
+   } else {
+-    snprintf(proxyPath, MAX_PATH, "%s/var/lib/eucalyptus/dynserv", eucahome);
++    snprintf(proxyPath, MAX_PATH, EUCALYPTUS_STATE_DIR "/dynserv", eucahome);
+   }
+ 
+   sem_mywait(CONFIG);
+   // set up the current config   
+   safe_strncpy(config->eucahome, eucahome, MAX_PATH);
+   safe_strncpy(config->policyFile, policyFile, MAX_PATH);
+-  //  snprintf(config->proxyPath, MAX_PATH, "%s/var/lib/eucalyptus/dynserv/data", config->eucahome);
++  //  snprintf(config->proxyPath, MAX_PATH, EUCALYPTUS_STATE_DIR "/dynserv/data", config->eucahome);
+   snprintf(config->proxyPath, MAX_PATH, "%s", proxyPath);
+   config->use_proxy = use_proxy;
+   config->proxy_max_cache_size = proxy_max_cache_size;
+@@ -4149,7 +4151,7 @@
+   }
+ 
+   sem_mywait(CONFIG);
+-  snprintf(pidfile, MAX_PATH, "%s/var/run/eucalyptus/net/euca-dhcp.pid", config->eucahome);
++  snprintf(pidfile, MAX_PATH, EUCALYPTUS_RUN_DIR "/net/euca-dhcp.pid", config->eucahome);
+   if (!check_file(pidfile)) {
+     pidstr = file2str(pidfile);
+   } else {
+@@ -4320,7 +4322,7 @@
+   if(users) free(users);
+   if(nets) free(nets);
+ 
+-  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/euca_ipt filter %s %s", vnetconfig->eucahome, vnetconfig->eucahome, clcnetfile, chainmapfile);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/euca_ipt filter %s %s", vnetconfig->eucahome, vnetconfig->eucahome, clcnetfile, chainmapfile);
+   rc = system(cmd);
+   if (rc) {
+     logprintfl(EUCAERROR, "reconfigureNetworkFromCLC(): cannot run command '%s'\n", cmd);
+@@ -5128,7 +5130,7 @@
+     strcat(nodestr, " ");
+   }
+   
+-  snprintf(cmd, MAX_PATH, "%s/usr/share/eucalyptus/dynserv.pl %s %s", config->eucahome, config->proxyPath, nodestr);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_HELPER_DIR "/dynserv.pl %s %s", config->eucahome, config->proxyPath, nodestr);
+   logprintfl(EUCADEBUG, "image_cache_proxykick(): running cmd '%s'\n", cmd);
+   rc = system(cmd);
+   
+diff -ur eucalyptus-3.1.0.old/cluster/handlers.h eucalyptus-3.1.0.good/cluster/handlers.h
+--- eucalyptus-3.1.0.old/cluster/handlers.h	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/cluster/handlers.h	2012-08-14 11:08:49.302777099 -0400
+@@ -113,7 +113,7 @@
+   {"POWER_WAKETHRESH", "300"},
+   {"CC_IMAGE_PROXY", NULL},
+   {"CC_IMAGE_PROXY_CACHE_SIZE", "32768"},
+-  {"CC_IMAGE_PROXY_PATH", "$EUCALYPTUS/var/lib/eucalyptus/dynserv/"},
++  {"CC_IMAGE_PROXY_PATH", "$EUCALYPTUS" EUCALYPTUS_STATE_DIR "/dynserv/"},
+   {"LOGLEVEL", "DEBUG"},
+   {"LOGROLLNUMBER", "4"},
+   {NULL, NULL}
+diff -ur eucalyptus-3.1.0.old/cluster/handlers-state.c eucalyptus-3.1.0.good/cluster/handlers-state.c
+--- eucalyptus-3.1.0.old/cluster/handlers-state.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/cluster/handlers-state.c	2012-08-14 11:08:49.303777108 -0400
+@@ -553,7 +553,7 @@
+   for (i=1; i<NUMBER_OF_PUBLIC_IPS; i++) {
+     if (tmpvnetconfig->publicips[i].ip != 0 && tmpvnetconfig->publicips[i].allocated != 0) {
+       ipstr = hex2dot(tmpvnetconfig->publicips[i].ip);
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr del %s/32 dev %s", config->eucahome, SP(ipstr), tmpvnetconfig->pubInterface);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip addr del %s/32 dev %s", config->eucahome, SP(ipstr), tmpvnetconfig->pubInterface);
+       logprintfl(EUCADEBUG, "clean_network_state(): running command '%s'\n", cmd);
+       rc = system(cmd);
+       rc = rc>>8;
+@@ -568,7 +568,7 @@
+ 
+   // dhcp
+   snprintf(file, MAX_PATH, "%s/euca-dhcp.pid", tmpvnetconfig->path);
+-  snprintf(rootwrap, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap", tmpvnetconfig->eucahome);
++  snprintf(rootwrap, MAX_PATH, EUCALYPTUS_ROOTWRAP, tmpvnetconfig->eucahome);
+   if (!check_file(file)) {
+     pidstr = file2str(file);
+     if (pidstr) {
+diff -ur eucalyptus-3.1.0.old/cluster/Makefile eucalyptus-3.1.0.good/cluster/Makefile
+--- eucalyptus-3.1.0.old/cluster/Makefile	2012-08-14 11:22:13.544771421 -0400
++++ eucalyptus-3.1.0.good/cluster/Makefile	2012-08-14 11:46:02.356197473 -0400
+@@ -52,7 +52,7 @@
+ 	@echo Stubs generated.
+ 
+ .c.o:
+-	$(CC) -c $(CFLAGS) $(INCLUDES) $<
++	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $<
+ 
+ ../node/client-marshal-fake.o:
+ 	make -C ../node fake
+@@ -114,10 +114,10 @@
+ 	rm -rf generated cc-client-policy.xml
+ 
+ install: deploy
+-	@$(INSTALL) -m 0555 $(SHUTDOWNCC) $(DESTDIR)$(usrdir)/lib/eucalyptus
+-	@$(INSTALL) cc-client-policy.xml $(DESTDIR)$(vardir)/lib/eucalyptus/keys/
++	@$(INSTALL) -m 0555 $(SHUTDOWNCC) $(DESTDIR)$(eucalibexecdir)
++	@$(INSTALL) cc-client-policy.xml $(DESTDIR)$(eucastatedir)/keys/
+ 
+ uninstall:
+ #	@$(RM) -f $(DESTDIR)$(sbindir)/$(SHUTDOWNCC)
+-	@$(RM) -f $(DESTDIR)$(vardir)/lib/eucalyptus/keys/cc-client-policy.xml
++	@$(RM) -f $(DESTDIR)$(eucastatedir)/keys/cc-client-policy.xml
+ 	@$(RM) -rf $(DESTDIR)$(AXIS2C_SERVICES)/$(SERVICE_NAME)
+diff -ur eucalyptus-3.1.0.old/cluster/shutdownCC.c eucalyptus-3.1.0.good/cluster/shutdownCC.c
+--- eucalyptus-3.1.0.old/cluster/shutdownCC.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/cluster/shutdownCC.c	2012-08-14 11:08:49.305777126 -0400
+@@ -81,14 +81,11 @@
+   mymeta.servicesLen = 0;
+   euca_home = getenv("EUCALYPTUS");
+   if (!euca_home) {
+-    snprintf(configFile, 1024, "/etc/eucalyptus/eucalyptus.conf");
+-    snprintf(policyFile, 1024, "/var/lib/eucalyptus/keys/cc-client-policy.xml");
+-    snprintf(logFile, 1024, "/var/log/eucalyptus/shutdownCC_axis2c.log");
+-  } else {
+-    snprintf(configFile, 1024, "%s/etc/eucalyptus/eucalyptus.conf", euca_home);
+-    snprintf(policyFile, 1024, "%s/var/lib/eucalyptus/keys/cc-client-policy.xml", euca_home);
+-    snprintf(logFile, 1024, "%s/var/log/eucalyptus/shutdownCC_axis2c.log", euca_home);
++    euca_home = "";
+   }
++  snprintf(configFile, 1024, EUCALYPTUS_CONF_LOCATION, euca_home);
++  snprintf(policyFile, 1024, EUCALYPTUS_KEYS_DIR "/cc-client-policy.xml", euca_home);
++  snprintf(logFile, 1024, EUCALYPTUS_LOG_DIR "/shutdownCC_axis2c.log", euca_home);
+ 
+   if (argc != 2 || !argv[1]) {
+     printf("must supply argument <host>:<port>\n");
+diff -ur eucalyptus-3.1.0.old/gatherlog/handlers.c eucalyptus-3.1.0.good/gatherlog/handlers.c
+--- eucalyptus-3.1.0.old/gatherlog/handlers.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/gatherlog/handlers.c	2012-08-14 11:08:49.306777135 -0400
+@@ -71,7 +71,7 @@
+ #include <handlers.h>
+ #include <euca_auth.h>
+ 
+-
++#include <eucalyptus.h>
+ 
+ int doGetLogs(char *service, char **outCCLog, char **outNCLog, char **outHTTPDLog, char **outAxis2Log) {
+   char *home, file[MAX_PATH], *buf;
+@@ -102,7 +102,7 @@
+     }
+ 
+     
+-    snprintf(file, MAX_PATH, "%s/var/log/eucalyptus/cc.log", home);
++    snprintf(file, MAX_PATH, EUCALYPTUS_LOG_DIR "/cc.log", home);
+     fd = open(file, O_RDONLY);
+     if (fd >= 0) {
+       bzero(buf, bufsize);
+@@ -116,7 +116,7 @@
+       *outCCLog = NULL;
+     }
+     
+-    snprintf(file, MAX_PATH, "%s/var/log/eucalyptus/nc.log", home);
++    snprintf(file, MAX_PATH, EUCALYPTUS_LOG_DIR "/nc.log", home);
+     fd = open(file, O_RDONLY);
+     if (fd >= 0) {
+       bzero(buf, bufsize);
+@@ -131,10 +131,10 @@
+     }
+     
+     bzero(buf, bufsize);
+-    snprintf(file, MAX_PATH, "%s/var/log/eucalyptus/httpd-nc_error_log", home);
++    snprintf(file, MAX_PATH, EUCALYPTUS_LOG_DIR "/httpd-nc_error_log", home);
+     fd = open(file, O_RDONLY);
+     if (fd < 0) {
+-      snprintf(file, MAX_PATH, "%s/var/log/eucalyptus/httpd-cc_error_log", home);
++      snprintf(file, MAX_PATH, EUCALYPTUS_LOG_DIR "/httpd-cc_error_log", home);
+       fd = open(file, O_RDONLY);
+     }
+     if (fd >= 0) {
+@@ -149,7 +149,7 @@
+     }
+     
+     bzero(buf, bufsize);
+-    snprintf(file, MAX_PATH, "%s/var/log/eucalyptus/axis2c.log", home);
++    snprintf(file, MAX_PATH, EUCALYPTUS_LOG_DIR "/axis2c.log", home);
+     fd = open(file, O_RDONLY);
+     if (fd >= 0) {
+       bzero(buf, bufsize);
+@@ -272,7 +272,7 @@
+       return 1;
+     }
+     
+-    snprintf(file, MAX_PATH, "%s/var/lib/eucalyptus/keys/cluster-cert.pem", home);
++    snprintf(file, MAX_PATH, EUCALYPTUS_KEYS_DIR "/cluster-cert.pem", home);
+     fd = open(file, O_RDONLY);
+     if (fd >= 0) {
+       bzero(buf, bufsize);
+@@ -287,7 +287,7 @@
+     }
+     
+     bzero(buf, bufsize);
+-    snprintf(file, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", home);
++    snprintf(file, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", home);
+     fd = open(file, O_RDONLY);
+     if (fd >= 0) {
+       bzero(buf, bufsize);
+diff -ur eucalyptus-3.1.0.old/gatherlog/Makefile eucalyptus-3.1.0.good/gatherlog/Makefile
+--- eucalyptus-3.1.0.old/gatherlog/Makefile	2012-08-14 11:22:13.552771490 -0400
++++ eucalyptus-3.1.0.good/gatherlog/Makefile	2012-08-14 11:08:49.306777135 -0400
+@@ -34,7 +34,7 @@
+ 	@echo Stubs generated.
+ 
+ .c.o:
+-	$(CC) -c $(CFLAGS) $(INCLUDES) $<
++	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $<
+ 
+ server: $(SERVICE_SO)
+ 
+diff -ur eucalyptus-3.1.0.old/Makedefs.in eucalyptus-3.1.0.good/Makedefs.in
+--- eucalyptus-3.1.0.old/Makedefs.in	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/Makedefs.in	2012-08-14 14:14:36.818724683 -0400
+@@ -18,19 +18,35 @@
+ # comply to the GNU standard
+ prefix		= @prefix@
+ #exec_prefix	= @exec_prefix@
+-#bindir		= @bindir@
+-#sbindir	= @sbindir@
+-#libdir		= @libdir@
++bindir		= @bindir@
++docdir          = @docdir@
++sbindir		= @sbindir@
++libdir		= @libdir@
++libexecdir	= @libexecdir@
++localstatedir   = @localstatedir@
+ #mandir		= @mandir@
+-#incdir		= @includedir@
+-#etcdir		= @sysconfdir@
+-#datarootdir	= @datarootdir@
+-etcdir		= ${prefix}/etc
+-vardir		= ${prefix}/var
+-usrdir		= ${prefix}/usr
+-bindir		= ${prefix}/usr/bin
+-sbindir		= ${prefix}/usr/sbin
+-datarootdir	= ${usrdir}/share
++incdir		= @includedir@
++etcdir		= @sysconfdir@
++initddir       = $(etcdir)/init.d
++datarootdir	= @datarootdir@
++# etcdir	= ${prefix}/etc
++# vardir	= ${prefix}/var
++# usrdir	= ${prefix}/usr
++# bindir	= ${prefix}/usr/bin
++# sbindir	= ${prefix}/usr/sbin
++# datarootdir	= ${usrdir}/share
++
++# Trying to centralize the use of "prefix" and $EUCALYPTUS
++eucaconfdir     = ${prefix}${etcdir}/eucalyptus
++eucadatadir     = ${prefix}${datarootdir}/eucalyptus
++eucadocdir      = ${prefix}${docdir}/eucalyptus
++eucalibdir      = ${libdir}/eucalyptus
++eucastatedir    = ${prefix}${localstatedir}/lib/eucalyptus
++eucarundir      = ${prefix}${vardir}/run/eucalyptus
++eucalibexecdir  = ${prefix}${libexecdir}/eucalyptus
++eucasbindir     = ${prefix}/usr/sbin
++# This _could_ be eucalibexecdir instead
++eucahelperdir   = ${eucadatadir}
+ 
+ # where we are going to install eucalyptus and where are the sources
+ export EUCALYPTUS	= ${prefix}
+@@ -49,6 +61,17 @@
+ RM		= @RM@
+ PYTHON		= @PYTHON@
+ 
++# various directory paths
++PATHS= -DSYSCONFDIR=\"$(etcdir)\" \
++       -DSBINDIR=\"$(sbindir)\" \
++       -DDATADIR=\"$(datarootdir)\" \
++       -DLIBDIR=\"$(libdir)\" \
++       -DLIBEXECDIR=\"$(libexecdir)\" \
++       -DLOCALSTATEDIR=\"$(localstatedir)\" \
++       -DHELPERDIR=\"$(datarootdir)\"
++
++CPPFLAGS	= @CPPFLAGS@ $(PATHS)
++
+ # compile time configurations
+ euca_theme	= @INTERFACE_THEME@
+ extensions	= @EXTENSIONS@
+diff -ur eucalyptus-3.1.0.old/Makefile eucalyptus-3.1.0.good/Makefile
+--- eucalyptus-3.1.0.old/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/Makefile	2012-08-14 12:13:09.007344128 -0400
+@@ -42,24 +42,24 @@
+ 
+ install: deploy
+ 	@$(INSTALL) -d $(DESTDIR)$(prefix)
+-	@$(INSTALL) -d $(DESTDIR)$(etcdir)/eucalyptus/cloud.d
+-	@$(INSTALL) -d $(DESTDIR)$(etcdir)/eucalyptus/nc-hooks
+-	@$(INSTALL) -m 0644 VERSION $(DESTDIR)$(etcdir)/eucalyptus/eucalyptus-version
++	@$(INSTALL) -d $(DESTDIR)$(eucaconfdir)/cloud.d
++	@$(INSTALL) -d $(DESTDIR)$(eucaconfdir)/nc-hooks
++	@$(INSTALL) -m 0644 VERSION $(DESTDIR)$(eucaconfdir)/eucalyptus-version
+ 	@$(INSTALL) -d $(DESTDIR)$(etcdir)/init.d
+-	@$(INSTALL) -d $(DESTDIR)$(vardir)/run/eucalyptus/net
+-	@$(INSTALL) -d $(DESTDIR)$(vardir)/lib/eucalyptus/keys
+-	@$(INSTALL) -d $(DESTDIR)$(vardir)/lib/eucalyptus/CC
+-	@$(INSTALL) -d $(DESTDIR)$(vardir)/log/eucalyptus
+-	@$(INSTALL) -d $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -d $(DESTDIR)$(datarootdir)/eucalyptus/doc
+-	@$(INSTALL) -d $(DESTDIR)$(usrdir)/sbin
+-	@$(INSTALL) -d $(DESTDIR)$(usrdir)/lib/eucalyptus
++	@$(INSTALL) -d $(DESTDIR)$(eucarundir)/net
++	@$(INSTALL) -d $(DESTDIR)$(eucastatedir)/keys
++	@$(INSTALL) -d $(DESTDIR)$(eucastatedir)/CC
++	@$(INSTALL) -d $(DESTDIR)$(eucalogdir)
++	@$(INSTALL) -d $(DESTDIR)$(eucadatadir)
++	@$(INSTALL) -d $(DESTDIR)$(eucadocdir)
++	@$(INSTALL) -d $(DESTDIR)$(eucasbindir)
++	@$(INSTALL) -d $(DESTDIR)$(eucalibdir)
+ 	@$(INSTALL) -d $(DESTDIR)$(etcdir)/bash_completion.d
+ 	@for subdir in $(SUBDIRS); do \
+ 		(cd $$subdir && $(MAKE) $@) || exit $$? ; done
+ 
+ uninstall:
+-	@$(RM) -f $(DESTDIR)$(etcdir)/eucalyptus/eucalyptus-version
++	@$(RM) -f $(DESTDIR)$(eucaconfdir)/eucalyptus-version
+ 	@for subdir in $(SUBDIRS); do \
+ 		(cd $$subdir && $(MAKE) $@) || exit $$? ; done
+ 
+diff -ur eucalyptus-3.1.0.old/net/Makefile eucalyptus-3.1.0.good/net/Makefile
+--- eucalyptus-3.1.0.old/net/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/net/Makefile	2012-08-14 11:08:49.308777152 -0400
+@@ -9,7 +9,7 @@
+ build: all
+ 
+ .c.o:
+-	$(CC) -c $(CFLAGS) $(INCLUDES) $<
++	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $<
+ 
+ clean:
+ 	rm -rf *~ *.o 
+diff -ur eucalyptus-3.1.0.old/net/vnetwork.c eucalyptus-3.1.0.good/net/vnetwork.c
+--- eucalyptus-3.1.0.old/net/vnetwork.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/net/vnetwork.c	2012-08-14 14:15:24.151136313 -0400
+@@ -85,6 +85,8 @@
+ #include <misc.h>
+ #include <hash.h>
+ 
++#include <eucalyptus.h>
++
+ char *iptablesCache=NULL;
+ 
+ int vnetInit(vnetConfig *vnetconfig, char *mode, char *eucahome, char *path, int role, char *pubInterface, char *privInterface, char *numberofaddrs, char *network, char *netmask, char *broadcast, char *nameserver, char *domainname, char *router, char *daemon, char *dhcpuser, char *bridgedev, char *localIp, char *macPrefix) {
+@@ -269,7 +271,7 @@
+ 	}
+ 
+ 	// set up iptables
+-	snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap iptables -L -n", vnetconfig->eucahome);
++	snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " iptables -L -n", vnetconfig->eucahome);
+ 	rc = system(cmd);
+ 
+ 	logprintfl(EUCADEBUG, "vnetInit(): flushing 'filter' table\n");
+@@ -334,13 +336,13 @@
+       if (strcmp(vnetconfig->mode, "MANAGED")) {
+ 	/*
+ 	// if we're not in MANAGED mode, set up ebtables	
+-	snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap ebtables -F FORWARD", vnetconfig->eucahome);
++	snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " ebtables -F FORWARD", vnetconfig->eucahome);
+ 	rc = system(cmd);
+ 	if (rc) {
+ 	  logprintfl(EUCAWARN, "vnetInit(): could not flush ebtables FORWARD rules\n");
+ 	}
+ 
+-	snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap ebtables -P FORWARD DROP", vnetconfig->eucahome);
++	snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " ebtables -P FORWARD DROP", vnetconfig->eucahome);
+ 	rc = system(cmd);
+ 	if (rc) {
+ 	  logprintfl(EUCAWARN, "vnetInit(): could set default ebtables FORWARD policy to DROP\n");
+@@ -379,7 +381,7 @@
+   //network = hex2dot(vnetconfig->nw);
+   //slashnet = 32 - ((int)log2((double)(0xFFFFFFFF - vnetconfig->nm)) + 1); 
+ 
+-  snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr add 169.254.169.254 scope link dev %s", vnetconfig->eucahome, vnetconfig->privInterface);
++  snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " ip addr add 169.254.169.254 scope link dev %s", vnetconfig->eucahome, vnetconfig->privInterface);
+   rc = system(cmd);
+   
+   if (vnetconfig->cloudIp != 0) {
+@@ -408,7 +410,7 @@
+     return(1);
+   }
+ 
+-  snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr del 169.254.169.254 scope link dev %s", vnetconfig->eucahome, vnetconfig->privInterface);
++  snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " ip addr del 169.254.169.254 scope link dev %s", vnetconfig->eucahome, vnetconfig->privInterface);
+   rc = system(cmd);
+   
+   if (vnetconfig->cloudIp != 0) {
+@@ -440,7 +442,7 @@
+       return(0);
+     } else {
+       ret = 0;
+-      snprintf(file, MAX_PATH, "%s/var/lib/eucalyptus/keys/vtunpass", vnetconfig->eucahome);
++      snprintf(file, MAX_PATH, EUCALYPTUS_KEYS_DIR "/vtunpass", vnetconfig->eucahome);
+       if (check_file(file)) {
+ 	logprintfl(EUCAWARN, "vnetInitTunnels(): cannot locate tunnel password file '%s', tunneling disabled\n", file);
+ 	ret = 1;
+@@ -452,7 +454,7 @@
+ 	  char *newl;
+ 	  newl = strchr(pass, '\n');
+ 	  if (newl) *newl = '\0';
+-	  snprintf(file, MAX_PATH, "%s/etc/eucalyptus/vtunall.conf.template", vnetconfig->eucahome);
++	  snprintf(file, MAX_PATH, EUCALYPTUS_CONF_DIR "/vtunall.conf.template", vnetconfig->eucahome);
+ 	  template = file2str(file);
+ 	  if (template) {
+ 	    replace_string(&template, "VPASS", pass);
+@@ -463,7 +465,7 @@
+ 	}
+ 	if (done) {
+ 	  // success
+-	  snprintf(file, MAX_PATH, "%s/var/lib/eucalyptus/keys/vtunall.conf", vnetconfig->eucahome);
++	  snprintf(file, MAX_PATH, EUCALYPTUS_KEYS_DIR "/vtunall.conf", vnetconfig->eucahome);
+ 	  rc = write2file(file, template);
+ 	  if (rc) {
+ 	    // error
+@@ -795,7 +797,7 @@
+   chmod(file, 0644);
+   close(fd);
+   
+-  snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap iptables-save > %s", vnetconfig->eucahome, file);
++  snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " iptables-save > %s", vnetconfig->eucahome, file);
+   rc = system(cmd);
+   if (rc) {
+     logprintfl(EUCAERROR, "vnetSaveTablesToMemory(): cannot save iptables state '%s'\n", cmd);
+@@ -859,7 +861,7 @@
+   fclose(FH);
+   close(fd);
+ 
+-  snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap iptables-restore < %s", vnetconfig->eucahome, file);
++  snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " iptables-restore < %s", vnetconfig->eucahome, file);
+   rc = system(cmd);
+   if (rc) {
+     logprintfl(EUCAERROR, "vnetRestoreTablesFromMemory(): cannot restore iptables state from memory '%s'\n", cmd);
+@@ -903,7 +905,7 @@
+     logprintfl(EUCAERROR, "vnetApplySingleEBTableRule(): bad input params: table=%s, rule=%s\n", SP(table), SP(rule));
+     return(1);
+   }
+-  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ebtables -t %s %s\n", vnetconfig->eucahome, table, rule);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ebtables -t %s %s\n", vnetconfig->eucahome, table, rule);
+   logprintfl(EUCADEBUG, "vnetApplySingleEBTableRule(): running cmd '%s'\n", cmd);
+   rc = system(cmd);
+   rc = rc>>8;
+@@ -943,7 +945,7 @@
+   fclose(FH);
+   close(fd);
+   
+-  snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/euca_ipt %s %s", vnetconfig->eucahome, vnetconfig->eucahome, table, file);
++  snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/euca_ipt %s %s", vnetconfig->eucahome, vnetconfig->eucahome, table, file);
+   //  logprintfl(EUCADEBUG, "running cmd '%s'\n", cmd);
+   rc = system(cmd);
+   if (rc) {
+@@ -1461,8 +1463,8 @@
+     char *tmpstr=NULL;
+     int tmppid = 0, tmpcount;
+ 
+-    snprintf(rootwrap, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap", vnetconfig->eucahome);
+-    snprintf(buf, MAX_PATH, "%s/var/run/eucalyptus/net/euca-dhcp.pid", vnetconfig->eucahome);
++    snprintf(rootwrap, MAX_PATH, EUCALYPTUS_ROOTWRAP, vnetconfig->eucahome);
++    snprintf(buf, MAX_PATH, EUCALYPTUS_RUN_DIR "/net/euca-dhcp.pid", vnetconfig->eucahome);
+ 
+     // little chunk of code to work-around bad dhcpd that takes some time to populate the pidfile...
+     tmpstr = file2str(buf);
+@@ -1498,16 +1500,16 @@
+   }
+   
+   if (strncmp(vnetconfig->dhcpuser, "root", 32) && strncmp(vnetconfig->path, "/", MAX_PATH) && strstr(vnetconfig->path, "eucalyptus/net")) {
+-    snprintf(buf, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap chgrp -R %s %s", vnetconfig->eucahome, vnetconfig->dhcpuser, vnetconfig->path);
++    snprintf(buf, MAX_PATH, EUCALYPTUS_ROOTWRAP " chgrp -R %s %s", vnetconfig->eucahome, vnetconfig->dhcpuser, vnetconfig->path);
+     logprintfl(EUCADEBUG, "vnetKickDHCP(): executing: %s\n", buf);
+     rc = system(buf);
+     
+-    snprintf(buf, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap chmod -R 0775 %s", vnetconfig->eucahome, vnetconfig->path);
++    snprintf(buf, MAX_PATH, EUCALYPTUS_ROOTWRAP " chmod -R 0775 %s", vnetconfig->eucahome, vnetconfig->path);
+     logprintfl(EUCADEBUG, "vnetKickDHCP(): executing: %s\n", buf);
+     rc = system(buf);
+   }
+   
+-  snprintf (buf, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap %s -cf %s/euca-dhcp.conf -lf %s/euca-dhcp.leases -pf %s/euca-dhcp.pid -tf %s/euca-dhcp.trace %s", vnetconfig->eucahome, vnetconfig->dhcpdaemon, vnetconfig->path, vnetconfig->path, vnetconfig->path, vnetconfig->path, dstring);
++  snprintf (buf, MAX_PATH, EUCALYPTUS_ROOTWRAP " %s -cf %s/euca-dhcp.conf -lf %s/euca-dhcp.leases -pf %s/euca-dhcp.pid -tf %s/euca-dhcp.trace %s", vnetconfig->eucahome, vnetconfig->dhcpdaemon, vnetconfig->path, vnetconfig->path, vnetconfig->path, vnetconfig->path, dstring);
+   
+   logprintfl(EUCAINFO, "vnetKickDHCP(): executing: %s\n", buf);
+   // cannot use 'daemonrun()' here, dhcpd3 is too picky about FDs and signal handlers...
+@@ -1533,13 +1535,13 @@
+   int i, rc;
+   char file[MAX_PATH], rootwrap[MAX_PATH];
+   char *pidstr;
+-  snprintf(rootwrap, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap", vnetconfig->eucahome);
++  snprintf(rootwrap, MAX_PATH, EUCALYPTUS_ROOTWRAP, vnetconfig->eucahome);
+ 
+   for (i=0; i<NUMBER_OF_CCS; i++) {
+     if (vnetconfig->tunnels.ccs[i] == cc) {
+       // bring down the tunnel
+       
+-      snprintf(file, MAX_PATH, "%s/var/run/eucalyptus/vtund-client-%d-%d.pid", vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i);
++      snprintf(file, MAX_PATH, EUCALYPTUS_RUN_DIR "/vtund-client-%d-%d.pid", vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i);
+       rc = safekillfile(file, "vtund", 9, rootwrap);
+ 
+       vnetconfig->tunnels.ccs[i] = 0;
+@@ -1724,7 +1726,7 @@
+       snprintf(newdevname, 32, "%s.%d", vnetconfig->privInterface, vlan);
+       rc = check_device(newdevname);
+       if (rc) {
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig add %s %d", vnetconfig->eucahome, vnetconfig->privInterface, vlan);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig add %s %d", vnetconfig->eucahome, vnetconfig->privInterface, vlan);
+ 	rc = system(cmd);
+ 	if (rc != 0) {
+ 	  // failed to create vlan tagged device
+@@ -1739,7 +1741,7 @@
+       rc = check_bridge(newbrname);
+       if (rc) {
+ 	// bridge does not yet exist
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl addbr %s", vnetconfig->eucahome, newbrname);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl addbr %s", vnetconfig->eucahome, newbrname);
+ 	rc = system(cmd);
+ 	if (rc) {
+ 	  logprintfl(EUCAERROR, "vnetStartNetworkManaged(): could not create new bridge %s\n", newbrname);
+@@ -1748,18 +1750,18 @@
+       }
+       
+       // add if to bridge
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl addif %s %s", vnetconfig->eucahome, newbrname, newdevname);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl addif %s %s", vnetconfig->eucahome, newbrname, newdevname);
+       rc = system(cmd);
+       
+       // bring br up
+       if (check_deviceup(newbrname)) {
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s up", vnetconfig->eucahome, newbrname);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s up", vnetconfig->eucahome, newbrname);
+ 	rc = system(cmd);
+       }
+       
+       // bring if up
+       if (check_deviceup(newdevname)) {
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s up", vnetconfig->eucahome, newdevname);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s up", vnetconfig->eucahome, newdevname);
+ 	rc = system(cmd);
+       }
+     } else {
+@@ -1794,7 +1796,7 @@
+       snprintf(newdevname, 32, "%s.%d", vnetconfig->privInterface, vlan);
+       rc = check_device(newdevname);
+       if (rc) {
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig add %s %d", vnetconfig->eucahome, vnetconfig->privInterface, vlan);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig add %s %d", vnetconfig->eucahome, vnetconfig->privInterface, vlan);
+ 	rc = system(cmd);
+ 	if (rc) {
+ 	  logprintfl(EUCAERROR, "vnetStartNetworkManaged(): could not tag %s with vlan %d\n", vnetconfig->privInterface, vlan);
+@@ -1807,47 +1809,47 @@
+       rc = check_bridge(newbrname);
+       if (rc) {
+         // bridge does not yet exist
+-        snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl addbr %s", vnetconfig->eucahome, newbrname);
++        snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl addbr %s", vnetconfig->eucahome, newbrname);
+         rc = system(cmd);
+         if (rc) {
+           logprintfl(EUCAERROR, "vnetStartNetworkManaged(): could not create new bridge %s\n", newbrname);
+           return(1);
+         }
+ 	// DAN temporary
+-	//        snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl stp %s on", vnetconfig->eucahome, newbrname);
+-        snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl stp %s off", vnetconfig->eucahome, newbrname);
++	//        snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl stp %s on", vnetconfig->eucahome, newbrname);
++        snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl stp %s off", vnetconfig->eucahome, newbrname);
+         rc = system(cmd);
+         if (rc) {
+           logprintfl(EUCAWARN, "vnetStartNetworkManaged(): could not enable stp on bridge %s\n", newbrname);
+         }
+ 
+-        snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl setfd %s 2", vnetconfig->eucahome, newbrname);
++        snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl setfd %s 2", vnetconfig->eucahome, newbrname);
+         rc = system(cmd);
+         if (rc) {
+           logprintfl(EUCAWARN, "vnetStartNetworkManaged(): could not set fd time to 2 on bridge %s\n", newbrname);
+         }
+ 
+-        snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl sethello %s 2", vnetconfig->eucahome, newbrname);
++        snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl sethello %s 2", vnetconfig->eucahome, newbrname);
+         rc = system(cmd);
+         if (rc) {
+           logprintfl(EUCAWARN, "vnetStartNetworkManaged(): could not set hello time to 2 on bridge %s\n", newbrname);
+         }
+       }
+       
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl addif %s %s", vnetconfig->eucahome, newbrname, newdevname);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl addif %s %s", vnetconfig->eucahome, newbrname, newdevname);
+       rc = system(cmd);
+       
+       // bring br up
+       if (check_deviceup(newbrname)) {
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s up", vnetconfig->eucahome, newbrname);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s up", vnetconfig->eucahome, newbrname);
+ 	rc = system(cmd);
+       }
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr flush %s", vnetconfig->eucahome, newbrname);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip addr flush %s", vnetconfig->eucahome, newbrname);
+       rc = system(cmd);
+       
+       // bring if up
+       if (check_deviceup(newdevname)) {
+-	snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s up", vnetconfig->eucahome, newdevname);
++	snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s up", vnetconfig->eucahome, newdevname);
+ 	rc = system(cmd);
+       }
+ 
+@@ -1898,7 +1900,7 @@
+   }
+   
+   if (check_bridgestp(newbrname)) {
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl stp %s on", vnetconfig->eucahome, newbrname);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl stp %s on", vnetconfig->eucahome, newbrname);
+     rc = system(cmd);
+     if (rc) {
+       logprintfl(EUCAWARN, "vnetAttachTunnels(): could enable stp on bridge %s\n", newbrname);
+@@ -1914,7 +1916,7 @@
+ 	  if (!strcmp(vnetconfig->mode, "MANAGED")) {
+ 	    snprintf(tunvlandev, 32, "tap-%d-%d.%d", vnetconfig->tunnels.localIpId, i, vlan);
+ 	    if (check_device(tunvlandev)) {
+-	      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig add %s %d", vnetconfig->eucahome, tundev, vlan);
++	      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig add %s %d", vnetconfig->eucahome, tundev, vlan);
+ 	      logprintfl(EUCADEBUG, "vnetAttachTunnels(): running cmd '%s'\n", cmd);
+ 	      rc = system(cmd);
+ 	      rc = rc>>8;
+@@ -1924,14 +1926,14 @@
+ 	  }
+ 	  
+ 	  if (check_bridgedev(newbrname, tunvlandev)) {
+-	    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl addif %s %s", vnetconfig->eucahome, newbrname, tunvlandev);
++	    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl addif %s %s", vnetconfig->eucahome, newbrname, tunvlandev);
+ 	    logprintfl(EUCADEBUG, "vnetAttachTunnels(): running cmd '%s'\n", cmd);
+ 	    rc = system(cmd);
+ 	    rc = rc>>8;
+ 	  }
+ 	  
+ 	  if (check_deviceup(tunvlandev)) {
+-	    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set up dev %s", vnetconfig->eucahome, tunvlandev);
++	    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set up dev %s", vnetconfig->eucahome, tunvlandev);
+ 	    logprintfl(EUCADEBUG, "vnetAttachTunnels(): running cmd '%s'\n", cmd);
+ 	    rc = system(cmd);
+ 	    rc = rc>>8;
+@@ -1943,7 +1945,7 @@
+ 	  if (!strcmp(vnetconfig->mode, "MANAGED")) {
+ 	    snprintf(tunvlandev, 32, "tap-%d-%d.%d", i, vnetconfig->tunnels.localIpId, vlan);
+ 	    if (check_device(tunvlandev)) {
+-	      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig add %s %d", vnetconfig->eucahome, tundev, vlan);
++	      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig add %s %d", vnetconfig->eucahome, tundev, vlan);
+ 	      logprintfl(EUCADEBUG, "vnetAttachTunnels(): running cmd '%s'\n", cmd);
+ 	      rc = system(cmd);
+ 	      rc = rc>>8;
+@@ -1953,14 +1955,14 @@
+ 	  }
+ 	  
+ 	  if (check_bridgedev(newbrname, tunvlandev)) {
+-	    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap brctl addif %s %s", vnetconfig->eucahome, newbrname, tunvlandev);
++	    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " brctl addif %s %s", vnetconfig->eucahome, newbrname, tunvlandev);
+ 	    logprintfl(EUCADEBUG, "vnetAttachTunnels(): running cmd '%s'\n", cmd);
+ 	    rc = system(cmd);
+ 	    rc = rc>>8;
+ 	  }
+ 	  
+ 	  if (check_deviceup(tunvlandev)) {
+-	    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set up dev %s", vnetconfig->eucahome, tunvlandev);
++	    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set up dev %s", vnetconfig->eucahome, tunvlandev);
+ 	    logprintfl(EUCADEBUG, "vnetAttachTunnels(): running cmd '%s'\n", cmd);
+ 	    rc = system(cmd);
+ 	    rc = rc>>8;
+@@ -1991,7 +1993,7 @@
+       if (!check_device(tundev) && !check_device(newbrname)) {
+ 	snprintf(tunvlandev, 32, "tap-%d-%d.%d", vnetconfig->tunnels.localIpId, i, vlan);
+ 	if (!check_device(tunvlandev)) {
+-	  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig rem %s", vnetconfig->eucahome, tunvlandev);
++	  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig rem %s", vnetconfig->eucahome, tunvlandev);
+ 	  logprintfl(EUCADEBUG, "vnetDetachTunnels(): running cmd '%s'\n", cmd);
+ 	  rc = system(cmd);
+ 	  rc = rc>>8;
+@@ -2002,7 +2004,7 @@
+       if (!check_device(tundev) && !check_device(newbrname)) {
+ 	snprintf(tunvlandev, 32, "tap-%d-%d.%d", i, vnetconfig->tunnels.localIpId, vlan);
+ 	if (!check_device(tunvlandev)) {
+-	  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig rem %s", vnetconfig->eucahome, tunvlandev);
++	  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig rem %s", vnetconfig->eucahome, tunvlandev);
+ 	  logprintfl(EUCADEBUG, "vnetDetachTunnels(): running cmd '%s'\n", cmd);
+ 	  rc = system(cmd);
+ 	  rc = rc>>8;
+@@ -2022,15 +2024,15 @@
+   int i, rc;
+   char file[MAX_PATH], rootwrap[MAX_PATH];
+   
+-  snprintf(rootwrap, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap", vnetconfig->eucahome);
++  snprintf(rootwrap, MAX_PATH, EUCALYPTUS_ROOTWRAP, vnetconfig->eucahome);
+ 
+-  snprintf(file, MAX_PATH, "%s/var/run/eucalyptus/vtund-server.pid", vnetconfig->eucahome);
++  snprintf(file, MAX_PATH, EUCALYPTUS_RUN_DIR "/vtund-server.pid", vnetconfig->eucahome);
+   rc = safekillfile(file, "vtund", 9, rootwrap);
+   
+   if (vnetconfig->tunnels.localIpId != -1) {
+     for (i=0; i<NUMBER_OF_CCS; i++) {
+       if (vnetconfig->tunnels.ccs[i] != 0) {
+-	snprintf(file, MAX_PATH, "%s/var/run/eucalyptus/vtund-client-%d-%d.pid", vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i);
++	snprintf(file, MAX_PATH, EUCALYPTUS_RUN_DIR "/vtund-client-%d-%d.pid", vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i);
+ 	rc = safekillfile(file, "vtund", 9, rootwrap);
+       }
+     }
+@@ -2051,10 +2053,10 @@
+   if (!vnetconfig->tunnels.tunneling || (vnetconfig->tunnels.localIpId == -1)) {
+     return(0);
+   }
+-  snprintf(rootwrap, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap", vnetconfig->eucahome);  
++  snprintf(rootwrap, MAX_PATH, EUCALYPTUS_ROOTWRAP, vnetconfig->eucahome);  
+ 
+-  snprintf(pidfile, MAX_PATH, "%s/var/run/eucalyptus/vtund-server.pid", vnetconfig->eucahome);
+-  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vtund -s -n -f %s/var/lib/eucalyptus/keys/vtunall.conf", vnetconfig->eucahome, vnetconfig->eucahome);
++  snprintf(pidfile, MAX_PATH, EUCALYPTUS_RUN_DIR "/vtund-server.pid", vnetconfig->eucahome);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vtund -s -n -f " EUCALYPTUS_KEYS_DIR "/vtunall.conf", vnetconfig->eucahome, vnetconfig->eucahome);
+   rc = daemonmaintain(cmd, "vtund", pidfile, 0, rootwrap);
+   if (rc) {
+     logprintfl(EUCAERROR, "vnetSetupTunnelsVTUN(): cannot run tunnel server: '%s'\n", cmd);
+@@ -2069,8 +2071,8 @@
+ 	rc = check_device(tundev);
+ 	if (rc) {
+ 	  logprintfl(EUCADEBUG, "vnetSetupTunnelsVTUN(): maintaining tunnel for endpoint: %s\n", remoteIp);
+-	  snprintf(pidfile, MAX_PATH, "%s/var/run/eucalyptus/vtund-client-%d-%d.pid", vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i);
+-	  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vtund -n -f %s/var/lib/eucalyptus/keys/vtunall.conf -p tun-%d-%d %s", vnetconfig->eucahome, vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i, remoteIp);
++	  snprintf(pidfile, MAX_PATH, EUCALYPTUS_RUN_DIR "/vtund-client-%d-%d.pid", vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i);
++	  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vtund -n -f " EUCALYPTUS_KEYS_DIR "/vtunall.conf -p tun-%d-%d %s", vnetconfig->eucahome, vnetconfig->eucahome, vnetconfig->tunnels.localIpId, i, remoteIp);
+ 	  rc = daemonmaintain(cmd, "vtund", pidfile, 0, rootwrap);
+ 	  if (rc) {
+ 	    logprintfl(EUCAERROR, "vnetSetupTunnelsVTUN(): cannot run tunnel client: '%s'\n", cmd);
+@@ -2101,9 +2103,9 @@
+   broadcast = hex2dot(vnetconfig->networks[vlan].bc);
+   logprintfl(EUCADEBUG, "vnetAddGatewayIP(): adding gateway IP: %s\n", newip);
+ 
+-  //  snprintf(cmd, 1024, "%s/usr/lib/eucalyptus/euca_rootwrap ifconfig %s %s netmask %s up", vnetconfig->eucahome, devname, newip, netmask);
++  //  snprintf(cmd, 1024, EUCALYPTUS_ROOTWRAP " ifconfig %s %s netmask %s up", vnetconfig->eucahome, devname, newip, netmask);
+   slashnet = 32 - ((int)log2((double)(0xFFFFFFFF - vnetconfig->networks[vlan].nm)) + 1);
+-  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr add %s/%d broadcast %s dev %s", vnetconfig->eucahome, newip, slashnet, broadcast, devname);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip addr add %s/%d broadcast %s dev %s", vnetconfig->eucahome, newip, slashnet, broadcast, devname);
+ 
+   logprintfl(EUCADEBUG, "vnetAddGatewayIP(): running cmd '%s'\n", cmd);
+   rc = system(cmd);
+@@ -2118,7 +2120,7 @@
+   if (broadcast) free(broadcast);
+ 
+   if (check_deviceup(devname)) {
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s up", vnetconfig->eucahome, devname);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s up", vnetconfig->eucahome, devname);
+     rc = system(cmd);
+     rc = rc>>8;
+     if (rc) {
+@@ -2209,7 +2211,7 @@
+   fclose(FH);
+   close(fd);
+   
+-  snprintf(cmd, 256, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/euca_arpt %s", vnetconfig->eucahome, vnetconfig->eucahome, file);
++  snprintf(cmd, 256, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/euca_arpt %s", vnetconfig->eucahome, vnetconfig->eucahome, file);
+   //  logprintfl(EUCADEBUG, "running cmd '%s'\n", cmd);
+   rc = system(cmd);
+   if (rc) {
+@@ -2236,11 +2238,11 @@
+   //  newip = hex2dot(vnetconfig->networks[vlan].router);
+   broadcast = hex2dot(vnetconfig->networks[vlan].bc);
+   logprintfl(EUCADEBUG, "vnetDelGatewayIP(): removing gateway IP: %s\n", newip);  
+-  //  snprintf(cmd, 1024, "%s/usr/lib/eucalyptus/euca_rootwrap ifconfig %s %s netmask %s up", vnetconfig->eucahome, devname, newip, netmask);
++  //  snprintf(cmd, 1024, EUCALYPTUS_ROOTWRAP " ifconfig %s %s netmask %s up", vnetconfig->eucahome, devname, newip, netmask);
+   slashnet = 32 - ((int)log2((double)(0xFFFFFFFF - vnetconfig->networks[vlan].nm)) + 1);
+   //slashnet = 16;
+-  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr del %s/%d broadcast %s dev %s", vnetconfig->eucahome, newip, slashnet, broadcast, devname);
+-  //  snprintf(cmd, 1024, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr del %s/%d dev %s", vnetconfig->eucahome, newip, slashnet, devname);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip addr del %s/%d broadcast %s dev %s", vnetconfig->eucahome, newip, slashnet, broadcast, devname);
++  //  snprintf(cmd, 1024, EUCALYPTUS_ROOTWRAP " ip addr del %s/%d dev %s", vnetconfig->eucahome, newip, slashnet, devname);
+   rc = system(cmd);
+   if (rc) {
+     logprintfl(EUCAERROR, "vnetDelGatewayIP(): could not bring down new device %s with ip %s\n", devname, newip);
+@@ -2269,7 +2271,7 @@
+ 
+   if (!strcmp(vnetconfig->mode, "MANAGED")) {
+     snprintf(newbrname, 32, "eucabr%d", vlan);
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s down", vnetconfig->eucahome, newbrname);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s down", vnetconfig->eucahome, newbrname);
+     rc = system(cmd);
+     if (rc) {
+       logprintfl(EUCAERROR, "vnetStopNetworkManaged(): cmd '%s' failed\n", cmd);
+@@ -2280,14 +2282,14 @@
+     rc = check_device(newdevname);
+     // DAN temporary for QA, re-enable for release
+     if (!rc) {
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip link set dev %s down", vnetconfig->eucahome, newdevname);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip link set dev %s down", vnetconfig->eucahome, newdevname);
+       rc = system(cmd);
+       if (rc) {
+ 	logprintfl(EUCAERROR, "vnetStopNetworkManaged(): cmd '%s' failed\n", cmd);
+ 	ret=1;
+       }
+   
+-      snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap vconfig rem %s", vnetconfig->eucahome, newdevname);
++      snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " vconfig rem %s", vnetconfig->eucahome, newdevname);
+       rc = system(cmd);
+       if (rc) {
+ 	logprintfl(EUCAERROR, "vnetStopNetworkManaged(): cmd '%s' failed\n", cmd);
+@@ -2499,7 +2501,7 @@
+ 
+   if ((vnetconfig->role == CC || vnetconfig->role == CLC) && (!strcmp(vnetconfig->mode, "MANAGED") || !strcmp(vnetconfig->mode, "MANAGED-NOVLAN"))) {
+ 
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr add %s/32 dev %s", vnetconfig->eucahome, src, vnetconfig->pubInterface);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip addr add %s/32 dev %s", vnetconfig->eucahome, src, vnetconfig->pubInterface);
+     logprintfl(EUCADEBUG,"vnetAssignAddress(): running cmd %s\n", cmd);
+     rc = system(cmd);
+     rc = rc>>8;
+@@ -2646,7 +2648,7 @@
+   
+   if ((vnetconfig->role == CC || vnetconfig->role == CLC) && (!strcmp(vnetconfig->mode, "MANAGED") || !strcmp(vnetconfig->mode, "MANAGED-NOVLAN"))) {
+ 
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap ip addr del %s/32 dev %s", vnetconfig->eucahome, src, vnetconfig->pubInterface);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " ip addr del %s/32 dev %s", vnetconfig->eucahome, src, vnetconfig->pubInterface);
+     logprintfl(EUCADEBUG,"vnetUnassignAddress(): running cmd %s\n", cmd);
+     rc = system(cmd);
+     rc = rc>>8;
+@@ -2792,7 +2794,7 @@
+ 
+   if (!strcmp(vnetconfig->mode, "SYSTEM")) {
+     // try to fill up the arp cache
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/populate_arp.pl", vnetconfig->eucahome, vnetconfig->eucahome);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/populate_arp.pl", vnetconfig->eucahome, vnetconfig->eucahome);
+     rc = system(cmd);
+     if (rc) {
+       logprintfl(EUCAWARN, "mac2ip(): could not execute arp cache populator script, check httpd log for errors\n");
+@@ -2971,7 +2973,7 @@
+   ret = 0;
+   snprintf(file, MAX_PATH, "%s/iptables-preload", vnetconfig->path);
+   if (stat(file, &statbuf) == 0) {
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap iptables-restore < %s", vnetconfig->eucahome, file);
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " iptables-restore < %s", vnetconfig->eucahome, file);
+     rc = system(cmd);
+     ret = WEXITSTATUS(rc);
+   }
+@@ -3131,7 +3133,7 @@
+     return(1);
+   }
+ 
+-  snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap iptables -S -t %s", vnetconfig->eucahome, table);
++  snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " iptables -S -t %s", vnetconfig->eucahome, table);
+   out = system_output(cmd);
+   
+   if (!out) {
+diff -ur eucalyptus-3.1.0.old/node/client-marshal-fake.c eucalyptus-3.1.0.good/node/client-marshal-fake.c
+--- eucalyptus-3.1.0.old/node/client-marshal-fake.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/node/client-marshal-fake.c	2012-08-14 11:08:49.310777168 -0400
+@@ -121,9 +121,9 @@
+     
+     tmpstr = getenv(EUCALYPTUS_ENV_VAR_NAME);
+     if (!tmpstr) {
+-      snprintf(path, MAX_PATH, "/var/lib/eucalyptus/CC/%s", bufname);
++      snprintf(path, MAX_PATH, EUCALYPTUS_KEYS_DIR "/CC/%s", bufname);
+     } else {
+-      snprintf(path, MAX_PATH, "%s/var/lib/eucalyptus/CC/%s", tmpstr, bufname);
++      snprintf(path, MAX_PATH, EUCALYPTUS_KEYS_DIR "/CC/%s", tmpstr, bufname);
+     }
+     fd = open(path, O_RDWR | O_CREAT, 0600);
+     if (fd<0) {
+diff -ur eucalyptus-3.1.0.old/node/handlers.c eucalyptus-3.1.0.good/node/handlers.c
+--- eucalyptus-3.1.0.old/node/handlers.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/node/handlers.c	2012-08-14 14:18:11.516591864 -0400
+@@ -483,8 +483,8 @@
+         
+         sem_p (inst_sem);
+         
+-        snprintf(nfile, MAX_PATH, "%s/var/log/eucalyptus/local-net.stage", nc_state.home);
+-        snprintf(nfilefinal, MAX_PATH, "%s/var/log/eucalyptus/local-net", nc_state.home);
++        snprintf(nfile, MAX_PATH, EUCALYPTUS_LOG_DIR "/local-net.stage", nc_state.home);
++        snprintf(nfilefinal, MAX_PATH, EUCALYPTUS_LOG_DIR "/local-net", nc_state.home);
+         FP=fopen(nfile, "w");
+         if (!FP) {
+             logprintfl(EUCAWARN, "monitoring_thread(): could not open file %s for writing\n", nfile);
+@@ -902,7 +902,7 @@
+     }
+ 
+ 	// set the minimum log for now
+-	snprintf(log, MAX_PATH, "%s/var/log/eucalyptus/nc.log", nc_state.home);
++	snprintf(log, MAX_PATH, EUCALYPTUS_LOG_DIR "/nc.log", nc_state.home);
+ 	logfile(log, EUCAINFO, 4);
+         logprintfl (EUCAINFO, "{%u} spawning Eucalyptus node controller %s\n", (unsigned int)pthread_self(), compile_timestamp_str);
+ 	if (do_warn) 
+@@ -1400,7 +1400,7 @@
+ 	char *file_name;
+ 	FILE *f;
+ 	long long used_mem, used_disk, used_cores;
+-#define NC_MONIT_FILENAME "/var/run/eucalyptus/nc-stats"
++#define NC_MONIT_FILENAME EUCALYPTUS_RUN_DIR "/nc-stats"
+     
+ 	if (init())
+ 		return 1;
+@@ -1821,7 +1821,7 @@
+     }
+     
+     char cmd[MAX_PATH], *output;
+-    snprintf(cmd, MAX_PATH, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/getstats.pl -i %s -b '%s' -n '%s'", 
++    snprintf(cmd, MAX_PATH, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/getstats.pl -i %s -b '%s' -n '%s'", 
+              nc_state.home, nc_state.home, instance->instanceId, bstr, istr);
+     output = system_output (cmd);
+     if (output) {
+diff -ur eucalyptus-3.1.0.old/node/handlers_default.c eucalyptus-3.1.0.good/node/handlers_default.c
+--- eucalyptus-3.1.0.old/node/handlers_default.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/node/handlers_default.c	2012-08-14 11:08:49.313777195 -0400
+@@ -1115,13 +1115,13 @@
+   char buf[MAX_PATH];
+ 
+   // set up environment for euca2ools
+-  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", params->eucalyptusHomePath);
++  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", params->eucalyptusHomePath);
+   setenv("EC2_CERT", buf, 1);
+   
+   snprintf(buf, MAX_PATH, "IGNORED");
+   setenv("EC2_SECRET_KEY", buf, 1);
+   
+-  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/cloud-cert.pem", params->eucalyptusHomePath);
++  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/cloud-cert.pem", params->eucalyptusHomePath);
+   setenv("EUCALYPTUS_CERT", buf, 1);
+   
+   snprintf(buf, MAX_PATH, "%s", params->walrusURL);
+@@ -1133,10 +1133,10 @@
+   snprintf(buf, MAX_PATH, "123456789012");
+   setenv("EC2_USER_ID", buf, 1);
+   
+-  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", params->eucalyptusHomePath);
++  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", params->eucalyptusHomePath);
+   setenv("EUCA_CERT", buf, 1);
+   
+-  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-pk.pem", params->eucalyptusHomePath);
++  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-pk.pem", params->eucalyptusHomePath);
+   setenv("EUCA_PRIVATE_KEY", buf, 1);
+ }
+ 
+@@ -1176,13 +1176,13 @@
+ 		    snprintf(cmd, MAX_PATH, "%s -b %s -p %s --euca-auth --clear", params->ncDeleteBundleCmd, params->bucketName, params->filePrefix);
+ 		  }
+ 		  // set up environment for euca2ools
+-		  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", params->eucalyptusHomePath);
++		  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", params->eucalyptusHomePath);
+ 		  setenv("EC2_CERT", buf, 1);
+ 		  
+ 		  snprintf(buf, MAX_PATH, "IGNORED");
+ 		  setenv("EC2_SECRET_KEY", buf, 1);
+ 		  
+-		  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/cloud-cert.pem", params->eucalyptusHomePath);
++		  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/cloud-cert.pem", params->eucalyptusHomePath);
+ 		  setenv("EUCALYPTUS_CERT", buf, 1);
+ 		  
+ 		  snprintf(buf, MAX_PATH, "%s", params->walrusURL);
+@@ -1194,10 +1194,10 @@
+ 		  snprintf(buf, MAX_PATH, "123456789012");
+ 		  setenv("EC2_USER_ID", buf, 1);
+ 		  
+-		  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", params->eucalyptusHomePath);
++		  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", params->eucalyptusHomePath);
+ 		  setenv("EUCA_CERT", buf, 1);
+ 		  
+-		  snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-pk.pem", params->eucalyptusHomePath);
++		  snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-pk.pem", params->eucalyptusHomePath);
+ 		  setenv("EUCA_PRIVATE_KEY", buf, 1);
+ 		  logprintfl(EUCADEBUG, "cleanup_bundling_task: running cmd '%s'\n", cmd);
+ 		  rc = system(cmd);
+@@ -1268,13 +1268,13 @@
+ 	        int pid, status;
+ 		
+ 		// set up environment for euca2ools
+-		snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", params->eucalyptusHomePath);
++		snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", params->eucalyptusHomePath);
+ 		setenv("EC2_CERT", buf, 1);
+ 		
+ 		snprintf(buf, MAX_PATH, "IGNORED");
+ 		setenv("EC2_SECRET_KEY", buf, 1);
+ 		
+-		snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/cloud-cert.pem", params->eucalyptusHomePath);
++		snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/cloud-cert.pem", params->eucalyptusHomePath);
+ 		setenv("EUCALYPTUS_CERT", buf, 1);
+ 		
+ 		snprintf(buf, MAX_PATH, "%s", params->walrusURL);
+@@ -1286,10 +1286,10 @@
+ 		snprintf(buf, MAX_PATH, "123456789012");
+ 		setenv("EC2_USER_ID", buf, 1);
+ 		
+-		snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-cert.pem", params->eucalyptusHomePath);
++		snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-cert.pem", params->eucalyptusHomePath);
+ 		setenv("EUCA_CERT", buf, 1);
+ 		
+-		snprintf(buf, MAX_PATH, "%s/var/lib/eucalyptus/keys/node-pk.pem", params->eucalyptusHomePath);
++		snprintf(buf, MAX_PATH, EUCALYPTUS_KEYS_DIR "/node-pk.pem", params->eucalyptusHomePath);
+ 		setenv("EUCA_PRIVATE_KEY", buf, 1);
+ 
+ 		// check to see if the bucket exists in advance
+diff -ur eucalyptus-3.1.0.old/node/Makefile eucalyptus-3.1.0.good/node/Makefile
+--- eucalyptus-3.1.0.old/node/Makefile	2012-08-14 11:22:13.553771499 -0400
++++ eucalyptus-3.1.0.good/node/Makefile	2012-08-14 12:12:40.592096990 -0400
+@@ -48,7 +48,7 @@
+ 	@echo Stubs generated.
+ 
+ .c.o:
+-	$(CC) $(BUILD_ID) -c $(CFLAGS) `xslt-config --cflags` $(INCLUDES) $<
++	$(CC) $(BUILD_ID) -c $(CFLAGS) $(CPPFLAGS) `xslt-config --cflags` $(INCLUDES) $<
+ 
+ server: $(SERVICE_SO)
+ 
+@@ -89,7 +89,7 @@
+ 	make -C ../util
+ 
+ $(SERVICE_SO): generated/stubs $(STORAGE_OBJS) ../net/vnetwork.o ../util/misc.o ../util/hash.o ../util/data.o server-marshal.o handlers.o $(NC_HANDLERS) ../util/eucalyptus.h ../util/euca_auth.o ../storage/http.o ../util/windows-bundle.o
+-	$(CC) -o $(SERVICE_SO) -shared generated/adb_*.o generated/axis2*_skel_*.o server-marshal.o handlers.o $(NC_HANDLERS) $(STORAGE_OBJS) ../net/*.o ../util/*.o ../storage/http.o ../storage/storage-windows.o $(NC_LIBS) $(EFENCE)
++	$(CC) -o $(SERVICE_SO) -shared generated/adb_*.o generated/axis2*_skel_*.o generated/axis2_ext*.o server-marshal.o handlers.o $(NC_HANDLERS) $(STORAGE_OBJS) ../net/*.o ../util/*.o ../storage/http.o ../storage/storage-windows.o $(NC_LIBS) $(EFENCE)
+ 
+ clientlib: generated/stubs ../util/data.o client-marshal-adb.o
+ 
+@@ -98,24 +98,24 @@
+ fake: $(CLIENT)_fake
+ 
+ $(CLIENT): generated/stubs $(STORAGE_OBJS) ../util/misc.o ../util/data.o client-marshal-adb.o client-marshal-local.o $(CLIENT).c ../storage/vbr.o
+-	$(CC) -o $(CLIENT) $(CFLAGS) $(INCLUDES) $(NC_LIBS) generated/adb_*.o generated/axis2_stub_*.o generated/axis2_ext*.o $(AXIOM_LIBS) client-marshal-adb.o ../util/*.o $(AXIOM_LIBS) $(OPENSSL_LIBS) ../storage/diskutil.o ../net/*.o -lm $(CLIENT).c ../storage/http.o -lcurl ../storage/storage-windows.o
++	$(CC) -o $(CLIENT) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(NC_LIBS) generated/adb_*.o generated/axis2_ext*.o generated/axis2_stub_*.o $(AXIOM_LIBS) client-marshal-adb.o ../util/*.o $(AXIOM_LIBS) $(OPENSSL_LIBS) ../storage/diskutil.o ../net/*.o -lm $(CLIENT).c ../storage/http.o -lcurl ../storage/storage-windows.o
+ 
+ $(CLIENT)_fake: generated/stubs $(STORAGE_OBJS) ../util/misc.o ../util/data.o client-marshal-adb.o client-marshal-local.o client-marshal-fake.o $(CLIENT).c ../storage/vbr.o
+ 
+ $(CLIENT)_local: generated/stubs $(STORAGE_OBJS) ../util/misc.o ../util/data.o client-marshal-adb.o client-marshal-local.o handlers.o $(NC_HANDLERS) $(CLIENT).c ../util/euca_auth.o ../storage/vbr.o
+-	$(CC) -o $(CLIENT)_local $(INCLUDES) $(CFLAGS) client-marshal-local.o ../util/*.o $(STORAGE_OBJS) ../net/*.o handlers.o $(NC_HANDLERS) $(CLIENT).c $(NC_LIBS) ../storage/http.o ../storage/storage-windows.o
++	$(CC) -o $(CLIENT)_local $(INCLUDES) $(CFLAGS) $(CPPFLAGS) client-marshal-local.o ../util/*.o $(STORAGE_OBJS) ../net/*.o handlers.o $(NC_HANDLERS) $(CLIENT).c $(NC_LIBS) ../storage/http.o ../storage/storage-windows.o
+ 
+ test: test.c ../util/misc.o ../util/data.o
+-	$(CC) $(CFLAGS) $(INCLUDES) $(NC_LIBS) -o test test.c ../util/misc.o ../storage/diskutil.o ../util/data.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(NC_LIBS) -o test test.c ../util/misc.o ../storage/diskutil.o ../util/data.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
+ 
+ test_nc: test_nc.c ../util/misc.o ../storage/diskutil.o
+-	$(CC) $(CFLAGS) $(INCLUDES) $(NC_LIBS) -o test_nc -lvirt test_nc.c -lvirt ../util/misc.o ../storage/diskutil.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(NC_LIBS) -o test_nc -lvirt test_nc.c -lvirt ../util/misc.o ../storage/diskutil.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
+ 
+ test_hooks: hooks.c ../util/misc.o ../storage/diskutil.o
+-	$(CC) $(CFLAGS) $(INCLUDES) $(NC_LIBS) -o test_hooks -D__STANDALONE hooks.c ../util/misc.o ../storage/diskutil.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(NC_LIBS) -o test_hooks -D__STANDALONE hooks.c ../util/misc.o ../storage/diskutil.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
+ 
+ test_xml: xml.c
+-	$(CC) $(CFLAGS) $(INCLUDES) $(NC_LIBS) `xslt-config --cflags` -o test_xml -D__STANDALONE xml.c ../util/misc.o ../storage/diskutil.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(NC_LIBS) `xslt-config --cflags` -o test_xml -D__STANDALONE xml.c ../util/misc.o ../storage/diskutil.o ../util/euca_auth.o $(OPENSSL_LIBS) ../util/ipc.o
+ 
+ deploy:
+ 	$(INSTALL) -d $(DESTDIR)$(AXIS2C_SERVICES)/$(SERVICE_NAME)/
+@@ -141,11 +141,11 @@
+ 	rm -rf generated $(SERVICE_SO) *.o $(CLIENT) $(CLIENT)_local nc-client-policy.xml test test_nc test_hooks *~* *#*
+ 
+ install: deploy
+-	$(INSTALL) nc-client-policy.xml $(DESTDIR)$(vardir)/lib/eucalyptus/keys/
+-	$(INSTALL) -m 0755 test_nc $(DESTDIR)$(sbindir)/euca_test_nc
++	$(INSTALL) nc-client-policy.xml $(DESTDIR)$(eucastatedir)/keys/
++	$(INSTALL) -m 0755 test_nc $(DESTDIR)$(eucasbindir)/euca_test_nc
+ 
+ uninstall:
+-	$(RM) -f $(DESTDIR)$(vardir)/lib/eucalyptus/keys/nc-client-policy.xml
+-	$(RM) -f $(DESTDIR)$(sbindir)/euca_test_nc
++	$(RM) -f $(DESTDIR)$(eucastatedir)/keys/nc-client-policy.xml
++	$(RM) -f $(DESTDIR)$(eucasbindir)/euca_test_nc
+ 	$(RM) -rf $(DESTDIR)$(AXIS2C_SERVICES)/$(SERVICE_NAME)
+ 
+diff -ur eucalyptus-3.1.0.old/node/NCclient.c eucalyptus-3.1.0.good/node/NCclient.c
+--- eucalyptus-3.1.0.old/node/NCclient.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/node/NCclient.c	2012-08-14 11:08:49.314777204 -0400
+@@ -314,12 +314,10 @@
+     
+     euca_home = getenv("EUCALYPTUS");
+     if (!euca_home) {
+-        snprintf(configFile, 1024, "/etc/eucalyptus/eucalyptus.conf");
+-        snprintf(policyFile, 1024, "/var/lib/eucalyptus/keys/nc-client-policy.xml");
+-    } else {
+-        snprintf(configFile, 1024, "%s/etc/eucalyptus/eucalyptus.conf", euca_home);
+-        snprintf(policyFile, 1024, "%s/var/lib/eucalyptus/keys/nc-client-policy.xml", euca_home);
++      euca_home = "";
+     }
++    snprintf(configFile, 1024, EUCALYPTUS_CONF_LOCATION, euca_home);
++    snprintf(policyFile, 1024, EUCALYPTUS_KEYS_DIR "/nc-client-policy.xml", euca_home);
+     rc = get_conf_var(configFile, "ENABLE_WS_SECURITY", &tmpstr);
+     if (rc != 1) {
+         /* Default to enabled */
+diff -ur eucalyptus-3.1.0.old/node/test_nc.c eucalyptus-3.1.0.good/node/test_nc.c
+--- eucalyptus-3.1.0.old/node/test_nc.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/node/test_nc.c	2012-08-14 14:17:48.504391716 -0400
+@@ -93,7 +93,7 @@
+     if (!eucahome || !param)
+         return NULL;
+     
+-    snprintf (conf_path, 1024, "%s/etc/eucalyptus/eucalyptus.conf", eucahome); 
++    snprintf (conf_path, 1024, EUCALYPTUS_CONF_LOCATION, eucahome); 
+     f_conf = fopen (conf_path, "r");
+     if (!f_conf){ 
+     	return NULL;
+@@ -218,9 +218,9 @@
+     // ensure hypervisor information is available
+     fprintf (stderr, "ok\n\nchecking the hypervisor...\n");
+     if (!strcmp(hypervisor, "kvm")) {
+-        snprintf(cmd, 1024, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/get_sys_info", eucahome, eucahome);
++        snprintf(cmd, 1024, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/get_sys_info", eucahome, eucahome);
+     } else {
+-        snprintf(cmd, 1024, "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/get_xen_info", eucahome, eucahome);
++        snprintf(cmd, 1024, EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/get_xen_info", eucahome, eucahome);
+     }
+     if (system(cmd)) {
+         fprintf (stderr, "error: could not run '%s'\n", cmd);
+diff -ur eucalyptus-3.1.0.old/storage/blobstore.c eucalyptus-3.1.0.good/storage/blobstore.c
+--- eucalyptus-3.1.0.old/storage/blobstore.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/storage/blobstore.c	2012-08-14 11:08:49.317777230 -0400
+@@ -4522,7 +4522,7 @@
+         char * instance_path = getConfString(euca_confs, 2, INSTANCE_PATH);
+         if (instance_path == NULL) {
+             char path [MAX_PATH];
+-            snprintf (path, sizeof (path), "%s/var/lib/eucalyptus/instances", euca_home);
++            snprintf (path, sizeof (path), EUCALYPTUS_STATE_DIR "/instances", euca_home);
+             instance_path = strdup (path);
+             fprintf (stderr, "warning: failed to obtain %s from eucalyptus.conf, will try '%s'\n", INSTANCE_PATH, instance_path);
+         }
+diff -ur eucalyptus-3.1.0.old/storage/Makefile eucalyptus-3.1.0.good/storage/Makefile
+--- eucalyptus-3.1.0.old/storage/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/storage/Makefile	2012-08-14 11:08:49.318777238 -0400
+@@ -18,22 +18,22 @@
+ build: all
+ 
+ euca-blobs: Makefile blobstore.c blobstore.h $(EUCA_BLOBS_OBJS)
+-	$(CC) $(CFLAGS) $(INCLUDES) -D_EUCA_BLOBS blobstore.c -o euca-blobs $(EUCA_BLOBS_OBJS) $(STORAGE_LIBS) $(EFENCE)
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -D_EUCA_BLOBS blobstore.c -o euca-blobs $(EUCA_BLOBS_OBJS) $(STORAGE_LIBS) $(EFENCE)
+ 
+ Wclient: Makefile Wclient.c $(WCLIENT_OBJS)
+-	$(CC) $(CFLAGS) $(INCLUDES) Wclient.c -o Wclient $(WCLIENT_OBJS) $(STORAGE_LIBS) $(EFENCE)
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) Wclient.c -o Wclient $(WCLIENT_OBJS) $(STORAGE_LIBS) $(EFENCE)
+ 
+ test_blobstore: blobstore.o $(TEST_BLOB_OBJS)
+-	$(CC) -g -rdynamic $(CFLAGS) $(INCLUDES) -D_UNIT_TEST blobstore.c -o test_blobstore $(TEST_BLOB_OBJS) $(STORAGE_LIBS) $(EFENCE)
++	$(CC) -g -rdynamic $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -D_UNIT_TEST blobstore.c -o test_blobstore $(TEST_BLOB_OBJS) $(STORAGE_LIBS) $(EFENCE)
+ 
+ test_vbr: vbr.o $(TEST_VBR_OBJS)
+-	$(CC) -g -rdynamic $(CFLAGS) $(INCLUDES) -D_UNIT_TEST vbr.c -o test_vbr $(TEST_VBR_OBJS) $(STORAGE_LIBS) $(EFENCE)
++	$(CC) -g -rdynamic $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -D_UNIT_TEST vbr.c -o test_vbr $(TEST_VBR_OBJS) $(STORAGE_LIBS) $(EFENCE)
+ 
+ test_url: http.c
+ 	$(CC) -D_UNIT_TEST -o test_url http.c
+ 
+ %.o: %.c %.h
+-	$(CC) -c $(CFLAGS) $(INCLUDES) $<
++	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $<
+ 
+ ../util/ipc.o: ../util/ipc.c ../util/ipc.h ../util/eucalyptus.h
+ 	make -C ../util
+diff -ur eucalyptus-3.1.0.old/storage/storage-windows.c eucalyptus-3.1.0.good/storage/storage-windows.c
+--- eucalyptus-3.1.0.old/storage/storage-windows.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/storage/storage-windows.c	2012-08-14 14:20:07.872603787 -0400
+@@ -26,6 +26,8 @@
+ #include <euca_auth.h>
+ #include <misc.h>
+ 
++#include <eucalyptus.h>
++
+ int decryptWindowsPassword(char *encpass, int encsize, char *pkfile, char **out) {
+   FILE *PKFP;
+   RSA *pr=NULL;
+@@ -181,7 +183,7 @@
+     return(1);
+   }
+ 
+-  snprintf(source_path, 1024, "%s/usr/share/eucalyptus/floppy", euca_home);
++  snprintf(source_path, 1024, EUCALYPTUS_HELPER_DIR "/floppy", euca_home);
+   snprintf(dest_path, 1024, "%s/floppy", rundir_path);
+   if (!keyName || !strlen(keyName) || !strlen(instName)) {
+     char cmd[MAX_PATH];
+diff -ur eucalyptus-3.1.0.old/tools/Makefile eucalyptus-3.1.0.good/tools/Makefile
+--- eucalyptus-3.1.0.old/tools/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/tools/Makefile	2012-08-14 14:07:28.522999879 -0400
+@@ -18,71 +18,54 @@
+ 	@rm -rf eucalyptus eucalyptus-cloud eucalyptus-walrus eucalyptus-sc
+ 
+ install: build
+-	@if test -e /etc/init.d/eucalyptus ; then \
+-		mv /etc/init.d/eucalyptus /etc/init.d/eucalyptus.old ; \
++	@if test -e $(initddir)/eucalyptus ; then \
++		mv $(initddir)/eucalyptus $(initddir)/eucalyptus.old ; \
+ 		echo "Moving away old init.d script"; fi
+-	@if test -e $(DESTDIR)$(etcdir)/init.d/eucalyptus ; then \
+-		mv $(DESTDIR)$(etcdir)/init.d/eucalyptus $(DESTDIR)$(etcdir)/init.d/eucalyptus.old ; fi
+-	@$(INSTALL) -m 755 eucalyptus-cloud $(DESTDIR)$(etcdir)/init.d
+-	@$(INSTALL) -m 755 eucalyptus-nc $(DESTDIR)$(etcdir)/init.d
+-	@$(INSTALL) -m 755 eucalyptus-cc $(DESTDIR)$(etcdir)/init.d
+-	@$(INSTALL) -m 644 httpd.conf $(DESTDIR)$(etcdir)/eucalyptus
+-	@if test -e $(DESTDIR)$(etcdir)/eucalyptus/eucalyptus.conf ; then \
+-		cp $(DESTDIR)$(etcdir)/eucalyptus/eucalyptus.conf $(DESTDIR)$(etcdir)/eucalyptus/eucalyptus.conf.old ; fi
+-	@$(INSTALL) -m 644 eucalyptus.conf $(DESTDIR)$(etcdir)/eucalyptus
+-	@$(INSTALL) -m 644 vtunall.conf.template $(DESTDIR)$(etcdir)/eucalyptus
+-	@$(INSTALL) -m 755 add_key.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 gen_libvirt_xml $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 gen_kvm_libvirt_xml $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 detach.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 partition2disk $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 get_xen_info $(DESTDIR)$(datarootdir)/eucalyptus/get_xen_info
+-	@$(INSTALL) -m 755 get_sys_info $(DESTDIR)$(datarootdir)/eucalyptus/get_sys_info
+-	@$(INSTALL) -m 755 euca_ipt $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 euca_upgrade $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 populate_arp.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-#	@$(INSTALL) -m 755 euca_conf $(DESTDIR)$(sbindir)
++	@if test -e $(DESTDIR)$(initddir)/eucalyptus ; then \
++		mv $(DESTDIR)$(initddir)/eucalyptus $(DESTDIR)$(initddir)/eucalyptus.old ; fi
++	@$(INSTALL) -m 755 eucalyptus-cloud $(DESTDIR)$(initddir)
++	@$(INSTALL) -m 755 eucalyptus-nc $(DESTDIR)$(initddir)
++	@$(INSTALL) -m 755 eucalyptus-cc $(DESTDIR)$(initddir)
++	@$(INSTALL) -m 644 httpd.conf $(DESTDIR)$(eucaconfdir)
++	@if test -e $(DESTDIR)$(eucaconfdir)/eucalyptus.conf ; then \
++		cp $(DESTDIR)$(eucaconfdir)/eucalyptus.conf $(DESTDIR)$(eucaconfdir)/eucalyptus.conf.old ; fi
++	@$(INSTALL) -m 644 eucalyptus.conf $(DESTDIR)$(eucaconfdir)
++	@$(INSTALL) -m 644 vtunall.conf.template $(DESTDIR)$(eucaconfdir)
++	@$(INSTALL) -d 755 $(DESTDIR)$(eucahelperdir)
++	@for x in add_key.pl gen_libvirt_xml gen_kvm_libvirt_xml detach.pl partition2disk \
++	        get_xen_info get_sys_info euca_ipt euca_upgrade populate_arp.pl \
++	        connect_iscsitarget.pl connect_iscsitarget_sc.pl disconnect_iscsitarget.pl \
++	        disconnect_iscsitarget_sc.pl get_iscsitarget.pl floppy dynserv.pl \
++	        getstats.pl create-loop-devices; \
++	    do $(INSTALL) -m 755 $$x $(DESTDIR)$(eucahelperdir); done
++#	@$(INSTALL) -m 755 euca_conf $(DESTDIR)$(eucasbindir)
+ #	-$(INSTALL) -m 755 euca_conf.complete $(DESTDIR)$(etcdir)/bash_completion.d/euca_conf
+-#	@$(INSTALL) -m 755 eucanetd $(DESTDIR)$(sbindir)
+-	@$(INSTALL) -m 755 euca_sync_key $(DESTDIR)$(sbindir)
+-	@$(INSTALL) -m 755 connect_iscsitarget.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 connect_iscsitarget_sc.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 disconnect_iscsitarget.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 disconnect_iscsitarget_sc.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 get_iscsitarget.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 644 floppy $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 dynserv.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 644 libvirt-kvm-windows-example.xml $(DESTDIR)$(datarootdir)/eucalyptus/doc/
+-	@$(INSTALL) -m 644 libvirt-xen-windows-example.xml $(DESTDIR)$(datarootdir)/eucalyptus/doc/
+-	@$(INSTALL) -m 755 getstats.pl $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 euca-lictool $(DESTDIR)$(sbindir)
+-	@$(INSTALL) -m 755 lic_template $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 755 lic_default $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 644 libvirt.xsl $(DESTDIR)$(etcdir)/eucalyptus
+-	@$(INSTALL) -m 755 create-loop-devices $(DESTDIR)$(datarootdir)/eucalyptus
+-	@$(INSTALL) -m 644 nc-hooks/example.sh $(DESTDIR)$(etcdir)/eucalyptus/nc-hooks/
++#	@$(INSTALL) -m 755 eucanetd $(DESTDIR)$(eucasbindir)
++	@$(INSTALL) -m 755 euca_sync_key $(DESTDIR)$(eucasbindir)
++	@$(INSTALL) -m 644 libvirt-kvm-windows-example.xml $(DESTDIR)$(eucadocdir)
++	@$(INSTALL) -m 644 libvirt-xen-windows-example.xml $(DESTDIR)$(eucadocdir)
++	@$(INSTALL) -m 755 euca-lictool $(DESTDIR)$(eucasbindir)
++	@$(INSTALL) -m 644 libvirt.xsl $(DESTDIR)$(eucaconfdir)
++	@$(INSTALL) -m 644 nc-hooks/example.sh $(DESTDIR)$(eucaconfdir)/nc-hooks/
++	@$(INSTALL) -m 644 lic_template $(DESTDIR)$(eucadatadir)
++	@$(INSTALL) -m 644 lic_default $(DESTDIR)$(eucadatadir)
+ 
+ uninstall:
+-	@$(RM) -f $(DESTDIR)$(etcdir)/init.d/eucalyptus-cloud
+-	@$(RM) -f $(DESTDIR)$(etcdir)/init.d/eucalyptus-nc
+-	@$(RM) -f $(DESTDIR)$(etcdir)/init.d/eucalyptus-cc
+-	@$(RM) -f $(DESTDIR)$(etcdir)/eucalyptus/httpd*
+-	@$(RM) -f $(DESTDIR)$(etcdir)/eucalyptus/eucalyptus.conf
+-	@$(RM) -f $(DESTDIR)$(etcdir)/eucalyptus/vtunall.conf.template
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/add_key.pl
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/gen_libvirt_xml
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/gen_kvm_libvirt_xml
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/detach.pl
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/partition2disk
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/get_xen_info
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/get_sys_info
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/euca_ipt
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/euca_upgrade
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/populate_arp.pl
+-	@$(RM) -f $(DESTDIR)$(sbindir)/euca_conf
++	@for x in eucalyptus-cloud eucalyptus-nc eucalyptus-cc; \
++	    do @$(RM) -f $(DESTDIR)$(initddir)/$$x; done
++	@$(RM) -f $(DESTDIR)$(eucaconfdir)/httpd*
++	@$(RM) -f $(DESTDIR)$(eucaconfdir)/eucalyptus.conf
++	@$(RM) -f $(DESTDIR)$(eucaconfdir)/vtunall.conf.template
++# XXX: Need root privs
+ 	@$(RM) -f $(DESTDIR)$(etcdir)/bash_completion.d/euca_conf
+-	@$(RM) -f $(DESTDIR)$(sbindir)/euca_sync_key
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/lic_template
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/lic_default
+-	@$(RM) -f $(DESTDIR)$(sbindir)/euca-lictool
+-	@$(RM) -f $(DESTDIR)$(datarootdir)/eucalyptus/create-loop-devices
++	@for x in add_key.pl gen_libvirt_xml gen_kvm_libvirt_xml detach.pl partition2disk \
++	        get_xen_info get_sys_info euca_ipt euca_upgrade populate_arp.pl \
++	        connect_iscsitarget.pl connect_iscsitarget_sc.pl disconnect_iscsitarget.pl \
++	        disconnect_iscsitarget_sc.pl get_iscsitarget.pl floppy dynserv.pl \
++	        getstats.pl create-loop-devices; \
++	    do $(RM) -f $(DESTDIR)$(eucahelperdir)/$$x; done
++	@$(RM) -f $(DESTDIR)$(eucasbindir)/euca_conf
++	@$(RM) -f $(DESTDIR)$(eucasbindir)/euca_sync_key
++	@$(RM) -f $(DESTDIR)$(eucasbindir)/euca-lictool
++	@$(RM) -f $(DESTDIR)$(eucadatadir)/lic_template
++	@$(RM) -f $(DESTDIR)$(eucadatadir)/lic_default
+diff -ur eucalyptus-3.1.0.old/util/euca_auth.c eucalyptus-3.1.0.good/util/euca_auth.c
+--- eucalyptus-3.1.0.old/util/euca_auth.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/util/euca_auth.c	2012-08-14 11:08:49.319777247 -0400
+@@ -76,6 +76,8 @@
+ #include "euca_auth.h"
+ #include "misc.h" /* get_string_stats, logprintf */
+ 
++#include "eucalyptus.h"
++
+ static int initialized = 0;
+ 
+ #define FILENAME 512
+@@ -91,8 +93,8 @@
+     if (!euca_home) {
+         euca_home = root;
+     }
+-    snprintf (cert_file, FILENAME, "%s/var/lib/eucalyptus/keys/node-cert.pem", euca_home);
+-    snprintf (pk_file,   FILENAME, "%s/var/lib/eucalyptus/keys/node-pk.pem", euca_home);
++    snprintf (cert_file, FILENAME, EUCALYPTUS_KEYS_DIR "/node-cert.pem", euca_home);
++    snprintf (pk_file,   FILENAME, EUCALYPTUS_KEYS_DIR "/node-pk.pem", euca_home);
+ 
+ 	#define ERR "Error: required file %s not found by euca_init_cert(). Is $EUCALYPTUS set?\n"
+ 	#define OK  "euca_init_cert(): using file %s\n"
+diff -ur eucalyptus-3.1.0.old/util/eucalyptus-config.h.in eucalyptus-3.1.0.good/util/eucalyptus-config.h.in
+--- eucalyptus-3.1.0.old/util/eucalyptus-config.h.in	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/util/eucalyptus-config.h.in	2012-08-14 11:08:49.320777256 -0400
+@@ -8,6 +8,9 @@
+ /* Current version */
+ #undef EUCA_VERSION
+ 
++/* location for rootwrap / mountwrap
++#undef EUCALYPTUS_LIBEXEC_DIR
++
+ /* headers on the system */
+ 
+ /* Define if you have standards headers */
+diff -ur eucalyptus-3.1.0.old/util/eucalyptus.h eucalyptus-3.1.0.good/util/eucalyptus.h
+--- eucalyptus-3.1.0.old/util/eucalyptus.h	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/util/eucalyptus.h	2012-08-14 14:26:56.432156941 -0400
+@@ -60,36 +60,78 @@
+ #ifndef INCLUDE_EUCALYPTUS_H
+ #define INCLUDE_EUCALYPTUS_H
+ 
++// Maybe we should have no defaults, but I will put them here for the moment.
++#ifndef LIBDIR
++#define LIBDIR "/usr/lib"
++#endif
++#ifndef SYSCONFDIR
++#define SYSCONFDIR "/etc"
++#endif
++#ifndef DATADIR 
++#define DATADIR	"/usr/share"
++#endif
++#ifndef LIBEXECDIR
++#define LIBEXECDIR	"/usr/libexec"
++#endif
++#ifndef SBINDIR
++#define SBINDIR	"/usr/sbin"
++#endif
++#ifndef LOCALSTATEDIR
++#define LOCALSTATEDIR	"/var"
++#endif
++
++
+ /* environment variable set at startup */
+ #define EUCALYPTUS_ENV_VAR_NAME  "EUCALYPTUS"
+ 
+ /* file paths relative to $EUCALYPTUS */
+-#define EUCALYPTUS_CONF_LOCATION   "%s/etc/eucalyptus/eucalyptus.conf"
+-#define EUCALYPTUS_CONF_OVERRIDE_LOCATION   "%s/etc/eucalyptus/eucalyptus.local.conf"
+-#define EUCALYPTUS_LIBVIRT_XSLT    "%s/etc/eucalyptus/libvirt.xsl"
++#define EUCALYPTUS_DATA_DIR        "%s" DATADIR "/eucalyptus"
++#define EUCALYPTUS_CONF_DIR        "%s" SYSCONFDIR "/eucalyptus"
++#define EUCALYPTUS_LIB_DIR         "%s" LIBDIR "/eucalyptus"
++#define EUCALYPTUS_LIBEXEC_DIR     "%s" LIBEXECDIR "/eucalyptus"
++#define EUCALYPTUS_RUN_DIR         "%s" LOCALSTATEDIR "/run/eucalyptus"
++#define EUCALYPTUS_SBIN_DIR        "%s" SBINDIR
++#define EUCALYPTUS_STATE_DIR       "%s" LOCALSTATEDIR "/lib/eucalyptus"
++#define EUCALYPTUS_LOG_DIR         "%s" LOCALSTATEDIR "/log/eucalyptus"
++
++// scripts ... to Fedora / RHEL they are the same as indirectly
++// executed binaries.  We need a separate variable in case people
++// want them in /usr/share, though.
++#define EUCALYPTUS_HELPER_DIR      "%s" HELPERDIR "/eucalyptus"
++
++// Java stuff, oddly named
++#define EUCA_ETC_DIR               EUCALYPTUS_CONF_DIR "/cloud.d"
++#define EUCA_SCRIPT_DIR            EUCA_ETC_DIR "/scripts"
++#define EUCALYPTUS_JAVA_LIB_DIR    EUCALYPTUS_DATA_DIR
++#define EUCA_CLASSCACHE_DIR        EUCALYPTUS_RUN_DIR "/classcache"
++
++#define EUCALYPTUS_KEYS_DIR        EUCALYPTUS_STATE_DIR "/keys"
++#define EUCALYPTUS_CONF_LOCATION   EUCALYPTUS_CONF_DIR "/eucalyptus.conf"
++#define EUCALYPTUS_CONF_OVERRIDE_LOCATION   EUCALYPTUS_CONF_DIR "/eucalyptus.local.conf"
++#define EUCALYPTUS_LIBVIRT_XSLT    EUCALYPTUS_CONF_DIR "/libvirt.xsl"
+ #define EUCALYPTUS_VOLUME_XML_PATH_FORMAT "%s/%s.xml"
+-#define EUCALYPTUS_ROOTWRAP        "%s/usr/lib/eucalyptus/euca_rootwrap"
+-#define EUCALYPTUS_ADD_KEY         "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/add_key.pl %s/usr/lib/eucalyptus/euca_mountwrap"
+-#define EUCALYPTUS_GEN_LIBVIRT_XML "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/gen_libvirt_xml"
+-#define EUCALYPTUS_GEN_KVM_LIBVIRT_XML "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/gen_kvm_libvirt_xml"
+-#define EUCALYPTUS_GET_XEN_INFO    "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/get_xen_info"
+-#define EUCALYPTUS_GET_KVM_INFO    "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/get_sys_info"
+-#define EUCALYPTUS_DISK_CONVERT    "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/partition2disk"
+-#define EUCALYPTUS_VIRSH           "%s/usr/lib/eucalyptus/euca_rootwrap virsh"
+-#define EUCALYPTUS_ROOTWRAP           "%s/usr/lib/eucalyptus/euca_rootwrap"
+-#define EUCALYPTUS_DETACH           "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/detach.pl"
++#define EUCALYPTUS_ROOTWRAP        EUCALYPTUS_LIBEXEC_DIR "/euca_rootwrap"
++#define EUCALYPTUS_ADD_KEY         EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/add_key.pl " EUCALYPTUS_LIBEXEC_DIR "/euca_mountwrap"
++#define EUCALYPTUS_GEN_LIBVIRT_XML EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/gen_libvirt_xml"
++#define EUCALYPTUS_GEN_KVM_LIBVIRT_XML EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/gen_kvm_libvirt_xml"
++#define EUCALYPTUS_GET_XEN_INFO    EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/get_xen_info"
++#define EUCALYPTUS_GET_KVM_INFO    EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/get_sys_info"
++#define EUCALYPTUS_DISK_CONVERT    EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/partition2disk"
++#define EUCALYPTUS_VIRSH           EUCALYPTUS_ROOTWRAP " virsh"
++#define EUCALYPTUS_DETACH          EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/detach.pl"
++
+ #define EUCALYPTUS_XM           "sudo xm"
+ 
+-#define EUCALYPTUS_CONNECT_ISCSI    "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/connect_iscsitarget.pl"
+-#define EUCALYPTUS_DISCONNECT_ISCSI "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/disconnect_iscsitarget.pl"
+-#define EUCALYPTUS_GET_ISCSI "%s/usr/lib/eucalyptus/euca_rootwrap %s/usr/share/eucalyptus/get_iscsitarget.pl"
++#define EUCALYPTUS_CONNECT_ISCSI    EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/connect_iscsitarget.pl"
++#define EUCALYPTUS_DISCONNECT_ISCSI EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/disconnect_iscsitarget.pl"
++#define EUCALYPTUS_GET_ISCSI        EUCALYPTUS_ROOTWRAP " " EUCALYPTUS_HELPER_DIR "/get_iscsitarget.pl"
+ #define EUCALYPTUS_NC_CHECK_BUCKET "euca-check-bucket" // can be overriden from eucalyptus.conf
+ #define EUCALYPTUS_NC_BUNDLE_UPLOAD "euca-bundle-upload" // can be overriden from eucalyptus.conf
+ #define EUCALYPTUS_NC_DELETE_BUNDLE "euca-delete-bundle" // can be overriden from eucalyptus.conf
+-#define EUCALYPTUS_NC_HOOKS_DIR     "%s/etc/eucalyptus/nc-hooks"
++#define EUCALYPTUS_NC_HOOKS_DIR     EUCALYPTUS_CONF_DIR "/nc-hooks"
+ 
+-#define NC_NET_PATH_DEFAULT        "%s/var/run/eucalyptus/net"
+-#define CC_NET_PATH_DEFAULT        "%s/var/run/eucalyptus/net"
++#define NC_NET_PATH_DEFAULT         EUCALYPTUS_RUN_DIR "/net"
++#define CC_NET_PATH_DEFAULT         EUCALYPTUS_RUN_DIR "/net"
+ 
+ /* various defaults */
+ #define NC_NET_PORT_DEFAULT      1976
+diff -ur eucalyptus-3.1.0.old/util/Makefile eucalyptus-3.1.0.good/util/Makefile
+--- eucalyptus-3.1.0.old/util/Makefile	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/util/Makefile	2012-08-14 12:08:49.141084118 -0400
+@@ -9,22 +9,22 @@
+ build: all 
+ 
+ euca_rootwrap: euca_rootwrap.c
+-	$(CC) $(CFLAGS) $(INCLUDES) -o euca_rootwrap euca_rootwrap.c
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -o euca_rootwrap euca_rootwrap.c
+ 
+ euca_mountwrap: euca_mountwrap.c
+-	$(CC) $(CFLAGS) $(INCLUDES) -o euca_mountwrap euca_mountwrap.c
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -o euca_mountwrap euca_mountwrap.c
+ 
+ test: test.c ipc.o misc.o
+-	$(CC) $(CFLAGS) $(INCLUDES) -o test test.c ipc.o misc.o data.o -lpthread $(LIBS) $(LDFLAGS)
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -o test test.c ipc.o misc.o data.o -lpthread $(LIBS) $(LDFLAGS)
+ 
+ test_misc: misc.c ../storage/diskutil.o ipc.o euca_auth.o
+-	$(CC) $(CFLAGS) $(INCLUDES) -D_UNIT_TEST -o test_misc misc.c ../storage/diskutil.o ipc.o euca_auth.o -lpthread -lcrypto $(LIBS) $(LDFLAGS)
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -D_UNIT_TEST -o test_misc misc.c ../storage/diskutil.o ipc.o euca_auth.o -lpthread -lcrypto $(LIBS) $(LDFLAGS)
+ 
+ ../storage/diskutil.o:
+ 	make -C ../storage
+ 
+ .c.o: $@
+-	$(CC) -c -std=gnu99 $(CFLAGS) $(INCLUDES) $<
++	$(CC) -c -std=gnu99 $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $<
+ 
+ clean:
+ 	rm -rf *~ *.o test test_misc euca_rootwrap euca_mountwrap
+@@ -33,12 +33,13 @@
+ 	rm -rf config.h
+ 
+ install:
+-	@$(INSTALL) -m 0755 euca_rootwrap $(DESTDIR)$(usrdir)/lib/eucalyptus/
+-	@$(INSTALL) -m 0755 euca_mountwrap $(DESTDIR)$(usrdir)/lib/eucalyptus/
++	@$(INSTALL) -d -m 0755 $(DESTDIR)$(eucalibexecdir)
++	@$(INSTALL) -m 0755 euca_rootwrap $(DESTDIR)$(eucalibexecdir)/
++	@$(INSTALL) -m 0755 euca_mountwrap $(DESTDIR)$(eucalibexecdir)/
+ 
+ deploy:
+ 
+ uninstall:
+-	@$(RM) -f $(DESTDIR)$(usrdir)/lib/eucalyptus/euca_rootwrap
+-	@$(RM) -f $(DESTDIR)$(usrdir)/lib/eucalyptus/euca_mountwrap
++	@$(RM) -f $(DESTDIR)$(eucalibexecdir)/euca_rootwrap
++	@$(RM) -f $(DESTDIR)$(eucalibexecdir)/euca_mountwrap
+ 
+diff -ur eucalyptus-3.1.0.old/util/misc.c eucalyptus-3.1.0.good/util/misc.c
+--- eucalyptus-3.1.0.old/util/misc.c	2012-06-19 14:41:48.000000000 -0400
++++ eucalyptus-3.1.0.good/util/misc.c	2012-08-14 14:20:28.612784160 -0400
+@@ -89,6 +89,8 @@
+ #include "diskutil.h"
+ #include "vnetwork.h"
+ 
++#include "eucalyptus.h"
++
+ // Given an array of pointers to command names (e.g., "ls", "dd", etc.),
+ // as well as either an array of NULL pointers or pointers to full paths,
+ // either the full paths are verified or system $PATH is searched for 
+@@ -129,19 +131,19 @@
+             }
+ 
+             { // append some Eucalyptus-specific locations to $PATH
+-                char * euca = getenv ("EUCALYPTUS");
++                char * euca = getenv (EUCALYPTUS_ENV_VAR_NAME);
+                 if (euca == NULL) {
+                     euca = "";
+                 }
+                 char * locations [] = {
+-                    "/usr/lib/eucalyptus",
+-                    "/usr/share/eucalyptus",
+-                    "/usr/sbin",
++                    ":" EUCALYPTUS_LIBEXEC_DIR,
++                    ":" EUCALYPTUS_HELPER_DIR,
++                    ":" EUCALYPTUS_SBIN_DIR,
+                     NULL
+                 };
+                 for (int i = 0; locations [i]; i++) {
+                     char lpath [MAX_PATH];
+-                    snprintf (lpath, sizeof (lpath), ":%s%s", euca, locations [i]);
++                    snprintf (lpath, sizeof (lpath), locations [i], euca);
+                     char * newpath = strdupcat (path, lpath);
+                     if (newpath == NULL) {
+                         missing_helpers = -1;
+@@ -234,9 +236,9 @@
+ 
+     char new_path [4098];
+     snprintf (new_path, sizeof (new_path), 
+-              "%s/usr/share/eucalyptus:" // (connect|disconnect iscsi, get_xen_info, getstats, get_sys_info)
+-              "%s/usr/sbin:" // (eucalyptus-cloud, euca_conf, euca_sync_key, euca-* admin commands)
+-              "%s/usr/lib/eucalyptus:" // (rootwrap, mountwrap)
++              EUCALYPTUS_DATA_DIR ":" // (connect|disconnect iscsi, get_xen_info, getstats, get_sys_info)
++              EUCALYPTUS_SBIN_DIR ":" // (eucalyptus-cloud, euca_conf, euca_sync_key, euca-* admin commands)
++              EUCALYPTUS_LIBEXEC_DIR ":" // (rootwrap, mountwrap)
+               "%s",
+               euca_home, euca_home, euca_home,
+               old_path);

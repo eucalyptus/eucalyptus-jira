@@ -1,0 +1,235 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.BasicSessionCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagement
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClient
+import com.amazonaws.services.identitymanagement.model.CreateRoleRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRoleRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.amazonaws.services.identitymanagement.model.PutRolePolicyRequest
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest
+import com.amazonaws.services.cloudwatch.AmazonCloudWatch
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient
+import com.amazonaws.services.cloudwatch.model.PutMetricAlarmRequest
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmsRequest
+import com.amazonaws.services.cloudwatch.model.DeleteAlarmsRequest
+import com.amazonaws.services.cloudwatch.model.MetricAlarm
+import groovy.transform.CompileStatic
+
+/**
+ * Test listing and deletion for cloud watch alarms via admin roles.
+ */
+@CompileStatic
+class TestAdminRoleCloudWatch {
+
+  private final String host = "10.111.5.4"
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIGCOMX8VBIDOB5DXLD",
+      "aakSKGI2ueFldEdhPMmBTbRtlSOAIKvr2EAcNoNf" ) )
+
+  // Details for an admin in some other account that we want to allow
+  // to assume an admin role
+  private final String adminAccountNumber = "043417679255"
+  private final AWSCredentialsProvider adminCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBSXTEDM5FG6FK9AKN",
+      "UW24y4ujHM7pBGg64DYQuJbq2EEzpPqSKG2bS8IH" ) )
+
+  // Creds for a regular account we can use to create a resource to
+  // test administrative access
+  private final AWSCredentialsProvider regularCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBW4IOR7IAEPC9PP1W",
+      "TZdqeMEZK5FZg0ss6bbQexHMdsVCQVSS5iAqshI4" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoleCloudWatch().test()
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AWSCredentialsProvider getRoleCredentialsProvider( final String roleArn,
+                                                             final String sessionName,
+                                                             final AWSCredentialsProvider tokenServiceCredentials ) {
+    TestAdminRoleCloudWatch test = this;
+    new AWSCredentialsProvider(){
+      @Override
+      public AWSCredentials getCredentials() {
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( tokenServiceCredentials  )
+        sts.setEndpoint( test.cloudUri( "/services/Tokens/" ) )
+        sts.assumeRole( new AssumeRoleRequest(
+            roleArn: roleArn,
+            roleSessionName: sessionName
+        ) ).with {
+          assumedRoleUser.with {
+            test.assertThat( assumedRoleId.endsWith( sessionName ), "Unexpected assumed role id: ${assumedRoleId}" )
+            test.assertThat( arn.endsWith( sessionName ), "Unexpected assumed role arn: ${arn}" )
+          }
+          credentials.with {
+            new BasicSessionCredentials( accessKeyId, secretAccessKey, sessionToken )
+          }
+        }
+      }
+
+      @Override
+      public void refresh() {
+      }
+    }
+  }
+
+  private AmazonCloudWatch getAmazonCloudWatchClient( final AWSCredentialsProvider credentials ) {
+    final AmazonCloudWatch cloudWatch = new AmazonCloudWatchClient( credentials )
+    cloudWatch.setEndpoint( cloudUri( "/services/CloudWatch/" ) )
+    cloudWatch
+  }
+
+  private AmazonIdentityManagement getIamClient( final AWSCredentialsProvider credentials  ) {
+    final AmazonIdentityManagement iam = new AmazonIdentityManagementClient( credentials )
+    iam.setEndpoint( cloudUri( "/services/Euare/" ) )
+    iam
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final AmazonCloudWatch cwUser = getAmazonCloudWatchClient( regularCredentials )
+    final AmazonIdentityManagement iam = getIamClient( eucalyptusCredentials )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      // Set up administrative role
+      final String roleName = "${namePrefix}resource-admin"
+      print( "Creating role with name: ${roleName}" )
+      final String roleArn = iam.createRole( new CreateRoleRequest(
+          roleName: roleName,
+          assumeRolePolicyDocument: """\
+            {
+                "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "AWS": [ "arn:aws:iam::${adminAccountNumber}:user/admin" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+                } ]
+            }
+            """.stripIndent() as String
+      ) ).getRole().getArn()
+      print( "Created role with ARN " + roleArn )
+
+      cleanupTasks.add {
+          print( "Deleting role " + roleName )
+          iam.deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+      }
+
+      final String policyName = "cloudwatch"
+      print( "Adding policy to role " + roleName )
+      iam.putRolePolicy( new PutRolePolicyRequest( roleName: roleName, policyName: policyName, policyDocument: """\
+        {
+           "Statement": [ {
+              "Effect": "Allow",
+              "Action": "cloudwatch:*",
+              "Resource": "*"
+           } ]
+        }
+        """.stripIndent()
+      ) )
+
+      cleanupTasks.add {
+        print( "Deleting policy for role " + roleName )
+        iam.deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+      }
+
+      // Create resources to test listing via admin role
+      final String alarmName = namePrefix + "Alarm1"
+      print( "Creating cloudwatch alarm as user: ${alarmName}" )
+      cwUser.putMetricAlarm( new PutMetricAlarmRequest(
+          alarmName: alarmName,
+          comparisonOperator: "GreaterThanThreshold",
+          threshold: 1d,
+          evaluationPeriods: 300,
+          period: 60,
+          statistic: "Average",
+          namespace: "Test",
+          metricName: "Test" ) )
+      final String alarmArn = cwUser.describeAlarms( new DescribeAlarmsRequest(
+          alarmNames: [alarmName]
+      ) ).with {
+        metricAlarms.get(0)?.alarmArn
+      }
+      print( "Created cloudwatch alarm: ${alarmArn}" )
+
+      cleanupTasks.add {
+        print( "Deleting cloudwatch alarm for user: ${alarmName}" )
+        cwUser.deleteAlarms( new DeleteAlarmsRequest(
+            alarmNames: [ alarmName ]
+        ) )
+      }
+
+      // Create client using role
+      final AmazonCloudWatch cwRole = getAmazonCloudWatchClient(
+          getRoleCredentialsProvider( roleArn, "session-name-here", adminCredentials )
+      )
+
+      // List resources using admin role
+      print( "Listing alarms" )
+      cwRole.describeAlarms( new DescribeAlarmsRequest(
+          alarmNames: [ "verbose" ]
+      ) ).with {
+        assertThat(
+            !metricAlarms.findAll{ MetricAlarm alarm ->
+              alarm.alarmName==alarmName }.isEmpty(),
+            "Expected alarm: ${alarmName}" )
+      }
+
+      // Delete resources using admin role
+      print( "Deleting cloudwatch alarm: ${alarmArn}" )
+      cwRole.deleteAlarms(  new DeleteAlarmsRequest(
+        alarmNames: [ alarmArn ]
+      ) );
+
+      // Verify resources deleted
+      print( "Verifying cloudwatch alarm no longer present: ${alarmName}" )
+      cwUser.describeAlarms( new DescribeAlarmsRequest(
+          alarmNames: [ alarmName ]
+      ) ).with {
+        assertThat( metricAlarms.isEmpty(), "Expected alarm deleted: ${alarmName}" )
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

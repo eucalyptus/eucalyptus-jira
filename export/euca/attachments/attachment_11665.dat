@@ -1,0 +1,79 @@
+ .../ucsb/eucalyptus/cloud/ws/TorrentCreator.java   |   61 +++++++++++++++----
+ 1 files changed, 48 insertions(+), 13 deletions(-)
+
+diff --git a/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/TorrentCreator.java b/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/TorrentCreator.java
+index b66f270..38e5569 100644
+--- a/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/TorrentCreator.java
++++ b/clc/modules/walrus/src/main/java/edu/ucsb/eucalyptus/cloud/ws/TorrentCreator.java
+@@ -119,23 +119,58 @@ public class TorrentCreator {
+         BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(inFile));
+         BufferedOutputStream outStream = new BufferedOutputStream(new FileOutputStream(outFile));
+ 
+-        int bytesRead;
+-        int totalBytesRead = 0;
+-        byte[] bytes = new byte[1024];
+-        String inString = "";
++        int size = (int) inFile.length();
++        byte[] bytes = new byte[size];
+ 
+-        while((bytesRead = inStream.read(bytes)) > 0) {
+-            inString += new String(bytes, 0, bytesRead);
+-            totalBytesRead += bytesRead;
+-        }
++        if (inStream.read(bytes) != size)
++        	throw new Exception("File truncated?");
+         inStream.close();
+-        int len = inString.length();
+-        int idx = inString.indexOf(NAME_TAG);
+-        int lastidx = inString.indexOf(objectName) + objectName.length();
++        
++        if (bytes[0] != 'd')
++        	throw new Exception("Is it torrent file?");
++        
++        int idx = 1;
++        int firstidx;
++        // Will raise IndexOutOfBounds when shit happens
++        while (true) {
++        	// get tag
++        	firstidx = idx;
++        	while (bytes[firstidx++] != ':');
++        	int len = Integer.valueOf(new String(bytes, idx, firstidx - idx - 1));
++        	String tag = new String(bytes, firstidx, len);
++        	// get tag value
++        	firstidx += len;
++        	idx = firstidx;
++        	switch (bytes[idx]) {
++        	case 'd':
++        		idx++;
++        		break;
++        	case 'i':
++        		while (bytes[idx++] != 'e');
++        		break;
++        	case '0':
++        	case '1':
++        	case '2':
++        	case '3':
++        	case '4':
++        	case '5':
++        	case '6':
++        	case '7':
++        	case '8':
++        	case '9':
++        		while (bytes[idx++] != ':');
++        		idx += Integer.valueOf(new String(bytes, firstidx, idx - firstidx - 1));;
++        		break;
++        	default:
++        		throw new Exception("Dunno how to parse '" + bytes[idx] + "' (" + idx + ")");
++        	}
++        	if (NAME_TAG.equals(tag))
++        		break;
++        }
+ 
+-        outStream.write(bytes, 0, idx + NAME_TAG.length());
++        outStream.write(bytes, 0, firstidx);
+         outStream.write(new String(objectKey.length() + ":" + objectKey).getBytes());
+-        outStream.write(bytes, lastidx, totalBytesRead - lastidx);
++        outStream.write(bytes, idx, size - idx);
+ 
+         outStream.close();
+         outFile.renameTo(inFile);

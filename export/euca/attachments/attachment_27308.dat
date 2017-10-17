@@ -1,0 +1,54 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Template testing ELB attributes",
+    "Parameters": {
+        "Zone": {
+            "Description": "The zone to use",
+            "Type": "String",
+            "Default": "one"
+        }
+    },
+    "Resources": {
+        "Bucket": {
+            "Type": "AWS::S3::Bucket"
+        },
+        "LoadBalancer": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "AccessLoggingPolicy": {
+                    "EmitInterval": "5",
+                    "Enabled": "true",
+                    "S3BucketName": {
+                        "Ref": "Bucket"
+                    },
+                    "S3BucketPrefix": "elb-access-log"
+                },
+                "AvailabilityZones": [
+                    {
+                        "Ref": "Zone"
+                    }
+                ],
+                "ConnectionSettings": {
+                    "IdleTimeout": "15"
+                },
+                "CrossZone": "true",
+                "HealthCheck": {
+                    "HealthyThreshold": "10",
+                    "Interval": "30",
+                    "Target": "HTTP:8000/",
+                    "Timeout": "5",
+                    "UnhealthyThreshold": "2"
+                },
+                "Listeners": [
+                    {
+                        "InstancePort": "8000",
+                        "LoadBalancerPort": "8000",
+                        "Protocol": "HTTP",
+                        "InstanceProtocol": "HTTP"
+                    }
+                ]
+            }
+        }
+    }
+}
+

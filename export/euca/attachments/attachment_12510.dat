@@ -1,0 +1,108 @@
+diff --git a/eucalyptus.spec b/eucalyptus.spec
+index c37d3b4..efed698 100644
+--- a/eucalyptus.spec
++++ b/eucalyptus.spec
+@@ -110,16 +110,31 @@ This package contains the common parts; you will need to install at
+ least one of the cloud controller (cloud), cluster controller (cc),
+ node controller (nc), storage controller (sc), or walrus packages as well.
+ 
++%package common
++Summary:      Elastic Utility Computing Architecture - common files
++Group:        Applications/System
++Requires:     %{name} = %{version}-%{release}
++Requires:     lvm2
++Requires:     velocity
++Requires:     %{_sbindir}/euca_conf
++
++%provide_abi common
++
++
++%description common
++Eucalyptus is a service overlay that implements elastic computing
++using existing resources. The goal of Eucalyptus is to allow sites
++with existing clusters and server infrastructure to co-host an elastic
++computing service that is interface-compatible with Amazon AWS.
++
++This package contains the common files.
++
+ %package common-java
+ Summary:      Elastic Utility Computing Architecture - ws java stack
+ Group:        Applications/System
+ 
+-Requires:     %{name} = %{version}-%{release}
+ Requires:     jpackage-utils
+ Requires:     java >= 1:1.6.0
+-Requires:     lvm2
+-Requires:     velocity
+-Requires:     %{_sbindir}/euca_conf
+ 
+ %provide_abi common-java
+ 
+@@ -137,6 +152,7 @@ Summary:      Elastic Utility Computing Architecture - walrus
+ Group:        Applications/System
+ 
+ Requires:     %{name}             = %{version}-%{release}
++Requires:     %{name}-common      = %{version}-%{release}
+ Requires:     %{name}-common-java = %{version}-%{release}
+ %if 0%{?rhel}
+ # CentOS Extras and ELRepo have differing package names, but compatible Provides
+@@ -168,6 +184,7 @@ Summary:      Elastic Utility Computing Architecture - storage controller
+ Group:        Applications/System
+ 
+ Requires:     %{name}             = %{version}-%{release}
++Requires:     %{name}-common      = %{version}-%{release}
+ Requires:     %{name}-common-java = %{version}-%{release}
+ Requires:     lvm2
+ Requires:     %{euca_iscsi_client}
+@@ -190,6 +207,7 @@ Summary:      Elastic Utility Computing Architecture - cloud controller
+ Group:        Applications/System
+ 
+ Requires:     %{name}                     = %{version}-%{release}
++Requires:     %{name}-common%{?_isa}      = %{version}-%{release}
+ Requires:     %{name}-common-java%{?_isa} = %{version}-%{release}
+ # bc is needed for /etc/eucalyptus/cloud.d/init.d/01_pg_kernel_params
+ Requires:     bc
+@@ -462,7 +480,7 @@ touch $RPM_BUILD_ROOT/var/lib/eucalyptus/.libvirt/libvirtd.conf
+ %attr(-,eucalyptus,eucalyptus) %dir /var/run/eucalyptus
+ 
+ 
+-%files common-java
++%files common
+ %defattr(-,root,root,-)
+ %{_initrddir}/eucalyptus-cloud
+ # cloud.d contains random stuff used by every Java component.  Most of it
+@@ -481,11 +499,15 @@ touch $RPM_BUILD_ROOT/var/lib/eucalyptus/.libvirt/libvirtd.conf
+ /etc/eucalyptus/cloud.d/upgrade/
+ /etc/eucalyptus/cloud.d/www/
+ /usr/sbin/eucalyptus-cloud
+-/usr/share/eucalyptus/*jar*
+ %doc /usr/share/eucalyptus/licenses/
+ %ghost /var/lib/eucalyptus/services
+ %attr(-,eucalyptus,eucalyptus) /var/lib/eucalyptus/webapps/
+ 
++%files common-java
++%defattr(-,root,root,-)
++/usr/share/eucalyptus/*jar*
++%doc /usr/share/eucalyptus/licenses/
++
+ %files cloud
+ %defattr(-,root,root,-)
+ /etc/eucalyptus/cloud.d/init.d/01_pg_kernel_params
+@@ -637,7 +659,7 @@ rm -rf /usr/sbin/euca_admin
+ 
+ exit 0
+ 
+-%post common-java
++%post common
+ chkconfig --add eucalyptus-cloud
+ 
+ %post cloud
+@@ -697,7 +719,7 @@ fi
+ exit 0
+ %endif
+ 
+-%preun common-java
++%preun common
+ if [ "$1" = "0" ]; then
+     if [ -f /etc/eucalyptus/eucalyptus.conf ]; then
+         /sbin/service eucalyptus-cloud stop

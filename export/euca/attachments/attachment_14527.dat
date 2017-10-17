@@ -1,0 +1,32 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.GetMetricStatisticsRequest;
+
+
+public class GetMetricStatisticsTest {
+  public static void main(String[] args) throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    BasicAWSCredentials props = new BasicAWSCredentials(
+        "JQCO27GFXAIFWYLV9XUMP",
+        "jCPyXfQHfzgwRKm81CaJwAwfztKNYs6hoLHk8VG3");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+
+    GetMetricStatisticsRequest getMetricStatisticsRequest = new GetMetricStatisticsRequest();
+    getMetricStatisticsRequest.setMetricName("SampleMetric");
+    getMetricStatisticsRequest.setNamespace("GetStarted");
+    getMetricStatisticsRequest.setPeriod(180);
+    getMetricStatisticsRequest.setStartTime(sdf.parse("2013-02-18T17:00:00"));
+    getMetricStatisticsRequest.setEndTime(sdf.parse("2013-02-18T17:04:00"));
+    getMetricStatisticsRequest.getStatistics().add("Average");
+    getMetricStatisticsRequest.getStatistics().add("Sum");
+    getMetricStatisticsRequest.getStatistics().add("Maximum");
+    getMetricStatisticsRequest.getStatistics().add("Minimum");
+    getMetricStatisticsRequest.getStatistics().add("SampleCount");
+    System.out.println(cloudWatch.getMetricStatistics(getMetricStatisticsRequest));
+  }
+
+}

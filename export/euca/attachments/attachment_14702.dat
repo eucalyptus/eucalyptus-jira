@@ -1,0 +1,13 @@
+Index: eucalyptus/util/euca_auth.c
+===================================================================
+--- eucalyptus.orig/util/euca_auth.c
++++ eucalyptus/util/euca_auth.c
+@@ -251,7 +251,7 @@ int euca_init_cert(void)
+         return 0;
+     }
+ 
+-    if ((euca_home = getenv("EUCALYPTUS")) != NULL) {
++    if (!(euca_home = getenv("EUCALYPTUS"))) {
+         euca_home = root;
+     }
+ 

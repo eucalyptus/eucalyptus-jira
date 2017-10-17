@@ -1,0 +1,219 @@
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityCache.java b/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityCache.java
+index d9bc965..af72c39 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityCache.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/entities/EntityCache.java
+@@ -21,7 +21,17 @@ package com.eucalyptus.entities;
+ 
+ import java.util.List;
+ import java.util.Objects;
++import java.util.concurrent.Callable;
+ import java.util.concurrent.ConcurrentMap;
++import java.util.concurrent.Future;
++import java.util.concurrent.TimeUnit;
++import java.util.concurrent.atomic.AtomicReference;
++
++import com.eucalyptus.empyrean.Empyrean;
++import com.eucalyptus.system.Threads;
++import com.eucalyptus.util.Exceptions;
++import com.google.common.collect.MapMaker;
++import org.apache.log4j.Logger;
+ import org.hibernate.criterion.Example;
+ import org.hibernate.criterion.Projections;
+ import org.hibernate.criterion.Restrictions;
+@@ -37,74 +47,163 @@ import com.google.common.collect.Maps;
+  */
+ public class EntityCache<E extends AbstractPersistent, TE> implements Supplier<Iterable<TE>> {
+ 
+-  private static final int batchSize = 500;
++  private static Logger LOG = Logger.getLogger( EntityCache.class );
++  private static int batchSize = 10000;
++  private static int concurrencyLevel = Runtime.getRuntime().availableProcessors();
++  private static long refreshTimeout = 60;
+   private final E example;
+-  private final Function<? super E,TE> transformFunction;
+-  private final ConcurrentMap<Pair<String,Integer>,TE> cache = Maps.newConcurrentMap( );
++  private final Function<? super E, TE> transformFunction;
++  private final ConcurrentMap<Pair<String, Integer>, TE> cache = new MapMaker().initialCapacity( batchSize * concurrencyLevel )
++      .concurrencyLevel( concurrencyLevel )
++      .<Pair<String, Integer>, TE>makeMap();
++  private final AtomicReference<Runnable> refresh = new AtomicReference<>( null );
+ 
+   /**
+    * Create an entity cache for the given example.
+    *
+-   * @param example The example object
++   * @param example           The example object
+    * @param transformFunction Function to transform to immutable cache format
+    */
+-  public EntityCache( final E example,
+-                      final Function<? super E,TE> transformFunction ) {
++  public EntityCache(
++      final E example,
++      final Function<? super E, TE> transformFunction
++  ) {
+     this.example = example;
+     this.transformFunction = transformFunction;
+   }
+ 
+   @SuppressWarnings( "unchecked" )
+-  private List<Pair<String,Integer>> loadVersionMap( ) {
+-    try ( final TransactionResource db = Entities.transactionFor( example ) ){
+-      List<Object[]> idVersionList = (List<Object[]>) Entities.createCriteria( example.getClass( ) )
++  private List<Pair<String, Integer>> loadVersionMap() {
++    try ( final TransactionResource db = Entities.transactionFor( example ) ) {
++      List<Object[]> idVersionList = ( List<Object[]> ) Entities.createCriteria( example.getClass() )
+           .add( Example.create( example ) )
+           .setReadOnly( true )
+           .setCacheable( false )
+-          .setFetchSize( 1000 )
+-          .setProjection( Projections.projectionList().add( Projections.id( ) ).add( Projections.property( "version" ) ) )
+-          .list( );
++          .setFetchSize( batchSize )
++          .setProjection(
++              Projections.projectionList()
++                  .add( Projections.id() )
++                  .add( Projections.property( "version" ) )
++          )
++          .list();
+       return Lists.newArrayList( Iterables.transform( idVersionList, ObjectArrayToStringIntPair.INSTANCE ) );
+     }
+   }
+ 
+   @SuppressWarnings( { "unchecked", "ConstantConditions" } )
+-  private void refresh( ) {
+-    final List<Pair<String,Integer>> currentKeys = loadVersionMap( );
+-    cache.keySet( ).retainAll( currentKeys );
+-    currentKeys.removeAll( cache.keySet( ) );
+-    for ( List<Pair<String,Integer>> keyBatch : Iterables.partition( currentKeys, batchSize ) ) {
+-      try ( final TransactionResource db = Entities.transactionFor( example ) ) {
+-        List<E> entities = (List<E>) Entities.createCriteria( example.getClass( ) )
+-            .add( Example.create( example ) )
+-            .setReadOnly( true )
+-            .setCacheable( false )
+-            .setFetchSize( batchSize )
+-            .add( Restrictions.in( "id", Lists.newArrayList( Iterables.transform( keyBatch, Pair.<String,Integer>left( ) ) ) ) )
+-            .list( );
+-        for ( final E entity : entities ) {
+-          cache.put( Pair.pair( getId( entity ), entity.getVersion( ) ), transformFunction.apply( entity ) );
+-        }
++  private void refresh() {
++    long refreshStart = System.nanoTime();
++    final List<Pair<String, Integer>> currentKeys = loadVersionMap();
++    long loadedVersionMap = System.nanoTime();
++    cache.keySet().retainAll( currentKeys );
++    currentKeys.removeAll( cache.keySet() );
++    long computedRetainedSetComplement = System.nanoTime();
++    LOG.info(
++        String.format(
++            "EntityCache.refresh(): cacheSize=%d versionMap=%.2fsecs cacheSetComplement=%.2fsecs updatesToLoad=%d",
++            cache.size(),
++            TimeUnit.NANOSECONDS.toMillis( loadedVersionMap - refreshStart ) / 1000.0f,
++            TimeUnit.NANOSECONDS.toMillis( computedRetainedSetComplement - loadedVersionMap ) / 1000.0f,
++            currentKeys.size()
++        )
++    );
++    if ( currentKeys.size() != 0 ) {
++      List<Callable<List<Pair<String, Integer>>>> callables = Lists.newArrayList();
++      for ( final List<Pair<String, Integer>> keyBatch : Iterables.partition( currentKeys, batchSize ) ) {
++        Callable<List<Pair<String, Integer>>> callable = new Callable<List<Pair<String, Integer>>>() {
++          public List<Pair<String, Integer>> call() throws Exception {
++            try ( final TransactionResource db = Entities.transactionFor( example ) ) {
++              long start = System.nanoTime();
++              List<E> entities = ( List<E> ) Entities.createCriteria( example.getClass() )
++                  .add( Example.create( example ) )
++                  .setReadOnly( true )
++                  .setCacheable( false )
++                  .setFetchSize( batchSize )
++                  .add(
++                      Restrictions.in(
++                          "id",
++                          Lists.newArrayList( Iterables.transform( keyBatch, Pair.<String, Integer>left() ) )
++                      )
++                  )
++                  .list();
++              long s2 = System.nanoTime();
++              for ( final E entity : entities ) {
++                try {
++                  cache.put( Pair.pair( getId( entity ), entity.getVersion() ), transformFunction.apply( entity ) );
++                } catch ( Exception e ) {
++                  LOG.error( e );
++                }
++              }
++              final long endTime = System.nanoTime();
++              LOG.info(
++                  String.format(
++                      "EntityCache.refresh(): batchSize=%d fetch=%.2fsecs transform=%.2fsecs total=%.2fsecs",
++                      batchSize,
++                      TimeUnit.NANOSECONDS.toMillis( s2 - start ) / 1000.0f,
++                      TimeUnit.NANOSECONDS.toMillis( endTime - s2 ) / 1000.0f,
++                      TimeUnit.NANOSECONDS.toMillis( endTime - start ) / 1000.0f
++                  )
++              );
++            } catch ( Exception e ) {
++              LOG.error( e );
++            }
++            return keyBatch;
++          }
++        };
++        callables.add( callable );
++      }
++      try {
++        Threads.lookup( Empyrean.class, EntityCache.class ).getExecutorService().invokeAll( callables, 60, TimeUnit.SECONDS );
++      } catch ( InterruptedException e ) {
++        Exceptions.maybeInterrupted( e );
++      } catch ( Exception e ) {
++        LOG.error( e );
+       }
+     }
++    long finishedTime = System.nanoTime();
++    LOG.info(
++        String.format(
++            "EntityCache.refresh(): cacheSize=%d versionMap=%.2fsecs cacheSetComplement=%.2fsecs loadComplement=%.2fsecs total=%.2fsecs",
++            cache.size(),
++            TimeUnit.NANOSECONDS.toMillis( loadedVersionMap - refreshStart ) / 1000.0f,
++            TimeUnit.NANOSECONDS.toMillis( computedRetainedSetComplement - loadedVersionMap ) / 1000.0f,
++            TimeUnit.NANOSECONDS.toMillis( finishedTime - computedRetainedSetComplement ) / 1000.0f,
++            TimeUnit.NANOSECONDS.toMillis( finishedTime - refreshStart ) / 1000.0f
++        )
++    );
+   }
+ 
++  final Runnable refreshRunnable = new Runnable() {
++    @Override
++    public void run() {
++      try {
++        refresh();
++      } catch ( Exception e ) {
++        LOG.error( e );
++      } finally {
++        EntityCache.this.refresh.set( null );
++      }
++    }
++  };
++
+   @Override
+-  public Iterable<TE> get( ) {
+-    refresh( );
+-    return Lists.newArrayList( cache.values( ) );
++  public Iterable<TE> get() {
++    if ( refresh.compareAndSet( null, refreshRunnable ) ) {
++      Threads.lookup( Empyrean.class, EntityCache.class ).submit( refreshRunnable );
++    }
++    return Lists.newArrayList( cache.values() );
+   }
+ 
+   private String getId( final E entity ) {
+     return Objects.toString( Entities.resolvePrimaryKey( entity ) );
+   }
+ 
+-  private enum ObjectArrayToStringIntPair implements Function<Object[],Pair<String,Integer>> {
++  private enum ObjectArrayToStringIntPair implements Function<Object[], Pair<String, Integer>> {
+     INSTANCE;
+ 
+     @Override
+     public Pair<String, Integer> apply( final Object[] objects ) {
+-      return Pair.pair( String.valueOf( objects[ 0 ] ), ( (Number) objects[ 1 ] ).intValue() );
++      return Pair.pair( String.valueOf( objects[ 0 ] ), ( ( Number ) objects[ 1 ] ).intValue() );
+     }
+   }
+ }

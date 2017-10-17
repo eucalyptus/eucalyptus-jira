@@ -1,0 +1,84 @@
+2017-04-20 16:01:47,246 - MainThread - awscli.clidriver - DEBUG - CLI version: aws-cli/1.10.5 Python/2.7.5 Linux/3.10.0-514.6.1.el7.x86_64 botocore/1.3.27
+2017-04-20 16:01:47,246 - MainThread - awscli.clidriver - DEBUG - Arguments entered to CLI: ['ec2', 'import-snapshot', '--description', 'Windows 2012 R2 Standard (KVM)', '--disk-container', 'file://containers.json', '--debug']
+2017-04-20 16:01:47,246 - MainThread - botocore.hooks - DEBUG - Event session-initialized: calling handler <function add_scalar_parsers at 0x223aa28>
+2017-04-20 16:01:47,246 - MainThread - botocore.hooks - DEBUG - Event session-initialized: calling handler <function inject_assume_role_provider_cache at 0x21e7f50>
+2017-04-20 16:01:47,246 - MainThread - botocore.credentials - DEBUG - Skipping environment variable credential check because profile name was explicitly set.
+2017-04-20 16:01:47,340 - MainThread - botocore.hooks - DEBUG - Event service-data-loaded.ec2: calling handler <function register_retries_for_service at 0x1bad0c8>
+2017-04-20 16:01:47,341 - MainThread - botocore.handlers - DEBUG - Registering retry handlers for service: ec2
+2017-04-20 16:01:47,347 - MainThread - botocore.hooks - DEBUG - Event building-command-table.ec2: calling handler <functools.partial object at 0x22c8520>
+2017-04-20 16:01:47,347 - MainThread - awscli.customizations.removals - DEBUG - Removing operation: import-instance
+2017-04-20 16:01:47,347 - MainThread - awscli.customizations.removals - DEBUG - Removing operation: import-volume
+2017-04-20 16:01:47,347 - MainThread - botocore.hooks - DEBUG - Event building-command-table.ec2: calling handler <function add_waiters at 0x21ef6e0>
+2017-04-20 16:01:47,350 - MainThread - awscli.clidriver - DEBUG - OrderedDict([(u'dry-run', <awscli.arguments.BooleanArgument object at 0x2f7dc90>), (u'no-dry-run', <awscli.arguments.BooleanArgument object at 0x2f7dcd0>), (u'description', <awscli.arguments.CLIArgument object at 0x2f7dd10>), (u'disk-container', <awscli.arguments.CLIArgument object at 0x2f7dd50>), (u'client-data', <awscli.arguments.CLIArgument object at 0x2f7dd90>), (u'client-token', <awscli.arguments.CLIArgument object at 0x2f7ddd0>), (u'role-name', <awscli.arguments.CLIArgument object at 0x2f7de10>)])
+2017-04-20 16:01:47,351 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <function add_streaming_output_arg at 0x20020c8>
+2017-04-20 16:01:47,351 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <function _rename_arg at 0x22d0758>
+2017-04-20 16:01:47,351 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <function _rename_arg at 0x22d0848>
+2017-04-20 16:01:47,351 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <functools.partial object at 0x22c85d0>
+2017-04-20 16:01:47,351 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <function add_cli_input_json at 0x21e7938>
+2017-04-20 16:01:47,352 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <function unify_paging_params at 0x2008758>
+2017-04-20 16:01:47,352 - MainThread - botocore.hooks - DEBUG - Event building-argument-table.ec2.import-snapshot: calling handler <function add_generate_skeleton at 0x21e7c08>
+2017-04-20 16:01:47,352 - MainThread - botocore.hooks - DEBUG - Event before-building-argument-table-parser.ec2.import-snapshot: calling handler <bound method CliInputJSONArgument.override_required_args of <awscli.customizations.cliinputjson.CliInputJSONArgument object at 0x1ffbe50>>
+2017-04-20 16:01:47,353 - MainThread - botocore.hooks - DEBUG - Event before-building-argument-table-parser.ec2.import-snapshot: calling handler <bound method GenerateCliSkeletonArgument.override_required_args of <awscli.customizations.generatecliskeleton.GenerateCliSkeletonArgument object at 0x2f7de50>>
+2017-04-20 16:01:47,354 - MainThread - botocore.hooks - DEBUG - Event operation-args-parsed.ec2.import-snapshot: calling handler <functools.partial object at 0x2f6a788>
+2017-04-20 16:01:47,354 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.dry-run: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,354 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.description: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,354 - MainThread - botocore.hooks - DEBUG - Event process-cli-arg.ec2.import-snapshot: calling handler <awscli.argprocess.ParamShorthand object at 0x22c4a10>
+2017-04-20 16:01:47,354 - MainThread - awscli.arguments - DEBUG - Unpacked value of u'Windows 2012 R2 Standard (KVM)' for parameter "description": u'Windows 2012 R2 Standard (KVM)'
+2017-04-20 16:01:47,354 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.disk-container: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,355 - MainThread - botocore.hooks - DEBUG - Event process-cli-arg.ec2.import-snapshot: calling handler <awscli.argprocess.ParamShorthand object at 0x22c4a10>
+2017-04-20 16:01:47,355 - MainThread - awscli.argprocess - DEBUG - Param disk_container looks like JSON, not considered for param shorthand.
+2017-04-20 16:01:47,355 - MainThread - awscli.arguments - DEBUG - Unpacked value of u'{\n    "Description": "Windows 2012 R2 Standard (KVM)",\n    "Format": "img",\n    "UserBucket": {\n        "S3Bucket": "EBS-images",\n        "S3Key": "windows/windows_server_2012_r2_standard_eval_kvm_20170321.img"\n    }\n}\n' for parameter "disk_container": OrderedDict([(u'Description', u'Windows 2012 R2 Standard (KVM)'), (u'Format', u'img'), (u'UserBucket', OrderedDict([(u'S3Bucket', u'EBS-images'), (u'S3Key', u'windows/windows_server_2012_r2_standard_eval_kvm_20170321.img')]))])
+2017-04-20 16:01:47,355 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.client-data: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,355 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.client-token: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,355 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.role-name: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,355 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.cli-input-json: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,356 - MainThread - botocore.hooks - DEBUG - Event load-cli-arg.ec2.import-snapshot.generate-cli-skeleton: calling handler <function uri_param at 0x1e4c2a8>
+2017-04-20 16:01:47,356 - MainThread - botocore.hooks - DEBUG - Event calling-command.ec2.import-snapshot: calling handler <bound method GenerateCliSkeletonArgument.generate_json_skeleton of <awscli.customizations.generatecliskeleton.GenerateCliSkeletonArgument object at 0x2f7de50>>
+2017-04-20 16:01:47,356 - MainThread - botocore.hooks - DEBUG - Event calling-command.ec2.import-snapshot: calling handler <bound method CliInputJSONArgument.add_to_call_parameters of <awscli.customizations.cliinputjson.CliInputJSONArgument object at 0x1ffbe50>>
+2017-04-20 16:01:47,356 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: env
+2017-04-20 16:01:47,356 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: assume-role
+2017-04-20 16:01:47,356 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: shared-credentials-file
+2017-04-20 16:01:47,356 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: config-file
+2017-04-20 16:01:47,357 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: ec2-credentials-file
+2017-04-20 16:01:47,357 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: boto-config
+2017-04-20 16:01:47,357 - MainThread - botocore.credentials - DEBUG - Looking for credentials via: iam-role
+2017-04-20 16:01:47,364 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): 169.254.169.254
+2017-04-20 16:01:47,399 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - DEBUG - "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 3
+2017-04-20 16:01:47,401 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): 169.254.169.254
+2017-04-20 16:01:47,428 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - DEBUG - "GET /latest/meta-data/iam/security-credentials/All HTTP/1.1" 200 503
+2017-04-20 16:01:47,429 - MainThread - botocore.credentials - INFO - Found credentials from IAM Role: All
+2017-04-20 16:01:47,430 - MainThread - botocore.client - DEBUG - Registering retry handlers for service: ec2
+2017-04-20 16:01:47,438 - MainThread - botocore.hooks - DEBUG - Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x1b5b488>
+2017-04-20 16:01:47,441 - MainThread - botocore.endpoint - DEBUG - Setting ec2 timeout as (60, 60)
+2017-04-20 16:01:47,443 - MainThread - botocore.endpoint - DEBUG - Making request for <botocore.model.OperationModel object at 0x1f5d490> (verify_ssl=/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt) with params: {'body': {u'DiskContainer.UserBucket.S3Bucket': u'EBS-images', u'Description': u'Windows 2012 R2 Standard (KVM)', u'DiskContainer.Format': u'img', u'DiskContainer.Description': u'Windows 2012 R2 Standard (KVM)', u'DiskContainer.UserBucket.S3Key': u'windows/windows_server_2012_r2_standard_eval_kvm_20170321.img', 'Version': u'2015-10-01', 'Action': u'ImportSnapshot'}, 'url': u'http://compute.cdc-west-2.devlnk.net/', 'headers': {'User-Agent': 'aws-cli/1.10.5 Python/2.7.5 Linux/3.10.0-514.6.1.el7.x86_64 botocore/1.3.27'}, 'query_string': '', 'url_path': '/', 'method': u'POST'}
+2017-04-20 16:01:47,443 - MainThread - botocore.hooks - DEBUG - Event request-created.ec2.ImportSnapshot: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x1f671d0>>
+2017-04-20 16:01:47,444 - MainThread - botocore.auth - DEBUG - Calculating signature using v4 auth.
+2017-04-20 16:01:47,444 - MainThread - botocore.auth - DEBUG - CanonicalRequest:
+POST
+/
+
+host:compute.cdc-west-2.devlnk.net
+user-agent:aws-cli/1.10.5 Python/2.7.5 Linux/3.10.0-514.6.1.el7.x86_64 botocore/1.3.27
+x-amz-date:20170420T230147Z
+x-amz-security-token:ZXVjYQABK8Hve8iGfKTdWFtbQ9vGVisYOrK5F6sg2Nn4MQFEbbyQ1ZfjTS5kNMA6u4cwMNJ/2E8ez6uEPF7lL6EsAwYKxCRzRlReTAHEHYqVpV2Dfw5miyeB0BDEOaL5mUL1oo/X3PK77e7haxmlVFo8MViJOuoxvpSKUzj5vQt/I9GnFwhkerZfOp3TwB2SlQpPnMRf1ERx0QUMJlChlDKCG6c27KlcUvYGbaZ4JOJVKa9waKV30hdP3P1HsA==
+
+host;user-agent;x-amz-date;x-amz-security-token
+9b1e4ed2111f67170456f73f878b8ae2f086a8f94edf1f00850caf05c5085c55
+2017-04-20 16:01:47,444 - MainThread - botocore.auth - DEBUG - StringToSign:
+AWS4-HMAC-SHA256
+20170420T230147Z
+20170420/cdc-west-2/ec2/aws4_request
+74309a1ce3fe5b96e2da3585b64258b5d5a481ca838cb77cc2297bef0c1dd1d4
+2017-04-20 16:01:47,444 - MainThread - botocore.auth - DEBUG - Signature:
+f8dc4ac8f87904a3cbb6a619381c90ed898e32334567307442da4116de05e2ed
+2017-04-20 16:01:47,444 - MainThread - botocore.endpoint - DEBUG - Sending http request: <PreparedRequest [POST]>
+2017-04-20 16:01:47,445 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - INFO - Starting new HTTP connection (1): compute.cdc-west-2.devlnk.net
+2017-04-20 16:01:47,610 - MainThread - botocore.vendored.requests.packages.urllib3.connectionpool - DEBUG - "POST / HTTP/1.1" 200 157
+2017-04-20 16:01:47,610 - MainThread - botocore.parsers - DEBUG - Response headers: {'date': 'Thu, 20 Apr 2017 23:01:47 UTC', 'content-length': '157', 'content-type': 'application/xml; charset=UTF-8', 'server': 'Eucalyptus/4.3.1'}
+2017-04-20 16:01:47,611 - MainThread - botocore.parsers - DEBUG - Response body:
+<ImportSnapshotResponse xmlns="http://ec2.amazonaws.com/doc/2015-10-01/"><requestId>d0509d76-b7d7-4c0b-8a15-285931ed76c7</requestId></ImportSnapshotResponse>
+2017-04-20 16:01:47,611 - MainThread - botocore.hooks - DEBUG - Event needs-retry.ec2.ImportSnapshot: calling handler <botocore.retryhandler.RetryHandler object at 0x1ffbed0>
+2017-04-20 16:01:47,611 - MainThread - botocore.retryhandler - DEBUG - No retry needed.
+2017-04-20 16:01:47,611 - MainThread - botocore.hooks - DEBUG - Event after-call.ec2.ImportSnapshot: calling handler <awscli.errorhandler.ErrorHandler object at 0x22c4bd0>
+2017-04-20 16:01:47,611 - MainThread - awscli.errorhandler - DEBUG - HTTP Response Code: 200
+2017-04-20 16:01:47,612 - MainThread - awscli.formatter - DEBUG - RequestId: d0509d76-b7d7-4c0b-8a15-285931ed76c7

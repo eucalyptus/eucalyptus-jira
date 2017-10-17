@@ -1,0 +1,56 @@
+{
+
+
+  "ldap-service":{
+
+
+    "server-url":"ldap://10.111.5.39:389",
+    "auth-method":"simple",
+    "user-auth-method":"simple",
+    "auth-principal":"uid=babylon-user49996,ou=people,dc=babylon,dc=atliens,dc=com",
+    "auth-credentials":"{RSA/ECB/PKCS1Padding}ZSmh15HqiuancoPhJ2+GUW4jVm9ADL22u/rXxoYwHQC5VVGbaQcHbPG10+2sksdk7ld1ApYW1p6htPONCpjjgZQnQghNOMGURfNwtsbdkkbHeiTPpgc1Zwl1on+xG/JJ/VbVdtKnNALjlVUzhz9AkNyqAFZv4bqyQX/gKasw7/D9hI0v81u8zoeo0yw+hvRZa1/TWddRtBB03hxjSHU/j7tbcCH32kQuIbj8l7KdNqQdy/7S5SfvpO5Wg9o+vH5p36lN3mVw0mbqWDdJLsDAOs/gsPWlbGYrpPYTXAQHZn1YWuNDB8dfChIupOdy0zxUjkltfJYeUjy0R+gssCCnFw==",
+    "use-ssl":"false",
+    "ignore-ssl-cert-validation":"false",
+    "krb5-conf":"/etc/krb5.conf",
+  },
+
+  "sync":{
+
+    "enable":"true",
+    "auto":"true",
+    "interval":"9000000",
+    "clean-deletion":"true",
+  },
+
+  "groups-partition":{
+
+    "account-euca6756":["group-one","group-two","group-three","group-four","group-five","group-six","group-seven","group-eight","group-nine","group-ten"],
+  },
+
+  "groups":{
+
+    "base-dn":"ou=groups,dc=elevators,dc=atliens,dc=com",
+    "id-attribute":"cn",
+    "member-attribute":"member",
+    "selection":{
+
+        "filter":"(&(objectClass=groupOfNames)(cn=*))",
+    }
+  },
+
+  "users":{
+
+    "base-dn":"ou=people,dc=elevators,dc=atliens,dc=com",
+    "id-attribute":"uid",
+    "sasl-id-attribute":"uid",
+    "user-info-attributes":{
+        "displayName":"Full Name",
+        "title":"Title",
+        "mail":"Email"
+    },
+    "selection":{
+
+        "filter":"(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(mail=*))",
+    }
+  },
+}

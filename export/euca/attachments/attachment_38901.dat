@@ -1,0 +1,42 @@
+{
+  "Resources" : {
+    "ManagedPolicy" : {
+      "Type" : "AWS::IAM::ManagedPolicy",
+      "Properties" : {
+        "PolicyDocument" :
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1419017169361",
+      "Action": [
+        "cloudformation:CreateStack"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "Stmt1419265568046",
+      "Action": [
+        "ec2:RunInstance",
+        "ec2:DescribeInstances",
+        "ec2:CreateGroup"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+
+
+        ,
+        "Description" : "foo"
+      }
+    }
+  },
+  "Outputs" : {
+    "PolicyArn" : {"Value" : {"Ref" : "ManagedPolicy"}}
+  }
+}
+

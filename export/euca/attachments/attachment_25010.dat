@@ -1,0 +1,258 @@
+diff --git a/cluster/config-cc.h b/cluster/config-cc.h
+index cf8c5bf..5969dd9 100644
+--- a/cluster/config-cc.h
++++ b/cluster/config-cc.h
+@@ -73,7 +73,7 @@ configEntry configKeysRestartCC[] = {
+     ,
+     {"EUCALYPTUS", "/"}
+     ,
+-    {"NC_FANOUT", "1"}
++    {"NC_FANOUT", "32"}
+     ,
+     {"NC_PORT", "8775"}
+     ,
+diff --git a/cluster/handlers.c b/cluster/handlers.c
+index 7a16bea..3f55333 100644
+--- a/cluster/handlers.c
++++ b/cluster/handlers.c
+@@ -124,7 +124,7 @@
+ \*----------------------------------------------------------------------------*/
+ 
+ #define SUPERUSER                                "eucalyptus"
+-#define MAX_SENSOR_RESOURCES                     MAXINSTANCES_PER_CC
++#define MAX_SENSOR_RESOURCES                     10
+ #define POLL_INTERVAL_SAFETY_MARGIN_SEC          3
+ #define POLL_INTERVAL_MINIMUM_SEC                6
+ 
+diff --git a/cluster/handlers.h b/cluster/handlers.h
+index b2dbe6b..6078db5 100644
+--- a/cluster/handlers.h
++++ b/cluster/handlers.h
+@@ -91,8 +91,8 @@
+  |                                                                            |
+ \*----------------------------------------------------------------------------*/
+ 
+-#define OP_TIMEOUT                               60
+-#define OP_TIMEOUT_PERNODE                       20
++#define OP_TIMEOUT                              300
++#define OP_TIMEOUT_PERNODE                      120
+ #define OP_TIMEOUT_MIN                            5
+ #define LOG_INTERVAL_SUMMARY_SEC                 60
+ #define SCHED_TIMEOUT_SEC                         8 //! timeout for user scheduler
+diff --git a/net/eucanetd.c b/net/eucanetd.c
+index 811c2b2..9022b3a 100644
+--- a/net/eucanetd.c
++++ b/net/eucanetd.c
+@@ -1186,6 +1186,61 @@ int update_public_ips(void)
+                 
+                 }
+         }
++        se_free(&cmds);
++
++        // more aggressive, clear all IPs not running on instances on this node
++        se_init(&cmds, config->cmdprefix, 2, 1);
++        for (i = 0; i < globalnetworkinfo->max_public_ips; i++) {
++            int found = 0;
++
++            foundidx = 0;
++            for (j = 0; j < max_instances && !found; j++) {
++                if (instances[j].publicIp == globalnetworkinfo->public_ips[i]) {
++                    found = 1;
++                    foundidx = i;
++                }
++            }
++
++            if (!found) {
++                strptra = hex2dot(globalnetworkinfo->public_ips[i]);
++                LOGTRACE("aggressive IP delete: %s\n", SP(strptra));
++                snprintf(cmd, EUCA_MAX_PATH, "ip addr del %s/%d dev %s >/dev/null 2>&1", strptra, 32, config->pubInterface);
++                rc = se_add(&cmds, cmd, NULL, ignore_exit2);
++                EUCA_FREE(strptra);
++            }
++        }
++
++        se_print(&cmds);
++        rc = se_execute(&cmds);
++        if (rc) {
++            LOGERROR("could not execute command sequence (check above log errors for details): revoking no longer in use ips\n");
++            ret = 1;
++        }
++        se_free(&cmds);
++
++        // even more aggressive - clear *all* ips if no instances are running
++        if (max_instances <= 0) {
++            se_init(&cmds, config->cmdprefix, 2, 1);
++            for (i = 0; i < globalnetworkinfo->max_public_ips; i++) {
++                int found = 0;
++                if (!found) {
++                    strptra = hex2dot(globalnetworkinfo->public_ips[i]);
++                    LOGDEBUG("more aggressive IP delete: %s\n", SP(strptra));
++
++                    snprintf(cmd, EUCA_MAX_PATH, "ip addr del %s/%d dev %s >/dev/null 2>&1", strptra, 32, config->pubInterface);
++                    rc = se_add(&cmds, cmd, NULL, ignore_exit2);
++                    EUCA_FREE(strptra);
++                }
++            }
++            
++            se_print(&cmds);
++            rc = se_execute(&cmds);
++            if (rc) {
++                LOGERROR("could not execute command sequence (check above log errors for details): revoking no longer in use ips\n");
++                ret = 1;
++            }
++            se_free(&cmds);
++        }
+     }
+ 
+     EUCA_FREE(instances);
+diff --git a/net/globalnetwork.h b/net/globalnetwork.h
+index c2d880f..d8f7ecd 100644
+--- a/net/globalnetwork.h
++++ b/net/globalnetwork.h
+@@ -37,7 +37,7 @@
+  |                                                                            |
+ \*----------------------------------------------------------------------------*/
+ 
+-#define MAX_NETWORK_INFO                         10485760
++#define MAX_NETWORK_INFO                         524288000
+ enum { GNI_ITERATE_PRINT, GNI_ITERATE_FREE };
+ 
+ /*----------------------------------------------------------------------------*\
+diff --git a/storage/blobstore.c b/storage/blobstore.c
+index 35c3836..b5e580c 100644
+--- a/storage/blobstore.c
++++ b/storage/blobstore.c
+@@ -112,6 +112,7 @@
+ \*----------------------------------------------------------------------------*/
+ 
+ #define BLOBSTORE_METADATA_FILE                  ".blobstore"
++#define BLOBSTORE_METADATA_FILE_MAX_SIZE         102400
+ #define BLOBSTORE_METADATA_TIMEOUT_USEC          (1000000LL * 60 * 2)   //!< it may take dozens of seconds to open blobstore when others are LRU-purging it
+ #define BLOBSTORE_LOCK_TIMEOUT_USEC               500000LL
+ #define BLOBSTORE_FIND_TIMEOUT_USEC                50000LL
+@@ -2309,6 +2310,9 @@ static unsigned int check_in_use(blobstore * bs, const char *bb_id, long long ti
+ {
+     unsigned int in_use = 0;
+     char path[PATH_MAX];
++    char * buf = malloc(BLOBSTORE_METADATA_FILE_MAX_SIZE); // buffer for reading in metadata files
++    if (buf == NULL)
++        return 0; // TODO: not a good way to return the error
+ 
+     // determine the path of the .lock file for this blob
+     set_blockblob_metadata_path(BLOCKBLOB_PATH_LOCK, bs, bb_id, path, sizeof(path));
+@@ -2327,18 +2331,19 @@ static unsigned int check_in_use(blobstore * bs, const char *bb_id, long long ti
+         in_use |= BLOCKBLOB_STATUS_OPENED;  //! @TODO check if open failed for other reason?
+     }
+ 
+-    if (read_blockblob_metadata_path(BLOCKBLOB_PATH_REFS, bs, bb_id, path, sizeof(path)) > 0) {
++    if (read_blockblob_metadata_path(BLOCKBLOB_PATH_REFS, bs, bb_id, buf, BLOBSTORE_METADATA_FILE_MAX_SIZE) > 0) {
+         in_use |= BLOCKBLOB_STATUS_MAPPED;
+     }
+ 
+-    if (read_blockblob_metadata_path(BLOCKBLOB_PATH_DEPS, bs, bb_id, path, sizeof(path)) > 0) {
++    if (read_blockblob_metadata_path(BLOCKBLOB_PATH_DEPS, bs, bb_id, buf, BLOBSTORE_METADATA_FILE_MAX_SIZE) > 0) {
+         in_use |= BLOCKBLOB_STATUS_BACKED;
+     }
+ 
+-    if (read_blockblob_metadata_path(BLOCKBLOB_PATH_DM, bs, bb_id, path, sizeof(path)) > 0) {
++    if (read_blockblob_metadata_path(BLOCKBLOB_PATH_DM, bs, bb_id, buf, BLOBSTORE_METADATA_FILE_MAX_SIZE) > 0) {
+         in_use |= BLOCKBLOB_STATUS_BACKED;
+     }
+     _err_on();
++    free(buf);
+ 
+     return in_use;
+ }
+diff --git a/tools/eucalyptus-cc.in b/tools/eucalyptus-cc.in
+index 79d3402..f80cdcd 100755
+--- a/tools/eucalyptus-cc.in
++++ b/tools/eucalyptus-cc.in
+@@ -137,11 +137,11 @@ create_httpd_config() {
+             -e "s|\(StartServers\).*|\1 5|" \
+             -e "s|\(MinSpareServers\).*|\1 5|" \
+             -e "s|\(MaxSpareServers\).*|\1 10|" \
+-            -e "s|\(MaxClients\).*|\1 8|" \
++            -e "s|\(MaxClients\).*|\1 256|" \
+             -e "s|\(MinSpareThreads\).*|\1 25|" \
+             -e "s|\(MaxSpareThreads\).*|\1 75|" \
+             -e "s|\(ThreadsPerChild\).*|\1 1|" \
+-            -e "s|\(ThreadLimit\).*|\1 64|" \
++            -e "s|\(ThreadLimit\).*|\1 256|" \
+             $EUCALYPTUS/etc/eucalyptus/httpd.conf \
+             > $RUNDIR/httpd-cc.conf
+ 
+diff --git a/tools/eucalyptus-nc.in b/tools/eucalyptus-nc.in
+index dbeeede..994c156 100755
+--- a/tools/eucalyptus-nc.in
++++ b/tools/eucalyptus-nc.in
+@@ -226,7 +226,7 @@ do_start() {
+ 	fi
+ 
+ 	# Add loop devices if necessary (and possible)
+-	[ -z "$CREATE_NC_LOOP_DEVICES" ] && CREATE_NC_LOOP_DEVICES=256
++	[ -z "$CREATE_NC_LOOP_DEVICES" ] && CREATE_NC_LOOP_DEVICES=10240
+ 	if [ "$CREATE_NC_LOOP_DEVICES" -gt 0 ] 2>/dev/null; then
+             "$EUCALYPTUS/usr/share/eucalyptus/create-loop-devices" $CREATE_NC_LOOP_DEVICES
+ 	fi
+diff --git a/tools/eucanetd.in b/tools/eucanetd.in
+index b693275..aa685a4 100755
+--- a/tools/eucanetd.in
++++ b/tools/eucanetd.in
+@@ -128,6 +128,7 @@ do_start() {
+ 	IPTABLES="`which iptables 2> /dev/null`"
+ 	if [ -n "$IPTABLES" ]; then
+ 		[ -x $IPTABLES ] && $IPTABLES -L -n > /dev/null 2> /dev/null
++		[ -x $IPTABLES ] && $IPTABLES -L -n -t nat > /dev/null 2> /dev/null
+ 	fi
+ 
+         # logic to detect if required proc parameters will be reset by
+diff --git a/util/eucalyptus.h b/util/eucalyptus.h
+index c51feb5..eaa0cf2 100644
+--- a/util/eucalyptus.h
++++ b/util/eucalyptus.h
+@@ -245,8 +245,8 @@
+ //! @name system limit defaults */
+ 
+ #define MAXNODES                                     1024
+-#define MAXINSTANCES_PER_CC                          2048
+-#define MAXINSTANCES_PER_NC                           256
++#define MAXINSTANCES_PER_CC                         65535
++#define MAXINSTANCES_PER_NC                          2048
+ #define MAXLOGFILESIZE                          104857600
+ #define EUCA_MAX_GROUPS                                64
+ #define EUCA_MAX_VOLUMES                               27
+diff --git a/util/misc.c b/util/misc.c
+index 76e4b77..f27dc53 100644
+--- a/util/misc.c
++++ b/util/misc.c
+@@ -117,7 +117,7 @@
+ \*----------------------------------------------------------------------------*/
+ 
+ #define OUTSIZE                                    50
+-
++#define BLKID_TIMEOUT_SEC                         50 /* 5 was timing out under load */
+ #define DEV_STR_DELIMITER                         ","
+ #define DEV_STR_IQNS_DELIMITER                    "|"
+ #define DEV_STR_KEY_VAL_DELIMITER                 "="
+@@ -1637,7 +1637,7 @@ int get_blkid(const char *dev_path, char *uuid, unsigned int uuid_size)
+     int status;
+     snprintf(cmd, sizeof(cmd), "blkid %s", dev_path);   // option '-u filesystem' did not exist on Centos
+     for (int i = 0; i < 3; i++) {      // we will retry these invocations because sometimes blkid hangs
+-        status = timeshell(cmd, blkid_output, blkid_stderr, sizeof(blkid_output), 5);
++        status = timeshell(cmd, blkid_output, blkid_stderr, sizeof(blkid_output), BLKID_TIMEOUT_SEC);
+         if (status < 0) {
+             LOGWARN("invocation '%s' failed with %d (attempt %d)\n", cmd, status, i + 1);
+         } else {
+diff --git a/util/sequence_executor.h b/util/sequence_executor.h
+index 579bec5..7b8e9b1 100644
+--- a/util/sequence_executor.h
++++ b/util/sequence_executor.h
+@@ -83,7 +83,7 @@
+  |                                                                            |
+ \*----------------------------------------------------------------------------*/
+ 
+-#define MAX_SE_COMMANDS                          1024
++#define MAX_SE_COMMANDS                          10240
+ 
+ /*----------------------------------------------------------------------------*\
+  |                                                                            |

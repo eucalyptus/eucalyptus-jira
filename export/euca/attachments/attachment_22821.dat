@@ -1,0 +1,29 @@
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+
+    "Description" : "Wait condition for manual use.",
+
+    "Resources" : {
+
+        "myWaitHandle" : {
+            "Type" : "AWS::CloudFormation::WaitConditionHandle",
+            "Properties" : {
+            }
+        },
+
+        "myWaitCondition" : {
+            "Type" : "AWS::CloudFormation::WaitCondition",
+            "Properties" : {
+                "Handle" : { "Ref" : "myWaitHandle" },
+                 "Timeout" : "300"
+            }
+        }
+    },
+    "Outputs" : {
+        "ManualSignalCommand" : {
+            "Value" : {
+                "Fn::Join" : [ " ", ["curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",\"Reason\" : \"Configuration Complete\",\"UniqueId\" : \"ID1234\",\"Data\" : \"Application has completed configuration.\"}'", { "Ref" : "myWaitHandle" } ] ]
+            }
+        }
+    }
+}

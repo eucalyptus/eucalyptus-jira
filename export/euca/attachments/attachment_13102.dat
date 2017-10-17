@@ -1,0 +1,83 @@
+commit 6f1c5d74a497aa52d4407b4392eee89528ad2b6f
+Author: chris grzegorczyk <grze@eucalyptus.com>
+Date:   Sun Oct 21 01:54:26 2012 -0700
+
+    removes inappropriate include; this code is not part of the top-level c code and cannot reference it
+
+diff --git a/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c b/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c
+index 6de162f..7b971a8 100644
+--- a/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c
++++ b/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.c
+@@ -688,9 +688,9 @@ char* java_library_path(euca_opts *args) {
+ 	__die((strlen(GETARG(args, home)) + strlen(EUCALYPTUS_JAVA_LIB_DIR) >= 256),
+ 			"Directory path too long: " EUCALYPTUS_JAVA_LIB_DIR, GETARG(args, home));
+ 	snprintf(lib_dir, 255, EUCALYPTUS_JAVA_LIB_DIR, GETARG(args, home));
+-	snprintf(etc_dir, 255, EUCA_ETC_DIR, GETARG(args, home));
+-	snprintf(class_cache_dir, 255, EUCA_CLASSCACHE_DIR, GETARG(args, home));
+-	snprintf(script_dir, 255, EUCA_SCRIPT_DIR, GETARG(args, home));
++	snprintf(etc_dir, 255, EUCALYPTUS_ETC_DIR, GETARG(args, home));
++	snprintf(class_cache_dir, 255, EUCALYPTUS_CLASSCACHE_DIR, GETARG(args, home));
++	snprintf(script_dir, 255, EUCALYPTUS_SCRIPT_DIR, GETARG(args, home));
+ 	if (!CHECK_ISDIR(lib_dir))
+ 		__die(1, "Can't find library directory %s", lib_dir);
+ 	int wb = 0;
+diff --git a/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h b/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
+index 66ca0a6..957ed95 100644
+--- a/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
++++ b/clc/modules/bootstrap/src/main/native/eucalyptus-bootstrap.h
+@@ -73,7 +73,6 @@
+ #include <sys/stat.h>
+ #include <linux/capability.h>
+ #include "eucalyptus-opts.h"
+-#include <eucalyptus.h>
+ 
+ #define PRINT_NULL(x) ((x) == NULL ? "null" : (x))
+ #define LIMIT_FILENO 65535
+@@ -123,7 +122,38 @@ static int debug = 0;
+ #define __error(format,...) do { fprintf(stderr,"[error:%04d] ", __LINE__);fprintf(stderr, format "\n", ##__VA_ARGS__ );fflush(stderr); } while(0)
+ #define EUCA_MAIN "com/eucalyptus/bootstrap/SystemBootstrapper"
+ #define EUCA_RET_RELOAD 123
++
++#ifndef LIBDIR
++#define LIBDIR "/usr/lib"
++#endif
++#ifndef SYSCONFDIR
++#define SYSCONFDIR "/etc"
++#endif
++#ifndef DATADIR
++#define DATADIR	"/usr/share"
++#endif
++#ifndef LIBEXECDIR
++#define LIBEXECDIR	"/usr/lib"
++#endif
++#ifndef SBINDIR
++#define SBINDIR	"/usr/sbin"
++#endif
++#ifndef LOCALSTATEDIR
++#define LOCALSTATEDIR	"/var"
++#endif
++#define EUCALYPTUS_DATA_DIR        "%s" DATADIR "/eucalyptus"
++#define EUCALYPTUS_CONF_DIR        "%s" SYSCONFDIR "/eucalyptus"
++#define EUCALYPTUS_LIB_DIR         "%s" LIBDIR "/eucalyptus"
++#define EUCALYPTUS_LIBEXEC_DIR     "%s" LIBEXECDIR "/eucalyptus"
++#define EUCALYPTUS_RUN_DIR         "%s" LOCALSTATEDIR "/run/eucalyptus"
++#define EUCALYPTUS_STATE_DIR       "%s" LOCALSTATEDIR "/lib/eucalyptus"
++#define EUCALYPTUS_LOG_DIR         "%s" LOCALSTATEDIR "/log/eucalyptus"
++#define EUCALYPTUS_ETC_DIR         EUCALYPTUS_CONF_DIR "/cloud.d"
++#define EUCALYPTUS_SCRIPT_DIR      EUCALYPTUS_ETC_DIR "/scripts"
++#define EUCALYPTUS_JAVA_LIB_DIR    EUCALYPTUS_DATA_DIR
++#define EUCALYPTUS_CLASSCACHE_DIR  EUCALYPTUS_RUN_DIR "/classcache"
+ #define java_load_bootstrapper euca_load_bootstrapper
++
+ void euca_load_bootstrapper(void);
+ 
+ typedef struct {
+@@ -166,7 +196,7 @@ static char *jvm_default_opts[] = {
+ 	    "-XX:MaxPermSize=256m",
+ 	    "-XX:+UseConcMarkSweepGC",
+ 	    "-Djava.net.preferIPv4Stack=true",
+-	    "-Djava.security.policy=" EUCA_ETC_DIR "/security.policy", 
++	    "-Djava.security.policy=" EUCALYPTUS_ETC_DIR "/security.policy",
+ 	    "-Djava.library.path=" EUCALYPTUS_LIB_DIR,
+ 	    "-Djava.awt.headless=true",
+ 	    "-Dsun.java.command=Eucalyptus",

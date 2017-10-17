@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain type="kvm">
+  <name>i-806cc029</name>
+  <description>Eucalyptus instance i-806cc029</description>
+  <os>
+    <type>hvm</type>
+  </os>
+  <features>
+    <acpi/>
+  </features>
+  <clock offset="localtime"/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <vcpu>1</vcpu>
+  <cpu>
+    <topology sockets="1" cores="1" threads="1"/>
+  </cpu>
+  <memory>524288</memory>
+  <devices>
+    <disk device="disk" type="block">
+      <driver cache="none"/>
+      <source dev="/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-806cc029/link-to-vda"/>
+      <boot order="1"/>
+      <target bus="virtio" dev="vda"/>
+      <serial>euca-bdm-machine-dev-vda</serial>
+    </disk>
+    <disk device="disk" type="block">
+      <driver cache="none"/>
+      <source dev="/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-806cc029/link-to-vdb"/>
+      <boot order="2"/>
+      <target bus="virtio" dev="vdb"/>
+      <serial>euca-bdm-ephemeral0-dev-vdb</serial>
+    </disk>
+    <interface type="bridge">
+      <source bridge="br0"/>
+      <mac address="d0:0d:80:6c:c0:29"/>
+      <target dev="vn_i-806cc029"/>
+      <model type="virtio"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x02" function="0x0"/>
+    </interface>
+    <serial type="file">
+      <source path="/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-806cc029/console.log"/>
+      <target port="1"/>
+    </serial>
+  </devices>
+</domain>

@@ -1,0 +1,1322 @@
+[chuck@nanuk-centos eucalyptus]$ make
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/tools'
+make[1]: Nothing to be done for `build'.
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/tools'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util'
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` utf8.c
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` log.c
+eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` config.c
+config.c: In function ‘isConfigModified’:
+config.c:111: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+config.c:111: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+config.c: At top level:
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` fault.c
+fault.c: In function ‘init_eucafaults’:
+fault.c:604: warning: too many arguments for format
+fault.c: At top level:
+./eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+./eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+./eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+./log.h:89: warning: ‘log_level_names’ defined but not used
+./log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` misc.c
+misc.c: In function ‘param_check’:
+misc.c:310: warning: unused variable ‘c’
+misc.c:368: warning: unused variable ‘e’
+misc.c: In function ‘file2strn’:
+misc.c:1215: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘ssize_t’
+misc.c: In function ‘drop_privs’:
+misc.c:1978: warning: unused variable ‘s’
+misc.c: In function ‘timeshell’:
+misc.c:2010: warning: null argument where non-null required (argument 2)
+misc.c:2010: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+misc.c:2014: warning: null argument where non-null required (argument 2)
+misc.c:2014: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+misc.c:2022: warning: null argument where non-null required (argument 2)
+misc.c:2022: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+misc.c:2029: warning: null argument where non-null required (argument 2)
+misc.c:2029: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+misc.c:2089: warning: null argument where non-null required (argument 2)
+misc.c:2089: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+misc.c:1996: warning: unused variable ‘oldstderr’
+misc.c:1996: warning: unused variable ‘oldstdout’
+misc.c: At top level:
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+./eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+./eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+./eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` wc.c
+wc.c: In function ‘varsub’:
+wc.c:136: warning: unused variable ‘vars_subbed’
+wc.c: In function ‘c_varsub’:
+wc.c:240: warning: unused variable ‘vars_subbed’
+wc.c: At top level:
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` hash.c
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+./eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+./eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+./eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` data.c
+eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` sensor.c
+sensor.c: In function ‘sensor_bottom_half’:
+sensor.c:285: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘useconds_t’
+sensor.c:288: warning: format ‘%lld’ expects type ‘long long int’, but argument 3 has type ‘useconds_t’
+sensor.c:315: warning: passing argument 1 of ‘sensor_refresh_resources’ from incompatible pointer type
+sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char (*)[64]’
+sensor.c:315: warning: passing argument 2 of ‘sensor_refresh_resources’ from incompatible pointer type
+sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char (*)[64]’
+sensor.c: In function ‘init_state’:
+sensor.c:335: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long unsigned int’
+sensor.c: In function ‘sensor_expire_cache_entries’:
+sensor.c:381: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘time_t’
+sensor.c:381: warning: format ‘%d’ expects type ‘int’, but argument 6 has type ‘time_t’
+sensor.c:381: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘time_t’
+sensor.c:385: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+sensor.c:385: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘time_t’
+sensor.c: In function ‘log_sensor_resources’:
+sensor.c:627: warning: passing argument 3 of ‘sensor_res2str’ from incompatible pointer type
+sensor.c:581: note: expected ‘struct sensorResource **’ but argument is of type ‘const struct sensorResource **’
+sensor.c: In function ‘sensor_add_value’:
+sensor.c:1108: warning: passing argument 1 of ‘sensor_merge_records’ from incompatible pointer type
+sensor.c:863: note: expected ‘const struct sensorResource **’ but argument is of type ‘struct sensorResource **’
+sensor.c: In function ‘sensor_get_instance_data’:
+sensor.c:1212: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+sensor.c:1212: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+sensor.c:1216: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+sensor.c:1220: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+sensor.c:1220: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+sensor.c:1222: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+sensor.c: In function ‘sensor_shift_metric’:
+sensor.c:1337: warning: initialization discards qualifiers from pointer target type
+sensor.c: At top level:
+eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+sensor.c:624: warning: ‘log_sensor_resources’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` euca_auth.c
+euca_auth.c:103:1: warning: "OK" redefined
+In file included from euca_auth.c:81:
+eucalyptus.h:219:1: warning: this is the location of the previous definition
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` euca_axis.c
+euca_axis.c: In function ‘throw_fault’:
+euca_axis.c:125: warning: passing argument 1 of ‘init_eucafaults’ discards qualifiers from pointer target type
+fault.h:51: note: expected ‘char *’ but argument is of type ‘const char *’
+euca_axis.c: At top level:
+./log.h:89: warning: ‘log_level_names’ defined but not used
+./log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` ipc.c
+log.h:89: warning: ‘log_level_names’ defined but not used
+log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/  `xslt-config --cflags` windows-bundle.c
+./eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+./eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+./eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+./log.h:89: warning: ‘log_level_names’ defined but not used
+./log.h:114: warning: ‘log_level_prefix’ defined but not used
+./data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+./data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+./data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+./data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+./data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+./data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -o euca_rootwrap euca_rootwrap.c
+euca_rootwrap.c: In function ‘main’:
+euca_rootwrap.c:71: warning: unused variable ‘i’
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -o euca_mountwrap euca_mountwrap.c
+make -C ../storage
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage'
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ vbr.c
+vbr.c: In function ‘parse_rec’:
+vbr.c:319: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c:326: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c:372: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c:379: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c: In function ‘vbr_parse’:
+vbr.c:394: warning: unused variable ‘j’
+vbr.c: In function ‘disk_creator’:
+vbr.c:844: warning: too many arguments for format
+vbr.c:873: warning: too many arguments for format
+vbr.c:877: warning: too many arguments for format
+vbr.c:881: warning: too many arguments for format
+vbr.c: In function ‘art_free’:
+vbr.c:1100: warning: format ‘%u’ expects type ‘unsigned int’, but argument 7 has type ‘struct virtualBootRecord *’
+vbr.c: In function ‘art_print_tree’:
+vbr.c:1115: warning: format ‘%0x’ expects type ‘unsigned int’, but argument 9 has type ‘int (*)(struct _artifact *)’
+vbr.c:1115: warning: format ‘%0x’ expects type ‘unsigned int’, but argument 10 has type ‘struct virtualBootRecord *’
+vbr.c: In function ‘art_alloc’:
+vbr.c:1172: warning: format ‘%u’ expects type ‘unsigned int’, but argument 7 has type ‘struct virtualBootRecord *’
+vbr.c: In function ‘art_alloc_vbr’:
+vbr.c:1250: warning: unused variable ‘rc’
+vbr.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ backing.c
+backing.c: In function ‘stat_backing_store’:
+backing.c:163: warning: initialization discards qualifiers from pointer target type
+backing.c: In function ‘stale_blob_examiner’:
+backing.c:307: warning: unused variable ‘file’
+backing.c: In function ‘destroy_instance_backing’:
+backing.c:546: warning: unused variable ‘total_prereqs’
+backing.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node/handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node/handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ storage-windows.c
+storage-windows.c: In function ‘encryptWindowsPassword’:
+storage-windows.c:140: warning: unused variable ‘rc’
+storage-windows.c:137: warning: unused variable ‘dec64’
+storage-windows.c:136: warning: unused variable ‘enc64’
+storage-windows.c: In function ‘makeWindowsFloppy’:
+storage-windows.c:376: warning: unused variable ‘tmpstr’
+storage-windows.c:260: warning: unused variable ‘fname’
+storage-windows.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ walrus.c
+walrus.c: In function ‘walrus_request_timeout’:
+walrus.c:303: warning: format ‘%ld’ expects type ‘long int’, but argument 4 has type ‘long long int’
+walrus.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ diskutil.c
+diskutil.c: In function ‘diskutil_ch’:
+diskutil.c:820: warning: unused variable ‘ret’
+diskutil.c: In function ‘pruntf’:
+diskutil.c:881: warning: unused variable ‘ptr’
+diskutil.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ map.c
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ http.c
+http.c: In function ‘http_put’:
+http.c:177: warning: format ‘%ld’ expects type ‘long int’, but argument 3 has type ‘long long int’
+http.c:177: warning: format ‘%ld’ expects type ‘long int’, but argument 4 has type ‘long long int’
+http.c: In function ‘read_data’:
+http.c:246: warning: format ‘%ld’ expects type ‘long int’, but argument 3 has type ‘long long int’
+http.c:246: warning: format ‘%ld’ expects type ‘long int’, but argument 4 has type ‘long long int’
+http.c: In function ‘http_get_timeout’:
+http.c:397: warning: format ‘%ld’ expects type ‘long int’, but argument 3 has type ‘long long int’
+http.c:397: warning: format ‘%ld’ expects type ‘long int’, but argument 4 has type ‘long long int’
+http.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ Wclient.c -o Wclient walrus.o http.o diskutil.o map.o                ../util/log.o ../util/misc.o ../util/ipc.o ../util/euca_auth.o -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -pthread -lpthread 
+Wclient.c: In function ‘main’:
+Wclient.c:201: warning: unused variable ‘result’
+Wclient.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -D_EUCA_BLOBS blobstore.c -o euca-blobs diskutil.o map.o                ../util/log.o ../util/misc.o ../util/ipc.o ../util/euca_auth.o -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -pthread -lpthread 
+blobstore.c: In function ‘close_and_unlock’:
+blobstore.c:381: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘char *’
+blobstore.c:331: warning: unused variable ‘open_fds’
+blobstore.c: In function ‘open_and_lock’:
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘__ino_t’
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 11 has type ‘__off_t’
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 12 has type ‘__off_t’
+blobstore.c:679: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘char *’
+blobstore.c: In function ‘blobstore_open’:
+blobstore.c:973: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long unsigned int’
+blobstore.c:973: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘long long unsigned int’
+blobstore.c: In function ‘read_array_blockblob_metadata_path’:
+blobstore.c:1334: warning: format ‘%d’ expects type ‘int’, but argument 6 has type ‘ssize_t’
+blobstore.c:1334: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘size_t’
+blobstore.c: In function ‘walk_bs’:
+blobstore.c:1649: warning: unused variable ‘start_block’
+blobstore.c:1647: warning: unused variable ‘blob_id’
+blobstore.c:1646: warning: unused variable ‘store_path’
+blobstore.c: In function ‘purge_blockblobs_lru’:
+blobstore.c:1748: warning: format ‘%08d’ expects type ‘int’, but argument 4 has type ‘long long int’
+blobstore.c: In function ‘blockblob_open’:
+blobstore.c:2307: warning: format ‘%lld’ expects type ‘long long int’, but argument 5 has type ‘__off_t’
+blobstore.c:2330: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘size_t’
+blobstore.c:2399: warning: format ‘%012lx’ expects type ‘long unsigned int’, but argument 5 has type ‘struct blockblob *’
+blobstore.c: In function ‘dm_create_devices’:
+blobstore.c:2588: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘size_t’
+blobstore.c:2584: warning: unused variable ‘tot’
+blobstore.c: In function ‘blockblob_clone’:
+blobstore.c:3039: warning: unused variable ‘sbb’
+blobstore.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+blobstore.c:1022: warning: ‘_blobstore_lock_mutex’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ iscsi.c
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ blobstore.c
+blobstore.c: In function ‘close_and_unlock’:
+blobstore.c:381: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘char *’
+blobstore.c:331: warning: unused variable ‘open_fds’
+blobstore.c: In function ‘open_and_lock’:
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘__ino_t’
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 11 has type ‘__off_t’
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 12 has type ‘__off_t’
+blobstore.c:679: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘char *’
+blobstore.c: In function ‘blobstore_open’:
+blobstore.c:973: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long unsigned int’
+blobstore.c:973: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘long long unsigned int’
+blobstore.c: In function ‘read_array_blockblob_metadata_path’:
+blobstore.c:1334: warning: format ‘%d’ expects type ‘int’, but argument 6 has type ‘ssize_t’
+blobstore.c:1334: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘size_t’
+blobstore.c: In function ‘walk_bs’:
+blobstore.c:1649: warning: unused variable ‘start_block’
+blobstore.c:1647: warning: unused variable ‘blob_id’
+blobstore.c:1646: warning: unused variable ‘store_path’
+blobstore.c: In function ‘purge_blockblobs_lru’:
+blobstore.c:1748: warning: format ‘%08d’ expects type ‘int’, but argument 4 has type ‘long long int’
+blobstore.c: In function ‘blockblob_open’:
+blobstore.c:2307: warning: format ‘%lld’ expects type ‘long long int’, but argument 5 has type ‘__off_t’
+blobstore.c:2330: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘size_t’
+blobstore.c:2399: warning: format ‘%012lx’ expects type ‘long unsigned int’, but argument 5 has type ‘struct blockblob *’
+blobstore.c: In function ‘dm_create_devices’:
+blobstore.c:2588: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘size_t’
+blobstore.c:2584: warning: unused variable ‘tot’
+blobstore.c: In function ‘blockblob_clone’:
+blobstore.c:3039: warning: unused variable ‘sbb’
+blobstore.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+blobstore.c:1022: warning: ‘_blobstore_lock_mutex’ defined but not used
+gcc -rdynamic -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -D_UNIT_TEST vbr.c -o test_vbr iscsi.o blobstore.o walrus.o http.o diskutil.o       ../util/hash.o ../util/log.o ../util/misc.o ../util/ipc.o ../util/euca_auth.o -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -pthread -lpthread 
+vbr.c: In function ‘parse_rec’:
+vbr.c:319: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c:326: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c:372: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c:379: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+vbr.c: In function ‘vbr_parse’:
+vbr.c:394: warning: unused variable ‘j’
+vbr.c: In function ‘disk_creator’:
+vbr.c:844: warning: too many arguments for format
+vbr.c:873: warning: too many arguments for format
+vbr.c:877: warning: too many arguments for format
+vbr.c:881: warning: too many arguments for format
+vbr.c: In function ‘art_free’:
+vbr.c:1100: warning: format ‘%u’ expects type ‘unsigned int’, but argument 7 has type ‘struct virtualBootRecord *’
+vbr.c: In function ‘art_print_tree’:
+vbr.c:1115: warning: format ‘%0x’ expects type ‘unsigned int’, but argument 9 has type ‘int (*)(struct _artifact *)’
+vbr.c:1115: warning: format ‘%0x’ expects type ‘unsigned int’, but argument 10 has type ‘struct virtualBootRecord *’
+vbr.c: In function ‘art_alloc’:
+vbr.c:1172: warning: format ‘%u’ expects type ‘unsigned int’, but argument 7 has type ‘struct virtualBootRecord *’
+vbr.c: In function ‘art_alloc_vbr’:
+vbr.c:1250: warning: unused variable ‘rc’
+vbr.c: In function ‘cleanup_vms’:
+vbr.c:2067: warning: unused variable ‘vm’
+vbr.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+gcc -rdynamic -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -D_UNIT_TEST blobstore.c -o test_blobstore diskutil.o map.o                ../util/log.o ../util/misc.o ../util/ipc.o ../util/euca_auth.o -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -pthread -lpthread 
+blobstore.c: In function ‘close_and_unlock’:
+blobstore.c:381: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘char *’
+blobstore.c:331: warning: unused variable ‘open_fds’
+blobstore.c: In function ‘open_and_lock’:
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘__ino_t’
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 11 has type ‘__off_t’
+blobstore.c:625: warning: format ‘%d’ expects type ‘int’, but argument 12 has type ‘__off_t’
+blobstore.c:679: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘char *’
+blobstore.c: In function ‘blobstore_open’:
+blobstore.c:973: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long unsigned int’
+blobstore.c:973: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘long long unsigned int’
+blobstore.c: In function ‘read_array_blockblob_metadata_path’:
+blobstore.c:1334: warning: format ‘%d’ expects type ‘int’, but argument 6 has type ‘ssize_t’
+blobstore.c:1334: warning: format ‘%d’ expects type ‘int’, but argument 7 has type ‘size_t’
+blobstore.c: In function ‘walk_bs’:
+blobstore.c:1649: warning: unused variable ‘start_block’
+blobstore.c:1647: warning: unused variable ‘blob_id’
+blobstore.c:1646: warning: unused variable ‘store_path’
+blobstore.c: In function ‘purge_blockblobs_lru’:
+blobstore.c:1748: warning: format ‘%08d’ expects type ‘int’, but argument 4 has type ‘long long int’
+blobstore.c: In function ‘blockblob_open’:
+blobstore.c:2307: warning: format ‘%lld’ expects type ‘long long int’, but argument 5 has type ‘__off_t’
+blobstore.c:2330: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘size_t’
+blobstore.c:2399: warning: format ‘%012lx’ expects type ‘long unsigned int’, but argument 5 has type ‘struct blockblob *’
+blobstore.c: In function ‘dm_create_devices’:
+blobstore.c:2588: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘size_t’
+blobstore.c:2584: warning: unused variable ‘tot’
+blobstore.c: In function ‘blockblob_clone’:
+blobstore.c:3039: warning: unused variable ‘sbb’
+blobstore.c: In function ‘do_clone_stresstest’:
+blobstore.c:3492: warning: unused variable ‘ret’
+blobstore.c: In function ‘do_clone_test’:
+blobstore.c:3757: warning: unused variable ‘bb6’
+blobstore.c: In function ‘thread_function’:
+blobstore.c:4115: warning: unused variable ‘pid’
+blobstore.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+blobstore.c:1022: warning: ‘_blobstore_lock_mutex’ defined but not used
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage'
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ `xslt-config --cflags`  -DEUCA_GENERATE_FAULT -o euca-generate-fault fault.c misc.o log.o wc.o ../storage/diskutil.o ipc.o utf8.o -lpthread -lxml2 -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib   
+fault.c: In function ‘init_eucafaults’:
+fault.c:604: warning: too many arguments for format
+fault.c: At top level:
+./eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+./eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+./eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+./log.h:89: warning: ‘log_level_names’ defined but not used
+./log.h:114: warning: ‘log_level_prefix’ defined but not used
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net'
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ vnetwork.c
+vnetwork.c: In function ‘vnetInit’:
+vnetwork.c:104: warning: unused variable ‘i’
+vnetwork.c:104: warning: unused variable ‘len’
+vnetwork.c:103: warning: unused variable ‘nms’
+vnetwork.c:103: warning: unused variable ‘ips’
+vnetwork.c: In function ‘vnetRestoreTablesFromMemory’:
+vnetwork.c:927: warning: unused variable ‘wbytes’
+vnetwork.c: In function ‘vnetTableRule’:
+vnetwork.c:1067: warning: unused variable ‘done’
+vnetwork.c:1067: warning: unused variable ‘i’
+vnetwork.c: In function ‘vnetCountLocalIP’:
+vnetwork.c:1364: warning: unused variable ‘ret’
+vnetwork.c: In function ‘vnetCheckLocalIP’:
+vnetwork.c:1381: warning: unused variable ‘ret’
+vnetwork.c: In function ‘vnetKickDHCP’:
+vnetwork.c:1593: warning: unused variable ‘tmpcount’
+vnetwork.c: In function ‘vnetDelCCS’:
+vnetwork.c:1667: warning: unused variable ‘pidstr’
+vnetwork.c: In function ‘vnetSetCCS’:
+vnetwork.c:1686: warning: unused variable ‘localIpId’
+vnetwork.c:1686: warning: unused variable ‘lastj’
+vnetwork.c:1686: warning: unused variable ‘j’
+vnetwork.c: In function ‘vnetAttachTunnels’:
+vnetwork.c:1972: warning: unused variable ‘network’
+vnetwork.c:1971: warning: unused variable ‘slashnet’
+vnetwork.c: In function ‘vnetSetupTunnelsVTUN’:
+vnetwork.c:2143: warning: unused variable ‘startTime’
+vnetwork.c: In function ‘vnetGetPublicIP’:
+vnetwork.c:2478: warning: unused variable ‘rc’
+vnetwork.c: In function ‘vnetCheckPublicIP’:
+vnetwork.c:2505: warning: unused variable ‘done’
+vnetwork.c:2505: warning: unused variable ‘rc’
+vnetwork.c: In function ‘vnetAddPublicIP’:
+vnetwork.c:2525: warning: unused variable ‘tmp’
+vnetwork.c:2523: warning: unused variable ‘rc’
+vnetwork.c: In function ‘vnetReassignAddress’:
+vnetwork.c:2717: warning: unused variable ‘cmd’
+vnetwork.c: In function ‘ip2mac’:
+vnetwork.c:2898: warning: unused variable ‘cmd’
+vnetwork.c:2897: warning: unused variable ‘j’
+vnetwork.c:2897: warning: unused variable ‘i’
+vnetwork.c:2897: warning: unused variable ‘rc’
+vnetwork.c: In function ‘mac2ip’:
+vnetwork.c:2938: warning: unused variable ‘j’
+vnetwork.c: In function ‘getdevinfo’:
+vnetwork.c:3028: warning: unused variable ‘nm’
+vnetwork.c:3028: warning: unused variable ‘ip’
+vnetwork.c:3027: warning: unused variable ‘dot’
+vnetwork.c: In function ‘check_deviceup’:
+vnetwork.c:3169: warning: unused variable ‘rc’
+vnetwork.c: In function ‘check_tablerule’:
+vnetwork.c:3302: warning: unused variable ‘rc’
+vnetwork.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage'
+make[1]: Nothing to be done for `build'.
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/gatherlog'
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/gatherlog/generated'
+make[2]: Nothing to be done for `buildall'.
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/gatherlog/generated'
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/gatherlog'
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ gl-client-marshal-adb.c
+gl-client-marshal-adb.c: In function ‘gl_getLogs’:
+gl-client-marshal-adb.c:70: warning: unused variable ‘outservice’
+gl-client-marshal-adb.c: In function ‘gl_getKeys’:
+gl-client-marshal-adb.c:104: warning: unused variable ‘outservice’
+gl-client-marshal-adb.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ server-marshal.c
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers.c
+handlers.c: In function ‘doGetLogs’:
+handlers.c:179: warning: unused variable ‘tmpstr’
+handlers.c:179: warning: unused variable ‘endpoint_uri’
+handlers.c: In function ‘doGetKeys’:
+handlers.c:328: warning: unused variable ‘tmpstr’
+handlers.c:328: warning: unused variable ‘endpoint_uri’
+handlers.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -shared generated/*.o server-marshal.o handlers.o  -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    ../util/log.o ../util/misc.o ../storage/diskutil.o ../util/ipc.o ../util/euca_auth.o ./gl-client-marshal-adb.o -o libEucalyptusGL.so -lssl -lcrypto
+gcc -o GLclient -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ GLclient.c gl-client-marshal-adb.c generated/adb_*.o generated/axis2_stub_*.o ../util/log.o ../util/misc.o ../storage/diskutil.o ../util/ipc.o ../util/euca_auth.o -DMODE=1 -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lssl -lcrypto
+GLclient.c: In function ‘main’:
+GLclient.c:75: warning: unused variable ‘euca_home’
+GLclient.c:74: warning: unused variable ‘i’
+GLclient.c:72: warning: unused variable ‘tmpstr’
+GLclient.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+gl-client-marshal-adb.c: In function ‘gl_getLogs’:
+gl-client-marshal-adb.c:70: warning: unused variable ‘outservice’
+gl-client-marshal-adb.c: In function ‘gl_getKeys’:
+gl-client-marshal-adb.c:104: warning: unused variable ‘outservice’
+gl-client-marshal-adb.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/gatherlog'
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/gatherlog'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node'
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lvirt -lcurl -lssl -lcrypto -lrampart `xslt-config --libs` -o test_hooks -D__STANDALONE hooks.c ../util/log.o ../util/misc.o ../util/sensor.o ../storage/diskutil.o ../util/euca_auth.o -lssl -lcrypto ../util/ipc.o
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node/generated'
+make[2]: Nothing to be done for `buildall'.
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node/generated'
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node'
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ server-marshal.c
+In file included from server-marshal.c:77:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+server-marshal.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+./handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+./handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers.c
+handlers.c: In function ‘check_hypervisor_conn’:
+handlers.c:356: warning: too few arguments for format
+handlers.c: In function ‘startup_thread’:
+handlers.c:828: warning: unused variable ‘disk_path’
+handlers.c: In function ‘init’:
+handlers.c:1464: warning: passing argument 1 of ‘init_eucafaults’ discards qualifiers from pointer target type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/fault.h:51: note: expected ‘char *’ but argument is of type ‘const char *’
+handlers.c:1502: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+handlers.c:1544: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+handlers.c:1580: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘long long int’
+handlers.c:1584: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘long long int’
+handlers.c:1584: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘long long int’
+handlers.c:1595: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘long long int’
+handlers.c:1595: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘long long int’
+handlers.c:1255: warning: unused variable ‘j’
+handlers.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers_xen.c
+handlers_xen.c: In function ‘doRebootInstance’:
+handlers_xen.c:184: warning: passing argument 1 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_xen.c:184: warning: passing argument 2 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_xen.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers_kvm.c
+handlers_kvm.c: In function ‘rebooting_thread’:
+handlers_kvm.c:186: warning: passing argument 1 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_kvm.c:186: warning: passing argument 2 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_kvm.c:135: warning: unused variable ‘rc’
+handlers_kvm.c:134: warning: unused variable ‘statbuf’
+handlers_kvm.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers_default.c
+handlers_default.c: In function ‘doRunInstance’:
+handlers_default.c:123: warning: unused variable ‘pid’
+handlers_default.c: In function ‘doTerminateInstance’:
+handlers_default.c:290: warning: passing argument 1 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_default.c:290: warning: passing argument 2 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_default.c: In function ‘doStartNetwork’:
+handlers_default.c:466: warning: unused variable ‘status’
+handlers_default.c:466: warning: unused variable ‘i’
+handlers_default.c: In function ‘doDetachVolume’:
+handlers_default.c:840: warning: passing argument 1 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_default.c:840: warning: passing argument 2 of ‘sensor_refresh_resources’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:132: note: expected ‘const char (*)[64]’ but argument is of type ‘char *’
+handlers_default.c: In function ‘cleanup_createImage_task’:
+handlers_default.c:937: warning: unused variable ‘rc’
+handlers_default.c:936: warning: unused variable ‘buf’
+handlers_default.c:935: warning: unused variable ‘cmd’
+handlers_default.c: In function ‘createImage_thread’:
+handlers_default.c:975: warning: unused variable ‘buf’
+handlers_default.c:974: warning: unused variable ‘cmd’
+handlers_default.c: In function ‘restart_instance’:
+handlers_default.c:1130: warning: unused variable ‘pid’
+handlers_default.c:1129: warning: unused variable ‘error’
+handlers_default.c: In function ‘doDescribeSensors’:
+handlers_default.c:1603: warning: passing argument 2 of ‘sensor_get_instance_data’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:126: note: expected ‘const char **’ but argument is of type ‘char **’
+handlers_default.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ xml.c
+xml.c: In function ‘get_xpath_content’:
+xml.c:525: warning: pointer targets in passing argument 1 of ‘xmlXPathEvalExpression’ differ in signedness
+/usr/include/libxml2/libxml/xpath.h:514: note: expected ‘const xmlChar *’ but argument is of type ‘const char *’
+xml.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:117: warning: ‘_blobstore_error_strings’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage/blobstore.h:211: warning: ‘blobstore_relation_type_name’ defined but not used
+xml.c:137: warning: ‘cleanup’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ hooks.c
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+gcc -o libEucalyptusNC.so -shared generated/adb_*.o generated/axis2*_skel_*.o server-marshal.o handlers.o handlers_xen.o handlers_kvm.o handlers_default.o xml.o hooks.o ../storage/backing.o ../storage/diskutil.o ../storage/blobstore.o ../storage/walrus.o ../storage/vbr.o ../storage/iscsi.o ../net/*.o ../util/*.o ../storage/http.o ../storage/storage-windows.o -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lvirt -lcurl -lssl -lcrypto -lrampart `xslt-config --libs` 
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ client-marshal-adb.c
+In file included from client-marshal-adb.c:75:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+client-marshal-adb.c: In function ‘ncStubCreate’:
+client-marshal-adb.c:146: warning: format ‘%u’ expects type ‘unsigned int’, but argument 6 has type ‘axis2_char_t *’
+client-marshal-adb.c:146: warning: format ‘%u’ expects type ‘unsigned int’, but argument 7 has type ‘axis2_char_t *’
+client-marshal-adb.c:146: warning: format ‘%u’ expects type ‘unsigned int’, but argument 8 has type ‘axis2_char_t *’
+client-marshal-adb.c:152: warning: format ‘%u’ expects type ‘unsigned int’, but argument 3 has type ‘struct axis2_stub_t *’
+client-marshal-adb.c:152: warning: format ‘%u’ expects type ‘unsigned int’, but argument 4 has type ‘struct axutil_env_t *’
+client-marshal-adb.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -c -DEUCA_COMPILE_TIMESTAMP=\""[built `date --rfc-3339='sec'`]"\" -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG `xslt-config --cflags` -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ client-marshal-local.c
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+handlers.h:132: warning: ‘configKeysRestartNC’ defined but not used
+handlers.h:140: warning: ‘configKeysNoRestartNC’ defined but not used
+gcc -o NCclient -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ generated/adb_*.o generated/axis2_stub_*.o -lrampart -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -laxutil -lneethi client-marshal-adb.o ../util/*.o -lrampart -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom -laxutil -lneethi -lssl -lcrypto ../storage/diskutil.o ../net/*.o -lm NCclient.c ../storage/http.o -lcurl ../storage/storage-windows.o -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lvirt -lcurl -lssl -lcrypto -lrampart `xslt-config --libs`
+In file included from NCclient.c:73:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+NCclient.c: In function ‘main’:
+NCclient.c:424: warning: unused variable ‘pubMac’
+NCclient.c:509: warning: unused variable ‘rc’
+NCclient.c:529: warning: unused variable ‘rc’
+NCclient.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -o NCclient_local -DNO_COMP -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG client-marshal-local.o ../util/*.o ../storage/backing.o ../storage/diskutil.o ../storage/blobstore.o ../storage/walrus.o ../storage/vbr.o ../storage/iscsi.o ../net/*.o handlers.o handlers_xen.o handlers_kvm.o handlers_default.o xml.o hooks.o NCclient.c -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lvirt -lcurl -lssl -lcrypto -lrampart `xslt-config --libs` ../storage/http.o ../storage/storage-windows.o
+In file included from NCclient.c:73:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+NCclient.c: In function ‘main’:
+NCclient.c:424: warning: unused variable ‘pubMac’
+NCclient.c:509: warning: unused variable ‘rc’
+NCclient.c:529: warning: unused variable ‘rc’
+NCclient.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lvirt -lcurl -lssl -lcrypto -lrampart `xslt-config --libs` -o test_nc -lvirt test_nc.c -lvirt ../util/log.o ../util/misc.o ../util/sensor.o ../storage/diskutil.o ../util/euca_auth.o -lssl -lcrypto ../util/ipc.o
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+gcc -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lvirt -lcurl -lssl -lcrypto -lrampart `xslt-config --libs` -o test test.c ../util/log.o ../util/misc.o ../util/sensor.o ../storage/diskutil.o ../util/data.o ../util/euca_auth.o -lssl -lcrypto ../util/ipc.o
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node'
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/cluster'
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/cluster/generated'
+make[2]: Nothing to be done for `buildall'.
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/cluster/generated'
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/cluster'
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ server-marshal.c
+In file included from server-marshal.c:75:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+server-marshal.c: In function ‘adb_InitService’:
+server-marshal.c:82: warning: unused variable ‘rc’
+server-marshal.c: In function ‘CancelBundleTaskMarshal’:
+server-marshal.c:285: warning: unused variable ‘userPublicKey’
+server-marshal.c:285: warning: unused variable ‘walrusURL’
+server-marshal.c:285: warning: unused variable ‘filePrefix’
+server-marshal.c:285: warning: unused variable ‘bucketName’
+server-marshal.c: In function ‘StopNetworkMarshal’:
+server-marshal.c:431: warning: unused variable ‘userName’
+server-marshal.c: In function ‘DescribeResourcesMarshal’:
+server-marshal.c:1030: warning: unused variable ‘name’
+server-marshal.c:1020: warning: unused variable ‘j’
+server-marshal.c:1020: warning: unused variable ‘urisLen’
+server-marshal.c:1020: warning: unused variable ‘servicesLen’
+server-marshal.c:1019: warning: unused variable ‘sit’
+server-marshal.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+./handlers.h:95: warning: ‘configKeysRestartCC’ defined but not used
+./handlers.h:128: warning: ‘configKeysNoRestartCC’ defined but not used
+./handlers.h:260: warning: ‘SCHEDPOLICIES’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers.c
+handlers.c: In function ‘doBundleInstance’:
+handlers.c:144: warning: unused variable ‘ncs’
+handlers.c: In function ‘doCancelBundleTask’:
+handlers.c:283: warning: unused variable ‘ncs’
+handlers.c: In function ‘ncClientCall’:
+handlers.c:622: warning: unused variable ‘instId’
+handlers.c:647: warning: unused variable ‘force’
+handlers.c:646: warning: unused variable ‘instId’
+handlers.c:676: warning: unused variable ‘vlan’
+handlers.c:675: warning: unused variable ‘port’
+handlers.c:674: warning: unused variable ‘peersLen’
+handlers.c:673: warning: unused variable ‘peers’
+handlers.c:672: warning: unused variable ‘uuid’
+handlers.c:720: warning: unused variable ‘netNamesLen’
+handlers.c:719: warning: unused variable ‘netNames’
+handlers.c:718: warning: unused variable ‘expiryTime’
+handlers.c:717: warning: unused variable ‘platform’
+handlers.c:716: warning: unused variable ‘launchIndex’
+handlers.c:715: warning: unused variable ‘userData’
+handlers.c:714: warning: unused variable ‘ncnet’
+handlers.c:713: warning: unused variable ‘keyName’
+handlers.c:712: warning: unused variable ‘accountId’
+handlers.c:711: warning: unused variable ‘ownerId’
+handlers.c:710: warning: unused variable ‘ramdiskURL’
+handlers.c:709: warning: unused variable ‘ramdiskId’
+handlers.c:708: warning: unused variable ‘kernelURL’
+handlers.c:707: warning: unused variable ‘kernelId’
+handlers.c:706: warning: unused variable ‘imageURL’
+handlers.c:705: warning: unused variable ‘imageId’
+handlers.c:704: warning: unused variable ‘ncvm’
+handlers.c:703: warning: unused variable ‘reservationId’
+handlers.c:702: warning: unused variable ‘instId’
+handlers.c:701: warning: unused variable ‘uuid’
+handlers.c:745: warning: unused variable ‘instIdsLen’
+handlers.c:744: warning: unused variable ‘instIds’
+handlers.c:777: warning: unused variable ‘resourceType’
+handlers.c:806: warning: unused variable ‘sensorIdsLen’
+handlers.c:805: warning: unused variable ‘sensorIds’
+handlers.c:804: warning: unused variable ‘instIdsLen’
+handlers.c:803: warning: unused variable ‘instIds’
+handlers.c:802: warning: unused variable ‘collection_interval_time_ms’
+handlers.c:801: warning: unused variable ‘history_size’
+handlers.c: In function ‘doAttachVolume’:
+handlers.c:887: warning: unused variable ‘ncs’
+handlers.c: In function ‘doDetachVolume’:
+handlers.c:950: warning: unused variable ‘ncs’
+handlers.c: In function ‘doAssignAddress’:
+handlers.c:1093: warning: unused variable ‘cmd’
+handlers.c:1092: warning: unused variable ‘i’
+handlers.c:1092: warning: unused variable ‘addrdevno’
+handlers.c:1092: warning: unused variable ‘allocated’
+handlers.c: In function ‘doUnassignAddress’:
+handlers.c:1212: warning: unused variable ‘cmd’
+handlers.c:1211: warning: unused variable ‘addrdevno’
+handlers.c:1211: warning: unused variable ‘allocated’
+handlers.c: In function ‘doDescribeNetworks’:
+handlers.c:1322: warning: unused variable ‘j’
+handlers.c:1322: warning: unused variable ‘i’
+handlers.c: In function ‘doDescribeResources’:
+handlers.c:1411: warning: unused variable ‘strbuf’
+handlers.c: In function ‘refresh_resources’:
+handlers.c:1576: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+handlers.c:1535: warning: unused variable ‘ncs’
+handlers.c:1533: warning: unused variable ‘ret’
+handlers.c: In function ‘refresh_instances’:
+handlers.c:1712: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+handlers.c:1712: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘time_t’
+handlers.c:1673: warning: unused variable ‘origNetConfig’
+handlers.c:1672: warning: unused variable ‘ncs’
+handlers.c:1669: warning: unused variable ‘k’
+handlers.c: In function ‘refresh_sensors’:
+handlers.c:1901: warning: passing argument 1 of ‘sensor_merge_records’ from incompatible pointer type
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:131: note: expected ‘const struct sensorResource **’ but argument is of type ‘struct sensorResource **’
+handlers.c: In function ‘doDescribeInstances’:
+handlers.c:1964: warning: unused variable ‘ncs’
+handlers.c:1963: warning: unused variable ‘ncOutInsts’
+handlers.c:1960: warning: unused variable ‘ccvm’
+handlers.c:1959: warning: unused variable ‘pid’
+handlers.c:1959: warning: unused variable ‘ncOutInstsLen’
+handlers.c:1959: warning: unused variable ‘found’
+handlers.c:1959: warning: unused variable ‘numInsts’
+handlers.c:1959: warning: unused variable ‘k’
+handlers.c:1958: warning: unused variable ‘cacheInstance’
+handlers.c:1958: warning: unused variable ‘out’
+handlers.c:1958: warning: unused variable ‘myInstance’
+handlers.c: In function ‘powerDown’:
+handlers.c:2085: warning: unused variable ‘ncs’
+handlers.c:2084: warning: unused variable ‘status’
+handlers.c:2084: warning: unused variable ‘pid’
+handlers.c: In function ‘schedule_instance’:
+handlers.c:2158: warning: unused variable ‘ccMeta’
+handlers.c: In function ‘doRunInstances’:
+handlers.c:2567: warning: unused variable ‘clientpid’
+handlers.c:2535: warning: unused variable ‘rbytes’
+handlers.c:2535: warning: unused variable ‘status’
+handlers.c:2372: warning: unused variable ‘ramdiskURLCached’
+handlers.c:2372: warning: unused variable ‘kernelURLCached’
+handlers.c:2372: warning: unused variable ‘emiURLCached’
+handlers.c:2370: warning: unused variable ‘ncs’
+handlers.c:2361: warning: unused variable ‘networkIdx’
+handlers.c: In function ‘doGetConsoleOutput’:
+handlers.c:2692: warning: unused variable ‘ncs’
+handlers.c:2690: warning: unused variable ‘rbytes’
+handlers.c: In function ‘doRebootInstances’:
+handlers.c:2796: warning: too few arguments for format
+handlers.c:2782: warning: unused variable ‘ncs’
+handlers.c: In function ‘doTerminateInstances’:
+handlers.c:2842: warning: unused variable ‘ncs’
+handlers.c:2839: warning: unused variable ‘timeout’
+handlers.c: In function ‘doCreateImage’:
+handlers.c:2939: warning: unused variable ‘ncs’
+handlers.c: In function ‘initialize’:
+handlers.c:3216: warning: unused variable ‘done’
+handlers.c:3193: warning: unused variable ‘j’
+handlers.c: In function ‘ccCheckState’:
+handlers.c:3309: warning: unused variable ‘is_ha_cc’
+handlers.c:3309: warning: unused variable ‘local_broker_down’
+handlers.c:3309: warning: unused variable ‘j’
+handlers.c:3309: warning: unused variable ‘i’
+handlers.c:3309: warning: unused variable ‘done’
+handlers.c:3309: warning: unused variable ‘port’
+handlers.c: In function ‘doBrokerPairing’:
+handlers.c:3475: warning: too many arguments for format
+handlers.c:3401: warning: unused variable ‘j’
+handlers.c: In function ‘init_thread’:
+handlers.c:3841: warning: format ‘%08X’ expects type ‘unsigned int’, but argument 4 has type ‘struct ccConfig *’
+handlers.c:3841: warning: format ‘%08X’ expects type ‘unsigned int’, but argument 5 has type ‘struct vnetConfig *’
+handlers.c:3841: warning: format ‘%08X’ expects type ‘unsigned int’, but argument 6 has type ‘struct ccInstanceCache *’
+handlers.c:3841: warning: format ‘%08X’ expects type ‘unsigned int’, but argument 7 has type ‘struct ccResourceCache *’
+handlers.c: In function ‘init_config’:
+handlers.c:4430: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+handlers.c:4444: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+handlers.c:4467: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘time_t’
+handlers.c:4481: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘time_t’
+handlers.c:4047: warning: unused variable ‘statbuf’
+handlers.c:4042: warning: unused variable ‘ret’
+handlers.c: In function ‘maintainNetworkState’:
+handlers.c:4708: warning: unused variable ‘done’
+handlers.c:4708: warning: unused variable ‘j’
+handlers.c: In function ‘restoreNetworkState’:
+handlers.c:4827: warning: unused variable ‘cmd’
+handlers.c: In function ‘shawn’:
+handlers.c:5086: warning: unused variable ‘rc’
+handlers.c: In function ‘print_ccInstance’:
+handlers.c:5380: warning: format ‘%d’ expects type ‘int’, but argument 9 has type ‘time_t’
+handlers.c: In function ‘invalidate_instanceCache’:
+handlers.c:5425: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+handlers.c: In function ‘refresh_instanceCache’:
+handlers.c:5437: warning: unused variable ‘rc’
+handlers.c: In function ‘invalidate_resourceCache’:
+handlers.c:5627: warning: unused variable ‘i’
+handlers.c: In function ‘refresh_resourceCache’:
+handlers.c:5641: warning: unused variable ‘rc’
+handlers.c: In function ‘image_cache_invalidate’:
+handlers.c:5855: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘__off_t’
+handlers.c:5855: warning: format ‘%d’ expects type ‘int’, but argument 5 has type ‘__time_t’
+handlers.c:5867: warning: format ‘%d’ expects type ‘int’, but argument 4 has type ‘time_t’
+handlers.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ handlers-state.c
+handlers-state.c: In function ‘doDescribeServices’:
+handlers-state.c:101: warning: unused variable ‘ret’
+handlers-state.c: In function ‘doStartService’:
+handlers-state.c:199: warning: unused variable ‘i’
+handlers-state.c: In function ‘doStopService’:
+handlers-state.c:231: warning: unused variable ‘i’
+handlers-state.c: In function ‘doDisableService’:
+handlers-state.c:313: warning: unused variable ‘i’
+handlers-state.c: In function ‘doShutdownService’:
+handlers-state.c:344: warning: unused variable ‘i’
+handlers-state.c: In function ‘instNetParamsSet’:
+handlers-state.c:470: warning: unused variable ‘i’
+handlers-state.c: In function ‘instNetReassignAddrs’:
+handlers-state.c:538: warning: unused variable ‘i’
+handlers-state.c: In function ‘clean_network_state’:
+handlers-state.c:616: warning: too few arguments for format
+handlers-state.c:564: warning: unused variable ‘statbuf’
+handlers-state.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+./handlers.h:95: warning: ‘configKeysRestartCC’ defined but not used
+./handlers.h:128: warning: ‘configKeysNoRestartCC’ defined but not used
+./handlers.h:260: warning: ‘SCHEDPOLICIES’ defined but not used
+gcc -c -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ server-marshal-state.c
+In file included from server-marshal-state.c:72:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+server-marshal-state.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+./handlers.h:95: warning: ‘configKeysRestartCC’ defined but not used
+./handlers.h:128: warning: ‘configKeysNoRestartCC’ defined but not used
+./handlers.h:260: warning: ‘SCHEDPOLICIES’ defined but not used
+gcc -shared generated/*.o server-marshal.o handlers.o handlers-state.o server-marshal-state.o ../util/windows-bundle.o ../storage/storage-windows.o ../storage/walrus.o ../storage/http.o ../util/data.o ../node/client-marshal-adb.o ../util/ipc.o ../util/sensor.o ../net/vnetwork.o ../util/log.o ../util/fault.o ../util/wc.o ../util/utf8.o ../util/misc.o ../storage/diskutil.o ../util/hash.o ../util/euca_axis.o ../util/euca_auth.o ../util/config.o -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -lrampart -o libEucalyptusCC.so
+gcc -o CCclient_full -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ CCclient.c cc-client-marshal-adb.c -DMODE=1 generated/adb_*.o generated/axis2_stub_*.o ../util/log.o ../util/fault.o ../util/wc.o ../util/utf8.o ../util/misc.o ../storage/diskutil.o ../util/ipc.o ../util/sensor.o ../util/euca_axis.o ../util/euca_auth.o ../util/config.o -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -lrampart
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+In file included from cc-client-marshal-adb.c:72:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+cc-client-marshal-adb.c: In function ‘cc_getConsoleOutput’:
+cc-client-marshal-adb.c:144: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_configureNetwork’:
+cc-client-marshal-adb.c:284: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_stopNetwork’:
+cc-client-marshal-adb.c:360: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_attachVolume’:
+cc-client-marshal-adb.c:407: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_detachVolume’:
+cc-client-marshal-adb.c:458: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_assignAddress’:
+cc-client-marshal-adb.c:626: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_unassignAddress’:
+cc-client-marshal-adb.c:675: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_describeResources’:
+cc-client-marshal-adb.c:927: warning: unused variable ‘sit’
+cc-client-marshal-adb.c: In function ‘cc_describeInstances’:
+cc-client-marshal-adb.c:1072: warning: unused variable ‘amiId’
+cc-client-marshal-adb.c: In function ‘cc_runInstances’:
+cc-client-marshal-adb.c:1145: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_startService’:
+cc-client-marshal-adb.c:1441: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_stopService’:
+cc-client-marshal-adb.c:1473: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_enableService’:
+cc-client-marshal-adb.c:1505: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_disableService’:
+cc-client-marshal-adb.c:1537: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_shutdownService’:
+cc-client-marshal-adb.c:1569: warning: unused variable ‘i’
+cc-client-marshal-adb.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -o euca_killall -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ CCclient.c cc-client-marshal-adb.c -DMODE=0 generated/adb_*.o generated/axis2_stub_*.o ../util/log.o ../util/fault.o ../util/wc.o ../util/utf8.o ../util/misc.o ../storage/diskutil.o ../util/ipc.o ../util/sensor.o ../util/euca_axis.o ../util/euca_auth.o ../util/config.o -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -lrampart
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+In file included from cc-client-marshal-adb.c:72:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+cc-client-marshal-adb.c: In function ‘cc_getConsoleOutput’:
+cc-client-marshal-adb.c:144: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_configureNetwork’:
+cc-client-marshal-adb.c:284: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_stopNetwork’:
+cc-client-marshal-adb.c:360: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_attachVolume’:
+cc-client-marshal-adb.c:407: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_detachVolume’:
+cc-client-marshal-adb.c:458: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_assignAddress’:
+cc-client-marshal-adb.c:626: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_unassignAddress’:
+cc-client-marshal-adb.c:675: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_describeResources’:
+cc-client-marshal-adb.c:927: warning: unused variable ‘sit’
+cc-client-marshal-adb.c: In function ‘cc_describeInstances’:
+cc-client-marshal-adb.c:1072: warning: unused variable ‘amiId’
+cc-client-marshal-adb.c: In function ‘cc_runInstances’:
+cc-client-marshal-adb.c:1145: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_startService’:
+cc-client-marshal-adb.c:1441: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_stopService’:
+cc-client-marshal-adb.c:1473: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_enableService’:
+cc-client-marshal-adb.c:1505: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_disableService’:
+cc-client-marshal-adb.c:1537: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_shutdownService’:
+cc-client-marshal-adb.c:1569: warning: unused variable ‘i’
+cc-client-marshal-adb.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+gcc -o shutdownCC -D_LARGEFILE64_SOURCE  -Wall -fPIC -DHAVE_CONFIG_H -std=gnu99 -g -DDEBUG -I. -I.. -Igenerated -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/storage -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/node -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util -I/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/net -I/opt/eucalyptus/packages/axis2c-1.6.0/include/axis2-1.6.0 -I/opt/eucalyptus/packages/axis2c-1.6.0/include/rampart-1.3.0 -I/opt/eucalyptus/packages/vddk/lib/vmware-vix-disklib/include/ shutdownCC.c cc-client-marshal-adb.c -DMODE=1 generated/adb_*.o generated/axis2_stub_*.o ../util/log.o ../util/fault.o ../util/wc.o ../util/utf8.o ../util/misc.o ../storage/diskutil.o ../util/ipc.o ../util/sensor.o ../util/euca_axis.o ../util/euca_auth.o ../util/config.o -lxml2 -lcap -lz -lrt -lpthread -lneethi -lmod_rampart -lm -laxutil -laxis2_parser -lguththila -laxis2_http_sender -laxis2_http_receiver -laxis2_http_common -laxis2_engine -laxis2_axiom    -pthread -L/opt/eucalyptus/packages/vddk/lib -L/opt/eucalyptus/packages/axis2c-1.6.0/modules/rampart -L/opt/eucalyptus/packages/axis2c-1.6.0/lib    -lcurl -lssl -lcrypto -lrampart
+shutdownCC.c: In function ‘main’:
+shutdownCC.c:83: warning: unused variable ‘use_wssec’
+shutdownCC.c:83: warning: unused variable ‘port’
+shutdownCC.c:83: warning: unused variable ‘i’
+shutdownCC.c:81: warning: unused variable ‘tmpstr’
+shutdownCC.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+In file included from cc-client-marshal-adb.c:72:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_vm_type_from_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:206: warning: format ‘%d’ expects type ‘int’, but argument 3 has type ‘long long int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h: In function ‘copy_sensor_resource_to_adb’:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: format ‘%s’ expects type ‘char *’, but argument 3 has type ‘int’
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:416: warning: too many arguments for format
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/adb-helpers.h:449: warning: format ‘%f’ expects type ‘double’, but argument 3 has type ‘int’
+cc-client-marshal-adb.c: In function ‘cc_getConsoleOutput’:
+cc-client-marshal-adb.c:144: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_configureNetwork’:
+cc-client-marshal-adb.c:284: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_stopNetwork’:
+cc-client-marshal-adb.c:360: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_attachVolume’:
+cc-client-marshal-adb.c:407: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_detachVolume’:
+cc-client-marshal-adb.c:458: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_assignAddress’:
+cc-client-marshal-adb.c:626: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_unassignAddress’:
+cc-client-marshal-adb.c:675: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_describeResources’:
+cc-client-marshal-adb.c:927: warning: unused variable ‘sit’
+cc-client-marshal-adb.c: In function ‘cc_describeInstances’:
+cc-client-marshal-adb.c:1072: warning: unused variable ‘amiId’
+cc-client-marshal-adb.c: In function ‘cc_runInstances’:
+cc-client-marshal-adb.c:1145: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_startService’:
+cc-client-marshal-adb.c:1441: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_stopService’:
+cc-client-marshal-adb.c:1473: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_enableService’:
+cc-client-marshal-adb.c:1505: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_disableService’:
+cc-client-marshal-adb.c:1537: warning: unused variable ‘i’
+cc-client-marshal-adb.c: In function ‘cc_shutdownService’:
+cc-client-marshal-adb.c:1569: warning: unused variable ‘i’
+cc-client-marshal-adb.c: At top level:
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:89: warning: ‘log_level_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/log.h:114: warning: ‘log_level_prefix’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:257: warning: ‘instance_state_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:288: warning: ‘bundling_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/eucalyptus.h:304: warning: ‘createImage_progress_names’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:113: warning: ‘hypervsorCapabilityTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:126: warning: ‘libvirtDevTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:140: warning: ‘libvirtBusTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:152: warning: ‘libvirtSourceTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:164: warning: ‘libvirtNicTypeNames’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/data.h:180: warning: ‘ncResourceTypeName’ defined but not used
+/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/util/sensor.h:67: warning: ‘sensorCounterTypeName’ defined but not used
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/cluster'
+make[1]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/cluster'
+make[1]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/clc'
+make[2]: Entering directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/clc'
+make[2]: Leaving directory `/Users/chuck/Documents/workspace/EUCA/another/internal/eucalyptus/clc'
+Buildfile: build.xml
+
+build-all:
+^Cmake[1]: *** [build] Error 130
+make: *** [build] Interrupt
+
+[chuck@nanuk-centos eucalyptus]$ 

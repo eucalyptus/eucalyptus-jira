@@ -1,0 +1,56 @@
+Current inter-NC authentication method for migrations:
+
+Overview:
+
+- Attempt qemu+tls connection from source to destination NC, using preconfigured, static client and server keys.
+  These keys are generated and installed using the eucalyptus/tools/generate-keys.sh script, which takes two arguments: the local system's IP address, and an arbitrary shared-secret string.
+
+- If qemu+tls fails, an fallback attempt is made using qemu+ssh, which requires preconfigured ssh access between the "eucalyptus" accounts on the source and destination NCs.
+  A eucalyptus.conf option could be created to disable this ssh fallback or to make it the default behavior, with tls as the fallback. (Note that this option would be self-disabling if no ssh keys were manually generated and staged.)
+
+- If both methods fail, the source rolls itself back, which will also trigger a destination rollback.
+
+Proposals:
+
+1. Static staging of permanent TLS keys and credentials.
+   This is the current primary method of authorization for inter-NC migrations.
+
+   - generate-keys.sh is run manually on both the source and destination NC, generating client and server keys for each node (using the common node-pk.pem and node-cert.pem keys as the CA) and installing the generated keys under /etc/pki/
+
+   - /etc/sysconfig/libvirtd is edited manually to uncomment and enable the option:
+         LIBVIRTD_ARGS="--listen"
+     [Note that this change can be automated, either as part of NC installation or service startup.]
+
+   - /etc/libvirt/libvirtd.conf is edited manually to replace the following line:
+         tls_allowed_dn_list = ["DN1", "DN2"]
+     with appropriate entries for source NCs that are allowed to connect to the destination NC using qemu+tls for migrations.
+     These credential entries take the form:
+         FIXME
+
+   - The libvirtd service is restarted to enable the new client and server keys and to activate the newly granted credentials in libvirtd.conf:
+         system libvirtd restart
+
+   Note that libvirtd must be restarted in order to effect *any* changes to credentials--the addition or change of any client or server keys and/or any changes to libvirtd.conf's list of authorized credentials.
+
+   Static staging of keys would imply that all keys would be generated on all NC hosts, and that all NCs would list all other NCs' client keys in libvirtd.conf's "tls_allowed_dn_list". This would be the simplest method to implement and would minimize the number of libvirtd service restarts (increasing reliability, at least theoretically). It would grant permanent libvirtd connection access between all NCs, the security consequences of which are not yet fully understood.
+
+2. Fully dynamic generation of keys and granting/revocation of credentials.
+   This is essentially a modification of the above method, a modification that may be more secure, but that may also be less reliable: it requires frequent restarts of libvirtd (the consequences of which are also not yet understood) and on-the-fly shell-outs from the NC to scripts in order to generate client and server keys and to in-place modify libvirtd.conf in order to grant and revoke credentials.
+
+   - As part of each individual migration's "prepare" process:
+
+     . The source NC would run generate-keys.sh locally, passing a CC-supplied shared-secret string to the script that would be unique to the migration. This would generate and install a client key (overwriting any existing key).
+     . The source NC would restart libvirtd to activate the new key.
+
+     . The destination NC would run generate-keys.sh locally, generating and installing a server key.
+     . The destination NC would run eucalyptus/tools/libvirtd-auth.pl locally, passing the CC-supplied shared-secret string to the script, in order to grant access in libvirtd.conf to the newly generated source client key for this migration.
+     . The destination NC would restart libvirtd to activate the new key and to activate the newly granted credentials in libvirtd.conf.
+
+   - As part of each individual migration's "cleanup" process:
+
+     . The destination NC would run libvirtd-auth.pl to revoke access to all client keys in libvirtd.conf.
+     . Optional: the source and destination NCs would remove the client and server keys generated for this migration.
+     . The destination NC would restart libvirtd to effect the revocation (and optional removal) of keys.
+     . Optional: the source NC would restart libvirtd to effect the removal of keys.
+
+   - A "rollback" operation would perform the same actions as would a "cleanup".

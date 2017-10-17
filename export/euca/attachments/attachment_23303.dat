@@ -1,0 +1,175 @@
+/*************************************************************************
+ * Copyright 2009-2014 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ *
+ * This file may incorporate work covered under the following copyright
+ * and permission notice:
+ *
+ * Software License Agreement (BSD License)
+ *
+ * Copyright (c) 2008, Regents of the University of California
+ * All rights reserved.
+ *
+ * Redistribution and use of this software in source and binary forms,
+ * with or without modification, are permitted provided that the
+ * following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer
+ * in the documentation and/or other materials provided with the
+ * distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE. USERS OF THIS SOFTWARE ACKNOWLEDGE
+ * THE POSSIBLE PRESENCE OF OTHER OPEN SOURCE LICENSED MATERIAL,
+ * COPYRIGHTED MATERIAL OR PATENTED MATERIAL IN THIS SOFTWARE,
+ * AND IF ANY SUCH MATERIAL IS DISCOVERED THE PARTY DISCOVERING
+ * IT MAY INFORM DR. RICH WOLSKI AT THE UNIVERSITY OF CALIFORNIA,
+ * SANTA BARBARA WHO WILL THEN ASCERTAIN THE MOST APPROPRIATE REMEDY,
+ * WHICH IN THE REGENTS' DISCRETION MAY INCLUDE, WITHOUT LIMITATION,
+ * REPLACEMENT OF THE CODE SO IDENTIFIED, LICENSING OF THE CODE SO
+ * IDENTIFIED, OR WITHDRAWAL OF THE CODE CAPABILITY TO THE EXTENT
+ * NEEDED TO COMPLY WITH ANY SUCH LICENSES OR RIGHTS.
+ ************************************************************************/
+package com.eucalyptus.cloud.ws
+//GRZE:WTF: it is rotten that this file has to be here because of stupid package-local scoping, belongs w/ the new DNS stuff
+import com.eucalyptus.bootstrap.DNSBootstrapper
+import com.eucalyptus.system.Capabilities
+import org.apache.log4j.Logger
+import org.jboss.netty.bootstrap.ConnectionlessBootstrap
+import org.jboss.netty.buffer.ChannelBuffer
+import org.jboss.netty.buffer.ChannelBuffers
+import org.jboss.netty.channel.*
+import org.jboss.netty.channel.socket.DatagramChannelFactory
+import org.jboss.netty.channel.socket.nio.NioDatagramChannelFactory
+import org.xbill.DNS.Message
+import org.xbill.DNS.Rcode
+
+import java.util.concurrent.Executors
+
+/**
+ * Quick Proof-of-Concept UDP DNS server using Netty.
+ *
+ * This script replaces the thread/socket based UDP server {@link UDPHandler} with a single-stage netty pipeline.
+ * The stage handler deals with consuming bytes coming up the pipeline and writing bytes down the pipeline with responses.
+ * The responses are created in a way which is identical to the {@link UDPHandler} implementation.
+ * That is, a final static instance is kept in order to call the (should just as well be static) method
+ * {@link ConnectionHandler#generateReply(Message, byte [ ], int, Socket)}.
+ *
+ * This handler based server differs from the current server in that:
+ * <ol>
+ * <li>No control thread: netty pipeline manages thread-work allocation</li>
+ * <li>Handles UDP source/remote addresses: binding to any-address works right w/ colocated CC</li>
+ * <li>Error handling:  unexpected errors in underlying DNS service, resolver, or library code can't kill the pipeline, so not the server either</li>
+ * <li>Interface binding:  the server bootstrapper can bind to interfaces w/ InetSocketAddress </li>
+ * </ol>
+ * @see InetSocketAddress for binding to interfaces
+ * @see #udpServer below for the closure which bootstraps the UDP socket and netty pipeline.
+ *
+ */
+public class DnsHandler extends SimpleChannelUpstreamHandler {
+  private static Logger LOG = Logger.getLogger(DnsHandler.class);
+  private static final ConnectionHandler legacyDns = new ConnectionHandler();
+
+  @Override
+  public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+    try {
+      ChannelBuffer buffer = ((ChannelBuffer) e.getMessage());
+      ctx.setAttachment(buffer);
+      byte[] inbuf = new byte[buffer.readableBytes()];
+      buffer.getBytes(0, inbuf);
+      Message query = new Message(inbuf);
+      ConnectionHandler.setLocalAndRemoteInetAddresses(e.getChannel().getLocalAddress(), ((InetSocketAddress) e.getRemoteAddress()).getAddress());
+      try {
+        byte[] outbuf = legacyDns.generateReply(query, inbuf, inbuf.length, null);
+        ChannelBuffer chanOutBuf = ChannelBuffers.wrappedBuffer(outbuf);
+        ctx.getChannel().write(chanOutBuf, e.getRemoteAddress());
+        return;
+      } catch (Exception ex) {
+        LOG.debug(ex);
+        byte[] outbuf = legacyDns.errorMessage(query, Rcode.SERVFAIL);
+        LOG.info(outbuf);
+        ChannelBuffer chanOutBuf = ChannelBuffers.wrappedBuffer(outbuf);
+        ctx.getChannel().write(chanOutBuf, e.getRemoteAddress());
+        throw ex;
+      } finally {
+        ConnectionHandler.clearInetAddresses();
+      }
+    } catch (Exception ex) {
+      byte[] outbuf = legacyDns.formerrMessage(e.getMessage());
+      ChannelBuffer chanOutBuf = ChannelBuffers.wrappedBuffer(outbuf);
+      ctx.getChannel().write(chanOutBuf, e.getRemoteAddress());
+      throw ex;
+    }
+  }
+
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
+  throws Exception {
+    e.getCause().printStackTrace();
+    byte[] outbuf = legacyDns.formerrMessage(((ChannelBuffer) ((MessageEvent) ctx.getAttachment()).getMessage()).array());
+    ChannelBuffer chanOutBuf = ChannelBuffers.wrappedBuffer(outbuf);
+    ctx.getChannel().write(chanOutBuf, ((MessageEvent) ctx.getAttachment()).getRemoteAddress());
+    throw e.getCause();
+  }
+
+  /**
+   * Create Netty UDP pipeline with DnsHandler attached.
+   * Handles bootstrapping the DNS socket and setting up the pipeline for the {@code DnsHandler}.
+   * The contents of this closure are complimentary to the setup which occurs in {@link DNSBootstrapper#start()}, but are specific to UDP.
+   *
+   * A similar (but not identical) TCP pipeline can be created.
+   *
+   * @see DNSBootstrapper#start()
+   * @see DNSBootstrapper#stop()
+   */
+  def public static udpServer = {
+    DatagramChannelFactory f = new NioDatagramChannelFactory(Executors.newCachedThreadPool());
+    ConnectionlessBootstrap b = new ConnectionlessBootstrap(f);
+    b.setPipelineFactory(new ChannelPipelineFactory() {
+      public ChannelPipeline getPipeline() throws Exception {
+        ChannelPipeline p = Channels.pipeline();
+        p.addLast("dns-server", new DnsHandler());
+        return p;
+      }
+    });
+    //networkInterface
+    b.setOption("tcpNoDelay", true);
+    b.setOption("receiveBufferSize", 1048576);
+    b.setOption("broadcast", "false");
+    b.setOption("receiveBufferSizePredictor", new FixedReceiveBufferSizePredictor(1024));
+    Capabilities.runWithCapabilities({
+      b.bind(new InetSocketAddress(53));
+    })
+  }
+
+
+}

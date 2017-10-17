@@ -1,0 +1,86 @@
+default_attributes:
+  eucalyptus:
+    default-img-url: http://images.objectstorage.cloud.qa1.eucalyptus-systems.com:8773/precise-server-cloudimg-amd64-disk1.img
+    dns:
+      domain: c-13.autoqa.qa1.eucalyptus-systems.com
+    enterprise-repo: http://packages.release.eucalyptus-systems.com/yum/tags/enterprise-devel/centos/7/x86_64/
+    euca2ools-repo: http://packages.release.eucalyptus-systems.com/yum/tags/euca2ools-devel/centos/7/x86_64/
+    eucalyptus-repo: http://packages.release.eucalyptus-systems.com/yum/tags/eucalyptus-devel/centos/7/x86_64/
+    imaging-vm-type: m1.medium
+    init-script-url: http://git.qa1.eucalyptus-systems.com/qa-repos/eucalele/raw/master/deploy-helpers/scripts/network-interfaces.sh
+    install-service-image: 'true'
+    install-type: packages
+    nc:
+      max-cores: 32
+    network:
+      bridge-interface: br0
+      bridged-nic: em1
+      config-json:
+        Clusters:
+        - Name: evo
+          PrivateIps:
+          - 10.111.76.94
+          - 10.111.76.95
+          - 10.111.76.96
+          - 10.111.76.97
+          - 10.111.76.98
+          - 10.111.76.99
+          - 10.111.76.100
+          - 10.111.76.101
+          - 10.111.76.102
+          - 10.111.76.103
+          - 10.111.76.104
+          - 10.111.76.105
+          - 10.111.76.106
+          - 10.111.76.111
+          - 10.111.76.112
+          - 10.111.76.113
+          Subnet:
+            Gateway: 10.111.0.1
+            Name: 10.111.0.0
+            Netmask: 255.255.0.0
+            Subnet: 10.111.0.0
+        InstanceDnsServers: &id001
+        - 10.111.1.220
+        Mode: EDGE
+        PublicIps:
+        - 10.111.75.255
+        - 10.111.75.235
+        - 10.111.76.0
+        - 10.111.76.1
+        - 10.111.76.2
+        - 10.111.76.3
+        - 10.111.76.4
+        - 10.111.76.5
+        - 10.111.76.70
+        - 10.111.76.71
+        - 10.111.76.72
+        - 10.111.76.73
+        - 10.111.76.74
+        - 10.111.76.75
+        - 10.111.76.76
+        - 10.111.76.77
+      dns-server: 10.111.1.220
+      mode: EDGE
+      nc-router: N
+      private-interface: br0
+      public-interface: br0
+    source-branch: master
+    source-repo: ssh://repo-euca@git.eucalyptus-systems.com/internal
+    system-properties:
+      cloud.euca_log_level: DEBUG
+      cloudformation.url_domain_whitelist: '*s3.amazonaws.com, git.qa1.eucalyptus-systems.com'
+    topology:
+      clc-1: 10.111.1.69
+      clusters:
+        evo:
+          cc-1: 10.111.1.66
+          das-device: vg01
+          nodes: 10.111.1.125 10.111.5.178
+          sc-1: 10.111.1.66
+          storage-backend: das
+      user-facing: *id001
+      walrus: 10.111.1.209
+    yum-options: --nogpg
+description: Eucalyptus CI Testing
+name: hspencer-4554

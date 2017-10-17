@@ -1,0 +1,40 @@
+diff --git a/clc/modules/module-inc.xml b/clc/modules/module-inc.xml
+index ed416a1..13d03d6 100644
+--- a/clc/modules/module-inc.xml
++++ b/clc/modules/module-inc.xml
+@@ -79,6 +79,7 @@
+ 	</loadfile>
+ 	<property name="euca.etc.dir" value="${euca.home}/etc/eucalyptus" />
+ 	<property name="euca.conf.dir" value="${euca.home}/etc/eucalyptus/cloud.d" />
++	<property name="euca.fault.dir" value="${euca.home}/share/eucalyptus/faults/" />
+ 	<property name="euca.lib.dir" value="${euca.home}/usr/share/eucalyptus" />
+ 	<property name="euca.var.dir" value="${euca.home}/var/lib/eucalyptus" />
+ 	<property name="euca.run.dir" value="${euca.home}/var/run/eucalyptus" />
+@@ -91,6 +92,7 @@
+ 	<property name="src.dir" value="${basedir}/src/main/java" />
+ 	<property name="test.dir" value="${basedir}/src/test/java" />
+ 	<property name="conf.dir" value="${basedir}/conf" />
++	<property name="fault.dir" value="${basedir}/faults" />
+ 	<property name="rsrc.dir" value="${basedir}/src/main/resources" />
+ 	<property name="target.dir" value="${project.basedir}/target" />
+ 	<property name="jar.file" value="${target.dir}/${ant.project.name}-${euca.version}.jar" />
+@@ -147,6 +149,7 @@
+ 	<target name="build-mkdirs">
+ 		<mkdir dir="${build.dir}" />
+ 		<mkdir dir="${conf.dir}" />
++		<mkdir dir="${fault.dir}" />
+ 		<mkdir dir="${rsrc.dir}" />
+ 		<mkdir dir="${test.dir}" />
+ 		<mkdir dir="${src.dir}" />
+@@ -235,6 +238,11 @@
+ 		</jar>
+ 	</target>
+ 	<target name="install">
++		<copy todir="${DESTDIR}${euca.fault.dir}">
++			<fileset dir="${fault.dir}">
++				<include name="**/*" />
++			</fileset>
++		</copy>
+ 		<copy todir="${DESTDIR}${euca.conf.dir}">
+ 			<fileset dir="conf">
+ 				<include name="**/*" />

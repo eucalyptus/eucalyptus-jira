@@ -1,0 +1,65 @@
+{
+
+
+  "ldap-service":{
+
+
+    "server-url":"ldap://10.104.1.211",
+    "auth-method":"simple",
+    "user-auth-method":"simple",
+    "auth-principal":"cn=Directory Manager,dc=stankonia,dc=com",
+    "auth-credentials":"{RSA/ECB/PKCS1Padding}YLdPthDTuNYHYiiDpijMzhmrYwGnPLs8+7B4dlxgFgQM9QVHVKVMHLEH3+PvfRhX+nHQb9JuCF85TjRa6vNKnPTRLN6uA5hkyJt+c/f0IvF0mIFedEVhSdr8ginevqKPBaUs3iaGgNJVcbv8hWlUrIctDidkYYnC38YMhdpthq9gGKhDhL+D1jzQVvlQ5Ad7kLMS8UsnlWCOqdXq22FeUYfMOyZwtbBgzVndgB4rUwjZ2r+Vs7mb5CspuJRGGN47JRxoqPd87inPH7f1r3zUAQJquCnTFXZQq5fH33yCTAB1MD/Yq4UoDMK9INv5oGP3IB6CHmDYC4RtQf3HUvFmfw==",
+    "use-ssl":"false",
+    "ignore-ssl-cert-validation":"false",
+  },
+
+  "sync":{
+
+
+    "enable":"true",
+    "auto":"true",
+    "interval":"90000",
+    "clean-deletion":"false",
+  },
+
+  "groups-partition":{
+
+    "account1":["user01", "user02", "user03", "user04", "user05", "user06", "user07", "user08", "user09", "user10"],
+    "account2":["user11", "user12", "user13", "user14", "user15", "user16", "user17", "user18", "user19", "user20"],
+    "account3":["user21", "user22", "user23", "user24", "user25", "user26", "user27", "user28", "user29", "user30"],
+    "account4":["all"],
+
+  },
+
+  "groups":{
+
+
+    "base-dn":"ou=groups,dc=msjackson,dc=stankonia,dc=com",
+    "id-attribute":"cn",
+    "member-attribute":"memberUid",
+    "member-item-type":"identity",
+    "selection":{
+
+
+        "filter":"(&(objectClass=posixGroup)(cn=*))",
+    }
+  },
+
+  "users":{
+
+
+    "base-dn":"ou=people,dc=msjackson,dc=stankonia,dc=com",
+    "id-attribute":"uid",
+    "sasl-id-attribute":"uid",
+    "user-info-attributes":{
+        "displayName":"Full Name",
+        "title":"Title",
+        "mail":"Email"
+    },
+    "selection":{
+
+
+        "filter":"(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(mail=*))",
+    }
+  },
+}

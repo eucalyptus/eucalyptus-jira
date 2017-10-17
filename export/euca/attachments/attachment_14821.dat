@@ -1,0 +1,263 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.autoscaling.AmazonAutoScaling;
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient;
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeletePolicyRequest;
+import com.amazonaws.services.autoscaling.model.DescribePoliciesRequest;
+import com.amazonaws.services.autoscaling.model.DescribePoliciesResult;
+import com.amazonaws.services.autoscaling.model.PutScalingPolicyRequest;
+import com.amazonaws.services.autoscaling.model.PutScalingPolicyResult;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.ComparisonOperator;
+import com.amazonaws.services.cloudwatch.model.DeleteAlarmsRequest;
+import com.amazonaws.services.cloudwatch.model.PutMetricAlarmRequest;
+import com.amazonaws.services.cloudwatch.model.Statistic;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.Filter;
+
+/**
+ * This application tests listing CloudWatch alarms associated with auto scaling policies.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-5465
+ */
+public class TestAutoScalingDescribePolicyAlarms {
+
+    private final String host;
+    private final String accessKey;
+    private final String secretKey;
+
+  public static void main( String[] args ) throws Exception {
+    final TestAutoScalingDescribePolicyAlarms test =  new TestAutoScalingDescribePolicyAlarms(
+        "192.168.51.86",
+        "KSAVICOUYH7J49SHWJB1N",
+        "M4ROuY3jXWTqgy2X1nza6yP2MLxytDvTZI4hgmtE"
+    );
+    test.test();
+  }
+
+  public TestAutoScalingDescribePolicyAlarms( final String host,
+                                              final String accessKey,
+                                              final String secretKey ) {
+    this.host = host;
+    this.accessKey = accessKey;
+    this.secretKey = secretKey;
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials( accessKey, secretKey );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://" + host + ":8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( ) {
+    final AmazonAutoScaling as = new AmazonAutoScalingClient( credentials() );
+    as.setEndpoint( cloudUri( "/services/AutoScaling/" ) );
+    return as;
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private AmazonCloudWatch getCwClient( ) {
+    final AmazonCloudWatch cw = new AmazonCloudWatchClient( credentials() );
+    cw.setEndpoint( cloudUri( "/services/CloudWatch/" ) );
+    return cw;
+  }
+
+  private String instanceType() {
+    return "m1.small";
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  public void test() throws Exception{
+    final AmazonAutoScaling as = getAutoScalingClient();
+    final AmazonEC2 ec2 = getEc2Client();
+    final AmazonCloudWatch cw = getCwClient();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 0, "Availability zone not found" );
+
+    final String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    print( "Using availability zone: " + availabilityZone );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Register cleanup for launch config
+      final String configName = namePrefix + "PolicyAlarmTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting launch configuration: " + configName );
+          as.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest().withLaunchConfigurationName( configName ) );
+        }
+      } );
+
+      // Create launch configuration
+      print( "Creating launch configuration: " + configName );
+      as.createLaunchConfiguration( new CreateLaunchConfigurationRequest()
+          .withLaunchConfigurationName( configName )
+          .withImageId( imageId )
+          .withInstanceType( instanceType() ) );
+
+      // Register cleanup for auto scaling group
+      final String groupName = namePrefix + "PolicyAlarmTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting group: " + groupName );
+          as.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest().withAutoScalingGroupName( groupName ).withForceDelete( true ) );
+        }
+      } );
+
+      // Create scaling group
+      print( "Creating auto scaling group: " + groupName );
+      as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+          .withAutoScalingGroupName( groupName )
+          .withLaunchConfigurationName( configName )
+          .withMinSize( 0 )
+          .withMaxSize( 1 )
+          .withAvailabilityZones( availabilityZone )
+      );
+
+      // Register cleanup for auto scaling group
+      final String policyName = namePrefix + "PolicyAlarmTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting policy: " + policyName );
+          as.deletePolicy( new DeletePolicyRequest().withAutoScalingGroupName( groupName ).withPolicyName( policyName ) );
+        }
+      } );
+
+      // Create policy
+      print( "Creating auto scaling policy " + policyName );
+      final PutScalingPolicyResult putScalingPolicyResult =
+        as.putScalingPolicy( new PutScalingPolicyRequest()
+            .withAutoScalingGroupName( groupName )
+            .withPolicyName( policyName )
+            .withAdjustmentType( "ExactCapacity" )
+            .withScalingAdjustment( 0 ) );
+      final String policyArn = putScalingPolicyResult.getPolicyARN();
+      print( "Using policy ARN: " + policyArn );
+
+      // Register cleanup for metric alarm
+      final String alarmName = namePrefix + "PolicyAlarmTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting alarm: " + policyName );
+          cw.deleteAlarms( new DeleteAlarmsRequest().withAlarmNames( alarmName ) );
+        }
+      } );
+
+      // Create alarm
+      print( "Creating alarm " + alarmName );
+      cw.putMetricAlarm( new PutMetricAlarmRequest()
+          .withAlarmName( alarmName )
+          .withAlarmActions( policyArn )
+          .withNamespace( "namespace" )
+          .withMetricName( "metric" )
+          .withComparisonOperator( ComparisonOperator.GreaterThanThreshold )
+          .withEvaluationPeriods( 60 )
+          .withStatistic( Statistic.Average )
+          .withThreshold( 100d )
+          .withPeriod( 60 )
+          .withActionsEnabled( false ) );
+
+      // Describe policy and check for alarm info
+      print( "Describing policies for group to check for alarm." );
+      final DescribePoliciesResult describePoliciesResult =
+          as.describePolicies( new DescribePoliciesRequest().withAutoScalingGroupName( groupName ) );
+      print( describePoliciesResult.toString() );
+      assertThat( describePoliciesResult.getScalingPolicies()!=null, "Expected scaling policies" );
+      assertThat( describePoliciesResult.getScalingPolicies().size()==1, "Expected one scaling policy" );
+      assertThat( describePoliciesResult.getScalingPolicies().get( 0 ) != null, "Expected scaling policy" );
+      assertThat( policyArn.equals( describePoliciesResult.getScalingPolicies().get( 0 ).getPolicyARN() ), "Unexpected policy ARN" );
+      assertThat( describePoliciesResult.getScalingPolicies().get( 0 ).getAlarms()!=null, "Expected alarms" );
+      assertThat( describePoliciesResult.getScalingPolicies().get( 0 ).getAlarms().size()==1, "Expected one alarm" );
+      assertThat( describePoliciesResult.getScalingPolicies().get( 0 ).getAlarms().get( 0 ) != null, "Expected alarm" );
+      assertThat( alarmName.equals( describePoliciesResult.getScalingPolicies().get( 0 ).getAlarms().get( 0 ).getAlarmName() ), "Unexpected alarm name" );
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+}

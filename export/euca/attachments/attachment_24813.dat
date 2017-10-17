@@ -1,0 +1,115 @@
+diff --git a/clc/modules/object-storage-common/src/main/java/com/eucalyptus/objectstorage/client/EucaS3Client.groovy b/clc/modules/object-storage-common/src/main/java/com/eucalyptus/objectstorage/client/EucaS3Client.groovy
+index a109d89..ef7e709 100644
+--- a/clc/modules/object-storage-common/src/main/java/com/eucalyptus/objectstorage/client/EucaS3Client.groovy
++++ b/clc/modules/object-storage-common/src/main/java/com/eucalyptus/objectstorage/client/EucaS3Client.groovy
+@@ -30,9 +30,15 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream
+ import com.amazonaws.util.Md5Utils
+ import com.eucalyptus.auth.principal.User
+ import com.eucalyptus.util.EucalyptusCloudException
++import com.google.common.cache.CacheBuilder
++import com.google.common.cache.CacheLoader
++import com.google.common.cache.LoadingCache
+ import groovy.transform.CompileStatic
+ import org.apache.xml.security.utils.Base64
+ 
++import java.util.concurrent.Callable
++import java.util.concurrent.TimeUnit
++
+ /**
+  * This is how any internal eucalyptus component should get an s3 client and use it for object-storage access.
+  */
+@@ -84,48 +90,56 @@ class EucaS3Client implements AmazonS3 {
+         this.s3Client.setEndpoint(GenericS3ClientFactory.getRandomOSGUri().toASCIIString());
+     }
+ 
+-    public String getObjectContent(String bucket, String key) {
++  private static LoadingCache<String, String> objectContentCache = CacheBuilder.newBuilder().maximumSize(10000L).expireAfterAccess(60, TimeUnit.MINUTES).build() as LoadingCache<String, String>;
++
++
++  public String getObjectContent(final String bucket, final String key) {
++    return objectContentCache.get(bucket + '/' + key, new Callable<String>() {
++      @Override
++      String call() throws Exception {
++        final byte[] buffer = new byte[10 * 1024]; //64k buffer
+         S3ObjectInputStream contentStream = null;
+-        byte[] buffer = new byte[10*1024]; //10k buffer
+         int readBytes;
+         ByteArrayOutputStream contentBytes = new ByteArrayOutputStream(buffer.length);
+         try {
+-            S3Object manifest = s3Client.getObject(bucket, key);
+-            contentStream = manifest.getObjectContent();
+-            while((readBytes = contentStream.read(buffer)) > 0) {
+-                contentBytes.write(buffer, 0, readBytes);
+-            }
+-            return contentBytes.toString("UTF-8");
++          S3Object manifest = s3Client.getObject(bucket, key);
++          contentStream = manifest.getObjectContent();
++          while ((readBytes = contentStream.read(buffer)) > 0) {
++            contentBytes.write(buffer, 0, readBytes);
++          }
++          return contentBytes.toString("UTF-8");
+         } finally {
+-            if(contentStream != null) {
+-                contentStream.close();
+-            }
++          if (contentStream != null) {
++            contentStream.close();
++          }
+         }
++      }
++    });
++  }
++
++  /**
++   * Returns the etag, verifies content by md5
++   * @param bucket
++   * @param key
++   * @param content
++   * @return
++   * @throws EucalyptusCloudException
++   */
++  public String putObjectContent(String bucket, String key, String content, Map<String, String> metadata) {
++    byte[] contentBytes = content.getBytes("UTF-8");
++    byte[] md5 = Md5Utils.computeMD5Hash(contentBytes);
++    ObjectMetadata objMetadata = new ObjectMetadata();
++    if (metadata != null) {
++      metadata.each { it ->
++        Map.Entry<String, String> entry = ((Map.Entry<String, String>) it);
++        objMetadata.addUserMetadata(entry.getKey(), entry.getValue());
++      }
+     }
+ 
+-    /**
+-     * Returns the etag, verifies content by md5
+-     * @param bucket
+-     * @param key
+-     * @param content
+-     * @return
+-     * @throws EucalyptusCloudException
+-     */
+-    public String putObjectContent(String bucket, String key, String content, Map<String, String> metadata) {
+-        byte[] contentBytes = content.getBytes("UTF-8");
+-        byte[] md5 = Md5Utils.computeMD5Hash(contentBytes);
+-        ObjectMetadata objMetadata = new ObjectMetadata();
+-        if(metadata != null) {
+-            metadata.each { it ->
+-                Map.Entry<String,String> entry = ((Map.Entry<String,String>)it);
+-                objMetadata.addUserMetadata(entry.getKey(), entry.getValue());
+-            }
+-        }
+-
+-        String base64Md5 = Base64.encode(md5);
+-        objMetadata.setContentMD5(base64Md5);
+-        ByteArrayInputStream contentStream = new ByteArrayInputStream(contentBytes);
+-        PutObjectResult result = s3Client.putObject(bucket, key, contentStream, objMetadata);
+-        return result.getETag();
+-    }
+-}
+\ No newline at end of file
++    String base64Md5 = Base64.encode(md5);
++    objMetadata.setContentMD5(base64Md5);
++    ByteArrayInputStream contentStream = new ByteArrayInputStream(contentBytes);
++    PutObjectResult result = s3Client.putObject(bucket, key, contentStream, objMetadata);
++    return result.getETag();
++  }
++}

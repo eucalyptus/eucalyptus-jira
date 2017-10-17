@@ -1,0 +1,18 @@
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java
+index 73ca87f..addfa10 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java
+@@ -419,7 +419,11 @@ public class Volumes {
+         return State.GENERATING;
+       }
+     } else if ( State.ANNIHILATING.equals( volumeState ) ) {
+-      return State.ANNIHILATING;
++      if ("deleted".equals(storageState) ) {
++        return State.ANNIHILATED;
++      } else {
++        return State.ANNIHILATING;
++      }
+     } else if ( !State.ANNIHILATING.equals( volumeState ) && !State.BUSY.equals( volumeState ) ) {
+       if ("failed".equals(storageState) ) {
+         return State.FAIL;
+

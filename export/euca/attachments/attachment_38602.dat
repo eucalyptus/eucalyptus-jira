@@ -1,0 +1,314 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Cloudformation template creating Security Group with 50 rules",
+  "Resources": {
+    "MySecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "My Security Group",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1001",
+            "IpProtocol": "tcp",
+            "ToPort": "1001"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1002",
+            "IpProtocol": "tcp",
+            "ToPort": "1002"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1003",
+            "IpProtocol": "tcp",
+            "ToPort": "1003"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1004",
+            "IpProtocol": "tcp",
+            "ToPort": "1004"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1005",
+            "IpProtocol": "tcp",
+            "ToPort": "1005"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1006",
+            "IpProtocol": "tcp",
+            "ToPort": "1006"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1007",
+            "IpProtocol": "tcp",
+            "ToPort": "1007"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1008",
+            "IpProtocol": "tcp",
+            "ToPort": "1008"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1009",
+            "IpProtocol": "tcp",
+            "ToPort": "1009"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1010",
+            "IpProtocol": "tcp",
+            "ToPort": "1010"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1011",
+            "IpProtocol": "tcp",
+            "ToPort": "1011"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1012",
+            "IpProtocol": "tcp",
+            "ToPort": "1012"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1013",
+            "IpProtocol": "tcp",
+            "ToPort": "1013"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1014",
+            "IpProtocol": "tcp",
+            "ToPort": "1014"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1015",
+            "IpProtocol": "tcp",
+            "ToPort": "1015"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1016",
+            "IpProtocol": "tcp",
+            "ToPort": "1016"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1017",
+            "IpProtocol": "tcp",
+            "ToPort": "1017"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1018",
+            "IpProtocol": "tcp",
+            "ToPort": "1018"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1019",
+            "IpProtocol": "tcp",
+            "ToPort": "1019"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1020",
+            "IpProtocol": "tcp",
+            "ToPort": "1020"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1021",
+            "IpProtocol": "tcp",
+            "ToPort": "1021"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1022",
+            "IpProtocol": "tcp",
+            "ToPort": "1022"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1023",
+            "IpProtocol": "tcp",
+            "ToPort": "1023"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1024",
+            "IpProtocol": "tcp",
+            "ToPort": "1024"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1025",
+            "IpProtocol": "tcp",
+            "ToPort": "1025"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1026",
+            "IpProtocol": "tcp",
+            "ToPort": "1026"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1027",
+            "IpProtocol": "tcp",
+            "ToPort": "1027"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1028",
+            "IpProtocol": "tcp",
+            "ToPort": "1028"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1029",
+            "IpProtocol": "tcp",
+            "ToPort": "1029"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1030",
+            "IpProtocol": "tcp",
+            "ToPort": "1030"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1031",
+            "IpProtocol": "tcp",
+            "ToPort": "1031"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1032",
+            "IpProtocol": "tcp",
+            "ToPort": "1032"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1033",
+            "IpProtocol": "tcp",
+            "ToPort": "1033"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1034",
+            "IpProtocol": "tcp",
+            "ToPort": "1034"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1035",
+            "IpProtocol": "tcp",
+            "ToPort": "1035"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1036",
+            "IpProtocol": "tcp",
+            "ToPort": "1036"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1037",
+            "IpProtocol": "tcp",
+            "ToPort": "1037"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1038",
+            "IpProtocol": "tcp",
+            "ToPort": "1038"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1039",
+            "IpProtocol": "tcp",
+            "ToPort": "1039"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1040",
+            "IpProtocol": "tcp",
+            "ToPort": "1040"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1041",
+            "IpProtocol": "tcp",
+            "ToPort": "1041"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1042",
+            "IpProtocol": "tcp",
+            "ToPort": "1042"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1043",
+            "IpProtocol": "tcp",
+            "ToPort": "1043"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1044",
+            "IpProtocol": "tcp",
+            "ToPort": "1044"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1045",
+            "IpProtocol": "tcp",
+            "ToPort": "1045"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1046",
+            "IpProtocol": "tcp",
+            "ToPort": "1046"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1047",
+            "IpProtocol": "tcp",
+            "ToPort": "1047"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1048",
+            "IpProtocol": "tcp",
+            "ToPort": "1048"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1049",
+            "IpProtocol": "tcp",
+            "ToPort": "1049"
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "1050",
+            "IpProtocol": "tcp",
+            "ToPort": "1050"
+          }
+        ]
+      }
+    }
+  }
+}

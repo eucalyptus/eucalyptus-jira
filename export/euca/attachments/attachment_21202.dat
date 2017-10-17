@@ -1,0 +1,124 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+/**
+ * This application tests SWF workflow timers.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-9812
+ */
+class TestSWFValidation {
+
+  private final String host;
+  private final AWSCredentialsProvider credentials;
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFValidation( '10.111.5.9', 'AKIKKAPBDOUPTBZPMPKK', 'mPjeuNy8pSgWfSaD6CUcdJR8kPHOu8L9zRz3vMg0' ).test( )
+  }
+
+  public TestSWFValidation( String host,
+                            String accessKey,
+                            String secretKey ) {
+    this.host = host
+    this.credentials = new StaticCredentialsProvider( new BasicAWSCredentials( accessKey, secretKey ) )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        [
+            " ${namePrefix}domain",
+            "${namePrefix}domain ",
+            "${namePrefix}domarn",
+            "${namePrefix}domain/a",
+            "${namePrefix}domain:a",
+            "",
+            "${namePrefix}domainiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        ].each { String domainName ->
+          try {
+            print("Attempting to register invalid domain ${domainName}")
+            registerDomain(new RegisterDomainRequest(
+                name: domainName,
+                description: 'test domain',
+                workflowExecutionRetentionPeriodInDays: 1))
+            cleanupTasks.add {
+              print("Deprecating domain ${domainName}")
+              deprecateDomain(new DeprecateDomainRequest(name: domainName))
+            }
+            assertThat( false, "Expected registration failure for invalid domain: ${domainName}")
+          } catch( AmazonServiceException e ) {
+            println( e.toString( ) )
+            assertThat( 'ValidationError' == e.errorCode, "Expected ValidationError code, but was: ${e.errorCode}" )
+          }
+        }
+
+        try {
+          String domainName = "${namePrefix}domain"
+          print("Attempting to register domain ${domainName} with invalid retention period")
+          registerDomain(new RegisterDomainRequest(
+              name: domainName,
+              description: 'test domain',
+              workflowExecutionRetentionPeriodInDays: -1))
+          cleanupTasks.add {
+            print("Deprecating domain ${domainName}")
+            deprecateDomain(new DeprecateDomainRequest(name: domainName))
+          }
+        } catch( AmazonServiceException e ) {
+          println(e.toString())
+          assertThat('ValidationError' == e.errorCode, "Expected ValidationError code, but was: ${e.errorCode}")
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

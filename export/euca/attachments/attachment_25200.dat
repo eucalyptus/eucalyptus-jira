@@ -1,0 +1,43 @@
+{
+    "Version":"2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "autoscaling:*",
+            "Resource": "arn:aws:autoscaling:*::autoScalingGroup:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "cloudformation:*",
+            "Resource": "arn:aws:cloudformation:*::stack/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "cloudwatch:*",
+            "Resource": "arn:aws:cloudwatch:*::alarm:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "arn:aws:ec2:*::instance/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "elasticloadbalancing:*",
+            "Resource": "arn:aws:elasticloadbalancing:*::loadbalancer/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "simpleworkflow:*",
+            "Resource": "arn:aws:swf:::/domain/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::*",
+                "arn:aws:s3:::*/*"
+            ]
+        }
+    ]
+}

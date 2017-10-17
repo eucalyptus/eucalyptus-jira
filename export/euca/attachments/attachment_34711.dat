@@ -1,0 +1,55 @@
+{
+  "Resources" : {
+    "MySecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription" : "Security Group with Ingress Rule for MyInstance",
+        "SecurityGroupIngress" : [
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "22",
+            "ToPort" : "22",
+            "CidrIp" : "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    "MyBucket" : {
+      "Type":"AWS::S3::Bucket",
+      "Properties" : {
+        "BucketName" : "my-named-bucket",
+        "AccessControl" : "PublicRead"
+      }
+    },
+    "IamUser": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "CfnInit",
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "cloudformation:DescribeStackResource"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "MyKey": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": {
+        "UserName": {
+          "Ref": "IamUser"
+        }
+      }
+    }
+  }
+}

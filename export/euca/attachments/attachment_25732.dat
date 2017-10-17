@@ -1,0 +1,94 @@
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventRecord.java b/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventRecord.java
+index 0d9cf1e..d48f967 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventRecord.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/records/EventRecord.java
+@@ -81,8 +81,8 @@ public class EventRecord extends BaseMessage {
+   
+   private static Record create( final Class component, final EventClass eventClass, final EventType eventName, final String other, int dist ) {
+     BaseMessage msg = tryForMessage( );
+-    StackTraceElement[] stack = Thread.currentThread( ).getStackTrace( );
+-    StackTraceElement ste = stack[dist+3<stack.length?dist+3:stack.length-1];
++//    StackTraceElement[] stack = Thread.currentThread( ).getStackTrace( );
++//    StackTraceElement ste = stack[dist+3<stack.length?dist+3:stack.length-1];
+     String userFn = Bootstrap.isFinished( ) ? "" : "bootstrap";
+     try {
+       Context ctx = Contexts.lookup( msg.getCorrelationId( ) );
+@@ -90,7 +90,7 @@ public class EventRecord extends BaseMessage {
+     } catch ( Exception ex ) {
+     }
+     
+-    return new LogFileRecord( eventClass, eventName, component, ste, userFn, msg.getCorrelationId( ), other );
++    return new LogFileRecord( eventClass, eventName, component, null, userFn, msg.getCorrelationId( ), other );
+   }
+ 
+   public static Record here( final Class component, final EventClass eventClass, final EventType eventName, final String... other ) {
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/system/Threads.java b/clc/modules/msgs/src/main/java/com/eucalyptus/system/Threads.java
+index 73bee50..7d7a207 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/system/Threads.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/system/Threads.java
+@@ -263,7 +263,7 @@ public class Threads {
+         ? Executors.newCachedThreadPool( this )
+         : Executors.newFixedThreadPool( this.numThreads, this );
+       if ( newPool instanceof ThreadPoolExecutor ) {
+-        ( ( ThreadPoolExecutor ) newPool ).setRejectedExecutionHandler( new ThreadPoolExecutor.CallerRunsPolicy( ) );
++        ( ( ThreadPoolExecutor ) newPool ).setRejectedExecutionHandler( new ThreadPoolExecutor.AbortPolicy() );
+       }
+       return newPool;
+     }
+@@ -565,22 +565,27 @@ public class Threads {
+     return Collections2.filter( Arrays.asList( Thread.currentThread( ).getStackTrace( ) ), filter );
+   }
+ 
++  private static final StackTraceElement stackTraceElement =
++  new StackTraceElement( Threads.class.getCanonicalName(), "currentStackFrame", "DUMMY", 1 );
+   public static StackTraceElement currentStackFrame( final int offset ) {
+-    final StackTraceElement[] stack = Thread.currentThread( ).getStackTrace( );
+-    final int len = stack.length;
+-    return stack[Ints.min(len-1, 2 + offset)];
++    return stackTraceElement;
++//    final StackTraceElement[] stack = Thread.currentThread( ).getStackTrace( );
++//    final int len = stack.length;
++//    return stack[Ints.min(len-1, 2 + offset)];
+   }
+   
+   public static StackTraceElement currentStackFrame( ) {
+-    return Thread.currentThread( ).getStackTrace( )[2];
++    return stackTraceElement;
++//    return Thread.currentThread( ).getStackTrace( )[2];
+   }
+   
+   public static String currentStackRange( int start, int end ) {
+-    final StackTraceElement[] stack = Thread.currentThread( ).getStackTrace( );
+-    final int len = stack.length;
+-    start = Ints.min( Ints.max( 2, start + 2 ), len - 1 );
+-    end = Ints.min( Ints.max( 2, end  + 2), len - 1 );
+-    return Joiner.on( "\t\n" ).join( Arrays.copyOfRange( stack, start, end ) );
++    return stackTraceElement.toString();
++//    final StackTraceElement[] stack = Thread.currentThread( ).getStackTrace( );
++//    final int len = stack.length;
++//    start = Ints.min( Ints.max( 2, start + 2 ), len - 1 );
++//    end = Ints.min( Ints.max( 2, end  + 2), len - 1 );
++//    return Joiner.on( "\t\n" ).join( Arrays.copyOfRange( stack, start, end ) );
+   }
+   
+   public static String currentStackString( ) {
+@@ -679,12 +684,18 @@ public class Threads {
+         try {
+           final FutureTask<?> futureTask = this.msgQueue.take( );
+           if ( futureTask != null ) {
+-            Logs.extreme( ).debug( EventType.QUEUE + " " + ( this.currentTask = futureTask ) + " " + Thread.currentThread( ).getName( ) );
++            this.currentTask = futureTask;
++            long start = System.nanoTime();
+             try {
+               futureTask.run( );
+             } catch ( final Exception ex ) {
+               Exceptions.maybeInterrupted( ex );
+               Logs.extreme( ).error( ex, ex );
++            } finally {
++              LOG.info( EventType.QUEUE + " " + this.key()
++                        + " len=" + this.msgQueue.size()
++                        + " msec=" + TimeUnit.NANOSECONDS.toMillis( System.nanoTime() - start )
++                        + " task=" + futureTask);
+             }
+           }
+         } catch ( final InterruptedException e ) {

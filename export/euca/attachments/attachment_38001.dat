@@ -1,0 +1,1465 @@
+============
+On CLC host:
+
+root@g-19-10 QL44_Ceph_CLC 02:43:41  ~
+# euca-describe-volumes
+VOLUME  vol-72ea8b83    10              one     available       2017-01-18T03:29:56.966Z        standard
+
+root@g-19-10 QL44_Ceph_CLC 02:43:43  ~
+# euca-create-snapshot vol-72ea8b83
+SNAPSHOT        snap-ac5662c8   vol-72ea8b83    pending 2017-01-19T10:43:53.093Z        000967954148    10
+
+root@g-19-10 QL44_Ceph_CLC 02:43:54  ~
+# euca-describe-snapshots
+SNAPSHOT        snap-ac5662c8   vol-72ea8b83    pending 2017-01-19T10:43:53.093Z        25%     000967954148    10
+
+root@g-19-10 QL44_Ceph_CLC 02:44:03  ~
+# euca-describe-snapshots
+SNAPSHOT        snap-ac5662c8   vol-72ea8b83    pending 2017-01-19T10:43:53.093Z        25%     000967954148    10
+
+root@g-19-10 QL44_Ceph_CLC 02:45:00  ~
+# euca-describe-snapshots
+SNAPSHOT        snap-ac5662c8   vol-72ea8b83    completed       2017-01-19T10:43:53.093Z        100%    000967954148    10
+
+==========================
+On UFS+SC+CC+Walrus host where Ceph rbd is installed:
+
+root@d-18 QL44_Ceph_UFS_etc 03:08:42  ~/bin
+# cat snap.sh
+#!/bin/bash
+set -x
+RBDCMD="rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring"
+POOL=$1
+VOLUME=$2
+SNAP=$3
+CLONE=$4
+PREVSNAP=$5
+DIFFPATH=/var/tmp/snap-$VOLUME-$PREVSNAP-$SNAP.diff
+$RBDCMD snap create $POOL/$VOLUME@$SNAP
+echo $? returned from snap create $POOL/$VOLUME@$SNAP
+#$RBDCMD snap protect $POOL/$VOLUME@$SNAP
+#$RBDCMD clone $POOL/$VOLUME@$SNAP $POOL/$CLONE
+$RBDCMD export-diff $POOL/$VOLUME@$SNAP $DIFFPATH --from-snap $PREVSNAP
+echo $? returned from export-diff $POOL/$VOLUME@$SNAP
+/bin/rm $DIFFPATH
+
+root@d-18 QL44_Ceph_UFS_etc 03:09:05  ~/bin
+# cat snaps.sh
+#!/bin/bash
+set -x
+POOL=$1
+VOLUME=$2
+SNAPSTART=$3
+SNAPEND=$4
+PARALLEL=$5
+if [ -n "$PARALLEL" ]; then
+  echo Will run commands in parallel
+else
+  echo Will run commands serially
+fi
+PREVSNAP=$(($SNAPSTART-1))
+for SNAP in $(seq $(($SNAPSTART)) $SNAPEND); do
+  COMMAND="snap.sh $POOL $VOLUME manual-snap-$SNAP manual-clone-$SNAP manual-snap-$PREVSNAP"
+  if [ -n "$PARALLEL" ]; then
+    $COMMAND &
+  else
+    $COMMAND
+  fi
+  PREVSNAP=$SNAP
+done
+
+------------------- Create the first snapshot manually
+
+root@d-18 QL44_Ceph_UFS_etc 03:12:00  ~/bin
+# rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap ls eucaqa_vol/vol-72ea8b83                                    SNAPID NAME                     SIZE
+  8729 sp-for-snap-ac5662c8 10240 MB
+
+root@d-18 QL44_Ceph_UFS_etc 03:12:06  ~/bin
+# rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-1                  
+root@d-18 QL44_Ceph_UFS_etc 03:12:27  ~/bin
+# rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap ls eucaqa_vol/vol-72ea8b83
+SNAPID NAME                     SIZE
+  8729 sp-for-snap-ac5662c8 10240 MB
+  8763 manual-snap-1        10240 MB
+
+------------------- Create snapshots 2 - 10 serially, no errors returned.
+
+root@d-18 QL44_Ceph_UFS_etc 03:12:29  ~/bin
+# snaps.sh eucaqa_vol vol-72ea8b83 2 10
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAPSTART=2
++ SNAPEND=10
++ PARALLEL=
++ '[' -n '' ']'
++ echo Will run commands serially
+Will run commands serially
++ PREVSNAP=1
+++ seq 2 10
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-2 manual-clone-2 manual-snap-1'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-2 manual-clone-2 manual-snap-1
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-2
++ CLONE=manual-clone-2
++ PREVSNAP=manual-snap-1
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-1-manual-snap-2.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-2
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-2
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-2
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-2 /var/tmp/snap-vol-72ea8b83-manual-snap-1-manual-snap-2.diff --from-snap manual-snap-1
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-2
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-2
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-1-manual-snap-2.diff
++ PREVSNAP=2
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-3 manual-clone-3 manual-snap-2'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-3 manual-clone-3 manual-snap-2
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-3
++ CLONE=manual-clone-3
++ PREVSNAP=manual-snap-2
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-2-manual-snap-3.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-3
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-3
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-3
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-3 /var/tmp/snap-vol-72ea8b83-manual-snap-2-manual-snap-3.diff --from-snap manual-snap-2
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-3
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-3
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-2-manual-snap-3.diff
++ PREVSNAP=3
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-4 manual-clone-4 manual-snap-3'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-4 manual-clone-4 manual-snap-3
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-4
++ CLONE=manual-clone-4
++ PREVSNAP=manual-snap-3
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-3-manual-snap-4.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-4
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-4
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-4
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-4 /var/tmp/snap-vol-72ea8b83-manual-snap-3-manual-snap-4.diff --from-snap manual-snap-3
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-4
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-4
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-3-manual-snap-4.diff
++ PREVSNAP=4
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-5 manual-clone-5 manual-snap-4'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-5 manual-clone-5 manual-snap-4
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-5
++ CLONE=manual-clone-5
++ PREVSNAP=manual-snap-4
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-4-manual-snap-5.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-5
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-5
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-5
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-5 /var/tmp/snap-vol-72ea8b83-manual-snap-4-manual-snap-5.diff --from-snap manual-snap-4
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-5
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-5
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-4-manual-snap-5.diff
++ PREVSNAP=5
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-6 manual-clone-6 manual-snap-5'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-6 manual-clone-6 manual-snap-5
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-6
++ CLONE=manual-clone-6
++ PREVSNAP=manual-snap-5
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-5-manual-snap-6.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-6
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-6
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-6
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-6 /var/tmp/snap-vol-72ea8b83-manual-snap-5-manual-snap-6.diff --from-snap manual-snap-5
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-6
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-6
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-5-manual-snap-6.diff
++ PREVSNAP=6
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-7 manual-clone-7 manual-snap-6'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-7 manual-clone-7 manual-snap-6
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-7
++ CLONE=manual-clone-7
++ PREVSNAP=manual-snap-6
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-6-manual-snap-7.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-7
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-7
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-7
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-7 /var/tmp/snap-vol-72ea8b83-manual-snap-6-manual-snap-7.diff --from-snap manual-snap-6
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-7
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-7
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-6-manual-snap-7.diff
++ PREVSNAP=7
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-8 manual-clone-8 manual-snap-7'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-8 manual-clone-8 manual-snap-7
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-8
++ CLONE=manual-clone-8
++ PREVSNAP=manual-snap-7
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-7-manual-snap-8.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-8
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-8
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-8
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-8 /var/tmp/snap-vol-72ea8b83-manual-snap-7-manual-snap-8.diff --from-snap manual-snap-7
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-8
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-8
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-7-manual-snap-8.diff
++ PREVSNAP=8
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-9 manual-clone-9 manual-snap-8'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-9 manual-clone-9 manual-snap-8
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-9
++ CLONE=manual-clone-9
++ PREVSNAP=manual-snap-8
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-8-manual-snap-9.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-9
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-9
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-9
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-9 /var/tmp/snap-vol-72ea8b83-manual-snap-8-manual-snap-9.diff --from-snap manual-snap-8
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-9
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-9
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-8-manual-snap-9.diff
++ PREVSNAP=9
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-10 manual-clone-10 manual-snap-9'
++ '[' -n '' ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-10 manual-clone-10 manual-snap-9
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-10
++ CLONE=manual-clone-10
++ PREVSNAP=manual-snap-9
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-9-manual-snap-10.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-10
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-10
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-10
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-10 /var/tmp/snap-vol-72ea8b83-manual-snap-9-manual-snap-10.diff --from-snap manual-snap-9
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-10
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-10
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-9-manual-snap-10.diff
++ PREVSNAP=10
+
+------------------- Create snapshots 11 - 20 in parallel, just the snapshot
+                    create followed by the export-diff, no protect/clone
+                    steps. Errors returned on 5 of the 10!
+
+root@d-18 QL44_Ceph_UFS_etc 03:13:49  ~/bin
+# snaps.sh eucaqa_vol vol-72ea8b83 11 20 parallel
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAPSTART=11
++ SNAPEND=20
++ PARALLEL=parallel
++ '[' -n parallel ']'
++ echo Will run commands in parallel
+Will run commands in parallel
++ PREVSNAP=10
+++ seq 11 20
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-11 manual-clone-11 manual-snap-10'
++ '[' -n parallel ']'
++ PREVSNAP=11
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-12 manual-clone-12 manual-snap-11'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-11 manual-clone-11 manual-snap-10
++ PREVSNAP=12
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-13 manual-clone-13 manual-snap-12'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-12 manual-clone-12 manual-snap-11
++ PREVSNAP=13
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-14 manual-clone-14 manual-snap-13'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-13 manual-clone-13 manual-snap-12
++ PREVSNAP=14
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-15 manual-clone-15 manual-snap-14'
++ '[' -n parallel ']'
++ PREVSNAP=15
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-16 manual-clone-16 manual-snap-15'
++ '[' -n parallel ']'
++ PREVSNAP=16
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-17 manual-clone-17 manual-snap-16'
++ '[' -n parallel ']'
++ PREVSNAP=17
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-18 manual-clone-18 manual-snap-17'
++ '[' -n parallel ']'
++ PREVSNAP=18
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-19 manual-clone-19 manual-snap-18'
++ '[' -n parallel ']'
++ PREVSNAP=19
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-20 manual-clone-20 manual-snap-19'
++ '[' -n parallel ']'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-11
++ CLONE=manual-clone-11
++ PREVSNAP=manual-snap-10
++ PREVSNAP=20
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-10-manual-snap-11.diff
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-11
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-12
++ CLONE=manual-clone-12
++ PREVSNAP=manual-snap-11
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-11-manual-snap-12.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-12
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-15 manual-clone-15 manual-snap-14
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-13
++ CLONE=manual-clone-13
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-16 manual-clone-16 manual-snap-15
++ PREVSNAP=manual-snap-12
+
+root@d-18 QL44_Ceph_UFS_etc 03:22:02  ~/bin
+# + DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-12-manual-snap-13.diff
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-18 manual-clone-18 manual-snap-17
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-14 manual-clone-14 manual-snap-13
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-13
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-17 manual-clone-17 manual-snap-16
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-15
++ CLONE=manual-clone-15
++ PREVSNAP=manual-snap-14
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-14-manual-snap-15.diff
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-15
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-16
++ CLONE=manual-clone-16
++ PREVSNAP=manual-snap-15
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-15-manual-snap-16.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-16
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-20 manual-clone-20 manual-snap-19
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-19 manual-clone-19 manual-snap-18
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-18
++ CLONE=manual-clone-18
++ PREVSNAP=manual-snap-17
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-17-manual-snap-18.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-18
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-19
++ CLONE=manual-clone-19
++ PREVSNAP=manual-snap-18
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-18-manual-snap-19.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-19
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-14
++ SNAP=manual-snap-17
++ CLONE=manual-clone-14
++ CLONE=manual-clone-17
++ PREVSNAP=manual-snap-13
++ PREVSNAP=manual-snap-16
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-13-manual-snap-14.diff
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-16-manual-snap-17.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-14
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-17
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-20
++ CLONE=manual-clone-20
++ PREVSNAP=manual-snap-19
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-19-manual-snap-20.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-20
+2017-01-19 03:22:04.706822 7fba643047c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:04.708923 7f9d6b20a7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:04.711133 7fe0b29267c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:04.713470 7f4aad0427c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:04.715690 7f4fd68a57c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-17
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-17
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-17 /var/tmp/snap-vol-72ea8b83-manual-snap-16-manual-snap-17.diff --from-snap manual-snap-16
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (2) No such file or directory
++ echo 2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-17
+2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-17
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-16-manual-snap-17.diff
+2017-01-19 03:22:05.572395 7fad707737c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:05.577585 7fd31ae5f7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-19
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-19
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-19 /var/tmp/snap-vol-72ea8b83-manual-snap-18-manual-snap-19.diff --from-snap manual-snap-18
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-16
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-16
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-16 /var/tmp/snap-vol-72ea8b83-manual-snap-15-manual-snap-16.diff --from-snap manual-snap-15
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (2) No such file or directory
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (2) No such file or directory
++ echo 2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-16
+2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-16
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-15-manual-snap-16.diff
++ echo 2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-19
+2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-19
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-18-manual-snap-19.diff
+2017-01-19 03:22:06.586952 7f4aad0427c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:06.591654 7f4fd68a57c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:06.597062 7fba643047c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:06.604774 7f9d6b20a7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-15
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-15
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-15 /var/tmp/snap-vol-72ea8b83-manual-snap-14-manual-snap-15.diff --from-snap manual-snap-14
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (2) No such file or directory
++ echo 2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-15
+2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-15
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-14-manual-snap-15.diff
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-20
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-20
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-20 /var/tmp/snap-vol-72ea8b83-manual-snap-19-manual-snap-20.diff --from-snap manual-snap-19
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-13
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-13
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-13 /var/tmp/snap-vol-72ea8b83-manual-snap-12-manual-snap-13.diff --from-snap manual-snap-12
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (2) No such file or directory
++ echo 2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-13
+2 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-13
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-12-manual-snap-13.diff
+2017-01-19 03:22:08.736038 7f9d6b20a7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:22:08.764146 7fba643047c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-11
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-11
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-11 /var/tmp/snap-vol-72ea8b83-manual-snap-10-manual-snap-11.diff --from-snap manual-snap-10
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-12
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-12
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-12 /var/tmp/snap-vol-72ea8b83-manual-snap-11-manual-snap-12.diff --from-snap manual-snap-11
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-18
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-18
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-18 /var/tmp/snap-vol-72ea8b83-manual-snap-17-manual-snap-18.diff --from-snap manual-snap-17
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-14
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-14
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-14 /var/tmp/snap-vol-72ea8b83-manual-snap-13-manual-snap-14.diff --from-snap manual-snap-13
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-20
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-20
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-19-manual-snap-20.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-12
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-12
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-11-manual-snap-12.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-11
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-11
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-10-manual-snap-11.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-14
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-14
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-13-manual-snap-14.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-18
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-18
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-17-manual-snap-18.diff
+
+
+root@d-18 QL44_Ceph_UFS_etc 03:23:11  ~/bin
+# vi snap.sh
+
+root@d-18 QL44_Ceph_UFS_etc 03:23:58  ~/bin
+# rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap ls eucaqa_vol/vol-72ea8b83
+SNAPID NAME                     SIZE
+  8729 sp-for-snap-ac5662c8 10240 MB
+  8763 manual-snap-1        10240 MB
+  8764 manual-snap-2        10240 MB
+  8765 manual-snap-3        10240 MB
+  8766 manual-snap-4        10240 MB
+  8767 manual-snap-5        10240 MB
+  8768 manual-snap-6        10240 MB
+  8769 manual-snap-7        10240 MB
+  8770 manual-snap-8        10240 MB
+  8771 manual-snap-9        10240 MB
+  8772 manual-snap-10       10240 MB
+  8778 manual-snap-17       10240 MB
+  8781 manual-snap-19       10240 MB
+  8782 manual-snap-16       10240 MB
+  8793 manual-snap-15       10240 MB
+  8795 manual-snap-20       10240 MB
+  8796 manual-snap-13       10240 MB
+  8803 manual-snap-11       10240 MB
+  8804 manual-snap-12       10240 MB
+  8807 manual-snap-18       10240 MB
+  8808 manual-snap-14       10240 MB
+
+------------------- Create snapshots 21 - 50 in parallel, including the
+                    protect/clone steps as Euca does. Errors returned on 
+                    14 of the 30!
+
+root@d-18 QL44_Ceph_UFS_etc 03:24:12  ~/bin
+# cat snap.sh
+#!/bin/bash
+set -x
+RBDCMD="rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring"
+POOL=$1
+VOLUME=$2
+SNAP=$3
+CLONE=$4
+PREVSNAP=$5
+DIFFPATH=/var/tmp/snap-$VOLUME-$PREVSNAP-$SNAP.diff
+$RBDCMD snap create $POOL/$VOLUME@$SNAP
+echo $? returned from snap create $POOL/$VOLUME@$SNAP
+$RBDCMD snap protect $POOL/$VOLUME@$SNAP
+echo $? returned from snap protect $POOL/$VOLUME@$SNAP
+$RBDCMD clone $POOL/$VOLUME@$SNAP $POOL/$CLONE
+echo $? returned from clone $POOL/$VOLUME@$SNAP
+$RBDCMD export-diff $POOL/$VOLUME@$SNAP $DIFFPATH --from-snap $PREVSNAP
+echo $? returned from export-diff $POOL/$VOLUME@$SNAP
+/bin/rm $DIFFPATH
+
+root@d-18 QL44_Ceph_UFS_etc 03:24:23  ~/bin
+# snaps.sh eucaqa_vol vol-72ea8b83 21 30 parallel
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAPSTART=21
++ SNAPEND=30
++ PARALLEL=parallel
++ '[' -n parallel ']'
++ echo Will run commands in parallel
+Will run commands in parallel
++ PREVSNAP=20
+++ seq 21 30
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-21 manual-clone-21 manual-snap-20'
++ '[' -n parallel ']'
++ PREVSNAP=21
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-22 manual-clone-22 manual-snap-21'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-21 manual-clone-21 manual-snap-20
++ PREVSNAP=22
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-23 manual-clone-23 manual-snap-22'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-22 manual-clone-22 manual-snap-21
++ PREVSNAP=23
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-24 manual-clone-24 manual-snap-23'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-23 manual-clone-23 manual-snap-22
++ PREVSNAP=24
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-25 manual-clone-25 manual-snap-24'
++ '[' -n parallel ']'
++ PREVSNAP=25
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-26 manual-clone-26 manual-snap-25'
++ '[' -n parallel ']'
++ PREVSNAP=26
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-27 manual-clone-27 manual-snap-26'
++ '[' -n parallel ']'
++ PREVSNAP=27
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-28 manual-clone-28 manual-snap-27'
++ '[' -n parallel ']'
++ PREVSNAP=28
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-29 manual-clone-29 manual-snap-28'
++ '[' -n parallel ']'
++ PREVSNAP=29
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-30 manual-clone-30 manual-snap-29'
++ '[' -n parallel ']'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-21
++ CLONE=manual-clone-21
++ PREVSNAP=manual-snap-20
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-20-manual-snap-21.diff
++ PREVSNAP=30
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-21
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-22
++ CLONE=manual-clone-22
++ PREVSNAP=manual-snap-21
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-21-manual-snap-22.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-22
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-25 manual-clone-25 manual-snap-24
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-24 manual-clone-24 manual-snap-23
+
+root@d-18 QL44_Ceph_UFS_etc 03:24:32  ~/bin
+# + snap.sh eucaqa_vol vol-72ea8b83 manual-snap-27 manual-clone-27 manual-snap-26
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-23
++ CLONE=manual-clone-23
++ PREVSNAP=manual-snap-22
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-22-manual-snap-23.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-23
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-26 manual-clone-26 manual-snap-25
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-24
++ CLONE=manual-clone-24
++ PREVSNAP=manual-snap-23
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-23-manual-snap-24.diff
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-27
++ CLONE=manual-clone-27
++ PREVSNAP=manual-snap-26
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-26-manual-snap-27.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-27
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-29 manual-clone-29 manual-snap-28
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-24
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-30 manual-clone-30 manual-snap-29
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-28 manual-clone-28 manual-snap-27
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-26
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-29
++ CLONE=manual-clone-26
++ PREVSNAP=manual-snap-25
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-25-manual-snap-26.diff
++ CLONE=manual-clone-29
++ PREVSNAP=manual-snap-28
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-28-manual-snap-29.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-29
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-26
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-25
++ CLONE=manual-clone-25
++ PREVSNAP=manual-snap-24
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-24-manual-snap-25.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-25
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-28
++ POOL=eucaqa_vol
++ CLONE=manual-clone-28
++ PREVSNAP=manual-snap-27
++ VOLUME=vol-72ea8b83
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-27-manual-snap-28.diff
++ SNAP=manual-snap-30
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-28
++ CLONE=manual-clone-30
++ PREVSNAP=manual-snap-29
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-29-manual-snap-30.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-30
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-30
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-30
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-30
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-23
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-23
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-23
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-25
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-25
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-25
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-24
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-24
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-24
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-28
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-28
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-28
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-22
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-22
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-22
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-29
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-29
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-29
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-26
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-26
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-26
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-30
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-30
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-30 eucaqa_vol/manual-clone-30
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-21
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-21
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-21
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-23
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-23
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-23 eucaqa_vol/manual-clone-23
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-25
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-25
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-25 eucaqa_vol/manual-clone-25
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-24
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-24
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-24 eucaqa_vol/manual-clone-24
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-25
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-25
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-25 /var/tmp/snap-vol-72ea8b83-manual-snap-24-manual-snap-25.diff --from-snap manual-snap-24
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-27
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-27
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-27
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-23
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-23
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-23 /var/tmp/snap-vol-72ea8b83-manual-snap-22-manual-snap-23.diff --from-snap manual-snap-22
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-30
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-30
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-30 /var/tmp/snap-vol-72ea8b83-manual-snap-29-manual-snap-30.diff --from-snap manual-snap-29
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-24
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-24
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-24 /var/tmp/snap-vol-72ea8b83-manual-snap-23-manual-snap-24.diff --from-snap manual-snap-23
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-30
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-30
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-29-manual-snap-30.diff
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-22
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-22
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-22 eucaqa_vol/manual-clone-22
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-26
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-26
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-26 eucaqa_vol/manual-clone-26
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-28
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-28
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-28 eucaqa_vol/manual-clone-28
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-29
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-29
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-29 eucaqa_vol/manual-clone-29
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-21
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-21
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-21 eucaqa_vol/manual-clone-21
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-27
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-27
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-27 eucaqa_vol/manual-clone-27
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-23
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-23
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-22-manual-snap-23.diff
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-26
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-26
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-26 /var/tmp/snap-vol-72ea8b83-manual-snap-25-manual-snap-26.diff --from-snap manual-snap-25
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-22
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-22
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-22 /var/tmp/snap-vol-72ea8b83-manual-snap-21-manual-snap-22.diff --from-snap manual-snap-21
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-29
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-29
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-29 /var/tmp/snap-vol-72ea8b83-manual-snap-28-manual-snap-29.diff --from-snap manual-snap-28
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-21
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-21
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-21 /var/tmp/snap-vol-72ea8b83-manual-snap-20-manual-snap-21.diff --from-snap manual-snap-20
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-28
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-28
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-28 /var/tmp/snap-vol-72ea8b83-manual-snap-27-manual-snap-28.diff --from-snap manual-snap-27
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-25
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-25
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-24-manual-snap-25.diff
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-22
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-22
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-21-manual-snap-22.diff
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-27
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-27
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-27 /var/tmp/snap-vol-72ea8b83-manual-snap-26-manual-snap-27.diff --from-snap manual-snap-26
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-28
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-28
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-27-manual-snap-28.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-24
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-24
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-23-manual-snap-24.diff
+Exporting image: 100% complete...done.
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-26
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-26
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-25-manual-snap-26.diff
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-29
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-29
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-28-manual-snap-29.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-21
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-21
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-20-manual-snap-21.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-27
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-27
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-26-manual-snap-27.diff
+
+
+root@d-18 QL44_Ceph_UFS_etc 03:27:08  ~/bin
+#
+
+root@d-18 QL44_Ceph_UFS_etc 03:27:08  ~/bin
+# snaps.sh eucaqa_vol vol-72ea8b83 31 50 parallel
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAPSTART=31
++ SNAPEND=50
++ PARALLEL=parallel
++ '[' -n parallel ']'
++ echo Will run commands in parallel
+Will run commands in parallel
++ PREVSNAP=30
+++ seq 31 50
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-31 manual-clone-31 manual-snap-30'
++ '[' -n parallel ']'
++ PREVSNAP=31
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-32 manual-clone-32 manual-snap-31'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-31 manual-clone-31 manual-snap-30
++ PREVSNAP=32
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-33 manual-clone-33 manual-snap-32'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-32 manual-clone-32 manual-snap-31
++ PREVSNAP=33
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-34 manual-clone-34 manual-snap-33'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-33 manual-clone-33 manual-snap-32
++ PREVSNAP=34
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-35 manual-clone-35 manual-snap-34'
++ '[' -n parallel ']'
++ PREVSNAP=35
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-36 manual-clone-36 manual-snap-35'
++ '[' -n parallel ']'
++ PREVSNAP=36
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-37 manual-clone-37 manual-snap-36'
++ '[' -n parallel ']'
++ PREVSNAP=37
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-38 manual-clone-38 manual-snap-37'
++ '[' -n parallel ']'
++ PREVSNAP=38
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-39 manual-clone-39 manual-snap-38'
++ '[' -n parallel ']'
++ PREVSNAP=39
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-40 manual-clone-40 manual-snap-39'
++ '[' -n parallel ']'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-31
++ CLONE=manual-clone-31
++ PREVSNAP=manual-snap-30
++ PREVSNAP=40
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-30-manual-snap-31.diff
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-41 manual-clone-41 manual-snap-40'
++ '[' -n parallel ']'
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-31
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-32
++ CLONE=manual-clone-32
++ PREVSNAP=manual-snap-31
++ PREVSNAP=41
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-31-manual-snap-32.diff
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-42 manual-clone-42 manual-snap-41'
++ '[' -n parallel ']'
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-32
++ PREVSNAP=42
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-43 manual-clone-43 manual-snap-42'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-35 manual-clone-35 manual-snap-34
++ POOL=eucaqa_vol
++ '[' -n parallel ']'
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-33
++ CLONE=manual-clone-33
++ PREVSNAP=manual-snap-32
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-32-manual-snap-33.diff
++ PREVSNAP=43
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-33
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-44 manual-clone-44 manual-snap-43'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-38 manual-clone-38 manual-snap-37
++ PREVSNAP=44
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-45 manual-clone-45 manual-snap-44'
++ '[' -n parallel ']'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-36 manual-clone-36 manual-snap-35
++ PREVSNAP=45
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-46 manual-clone-46 manual-snap-45'
++ '[' -n parallel ']'
++ PREVSNAP=46
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-47 manual-clone-47 manual-snap-46'
++ '[' -n parallel ']'
++ PREVSNAP=47
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-48 manual-clone-48 manual-snap-47'
++ '[' -n parallel ']'
++ PREVSNAP=48
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-49 manual-clone-49 manual-snap-48'
++ '[' -n parallel ']'
++ PREVSNAP=49
++ for SNAP in '$(seq $(($SNAPSTART)) $SNAPEND)'
++ COMMAND='snap.sh eucaqa_vol vol-72ea8b83 manual-snap-50 manual-clone-50 manual-snap-49'
++ '[' -n parallel ']'
++ PREVSNAP=50
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-35
++ CLONE=manual-clone-35
++ PREVSNAP=manual-snap-34
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-34-manual-snap-35.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-35
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-34 manual-clone-34 manual-snap-33
+
+root@d-18 QL44_Ceph_UFS_etc 03:29:14  ~/bin
+# + snap.sh eucaqa_vol vol-72ea8b83 manual-snap-40 manual-clone-40 manual-snap-39
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-39 manual-clone-39 manual-snap-38
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-38
++ CLONE=manual-clone-38
++ PREVSNAP=manual-snap-37
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-37-manual-snap-38.diff
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-45 manual-clone-45 manual-snap-44
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-37 manual-clone-37 manual-snap-36
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-34
++ CLONE=manual-clone-34
++ PREVSNAP=manual-snap-33
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-33-manual-snap-34.diff
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-39
++ CLONE=manual-clone-39
++ PREVSNAP=manual-snap-38
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-38-manual-snap-39.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-39
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-49 manual-clone-49 manual-snap-48
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-47 manual-clone-47 manual-snap-46
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-37
++ CLONE=manual-clone-37
++ PREVSNAP=manual-snap-36
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-36-manual-snap-37.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-37
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-42 manual-clone-42 manual-snap-41
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-43 manual-clone-43 manual-snap-42
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-38
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-50 manual-clone-50 manual-snap-49
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-46 manual-clone-46 manual-snap-45
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-34
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-40
++ CLONE=manual-clone-40
++ PREVSNAP=manual-snap-39
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-39-manual-snap-40.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-40
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-48 manual-clone-48 manual-snap-47
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-36
++ CLONE=manual-clone-36
++ PREVSNAP=manual-snap-35
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-35-manual-snap-36.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-36
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-49
++ CLONE=manual-clone-49
++ PREVSNAP=manual-snap-48
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-48-manual-snap-49.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-49
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-42
++ CLONE=manual-clone-42
++ PREVSNAP=manual-snap-41
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-41-manual-snap-42.diff
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-42
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-47
++ CLONE=manual-clone-47
++ PREVSNAP=manual-snap-46
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-46-manual-snap-47.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-47
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-44 manual-clone-44 manual-snap-43
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-48
++ CLONE=manual-clone-48
++ PREVSNAP=manual-snap-47
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-47-manual-snap-48.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-48
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-45
++ CLONE=manual-clone-45
++ PREVSNAP=manual-snap-44
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-44-manual-snap-45.diff
++ snap.sh eucaqa_vol vol-72ea8b83 manual-snap-41 manual-clone-41 manual-snap-40
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-45
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-44
++ CLONE=manual-clone-44
++ PREVSNAP=manual-snap-43
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-43-manual-snap-44.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-44
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-41
++ CLONE=manual-clone-41
++ PREVSNAP=manual-snap-40
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-40-manual-snap-41.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-41
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ RBDCMD='rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring'
++ POOL=eucaqa_vol
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-43
++ SNAP=manual-snap-50
++ CLONE=manual-clone-43
++ CLONE=manual-clone-50
++ PREVSNAP=manual-snap-42
++ PREVSNAP=manual-snap-49
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-42-manual-snap-43.diff
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-49-manual-snap-50.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-43
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-50
++ POOL=eucaqa_vol
++ VOLUME=vol-72ea8b83
++ SNAP=manual-snap-46
++ CLONE=manual-clone-46
++ PREVSNAP=manual-snap-45
++ DIFFPATH=/var/tmp/snap-vol-72ea8b83-manual-snap-45-manual-snap-46.diff
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap create eucaqa_vol/vol-72ea8b83@manual-snap-46
+2017-01-19 03:29:19.947847 7f4e15ab17c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:21.969906 7ff38c4817c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:21.973305 7f13028357c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:21.977059 7fbf305947c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:21.980799 7f0aae9617c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:23.244214 7fc8771aa7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:23.641056 7f91464cb7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:23.645503 7f4a3fcee7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:23.648363 7f6ac289d7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
+2017-01-19 03:29:24.474917 7f13028357c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-46
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-46
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-46
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-43
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-43
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-43
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-36
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-36
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-36
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-35
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-35
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-35
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-50
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-50
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-50
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-31
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-31
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-31
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-49
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-49
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-49
+2017-01-19 03:29:28.204003 7f13028357c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-34
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-34
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-34
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-38
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-38
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-38
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-41
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-41
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-41
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-42
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-42
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-42
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-47
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-47
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-47
+2017-01-19 03:29:33.098511 7f4a3fcee7c0 -1 librbd: adding snapshot to header failed: (116) Stale file handle
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-39
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-39
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-39
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-44
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-44
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-44
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-45
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-45
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-45
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-33
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-33
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-33
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-40
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-40
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-40
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-37
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-37
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-37
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-43
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-43
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-43 eucaqa_vol/manual-clone-43
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-32
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-32
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-32
++ echo 0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-48
+0 returned from snap create eucaqa_vol/vol-72ea8b83@manual-snap-48
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap protect eucaqa_vol/vol-72ea8b83@manual-snap-48
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-36
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-36
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-36 eucaqa_vol/manual-clone-36
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-50
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-50
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-50 eucaqa_vol/manual-clone-50
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-43
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-43
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-43 /var/tmp/snap-vol-72ea8b83-manual-snap-42-manual-snap-43.diff --from-snap manual-snap-42
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-46
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-46
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-46 eucaqa_vol/manual-clone-46
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-35
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-35
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-35 eucaqa_vol/manual-clone-35
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-31
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-31
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-31 eucaqa_vol/manual-clone-31
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-36
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-36
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-36 /var/tmp/snap-vol-72ea8b83-manual-snap-35-manual-snap-36.diff --from-snap manual-snap-35
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-50
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-50
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-50 /var/tmp/snap-vol-72ea8b83-manual-snap-49-manual-snap-50.diff --from-snap manual-snap-49
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-46
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-46
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-46 /var/tmp/snap-vol-72ea8b83-manual-snap-45-manual-snap-46.diff --from-snap manual-snap-45
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-49
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-49
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-49 eucaqa_vol/manual-clone-49
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-38
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-38
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-38 eucaqa_vol/manual-clone-38
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-39
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-39
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-39 eucaqa_vol/manual-clone-39
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-35
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-35
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-35 /var/tmp/snap-vol-72ea8b83-manual-snap-34-manual-snap-35.diff --from-snap manual-snap-34
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-45
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-45
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-45 eucaqa_vol/manual-clone-45
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-31
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-31
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-31 /var/tmp/snap-vol-72ea8b83-manual-snap-30-manual-snap-31.diff --from-snap manual-snap-30
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-34
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-34
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-34 eucaqa_vol/manual-clone-34
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-33
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-33
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-33 eucaqa_vol/manual-clone-33
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-47
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-47
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-47 eucaqa_vol/manual-clone-47
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-41
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-41
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-41 eucaqa_vol/manual-clone-41
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-40
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-40
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-40 eucaqa_vol/manual-clone-40
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-39
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-39
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-39 /var/tmp/snap-vol-72ea8b83-manual-snap-38-manual-snap-39.diff --from-snap manual-snap-38
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-44
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-44
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-44 eucaqa_vol/manual-clone-44
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-49
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-49
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-49 /var/tmp/snap-vol-72ea8b83-manual-snap-48-manual-snap-49.diff --from-snap manual-snap-48
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-42
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-42
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-42 eucaqa_vol/manual-clone-42
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-32
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-32
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-32 eucaqa_vol/manual-clone-32
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-33
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-33
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-33 /var/tmp/snap-vol-72ea8b83-manual-snap-32-manual-snap-33.diff --from-snap manual-snap-32
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-38
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-38
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-38 /var/tmp/snap-vol-72ea8b83-manual-snap-37-manual-snap-38.diff --from-snap manual-snap-37
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-34
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-34
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-34 /var/tmp/snap-vol-72ea8b83-manual-snap-33-manual-snap-34.diff --from-snap manual-snap-33
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-40
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-40
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-40 /var/tmp/snap-vol-72ea8b83-manual-snap-39-manual-snap-40.diff --from-snap manual-snap-39
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-47
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-47
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-47 /var/tmp/snap-vol-72ea8b83-manual-snap-46-manual-snap-47.diff --from-snap manual-snap-46
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-45
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-45
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-45 /var/tmp/snap-vol-72ea8b83-manual-snap-44-manual-snap-45.diff --from-snap manual-snap-44
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-37
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-37
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-37 eucaqa_vol/manual-clone-37
++ echo 0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-48
+0 returned from snap protect eucaqa_vol/vol-72ea8b83@manual-snap-48
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring clone eucaqa_vol/vol-72ea8b83@manual-snap-48 eucaqa_vol/manual-clone-48
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-41
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-41
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-41 /var/tmp/snap-vol-72ea8b83-manual-snap-40-manual-snap-41.diff --from-snap manual-snap-40
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-44
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-44
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-44 /var/tmp/snap-vol-72ea8b83-manual-snap-43-manual-snap-44.diff --from-snap manual-snap-43
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-42
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-42
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-42 /var/tmp/snap-vol-72ea8b83-manual-snap-41-manual-snap-42.diff --from-snap manual-snap-41
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-33
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-33
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-32-manual-snap-33.diff
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-49
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-49
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-48-manual-snap-49.diff
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-43
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-43
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-42-manual-snap-43.diff
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-35
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-35
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-34-manual-snap-35.diff
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-46
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-46
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-45-manual-snap-46.diff
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-37
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-37
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-37 /var/tmp/snap-vol-72ea8b83-manual-snap-36-manual-snap-37.diff --from-snap manual-snap-36
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-38
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-38
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-37-manual-snap-38.diff
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-32
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-32
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-32 /var/tmp/snap-vol-72ea8b83-manual-snap-31-manual-snap-32.diff --from-snap manual-snap-31
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-34
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-34
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-33-manual-snap-34.diff
++ echo 0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-48
+0 returned from clone eucaqa_vol/vol-72ea8b83@manual-snap-48
++ rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring export-diff eucaqa_vol/vol-72ea8b83@manual-snap-48 /var/tmp/snap-vol-72ea8b83-manual-snap-47-manual-snap-48.diff --from-snap manual-snap-47
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-41
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-41
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-40-manual-snap-41.diff
+Exporting image: 100% complete...done.
+Exporting image: 0% complete...failed.
+rbd: export-diff error: (22) Invalid argument
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-36
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-36
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-35-manual-snap-36.diff
++ echo 22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-42
+22 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-42
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-41-manual-snap-42.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-39
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-39
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-38-manual-snap-39.diff
+Exporting image: 100% complete...done.
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-45
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-45
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-44-manual-snap-45.diff
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-40
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-40
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-39-manual-snap-40.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-47
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-47
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-46-manual-snap-47.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-44
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-44
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-43-manual-snap-44.diff
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-50
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-50
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-49-manual-snap-50.diff
+Exporting image: 100% complete...done.
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-31
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-31
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-30-manual-snap-31.diff
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-37
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-37
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-36-manual-snap-37.diff
+Exporting image: 100% complete...done.
+Exporting image: 100% complete...done.
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-32
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-32
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-31-manual-snap-32.diff
++ echo 0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-48
+0 returned from export-diff eucaqa_vol/vol-72ea8b83@manual-snap-48
++ /bin/rm /var/tmp/snap-vol-72ea8b83-manual-snap-47-manual-snap-48.diff
+# rbd --id qauser --keyring /etc/ceph/ceph.client.qauser.keyring snap ls eucaqa_vol/vol-72ea8b83
+SNAPID NAME                     SIZE
+  8729 sp-for-snap-ac5662c8 10240 MB
+  8763 manual-snap-1        10240 MB
+  8764 manual-snap-2        10240 MB
+  8765 manual-snap-3        10240 MB
+  8766 manual-snap-4        10240 MB
+  8767 manual-snap-5        10240 MB
+  8768 manual-snap-6        10240 MB
+  8769 manual-snap-7        10240 MB
+  8770 manual-snap-8        10240 MB
+  8771 manual-snap-9        10240 MB
+  8772 manual-snap-10       10240 MB
+  8778 manual-snap-17       10240 MB
+  8781 manual-snap-19       10240 MB
+  8782 manual-snap-16       10240 MB
+  8793 manual-snap-15       10240 MB
+  8795 manual-snap-20       10240 MB
+  8796 manual-snap-13       10240 MB
+  8803 manual-snap-11       10240 MB
+  8804 manual-snap-12       10240 MB
+  8807 manual-snap-18       10240 MB
+  8808 manual-snap-14       10240 MB
+  8809 manual-snap-30       10240 MB
+  8810 manual-snap-23       10240 MB
+  8811 manual-snap-25       10240 MB
+  8812 manual-snap-24       10240 MB
+  8813 manual-snap-26       10240 MB
+  8814 manual-snap-28       10240 MB
+  8815 manual-snap-22       10240 MB
+  8816 manual-snap-29       10240 MB
+  8817 manual-snap-21       10240 MB
+  8818 manual-snap-27       10240 MB
+  8824 manual-snap-43       10240 MB
+  8825 manual-snap-49       10240 MB
+  8826 manual-snap-35       10240 MB
+  8827 manual-snap-46       10240 MB
+  8829 manual-snap-36       10240 MB
+  8832 manual-snap-34       10240 MB
+  8835 manual-snap-50       10240 MB
+  8836 manual-snap-31       10240 MB
+  8841 manual-snap-42       10240 MB
+  8843 manual-snap-38       10240 MB
+  8844 manual-snap-41       10240 MB
+  8845 manual-snap-47       10240 MB
+  8850 manual-snap-44       10240 MB
+  8853 manual-snap-39       10240 MB
+  8855 manual-snap-45       10240 MB
+  8857 manual-snap-33       10240 MB
+  8858 manual-snap-40       10240 MB
+  8859 manual-snap-48       10240 MB
+  8861 manual-snap-37       10240 MB
+  8862 manual-snap-32       10240 MB
+
+root@d-18 QL44_Ceph_UFS_etc 03:32:01  ~/bin
+#

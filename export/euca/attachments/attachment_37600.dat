@@ -1,0 +1,16 @@
+machine-topology:
+- cloud-components:
+  - clc
+  - cc
+  - sc
+  cluster-name: one
+- cloud-components:
+  - nc
+  cluster-name: one
+- cloud-components:
+  - ufs
+- cloud-components:
+  - midonetgw
+  - zookeeper
+  - cassandra
+network-mode: VPCMIDO

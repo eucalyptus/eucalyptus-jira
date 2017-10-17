@@ -1,0 +1,332 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Instance with many volumes attached",
+  "Parameters": {
+    "ImageId": {
+      "Description": "Image id",
+      "Type": "String",
+      "Default": "emi-d7b17cdd"
+    },
+    "Zone": {
+      "Description": "The zone to launch instances in",
+      "Type": "String",
+      "Default": "one"
+    },
+    "KeyName": {
+      "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+      "Type": "String",
+      "Default": "root",
+      "MinLength": "1",
+      "MaxLength": "64",
+      "AllowedPattern": "[-_ a-zA-Z0-9]*",
+      "ConstraintDescription": "can contain only alphanumeric characters, spaces, dashes and underscores."
+    },
+    "InstanceType": {
+      "Description": "EC2 instance type to use",
+      "Type": "String",
+      "Default": "m1.small",
+      "ConstraintDescription": "must be a valid EC2 instance type."
+    }
+  },
+  "Resources": {
+    "default": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Volume stack security group",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    "volume01": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume02": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume03": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume04": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume05": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume06": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume07": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume08": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume09": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume10": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume11": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume12": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume13": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume14": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume15": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "volume16": {
+      "Type": "AWS::EC2::Volume",
+      "Properties": {
+        "Size": "1",
+        "AvailabilityZone": {
+          "Ref": "Zone"
+        }
+      }
+    },
+    "instance" : {
+      "Type" : "AWS::EC2::Instance",            
+      "Properties" : {
+        "AvailabilityZone" : { "Ref" : "Zone" },
+        "ImageId" : { "Ref" : "ImageId" },
+        "KeyName" : { "Ref" : "KeyName" }
+      }
+    },    
+    "volumeattachment01" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdf",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume01" }
+        }
+    },    
+    "volumeattachment02" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdg",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume02" }
+        }
+    },    
+    "volumeattachment03" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdh",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume03" }
+        }
+    },    
+    "volumeattachment04" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdi",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume04" }
+        }
+    },    
+    "volumeattachment05" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdj",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume05" }
+        }
+    },    
+    "volumeattachment06" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdk",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume06" }
+        }
+    },    
+    "volumeattachment07" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdl",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume07" }
+        }
+    },    
+    "volumeattachment08" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdm",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume08" }
+        }
+    },    
+    "volumeattachment09" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdn",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume09" }
+        }
+    },    
+    "volumeattachment10" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdo",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume10" }
+        }
+    },    
+    "volumeattachment11" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdp",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume11" }
+        }
+    },    
+    "volumeattachment12" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdq",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume12" }
+        }
+    },    
+    "volumeattachment13" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdr",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume13" }
+        }
+    },    
+    "volumeattachment14" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sds",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume14" }
+        }
+    },    
+    "volumeattachment15" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdt",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume15" }
+        }
+    },    
+    "volumeattachment16" : {
+        "Type":"AWS::EC2::VolumeAttachment",
+        "Properties" : {
+            "Device" : "/dev/sdu",
+            "InstanceId" : { "Ref" : "instance" },
+            "VolumeId" : { "Ref" : "volume16" }
+        }
+    }
+  },  
+  "Outputs" : {
+    "InstanceId" : {
+      "Value" : { "Ref" : "instance" }
+    }
+  }
+}

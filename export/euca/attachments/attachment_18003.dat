@@ -1,0 +1,392 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.Request
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.auth.BasicSessionCredentials
+import com.amazonaws.handlers.AbstractRequestHandler
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.ec2.AmazonEC2
+import com.amazonaws.services.ec2.AmazonEC2Client
+import com.amazonaws.services.ec2.model.CreateKeyPairRequest
+import com.amazonaws.services.ec2.model.DeleteKeyPairRequest
+import com.amazonaws.services.ec2.model.DescribeKeyPairsRequest
+import com.amazonaws.services.ec2.model.KeyPairInfo
+import com.amazonaws.services.identitymanagement.model.CreateAccessKeyRequest
+import com.amazonaws.services.identitymanagement.model.GetRoleRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.amazonaws.services.identitymanagement.model.UpdateAssumeRolePolicyRequest
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest
+import com.github.sjones4.youcan.youare.YouAre
+import com.github.sjones4.youcan.youare.YouAreClient
+import com.github.sjones4.youcan.youare.model.Account
+import com.github.sjones4.youcan.youare.model.CreateAccountRequest
+import com.github.sjones4.youcan.youare.model.DeleteAccountRequest
+import com.github.sjones4.youcan.youconfig.YouConfig
+import com.github.sjones4.youcan.youconfig.YouConfigClient
+import com.github.sjones4.youcan.youprop.YouProp
+import com.github.sjones4.youcan.youprop.YouPropClient
+import com.github.sjones4.youcan.youprop.model.DescribePropertiesRequest
+import com.github.sjones4.youcan.youserv.YouServ
+import com.github.sjones4.youcan.youserv.YouServClient
+import groovy.transform.TypeChecked
+
+/**
+ * 
+ */
+@TypeChecked
+class TestAdminRoleDefaults {
+
+  private final String host = "10.111.5.150"
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIRJ1MYKZZ0XMFITEZC",
+      "lm3HkVe5VkZQYxCCqn3xNGwMF4H4EBsKl1w4dXl1"  ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoleDefaults().test()
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AWSCredentialsProvider getRoleCredentialsProvider( final String roleArn,
+                                                             final String sessionName,
+                                                             final AWSCredentialsProvider tokenServiceCredentials ) {
+    TestAdminRoleDefaults test = this;
+    new AWSCredentialsProvider( ){
+      AWSCredentials cachedCredentials = null
+
+      @Override
+      public AWSCredentials getCredentials() {
+        if ( cachedCredentials != null ) return cachedCredentials
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( tokenServiceCredentials  )
+        sts.setEndpoint( test.cloudUri( "/services/Tokens/" ) )
+        cachedCredentials = sts.assumeRole( new AssumeRoleRequest(
+            roleArn: roleArn,
+            roleSessionName: sessionName
+        ) ).with {
+          assumedRoleUser.with {
+            test.assertThat( assumedRoleId.endsWith( sessionName ), "Unexpected assumed role id: ${assumedRoleId}" )
+            test.assertThat( arn.endsWith( sessionName ), "Unexpected assumed role arn: ${arn}" )
+          }
+          credentials.with {
+            new BasicSessionCredentials( accessKeyId, secretAccessKey, sessionToken )
+          }
+        }
+      }
+
+      @Override
+      public void refresh() {
+        cachedCredentials = null
+      }
+    }
+  }
+
+  private YouAreClient getYouAreClient( final AWSCredentialsProvider credentials  ) {
+    final YouAreClient euare = new YouAreClient( credentials )
+    euare.setEndpoint( cloudUri( "/services/Euare/" ) )
+    euare
+  }
+
+  private AmazonEC2 getEc2Client( final AWSCredentialsProvider credentials ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials )
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) )
+    ec2
+  }
+
+  private YouServ getYouServClient( final AWSCredentialsProvider credentials ) {
+    final YouServ youServ = new YouServClient( credentials )
+    youServ.setEndpoint( cloudUri( "/services/Empyrean/" ) )
+    youServ
+  }
+
+  private YouProp getYouPropClient( final AWSCredentialsProvider credentials ) {
+    final YouProp youProp = new YouPropClient( credentials )
+    youProp.setEndpoint( cloudUri( "/services/Properties/" ) )
+    youProp
+  }
+
+  private YouConfig getYouConfigClient( final AWSCredentialsProvider credentials ) {
+    final YouConfig youProp = new YouConfigClient( credentials )
+    youProp.setEndpoint( cloudUri( "/services/Configuration/" ) )
+    youProp
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final YouAre iam = getYouAreClient( eucalyptusCredentials )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      AWSCredentialsProvider adminCredentials = null
+      iam.with {
+        // Create account to use for testing roles
+        final String accountName = "${namePrefix}admin-account1"
+        print( "Creating admin account: ${accountName}" )
+        String adminAccountNumber = createAccount( new CreateAccountRequest( accountName: accountName ) ).with {
+          account?.accountId
+        }
+        assertThat( adminAccountNumber != null, "Expected account number" )
+        print( "Created admin account with number: ${adminAccountNumber}" )
+        cleanupTasks.add {
+          print( "Deleting admin account: ${accountName}" )
+          deleteAccount( new DeleteAccountRequest( accountName: accountName, recursive: true ) )
+        }
+
+        // Update default roles to permit account
+        final String aaAssumeRolePolicy = getRole( new GetRoleRequest( roleName: "AccountAdministrator" ) ).with {
+          role?.assumeRolePolicyDocument
+        }
+        assertThat( aaAssumeRolePolicy != null, "Expected assume role policy for account administrator" )
+        cleanupTasks.add {
+          print( "Resetting assume role policy for account administrator" )
+          updateAssumeRolePolicy( new UpdateAssumeRolePolicyRequest(
+              roleName: "AccountAdministrator",
+              policyDocument: aaAssumeRolePolicy ) )
+        }
+        final String iaAssumeRolePolicy = getRole( new GetRoleRequest( roleName: "InfrastructureAdministrator" ) ).with {
+          role?.assumeRolePolicyDocument
+        }
+        assertThat( iaAssumeRolePolicy != null, "Expected assume role policy for infrastructure administrator" )
+        cleanupTasks.add {
+          print( "Resetting assume role policy for infrastructure administrator" )
+          updateAssumeRolePolicy( new UpdateAssumeRolePolicyRequest(
+              roleName: "InfrastructureAdministrator",
+              policyDocument: iaAssumeRolePolicy ) )
+        }
+        final String raAssumeRolePolicy = getRole( new GetRoleRequest( roleName: "ResourceAdministrator" ) ).with {
+          role?.assumeRolePolicyDocument
+        }
+        assertThat( raAssumeRolePolicy != null, "Expected assume role policy for resource administrator" )
+        cleanupTasks.add {
+          print( "Resetting assume role policy for resource administrator" )
+          updateAssumeRolePolicy( new UpdateAssumeRolePolicyRequest(
+              roleName: "ResourceAdministrator",
+              policyDocument: raAssumeRolePolicy ) )
+        }
+
+        print( "Updating assume role policy for default roles." )
+        final String assumeRolePolicy = """\
+          {
+              "Statement": [ {
+                "Effect": "Allow",
+                "Principal": {
+                   "AWS": [ "arn:aws:iam::${adminAccountNumber}:user/admin" ]
+                },
+                "Action": [ "sts:AssumeRole" ]
+              } ]
+          }
+        """.stripIndent();
+        updateAssumeRolePolicy( new UpdateAssumeRolePolicyRequest(
+            roleName: "AccountAdministrator",
+            policyDocument: assumeRolePolicy
+        ) )
+        updateAssumeRolePolicy( new UpdateAssumeRolePolicyRequest(
+            roleName: "InfrastructureAdministrator",
+            policyDocument: assumeRolePolicy
+        ) )
+        updateAssumeRolePolicy( new UpdateAssumeRolePolicyRequest(
+            roleName: "ResourceAdministrator",
+            policyDocument: assumeRolePolicy
+        ) )
+
+        // Get credentials for admin account
+        print( "Creating access key for admin account: ${accountName}" )
+        YouAre adminIam = getYouAreClient( eucalyptusCredentials )
+        adminIam.addRequestHandler( new AbstractRequestHandler(){
+          public void beforeRequest(final Request<?> request) {
+            request.addParameter( "DelegateAccount", accountName )
+          }
+        } )
+        adminCredentials = adminIam.with {
+          createAccessKey( new CreateAccessKeyRequest( userName: "admin" ) ).with {
+            accessKey?.with {
+              new StaticCredentialsProvider( new BasicAWSCredentials( accessKeyId, secretAccessKey ) )
+            }
+          }
+        }
+        assertThat( adminCredentials != null, "Expected admin credentials" )
+        print( "Created admin account access key: ${adminCredentials.credentials.AWSAccessKeyId}" )
+
+        void
+      }
+
+      // Test account admin role
+      String accountName = namePrefix + "account1"
+      getYouAreClient(
+          getRoleCredentialsProvider( "arn:aws:iam::eucalyptus:role/eucalyptus/AccountAdministrator", "session-name-here", adminCredentials )
+      ).with {
+        // Test account access permissions
+        print( "Creating account ${accountName}" )
+        String accountId = createAccount( new CreateAccountRequest( accountName: accountName ) ).with {
+          account?.accountId
+        }
+        assertThat( accountId != null, "Expected account ID" )
+        print( "Created account with number: ${accountId}" )
+
+        print( "Listing accounts" )
+        listAccounts( ).with {
+          assertThat(
+              !accounts.findAll{ Account account ->
+                account.accountName==accountName }.isEmpty(),
+              "Expected account: ${accountName}" )
+        }
+
+        print( "Deleting account: ${accountName}" )
+        deleteAccount( new DeleteAccountRequest( accountName: accountName, recursive: true ) )
+
+        void
+      }
+
+      iam.with {
+        // Verify account deleted
+        print( "Verifying account deleted: ${accountName}" )
+        listAccounts( ).with {
+          assertThat( accounts.findAll{ Account account ->
+            account.accountName==accountName }.isEmpty(), "Expected account deleted: ${accountName}" )
+        }
+
+        void
+      }
+
+      // Test infrastructure admin role
+      getYouPropClient(
+          getRoleCredentialsProvider( "arn:aws:iam::eucalyptus:role/eucalyptus/InfrastructureAdministrator", "session-name-here", adminCredentials )
+      ).with {
+        println( "Describing property" )
+        describeProperties( new DescribePropertiesRequest( properties: [ "www.https_port" ] ) ).properties.with {
+          assertThat( size() == 1, "Expected property" )
+        }
+
+        void
+      }
+      getYouServClient(
+          getRoleCredentialsProvider( "arn:aws:iam::eucalyptus:role/eucalyptus/InfrastructureAdministrator", "session-name-here", adminCredentials )
+      ).with {
+        println( "Describing services" )
+        describeServices( ).with {
+          assertThat( !serviceStatuses.isEmpty(), "Expected services" );
+        }
+
+        void
+      }
+
+      getYouConfigClient(
+          getRoleCredentialsProvider( "arn:aws:iam::eucalyptus:role/eucalyptus/InfrastructureAdministrator", "session-name-here", adminCredentials )
+      ).with {
+        println( "Describing components" )
+        describeComponents( ).with {
+          assertThat( !componentInfos.isEmpty(), "Expected components" );
+        }
+
+        void
+      }
+
+      // Test resource admin role
+      final String resourceAccountName = "${namePrefix}resource-account-1"
+      final String resourceAccountKeyPair = "${resourceAccountName}-keypair-1"
+      iam.with {
+        print( "Creating resource account: ${resourceAccountName}" )
+        createAccount( new CreateAccountRequest( accountName: resourceAccountName ) )
+        cleanupTasks.add {
+          print( "Deleting resource account: ${resourceAccountName}" )
+          deleteAccount( new DeleteAccountRequest( accountName: resourceAccountName, recursive: true ) )
+        }
+
+        print( "Creating credentials for resource account: ${resourceAccountName}" );
+        final AWSCredentialsProvider resourceAccountCredentials = getYouAreClient( eucalyptusCredentials ).with {
+          addRequestHandler( new AbstractRequestHandler(){
+            public void beforeRequest(final Request<?> request) {
+              request.addParameter( "DelegateAccount", resourceAccountName )
+            }
+          } )
+          createAccessKey( new CreateAccessKeyRequest( userName: "admin" ) ).with {
+            accessKey?.with {
+              new StaticCredentialsProvider( new BasicAWSCredentials(
+                  accessKeyId,
+                  secretAccessKey
+              ) )
+            }
+          }
+        }
+        assertThat( resourceAccountCredentials != null, "Expected resource account credentials" )
+
+        getEc2Client( resourceAccountCredentials ).with {
+          print( "Creating keypair in resource account: ${resourceAccountKeyPair}" );
+          createKeyPair( new CreateKeyPairRequest( keyName: resourceAccountKeyPair ) )
+          cleanupTasks.add {
+            print( "Deleting keypair in resource account: ${resourceAccountKeyPair}" );
+            deleteKeyPair( new DeleteKeyPairRequest( keyName: resourceAccountKeyPair ) )
+          }
+
+          void
+        }
+      }
+      getEc2Client(
+          getRoleCredentialsProvider( "arn:aws:iam::eucalyptus:role/eucalyptus/ResourceAdministrator", "session-name-here", adminCredentials )
+      ).with {
+        describeKeyPairs( new DescribeKeyPairsRequest().withKeyNames( "verbose" ) ).with {
+          assertThat( (keyPairs?.find { KeyPairInfo key -> key.keyName==resourceAccountKeyPair }) != null, "Expected key pair" )
+        }
+
+        void
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

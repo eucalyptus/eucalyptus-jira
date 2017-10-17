@@ -1,0 +1,341 @@
+2014-05-14 15:51:09,948 worker [INFO]:Starting daemonized worker process
+2014-05-14 15:51:11,954 worker [DEBUG]:waiting on dns and ntp setup (reboot if continued)
+2014-05-14 15:51:13,956 worker [DEBUG]:waiting on dns and ntp setup (reboot if continued)
+2014-05-14 15:51:15,959 worker [DEBUG]:waiting on dns and ntp setup (reboot if continued)
+2014-05-14 15:51:17,961 worker [DEBUG]:waiting on dns and ntp setup (reboot if continued)
+2014-05-14 22:51:20,945 worker [DEBUG]:waiting on dns and ntp setup (reboot if continued)
+2014-05-14 22:51:21,109 worker [DEBUG]:main loop running with instance_id=i-9f31ec08
+2014-05-14 22:51:21,109 worker [INFO]:Querying for new imaging task
+2014-05-14 22:51:36,357 worker [DEBUG]:(import-is-e9cd54d0) floppy disk mounted on /var/lib/eucalyptus-imaging-worker/floppy
+2014-05-14 22:51:36,451 worker [DEBUG]:(import-is-e9cd54d0) floppy disk unmounted on /var/lib/eucalyptus-imaging-worker/floppy
+2014-05-14 22:51:36,973 worker [INFO]:(import-is-e9cd54d0) Processing import task instance-store conversion task - id: import-is-e9cd54d0, bucket: euca-internal-f4aso-cirrospv-img, prefix: cirros-0.3.0-x86_64-blank.img, manifests: 
+import-image (id=eki-eb936733,format=KERNEL,manifest_url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D)
+import-image (id=eri-da1f418c,format=RAMDISK,manifest_url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D)
+import-image (id=emi-919d08ac,format=PARTITION,manifest_url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D)
+2014-05-14 22:51:36,974 worker [DEBUG]:(import-is-e9cd54d0) Running /usr/libexec/eucalyptus/euca-run-workflow down-bundle-fs/up-bundle --image-manifest-url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D --kernel-manifest-url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D --ramdisk-manifest-url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D --emi=emi-919d08ac --eki=eki-eb936733 --eri=eri-da1f418c --decryption-key-path=/var/lib/eucalyptus-imaging-worker/node-pk.pem --encryption-cert-path=/var/lib/eucalyptus-imaging-worker/cloud-cert.pem --signing-key-path=/var/lib/eucalyptus-imaging-worker/node-pk.pem --prefix=cirros-0.3.0-x86_64-blank.img --bucket=euca-internal-f4aso-cirrospv-img --work-dir=/mnt/imaging --arch=x86_64 --account=460701842572 --access-key=AKID3XACAIVXUESFUOTH --object-store-url=http://10.111.5.19:8773/services/objectstorage --upload-policy={"expiration":"2014-05-16T22:50:14.881Z","conditions":[{"bucket": "euca-internal-f4aso-cirrospv-img"},["starts-with", "$key", "cirros-0.3.0-x86_64-blank.img"],{"acl":"aws-exec-read"}]} --upload-policy-signature=zOuV57eH4eFh9qEye4JPgqK1Tyw= --cloud-cert-path=/var/lib/eucalyptus-imaging-worker/cloud-cert.pem
+2014-05-14 22:51:37,949 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: debug=True
+2014-05-14 22:51:37,950 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: cache=/mnt/imaging/euca-workflow-cache-C2GweZ
+2014-05-14 22:51:37,950 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: cache_size=2937675776
+2014-05-14 22:51:37,950 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: work=/mnt/imaging/euca-workflow-work-PBK2wQ
+2014-05-14 22:51:37,950 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: work_size=512
+2014-05-14 22:51:37,950 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: cloud_cert=/var/lib/eucalyptus-imaging-worker/cloud-cert.pem
+2014-05-14 22:51:37,950 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 set_global_parameter | GLOBAL: service_key=/var/lib/eucalyptus-imaging-worker/node-pk.pem
+2014-05-14 22:51:37,951 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 print_req | command: prepare
+2014-05-14 22:51:37,951 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 print_req | 	boot=yes
+2014-05-14 22:51:37,951 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 print_req | 	vbr=machine:emi-919d08ac:-1:none:sda1:http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D
+2014-05-14 22:51:37,951 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 print_req | 	vbr=kernel:eki-eb936733:-1:none:none:http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D
+2014-05-14 22:51:37,951 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 print_req | 	vbr=ramdisk:eri-da1f418c:-1:none:none:http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D
+2014-05-14 22:51:37,951 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 print_req | 	out=dsk-emi-919d08ac
+2014-05-14 22:51:37,952 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 prepare_validate | actions: download=yes convert=yes
+2014-05-14 22:51:37,952 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 main | verified all parameters for 1 command(s)
+2014-05-14 22:51:37,952 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 vbr_alloc_tree | [(null)] found 2 prereqs and 2 partitions/disks in the VBR
+2014-05-14 22:51:37,952 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_alloc | [prepare] allocated artifact 001|(null) size=-1 vbr=(nil) cache=0 file=0
+2014-05-14 22:51:37,952 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | downloading /tmp/http-reply-9LuObU
+2014-05-14 22:51:37,952 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D
+2014-05-14 22:51:37,953 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | writing GET output to /tmp/http-reply-9LuObU
+2014-05-14 22:51:38,052 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | wrote 2107 bytes in 2 writes
+2014-05-14 22:51:38,053 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | saved image in /tmp/http-reply-9LuObU
+2014-05-14 22:51:38,053 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_alloc | [prepare] allocated artifact 002|eki-eb936733-80f9e419 size=4731440 vbr=0x7f30f560e7e0 cache=1 file=1
+2014-05-14 22:51:38,053 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | downloading /tmp/http-reply-hzgbZz
+2014-05-14 22:51:38,053 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D
+2014-05-14 22:51:38,053 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | writing GET output to /tmp/http-reply-hzgbZz
+2014-05-14 22:51:38,132 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | wrote 2110 bytes in 2 writes
+2014-05-14 22:51:38,132 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | saved image in /tmp/http-reply-hzgbZz
+2014-05-14 22:51:38,132 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_alloc | [prepare] allocated artifact 003|eri-da1f418c-c9131c97 size=2256515 vbr=0x7f30f560fd08 cache=1 file=1
+2014-05-14 22:51:38,132 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | downloading /tmp/http-reply-3YqqZf
+2014-05-14 22:51:38,133 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D
+2014-05-14 22:51:38,133 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | writing GET output to /tmp/http-reply-3YqqZf
+2014-05-14 22:51:38,221 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | wrote 2112 bytes in 2 writes
+2014-05-14 22:51:38,221 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 http_get_timeout | saved image in /tmp/http-reply-3YqqZf
+2014-05-14 22:51:38,222 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_alloc | [prepare] allocated artifact 004|emi-919d08ac-5b0d08a9 size=25165824 vbr=0x7f30f560d2b8 cache=1 file=0
+2014-05-14 22:51:38,222 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_alloc | [prepare] allocated artifact 005|prt-00100ext3-bf42ec05 size=104857600 vbr=0x7f30f5611230 cache=1 file=0
+2014-05-14 22:51:38,222 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_alloc | [prepare] allocated artifact 006|dsk-919d08ac-746deaf0 size=130055680 vbr=0x7f30f5612758 cache=1 file=0
+2014-05-14 22:51:38,222 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_add_dep | [prepare] added to artifact 006|dsk-919d08ac-746deaf0 artifact 004|emi-919d08ac-5b0d08a9
+2014-05-14 22:51:38,223 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_add_dep | [prepare] added to artifact 006|dsk-919d08ac-746deaf0 artifact 005|prt-00100ext3-bf42ec05
+2014-05-14 22:51:38,223 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_add_dep | [prepare] added to artifact 006|dsk-919d08ac-746deaf0 artifact 002|eki-eb936733-80f9e419
+2014-05-14 22:51:38,224 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_add_dep | [prepare] added to artifact 006|dsk-919d08ac-746deaf0 artifact 003|eri-da1f418c-c9131c97
+2014-05-14 22:51:38,224 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_add_dep | [prepare] added to artifact 001| artifact 006|dsk-919d08ac-746deaf0
+2014-05-14 22:51:38,224 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_print_tree | [prepare] 001| -1 c=0 f=0 cr=(nil) vbr=(nil)
+2014-05-14 22:51:38,224 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_print_tree | [prepare] 	006|dsk-919d08ac-746deaf0 130055680 c=1 f=0 cr=0x4268a0 vbr=0x7f30f5612758
+2014-05-14 22:51:38,224 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_print_tree | [prepare] 		004|emi-919d08ac-5b0d08a9 25165824 c=1 f=0 cr=0x4261e0 vbr=0x7f30f560d2b8
+2014-05-14 22:51:38,224 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_print_tree | [prepare] 		005|prt-00100ext3-bf42ec05 104857600 c=1 f=0 cr=0x425c50 vbr=0x7f30f5611230
+2014-05-14 22:51:38,225 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_print_tree | [prepare] 		002|eki-eb936733-80f9e419 4731440 c=1 f=1 cr=0x4261e0 vbr=0x7f30f560e7e0
+2014-05-14 22:51:38,225 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_print_tree | [prepare] 		003|eri-da1f418c-c9131c97 2256515 c=1 f=1 cr=0x4261e0 vbr=0x7f30f560fd08
+2014-05-14 22:51:38,225 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 diskutil_init | found grub 1 stage files in /boot/grub
+2014-05-14 22:51:38,225 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 stat_blobstore | disk space under /mnt/imaging/euca-workflow-cache-C2GweZ
+2014-05-14 22:51:38,225 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 stat_blobstore | 002801MB limit (inf% of the file system)
+2014-05-14 22:51:38,225 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 stat_blobstore | 000000MB reserved for use (0.0% of limit)
+2014-05-14 22:51:38,226 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 stat_blobstore | 000000MB locked for use (0.0% of limit)
+2014-05-14 22:51:38,226 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 stat_blobstore | 000000MB allocated for use (0.0% of limit, -nan% of the file system)
+2014-05-14 22:51:38,226 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implementing artifact 006|dsk-emi-919d08ac
+2014-05-14 22:51:38,226 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/dsk-emi-919d08ac
+2014-05-14 22:51:38,226 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/dsk-emi-919d08ac' *.* 771
+2014-05-14 22:51:38,233 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 find_or_create_artifact | [prepare] checking work blobstore for 006|dsk-emi-919d08ac (do_create=0 ret=2)
+2014-05-14 22:51:38,233 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implementing artifact 004|emi-919d08ac-5b0d08a9
+2014-05-14 22:51:38,233 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/emi-919d08ac-5b0d08a9
+2014-05-14 22:51:38,233 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/emi-919d08ac-5b0d08a9' *.* 771
+2014-05-14 22:51:38,237 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 find_or_create_artifact | [prepare] checking work blobstore for 004|emi-919d08ac-5b0d08a9 (do_create=0 ret=2)
+2014-05-14 22:51:38,237 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/emi-919d08ac-5b0d08a9
+2014-05-14 22:51:38,237 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/emi-919d08ac-5b0d08a9' *.* 771
+2014-05-14 22:51:38,249 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-C2GweZ/emi-919d08ac-5b0d08a9/blocks
+2014-05-14 22:51:38,249 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop0 at offset 0
+2014-05-14 22:51:38,264 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] created a blob for an artifact 004|emi-919d08ac-5b0d08a9 on try 1
+2014-05-14 22:51:38,264 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 imaging_creator | [prepare] downloading http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D
+2014-05-14 22:51:38,264 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 imaging_image_by_manifes | [prepare] getting download manifest from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D
+2014-05-14 22:51:39,496 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 euca_run_workflow_parser | [prepare] download progress: 28048/28048 bytes (100.0%)
+2014-05-14 22:51:40,343 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 imaging_image_by_manifes | [prepare] downloaded and unbundled http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400125891&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=a1COR92FfEUlJ4IzaD9O3tBarfY%3D
+2014-05-14 22:51:40,343 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implemented artifact 004|emi-919d08ac-5b0d08a9 on try 1
+2014-05-14 22:51:40,344 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implementing artifact 005|prt-00100ext3-bf42ec05
+2014-05-14 22:51:40,344 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/prt-00100ext3-bf42ec05
+2014-05-14 22:51:40,344 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/prt-00100ext3-bf42ec05' *.* 771
+2014-05-14 22:51:40,347 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 find_or_create_artifact | [prepare] checking work blobstore for 005|prt-00100ext3-bf42ec05 (do_create=0 ret=2)
+2014-05-14 22:51:40,347 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/prt-00100ext3-bf42ec05
+2014-05-14 22:51:40,347 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/prt-00100ext3-bf42ec05' *.* 771
+2014-05-14 22:51:40,357 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-C2GweZ/prt-00100ext3-bf42ec05/blocks
+2014-05-14 22:51:40,357 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop1 at offset 0
+2014-05-14 22:51:40,367 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] created a blob for an artifact 005|prt-00100ext3-bf42ec05 on try 1
+2014-05-14 22:51:40,368 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 partition_creator | [prepare] mapping euca-zero device into partition prt-00100ext3-bf42ec05
+2014-05-14 22:51:40,368 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1132 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-zero' '/tmp/dmsetup.3DnuP1'
+2014-05-14 22:51:40,395 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-zero' imaging-worker.* 660
+2014-05-14 22:51:40,407 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1142 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-prt-00100ext3-bf42ec05-p0-back' '/tmp/dmsetup.i0E5V1'
+2014-05-14 22:51:40,423 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-prt-00100ext3-bf42ec05-p0-back' imaging-worker.* 660
+2014-05-14 22:51:40,435 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1150 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-prt-00100ext3-bf42ec05-p0-snap' '/tmp/dmsetup.GyTC01'
+2014-05-14 22:51:40,471 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-prt-00100ext3-bf42ec05-p0-snap' imaging-worker.* 660
+2014-05-14 22:51:40,485 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1161 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-prt-00100ext3-bf42ec05' '/tmp/dmsetup.deog81'
+2014-05-14 22:51:40,501 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-prt-00100ext3-bf42ec05' imaging-worker.* 660
+2014-05-14 22:51:40,509 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 partition_creator | [prepare] creating partition of size 104857600 bytes and type ext3 in prt-00100ext3-bf42ec05
+2014-05-14 22:51:40,889 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implemented artifact 005|prt-00100ext3-bf42ec05 on try 1
+2014-05-14 22:51:40,889 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implementing artifact 002|eki-eb936733-80f9e419
+2014-05-14 22:51:40,937 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/eki-eb936733-80f9e419
+2014-05-14 22:51:40,937 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/eki-eb936733-80f9e419' *.* 771
+2014-05-14 22:51:40,937 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 find_or_create_artifact | [prepare] checking work blobstore for 002|eki-eb936733-80f9e419 (do_create=0 ret=2)
+2014-05-14 22:51:40,937 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/eki-eb936733-80f9e419
+2014-05-14 22:51:40,938 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/eki-eb936733-80f9e419' *.* 771
+2014-05-14 22:51:40,938 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-C2GweZ/eki-eb936733-80f9e419/blocks
+2014-05-14 22:51:40,938 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop2 at offset 0
+2014-05-14 22:51:40,938 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] created a blob for an artifact 002|eki-eb936733-80f9e419 on try 1
+2014-05-14 22:51:40,938 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 imaging_creator | [prepare] downloading http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D
+2014-05-14 22:51:40,938 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 imaging_image_by_manifes | [prepare] getting download manifest from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D
+2014-05-14 22:51:42,460 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 euca_run_workflow_parser | [prepare] download progress: 4681152/4681152 bytes (100.0%)
+2014-05-14 22:51:42,516 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 imaging_image_by_manifes | [prepare] downloaded and unbundled http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400125882&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=Xwyc%2BPmUwr0TTb14yI7VRC10XE8%3D
+2014-05-14 22:51:42,516 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implemented artifact 002|eki-eb936733-80f9e419 on try 1
+2014-05-14 22:51:42,517 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implementing artifact 003|eri-da1f418c-c9131c97
+2014-05-14 22:51:42,517 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/eri-da1f418c-c9131c97
+2014-05-14 22:51:42,517 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/eri-da1f418c-c9131c97' *.* 771
+2014-05-14 22:51:42,521 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 find_or_create_artifact | [prepare] checking work blobstore for 003|eri-da1f418c-c9131c97 (do_create=0 ret=2)
+2014-05-14 22:51:42,521 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/eri-da1f418c-c9131c97
+2014-05-14 22:51:42,521 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/eri-da1f418c-c9131c97' *.* 771
+2014-05-14 22:51:42,535 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-C2GweZ/eri-da1f418c-c9131c97/blocks
+2014-05-14 22:51:42,535 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop3 at offset 0
+2014-05-14 22:51:42,539 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] created a blob for an artifact 003|eri-da1f418c-c9131c97 on try 1
+2014-05-14 22:51:42,540 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 imaging_creator | [prepare] downloading http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D
+2014-05-14 22:51:42,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 imaging_image_by_manifes | [prepare] getting download manifest from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D
+2014-05-14 22:51:44,037 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 euca_run_workflow_parser | [prepare] download progress: 2249872/2249872 bytes (100.0%)
+2014-05-14 22:51:44,086 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 imaging_image_by_manifes | [prepare] downloaded and unbundled http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-e9cd54d0-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400125886&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=BO6dHnnw7JKZepuP59uRjKm3t%2Fc%3D
+2014-05-14 22:51:44,086 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implemented artifact 003|eri-da1f418c-c9131c97 on try 1
+2014-05-14 22:51:44,086 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-C2GweZ/dsk-emi-919d08ac
+2014-05-14 22:51:44,087 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-C2GweZ/dsk-emi-919d08ac' *.* 771
+2014-05-14 22:51:44,100 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-C2GweZ/dsk-emi-919d08ac/blocks
+2014-05-14 22:51:44,100 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop4 at offset 0
+2014-05-14 22:51:44,104 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] created a blob for an artifact 006|dsk-emi-919d08ac on try 1
+2014-05-14 22:51:44,104 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] offset for the first partition will be 104889856 bytes
+2014-05-14 22:51:44,105 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] mapping partition 1 from /dev/loop0 [204863-254014]
+2014-05-14 22:51:44,105 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] mapping partition 2 from /dev/mapper/euca-prt-00100ext3-bf42ec05 [254015-458814]
+2014-05-14 22:51:44,105 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] re-mapping partition 2 from /dev/mapper/euca-prt-00100ext3-bf42ec05 [63-204862] 204800 blocks
+2014-05-14 22:51:44,105 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] constructing disk of size 234913280 bytes in dsk-emi-919d08ac (/dev/loop4)
+2014-05-14 22:51:44,112 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1283 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-dsk-emi-919d08ac-p0-back' '/tmp/dmsetup.oR5MBb'
+2014-05-14 22:51:44,126 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-dsk-emi-919d08ac-p0-back' imaging-worker.* 660
+2014-05-14 22:51:44,134 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1291 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-dsk-emi-919d08ac-p0-snap' '/tmp/dmsetup.Z92UFb'
+2014-05-14 22:51:44,150 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-dsk-emi-919d08ac-p0-snap' imaging-worker.* 660
+2014-05-14 22:51:44,162 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1300 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-dsk-emi-919d08ac' '/tmp/dmsetup.atisKb'
+2014-05-14 22:51:44,188 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-dsk-emi-919d08ac' imaging-worker.* 660
+2014-05-14 22:51:44,196 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] creating MBR
+2014-05-14 22:51:44,615 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] adding partition 1 to partition table (/dev/mapper/euca-dsk-emi-919d08ac)
+2014-05-14 22:51:44,804 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] adding partition 2 to partition table (/dev/mapper/euca-dsk-emi-919d08ac)
+2014-05-14 22:51:45,007 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] making disk bootable
+2014-05-14 22:51:45,007 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] found partition device /dev/mapper/euca-dsk-emi-919d08acp2
+2014-05-14 22:51:45,016 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /dev/mapper/euca-dsk-emi-919d08acp2
+2014-05-14 22:51:45,016 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop5 at offset 0
+2014-05-14 22:51:45,105 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] making partition 1 bootable
+2014-05-14 22:51:45,106 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] with kernel /mnt/imaging/euca-workflow-cache-C2GweZ/eki-eb936733-80f9e419/blocks
+2014-05-14 22:51:45,106 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 disk_creator | [prepare] and ramdisk /mnt/imaging/euca-workflow-cache-C2GweZ/eri-da1f418c-c9131c97/blocks
+2014-05-14 22:51:45,106 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 diskutil_grub_files | installing kernel and ramdisk
+2014-05-14 22:51:45,565 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1373 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'suspend' '/dev/mapper/euca-dsk-emi-919d08ac'
+2014-05-14 22:51:45,570 euca-workflow [INFO]:(import-is-e9cd54d0) child process 1374 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'resume' '/dev/mapper/euca-dsk-emi-919d08ac'
+2014-05-14 22:51:45,578 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | installing grub in MBR
+2014-05-14 22:51:45,587 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | running /usr/lib/eucalyptus/euca_rootwrap /sbin/grub --batch >/tmp/euca-temp-X7QS99 2>&1
+2014-05-14 22:51:46,530 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	Probing devices to guess BIOS drives. This may take a long time.
+2014-05-14 22:51:46,530 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	Unknown partition table signature
+2014-05-14 22:51:46,531 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr |
+2014-05-14 22:51:46,531 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr |
+2014-05-14 22:51:46,531 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 GNU GRUB version 0.97 (640K lower / 3072K upper memory)
+2014-05-14 22:51:46,531 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr |
+2014-05-14 22:51:46,531 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 [ Minimal BASH-like line editing is supported. For the first word, TAB
+2014-05-14 22:51:46,531 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 lists possible command completions. Anywhere else TAB lists the possible
+2014-05-14 22:51:46,532 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 completions of a device/filename.]
+2014-05-14 22:51:46,532 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	grub> device (hd0) /dev/mapper/euca-dsk-emi-919d08ac
+2014-05-14 22:51:46,532 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	grub> root (hd0,1)
+2014-05-14 22:51:46,532 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 Filesystem type is ext2fs, partition type 0x83
+2014-05-14 22:51:46,532 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	grub> setup (hd0)
+2014-05-14 22:51:46,532 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 Checking if "/boot/grub/stage1" exists... yes
+2014-05-14 22:51:46,533 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 Checking if "/boot/grub/stage2" exists... yes
+2014-05-14 22:51:46,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 Checking if "/boot/grub/e2fs_stage1_5" exists... yes
+2014-05-14 22:51:46,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 Running "embed /boot/grub/e2fs_stage1_5 (hd0)"... 27 sectors are embedded.
+2014-05-14 22:51:46,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	succeeded
+2014-05-14 22:51:46,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	 Running "install /boot/grub/stage1 (hd0) (hd0)1+27 p (hd0,1)/boot/grub/stage2 /boot/grub/grub.conf"... succeeded
+2014-05-14 22:51:46,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	Done.
+2014-05-14 22:51:46,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_grub2_mbr | 	grub> quit
+2014-05-14 22:51:47,540 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_ch | ch(own|mod) '/dev/mapper/euca-dsk-emi-919d08ac' imaging-worker.* 0
+2014-05-14 22:51:47,559 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_unloop | detaching from loop device /dev/loop5
+2014-05-14 22:51:47,564 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_unloop | detaching from loop device /dev/loop2
+2014-05-14 22:51:47,567 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_unloop | detaching from loop device /dev/loop3
+2014-05-14 22:51:47,572 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 art_implement_tree | [prepare] implemented artifact 006|dsk-emi-919d08ac on try 1
+2014-05-14 22:51:47,572 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 prepare_cleanup | cleaning up for 'prepare'...
+2014-05-14 22:51:47,573 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 main | cleaning the work directory...
+2014-05-14 22:51:47,573 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 blobstore_delete | creating the baloon blob
+2014-05-14 22:51:47,581 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | attaching file /mnt/imaging/euca-workflow-work-PBK2wQ/__baloon_blob__.blocks
+2014-05-14 22:51:47,581 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_loop | to /dev/loop2 at offset 0
+2014-05-14 22:51:47,585 euca-workflow [DEBUG]:(import-is-e9cd54d0) 000001070 diskutil_unloop | detaching from loop device /dev/loop2
+2014-05-14 22:51:47,591 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 blobstore_delete | removing blobstore metadata '/mnt/imaging/euca-workflow-work-PBK2wQ/.blobstore'
+2014-05-14 22:51:47,591 euca-workflow [INFO]:(import-is-e9cd54d0) 000001070 main | imager done (exit code=0)
+2014-05-14 22:51:47,596 euca-workflow [INFO]:(import-is-e9cd54d0) lrwxrwxrwx 1 root root 7 May 14 22:51 /dev/mapper/euca-dsk-emi-919d08ac -> ../dm-6
+2014-05-14 22:51:47,606 euca-workflow [INFO]:(import-is-e9cd54d0) Traceback (most recent call last):
+2014-05-14 22:51:47,606 euca-workflow [INFO]:(import-is-e9cd54d0) File "/usr/libexec/eucalyptus/euca-run-workflow", line 524, in <module>
+2014-05-14 22:51:47,606 euca-workflow [INFO]:(import-is-e9cd54d0) WORKFLOWS[args.name].execute(args)
+2014-05-14 22:51:47,606 euca-workflow [INFO]:(import-is-e9cd54d0) File "/usr/libexec/eucalyptus/euca-run-workflow", line 227, in execute
+2014-05-14 22:51:47,606 euca-workflow [INFO]:(import-is-e9cd54d0) args=args) # the rest of the arguments are inherited from run-workflow's command-line
+2014-05-14 22:51:47,607 euca-workflow [INFO]:(import-is-e9cd54d0) File "/usr/libexec/eucalyptus/euca-run-workflow", line 175, in bundle_and_upload
+2014-05-14 22:51:47,607 euca-workflow [INFO]:(import-is-e9cd54d0) if (args.image_size != None):
+2014-05-14 22:51:47,607 euca-workflow [INFO]:(import-is-e9cd54d0) AttributeError: 'Namespace' object has no attribute 'image_size'
+2014-05-14 22:51:47,622 worker [ERROR]:(import-is-e9cd54d0) euca-run-workflow returned code: 1
+2014-05-14 22:52:07,748 worker [ERROR]:(import-is-e9cd54d0) Processing of the task import-is-e9cd54d0 failed
+2014-05-14 22:52:37,783 worker [INFO]:Querying for new imaging task
+2014-05-14 22:53:08,158 worker [INFO]:Querying for new imaging task
+2014-05-14 22:53:38,547 worker [INFO]:Querying for new imaging task
+2014-05-14 22:54:08,947 worker [INFO]:Querying for new imaging task
+2014-05-14 22:54:39,327 worker [INFO]:Querying for new imaging task
+2014-05-14 22:55:09,711 worker [INFO]:Querying for new imaging task
+2014-05-14 22:55:40,098 worker [INFO]:Querying for new imaging task
+2014-05-14 22:56:10,515 worker [INFO]:Querying for new imaging task
+2014-05-14 22:56:40,978 worker [INFO]:Querying for new imaging task
+2014-05-14 22:57:11,370 worker [INFO]:Querying for new imaging task
+2014-05-14 22:57:41,756 worker [INFO]:Querying for new imaging task
+2014-05-14 22:57:56,493 worker [DEBUG]:(import-is-0abb9749) floppy disk mounted on /var/lib/eucalyptus-imaging-worker/floppy
+2014-05-14 22:57:56,556 worker [DEBUG]:(import-is-0abb9749) floppy disk unmounted on /var/lib/eucalyptus-imaging-worker/floppy
+2014-05-14 22:57:56,953 worker [INFO]:(import-is-0abb9749) Processing import task instance-store conversion task - id: import-is-0abb9749, bucket: euca-internal-uhe2h-cirrospv-img, prefix: cirros-0.3.0-x86_64-blank.img, manifests: 
+import-image (id=eki-eb936733,format=KERNEL,manifest_url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400126262&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=nBxn75ZA2kuwzT54KPXM%2Bu624Hc%3D)
+import-image (id=eri-da1f418c,format=RAMDISK,manifest_url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400126266&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=%2FJFllhVso9Kmk0z0fBteSzDruGo%3D)
+import-image (id=emi-1ebacff8,format=PARTITION,manifest_url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D)
+2014-05-14 22:57:56,953 worker [DEBUG]:(import-is-0abb9749) Running /usr/libexec/eucalyptus/euca-run-workflow down-bundle-fs/up-bundle --image-manifest-url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D --kernel-manifest-url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400126262&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=nBxn75ZA2kuwzT54KPXM%2Bu624Hc%3D --ramdisk-manifest-url=http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400126266&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=%2FJFllhVso9Kmk0z0fBteSzDruGo%3D --emi=emi-1ebacff8 --eki=eki-eb936733 --eri=eri-da1f418c --decryption-key-path=/var/lib/eucalyptus-imaging-worker/node-pk.pem --encryption-cert-path=/var/lib/eucalyptus-imaging-worker/cloud-cert.pem --signing-key-path=/var/lib/eucalyptus-imaging-worker/node-pk.pem --prefix=cirros-0.3.0-x86_64-blank.img --bucket=euca-internal-uhe2h-cirrospv-img --work-dir=/mnt/imaging --arch=x86_64 --account=460701842572 --access-key=AKID3XACAIVXUESFUOTH --object-store-url=http://10.111.5.19:8773/services/objectstorage --upload-policy={"expiration":"2014-05-16T22:57:24.829Z","conditions":[{"bucket": "euca-internal-uhe2h-cirrospv-img"},["starts-with", "$key", "cirros-0.3.0-x86_64-blank.img"],{"acl":"aws-exec-read"}]} --upload-policy-signature=v9ZlrR86z32m2ib0H5jdYHeRqgQ= --cloud-cert-path=/var/lib/eucalyptus-imaging-worker/cloud-cert.pem
+2014-05-14 22:57:57,921 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: debug=True
+2014-05-14 22:57:57,922 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: cache=/mnt/imaging/euca-workflow-cache-qcF1EN
+2014-05-14 22:57:57,922 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: cache_size=2897563648
+2014-05-14 22:57:57,922 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: work=/mnt/imaging/euca-workflow-work-QRrTbv
+2014-05-14 22:57:57,922 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: work_size=512
+2014-05-14 22:57:57,922 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: cloud_cert=/var/lib/eucalyptus-imaging-worker/cloud-cert.pem
+2014-05-14 22:57:57,922 euca-workflow [INFO]:(import-is-0abb9749) 000001448 set_global_parameter | GLOBAL: service_key=/var/lib/eucalyptus-imaging-worker/node-pk.pem
+2014-05-14 22:57:57,923 euca-workflow [INFO]:(import-is-0abb9749) 000001448 print_req | command: prepare
+2014-05-14 22:57:57,923 euca-workflow [INFO]:(import-is-0abb9749) 000001448 print_req | 	boot=yes
+2014-05-14 22:57:57,923 euca-workflow [INFO]:(import-is-0abb9749) 000001448 print_req | 	vbr=machine:emi-1ebacff8:-1:none:sda1:http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D
+2014-05-14 22:57:57,923 euca-workflow [INFO]:(import-is-0abb9749) 000001448 print_req | 	vbr=kernel:eki-eb936733:-1:none:none:http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400126262&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=nBxn75ZA2kuwzT54KPXM%2Bu624Hc%3D
+2014-05-14 22:57:57,923 euca-workflow [INFO]:(import-is-0abb9749) 000001448 print_req | 	vbr=ramdisk:eri-da1f418c:-1:none:none:http://imaging@10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400126266&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=%2FJFllhVso9Kmk0z0fBteSzDruGo%3D
+2014-05-14 22:57:57,923 euca-workflow [INFO]:(import-is-0abb9749) 000001448 print_req | 	out=dsk-emi-1ebacff8
+2014-05-14 22:57:57,924 euca-workflow [INFO]:(import-is-0abb9749) 000001448 prepare_validate | actions: download=yes convert=yes
+2014-05-14 22:57:57,924 euca-workflow [INFO]:(import-is-0abb9749) 000001448 main | verified all parameters for 1 command(s)
+2014-05-14 22:57:57,924 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 vbr_alloc_tree | [(null)] found 2 prereqs and 2 partitions/disks in the VBR
+2014-05-14 22:57:57,924 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_alloc | [prepare] allocated artifact 001|(null) size=-1 vbr=(nil) cache=0 file=0
+2014-05-14 22:57:57,924 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | downloading /tmp/http-reply-zOTfXV
+2014-05-14 22:57:57,924 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-KERNEL?Expires=1400126262&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=nBxn75ZA2kuwzT54KPXM%2Bu624Hc%3D
+2014-05-14 22:57:57,925 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | writing GET output to /tmp/http-reply-zOTfXV
+2014-05-14 22:57:58,072 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | wrote 2107 bytes in 2 writes
+2014-05-14 22:57:58,072 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | saved image in /tmp/http-reply-zOTfXV
+2014-05-14 22:57:58,072 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_alloc | [prepare] allocated artifact 002|eki-eb936733-80f9e419 size=4731440 vbr=0x7f2ffbd3d7e0 cache=1 file=1
+2014-05-14 22:57:58,073 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | downloading /tmp/http-reply-Hik2MC
+2014-05-14 22:57:58,073 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-RAMDISK?Expires=1400126266&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=%2FJFllhVso9Kmk0z0fBteSzDruGo%3D
+2014-05-14 22:57:58,073 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | writing GET output to /tmp/http-reply-Hik2MC
+2014-05-14 22:57:58,151 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | wrote 2108 bytes in 2 writes
+2014-05-14 22:57:58,151 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | saved image in /tmp/http-reply-Hik2MC
+2014-05-14 22:57:58,152 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_alloc | [prepare] allocated artifact 003|eri-da1f418c-c9131c97 size=2256515 vbr=0x7f2ffbd3ed08 cache=1 file=1
+2014-05-14 22:57:58,152 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | downloading /tmp/http-reply-VHTFPj
+2014-05-14 22:57:58,152 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D
+2014-05-14 22:57:58,152 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | writing GET output to /tmp/http-reply-VHTFPj
+2014-05-14 22:57:58,241 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | wrote 2112 bytes in 2 writes
+2014-05-14 22:57:58,241 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 http_get_timeout | saved image in /tmp/http-reply-VHTFPj
+2014-05-14 22:57:58,241 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_alloc | [prepare] allocated artifact 004|emi-1ebacff8-5b0d08a9 size=25165824 vbr=0x7f2ffbd3c2b8 cache=1 file=0
+2014-05-14 22:57:58,242 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_alloc | [prepare] allocated artifact 005|prt-00100ext3-bf42ec05 size=104857600 vbr=0x7f2ffbd40230 cache=1 file=0
+2014-05-14 22:57:58,242 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_alloc | [prepare] allocated artifact 006|dsk-1ebacff8-9f289a5a size=130055680 vbr=0x7f2ffbd41758 cache=1 file=0
+2014-05-14 22:57:58,242 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_add_dep | [prepare] added to artifact 006|dsk-1ebacff8-9f289a5a artifact 004|emi-1ebacff8-5b0d08a9
+2014-05-14 22:57:58,242 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_add_dep | [prepare] added to artifact 006|dsk-1ebacff8-9f289a5a artifact 005|prt-00100ext3-bf42ec05
+2014-05-14 22:57:58,242 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_add_dep | [prepare] added to artifact 006|dsk-1ebacff8-9f289a5a artifact 002|eki-eb936733-80f9e419
+2014-05-14 22:57:58,242 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_add_dep | [prepare] added to artifact 006|dsk-1ebacff8-9f289a5a artifact 003|eri-da1f418c-c9131c97
+2014-05-14 22:57:58,243 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_add_dep | [prepare] added to artifact 001| artifact 006|dsk-1ebacff8-9f289a5a
+2014-05-14 22:57:58,243 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_print_tree | [prepare] 001| -1 c=0 f=0 cr=(nil) vbr=(nil)
+2014-05-14 22:57:58,243 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_print_tree | [prepare] 	006|dsk-1ebacff8-9f289a5a 130055680 c=1 f=0 cr=0x4268a0 vbr=0x7f2ffbd41758
+2014-05-14 22:57:58,243 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_print_tree | [prepare] 		004|emi-1ebacff8-5b0d08a9 25165824 c=1 f=0 cr=0x4261e0 vbr=0x7f2ffbd3c2b8
+2014-05-14 22:57:58,243 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_print_tree | [prepare] 		005|prt-00100ext3-bf42ec05 104857600 c=1 f=0 cr=0x425c50 vbr=0x7f2ffbd40230
+2014-05-14 22:57:58,243 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_print_tree | [prepare] 		002|eki-eb936733-80f9e419 4731440 c=1 f=1 cr=0x4261e0 vbr=0x7f2ffbd3d7e0
+2014-05-14 22:57:58,244 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_print_tree | [prepare] 		003|eri-da1f418c-c9131c97 2256515 c=1 f=1 cr=0x4261e0 vbr=0x7f2ffbd3ed08
+2014-05-14 22:57:58,245 euca-workflow [INFO]:(import-is-0abb9749) 000001448 diskutil_init | found grub 1 stage files in /boot/grub
+2014-05-14 22:57:58,245 euca-workflow [INFO]:(import-is-0abb9749) 000001448 stat_blobstore | disk space under /mnt/imaging/euca-workflow-cache-qcF1EN
+2014-05-14 22:57:58,246 euca-workflow [INFO]:(import-is-0abb9749) 000001448 stat_blobstore | 002763MB limit (inf% of the file system)
+2014-05-14 22:57:58,246 euca-workflow [INFO]:(import-is-0abb9749) 000001448 stat_blobstore | 000000MB reserved for use (0.0% of limit)
+2014-05-14 22:57:58,246 euca-workflow [INFO]:(import-is-0abb9749) 000001448 stat_blobstore | 000000MB locked for use (0.0% of limit)
+2014-05-14 22:57:58,246 euca-workflow [INFO]:(import-is-0abb9749) 000001448 stat_blobstore | 000000MB allocated for use (0.0% of limit, -nan% of the file system)
+2014-05-14 22:57:58,246 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] implementing artifact 006|dsk-emi-1ebacff8
+2014-05-14 22:57:58,246 euca-workflow [INFO]:(import-is-0abb9749) 000001448 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-qcF1EN/dsk-emi-1ebacff8
+2014-05-14 22:57:58,247 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-qcF1EN/dsk-emi-1ebacff8' *.* 771
+2014-05-14 22:57:58,247 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 find_or_create_artifact | [prepare] checking work blobstore for 006|dsk-emi-1ebacff8 (do_create=0 ret=2)
+2014-05-14 22:57:58,247 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] implementing artifact 004|emi-1ebacff8-5b0d08a9
+2014-05-14 22:57:58,247 euca-workflow [INFO]:(import-is-0abb9749) 000001448 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-qcF1EN/emi-1ebacff8-5b0d08a9
+2014-05-14 22:57:58,247 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-qcF1EN/emi-1ebacff8-5b0d08a9' *.* 771
+2014-05-14 22:57:58,249 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 find_or_create_artifact | [prepare] checking work blobstore for 004|emi-1ebacff8-5b0d08a9 (do_create=0 ret=2)
+2014-05-14 22:57:58,249 euca-workflow [INFO]:(import-is-0abb9749) 000001448 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-qcF1EN/emi-1ebacff8-5b0d08a9
+2014-05-14 22:57:58,249 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-qcF1EN/emi-1ebacff8-5b0d08a9' *.* 771
+2014-05-14 22:57:58,261 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-qcF1EN/emi-1ebacff8-5b0d08a9/blocks
+2014-05-14 22:57:58,261 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_loop | to /dev/loop2 at offset 0
+2014-05-14 22:57:58,275 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] created a blob for an artifact 004|emi-1ebacff8-5b0d08a9 on try 1
+2014-05-14 22:57:58,275 euca-workflow [INFO]:(import-is-0abb9749) 000001448 imaging_creator | [prepare] downloading http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D
+2014-05-14 22:57:58,275 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 imaging_image_by_manifes | [prepare] getting download manifest from http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D
+2014-05-14 22:57:59,479 euca-workflow [INFO]:(import-is-0abb9749) 000001448 euca_run_workflow_parser | [prepare] download progress: 28048/28048 bytes (100.0%)
+2014-05-14 22:58:00,316 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 imaging_image_by_manifes | [prepare] downloaded and unbundled http://10.111.5.19:8773/services/objectstorage/77547e-download-manifests/DM-import-is-0abb9749-cirros-0.3.0-x86_64-blank.img-PARTITION?Expires=1400126271&AWSAccessKeyId=AKID3XACAIVXUESFUOTH&Signature=lPmUT%2FrUPsNL%2FLSNK0Mbj1mug6M%3D
+2014-05-14 22:58:00,316 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] implemented artifact 004|emi-1ebacff8-5b0d08a9 on try 1
+2014-05-14 22:58:00,316 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] implementing artifact 005|prt-00100ext3-bf42ec05
+2014-05-14 22:58:00,317 euca-workflow [INFO]:(import-is-0abb9749) 000001448 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-qcF1EN/prt-00100ext3-bf42ec05
+2014-05-14 22:58:00,317 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-qcF1EN/prt-00100ext3-bf42ec05' *.* 771
+2014-05-14 22:58:00,320 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 find_or_create_artifact | [prepare] checking work blobstore for 005|prt-00100ext3-bf42ec05 (do_create=0 ret=2)
+2014-05-14 22:58:00,320 euca-workflow [INFO]:(import-is-0abb9749) 000001448 ensure_directories_exist | creating path /mnt/imaging/euca-workflow-cache-qcF1EN/prt-00100ext3-bf42ec05
+2014-05-14 22:58:00,320 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_ch | ch(own|mod) '/mnt/imaging/euca-workflow-cache-qcF1EN/prt-00100ext3-bf42ec05' *.* 771
+2014-05-14 22:58:00,334 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_loop | attaching file /mnt/imaging/euca-workflow-cache-qcF1EN/prt-00100ext3-bf42ec05/blocks
+2014-05-14 22:58:00,334 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_loop | to /dev/loop3 at offset 0
+2014-05-14 22:58:00,336 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] created a blob for an artifact 005|prt-00100ext3-bf42ec05 on try 1
+2014-05-14 22:58:00,337 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 partition_creator | [prepare] mapping euca-zero device into partition prt-00100ext3-bf42ec05
+2014-05-14 22:58:00,342 euca-workflow [INFO]:(import-is-0abb9749) child process 1512 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'create' 'euca-prt-00100ext3-bf42ec05-p0-back' '/tmp/dmsetup.9VPPA6'
+2014-05-14 22:58:00,347 euca-workflow [INFO]:(import-is-0abb9749) device-mapper: create ioctl on euca-prt-00100ext3-bf42ec05-p0-back failed: Device or resource busy
+2014-05-14 22:58:00,347 euca-workflow [INFO]:(import-is-0abb9749) Command failed
+2014-05-14 22:58:00,352 euca-workflow [INFO]:(import-is-0abb9749) child process 1514 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'remove' 'euca-prt-00100ext3-bf42ec05-p0-back'
+2014-05-14 22:58:00,352 euca-workflow [INFO]:(import-is-0abb9749) device-mapper: remove ioctl on euca-prt-00100ext3-bf42ec05-p0-back failed: Device or resource busy
+2014-05-14 22:58:00,353 euca-workflow [INFO]:(import-is-0abb9749) Command failed
+2014-05-14 22:58:00,358 euca-workflow [INFO]:(import-is-0abb9749) child process 1515 executing: /usr/lib/eucalyptus/euca_rootwrap '/sbin/dmsetup' 'remove' 'euca-prt-00100ext3-bf42ec05-p0-back'
+2014-05-14 22:58:00,358 euca-workflow [INFO]:(import-is-0abb9749) device-mapper: remove ioctl on euca-prt-00100ext3-bf42ec05-p0-back failed: Device or resource busy
+2014-05-14 22:58:00,358 euca-workflow [INFO]:(import-is-0abb9749) Command failed
+2014-05-14 22:58:00,358 euca-workflow [ERROR]:(import-is-0abb9749) 000001448 partition_creator | [prepare] failed to clone euca-zero device into partition: 12 blobstore.c:3537 failed to remove device mapper device with 'dmsetup'
+2014-05-14 22:58:00,358 euca-workflow [ERROR]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] failed to create artifact prt-00100ext3-bf42ec05 (error=1, may retry) on try 1
+2014-05-14 22:58:00,359 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_unloop | detaching from loop device /dev/loop3
+2014-05-14 22:58:00,362 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] failed to implement artifact 005|prt-00100ext3-bf42ec05 on try 1
+2014-05-14 22:58:00,362 euca-workflow [ERROR]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] failed to provision dependency prt-00100ext3-bf42ec05 for artifact dsk-emi-1ebacff8 (error=1) on try 1
+2014-05-14 22:58:00,362 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_unloop | detaching from loop device /dev/loop2
+2014-05-14 22:58:00,366 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 art_implement_tree | [prepare] failed to implement artifact 006|dsk-emi-1ebacff8 on try 1
+2014-05-14 22:58:00,366 euca-workflow [INFO]:(import-is-0abb9749) 000001448 prepare_cleanup | cleaning up for 'prepare'...
+2014-05-14 22:58:00,366 euca-workflow [INFO]:(import-is-0abb9749) 000001448 main | cleaning the work directory...
+2014-05-14 22:58:00,367 euca-workflow [INFO]:(import-is-0abb9749) 000001448 blobstore_delete | creating the baloon blob
+2014-05-14 22:58:00,374 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_loop | attaching file /mnt/imaging/euca-workflow-work-QRrTbv/__baloon_blob__.blocks
+2014-05-14 22:58:00,374 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_loop | to /dev/loop2 at offset 0
+2014-05-14 22:58:00,379 euca-workflow [DEBUG]:(import-is-0abb9749) 000001448 diskutil_unloop | detaching from loop device /dev/loop2
+2014-05-14 22:58:00,387 euca-workflow [INFO]:(import-is-0abb9749) 000001448 blobstore_delete | removing blobstore metadata '/mnt/imaging/euca-workflow-work-QRrTbv/.blobstore'
+2014-05-14 22:58:00,387 euca-workflow [INFO]:(import-is-0abb9749) 000001448 main | imager done (exit code=1)
+2014-05-14 22:58:00,394 euca-workflow [INFO]:(import-is-0abb9749) workflow failed (error in subprocess)
+2014-05-14 22:58:00,416 worker [ERROR]:(import-is-0abb9749) euca-run-workflow returned code: 5
+2014-05-14 22:58:27,662 worker [ERROR]:(import-is-0abb9749) Processing of the task import-is-0abb9749 failed
+2014-05-14 22:58:57,697 worker [INFO]:Querying for new imaging task
+2014-05-14 22:59:28,107 worker [INFO]:Querying for new imaging task
+2014-05-14 22:59:58,476 worker [INFO]:Querying for new imaging task

@@ -1,0 +1,19 @@
+diff -Naur clc/modules/cluster-manager/src/main/java/com/eucalyptus/address/Address.java clc/modules/cluster-manager/src/main/java/com/eucalyptus/address/Address.java
+--- clc/modules/cluster-manager/src/main/java/com/eucalyptus/address/Address.java	2011-04-30 05:16:35.000000000 +0900
++++ clc/modules/cluster-manager/src/main/java/com/eucalyptus/address/Address.java	2011-11-17 14:43:46.000000000 +0900
+@@ -295,6 +295,7 @@
+         Address.this.instanceAddress = UNASSIGNED_INSTANCEADDR;
+         Address.this.userId = UNALLOCATED_USERID;
+         Address.removeAddress( Address.this.name );
++        Address.this.id = -1l;
+         super.bottom( );
+       }
+     };
+@@ -340,6 +341,7 @@
+                            Address.this.instanceAddress = UNASSIGNED_INSTANCEADDR;
+                            Address.this.userId = UNALLOCATED_USERID;
+                            Address.removeAddress( Address.this.name );
++                           Address.this.id = -1l;
+                            super.bottom( );
+                          }
+                        } );

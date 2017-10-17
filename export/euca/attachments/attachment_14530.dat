@@ -1,0 +1,347 @@
+/*************************************************************************
+ * Copyright 2009-2013 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.autoscaling.AmazonAutoScaling;
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient;
+import com.amazonaws.services.autoscaling.model.AutoScalingGroup;
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.CreateOrUpdateTagsRequest;
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest;
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest;
+import com.amazonaws.services.autoscaling.model.DeleteTagsRequest;
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingGroupsRequest;
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingGroupsResult;
+import com.amazonaws.services.autoscaling.model.DescribeTagsResult;
+import com.amazonaws.services.autoscaling.model.SetDesiredCapacityRequest;
+import com.amazonaws.services.autoscaling.model.Tag;
+import com.amazonaws.services.autoscaling.model.TagDescription;
+import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
+import com.amazonaws.services.ec2.model.DescribeImagesRequest;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.DescribeInstancesRequest;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
+import com.amazonaws.services.ec2.model.DescribeTagsRequest;
+import com.amazonaws.services.ec2.model.Filter;
+import com.amazonaws.services.ec2.model.Instance;
+import com.amazonaws.services.ec2.model.Reservation;
+
+/**
+ * This application tests tags for auto scaling.
+ *
+ * This is verification for the story:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-4758
+ */
+public class TestAutoScalingTags {
+
+  private final String host;
+  private final String accessKey;
+  private final String secretKey;
+
+  public static void main( String[] args ) throws Exception {
+    final TestAutoScalingTags test =  new TestAutoScalingTags(
+        "192.168.51.99",
+        "QRWHWAFRDU51SRXT0WC73",
+        "drVg9lsp9pb0ICPeFiVXe9kQTEHodOJCsqyFo3dI"
+    );
+    test.test();
+  }
+
+  public TestAutoScalingTags( final String host,
+                              final String accessKey,
+                              final String secretKey ) {
+    this.host = host;
+    this.accessKey = accessKey;
+    this.secretKey = secretKey;
+  }
+
+  private AWSCredentials credentials() {
+    return new BasicAWSCredentials( accessKey, secretKey );
+  }
+
+  private String cloudUri( String servicePath ) {
+    return
+        URI.create( "http://" + host + ":8773/" )
+            .resolve( servicePath )
+            .toString();
+  }
+
+  private AmazonAutoScaling getAutoScalingClient( ) {
+    final AmazonAutoScaling as = new AmazonAutoScalingClient( credentials() );
+    as.setEndpoint( cloudUri( "/services/AutoScaling/" ) );
+    return as;
+  }
+
+  private AmazonEC2 getEc2Client( ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials() );
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) );
+    return ec2;
+  }
+
+  private String instanceType() {
+    return "m1.small";
+  }
+
+  private void assertThat( boolean condition,
+                           String message ){
+    assert condition : message;
+  }
+
+  private void print( String text ) {
+    System.out.println( text );
+  }
+
+  public void test() throws Exception{
+    final AmazonAutoScaling as = getAutoScalingClient();
+    final AmazonEC2 ec2 = getEc2Client();
+
+    // Find an appropriate image to launch
+    final DescribeImagesResult imagesResult = ec2.describeImages( new DescribeImagesRequest().withFilters(
+        new Filter().withName( "image-type" ).withValues( "machine" ),
+        new Filter().withName( "root-device-type" ).withValues( "instance-store" )
+    ) );
+
+    assertThat( imagesResult.getImages().size() > 0, "Image not found" );
+
+    final String imageId = imagesResult.getImages().get( 0 ).getImageId();
+    print( "Using image: " + imageId );
+
+    // Find an AZ to use
+    final DescribeAvailabilityZonesResult azResult = ec2.describeAvailabilityZones();
+
+    assertThat( azResult.getAvailabilityZones().size() > 0, "Availability zone not found" );
+
+    final String availabilityZone = azResult.getAvailabilityZones().get( 0 ).getZoneName();
+    print( "Using availability zone: " + availabilityZone );
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = new ArrayList<Runnable>();
+    try {
+      // Register cleanup for launch config
+      final String configName = namePrefix + "TagTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting launch configuration: " + configName );
+          as.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest().withLaunchConfigurationName( configName ) );
+        }
+      } );
+
+      // Create launch configuration
+      print( "Creating launch configuration: " + configName );
+      as.createLaunchConfiguration( new CreateLaunchConfigurationRequest()
+          .withLaunchConfigurationName( configName )
+          .withImageId( imageId )
+          .withInstanceType( instanceType() ) );
+
+      // Register cleanup for auto scaling group
+      final String groupName = namePrefix + "TagTest";
+      cleanupTasks.add( new Runnable() {
+        @Override
+        public void run() {
+          print( "Deleting group: " + groupName );
+          as.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest().withAutoScalingGroupName( groupName ).withForceDelete( true ) );
+        }
+      } );
+
+      // Create scaling group
+      print( "Creating auto scaling group with tags: " + groupName );
+      as.createAutoScalingGroup( new CreateAutoScalingGroupRequest()
+          .withAutoScalingGroupName( groupName )
+          .withLaunchConfigurationName( configName )
+          .withMinSize( 0 )
+          .withMaxSize( 1 )
+          .withAvailabilityZones( availabilityZone )
+          .withTags(
+              new Tag().withKey( "tag1" ).withValue( "propagate" ).withPropagateAtLaunch( Boolean.TRUE ),
+              new Tag().withKey( "tag2" ).withValue( "don't propagate" ).withPropagateAtLaunch( Boolean.FALSE )
+          )
+      );
+
+      // Verify tags
+      {
+        print( "Verifying tags when describing group" );
+        final DescribeAutoScalingGroupsResult describeGroupsResult =
+            as.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest().withAutoScalingGroupNames( groupName ) );
+        assertThat( describeGroupsResult.getAutoScalingGroups() != null, "Expected groups in result" );
+        assertThat( describeGroupsResult.getAutoScalingGroups().size() == 1, "Expected one group in result" );
+        final AutoScalingGroup group = describeGroupsResult.getAutoScalingGroups().get( 0 );
+        assertThat( group != null, "Expected group" );
+        assertThat( groupName.equals(group.getAutoScalingGroupName()), "Unexpected group name: " + group.getAutoScalingGroupName() );
+        assertThat( group.getTags() != null, "Expected tags" );
+        print( "Found tags: " + group.getTags() );
+        assertThat( group.getTags().size() == 2, "Expected two tags but found " + group.getTags().size() );
+        assertTag( group.getTags().get( 0 ), "tag1", "propagate", true );
+        assertTag( group.getTags().get( 1 ), "tag2", "don't propagate", false );
+
+        print( "Verifying tags when describing tags" );
+        final DescribeTagsResult describeTagsResult = as.describeTags();
+        assertThat( describeTagsResult.getTags() != null, "Expected tags" );
+        print( "Found tags: " + describeTagsResult.getTags() );
+        assertThat( describeTagsResult.getTags().size() == 2, "Expected two tags but found " + describeTagsResult.getTags().size() );
+        int tag1Index = "tag1".equals( describeTagsResult.getTags().get( 0 ).getKey() ) ? 0 : 1;
+        assertTag( describeTagsResult.getTags().get( tag1Index ), "tag1", "propagate", true );
+        assertTag( describeTagsResult.getTags().get( ++tag1Index%2 ), "tag2", "don't propagate", false );
+      }
+
+      // Delete tags
+      as.deleteTags( new DeleteTagsRequest().withTags(
+          new Tag().withResourceType( "auto-scaling-group" ).withResourceId( groupName ).withKey( "tag1" ).withValue( "propagate" ).withPropagateAtLaunch( Boolean.TRUE ),
+          new Tag().withResourceType( "auto-scaling-group" ).withResourceId( groupName ).withKey( "tag2" ).withValue( "don't propagate" ).withPropagateAtLaunch( Boolean.FALSE )
+      ) );
+
+      // Verify deleted
+      {
+        print( "Verifying no tags when describing group" );
+        final DescribeAutoScalingGroupsResult describeGroupsResult =
+            as.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest().withAutoScalingGroupNames( groupName ) );
+        assertThat( describeGroupsResult.getAutoScalingGroups() != null, "Expected groups in result" );
+        assertThat( describeGroupsResult.getAutoScalingGroups().size() == 1, "Expected one group in result" );
+        final AutoScalingGroup group = describeGroupsResult.getAutoScalingGroups().get( 0 );
+        assertThat( group != null, "Expected group" );
+        assertThat( groupName.equals( group.getAutoScalingGroupName() ), "Unexpected group name: " + group.getAutoScalingGroupName() );
+        assertThat( group.getTags() == null || group.getTags().isEmpty(), "Expected no tags" );
+
+        print( "Verifying no tags when describing tags" );
+        final DescribeTagsResult describeTagsResult = as.describeTags();
+        assertThat( describeTagsResult.getTags() == null || describeTagsResult.getTags().isEmpty(), "Expected no tags" );
+      }
+
+      // Create via API
+      as.createOrUpdateTags( new CreateOrUpdateTagsRequest().withTags(
+          new Tag().withResourceType( "auto-scaling-group" ).withResourceId( groupName ).withKey( "tag1" ).withValue( "propagate" ).withPropagateAtLaunch( Boolean.TRUE ),
+          new Tag().withResourceType( "auto-scaling-group" ).withResourceId( groupName ).withKey( "tag2" ).withValue( "don't propagate" ).withPropagateAtLaunch( Boolean.FALSE )
+      ) );
+
+      // Verify tags
+      {
+        print( "Verifying tags when describing group" );
+        final DescribeAutoScalingGroupsResult describeGroupsResult =
+            as.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest().withAutoScalingGroupNames( groupName ) );
+        assertThat( describeGroupsResult.getAutoScalingGroups() != null, "Expected groups in result" );
+        assertThat( describeGroupsResult.getAutoScalingGroups().size() == 1, "Expected one group in result" );
+        final AutoScalingGroup group = describeGroupsResult.getAutoScalingGroups().get( 0 );
+        assertThat( group != null, "Expected group" );
+        assertThat( groupName.equals(group.getAutoScalingGroupName()), "Unexpected group name: " + group.getAutoScalingGroupName() );
+        assertThat( group.getTags() != null, "Expected tags" );
+        print( "Found tags: " + group.getTags() );
+        assertThat( group.getTags().size() == 2, "Expected two tags but found " + group.getTags().size() );
+        assertTag( group.getTags().get( 0 ), "tag1", "propagate", true );
+        assertTag( group.getTags().get( 1 ), "tag2", "don't propagate", false );
+
+        print( "Verifying tags when describing tags" );
+        final DescribeTagsResult describeTagsResult = as.describeTags();
+        assertThat( describeTagsResult.getTags() != null, "Expected tags" );
+        print( "Found tags: " + describeTagsResult.getTags() );
+        assertThat( describeTagsResult.getTags().size() == 2, "Expected two tags but found " + group.getTags().size() );
+        assertTag( describeTagsResult.getTags().get( 0 ), "tag1", "propagate", true );
+        assertTag( describeTagsResult.getTags().get( 1 ), "tag2", "don't propagate", false );
+      }
+
+      // Launch instance
+      print( "Launching instance to test tag propagation" );
+      as.setDesiredCapacity( new SetDesiredCapacityRequest().withAutoScalingGroupName( groupName ).withHonorCooldown( false ).withDesiredCapacity( 1 ) );
+      final String instanceId = waitForInstances( ec2, TimeUnit.MINUTES.toMillis( 2 ), 1, groupName ).get( 0 );
+
+      // Verify tag on instance
+      final com.amazonaws.services.ec2.model.DescribeTagsResult describeTagsResult =
+          ec2.describeTags( new DescribeTagsRequest().withFilters(
+              new Filter().withName( "resource-id" ).withValues( instanceId ),
+              new Filter().withName( "resource-type" ).withValues( "instance" ),
+              new Filter().withName( "key" ).withValues( "tag1" ),
+              new Filter().withName( "value" ).withValues( "propagate" )
+      ) );
+      assertThat( describeTagsResult.getTags() != null, "Expected tags"  );
+      assertThat( describeTagsResult.getTags().size() == 1, "Expected one tag"  );
+
+      print( "Test complete" );
+    } finally {
+      // Attempt to clean up anything we created
+      Collections.reverse( cleanupTasks );
+      for ( final Runnable cleanupTask : cleanupTasks ) {
+        try {
+          cleanupTask.run();
+        } catch ( Exception e ) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  private void assertTag( final TagDescription tagDescription,
+                          final String key,
+                          final String value,
+                          final boolean propagate ) {
+    assertThat( tagDescription != null, "Null tag" );
+    assertThat( key.equals(tagDescription.getKey()), "Unexpected tag key: " + tagDescription.getKey() );
+    assertThat( value.equals(tagDescription.getValue()), "Unexpected tag value: " + tagDescription.getValue() );
+    assertThat( propagate==tagDescription.getPropagateAtLaunch(), "Unexpected tag propagation: " + tagDescription.getPropagateAtLaunch() );
+  }
+
+  private List<String> waitForInstances( final AmazonEC2 ec2,
+                                         final long timeout,
+                                         final int expectedCount,
+                                         final String groupName ) throws Exception {
+    final long startTime = System.currentTimeMillis( );
+    boolean completed = false;
+    List<String> instanceIds = Collections.emptyList();
+    while ( !completed && ( System.currentTimeMillis() - startTime ) < timeout ) {
+      Thread.sleep( 5000 );
+      instanceIds = getInstancesForGroup( ec2, groupName, "running" );
+      completed = instanceIds.size() == expectedCount;
+    }
+    assertThat( completed, "Instances count did not change to " + expectedCount + " within the expected timeout" );
+    print( "Instance count changed in " + ( System.currentTimeMillis()-startTime ) + "ms" );
+    return instanceIds;
+  }
+
+  private List<String> getInstancesForGroup( final AmazonEC2 ec2,
+                                             final String groupName,
+                                             final String status ) {
+    final DescribeInstancesResult instancesResult = ec2.describeInstances( new DescribeInstancesRequest().withFilters(
+        new Filter().withName( "tag:aws:autoscaling:groupName" ).withValues( groupName )
+    ) );
+    final List<String> instanceIds = new ArrayList<String>();
+    for ( final Reservation reservation : instancesResult.getReservations() ) {
+      for ( final Instance instance : reservation.getInstances() ) {
+        if ( status == null || instance.getState()==null || status.equals( instance.getState().getName() ) ) {
+          instanceIds.add( instance.getInstanceId() );
+        }
+      }
+    }
+    return instanceIds;
+  }
+}

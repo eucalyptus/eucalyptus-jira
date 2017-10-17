@@ -1,0 +1,34 @@
+Index: modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/reporting/CloudWatchHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/reporting/CloudWatchHelper.java	(date 1480835217000)
++++ modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/reporting/CloudWatchHelper.java	(revision )
+@@ -664,7 +664,8 @@
+ 
+     for (final SensorsResourceType sensorData : msg.getSensorsResources()) {
+       if (!RESOURCE_TYPE_INSTANCE.equals(sensorData.getResourceType()) ||
+-          !expectedInstanceIds.contains( sensorData.getResourceName()))
++          !expectedInstanceIds.contains( sensorData.getResourceName()) ||
++          sensorData.getResourceUuid() == null )
+         continue;
+       
+       for (final MetricsResourceType metricType : sensorData.getMetrics()) {
+Index: modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/DescribeSensorCallback.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/DescribeSensorCallback.java	(date 1480835217000)
++++ modules/cluster-manager/src/main/java/com/eucalyptus/cluster/callback/DescribeSensorCallback.java	(revision )
+@@ -109,7 +109,8 @@
+   private void processReportingStats(final DescribeSensorsResponse msg) throws Exception {
+     for (final SensorsResourceType sensorData : msg.getSensorsResources()) {
+       if (!RESOURCE_TYPE_INSTANCE.equals(sensorData.getResourceType()) ||
+-          !instanceIds.contains( sensorData.getResourceName( )))
++          !instanceIds.contains( sensorData.getResourceName( )) ||
++          sensorData.getResourceUuid( ) == null )
+         continue;
+       
+       for (final MetricsResourceType metricType : sensorData.getMetrics()) {

@@ -1,0 +1,72 @@
+default_attributes:
+  eucalyptus:
+    default-img-url: http://images.objectstorage.cloud.qa1.eucalyptus-systems.com:8773/precise-server-cloudimg-amd64-disk1.img
+    dns:
+      domain: a-16-l.autoqa.qa1.eucalyptus-systems.com
+    enterprise-repo: http://packages.release.eucalyptus-systems.com/yum/tags/enterprise-4.2/centos/6/x86_64/
+    euca2ools-repo: http://packages.release.eucalyptus-systems.com/yum/tags/euca2ools-3.3/centos/6/x86_64/
+    eucalyptus-repo: http://packages.release.eucalyptus-systems.com/yum/tags/eucalyptus-4.2/centos/6/x86_64/
+    imaging-vm-type: m1.medium
+    init-script-url: http://git.qa1.eucalyptus-systems.com/qa-repos/eucalele/raw/master/deploy-helpers/scripts/network-interfaces.sh
+    install-service-image: 'true'
+    install-type: packages
+    nc:
+      max-cores: 32
+    network:
+      bridge-interface: br0
+      bridged-nic: em1
+      config-json:
+        Clusters:
+        - Name: one
+          PrivateIps: &id001
+          - 10.111.66.65-10.111.66.128
+          Subnet:
+            Gateway: 10.111.0.1
+            Name: 10.111.0.0
+            Netmask: 255.255.0.0
+            Subnet: 10.111.0.0
+        - Name: two
+          PrivateIps: *id001
+          Subnet:
+            Gateway: 10.111.0.1
+            Name: 10.111.0.0
+            Netmask: 255.255.0.0
+            Subnet: 10.111.0.0
+        InstanceDnsServers:
+        - 10.111.5.61
+        Mode: EDGE
+        PublicIps:
+        - 10.111.66.1-10.111.66.64
+      dns-server: 10.111.5.61
+      mode: EDGE
+      nc-router: N
+      private-interface: br0
+      public-interface: br0
+    source-branch: maint-4.2
+    source-repo: ssh://repo-euca@git.eucalyptus-systems.com/internal
+    system-properties:
+      cloud.euca_log_level: DEBUG
+      cloudformation.url_domain_whitelist: '*s3.amazonaws.com, git.qa1.eucalyptus-systems.com'
+    topology:
+      clc-1: 10.111.5.62
+      clusters:
+        one:
+          cc-1: 10.111.5.61
+          das-device: vg01
+          nodes: 10.111.5.58
+          sc-1: 10.111.5.61
+          storage-backend: das
+        two:
+          cc-1: 10.111.5.60
+          das-device: vgnew
+          nodes: 10.111.5.57
+          sc-1: 10.111.5.60
+          storage-backend: das
+      walrus: 10.111.5.61
+      user-facing: 
+      - 10.111.5.61
+      console: 
+      - 10.111.5.52
+    yum-options: --nogpg
+description: Lincoln Eucalyptus Testing
+name: lthomas-upgrade-eqs-DAS-Ded-Multicluster-42

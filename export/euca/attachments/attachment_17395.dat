@@ -1,0 +1,14 @@
+:100644 100644 87f2da4... 0000000... M	node/handlers.c
+
+diff --git a/node/handlers.c b/node/handlers.c
+index 87f2da4..df0f1d6 100644
+--- a/node/handlers.c
++++ b/node/handlers.c
+@@ -222,6 +222,7 @@ configEntry configKeysNoRestartNC[] = {
+     {"LOGROLLNUMBER", "10"},
+     {"LOGMAXSIZE", "104857600"},
+     {"LOGPREFIX", ""},
++    {"LOGFACILITY", ""},
+     {NULL, NULL},
+ };
+ 

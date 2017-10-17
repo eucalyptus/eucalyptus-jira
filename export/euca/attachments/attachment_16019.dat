@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+from block_dev_map_tests import Block_Device_Mapping_Tests
+from eucaops import Eucaops
+
+tester = Eucaops(config_file='177.conf', password='foobar')
+bdm = Block_Device_Mapping_Tests(tester=tester,
+        url='http://mirror.eucalyptus-systems.com/images/bfebs-image/lucid-bfebs-vmware-tools.img_orig')
+bdm.setUp()
+bdm.setup_bfebs_instance_volume_and_snapshots_from_url()
+image = bdm.create_bfebs_image(bdm.build_image_snapshot, delete_on_terminate=True)
+instance = tester.run_image(image, keypair=bdm.keypair, group=bdm.group)[0]
+instance.stop_instance_and_verify()
+instance.terminate_and_verify()
+vol = tester.get_volume('vol-F3673AA4')
+

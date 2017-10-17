@@ -1,0 +1,877 @@
+commit 3bd7a1442d0b61c1c6977d2c80b40b0234cb75df
+Author: Alexey I. Froloff <raorn@altlinux.org>
+Date:   Thu Mar 11 16:15:02 2010 +0300
+
+    EBS support via QCOW2 images on shared filesystem
+    
+    Signed-off-by: Alexey I. Froloff <raorn@altlinux.org>
+---
+ .../com/eucalyptus/util/StorageProperties.java     |    2 +-
+ .../eucalyptus/cloud/entities/QCOW2MetaInfo.java   |   83 ++++
+ .../eucalyptus/cloud/entities/QCOW2VolumeInfo.java |   83 ++++
+ .../storage/BlockStorageManagerFactory.java        |    2 +-
+ .../edu/ucsb/eucalyptus/storage/QCOW2Manager.java  |  495 ++++++++++++++++++++
+ .../ucsb/eucalyptus/storage/QemuIMGManager.java    |  127 +++++
+ util/dd-lv                                         |    5 +-
+ 7 files changed, 793 insertions(+), 4 deletions(-)
+
+diff --git a/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java b/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java
+index 8a890fd..642a68a 100644
+--- a/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java
++++ b/clc/modules/core/src/main/java/com/eucalyptus/util/StorageProperties.java
+@@ -88,7 +88,7 @@ public class StorageProperties {
+ 	public static String DB_NAME             = "eucalyptus_storage";
+ 	public static final String EUCALYPTUS_OPERATION = "EucaOperation";
+ 	public static final String EUCALYPTUS_HEADER = "EucaHeader";
+-	public static String storageRootDirectory = BaseDirectory.VAR.toString() + "/volumes";
++	public static String storageRootDirectory = "/srv/share/eucalyptus/ebs";
+ 	public static String WALRUS_URL = "http://localhost:8773/services/Walrus";
+ 	public static int MAX_TOTAL_VOLUME_SIZE = 50;
+ 	public static int MAX_VOLUME_SIZE = 10;
+diff --git a/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/QCOW2MetaInfo.java b/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/QCOW2MetaInfo.java
+new file mode 100644
+index 0000000..db136de
+--- /dev/null
++++ b/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/QCOW2MetaInfo.java
+@@ -0,0 +1,83 @@
++/*******************************************************************************
++*Copyright (c) 2009,2010  Eucalyptus Systems, Inc.
++* 
++*  This program is free software: you can redistribute it and/or modify
++*  it under the terms of the GNU General Public License as published by
++*  the Free Software Foundation, only version 3 of the License.
++* 
++* 
++*  This file is distributed in the hope that it will be useful, but WITHOUT
++*  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++*  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++*  for more details.
++* 
++*  You should have received a copy of the GNU General Public License along
++*  with this program.  If not, see <http://www.gnu.org/licenses/>.
++* 
++*  Please contact Eucalyptus Systems, Inc., 130 Castilian
++*  Dr., Goleta, CA 93101 USA or visit <http://www.eucalyptus.com/licenses/>
++*  if you need additional information or have any questions.
++* 
++*  This file may incorporate work covered under the following copyright and
++*  permission notice:
++* 
++*    Software License Agreement (BSD License)
++* 
++*    Copyright (c) 2008, Regents of the University of California
++*    All rights reserved.
++* 
++*    Redistribution and use of this software in source and binary forms, with
++*    or without modification, are permitted provided that the following
++*    conditions are met:
++* 
++*      Redistributions of source code must retain the above copyright notice,
++*      this list of conditions and the following disclaimer.
++* 
++*      Redistributions in binary form must reproduce the above copyright
++*      notice, this list of conditions and the following disclaimer in the
++*      documentation and/or other materials provided with the distribution.
++* 
++*    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
++*    IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++*    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++*    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
++*    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++*    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
++*    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++*    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++*    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++*    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++*    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. USERS OF
++*    THIS SOFTWARE ACKNOWLEDGE THE POSSIBLE PRESENCE OF OTHER OPEN SOURCE
++*    LICENSED MATERIAL, COPYRIGHTED MATERIAL OR PATENTED MATERIAL IN THIS
++*    SOFTWARE, AND IF ANY SUCH MATERIAL IS DISCOVERED THE PARTY DISCOVERING
++*    IT MAY INFORM DR. RICH WOLSKI AT THE UNIVERSITY OF CALIFORNIA, SANTA
++*    BARBARA WHO WILL THEN ASCERTAIN THE MOST APPROPRIATE REMEDY, WHICH IN
++*    THE REGENTS’ DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
++*    OF THE CODE SO IDENTIFIED, LICENSING OF THE CODE SO IDENTIFIED, OR
++*    WITHDRAWAL OF THE CODE CAPABILITY TO THE EXTENT NEEDED TO COMPLY WITH
++*    ANY SUCH LICENSES OR RIGHTS.
++*******************************************************************************/
++/*
++ *
++ * Author: Alexey I. Froloff raorn@altlinux.org
++ */
++
++package edu.ucsb.eucalyptus.cloud.entities;
++
++import org.hibernate.annotations.Cache;
++import org.hibernate.annotations.CacheConcurrencyStrategy;
++
++import javax.persistence.*;
++
++@Entity
++@PersistenceContext(name="eucalyptus_storage")
++@Table( name = "QCOW2MetaInfo" )
++@Cache( usage = CacheConcurrencyStrategy.READ_WRITE )
++public class QCOW2MetaInfo extends LVMMetaInfo {
++	public QCOW2MetaInfo() {}
++
++	public QCOW2MetaInfo(String hostName) {
++        this.hostName = hostName;
++    }
++}
+diff --git a/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/QCOW2VolumeInfo.java b/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/QCOW2VolumeInfo.java
+new file mode 100644
+index 0000000..c3cc131
+--- /dev/null
++++ b/clc/modules/core/src/main/java/edu/ucsb/eucalyptus/cloud/entities/QCOW2VolumeInfo.java
+@@ -0,0 +1,83 @@
++/*******************************************************************************
++*Copyright (c) 2009,2010  Eucalyptus Systems, Inc.
++* 
++*  This program is free software: you can redistribute it and/or modify
++*  it under the terms of the GNU General Public License as published by
++*  the Free Software Foundation, only version 3 of the License.
++* 
++* 
++*  This file is distributed in the hope that it will be useful, but WITHOUT
++*  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++*  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++*  for more details.
++* 
++*  You should have received a copy of the GNU General Public License along
++*  with this program.  If not, see <http://www.gnu.org/licenses/>.
++* 
++*  Please contact Eucalyptus Systems, Inc., 130 Castilian
++*  Dr., Goleta, CA 93101 USA or visit <http://www.eucalyptus.com/licenses/>
++*  if you need additional information or have any questions.
++* 
++*  This file may incorporate work covered under the following copyright and
++*  permission notice:
++* 
++*    Software License Agreement (BSD License)
++* 
++*    Copyright (c) 2008, Regents of the University of California
++*    All rights reserved.
++* 
++*    Redistribution and use of this software in source and binary forms, with
++*    or without modification, are permitted provided that the following
++*    conditions are met:
++* 
++*      Redistributions of source code must retain the above copyright notice,
++*      this list of conditions and the following disclaimer.
++* 
++*      Redistributions in binary form must reproduce the above copyright
++*      notice, this list of conditions and the following disclaimer in the
++*      documentation and/or other materials provided with the distribution.
++* 
++*    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
++*    IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++*    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++*    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
++*    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++*    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
++*    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++*    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++*    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++*    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++*    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. USERS OF
++*    THIS SOFTWARE ACKNOWLEDGE THE POSSIBLE PRESENCE OF OTHER OPEN SOURCE
++*    LICENSED MATERIAL, COPYRIGHTED MATERIAL OR PATENTED MATERIAL IN THIS
++*    SOFTWARE, AND IF ANY SUCH MATERIAL IS DISCOVERED THE PARTY DISCOVERING
++*    IT MAY INFORM DR. RICH WOLSKI AT THE UNIVERSITY OF CALIFORNIA, SANTA
++*    BARBARA WHO WILL THEN ASCERTAIN THE MOST APPROPRIATE REMEDY, WHICH IN
++*    THE REGENTS’ DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
++*    OF THE CODE SO IDENTIFIED, LICENSING OF THE CODE SO IDENTIFIED, OR
++*    WITHDRAWAL OF THE CODE CAPABILITY TO THE EXTENT NEEDED TO COMPLY WITH
++*    ANY SUCH LICENSES OR RIGHTS.
++*******************************************************************************/
++/*
++ *
++ * Author: Alexey I. Froloff raorn@altlinux.org
++ */
++
++package edu.ucsb.eucalyptus.cloud.entities;
++
++import org.hibernate.annotations.Cache;
++import org.hibernate.annotations.CacheConcurrencyStrategy;
++
++import javax.persistence.*;
++
++@PersistenceContext(name="eucalyptus_storage")
++@Table( name = "QCOW2VolumeInfo" )
++@Entity
++@Cache( usage = CacheConcurrencyStrategy.READ_WRITE )
++public class QCOW2VolumeInfo extends LVMVolumeInfo {
++	public QCOW2VolumeInfo() {}
++
++	public QCOW2VolumeInfo(String volumeId) {
++        this.volumeId = volumeId;
++	}
++}
+diff --git a/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/BlockStorageManagerFactory.java b/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/BlockStorageManagerFactory.java
+index b68b0ed..5caeea5 100644
+--- a/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/BlockStorageManagerFactory.java
++++ b/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/BlockStorageManagerFactory.java
+@@ -67,6 +67,6 @@ package edu.ucsb.eucalyptus.storage;
+ 
+ public class BlockStorageManagerFactory {
+     public static LogicalStorageManager getBlockStorageManager() {
+-        return new LVM2Manager();
++        return new QCOW2Manager();
+     }
+ }
+diff --git a/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/QCOW2Manager.java b/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/QCOW2Manager.java
+new file mode 100644
+index 0000000..c4be8a8
+--- /dev/null
++++ b/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/QCOW2Manager.java
+@@ -0,0 +1,495 @@
++/*******************************************************************************
++ *Copyright (c) 2009,2010  Eucalyptus Systems, Inc.
++ * 
++ *  This program is free software: you can redistribute it and/or modify
++ *  it under the terms of the GNU General Public License as published by
++ *  the Free Software Foundation, only version 3 of the License.
++ * 
++ * 
++ *  This file is distributed in the hope that it will be useful, but WITHOUT
++ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ *  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++ *  for more details.
++ * 
++ *  You should have received a copy of the GNU General Public License along
++ *  with this program.  If not, see <http://www.gnu.org/licenses/>.
++ * 
++ *  Please contact Eucalyptus Systems, Inc., 130 Castilian
++ *  Dr., Goleta, CA 93101 USA or visit <http://www.eucalyptus.com/licenses/>
++ *  if you need additional information or have any questions.
++ * 
++ *  This file may incorporate work covered under the following copyright and
++ *  permission notice:
++ * 
++ *    Software License Agreement (BSD License)
++ * 
++ *    Copyright (c) 2008, Regents of the University of California
++ *    All rights reserved.
++ * 
++ *    Redistribution and use of this software in source and binary forms, with
++ *    or without modification, are permitted provided that the following
++ *    conditions are met:
++ * 
++ *      Redistributions of source code must retain the above copyright notice,
++ *      this list of conditions and the following disclaimer.
++ * 
++ *      Redistributions in binary form must reproduce the above copyright
++ *      notice, this list of conditions and the following disclaimer in the
++ *      documentation and/or other materials provided with the distribution.
++ * 
++ *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
++ *    IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ *    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++ *    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
++ *    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++ *    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
++ *    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++ *    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ *    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++ *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++ *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. USERS OF
++ *    THIS SOFTWARE ACKNOWLEDGE THE POSSIBLE PRESENCE OF OTHER OPEN SOURCE
++ *    LICENSED MATERIAL, COPYRIGHTED MATERIAL OR PATENTED MATERIAL IN THIS
++ *    SOFTWARE, AND IF ANY SUCH MATERIAL IS DISCOVERED THE PARTY DISCOVERING
++ *    IT MAY INFORM DR. RICH WOLSKI AT THE UNIVERSITY OF CALIFORNIA, SANTA
++ *    BARBARA WHO WILL THEN ASCERTAIN THE MOST APPROPRIATE REMEDY, WHICH IN
++ *    THE REGENTS’ DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
++ *    OF THE CODE SO IDENTIFIED, LICENSING OF THE CODE SO IDENTIFIED, OR
++ *    WITHDRAWAL OF THE CODE CAPABILITY TO THE EXTENT NEEDED TO COMPLY WITH
++ *    ANY SUCH LICENSES OR RIGHTS.
++ *******************************************************************************/
++/*
++ *
++ * Author: Alexey I. Froloff raorn@altlinux.org
++ */
++
++package edu.ucsb.eucalyptus.storage;
++
++import java.io.File;
++import java.io.FileInputStream;
++import java.io.FileOutputStream;
++import java.io.IOException;
++import java.nio.channels.FileChannel;
++import java.security.PublicKey;
++import java.util.ArrayList;
++import java.util.List;
++
++import javax.crypto.Cipher;
++
++import org.apache.log4j.Logger;
++import org.bouncycastle.util.encoders.Base64;
++
++import com.eucalyptus.auth.ClusterCredentials;
++import com.eucalyptus.auth.Credentials;
++import com.eucalyptus.auth.SystemCredentialProvider;
++import com.eucalyptus.auth.X509Cert;
++import com.eucalyptus.auth.util.Hashes;
++import com.eucalyptus.bootstrap.Component;
++import com.eucalyptus.config.ClusterConfiguration;
++import com.eucalyptus.util.EntityWrapper;
++import com.eucalyptus.util.EucalyptusCloudException;
++import com.eucalyptus.util.ExecutionException;
++import com.eucalyptus.util.StorageProperties;
++import com.eucalyptus.util.WalrusProperties;
++
++import edu.ucsb.eucalyptus.cloud.entities.QCOW2MetaInfo;
++import edu.ucsb.eucalyptus.cloud.entities.QCOW2VolumeInfo;
++import edu.ucsb.eucalyptus.cloud.entities.LVMVolumeInfo;
++import edu.ucsb.eucalyptus.cloud.ws.VolumeManager;
++import edu.ucsb.eucalyptus.ic.StorageController;
++import edu.ucsb.eucalyptus.util.StreamConsumer;
++import edu.ucsb.eucalyptus.util.SystemUtil;
++
++public class QCOW2Manager implements LogicalStorageManager {
++
++	private static Logger LOG = Logger.getLogger(QCOW2Manager.class);
++	public static final String PATH_SEPARATOR = "/";
++	public static final String EUCA_ROOT_WRAPPER = "/usr/lib/eucalyptus/euca_rootwrap";
++	private  static final String blockSize = "1M";
++	public static String eucaHome = System.getProperty("euca.home");
++	public static StorageExportManager exportManager;
++
++	public void checkPreconditions() throws EucalyptusCloudException {
++		//check if binaries exist, commands can be executed, etc.
++		String eucaHomeDir = System.getProperty("euca.home");
++		if(eucaHomeDir == null) {
++			throw new EucalyptusCloudException("euca.home not set");
++		}
++		eucaHome = eucaHomeDir;
++		if(!new File(eucaHome + EUCA_ROOT_WRAPPER).exists()) {
++			throw new EucalyptusCloudException("root wrapper (euca_rootwrap) does not exist in " + eucaHome + EUCA_ROOT_WRAPPER);
++		}
++		try {
++			String returnValue = getQemuImgVersion();
++			if(returnValue.length() == 0) {
++				throw new EucalyptusCloudException("Is qemu-img installed?");
++			} else {
++				LOG.info(returnValue);
++			}
++			exportManager = new QemuIMGManager();
++			exportManager.checkPreconditions();
++		} catch(ExecutionException ex) {
++			String error = "Unable to run command: " + ex.getMessage();
++			LOG.error(error);
++			throw new EucalyptusCloudException(error);
++		}
++	}
++
++	private String getQemuImgVersion() throws ExecutionException {
++		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "qemu-img", "info", "/dev/null"});
++	}
++
++	private String createQcowImage(String imgPath, int size) throws ExecutionException {
++		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "qemu-img", "create", "-f", "qcow2", imgPath, "" + size + "G"});
++	}
++
++/*	private String createQcowOverlay(String imgPath, String ovrPath) throws ExecutionException {
++		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "qemu-img", "create", "-f", "qcow2", "-b", imgPath, ovrPath});
++	}*/
++
++/*	private String commitQcowOverlay(String ovrPath) throws ExecutionException {
++		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "qemu-img", "commit", ovrPath});
++	}*/
++
++	private String duplicateFile(String oldFile, String newFile) throws ExecutionException {
++		return SystemUtil.run(new String[]{eucaHome + EUCA_ROOT_WRAPPER, "dd", "if=" + oldFile, "of=" + newFile, "bs=" + blockSize});
++	}
++
++
++	public void initialize() {}
++
++	public void configure() {
++		exportManager.configure();
++	}
++
++	public void startupChecks() {
++		reload();
++	}
++
++	public void reload() {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		List<LVMVolumeInfo> volumeInfos = volumeManager.getAllVolumeInfos();
++		for(LVMVolumeInfo foundVolumeInfo : volumeInfos) {
++			String loFileName = foundVolumeInfo.getVolumeId();
++			String absoluteLoFileName = StorageProperties.storageRootDirectory + PATH_SEPARATOR + loFileName;
++			if(!new File(absoluteLoFileName).exists()) {
++				LOG.error("Backing volume: " + absoluteLoFileName + " not found. Invalidating volume."); 
++				foundVolumeInfo.setStatus(StorageProperties.Status.failed.toString());
++				continue;
++			}
++		}
++		volumeManager.finish();
++	}
++
++	public void addSnapshot(String snapshotId) throws EucalyptusCloudException {
++		String snapshotRawFileName = StorageProperties.storageRootDirectory + "/" + snapshotId;
++		File snapshotFile = new File(snapshotRawFileName);
++		if(snapshotFile.exists()) {
++			VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++			LVMVolumeInfo lvmVolumeInfo = volumeManager.getVolumeInfo();
++			lvmVolumeInfo.setVolumeId(snapshotId);
++			lvmVolumeInfo.setLoFileName(snapshotRawFileName);
++			lvmVolumeInfo.setStatus(StorageProperties.Status.available.toString());
++			lvmVolumeInfo.setSize((int)(snapshotFile.length() / StorageProperties.GB));
++			volumeManager.add(lvmVolumeInfo);
++			volumeManager.finish();
++		} else {
++			throw new EucalyptusCloudException("Snapshot backing file does not exist for: " + snapshotId);
++		}	}
++
++	public void cleanSnapshot(String snapshotId) {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo lvmVolInfo = volumeManager.getVolumeInfo(snapshotId);
++		if(lvmVolInfo != null) {
++			volumeManager.remove(lvmVolInfo);
++		}
++		volumeManager.finish();
++	}
++
++	public void cleanVolume(String volumeId) {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo lvmVolInfo = volumeManager.getVolumeInfo(volumeId);
++		if(lvmVolInfo != null) {
++			volumeManager.remove(lvmVolInfo);
++			volumeManager.finish();
++		}
++	}
++
++	public List<String> createSnapshot(String volumeId, String snapshotId)	throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo foundLVMVolumeInfo = volumeManager.getVolumeInfo(volumeId);
++		ArrayList<String> returnValues = new ArrayList<String>();
++		if(foundLVMVolumeInfo != null) {
++			LVMVolumeInfo snapshotInfo = volumeManager.getVolumeInfo();
++			snapshotInfo.setVolumeId(snapshotId);
++			File snapshotDir = new File(StorageProperties.storageRootDirectory);
++			snapshotDir.mkdirs();
++
++			int size = foundLVMVolumeInfo.getSize();
++			String rawFileName = StorageProperties.storageRootDirectory + "/" + volumeId;
++			try {
++				String snapRawFileName = StorageProperties.storageRootDirectory + "/" + snapshotId;
++
++				duplicateFile(rawFileName, snapRawFileName);
++
++				snapshotInfo.setLoFileName(snapRawFileName);
++				snapshotInfo.setStatus(StorageProperties.Status.available.toString());
++				snapshotInfo.setSize(size);
++				volumeManager.add(snapshotInfo);
++			} catch(ExecutionException ex) {
++				volumeManager.abort();
++				String error = "Unable to run command: " + ex.getMessage();
++				LOG.error(error);
++				throw new EucalyptusCloudException(error);
++			}
++
++		}
++		volumeManager.finish();
++		return returnValues;
++	}
++
++	public void createVolume(String volumeId, int size) throws EucalyptusCloudException {
++		File volumeDir = new File(StorageProperties.storageRootDirectory);
++		volumeDir.mkdirs();
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		
++		LVMVolumeInfo lvmVolumeInfo = new QCOW2VolumeInfo();
++		String fullFileName = StorageProperties.storageRootDirectory + "/" + volumeId;
++		
++		try {
++			createQcowImage(fullFileName, size);
++
++			lvmVolumeInfo.setVolumeId(volumeId);
++			lvmVolumeInfo.setStatus(StorageProperties.Status.available.toString());
++			lvmVolumeInfo.setSize(size);
++		} catch(ExecutionException ex) {
++			String error = "Unable to run command: " + ex.getMessage();
++			volumeManager.abort();
++			LOG.error(error);
++			throw new EucalyptusCloudException(error);
++		}
++		volumeManager.add(lvmVolumeInfo);
++		volumeManager.finish();
++	}
++
++	public int createVolume(String volumeId, String snapshotId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo foundSnapshotInfo = volumeManager.getVolumeInfo(snapshotId);
++		int size = -1;
++		if(foundSnapshotInfo != null) {
++			String status = foundSnapshotInfo.getStatus();
++			if(status.equals(StorageProperties.Status.available.toString())) {
++				LVMVolumeInfo lvmVolumeInfo = volumeManager.getVolumeInfo();
++
++				try {
++					String rawFileName = StorageProperties.storageRootDirectory + "/" + volumeId;
++					File snapshotFile = new File(StorageProperties.storageRootDirectory + PATH_SEPARATOR + foundSnapshotInfo.getVolumeId());
++					assert(snapshotFile.exists());
++					size = foundSnapshotInfo.getSize();
++
++					duplicateFile(snapshotFile.getAbsolutePath(), rawFileName);
++
++					lvmVolumeInfo.setVolumeId(volumeId);
++					lvmVolumeInfo.setStatus(StorageProperties.Status.available.toString());
++					lvmVolumeInfo.setSize(size);
++					volumeManager.add(lvmVolumeInfo);
++					volumeManager.finish();
++				}  catch(ExecutionException ex) {
++					volumeManager.abort();
++					String error = "Unable to run command: " + ex.getMessage();
++					LOG.error(error);
++					throw new EucalyptusCloudException(error);
++				}
++			}
++		} else {
++			volumeManager.abort();
++			throw new EucalyptusCloudException("Unable to find snapshot: " + snapshotId);
++		}
++		return size;
++	}
++
++	public void deleteSnapshot(String snapshotId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo foundLVMVolumeInfo = volumeManager.getVolumeInfo(snapshotId);
++
++		if(foundLVMVolumeInfo != null) {
++			volumeManager.remove(foundLVMVolumeInfo);
++		}  else {
++			volumeManager.abort();
++			throw new EucalyptusCloudException("Unable to find snapshot: " + snapshotId);
++		}
++		volumeManager.finish();
++	}
++
++	public void deleteVolume(String volumeId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo foundLVMVolumeInfo = volumeManager.getVolumeInfo(volumeId);
++		if(foundLVMVolumeInfo != null) {
++			volumeManager.remove(foundLVMVolumeInfo);
++		}  else {
++			volumeManager.abort();
++			throw new EucalyptusCloudException("Unable to find volume: " + volumeId);
++		}
++		volumeManager.finish();
++	}
++
++	public void dupVolume(String volumeId, String dupedVolumeId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++
++		LVMVolumeInfo foundVolumeInfo = volumeManager.getVolumeInfo(volumeId);
++		if(foundVolumeInfo != null) {
++			LVMVolumeInfo lvmVolumeInfo = volumeManager.getVolumeInfo();
++
++			File volumeFile = new File(StorageProperties.storageRootDirectory + PATH_SEPARATOR + foundVolumeInfo.getVolumeId());
++
++			String rawFileName = StorageProperties.storageRootDirectory + "/" + dupedVolumeId;
++			//create file and attach to loopback device
++			int size = foundVolumeInfo.getSize();
++			try {
++				duplicateFile(volumeFile.getAbsolutePath(), rawFileName);
++
++				lvmVolumeInfo.setVolumeId(dupedVolumeId);
++				lvmVolumeInfo.setStatus(StorageProperties.Status.available.toString());
++				lvmVolumeInfo.setSize(size);
++				volumeManager.add(lvmVolumeInfo);
++				volumeManager.finish();
++			} catch(ExecutionException ex) {
++				volumeManager.abort();
++				String error = "Unable to run command: " + ex.getMessage();
++				LOG.error(error);
++				throw new EucalyptusCloudException(error);
++			}
++		} else {
++			volumeManager.abort();
++			throw new EucalyptusCloudException("Could not dup volume " + volumeId);
++		}
++	}
++
++	public int getSnapshotSize(String snapshotId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo lvmVolumeInfo = volumeManager.getVolumeInfo(snapshotId);
++		if(lvmVolumeInfo != null) {
++			int snapSize = lvmVolumeInfo.getSize();
++			volumeManager.finish();
++			return snapSize;
++		} else {
++			volumeManager.abort();
++			return 0;
++		}
++	}
++
++	public List<String> getSnapshotValues(String snapshotId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		List<String> returnValues = volumeManager.getSnapshotValues(snapshotId);
++		volumeManager.finish();
++		return returnValues;
++	}
++
++	public List<String> getStatus(List<String> volumeSet) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		ArrayList<String> status = new ArrayList<String>();
++		for(String volumeSetEntry: volumeSet) {
++			LVMVolumeInfo lvmVolumeInfo = volumeManager.getVolumeInfo(volumeSetEntry);
++			if(lvmVolumeInfo != null) {
++				status.add(lvmVolumeInfo.getStatus());
++			} else {
++				volumeManager.abort();
++				throw new EucalyptusCloudException("Unable to find entry: " + volumeSetEntry);
++			}
++		}
++		volumeManager.finish();
++		return status;
++	}
++
++	public String getVolumeProperty(String volumeId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		String returnValue = volumeManager.getVolumeProperty(volumeId);
++		volumeManager.finish();
++		return returnValue;
++	}
++
++	public void loadSnapshots(List<String> snapshotSet, List<String> snapshotFileNames) throws EucalyptusCloudException {
++		throw new EucalyptusCloudException("QCOW2Manager.loadSnapshots(List<String>, List<String>) not implemented");
++	}
++
++	public List<String> prepareForTransfer(String snapshotId) throws EucalyptusCloudException {
++		VolumeEntityWrapperManager volumeManager = new VolumeEntityWrapperManager();
++		LVMVolumeInfo foundLVMVolumeInfo = volumeManager.getVolumeInfo(snapshotId);
++		ArrayList<String> returnValues = new ArrayList<String>();
++
++		if(foundLVMVolumeInfo != null) {
++			returnValues.add(StorageProperties.storageRootDirectory + PATH_SEPARATOR + foundLVMVolumeInfo.getVolumeId());
++			volumeManager.finish();
++		} else {
++			volumeManager.abort();
++			throw new EucalyptusCloudException("Unable to find snapshot: " + snapshotId);
++		}
++		return returnValues;
++	}
++
++	public void setStorageInterface(String storageInterface) {
++		StorageProperties.iface = storageInterface;
++	}
++
++	private class VolumeEntityWrapperManager {
++		@SuppressWarnings("unchecked")
++		private EntityWrapper entityWrapper;
++
++		private VolumeEntityWrapperManager() {
++			entityWrapper = StorageController.getEntityWrapper();
++		}
++
++		public List<String> getSnapshotValues(String snapshotId) {
++			ArrayList<String> returnValues = new ArrayList<String>();
++			LVMVolumeInfo lvmVolumeInfo = getVolumeInfo(snapshotId);
++			return returnValues;
++		}
++
++		public String getVolumeProperty(String volumeId) {
++			LVMVolumeInfo qcow2VolumeInfo = getVolumeInfo(volumeId);
++			if(qcow2VolumeInfo != null) {
++				String loFileName = qcow2VolumeInfo.getVolumeId();
++				return StorageProperties.storageRootDirectory + PATH_SEPARATOR + loFileName;
++			}
++			return null;
++		}
++
++		private void finish() {
++			entityWrapper.commit();
++		}
++
++		private void abort() {
++			entityWrapper.rollback();
++		}
++
++		@SuppressWarnings("unchecked")
++		private LVMVolumeInfo getVolumeInfo(String volumeId) {
++			LVMVolumeInfo QCOW2VolumeInfo = new QCOW2VolumeInfo(volumeId);
++			List<LVMVolumeInfo> QCOW2VolumeInfos = entityWrapper.query(QCOW2VolumeInfo);
++			if(QCOW2VolumeInfos.size() > 0) {
++				return QCOW2VolumeInfos.get(0);
++			}
++			return null;
++		}
++
++		private LVMVolumeInfo getVolumeInfo() {
++			return new QCOW2VolumeInfo();
++		}
++
++		@SuppressWarnings("unchecked")
++		private List<LVMVolumeInfo> getAllVolumeInfos() {
++			LVMVolumeInfo QCOW2VolumeInfo = new QCOW2VolumeInfo();
++			return entityWrapper.query(QCOW2VolumeInfo);
++		}
++
++		@SuppressWarnings("unchecked")
++		private void add(LVMVolumeInfo volumeInfo) {
++			entityWrapper.add(volumeInfo);
++		}
++
++		@SuppressWarnings("unchecked")
++		private void remove(LVMVolumeInfo volumeInfo) {
++			entityWrapper.delete(volumeInfo);
++		}
++	}
++}
+diff --git a/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/QemuIMGManager.java b/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/QemuIMGManager.java
+new file mode 100644
+index 0000000..613a303
+--- /dev/null
++++ b/clc/modules/storage-controller/src/main/java/edu/ucsb/eucalyptus/storage/QemuIMGManager.java
+@@ -0,0 +1,127 @@
++/*******************************************************************************
++ *Copyright (c) 2009,2010  Eucalyptus Systems, Inc.
++ * 
++ *  This program is free software: you can redistribute it and/or modify
++ *  it under the terms of the GNU General Public License as published by
++ *  the Free Software Foundation, only version 3 of the License.
++ * 
++ * 
++ *  This file is distributed in the hope that it will be useful, but WITHOUT
++ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ *  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++ *  for more details.
++ * 
++ *  You should have received a copy of the GNU General Public License along
++ *  with this program.  If not, see <http://www.gnu.org/licenses/>.
++ * 
++ *  Please contact Eucalyptus Systems, Inc., 130 Castilian
++ *  Dr., Goleta, CA 93101 USA or visit <http://www.eucalyptus.com/licenses/>
++ *  if you need additional information or have any questions.
++ * 
++ *  This file may incorporate work covered under the following copyright and
++ *  permission notice:
++ * 
++ *    Software License Agreement (BSD License)
++ * 
++ *    Copyright (c) 2008, Regents of the University of California
++ *    All rights reserved.
++ * 
++ *    Redistribution and use of this software in source and binary forms, with
++ *    or without modification, are permitted provided that the following
++ *    conditions are met:
++ * 
++ *      Redistributions of source code must retain the above copyright notice,
++ *      this list of conditions and the following disclaimer.
++ * 
++ *      Redistributions in binary form must reproduce the above copyright
++ *      notice, this list of conditions and the following disclaimer in the
++ *      documentation and/or other materials provided with the distribution.
++ * 
++ *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
++ *    IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ *    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++ *    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
++ *    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++ *    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
++ *    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
++ *    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
++ *    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
++ *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++ *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. USERS OF
++ *    THIS SOFTWARE ACKNOWLEDGE THE POSSIBLE PRESENCE OF OTHER OPEN SOURCE
++ *    LICENSED MATERIAL, COPYRIGHTED MATERIAL OR PATENTED MATERIAL IN THIS
++ *    SOFTWARE, AND IF ANY SUCH MATERIAL IS DISCOVERED THE PARTY DISCOVERING
++ *    IT MAY INFORM DR. RICH WOLSKI AT THE UNIVERSITY OF CALIFORNIA, SANTA
++ *    BARBARA WHO WILL THEN ASCERTAIN THE MOST APPROPRIATE REMEDY, WHICH IN
++ *    THE REGENTS’ DISCRETION MAY INCLUDE, WITHOUT LIMITATION, REPLACEMENT
++ *    OF THE CODE SO IDENTIFIED, LICENSING OF THE CODE SO IDENTIFIED, OR
++ *    WITHDRAWAL OF THE CODE CAPABILITY TO THE EXTENT NEEDED TO COMPLY WITH
++ *    ANY SUCH LICENSES OR RIGHTS.
++ *******************************************************************************/
++/*
++ *
++ * Author: Alexey I. Froloff raorn@altlinux.org
++ */
++
++package edu.ucsb.eucalyptus.storage;
++
++import java.util.List;
++
++import org.apache.log4j.Logger;
++
++import com.eucalyptus.util.EntityWrapper;
++import com.eucalyptus.util.EucalyptusCloudException;
++import com.eucalyptus.util.ExecutionException;
++import com.eucalyptus.util.StorageProperties;
++
++import edu.ucsb.eucalyptus.cloud.entities.QCOW2MetaInfo;
++import edu.ucsb.eucalyptus.cloud.entities.QCOW2VolumeInfo;
++import edu.ucsb.eucalyptus.cloud.entities.LVMVolumeInfo;
++import edu.ucsb.eucalyptus.ic.StorageController;
++
++public class QemuIMGManager implements StorageExportManager {
++	private static Logger LOG = Logger.getLogger(QemuIMGManager.class);
++
++	@Override
++	public void checkPreconditions() throws EucalyptusCloudException, ExecutionException {
++	}
++
++	public native int exportVolume(String iface, String lvName, int major, int minor);
++
++	public native void unexportVolume(int vbladePid);
++
++	public native void loadModule();
++
++	public QemuIMGManager()  {}
++
++	@Override
++	public void configure() {
++		EntityWrapper<QCOW2MetaInfo> db = StorageController.getEntityWrapper();
++		QCOW2MetaInfo metaInfo = new QCOW2MetaInfo();
++		try {
++			List<QCOW2MetaInfo> metaInfoList = db.query(metaInfo);
++			if(metaInfoList.size() <= 0) {
++				db.add(metaInfo);
++				db.commit();		
++			}
++		} catch(Exception e) {
++			db.rollback();
++			LOG.error(e);
++		}
++	}
++
++	@Override
++	public synchronized void allocateTarget(LVMVolumeInfo volumeInfo) {
++		if(volumeInfo instanceof QCOW2VolumeInfo) {
++			//QCOW2VolumeInfo qcow2VolumeInfo = (QCOW2VolumeInfo) volumeInfo;		
++			QCOW2MetaInfo metaInfo = new QCOW2MetaInfo();
++			EntityWrapper<QCOW2MetaInfo> db = StorageController.getEntityWrapper();
++			List<QCOW2MetaInfo> metaInfoList = db.query(metaInfo);
++			if(metaInfoList.size() > 0) {
++				//QCOW2MetaInfo foundMetaInfo = metaInfoList.get(0);
++				/* nothing to do */
++			}
++			db.commit();
++		}
++	}
++}
+diff --git a/util/dd-lv b/util/dd-lv
+index 6931a5b..4f6e5b9 100644
+--- a/util/dd-lv
++++ b/util/dd-lv
+@@ -28,7 +28,8 @@ if 'if' not in opts or 'of' not in opts:
+ # - /dev/zero -> anywhere
+ # - devmapper -> anywhere
+ # - anywhere -> devmapper
+-if opts['if'] != '/dev/zero':
++# - ebs -> ebs
++if not (opts['if'] == '/dev/zero' or (opts['if'].find('/srv/share/eucalyptus/ebs/') == 0 and opts['of'].find('/srv/share/eucalyptus/ebs/') == 0)):
+     found = False
+ 
+     for device in [opts['if'], opts['of']]:
+@@ -46,7 +47,7 @@ if opts['if'] != '/dev/zero':
+             break
+ 
+     if not found:
+-        print >>sys.stderr, "Source is not /dev/zero or source/target is not a devmapper device"
++        print >>sys.stderr, "Source is not /dev/zero or source/target is neither a devmapper device nor ebs volume"
+         sys.exit(1)
+ 
+ args = ['/bin/dd'] + sys.argv[1:]

@@ -1,0 +1,68 @@
+{
+
+  "_comment":"This is a template of LDAP integration config file in JSON. For security, please create this template by using create_lic.pl command, which fill the <auth-credentials> in <ldap-service> section with encrypted password. After you make the changes, you can remove <_comment> lines in all sections (but you do not have to). Among all the sections, only <sync> section is mandatory. However, if sync is enabled, <ldap-service>, !!ONLY!! ONE of <accounting-groups> and <groups-partition>, <groups> and <users> become mandatory. The simplest configuration is disabled sync, with only <sync> section, in which <enable> is false.",
+
+  "ldap-service":{
+
+    "_comment":"This section defines configurations for LDAP service. <server-url> defines LDAP service URL. <auth-method> specifies the LDAP authentication method for the administrative identity designated to perform LDAP sync. <user-auth-method> specifies the LDAP authentication method for normal LDAP users. <auth-principal> defines the LDAP authentication user (for whom to access LDAP). <auth-credentials> field can have both un-encrypted and encrypted password. Encrypted password has a format as {RSA/ECB/PKCS1Padding}xxxxxxxxxxxxx. <use-ssl> specifies whether to use SSL for LDAP connection for extra safety. <ignore-ssl-cert-validation> specifies whether to ignore SSL certificate validation, esp. for accepting self-signed certificates. <krb5-conf> specifies the krb5.conf file for GSSAPI with Kerbeors V5 authentication.",
+
+    "server-url":"ldap://10.111.5.39:389",
+    "auth-method":"simple",
+    "user-auth-method":"simple",
+    "auth-principal":"cn=Directory Manager,dc=atliens,dc=com",
+    "auth-credentials":"{RSA/ECB/PKCS1Padding}CVlvefmk0bL5Q8nGe0xU7tuVCoIePk8SDEGHh2r1+SQr/oD725oJAeUepMsdOJDtUR2vNJPOmV65dYEpQYm0WYg+HhrRH8e1BLiGVxFFt/BK0IYfXLbCYMFtOXI10+NOBlTTUkoPjnVUyKAX2XuF522MVar+oLpZVWcPNqGyBXezh+OudshJMNuWAFGSA2NoJRvkPUV18BrYboJYBIJLP3++LWUv2GmYMyNhlg+YfrmP2TfSHZT8tO31WjbGSmh+QaiQnynlilrFZ6LYipMF/nVODmi6r71Yb5muLjR9VYVWMgmzK5zpzjBaF3gsdURCCcVbICJ5noWNlDHiANCXgQ==",
+    "use-ssl":"false",
+    "ignore-ssl-cert-validation":"false",
+    "krb5-conf":"/etc/krb5.conf",
+  },
+
+  "sync":{
+
+    "enable":"true",
+    "auto":"true",
+    "interval":"90000",
+    "clean-deletion":"true",
+  },
+
+  "groups-partition":{
+
+    "account1":["user01", "user02", "user03", "user04", "user05", "user06", "user07", "user08", "user09", "user10"],
+    "account2":["user11", "user12", "user13", "user14", "user15", "user16", "user17", "user18", "user19", "user20"],
+    "account3":["user21", "user22", "user23", "user24", "user25", "user26", "user27", "user28", "user29", "user30"],
+    "account4":["user31", "user32", "user33", "user34", "user35", "user36", "user37", "user38", "user39", "user40"],
+    "account5":["user41", "user42", "user43", "user44", "user45", "user46", "user47", "user48", "user49", "user50"],
+    "account6":["user51", "user52", "user53", "user54", "user55", "user56", "user57", "user58", "user59", "user60"],
+    "account7":["user61", "user62", "user63", "user64", "user65", "user66", "user67", "user68", "user69", "user70"],
+    "account8":["user71", "user72", "user73", "user74", "user75", "user76", "user77", "user78", "user79", "user80"],
+    "account9":["user81", "user82", "user83", "user84", "user85", "user86", "user87", "user88", "user89", "user90"],
+    "account10":["user91", "user92", "user93", "user94", "user95", "user96", "user97", "user98", "user99", "user100"],
+    "account11":["all"],
+  },
+
+  "groups":{
+
+    "base-dn":"ou=groups,dc=twodopeboyz,dc=atliens,dc=com",
+    "id-attribute":"cn",
+    "member-attribute":"member",
+    "selection":{
+
+        "filter":"(&(objectClass=groupOfNames)(cn=*))",
+    }
+  },
+
+  "users":{
+
+    "base-dn":"ou=people,dc=twodopeboyz,dc=atliens,dc=com",
+    "id-attribute":"uid",
+    "sasl-id-attribute":"uid",
+    "user-info-attributes":{
+        "displayName":"Full Name",
+        "title":"Title",
+        "mail":"Email"
+    },
+    "selection":{
+
+        "filter":"(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(mail=*))",
+    }
+  },
+}

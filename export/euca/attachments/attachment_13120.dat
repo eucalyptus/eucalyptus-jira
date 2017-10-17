@@ -1,0 +1,219 @@
+From a5d779a6e26b79e51816b299273a6d33eda40a3a Mon Sep 17 00:00:00 2001
+From: Marek Goldmann <goldmann@fedoraproject.org>
+Date: Mon, 29 Oct 2012 12:48:58 +0100
+Subject: [PATCH] wss4j 1.6.7 support
+
+---
+ .../com/eucalyptus/crypto/util/WSSecurity.java     | 29 ++++++++-------
+ .../com/eucalyptus/ws/handlers/WsSecHandler.java   | 15 ++++++--
+ .../com/eucalyptus/ws/util/CredentialProxy.java    | 43 ++++++++++++++--------
+ 3 files changed, 54 insertions(+), 33 deletions(-)
+
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/WSSecurity.java b/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/WSSecurity.java
+index f4a914f..2261011 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/WSSecurity.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/crypto/util/WSSecurity.java
+@@ -70,6 +70,7 @@ import java.security.cert.CertificateFactory;
+ import java.security.cert.X509Certificate;
+ import java.util.Calendar;
+ import java.util.Date;
++import java.util.List;
+ import java.util.Vector;
+ import org.apache.axiom.om.OMElement;
+ import org.apache.axiom.om.impl.builder.StAXOMBuilder;
+@@ -80,7 +81,8 @@ import org.apache.ws.security.WSConstants;
+ import org.apache.ws.security.WSSConfig;
+ import org.apache.ws.security.WSSecurityEngineResult;
+ import org.apache.ws.security.WSSecurityException;
+-import org.apache.ws.security.message.EnvelopeIdResolver;
++import org.apache.ws.security.handler.RequestData;
++//import org.apache.ws.security.message.EnvelopeIdResolver;
+ import org.apache.ws.security.message.token.BinarySecurity;
+ import org.apache.ws.security.message.token.Reference;
+ import org.apache.ws.security.message.token.SecurityTokenReference;
+@@ -121,9 +123,9 @@ public class WSSecurity {
+       LOG.fatal("XML Security configuration not applied, set system property "+SYSTEM_PROPERTY_SKIP_SECURITY_CHECK+"=true to skip check");
+       throw new RuntimeException("XML Security Configuration not applied");
+     }
+-    WSSConfig.getDefaultWSConfig( ).addJceProvider( "BC", BouncyCastleProvider.class.getCanonicalName( ) );
+-    WSSConfig.getDefaultWSConfig( ).setTimeStampStrict( true );
+-    WSSConfig.getDefaultWSConfig( ).setEnableSignatureConfirmation( true );
++    WSSConfig.getNewInstance( ).addJceProvider( "BC", BouncyCastleProvider.class.getCanonicalName( ) );
++    WSSConfig.getNewInstance( ).setTimeStampStrict( true );
++    WSSConfig.getNewInstance( ).setEnableSignatureConfirmation( true );
+   }
+ 
+   public static void init() {
+@@ -167,12 +169,9 @@ public class WSSecurity {
+   	throws WSSecurityException, XMLSignatureException, XMLSecurityException {
+     final SecurityTokenReference secRef = WSSecurity.getSecurityTokenReference( sig.getKeyInfo( ) );
+     final Reference tokenRef = secRef.getReference( );
+-    Element bstDirect = WSSecurityUtil.getElementByWsuId( securityNode.getOwnerDocument( ), tokenRef.getURI( ) );
++    Element bstDirect = WSSecurityUtil.findElementById( securityNode.getOwnerDocument( ), tokenRef.getURI( ), false );
+     if ( bstDirect == null ) {
+-      bstDirect = WSSecurityUtil.getElementByGenId( securityNode.getOwnerDocument( ), tokenRef.getURI( ) );
+-      if ( bstDirect == null ) {
+-        throw new WSSecurityException( WSSecurityException.INVALID_SECURITY, "noCert" );
+-      }
++      throw new WSSecurityException( WSSecurityException.INVALID_SECURITY, "noCert" );
+     }
+     BinarySecurity token = new BinarySecurity( bstDirect );
+     String type = token.getValueType( );
+@@ -277,15 +276,17 @@ public class WSSecurity {
+ 	  // can't call handleTimestamp() directly because 
+ 	  // the config will not be set in that case
+ 	  // all null-params are not used by handleToken()
+-	  Vector retResults = new Vector();
+-	  tsProc.handleToken((Element)node, null, null, null, null, retResults, WSSConfig.getDefaultWSConfig());
++    RequestData data = new RequestData();
++    data.setWssConfig(WSSConfig.getNewInstance());
++
++	  List<WSSecurityEngineResult> retResults = tsProc.handleToken((Element)node, data, null);
+ 	  
+ 	  // need to make sure that the timestamp's valid period
+ 	  // is at least as long as the request caching time
+ 	  Timestamp ts = (Timestamp)((WSSecurityEngineResult)retResults.get(0)).get(WSSecurityEngineResult.TAG_TIMESTAMP);
+ 	  LOG.debug("timestamp: " + ts);
+ 	 
+-	  Date expires = ts.getExpires().getTime();
++	  Date expires = ts.getExpires();
+ 	 
+ 	  if(!SecurityContext.validateTimestampPeriod(expires)) {
+ 	      LOG.warn("[security] ]Timestamp expiration is further in the future than replay cache expiration");
+@@ -339,12 +340,12 @@ public class WSSecurity {
+     } catch ( XMLSecurityException e2 ) {
+       throw new WSSecurityException( WSSecurityException.FAILED_CHECK, "noXMLSig", null, e2 );
+     }
+-    sig.addResourceResolver( EnvelopeIdResolver.getInstance( ) );
++//    sig.addResourceResolver( EnvelopeIdResolver.getInstance( ) );
+     return sig;
+   }
+   
+   public static SecurityTokenReference getSecurityTokenReference( KeyInfo info ) throws WSSecurityException {
+-    Node secTokenRef = WSSecurityUtil.getDirectChild( info.getElement( ), SecurityTokenReference.SECURITY_TOKEN_REFERENCE, WSConstants.WSSE_NS );
++    Node secTokenRef = WSSecurityUtil.getDirectChildElement( info.getElement( ), SecurityTokenReference.SECURITY_TOKEN_REFERENCE, WSConstants.WSSE_NS );
+     if ( secTokenRef == null ) {
+       throw new WSSecurityException( WSSecurityException.INVALID_SECURITY, "unsupportedKeyInfo" );
+     }
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/WsSecHandler.java b/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/WsSecHandler.java
+index 42b4fa9..9a036cd 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/WsSecHandler.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/ws/handlers/WsSecHandler.java
+@@ -65,6 +65,7 @@ package com.eucalyptus.ws.handlers;
+ 
+ import java.util.Collection;
+ import java.util.Vector;
++import java.util.List;
+ import org.apache.axiom.om.OMElement;
+ import org.apache.axiom.om.OMException;
+ import org.apache.axiom.om.impl.builder.StAXOMBuilder;
+@@ -122,7 +123,13 @@ public abstract class WsSecHandler extends MessageStackHandler {
+ 
+         final Vector v = new Vector( );
+         final WSSecHeader wsheader = new WSSecHeader( "", false );
+-        wsheader.insertSecurityHeader( doc );
++        try {
++          wsheader.insertSecurityHeader( doc );
++        } catch ( WSSecurityException e ) {
++          LOG.error( doc );
++          LOG.error( e, e );
++          Channels.fireExceptionCaught( ctx, e );
++        }
+ 
+         final WSSecSignature signer = new WSSecSignature( );
+         signer.setKeyIdentifierType( WSConstants.BST_DIRECT_REFERENCE );
+@@ -143,9 +150,9 @@ public abstract class WsSecHandler extends MessageStackHandler {
+         }
+         v.addAll( this.getSignatureParts( ) );
+         signer.appendBSTElementToHeader( wsheader );
+-        signer.appendToHeader( wsheader );
++        List<javax.xml.crypto.dsig.Reference> references = null;
+         try {
+-          signer.addReferencesToSign( v, wsheader );
++          references = signer.addReferencesToSign( v, wsheader );
+         } catch ( WSSecurityException e ) {
+           LOG.error( doc );
+           LOG.error( e, e );
+@@ -153,7 +160,7 @@ public abstract class WsSecHandler extends MessageStackHandler {
+         }
+ 
+         try {
+-          signer.computeSignature( );
++          signer.computeSignature( references );
+         } catch ( WSSecurityException e ) {
+           LOG.error( doc );
+           LOG.error( e, e );
+diff --git a/clc/modules/msgs/src/main/java/com/eucalyptus/ws/util/CredentialProxy.java b/clc/modules/msgs/src/main/java/com/eucalyptus/ws/util/CredentialProxy.java
+index 2996e3c..c21050a 100644
+--- a/clc/modules/msgs/src/main/java/com/eucalyptus/ws/util/CredentialProxy.java
++++ b/clc/modules/msgs/src/main/java/com/eucalyptus/ws/util/CredentialProxy.java
+@@ -65,6 +65,7 @@ package com.eucalyptus.ws.util;
+ 
+ import org.apache.ws.security.WSSecurityException;
+ import org.apache.ws.security.components.crypto.Crypto;
++import org.apache.ws.security.components.crypto.CryptoType;
+ import com.eucalyptus.component.ComponentId;
+ import com.eucalyptus.component.auth.SystemCredentials;
+ import com.eucalyptus.component.id.Eucalyptus;
+@@ -73,6 +74,8 @@ import java.io.InputStream;
+ import java.math.BigInteger;
+ import java.security.KeyStore;
+ import java.security.PrivateKey;
++import java.security.PublicKey;
++import javax.security.auth.callback.CallbackHandler;
+ import java.security.cert.Certificate;
+ import java.security.cert.CertificateFactory;
+ import java.security.cert.X509Certificate;
+@@ -85,27 +88,37 @@ public class CredentialProxy implements Crypto {
+   }
+ 
+   @Override
+-  public X509Certificate[] getCertificates( final String arg0 ) throws WSSecurityException {
++  public X509Certificate[] getCertificatesFromBytes( final byte[] data ) throws WSSecurityException {
+     return new X509Certificate[] { SystemCredentials.lookup( this.componentId ).getCertificate( ) };
+   }
+ 
+   @Override
+-  public PrivateKey getPrivateKey( final String alias, final String password ) throws Exception {
++  public X509Certificate[] getX509Certificates( final CryptoType cryptoType ) throws WSSecurityException {
++    return new X509Certificate[] { SystemCredentials.lookup( this.componentId ).getCertificate( ) };
++  }
++
++  @Override
++  public PrivateKey getPrivateKey( final String alias, final String password ) throws WSSecurityException {
+     return SystemCredentials.lookup( this.componentId ).getPrivateKey( );
+   }
+ 
++  @Override
++  public PrivateKey getPrivateKey( final X509Certificate certificate, final CallbackHandler callbackHandler ) throws WSSecurityException {
++    return SystemCredentials.lookup( this.componentId ).getPrivateKey( );
++  }
++
++  @Override public void setCryptoProvider( final String provider ) { }
++  @Override public String getCryptoProvider() { return null; }
++  @Override public void setCertificateFactory( final String provider, final CertificateFactory certFactory) { }
++  @Override public void setDefaultX509Identifier( final String identifier) { }
++
+   @Override public X509Certificate loadCertificate( final InputStream inputStream ) throws WSSecurityException { return null; }
+-  @Override public X509Certificate[] getX509Certificates( final byte[] bytes, final boolean b ) throws WSSecurityException { return new X509Certificate[0]; }
+-  @Override public byte[] getCertificateData( final boolean b, final X509Certificate[] x509Certificates ) throws WSSecurityException { return new byte[0]; }
+-  @Override public String getAliasForX509Cert( final Certificate certificate ) throws WSSecurityException { return null; }
+-  @Override public String getAliasForX509Cert( final String s ) throws WSSecurityException { return null; }
+-  @Override public String getAliasForX509Cert( final String s, final BigInteger bigInteger ) throws WSSecurityException { return null; }
+-  @Override public String getAliasForX509Cert( final byte[] bytes ) throws WSSecurityException { return null; }
+-  @Override public String getDefaultX509Alias( ) { return null; }
+-  @Override public byte[] getSKIBytesFromCert( final X509Certificate x509Certificate ) throws WSSecurityException { return new byte[0]; }
+-  @Override public String getAliasForX509CertThumb( final byte[] bytes ) throws WSSecurityException { return null; }
+-  @Override public KeyStore getKeyStore( ) { return null; }
+-  @Override public CertificateFactory getCertificateFactory( ) throws WSSecurityException { return null; }
+-  @Override public boolean validateCertPath( final X509Certificate[] x509Certificates ) throws WSSecurityException { return false; }
+-  @Override public String[] getAliasesForDN( final String s ) throws WSSecurityException { return new String[0]; }
++  @Override public String getX509Identifier( final X509Certificate cert ) throws WSSecurityException { return null; }
++  @Override public byte[] getBytesFromCertificates( final X509Certificate[] certs ) throws WSSecurityException { return new byte[0]; }
++  @Override public byte[] getSKIBytesFromCert( final X509Certificate cert ) throws WSSecurityException { return new byte[0]; }
++  @Override public String getDefaultX509Identifier() throws WSSecurityException { return null; }
++  @Override public CertificateFactory getCertificateFactory() throws WSSecurityException { return null; }
++  @Override public boolean verifyTrust( final X509Certificate[] certs ) throws WSSecurityException { return false; }
++  @Override public boolean verifyTrust( final X509Certificate[] certs, boolean enableRevocation ) throws WSSecurityException { return false; }
++  @Override public boolean verifyTrust( final PublicKey publicKey ) throws WSSecurityException { return false; }
+ }

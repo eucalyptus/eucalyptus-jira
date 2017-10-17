@@ -1,0 +1,302 @@
+package com.eucalyptus.tests.awssdk
+
+import groovy.transform.CompileStatic
+import com.amazonaws.auth.AWSCredentials
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.services.ec2.AmazonEC2
+import com.amazonaws.services.ec2.AmazonEC2Client
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.services.securitytoken.AWSSecurityTokenService
+import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient
+import com.amazonaws.services.securitytoken.model.AssumeRoleRequest
+import com.amazonaws.auth.BasicSessionCredentials
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagement
+import com.amazonaws.services.identitymanagement.AmazonIdentityManagementClient
+import com.amazonaws.services.identitymanagement.model.CreateRoleRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRoleRequest
+import com.amazonaws.services.identitymanagement.model.PutRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.DeleteRolePolicyRequest
+import com.amazonaws.services.identitymanagement.model.NoSuchEntityException
+import com.amazonaws.services.autoscaling.AmazonAutoScaling
+import com.amazonaws.services.autoscaling.AmazonAutoScalingClient
+import com.amazonaws.services.autoscaling.model.CreateLaunchConfigurationRequest
+import com.amazonaws.services.autoscaling.model.DeleteLaunchConfigurationRequest
+import com.amazonaws.services.autoscaling.model.CreateAutoScalingGroupRequest
+import com.amazonaws.services.autoscaling.model.DeleteAutoScalingGroupRequest
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.autoscaling.model.DescribeLaunchConfigurationsRequest
+import com.amazonaws.services.autoscaling.model.DescribeAutoScalingGroupsRequest
+import com.amazonaws.services.autoscaling.model.LaunchConfiguration
+import com.amazonaws.services.autoscaling.model.AutoScalingGroup
+
+/**
+ * Test listing and deletion for auto scaling launch configurations and groups via admin roles.
+ */
+@CompileStatic
+class TestAdminRoleAutoScaling {
+
+  private final String host = "10.111.5.4"
+
+  // Cloud administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIGCOMX8VBIDOB5DXLD",
+      "aakSKGI2ueFldEdhPMmBTbRtlSOAIKvr2EAcNoNf" ) )
+
+  // Details for an admin in some other account that we want to allow
+  // to assume an admin role
+  private final String adminAccountNumber = "043417679255"
+  private final AWSCredentialsProvider adminCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBSXTEDM5FG6FK9AKN",
+      "UW24y4ujHM7pBGg64DYQuJbq2EEzpPqSKG2bS8IH" ) )
+
+  // Creds for a regular account we can use to create a resource to
+  // test administrative access
+  private final AWSCredentialsProvider regularCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      "AKIBW4IOR7IAEPC9PP1W",
+      "TZdqeMEZK5FZg0ss6bbQexHMdsVCQVSS5iAqshI4" ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestAdminRoleAutoScaling().test()
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AWSCredentialsProvider getRoleCredentialsProvider( final String roleArn,
+                                                             final String sessionName,
+                                                             final AWSCredentialsProvider tokenServiceCredentials ) {
+    TestAdminRoleAutoScaling test = this;
+    new AWSCredentialsProvider(){
+      @Override
+      public AWSCredentials getCredentials() {
+        final AWSSecurityTokenService sts = new AWSSecurityTokenServiceClient( tokenServiceCredentials  )
+        sts.setEndpoint( test.cloudUri( "/services/Tokens/" ) )
+        sts.assumeRole( new AssumeRoleRequest(
+            roleArn: roleArn,
+            roleSessionName: sessionName
+        ) ).with {
+          assumedRoleUser.with {
+            test.assertThat( assumedRoleId.endsWith( sessionName ), "Unexpected assumed role id: ${assumedRoleId}" )
+            test.assertThat( arn.endsWith( sessionName ), "Unexpected assumed role arn: ${arn}" )
+          }
+          credentials.with {
+            new BasicSessionCredentials( accessKeyId, secretAccessKey, sessionToken )
+          }
+        }
+      }
+
+      @Override
+      public void refresh() {
+      }
+    }
+  }
+
+  private AmazonAutoScaling getAmazonAutoScalingClient( final AWSCredentialsProvider credentials ) {
+    final AmazonAutoScaling autoScaling = new AmazonAutoScalingClient( credentials )
+    autoScaling.setEndpoint( cloudUri( "/services/AutoScaling/" ) )
+    autoScaling
+  }
+
+  private AmazonEC2 getEc2Client( final AWSCredentialsProvider credentials ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials )
+    ec2.setEndpoint( cloudUri( "/services/Eucalyptus/" ) )
+    ec2
+  }
+
+  private AmazonIdentityManagement getIamClient( final AWSCredentialsProvider credentials  ) {
+    final AmazonIdentityManagement iam = new AmazonIdentityManagementClient( credentials )
+    iam.setEndpoint( cloudUri( "/services/Euare/" ) )
+    iam
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final AmazonEC2 ec2 = getEc2Client( eucalyptusCredentials )
+    final AmazonAutoScaling asUser = getAmazonAutoScalingClient( regularCredentials )
+    final AmazonIdentityManagement iam = getIamClient( eucalyptusCredentials )
+
+    // Find an AZ to use
+    final String availabilityZone = ec2.describeAvailabilityZones().with {
+      assertThat( (availabilityZones?.size()?:0) > 0, "Availability zone not found" )
+      availabilityZones?.get( 0 )?.zoneName
+    }
+    print( "Using availability zone: ${availabilityZone}" )
+
+    // Find an image to use
+    final String imageId = ec2.describeImages().with {
+      assertThat( (images?.size()?:0) > 0, "Availability zone not found" )
+      images.get( 0 )?.imageId
+    }
+    print( "Using image: ${imageId}" )
+
+    // End discovery, start test
+    final String namePrefix = UUID.randomUUID().toString() + "-"
+    print( "Using resource prefix for test: " + namePrefix )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      // Set up administrative role
+      final String roleName = namePrefix + "resource-admin"
+      print( "Creating role with name: " + roleName )
+      final String roleArn = iam.createRole( new CreateRoleRequest(
+          roleName: roleName,
+          assumeRolePolicyDocument: """\
+            {
+                "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "AWS": [ "arn:aws:iam::${adminAccountNumber}:user/admin" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+                } ]
+            }
+            """.stripIndent() as String
+      ) ).getRole().getArn()
+      print( "Created role with ARN " + roleArn )
+
+      cleanupTasks.add {
+          print( "Deleting role " + roleName )
+          iam.deleteRole( new DeleteRoleRequest( roleName: roleName ) )
+      }
+
+      final String policyName = "autoscaling"
+      print( "Adding policy to role " + roleName )
+      iam.putRolePolicy( new PutRolePolicyRequest( roleName: roleName, policyName: policyName, policyDocument: """\
+        {
+           "Statement": [ {
+              "Effect": "Allow",
+              "Action": "autoscaling:*",
+              "Resource": "*"
+           } ]
+        }
+        """.stripIndent()
+      ) )
+
+      cleanupTasks.add {
+        print( "Deleting policy for role " + roleName )
+        iam.deleteRolePolicy( new DeleteRolePolicyRequest( roleName: roleName, policyName: policyName ) )
+      }
+
+      // Create resources to test listing via admin role
+      final String launchConfigurationName = namePrefix + "Config1"
+      print( "Creating autoscaling launch configuration as user: ${launchConfigurationName}" )
+      asUser.createLaunchConfiguration( new CreateLaunchConfigurationRequest(
+          imageId: imageId,
+          instanceType: "m1.small",
+          launchConfigurationName: launchConfigurationName ) )
+      final String launchConfigurationArn = asUser.describeLaunchConfigurations( new DescribeLaunchConfigurationsRequest(
+          launchConfigurationNames: [launchConfigurationName]
+      ) ).with {
+        launchConfigurations?.get(0)?.launchConfigurationARN
+      }
+      print( "Created autoscaling launch configuration: ${launchConfigurationArn}" )
+
+      cleanupTasks.add {
+        print( "Deleting autoscaling launch configuration for user: ${launchConfigurationName}" )
+        asUser.deleteLaunchConfiguration( new DeleteLaunchConfigurationRequest(
+            launchConfigurationName: launchConfigurationName
+        ) )
+      }
+
+      final String groupName = namePrefix + "Group1"
+      print( "Creating autoscaling group as user: ${groupName}" )
+      asUser.createAutoScalingGroup( new CreateAutoScalingGroupRequest(
+          minSize: 0,
+          maxSize: 0,
+          availabilityZones: [ availabilityZone ],
+          launchConfigurationName: launchConfigurationName,
+          autoScalingGroupName: groupName
+      ) )
+      final String groupArn = asUser.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest(
+          autoScalingGroupNames: [groupName]
+      ) ).with {
+        autoScalingGroups?.get(0)?.autoScalingGroupARN
+      }
+      print( "Created autoscaling group: ${groupArn}" )
+
+      cleanupTasks.add {
+        print( "Deleting autoscaling group for user: ${groupName}" )
+        asUser.deleteAutoScalingGroup( new DeleteAutoScalingGroupRequest(
+            autoScalingGroupName: groupName
+        ) )
+      }
+
+      // Create client using role
+      final AmazonAutoScaling asRole = getAmazonAutoScalingClient(
+          getRoleCredentialsProvider( roleArn, "session-name-here", adminCredentials )
+      )
+
+      // List resources using admin role
+      print( "Listing auto scaling launch configurations" )
+      asRole.describeLaunchConfigurations( new DescribeLaunchConfigurationsRequest(
+          launchConfigurationNames: [ "verbose" ]
+      ) ).with {
+        assertThat(
+            !launchConfigurations.findAll{ LaunchConfiguration config ->
+              config.launchConfigurationName==launchConfigurationName }.isEmpty(),
+            "Expected launch configuration: ${launchConfigurationName}" )
+      }
+
+      print( "Listing auto scaling groups" )
+      asRole.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest(
+          autoScalingGroupNames: [ "verbose" ]
+      ) ).with {
+        assertThat(
+            !autoScalingGroups.findAll{ AutoScalingGroup group ->
+              group.autoScalingGroupName==groupName }.isEmpty(),
+            "Expected group: ${groupName}" )
+      }
+
+      // Delete resources using admin role
+      print( "Deleting auto scaling launch configuration: ${launchConfigurationArn}" )
+      asRole.deleteLaunchConfiguration(  new DeleteLaunchConfigurationRequest(
+        launchConfigurationName: launchConfigurationArn
+      ) );
+
+      print( "Deleting auto scaling group: ${groupArn}" )
+      asRole.deleteAutoScalingGroup(  new DeleteAutoScalingGroupRequest(
+          autoScalingGroupName: groupArn
+      ) );
+
+      // Verify resources deleted
+      print( "Verifying autoscaling launch configuration no longer present: ${launchConfigurationName}" )
+      asUser.describeLaunchConfigurations( new DescribeLaunchConfigurationsRequest(
+          launchConfigurationNames: [ launchConfigurationName ]
+      ) ).with {
+        assertThat( launchConfigurations.isEmpty(), "Expected launch configuration deleted: ${launchConfigurationName}" )
+      }
+
+      print( "Verifying autoscaling group no longer present: ${groupName}" )
+      asUser.describeAutoScalingGroups( new DescribeAutoScalingGroupsRequest(
+          autoScalingGroupNames: [ groupName ]
+      ) ).with {
+        assertThat( autoScalingGroups.isEmpty(), "Expected autoscaling group deleted: ${groupName}" )
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

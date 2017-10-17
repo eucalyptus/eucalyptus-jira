@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instance xml-version="1">
+  <hypervisor type="kvm" capability="hw" bitness="64" requiresDisk="true"/>
+  <backing>
+    <root type="ebs"/>
+  </backing>
+  <name>i-6cc4bc34</name>
+  <uuid>8dccf491-a564-4e9c-9803-c8f933acab79</uuid>
+  <reservation>r-a51aa165</reservation>
+  <user>AIDAAQCKO4VZZEP2NQMJ2</user>
+  <owner>AIDAAQCKO4VZZEP2NQMJ2</owner>
+  <account>000500264619</account>
+  <imageId></imageId>
+  <kernelId></kernelId>
+  <ramdiskId></ramdiskId>
+  <dnsName></dnsName>
+  <privateDnsName></privateDnsName>
+  <instancePath>/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-6cc4bc34</instancePath>
+  <xmlFilePath>/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-6cc4bc34/instance.xml</xmlFilePath>
+  <libvirtFilePath>/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-6cc4bc34/instance-libvirt.xml</libvirtFilePath>
+  <consoleLogPath>/var/lib/eucalyptus/instances/work/AIDAAQCKO4VZZEP2NQMJ2/i-6cc4bc34/console.log</consoleLogPath>
+  <userData></userData>
+  <launchIndex>0</launchIndex>
+  <hasFloppy>false</hasFloppy>
+  <cpuPassthrough>false</cpuPassthrough>
+  <cores>1</cores>
+  <memoryKB>524288</memoryKB>
+  <diskGB>10</diskGB>
+  <VmType>m1.medium</VmType>
+  <NicType>virtio</NicType>
+  <NicDevice>br0</NicDevice>
+  <rootDirective></rootDirective>
+  <key doInjectKey="false" sshKey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdsbteuetWBbu+CRJetvKl9wz22rRAseoxLBy5MZHkvF+y+bc8pUNY+TlTAFWzuDk/ZSCEQK/5kYp9X0Y4LcYVpft05DL4U3LfBc3bhn7zVmNCHUZHgcNDKtNBjVlMsLN5GSKrDgqwcFD1hdWmIuZJiAm+z1Th6G5jdRqSn1iehsMPQctDqKL7mcXqMXNSQg9Sj4TAfUa+8g7UPigPxHOygjmGiT3qAXElULCxVCzez/bHiPgA09qM5UM+RZ5dEGnupK8NY/qmIGPHaXEha50O8TgI7JitXs8hxH5zhPsowMqN8QFamcIzE3Qy5tIOa4p5HNobZdPfNkv+mTJ6igb/ 000500264619@eucalyptus.testkey-ugtest"/>
+  <os platform="linux" virtioRoot="true" virtioDisk="true" virtioNetwork="true"/>
+  <groupNames>
+    <name>000500264619-86e6ed4f-c10c-47ce-88d6-5e67d6d35101</name>
+  </groupNames>
+  <disks>
+    <floppyPath></floppyPath>
+  </disks>
+  <vbrs>
+    <vbr>
+      <resourceLocation>sc://vol-38fd8033,QbHI/kAj6/7qCuY0Njt5+cBNPLcG/BakDX+5LNApWO550+EtkBwIfXBZly68RNqjPlkKnfIM90puREEymn3ai9YSHg0pAFAByEPIVdG1bJDbcx3kMj3yQJ4DtYwHdp36575DZbRwwcvTXwchJolABV428UIGPthOD2E+skOfngcUY9LPATi5yMv8A8uCk+d/J//4QP7T2sxwo5fFlLlzRMrt7Lse8i2/plcoYoGRZZDgxxxhPPmEpV1GLdNrBBvvPlhTnJU90ayS4zEHwaRdxwvLhjvLMmsnv6k2JOEWd8qEqDXeYZviirS10PU/Ko3+ahSqtYoiU4jRs37UVphvPQ==</resourceLocation>
+      <guestDeviceName>vda</guestDeviceName>
+      <sizeBytes>3221225472</sizeBytes>
+      <formatName>none</formatName>
+      <id>emi-699148b6</id>
+      <typeName>ebs</typeName>
+      <type>ebs</type>
+      <locationType/>
+      <format>none</format>
+      <diskNumber>0</diskNumber>
+      <partitionNumber>0</partitionNumber>
+      <guestDeviceType>disk</guestDeviceType>
+      <guestDeviceBus>virtio</guestDeviceBus>
+      <backingType>block</backingType>
+      <backingPath>&lt;disk type='block'&gt;
+  &lt;driver cache='none' name='qemu'/&gt;
+  &lt;source dev='/dev/disk/by-id/scsi-1IET_00080001'/&gt;
+  &lt;target bus='virtio' dev='vda'/&gt;
+  &lt;serial&gt;euca-bdm-ebs1-dev-vda&lt;/serial&gt;
+&lt;/disk&gt;
+</backingPath>
+      <preparedResourceLocation>iscsi,tgt,,,,aZ3WkzPuvcTRaWG570jmE80+VJ2nCHz2NVyPbAIr2pnUq0ZoDSg7N10DVMhi34gGqEsNMuUZ0ZEg3ogrEaFi+U2S9gYxG67nfNq7aKLLNrh05u21Obnubb1w/fVlso7l9zzwkuBS3Psk+ySSVgOzvmFONjdekMUSEfP8Cr5ExKY3HhFi8uHRUApHPvd+Ax9JK+g/1/EtXRI+UlH/Y1Akn2Gzjqwt3sL5w0scD48JyG/XXfMyC0by4e5DQA0vKH2bzOVi/5FDAQUUWjCmJjxfF9ZdZFFx9BG0FAnEp90MEOrmnNeSx3DQcJpXYEDb2Jfhom/w86ck0cbd78c8lTF3iA==,,10.111.5.74,iqn.2009-06.com.eucalyptus.one:store8</preparedResourceLocation>
+      <guestDeviceSerialId>euca-bdm-ebs1-dev-vda</guestDeviceSerialId>
+    </vbr>
+  </vbrs>
+  <volumes>
+    <volume>
+      <id>vol-38fd8033</id>
+      <attachmentToken>sc://vol-38fd8033,QbHI/kAj6/7qCuY0Njt5+cBNPLcG/BakDX+5LNApWO550+EtkBwIfXBZly68RNqjPlkKnfIM90puREEymn3ai9YSHg0pAFAByEPIVdG1bJDbcx3kMj3yQJ4DtYwHdp36575DZbRwwcvTXwchJolABV428UIGPthOD2E+skOfngcUY9LPATi5yMv8A8uCk+d/J//4QP7T2sxwo5fFlLlzRMrt7Lse8i2/plcoYoGRZZDgxxxhPPmEpV1GLdNrBBvvPlhTnJU90ayS4zEHwaRdxwvLhjvLMmsnv6k2JOEWd8qEqDXeYZviirS10PU/Ko3+ahSqtYoiU4jRs37UVphvPQ==</attachmentToken>
+      <devName>vda</devName>
+      <stateName>attached</stateName>
+      <connectionString>iscsi,tgt,,,,aZ3WkzPuvcTRaWG570jmE80+VJ2nCHz2NVyPbAIr2pnUq0ZoDSg7N10DVMhi34gGqEsNMuUZ0ZEg3ogrEaFi+U2S9gYxG67nfNq7aKLLNrh05u21Obnubb1w/fVlso7l9zzwkuBS3Psk+ySSVgOzvmFONjdekMUSEfP8Cr5ExKY3HhFi8uHRUApHPvd+Ax9JK+g/1/EtXRI+UlH/Y1Akn2Gzjqwt3sL5w0scD48JyG/XXfMyC0by4e5DQA0vKH2bzOVi/5FDAQUUWjCmJjxfF9ZdZFFx9BG0FAnEp90MEOrmnNeSx3DQcJpXYEDb2Jfhom/w86ck0cbd78c8lTF3iA==,,10.111.5.74,iqn.2009-06.com.eucalyptus.one:store8</connectionString>
+      <libvirt><disk type="block">
+  <driver cache="none" name="qemu"/>
+  <source dev="/dev/disk/by-id/scsi-1IET_00080001"/>
+  <target bus="virtio" dev="vda"/>
+  <serial>euca-bdm-ebs1-dev-vda</serial>
+</disk>
+</libvirt>
+    </volume>
+  </volumes>
+  <nics>
+    <nic vlan="-1" networkIndex="-1" mac="d0:0d:6c:c4:bc:34" publicIp="10.111.31.218" privateIp="10.111.31.249" bridgeDeviceName="br0" guestDeviceName="vn_i-6cc4bc34" device="0" stateName="attached" hypervisorType="kvm" osPlatform="linux" osVirtioNetwork="true"/>
+  </nics>
+  <states>
+    <retries>5</retries>
+    <stateName>Extant</stateName>
+    <bundleTaskStateName>none</bundleTaskStateName>
+    <bundleTaskProgress>0.0000</bundleTaskProgress>
+    <createImageTaskStateName></createImageTaskStateName>
+    <stateCode>15</stateCode>
+    <state>Running</state>
+    <bundleTaskState>none</bundleTaskState>
+    <bundleBucketExists>false</bundleBucketExists>
+    <bundleCanceled>false</bundleCanceled>
+    <guestStateName>poweredOn</guestStateName>
+    <isStopRequested>false</isStopRequested>
+    <createImageTaskState>none</createImageTaskState>
+    <createImagePid>0</createImagePid>
+    <createImageCanceled>false</createImageCanceled>
+    <migrationState>none</migrationState>
+    <migrationSource></migrationSource>
+    <migrationDestination></migrationDestination>
+    <migrationCredentials></migrationCredentials>
+  </states>
+  <timestamps>
+    <launchTime>146367502</launchTime>
+    <expiryTime>146367502</expiryTime>
+    <bootTime>146367504</bootTime>
+    <bundlingTime>0</bundlingTime>
+    <createImageTime>0</createImageTime>
+    <terminationRequestedTime>0</terminationRequestedTime>
+    <terminationTime>0</terminationTime>
+    <migrationTime>0</migrationTime>
+  </timestamps>
+</instance>

@@ -1,0 +1,28 @@
+#!/bin/bash
+#set -x 
+if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: $0 volume-id-to-snap zone-for-new-volume"
+    exit
+fi
+date
+euca-describe-volumes $1
+echo "Existing snapshots:"
+euca-describe-snapshots --filter volume-id=$1
+echo "Creating 1st snapshot"
+euca-create-snapshot -d snap1 $1
+date
+echo "Creating 2nd snapshot"
+SNAP2=$(euca-create-snapshot -d snap2 $1 | awk '{ print $2 }')
+CHECK_SNAP=$(euca-describe-snapshots $SNAP2 | awk '{ print $4 }')
+while [ "$CHECK_SNAP" != "completed" ] ; do
+    echo "Waiting for snapshot $SNAP2: $CHECK_SNAP"
+    CHECK_SNAP=$(euca-describe-snapshots $SNAP2 | awk '{ print $4 }')
+    sleep 1
+done
+date
+echo "2nd snapshot available, creating new volume from it"
+euca-create-volume -z $2 --snapshot $SNAP2
+date
+echo "Existing snapshots:"
+euca-describe-snapshots --filter volume-id=$1
+

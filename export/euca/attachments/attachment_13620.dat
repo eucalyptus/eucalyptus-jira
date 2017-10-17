@@ -1,0 +1,233 @@
+$ ping euca-192-168-55-105.wu-tang.euca-hasp.eucalyptus-systems.com
+PING euca-192-168-55-105.wu-tang.euca-hasp.eucalyptus-systems.com (192.168.55.105): 56 data bytes
+64 bytes from 192.168.55.105: icmp_seq=0 ttl=61 time=100.358 ms
+64 bytes from 192.168.55.105: icmp_seq=1 ttl=61 time=103.087 ms
+64 bytes from 192.168.55.105: icmp_seq=2 ttl=61 time=103.734 ms
+64 bytes from 192.168.55.105: icmp_seq=3 ttl=61 time=101.007 ms
+64 bytes from 192.168.55.105: icmp_seq=4 ttl=61 time=94.728 ms
+64 bytes from 192.168.55.105: icmp_seq=5 ttl=61 time=103.012 ms
+64 bytes from 192.168.55.105: icmp_seq=6 ttl=61 time=99.564 ms
+64 bytes from 192.168.55.105: icmp_seq=7 ttl=61 time=99.162 ms
+64 bytes from 192.168.55.105: icmp_seq=8 ttl=61 time=103.404 ms
+64 bytes from 192.168.55.105: icmp_seq=9 ttl=61 time=98.837 ms
+64 bytes from 192.168.55.105: icmp_seq=10 ttl=61 time=101.158 ms
+64 bytes from 192.168.55.105: icmp_seq=11 ttl=61 time=98.861 ms
+64 bytes from 192.168.55.105: icmp_seq=12 ttl=61 time=98.833 ms
+64 bytes from 192.168.55.105: icmp_seq=13 ttl=61 time=98.827 ms
+64 bytes from 192.168.55.105: icmp_seq=14 ttl=61 time=101.049 ms
+64 bytes from 192.168.55.105: icmp_seq=15 ttl=61 time=98.855 ms
+64 bytes from 192.168.55.105: icmp_seq=16 ttl=61 time=99.990 ms
+64 bytes from 192.168.55.105: icmp_seq=17 ttl=61 time=106.760 ms
+64 bytes from 192.168.55.105: icmp_seq=18 ttl=61 time=98.067 ms
+64 bytes from 192.168.55.105: icmp_seq=19 ttl=61 time=99.526 ms
+64 bytes from 192.168.55.105: icmp_seq=20 ttl=61 time=97.805 ms
+64 bytes from 192.168.55.105: icmp_seq=21 ttl=61 time=97.823 ms
+64 bytes from 192.168.55.105: icmp_seq=22 ttl=61 time=99.774 ms
+64 bytes from 192.168.55.105: icmp_seq=23 ttl=61 time=100.533 ms
+64 bytes from 192.168.55.105: icmp_seq=24 ttl=61 time=94.539 ms
+64 bytes from 192.168.55.105: icmp_seq=25 ttl=61 time=101.984 ms
+64 bytes from 192.168.55.105: icmp_seq=26 ttl=61 time=101.547 ms
+64 bytes from 192.168.55.105: icmp_seq=27 ttl=61 time=99.351 ms
+64 bytes from 192.168.55.105: icmp_seq=28 ttl=61 time=99.928 ms
+64 bytes from 192.168.55.105: icmp_seq=29 ttl=61 time=98.422 ms
+64 bytes from 192.168.55.105: icmp_seq=30 ttl=61 time=100.287 ms
+64 bytes from 192.168.55.105: icmp_seq=31 ttl=61 time=98.966 ms
+64 bytes from 192.168.55.105: icmp_seq=32 ttl=61 time=99.114 ms
+64 bytes from 192.168.55.105: icmp_seq=33 ttl=61 time=96.650 ms
+64 bytes from 192.168.55.105: icmp_seq=34 ttl=61 time=100.905 ms
+64 bytes from 192.168.55.105: icmp_seq=35 ttl=61 time=98.571 ms
+64 bytes from 192.168.55.105: icmp_seq=36 ttl=61 time=109.332 ms
+64 bytes from 192.168.55.105: icmp_seq=37 ttl=61 time=94.558 ms
+64 bytes from 192.168.55.105: icmp_seq=38 ttl=61 time=110.451 ms
+64 bytes from 192.168.55.105: icmp_seq=39 ttl=61 time=102.215 ms
+64 bytes from 192.168.55.105: icmp_seq=40 ttl=61 time=99.498 ms
+64 bytes from 192.168.55.105: icmp_seq=41 ttl=61 time=122.034 ms
+64 bytes from 192.168.55.105: icmp_seq=42 ttl=61 time=100.053 ms
+64 bytes from 192.168.55.105: icmp_seq=43 ttl=61 time=101.330 ms
+64 bytes from 192.168.55.105: icmp_seq=44 ttl=61 time=99.671 ms
+64 bytes from 192.168.55.105: icmp_seq=45 ttl=61 time=98.614 ms
+64 bytes from 192.168.55.105: icmp_seq=46 ttl=61 time=94.152 ms
+64 bytes from 192.168.55.105: icmp_seq=47 ttl=61 time=110.242 ms
+64 bytes from 192.168.55.105: icmp_seq=48 ttl=61 time=99.501 ms
+64 bytes from 192.168.55.105: icmp_seq=49 ttl=61 time=115.035 ms
+64 bytes from 192.168.55.105: icmp_seq=50 ttl=61 time=98.965 ms
+64 bytes from 192.168.55.105: icmp_seq=51 ttl=61 time=96.131 ms
+64 bytes from 192.168.55.105: icmp_seq=52 ttl=61 time=102.799 ms
+^C
+--- euca-192-168-55-105.wu-tang.euca-hasp.eucalyptus-systems.com ping statistics ---
+53 packets transmitted, 53 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 94.152/100.936/122.034/4.878 ms
+
+==============================
+
+$ ping euca-192-168-55-104.wu-tang.euca-hasp.eucalyptus-systems.com
+PING euca-192-168-55-104.wu-tang.euca-hasp.eucalyptus-systems.com (192.168.55.104): 56 data bytes
+64 bytes from 192.168.55.104: icmp_seq=0 ttl=125 time=110.441 ms
+64 bytes from 192.168.55.104: icmp_seq=1 ttl=125 time=98.847 ms
+64 bytes from 192.168.55.104: icmp_seq=2 ttl=125 time=101.141 ms
+64 bytes from 192.168.55.104: icmp_seq=3 ttl=125 time=99.121 ms
+64 bytes from 192.168.55.104: icmp_seq=4 ttl=125 time=97.652 ms
+64 bytes from 192.168.55.104: icmp_seq=5 ttl=125 time=98.670 ms
+64 bytes from 192.168.55.104: icmp_seq=6 ttl=125 time=101.707 ms
+64 bytes from 192.168.55.104: icmp_seq=7 ttl=125 time=101.406 ms
+64 bytes from 192.168.55.104: icmp_seq=8 ttl=125 time=94.985 ms
+64 bytes from 192.168.55.104: icmp_seq=9 ttl=125 time=99.566 ms
+64 bytes from 192.168.55.104: icmp_seq=10 ttl=125 time=97.850 ms
+64 bytes from 192.168.55.104: icmp_seq=11 ttl=125 time=109.996 ms
+64 bytes from 192.168.55.104: icmp_seq=12 ttl=125 time=98.817 ms
+64 bytes from 192.168.55.104: icmp_seq=13 ttl=125 time=109.953 ms
+64 bytes from 192.168.55.104: icmp_seq=14 ttl=125 time=98.911 ms
+64 bytes from 192.168.55.104: icmp_seq=15 ttl=125 time=99.795 ms
+64 bytes from 192.168.55.104: icmp_seq=16 ttl=125 time=102.131 ms
+64 bytes from 192.168.55.104: icmp_seq=17 ttl=125 time=108.729 ms
+64 bytes from 192.168.55.104: icmp_seq=18 ttl=125 time=101.507 ms
+64 bytes from 192.168.55.104: icmp_seq=19 ttl=125 time=99.571 ms
+64 bytes from 192.168.55.104: icmp_seq=20 ttl=125 time=106.660 ms
+64 bytes from 192.168.55.104: icmp_seq=21 ttl=125 time=98.373 ms
+64 bytes from 192.168.55.104: icmp_seq=22 ttl=125 time=99.958 ms
+64 bytes from 192.168.55.104: icmp_seq=23 ttl=125 time=98.411 ms
+64 bytes from 192.168.55.104: icmp_seq=24 ttl=125 time=101.219 ms
+64 bytes from 192.168.55.104: icmp_seq=25 ttl=125 time=98.630 ms
+64 bytes from 192.168.55.104: icmp_seq=26 ttl=125 time=98.525 ms
+64 bytes from 192.168.55.104: icmp_seq=27 ttl=125 time=108.208 ms
+64 bytes from 192.168.55.104: icmp_seq=28 ttl=125 time=112.749 ms
+64 bytes from 192.168.55.104: icmp_seq=29 ttl=125 time=99.072 ms
+64 bytes from 192.168.55.104: icmp_seq=30 ttl=125 time=97.892 ms
+64 bytes from 192.168.55.104: icmp_seq=31 ttl=125 time=103.997 ms
+64 bytes from 192.168.55.104: icmp_seq=32 ttl=125 time=115.174 ms
+64 bytes from 192.168.55.104: icmp_seq=33 ttl=125 time=103.052 ms
+64 bytes from 192.168.55.104: icmp_seq=34 ttl=125 time=100.322 ms
+64 bytes from 192.168.55.104: icmp_seq=35 ttl=125 time=98.939 ms
+64 bytes from 192.168.55.104: icmp_seq=36 ttl=125 time=100.232 ms
+64 bytes from 192.168.55.104: icmp_seq=37 ttl=125 time=94.885 ms
+64 bytes from 192.168.55.104: icmp_seq=38 ttl=125 time=99.363 ms
+64 bytes from 192.168.55.104: icmp_seq=39 ttl=125 time=98.428 ms
+64 bytes from 192.168.55.104: icmp_seq=40 ttl=125 time=131.654 ms
+64 bytes from 192.168.55.104: icmp_seq=41 ttl=125 time=94.956 ms
+64 bytes from 192.168.55.104: icmp_seq=42 ttl=125 time=102.125 ms
+64 bytes from 192.168.55.104: icmp_seq=43 ttl=125 time=100.738 ms
+64 bytes from 192.168.55.104: icmp_seq=44 ttl=125 time=99.683 ms
+64 bytes from 192.168.55.104: icmp_seq=45 ttl=125 time=98.663 ms
+64 bytes from 192.168.55.104: icmp_seq=46 ttl=125 time=98.160 ms
+64 bytes from 192.168.55.104: icmp_seq=47 ttl=125 time=99.414 ms
+64 bytes from 192.168.55.104: icmp_seq=48 ttl=125 time=99.906 ms
+64 bytes from 192.168.55.104: icmp_seq=49 ttl=125 time=101.392 ms
+64 bytes from 192.168.55.104: icmp_seq=50 ttl=125 time=94.831 ms
+64 bytes from 192.168.55.104: icmp_seq=51 ttl=125 time=102.805 ms
+64 bytes from 192.168.55.104: icmp_seq=52 ttl=125 time=112.553 ms
+64 bytes from 192.168.55.104: icmp_seq=53 ttl=125 time=100.922 ms
+^C
+--- euca-192-168-55-104.wu-tang.euca-hasp.eucalyptus-systems.com ping statistics ---
+54 packets transmitted, 54 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 94.831/101.902/131.654/6.166 ms
+
+================================
+
+$ ping euca-192-168-55-101.wu-tang.euca-hasp.eucalyptus-systems.com
+PING euca-192-168-55-101.wu-tang.euca-hasp.eucalyptus-systems.com (192.168.55.101): 56 data bytes
+64 bytes from 192.168.55.101: icmp_seq=0 ttl=61 time=102.029 ms
+64 bytes from 192.168.55.101: icmp_seq=1 ttl=61 time=101.005 ms
+64 bytes from 192.168.55.101: icmp_seq=2 ttl=61 time=101.296 ms
+64 bytes from 192.168.55.101: icmp_seq=3 ttl=61 time=100.809 ms
+64 bytes from 192.168.55.101: icmp_seq=4 ttl=61 time=104.122 ms
+64 bytes from 192.168.55.101: icmp_seq=5 ttl=61 time=107.665 ms
+64 bytes from 192.168.55.101: icmp_seq=6 ttl=61 time=95.719 ms
+64 bytes from 192.168.55.101: icmp_seq=7 ttl=61 time=101.493 ms
+64 bytes from 192.168.55.101: icmp_seq=8 ttl=61 time=109.028 ms
+64 bytes from 192.168.55.101: icmp_seq=9 ttl=61 time=103.223 ms
+64 bytes from 192.168.55.101: icmp_seq=10 ttl=61 time=102.252 ms
+64 bytes from 192.168.55.101: icmp_seq=11 ttl=61 time=100.080 ms
+64 bytes from 192.168.55.101: icmp_seq=12 ttl=61 time=104.241 ms
+64 bytes from 192.168.55.101: icmp_seq=13 ttl=61 time=100.696 ms
+64 bytes from 192.168.55.101: icmp_seq=14 ttl=61 time=102.649 ms
+64 bytes from 192.168.55.101: icmp_seq=15 ttl=61 time=101.028 ms
+64 bytes from 192.168.55.101: icmp_seq=16 ttl=61 time=98.431 ms
+64 bytes from 192.168.55.101: icmp_seq=17 ttl=61 time=104.376 ms
+64 bytes from 192.168.55.101: icmp_seq=18 ttl=61 time=100.424 ms
+64 bytes from 192.168.55.101: icmp_seq=19 ttl=61 time=104.039 ms
+64 bytes from 192.168.55.101: icmp_seq=20 ttl=61 time=102.508 ms
+64 bytes from 192.168.55.101: icmp_seq=21 ttl=61 time=99.078 ms
+64 bytes from 192.168.55.101: icmp_seq=22 ttl=61 time=110.722 ms
+64 bytes from 192.168.55.101: icmp_seq=23 ttl=61 time=98.556 ms
+64 bytes from 192.168.55.101: icmp_seq=24 ttl=61 time=99.344 ms
+64 bytes from 192.168.55.101: icmp_seq=25 ttl=61 time=98.253 ms
+64 bytes from 192.168.55.101: icmp_seq=26 ttl=61 time=146.589 ms
+64 bytes from 192.168.55.101: icmp_seq=27 ttl=61 time=99.322 ms
+64 bytes from 192.168.55.101: icmp_seq=28 ttl=61 time=99.907 ms
+64 bytes from 192.168.55.101: icmp_seq=29 ttl=61 time=109.034 ms
+64 bytes from 192.168.55.101: icmp_seq=30 ttl=61 time=108.685 ms
+64 bytes from 192.168.55.101: icmp_seq=31 ttl=61 time=100.586 ms
+64 bytes from 192.168.55.101: icmp_seq=32 ttl=61 time=139.707 ms
+64 bytes from 192.168.55.101: icmp_seq=33 ttl=61 time=102.099 ms
+64 bytes from 192.168.55.101: icmp_seq=34 ttl=61 time=105.463 ms
+64 bytes from 192.168.55.101: icmp_seq=35 ttl=61 time=95.364 ms
+64 bytes from 192.168.55.101: icmp_seq=36 ttl=61 time=99.584 ms
+64 bytes from 192.168.55.101: icmp_seq=37 ttl=61 time=101.887 ms
+64 bytes from 192.168.55.101: icmp_seq=38 ttl=61 time=111.871 ms
+64 bytes from 192.168.55.101: icmp_seq=39 ttl=61 time=96.421 ms
+64 bytes from 192.168.55.101: icmp_seq=40 ttl=61 time=99.856 ms
+64 bytes from 192.168.55.101: icmp_seq=41 ttl=61 time=101.986 ms
+64 bytes from 192.168.55.101: icmp_seq=42 ttl=61 time=99.813 ms
+64 bytes from 192.168.55.101: icmp_seq=43 ttl=61 time=105.105 ms
+64 bytes from 192.168.55.101: icmp_seq=44 ttl=61 time=100.552 ms
+64 bytes from 192.168.55.101: icmp_seq=45 ttl=61 time=101.477 ms
+64 bytes from 192.168.55.101: icmp_seq=46 ttl=61 time=102.679 ms
+64 bytes from 192.168.55.101: icmp_seq=47 ttl=61 time=101.264 ms
+64 bytes from 192.168.55.101: icmp_seq=48 ttl=61 time=97.758 ms
+64 bytes from 192.168.55.101: icmp_seq=49 ttl=61 time=103.178 ms
+64 bytes from 192.168.55.101: icmp_seq=50 ttl=61 time=108.843 ms
+64 bytes from 192.168.55.101: icmp_seq=51 ttl=61 time=100.759 ms
+64 bytes from 192.168.55.101: icmp_seq=52 ttl=61 time=100.399 ms
+64 bytes from 192.168.55.101: icmp_seq=53 ttl=61 time=94.619 ms
+^C
+--- euca-192-168-55-101.wu-tang.euca-hasp.eucalyptus-systems.com ping statistics ---
+54 packets transmitted, 54 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 94.619/103.479/146.589/8.630 ms
+
+==================================
+
+$ ping euca-192-168-55-106.wu-tang.euca-hasp.eucalyptus-systems.com
+PING euca-192-168-55-106.wu-tang.euca-hasp.eucalyptus-systems.com (192.168.55.106): 56 data bytes
+64 bytes from 192.168.55.106: icmp_seq=0 ttl=61 time=98.691 ms
+64 bytes from 192.168.55.106: icmp_seq=1 ttl=61 time=100.329 ms
+64 bytes from 192.168.55.106: icmp_seq=2 ttl=61 time=95.544 ms
+64 bytes from 192.168.55.106: icmp_seq=3 ttl=61 time=101.143 ms
+64 bytes from 192.168.55.106: icmp_seq=4 ttl=61 time=99.214 ms
+64 bytes from 192.168.55.106: icmp_seq=5 ttl=61 time=100.593 ms
+64 bytes from 192.168.55.106: icmp_seq=6 ttl=61 time=101.548 ms
+64 bytes from 192.168.55.106: icmp_seq=7 ttl=61 time=101.525 ms
+64 bytes from 192.168.55.106: icmp_seq=8 ttl=61 time=100.053 ms
+Request timeout for icmp_seq 9
+Request timeout for icmp_seq 10
+Request timeout for icmp_seq 11
+Request timeout for icmp_seq 12
+Request timeout for icmp_seq 13
+Request timeout for icmp_seq 14
+Request timeout for icmp_seq 15
+Request timeout for icmp_seq 16
+Request timeout for icmp_seq 17
+Request timeout for icmp_seq 18
+Request timeout for icmp_seq 19
+Request timeout for icmp_seq 20
+Request timeout for icmp_seq 21
+Request timeout for icmp_seq 22
+Request timeout for icmp_seq 23
+Request timeout for icmp_seq 24
+Request timeout for icmp_seq 25
+Request timeout for icmp_seq 26
+Request timeout for icmp_seq 27
+Request timeout for icmp_seq 28
+Request timeout for icmp_seq 29
+Request timeout for icmp_seq 30
+Request timeout for icmp_seq 31
+Request timeout for icmp_seq 32
+Request timeout for icmp_seq 33
+Request timeout for icmp_seq 34
+Request timeout for icmp_seq 35
+Request timeout for icmp_seq 36
+64 bytes from 192.168.55.106: icmp_seq=37 ttl=61 time=109.509 ms
+64 bytes from 192.168.55.106: icmp_seq=38 ttl=61 time=101.516 ms
+^C
+--- euca-192-168-55-106.wu-tang.euca-hasp.eucalyptus-systems.com ping statistics ---
+40 packets transmitted, 11 packets received, 72.5% packet loss
+round-trip min/avg/max/stddev = 95.544/100.879/109.509/3.204 ms

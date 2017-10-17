@@ -1,0 +1,271 @@
+/*************************************************************************
+ * Copyright 2009-2015 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.Request
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.handlers.AbstractRequestHandler
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.services.ec2.AmazonEC2
+import com.amazonaws.services.ec2.AmazonEC2Client
+import com.amazonaws.services.ec2.model.*
+import com.amazonaws.services.identitymanagement.model.CreateAccessKeyRequest
+import com.amazonaws.services.identitymanagement.model.CreateUserRequest
+import com.amazonaws.services.identitymanagement.model.PutUserPolicyRequest
+import com.github.sjones4.youcan.youare.YouAre
+import com.github.sjones4.youcan.youare.YouAreClient
+import com.github.sjones4.youcan.youare.model.CreateAccountRequest
+import com.github.sjones4.youcan.youare.model.DeleteAccountRequest
+import com.github.sjones4.youcan.youprop.YouProp
+import com.github.sjones4.youcan.youprop.YouPropClient
+import com.github.sjones4.youcan.youprop.model.DescribePropertiesRequest
+import com.github.sjones4.youcan.youprop.model.ModifyPropertyValueRequest
+
+/**
+ * Tests use of region specific policies with EC2.
+ *
+ * Uses:
+ *   https://github.com/sjones4/you-are-sdk
+ *
+ * This is verification for the story:
+ *   https://eucalyptus.atlassian.net/browse/EUCA-10479
+
+ */
+class TestIAMGlobRegionSpecificPolicy {
+
+  private final String host = '10.10.10.10'
+
+  // Cloud 1 administrative credentials
+  private final AWSCredentialsProvider eucalyptusCredentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      'AKI...',
+      'Tto...'
+  ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestIAMGlobRegionSpecificPolicy().test()
+  }
+
+  private String cloudUri( String host, String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private YouAreClient getYouAreClient( final String host, final AWSCredentialsProvider credentials  ) {
+    final YouAreClient euare = new YouAreClient( credentials )
+    euare.setEndpoint( cloudUri( host, '/services/Euare' ) )
+    euare
+  }
+
+  private AmazonEC2 getEC2Client( final String host, final AWSCredentialsProvider credentials ) {
+    final AmazonEC2 ec2 = new AmazonEC2Client( credentials )
+    ec2.setEndpoint( cloudUri( host, '/services/compute' ) )
+    ec2
+  }
+
+  private YouProp getYouPropClient( final String host, final AWSCredentialsProvider credentials ) {
+    final YouProp youProp = new YouPropClient( credentials )
+    youProp.setEndpoint( cloudUri( host, '/services/Properties' ) )
+    youProp
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final String namePrefix = UUID.randomUUID().toString().substring(0, 13) + "-";
+    print( "Using resource prefix for test: " + namePrefix );
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String resourceAccountName = "${namePrefix}resource-account1"
+      AWSCredentialsProvider resourceAdminCredentials = null
+      AWSCredentialsProvider resourceUserCredentials = null
+      getYouAreClient( host, eucalyptusCredentials ).with {
+        // Create account for testing
+        print("Creating resource account on ${host}: ${resourceAccountName}")
+        String resourceAccountNumber = createAccount(new CreateAccountRequest(accountName: resourceAccountName)).with {
+          account?.accountId
+        }
+        assertThat(resourceAccountNumber != null, "Expected account number")
+        print("Created resource account with number: ${resourceAccountNumber}")
+        cleanupTasks.add {
+          print("Deleting resource account: ${resourceAccountName}")
+          deleteAccount(new DeleteAccountRequest(accountName: resourceAccountName, recursive: true))
+        }
+
+        // Get credentials for resource account
+        YouAre resourceIam = getYouAreClient(host, eucalyptusCredentials)
+        resourceIam.addRequestHandler(new AbstractRequestHandler() {
+          public void beforeRequest(final Request<?> request) {
+            request.addParameter("DelegateAccount", resourceAccountName)
+          }
+        })
+        resourceAdminCredentials = resourceIam.with {
+          print("Creating access key for resource account admin: ${resourceAccountName}")
+          createAccessKey(new CreateAccessKeyRequest(userName: 'admin')).with {
+            accessKey?.with {
+              new StaticCredentialsProvider(new BasicAWSCredentials(accessKeyId, secretAccessKey))
+            }
+          }
+        }
+        assertThat(resourceAdminCredentials != null, "Expected resource admin credentials")
+        print("Created resource account admin access key: ${resourceAdminCredentials.credentials.AWSAccessKeyId}")
+
+        resourceUserCredentials = resourceIam.with {
+          String user = 'user-1'
+          print("Creating user ${user} in resource account")
+          createUser( new CreateUserRequest( userName: user ) )
+
+          print("Creating region specific policy for user ${user}")
+          putUserPolicy( new PutUserPolicyRequest(
+              userName: user,
+              policyName: 'policy-1',
+              policyDocument: '''\
+                {
+                   "Statement": [
+                     {
+                       "Effect": "Allow",
+                       "Action": [ "ec2:DescribeKeyPairs", "ec2:DescribeSecurityGroups" ],
+                       "Resource": [
+                         "arn:aws:ec2:::key-pair/*",
+                         "arn:aws:ec2:region-1::security-group/*"
+                       ]
+                     }
+                   ]
+                }
+              '''.stripIndent( )
+          ) )
+
+          print("Creating access key for resource account ${user}: ${resourceAccountName}")
+          createAccessKey(new CreateAccessKeyRequest(userName: user)).with {
+            accessKey?.with {
+              new StaticCredentialsProvider(new BasicAWSCredentials(accessKeyId, secretAccessKey))
+            }
+          }
+        }
+        assertThat(resourceUserCredentials != null, "Expected resource user credentials")
+        print("Created resource account user access key: ${resourceUserCredentials.credentials.AWSAccessKeyId}")
+      }
+
+      // Create resource account resources
+      getEC2Client( host, resourceAdminCredentials ).with{
+        String keyPair = "${namePrefix}-key"
+        print( "Creating key pair with name ${keyPair}" )
+        createKeyPair( new CreateKeyPairRequest( keyName: keyPair ) )
+        cleanupTasks.add{
+          println( "Deleting key pair: ${keyPair}" )
+          deleteKeyPair( new DeleteKeyPairRequest( keyName: keyPair ) );
+        }
+
+        void
+      }
+
+      // Clear region name setting
+      print( "Checking region name configuration" )
+      String originalRegionName = getYouPropClient( host, eucalyptusCredentials ).with{
+        describeProperties( new DescribePropertiesRequest( properties: [ 'region.region_name' ] ) ).with {
+          properties?.getAt( 0 )?.getValue( )
+        }
+      }
+      if ( originalRegionName ) {
+        cleanupTasks.add{
+          print( "Restoring region name: ${originalRegionName}" )
+          getYouPropClient( host, eucalyptusCredentials ).with{
+            modifyPropertyValue( new ModifyPropertyValueRequest( name:'region.region_name', value: originalRegionName ) )
+          }
+        }
+
+        print( "Clearing region name configuration" )
+        getYouPropClient( host, eucalyptusCredentials ).with{
+          modifyPropertyValue( new ModifyPropertyValueRequest( name:'region.region_name' ) )
+        }
+      }
+
+      // Test access to resource account for user with region specific policy, no region defined so should pass
+      getEC2Client( host, resourceUserCredentials ).with{
+        print( "Describing key pairs" )
+        describeKeyPairs( ).with {
+          assertThat( keyPairs.size( ) == 1, "Expected 1 keypair, but was ${keyPairs.size( )}" )
+        }
+
+        print( "Describing security groups" )
+        describeSecurityGroups( ).with {
+          assertThat( securityGroups.size( ) == 1, "Expected 1 (default) security group, but was ${securityGroups.size( )}" )
+        }
+      }
+
+      print( "Setting region name to region-1" )
+      getYouPropClient( host, eucalyptusCredentials ).with{
+        modifyPropertyValue( new ModifyPropertyValueRequest( name:'region.region_name', value: 'region-1' ) )
+      }
+
+      // Test access to resource account for user with region specific policy, should match defined region
+      getEC2Client( host, resourceUserCredentials ).with{
+        print( "Describing key pairs" )
+        describeKeyPairs( ).with {
+          assertThat( keyPairs.size( ) == 1, "Expected 1 keypair, but was ${keyPairs.size( )}" )
+        }
+
+        print( "Describing security groups" )
+        describeSecurityGroups( ).with {
+          assertThat( securityGroups.size( ) == 1, "Expected 1 (default) security group, but was ${securityGroups.size( )}" )
+        }
+      }
+
+      print( "Setting region name to region-2" )
+      getYouPropClient( host, eucalyptusCredentials ).with{
+        modifyPropertyValue( new ModifyPropertyValueRequest( name:'region.region_name', value: 'region-2' ) )
+      }
+
+      // Test access to resource account for user with region specific policy, should not match defined region
+      getEC2Client( host, resourceUserCredentials ).with{
+        print( "Describing key pairs" )
+        describeKeyPairs( ).with {
+          assertThat( keyPairs.size( ) == 1, "Expected 1 keypair, but was ${keyPairs.size( )}" )
+        }
+
+        print( "Describing security groups" )
+        describeSecurityGroups( ).with {
+          assertThat( securityGroups.size( ) == 0, "Expected 0 security groups, but was ${securityGroups.size( )}" )
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

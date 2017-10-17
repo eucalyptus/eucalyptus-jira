@@ -1,0 +1,571 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+
+	"Description": "CloudFormation template to launch a highly available Nginx web stack with ELB access logging in Eucalyptus VPC",
+
+	"Parameters": {
+		"ImageId": {
+			"Description": "Ubuntu Image id",
+			"Type": "String",
+			"NoEcho": "False"
+		},
+
+		"KeyName": {
+			"Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+			"Type": "AWS::EC2::KeyPair::KeyName",
+			"ConstraintDescription": "The name of an existing EC2 KeyPair",
+			"NoEcho": "False"
+		},
+
+               "EndPoint": {
+                        "Description": "Endpoint URL of Cloudformation (required for Eucalyptus)",
+                        "Type": "String",
+                        "ConstraintDescription": "must be an URL to Cloudformation service on Eucalyptus"
+                },
+
+		"InstanceType": {
+			"Description": "Type of EC2 instance to launch.",
+			"Type": "String",
+                        "Default" : "m1.medium",
+                        "AllowedValues" : [ "m1.small","t1.micro","m1.medium", "m3.medium","c1.medium","m1.large", "m1.xlarge", "c1.xlarge", "m2.xlarge", "m3.xlarge", "m2.2xlarge", "m3.2xlarge", "cc1.4xlarge", "m2.4xlarge", "hi1.4xlarge", "cc2.8xlarge", "cg1.4xlarge", "cr1.8xlarge", "hs1.8xlarge" ],
+			"ConstraintDescription": "must be a valid EC2 instance type."
+		},
+
+		"MinSize": {
+			"Description": "Minimum number of EC2 instances.",
+			"Type": "Number",
+			"Default": "2"
+		},
+
+		"MaxSize": {
+			"Description": "Maximum number of EC2 instances.",
+			"Type": "Number",
+			"Default": "4"
+		}
+	},
+
+	"Resources": {
+
+		"NginxVPC": {
+			"Type": "AWS::EC2::VPC",
+			"Properties": {
+				"CidrBlock": "10.0.0.0/16",
+				"EnableDnsSupport": "True",
+				"EnableDnsHostnames": "True",
+				"Tags": [{
+					"Key": "Application",
+					"Value": {
+						"Ref": "AWS::StackId"
+					}
+				}]
+			}
+		},
+
+		"NginxSubnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"VpcId": {
+					"Ref": "NginxVPC"
+				},
+				"CidrBlock": "10.0.0.0/24",
+                                "AvailabilityZone" : { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"Tags": [{
+					"Key": "Application",
+					"Value": {
+						"Ref": "AWS::StackId"
+					}
+				}]
+			}
+		},
+
+		"NginxInternetGateway": {
+			"Type": "AWS::EC2::InternetGateway",
+			"Properties": {
+				"Tags": [{
+					"Key": "Application",
+					"Value": {
+						"Ref": "AWS::StackId"
+					}
+				}]
+			}
+		},
+
+		"NginxAttachGateway": {
+			"Type": "AWS::EC2::VPCGatewayAttachment",
+			"Properties": {
+				"VpcId": {
+					"Ref": "NginxVPC"
+				},
+				"InternetGatewayId": {
+					"Ref": "NginxInternetGateway"
+				}
+			}
+		},
+
+		"NginxRouteTable": {
+			"Type": "AWS::EC2::RouteTable",
+			"Properties": {
+				"VpcId": {
+					"Ref": "NginxVPC"
+				},
+				"Tags": [{
+					"Key": "Application",
+					"Value": {
+						"Ref": "AWS::StackId"
+					}
+				}]
+			}
+		},
+
+		"NginxRoute": {
+			"Type": "AWS::EC2::Route",
+			"DependsOn": "NginxAttachGateway",
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "NginxRouteTable"
+				},
+				"DestinationCidrBlock": "0.0.0.0/0",
+				"GatewayId": {
+					"Ref": "NginxInternetGateway"
+				}
+			}
+		},
+
+		"NginxSubnetRouteTableAssocaiation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"SubnetId": {
+					"Ref": "NginxSubnet"
+				},
+				"RouteTableId": {
+					"Ref": "NginxRouteTable"
+				}
+			}
+		},
+
+		"NginxNetworkAcl": {
+			"Type": "AWS::EC2::NetworkAcl",
+			"Properties": {
+				"VpcId": {
+					"Ref": "NginxVPC"
+				},
+				"Tags": [{
+					"Key": "Application",
+					"Value": {
+						"Ref": "AWS::StackId"
+					}
+				}]
+			}
+		},
+
+		"InboundHTTPNetworkAclEntry": {
+			"Type": "AWS::EC2::NetworkAclEntry",
+			"Properties": {
+				"NetworkAclId": {
+					"Ref": "NginxNetworkAcl"
+				},
+				"RuleNumber": "100",
+				"Protocol": "6",
+				"RuleAction": "allow",
+				"Egress": "false",
+				"CidrBlock": "0.0.0.0/0",
+				"PortRange": {
+					"From": "80",
+					"To": "80"
+				}
+			}
+		},
+
+		"InboundSSHNetworkAclEntry": {
+			"Type": "AWS::EC2::NetworkAclEntry",
+			"Properties": {
+				"NetworkAclId": {
+					"Ref": "NginxNetworkAcl"
+				},
+				"RuleNumber": "101",
+				"Protocol": "6",
+				"RuleAction": "allow",
+				"Egress": "false",
+				"CidrBlock": "0.0.0.0/0",
+				"PortRange": {
+					"From": "22",
+					"To": "22"
+				}
+			}
+		},
+
+		"InboundResponsePortsNetworkAclEntry": {
+			"Type": "AWS::EC2::NetworkAclEntry",
+			"Properties": {
+				"NetworkAclId": {
+					"Ref": "NginxNetworkAcl"
+				},
+				"RuleNumber": "102",
+				"Protocol": "6",
+				"RuleAction": "allow",
+				"Egress": "false",
+				"CidrBlock": "0.0.0.0/0",
+				"PortRange": {
+					"From": "1024",
+					"To": "65535"
+				}
+			}
+		},
+
+		"OutBoundNetworkAclEntry": {
+			"Type": "AWS::EC2::NetworkAclEntry",
+			"Properties": {
+				"NetworkAclId": {
+					"Ref": "NginxNetworkAcl"
+				},
+				"RuleNumber": "100",
+				"Protocol": "6",
+				"RuleAction": "allow",
+				"Egress": "true",
+				"CidrBlock": "0.0.0.0/0",
+				"PortRange": {
+					"From": "0",
+					"To": "65535"
+				}
+			}
+		},
+
+		"SubnetNetworkAclAssociation": {
+			"Type": "AWS::EC2::SubnetNetworkAclAssociation",
+			"Properties": {
+				"SubnetId": {
+					"Ref": "NginxSubnet"
+				},
+				"NetworkAclId": {
+					"Ref": "NginxNetworkAcl"
+				}
+			}
+		},
+
+                "CfnUser": {
+                        "Type": "AWS::IAM::User",
+                        "Properties": {
+                                "Path": "/",
+                                "Policies": [{
+                                "PolicyName": "root",
+                                "PolicyDocument": {
+                                       "Statement": [{
+                                       "Effect": "Allow",
+                                       "NotAction": [
+                                               "iam:*"
+                                       ],
+                                       "Resource": "*"
+                                       }]
+                                }
+                                }]
+                        }
+                },
+
+                "CfnUserKey": {
+                        "Type": "AWS::IAM::AccessKey",
+                        "Properties": {
+                                "UserName": {
+                                       "Ref": "CfnUser"
+                                }
+                        }
+                },
+
+		"LoadBalancerSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"GroupDescription": "Enable HTTP access on port 80",
+				"VpcId": {
+					"Ref": "NginxVPC"
+				},
+				"SecurityGroupIngress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "80",
+					"ToPort": "80",
+					"CidrIp": "0.0.0.0/0"
+				}, {
+					"IpProtocol": "tcp",
+					"FromPort": "443",
+					"ToPort": "443",
+					"CidrIp": "0.0.0.0/0"
+				}],
+				"SecurityGroupEgress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "80",
+					"ToPort": "80",
+					"CidrIp": "0.0.0.0/0"
+				}, {
+					"IpProtocol": "tcp",
+					"FromPort": "443",
+					"ToPort": "443",
+					"CidrIp": "0.0.0.0/0"
+				}]
+			}
+		},
+
+                "S3LoggingBucket": {
+                    "Type": "AWS::S3::Bucket",
+                    "Properties": {
+		        "Tags": [{
+		 	    "Key": "Application",
+				"Value": {
+					"Ref": "AWS::StackId"
+				}
+			}]
+                    }
+                },
+
+		"NginxELB": {
+			"Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+			"Properties": {
+				"Subnets": [{
+					"Ref": "NginxSubnet"
+				}],
+				"SecurityGroups": [{
+					"Ref": "LoadBalancerSecurityGroup"
+				}],
+				"Listeners": [{
+					"LoadBalancerPort": "80",
+					"InstancePort": "80",
+					"Protocol": "HTTP"
+				}],
+				"HealthCheck": {
+					"Target": "HTTP:80/",
+					"HealthyThreshold": "3",
+					"UnhealthyThreshold": "5",
+					"Interval": "90",
+					"Timeout": "60"
+				},
+                                "ConnectionDrainingPolicy": {
+                                        "Enabled": "true",
+                                        "Timeout": "20"
+                                },
+                                "ConnectionSettings": {
+                                        "IdleTimeout": "30"
+                                },
+		                "Tags": [{
+		 	            "Key": "Application",
+				    "Value": {
+				        "Ref": "AWS::StackId"
+				    }
+			        }],
+                                "AccessLoggingPolicy": {
+                                    "S3BucketName": {
+                                        "Ref": "S3LoggingBucket"
+                                    },
+                                    "S3BucketPrefix": "nginx-access",
+                                    "Enabled": "true",
+                                    "EmitInterval": "5"
+                                }
+			},
+                        "DependsOn": "S3LoggingBucket"
+		},
+
+		"InstanceSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"Properties": {
+				"GroupDescription": "Enable HTTP access on 80 and 443 from ELB.",
+				"VpcId": {
+					"Ref": "NginxVPC"
+				},
+				"SecurityGroupIngress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "80",
+					"ToPort": "80",
+					"SourceSecurityGroupId": {
+						"Ref": "LoadBalancerSecurityGroup"
+					}
+				}, {
+					"IpProtocol": "tcp",
+					"FromPort": "443",
+					"ToPort": "443",
+					"SourceSecurityGroupId": {
+						"Ref": "LoadBalancerSecurityGroup"
+					}
+				}]
+			}
+		},
+
+		"LaunchConfig": {
+			"Type": "AWS::AutoScaling::LaunchConfiguration",
+			"Properties": {
+				"ImageId": {
+					"Ref": "ImageId"
+				},
+				"InstanceType": {
+					"Ref": "InstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"AssociatePublicIpAddress": "true",
+				"UserData": {
+					"Fn::Base64": {
+						"Fn::Join": ["", [
+                                                      "#!/bin/bash -xe\n",
+                                                      "apt-get update && apt-get install ntp -y\n",
+                                                      "apt-get install -y python-setuptools\n",
+                                                      "apt-get install -y nginx\n",
+					              "curl https://www.yahoo.com/ --insecure > /var/www/html/index.nginx-debian.html\n",
+                                                      "ntpd -u pool.ntp.org\n",
+                                                      "timedatectl set-ntp yes\n",
+                                                      "hwclock --systohc\n",
+                                                      "mkdir /aws-cfn-bootstrap-latest\n",
+                                                      "curl https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz | tar xz -C /aws-cfn-bootstrap-latest --strip-components 1\n",
+                                                      "easy_install /aws-cfn-bootstrap-latest\n",
+                                                      "/usr/local/bin/cfn-signal -e 0 --stack ", { "Ref": "AWS::StackName" },
+                                                      " --access-key ", { "Ref": "CfnUserKey" },
+                                                      " --secret-key ", { "Fn::GetAtt": ["CfnUserKey", "SecretAccessKey"] },
+                                                      " --resource AutoScalingGroup ",
+                                                      " --url ", { "Ref": "EndPoint" },
+                                                      " --region ", { "Ref" : "AWS::Region" }, "\n"
+						]]
+					}
+				},
+				"SecurityGroups": [{
+					"Ref": "InstanceSecurityGroup"
+				}],
+				"InstanceMonitoring": true
+			}
+		},
+
+		"AutoScalingGroup": {
+                        "CreationPolicy": {
+                            "ResourceSignal": {
+                                "Count": { "Ref" : "MinSize" },
+                                "Timeout": "PT15M"
+                            }
+                        },
+			"UpdatePolicy": {
+				"AutoScalingRollingUpdate": {
+					"MinInstancesInService": {
+						"Ref": "MinSize"
+					},
+					"MaxBatchSize": "3",
+					"PauseTime": "PT15M"
+				}
+			},
+			"Type": "AWS::AutoScaling::AutoScalingGroup",
+			"Properties": {
+				"AvailabilityZones": [{
+					"Fn::GetAtt": ["NginxSubnet", "AvailabilityZone"]
+				}],
+				"VPCZoneIdentifier": [{
+					"Ref": "NginxSubnet"
+				}],
+				"Cooldown": "300",
+				"MaxSize": {
+					"Ref": "MaxSize"
+				},
+				"MinSize": {
+					"Ref": "MinSize"
+				},
+                                "DesiredCapacity": {
+                                        "Ref": "MinSize"
+                                },
+				"LaunchConfigurationName": {
+					"Ref": "LaunchConfig"
+				},
+				"HealthCheckType": "EC2",
+				"HealthCheckGracePeriod": "3600",
+				"LoadBalancerNames": [{
+					"Ref": "NginxELB"
+				}],
+				"Tags": [{
+					"Key": "Name",
+					"Value": {
+						"Ref": "AWS::StackName"
+					},
+					"PropagateAtLaunch": true
+				}]
+			}
+		},
+
+		"ScaleUpPolicy": {
+			"Type": "AWS::AutoScaling::ScalingPolicy",
+			"Properties": {
+				"AdjustmentType": "ChangeInCapacity",
+				"AutoScalingGroupName": {
+					"Ref": "AutoScalingGroup"
+				},
+				"Cooldown": "60",
+				"ScalingAdjustment": "1"
+			}
+		},
+
+		"ScaleDownPolicy": {
+			"Type": "AWS::AutoScaling::ScalingPolicy",
+			"Properties": {
+				"AdjustmentType": "ChangeInCapacity",
+				"AutoScalingGroupName": {
+					"Ref": "AutoScalingGroup"
+				},
+				"Cooldown": "60",
+				"ScalingAdjustment": "-1"
+			}
+		},
+
+		"CPUAlarmHigh": {
+			"Type": "AWS::CloudWatch::Alarm",
+			"Properties": {
+				"AlarmDescription": "Scale-up if CPU > 80% for 10 minutes",
+				"MetricName": "CPUUtilization",
+				"Namespace": "AWS/EC2",
+				"Statistic": "Average",
+				"Period": "300",
+				"EvaluationPeriods": "2",
+				"Threshold": "80",
+				"AlarmActions": [{
+					"Ref": "ScaleUpPolicy"
+				}],
+				"Dimensions": [{
+					"Name": "AutoScalingGroupName",
+					"Value": {
+						"Ref": "AutoScalingGroup"
+					}
+				}],
+				"ComparisonOperator": "GreaterThanThreshold"
+			}
+		},
+
+		"CPUAlarmLow": {
+			"Type": "AWS::CloudWatch::Alarm",
+			"Properties": {
+				"AlarmDescription": "Scale-down if CPU < 20% for 10 minutes",
+				"MetricName": "CPUUtilization",
+				"Namespace": "AWS/EC2",
+				"Statistic": "Average",
+				"Period": "300",
+				"EvaluationPeriods": "2",
+				"Threshold": "20",
+				"AlarmActions": [{
+					"Ref": "ScaleDownPolicy"
+				}],
+				"Dimensions": [{
+					"Name": "AutoScalingGroupName",
+					"Value": {
+						"Ref": "AutoScalingGroup"
+					}
+				}],
+				"ComparisonOperator": "LessThanThreshold"
+			}
+		}
+	},
+
+	"Outputs": {
+                "AccessLogBucket": {
+                    "Value": {
+                        "Ref": "S3LoggingBucket"
+                    },
+                    "Description": "Name of Bucket Created for ELB Access Logs"
+                },
+		"ELBURL": {
+			"Value": {
+				"Fn::Join": ["", ["http://", {
+					"Fn::GetAtt": ["NginxELB", "DNSName"]
+				}]]
+			},
+			"Description": "ELB DNS Name for Nginx Cluster"
+		}
+	}
+
+}

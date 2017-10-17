@@ -1,0 +1,458 @@
+root@eucahost-51-77:/var/log# tail /var/log/eucalyptus/nc.log 
+[Tue Jun 12 12:16:58 2012][008329][EUCADEBUG ] [i-597948E2] get_instance_stats: blkdevs=sda3,sda2,sda1,sda, blkMB=203 netdevs=vnet0 netMB=0
+[Tue Jun 12 12:17:03 2012][008329][EUCADEBUG ] [i-597948E2] get_instance_stats: blkdevs=sda3,sda2,sda1,sda, blkMB=203 netdevs=vnet0 netMB=0
+[Tue Jun 12 12:17:08 2012][008329][EUCADEBUG ] [i-597948E2] get_instance_stats: blkdevs=sda3,sda2,sda1,sda, blkMB=203 netdevs=vnet0 netMB=0
+[Tue Jun 12 12:17:12 2012][008329][EUCAINFO  ] [i-597948E2] doAttachVolume: invoked (vol=vol-F5F94108 remote=192.168.7.189,iqn.2001-05.com.equallogic:0-8a0906-2fe1dd504-51a0000569f4fd79-vol-f5f94108,Zapxm8xXP4em+V357yAHcoXb+thyBnE3DgXsiJguuqP7ovLomJneoPwPPglUAsVXiexPxU+wTU0W34Ehevd0+9zBPUGRm2E/FcilYyTo2bm8NSUIib9Az9yOdJpH2YYVQOCE1x1HaQ/JwSP3QWGSQU3qnWWCqL2vf43AvsEt8NJQeKE4xY7w2tpwg9BrcUqvO9PSSO9Ftpz0onpYa+nHuZgjY5VHAnFZeyxvtpt7YuAbHMMYQE0jGqoNCjGw5QUApG/JyXyn0mUmPeHAKNYnPFcPTSQZSQJzmi9u19cyVkPF/3RhcHO+x+npx4ut7HeGVlZZxUrPjtaQB/pKiOZvHg== local=/dev/sdb1)
+[Tue Jun 12 12:17:12 2012][008329][EUCAINFO  ] connect_iscsi_target invoked (dev_string=192.168.7.189,iqn.2001-05.com.equallogic:0-8a0906-2fe1dd504-51a0000569f4fd79-vol-f5f94108,Zapxm8xXP4em+V357yAHcoXb+thyBnE3DgXsiJguuqP7ovLomJneoPwPPglUAsVXiexPxU+wTU0W34Ehevd0+9zBPUGRm2E/FcilYyTo2bm8NSUIib9Az9yOdJpH2YYVQOCE1x1HaQ/JwSP3QWGSQU3qnWWCqL2vf43AvsEt8NJQeKE4xY7w2tpwg9BrcUqvO9PSSO9Ftpz0onpYa+nHuZgjY5VHAnFZeyxvtpt7YuAbHMMYQE0jGqoNCjGw5QUApG/JyXyn0mUmPeHAKNYnPFcPTSQZSQJzmi9u19cyVkPF/3RhcHO+x+npx4ut7HeGVlZZxUrPjtaQB/pKiOZvHg==)
+[Tue Jun 12 12:17:12 2012][026820][EUCADEBUG ] connect_iscsi_target(): running command: //usr/lib/eucalyptus/euca_rootwrap //usr/share/eucalyptus/connect_iscsitarget.pl /,192.168.7.189,iqn.2001-05.com.equallogic:0-8a0906-2fe1dd504-51a0000569f4fd79-vol-f5f94108,Zapxm8xXP4em+V357yAHcoXb+thyBnE3DgXsiJguuqP7ovLomJneoPwPPglUAsVXiexPxU+wTU0W34Ehevd0+9zBPUGRm2E/FcilYyTo2bm8NSUIib9Az9yOdJpH2YYVQOCE1x1HaQ/JwSP3QWGSQU3qnWWCqL2vf43AvsEt8NJQeKE4xY7w2tpwg9BrcUqvO9PSSO9Ftpz0onpYa+nHuZgjY5VHAnFZeyxvtpt7YuAbHMMYQE0jGqoNCjGw5QUApG/JyXyn0mUmPeHAKNYnPFcPTSQZSQJzmi9u19cyVkPF/3RhcHO+x+npx4ut7HeGVlZZxUrPjtaQB/pKiOZvHg==
+[Tue Jun 12 12:17:14 2012][008329][EUCADEBUG ] [i-597948E2] get_instance_stats: blkdevs=sda3,sda2,sda1,sda, blkMB=203 netdevs=vnet0 netMB=0
+[Tue Jun 12 12:17:15 2012][026820][EUCAINFO  ] connect_iscsi_target(): attached host device name: /dev/sdc
+[Tue Jun 12 12:17:15 2012][008329][EUCADEBUG ] [i-597948E2] attached iSCSI target of host device '/dev/sdc'
+[Tue Jun 12 12:17:15 2012][008329][EUCAINFO  ] [i-597948E2] wrote volume XML to /disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/vol-F5F94108.xml
+root@eucahost-51-77:/var/log# 
+root@eucahost-51-77:/var/log# cat /disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/instance.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<instance>
+  <hypervisor type="kvm" capability="hw" bitness="64"/>
+  <backing>
+    <root type="image"/>
+  </backing>
+  <name>i-597948E2</name>
+  <uuid>2eef8b01-4fa4-41ea-aa03-70786a33fa50</uuid>
+  <reservation>r-793943ED</reservation>
+  <user>5TFCRRDT05KKLBHXNGXD2</user>
+  <dnsName></dnsName>
+  <privateDnsName></privateDnsName>
+  <instancePath>/disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2</instancePath>
+  <kernel>/disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/eki-BF603925-6b7b64f9.blocks</kernel>
+  <ramdisk>/disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/eri-C39A3D22-fe9175ba.blocks</ramdisk>
+  <consoleLogPath>/disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/console.log</consoleLogPath>
+  <userData></userData>
+  <launchIndex>0</launchIndex>
+  <cores>1</cores>
+  <memoryKB>131072</memoryKB>
+  <key isKeyInjected="true" sshKey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT480s2/z8zghCcafieTmRJDw96Go/UuasDZuPMTBQO4DeV1Rsb5ga3//s4L82VpgMBos/dtegGECx3/zFqCzO2QX13yfSdvJPBHHNspdpN8HLg51eq04xaEm+Fi0jUIeVmE7CZiK8cBROnMyjSxJKyGg9RtDueKhaaK3cu2yqteW0p+JuWJ1GJe/9wYzEm1aWw412UunUBHRFtXKXsu+kDdAFq9LBVg/mZLwmq+YjZkdtDLrU3pynbAZSXcMU0ko1wCTTZv+Uk1CSUdYqkP3c7VFnUfzNm3ajSlq75GW6u6+nH/8EsHJkUn3uUh2KJx/2Tcd2cWWh3VZWDQPjQjiR 959814699827@eucalyptus.vasya"/>
+  <os platform="linux" virtioRoot="false" virtioDisk="true" virtioNetwork="false"/>
+  <disks>
+    <diskPath targetDeviceType="disk" targetDeviceName="sda" targetDeviceBus="scsi" sourceType="block">/dev/mapper/euca-5TFCRRDT05KKLBHXNGXD2-i-597948E2-dsk-D2FD37A2-77abd782</diskPath>
+    <root device="sda"/>
+  </disks>
+  <nics>
+    <nic bridgeDeviceName="eucabr118" mac="D0:0D:59:79:48:E2"/>
+  </nics>
+</instance>
+root@eucahost-51-77:/var/log# cat /disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/vol-F5F94108.xml 
+<?xml version="1.0" encoding="UTF-8"?>
+<volume>
+  <hypervisor type="kvm" capability="hw" bitness="64"/>
+  <id>vol-F5F94108</id>
+  <user>5TFCRRDT05KKLBHXNGXD2</user>
+  <instancePath>/disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2</instancePath>
+  <os platform="linux" virtioRoot="false" virtioDisk="true" virtioNetwork="false"/>
+  <backing>
+    <root type="image"/>
+  </backing>
+  <diskPath targetDeviceType="disk" targetDeviceName="sdb1" targetDeviceBus="scsi" sourceType="block">/dev/sdc</diskPath>
+</volume>
+root@eucahost-51-77:/var/log# 
+root@eucahost-51-77:/var/log# cat /disk1/storage/eucalyptus/instances/work/5TFCRRDT05KKLBHXNGXD2/i-597948E2/console.log      
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 2.6.39-2-amd64 (Debian 2.6.39-3) (ben@decadent.org.uk) (gcc version 4.4.6 (Debian 4.4.6-6) ) #1 SMP Tue Jul 5 02:51:22 UTC 2011
+[    0.000000] Command line: root=/dev/sda1 console=ttyS0
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009fc00 (usable)
+[    0.000000]  BIOS-e820: 000000000009fc00 - 00000000000a0000 (reserved)
+[    0.000000]  BIOS-e820: 00000000000f0000 - 0000000000100000 (reserved)
+[    0.000000]  BIOS-e820: 0000000000100000 - 0000000007ffd000 (usable)
+[    0.000000]  BIOS-e820: 0000000007ffd000 - 0000000008000000 (reserved)
+[    0.000000]  BIOS-e820: 00000000feffc000 - 00000000ff000000 (reserved)
+[    0.000000]  BIOS-e820: 00000000fffc0000 - 0000000100000000 (reserved)
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] DMI 2.4 present.
+[    0.000000] No AGP bridge found
+[    0.000000] last_pfn = 0x7ffd max_arch_pfn = 0x400000000
+[    0.000000] PAT not supported by CPU.
+[    0.000000] found SMP MP-table at [ffff8800000fdaf0] fdaf0
+[    0.000000] init_memory_mapping: 0000000000000000-0000000007ffd000
+[    0.000000] RAMDISK: 07577000 - 07ff0000
+[    0.000000] ACPI: RSDP 00000000000fd990 00014 (v00 BOCHS )
+[    0.000000] ACPI: RSDT 0000000007ffd7b0 00034 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
+[    0.000000] ACPI: FACP 0000000007ffff80 00074 (v01 BOCHS  BXPCFACP 00000001 BXPC 00000001)
+[    0.000000] ACPI: DSDT 0000000007ffd9b0 02589 (v01   BXPC   BXDSDT 00000001 INTL 20100528)
+[    0.000000] ACPI: FACS 0000000007ffff40 00040
+[    0.000000] ACPI: SSDT 0000000007ffd910 0009E (v01 BOCHS  BXPCSSDT 00000001 BXPC 00000001)
+[    0.000000] ACPI: APIC 0000000007ffd830 00072 (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
+[    0.000000] ACPI: HPET 0000000007ffd7f0 00038 (v01 BOCHS  BXPCHPET 00000001 BXPC 00000001)
+[    0.000000] No NUMA configuration found
+[    0.000000] Faking a node at 0000000000000000-0000000007ffd000
+[    0.000000] Initmem setup node 0 0000000000000000-0000000007ffd000
+[    0.000000]   NODE_DATA [0000000007ff5000 - 0000000007ff9fff]
+[    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+[    0.000000] kvm-clock: cpu 0, msr 0:169dac1, boot clock
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA      0x00000010 -> 0x00001000
+[    0.000000]   DMA32    0x00001000 -> 0x00100000
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[2] active PFN ranges
+[    0.000000]     0: 0x00000010 -> 0x0000009f
+[    0.000000]     0: 0x00000100 -> 0x00007ffd
+[    0.000000] ACPI: PM-Timer IO Port: 0xb008
+[    0.000000] ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)
+[    0.000000] ACPI: IOAPIC (id[0x01] address[0xfec00000] gsi_base[0])
+[    0.000000] IOAPIC[0]: apic_id 1, version 17, address 0xfec00000, GSI 0-23
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+[    0.000000] Using ACPI (MADT) for SMP configuration information
+[    0.000000] ACPI: HPET id: 0x8086a201 base: 0xfed00000
+[    0.000000] SMP: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.000000] PM: Registered nosave memory: 000000000009f000 - 00000000000a0000
+[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 00000000000f0000
+[    0.000000] PM: Registered nosave memory: 00000000000f0000 - 0000000000100000
+[    0.000000] Allocating PCI resources starting at 8000000 (gap: 8000000:f6ffc000)
+[    0.000000] Booting paravirtualized kernel on KVM
+[    0.000000] setup_percpu: NR_CPUS:512 nr_cpumask_bits:512 nr_cpu_ids:1 nr_node_ids:1
+[    0.000000] PERCPU: Embedded 28 pages/cpu @ffff880007200000 s83840 r8192 d22656 u2097152
+[    0.000000] kvm-clock: cpu 0, msr 0:7213ac1, primary cpu clock
+[    0.000000] KVM setup async PF for cpu 0
+[    0.000000] Built 1 zonelists in Node order, mobility grouping on.  Total pages: 32199
+[    0.000000] Policy zone: DMA32
+[    0.000000] Kernel command line: root=/dev/sda1 console=ttyS0
+[    0.000000] PID hash table entries: 512 (order: 0, 4096 bytes)
+[    0.000000] Checking aperture...
+[    0.000000] No AGP bridge found
+[    0.000000] Memory: 109264k/131060k available (3314k kernel code, 452k absent, 21344k reserved, 3376k data, 596k init)
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000] 	RCU dyntick-idle grace-period acceleration is enabled.
+[    0.000000] 	RCU-based detection of stalled CPUs is disabled.
+[    0.000000] NR_IRQS:33024 nr_irqs:256 16
+[    0.000000] Console: colour *CGA 80x25
+[    0.000000] console [ttyS0] enabled
+[    0.000000] Detected 2393.984 MHz processor.
+[    0.008000] Calibrating delay loop (skipped) preset value.. 4787.96 BogoMIPS (lpj=9575936)
+[    0.008000] pid_max: default: 32768 minimum: 301
+[    0.008000] Security Framework initialized
+[    0.008000] SELinux:  Disabled at boot.
+[    0.008000] Dentry cache hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.008136] Inode-cache hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.009067] Mount-cache hash table entries: 256
+[    0.009839] Initializing cgroup subsys ns
+[    0.010344] ns_cgroup deprecated: consider using the 'clone_children' flag without the ns_cgroup.
+[    0.011428] Initializing cgroup subsys cpuacct
+[    0.012010] Initializing cgroup subsys memory
+[    0.012579] Initializing cgroup subsys devices
+[    0.013183] Initializing cgroup subsys freezer
+[    0.013739] Initializing cgroup subsys net_cls
+[    0.014298] Initializing cgroup subsys blkio
+[    0.014946] mce: CPU supports 10 MCE banks
+[    0.016152] SMP alternatives: switching to UP code
+[    0.029764] Freeing SMP alternatives: 16k freed
+[    0.030353] ACPI: Core revision 20110316
+[    0.032405] Setting APIC routing to flat
+[    0.033921] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.034659] CPU0: Intel QEMU Virtual CPU version 1.0 stepping 03
+[    0.036002] Performance Events: unsupported p6 CPU model 2 no PMU driver, software events only.
+[    0.036002] NMI watchdog disabled (cpu0): hardware events not enabled
+[    0.036002] Brought up 1 CPUs
+[    0.036002] Total of 1 processors activated (4787.96 BogoMIPS).
+[    0.036002] devtmpfs: initialized
+[    0.038749] print_constraints: dummy: 
+[    0.039294] NET: Registered protocol family 16
+[    0.040053] ACPI: bus type pci registered
+[    0.040653] PCI: Using configuration type 1 for base access
+[    0.041856] bio: create slab <bio-0> at 0
+[    0.044788] ACPI: Interpreter enabled
+[    0.045248] ACPI: (supports S0 S3 S4 S5)
+[    0.045822] ACPI: Using IOAPIC for interrupt routing
+[    0.050429] ACPI: No dock devices found.
+[    0.050913] HEST: Table not found.
+[    0.051330] PCI: Ignoring host bridge windows from ACPI; if necessary, use "pci=use_crs" and report a bug
+[    0.052028] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.054980] pci 0000:00:01.3: quirk: [io  0xb000-0xb03f] claimed by PIIX4 ACPI
+[    0.056016] pci 0000:00:01.3: quirk: [io  0xb100-0xb10f] claimed by PIIX4 SMB
+[    0.065404] ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+[    0.066248] ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+[    0.067098] ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+[    0.067938] ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+[    0.068297] ACPI: PCI Interrupt Link [LNKS] (IRQs 9) *0
+[    0.069126] vgaarb: loaded
+[    0.069506] PCI: Using ACPI for IRQ routing
+[    0.070258] HPET: 3 timers in total, 0 timers will be used for per-cpu timer
+[    0.071125] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+[    0.072175] hpet0: 3 comparators, 64-bit 100.000000 MHz counter
+[    0.080059] Switching to clocksource kvm-clock
+[    0.082371] pnp: PnP ACPI init
+[    0.082774] ACPI: bus type pnp registered
+[    0.083899] Switched to NOHz mode on CPU #0
+[    0.084192] pnp: PnP ACPI: found 7 devices
+[    0.084710] ACPI: ACPI bus type pnp unregistered
+[    0.091414] NET: Registered protocol family 2
+[    0.092009] IP route cache hash table entries: 1024 (order: 1, 8192 bytes)
+[    0.093042] TCP established hash table entries: 4096 (order: 4, 65536 bytes)
+[    0.093931] TCP bind hash table entries: 4096 (order: 4, 65536 bytes)
+[    0.094731] TCP: Hash tables configured (established 4096 bind 4096)
+[    0.095500] TCP reno registered
+[    0.095891] UDP hash table entries: 128 (order: 0, 4096 bytes)
+[    0.096622] UDP-Lite hash table entries: 128 (order: 0, 4096 bytes)
+[    0.097461] NET: Registered protocol family 1
+[    0.098011] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[    0.098749] pci 0000:00:01.0: PIIX3: Enabling Passive Release
+[    0.099470] pci 0000:00:01.0: Activating ISA DMA hang workarounds
+[    0.100376] Unpacking initramfs...
+[    0.370112] Freeing initrd memory: 10724k freed
+[    0.372705] audit: initializing netlink socket (disabled)
+[    0.373389] type=2000 audit(1339527848.372:1): initialized
+[    0.385710] HugeTLB registered 2 MB page size, pre-allocated 0 pages
+[    0.386815] VFS: Disk quotas dquot_6.5.2
+[    0.387339] Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.388220] msgmni has been set to 234
+[    0.388934] alg: No test for stdrng (krng)
+[    0.389477] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+[    0.390371] io scheduler noop registered
+[    0.390847] io scheduler deadline registered
+[    0.391394] io scheduler cfq registered (default)
+[    0.392139] ERST: Table is not found!
+[    0.392660] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.414800] serial8250: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+[    0.437246] 00:05: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+[    0.438149] Linux agpgart interface v0.103
+[    0.438754] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    0.440316] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    0.440930] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    0.441660] mousedev: PS/2 mouse device common for all mice
+[    0.442574] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input0
+[    0.443786] rtc_cmos 00:01: RTC can wake from S4
+[    0.444546] rtc_cmos 00:01: rtc core: registered rtc_cmos as rtc0
+[    0.445380] rtc0: alarms up to one day, 114 bytes nvram, hpet irqs
+[    0.446210] cpuidle: using governor ladder
+[    0.446717] cpuidle: using governor menu
+[    0.447380] TCP cubic registered
+[    0.447884] NET: Registered protocol family 10
+[    0.448989] Mobile IPv6
+[    0.449303] NET: Registered protocol family 17
+[    0.449844] Registering the dns_resolver key type
+[    0.450547] registered taskstats version 1
+[    0.451270] rtc_cmos 00:01: setting system clock to 2012-06-12 12:04:07 UTC (1339502647)
+[    0.452272] Initializing network drop monitor service
+[    0.454308] Freeing unused kernel memory: 596k freed
+[    0.455008] Write protecting the kernel read-only data: 6144k
+[    0.458315] Freeing unused kernel memory: 764k freed
+[    0.461624] Freeing unused kernel memory: 772k freed
+Loading, please wait...
+[    0.480128] udevd[41]: starting version 171
+[    0.523878] e1000: Intel(R) PRO/1000 Network Driver - version 7.3.21-k8-NAPI
+[    0.524823] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    0.529783] ACPI: PCI Interrupt Link [LNKA] enabled at IRQ 10
+[    0.530503] virtio-pci 0000:00:05.0: PCI INT A -> Link[LNKA] -> GSI 10 (level, high) -> IRQ 10
+[    0.553511] ACPI: PCI Interrupt Link [LNKC] enabled at IRQ 11
+[    0.554251] e1000 0000:00:03.0: PCI INT A -> Link[LNKC] -> GSI 11 (level, high) -> IRQ 11
+[    0.866155] usbcore: registered new interface driver usbfs
+[    0.866876] usbcore: registered new interface driver hub
+[    0.875097] SCSI subsystem initialized
+[    0.889956] usbcore: registered new device driver usb
+[    0.897607] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.899856] uhci_hcd: USB Universal Host Controller Interface driver
+[    0.918693] FDC 0 is a S82078B
+[    0.940178] e1000 0000:00:03.0: eth0: (PCI:33MHz:32-bit) d0:0d:59:79:48:e2
+[    0.941023] e1000 0000:00:03.0: eth0: Intel(R) PRO/1000 Network Connection
+[    0.941986] ACPI: PCI Interrupt Link [LNKD] enabled at IRQ 11
+[    0.942680] sym53c8xx 0000:00:04.0: PCI INT A -> Link[LNKD] -> GSI 11 (level, high) -> IRQ 11
+[    0.944884] sym0: <895a> rev 0x0 at pci 0000:00:04.0 irq 11
+[    0.948286] sym0: No NVRAM, ID 7, Fast-40, LVD, parity checking
+[    0.952013] sym0: SCSI BUS has been reset.
+[    0.973719] scsi0 : sym-2.2.3
+[    0.974267] uhci_hcd 0000:00:01.2: PCI INT D -> Link[LNKD] -> GSI 11 (level, high) -> IRQ 11
+[    0.975312] uhci_hcd 0000:00:01.2: UHCI Host Controller
+[    0.975956] uhci_hcd 0000:00:01.2: new USB bus registered, assigned bus number 1
+[    0.977592] uhci_hcd 0000:00:01.2: irq 11, io base 0x0000c140
+[    0.978346] usb usb1: New USB device found, idVendor=1d6b, idProduct=0001
+[    0.979361] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    0.980247] usb usb1: Product: UHCI Host Controller
+[    0.980938] usb usb1: Manufacturer: Linux 2.6.39-2-amd64 uhci_hcd
+[    0.981900] usb usb1: SerialNumber: 0000:00:01.2
+[    0.982781] hub 1-0:1.0: USB hub found
+[    0.983256] hub 1-0:1.0: 2 ports detected
+[    0.984831] scsi1 : ata_piix
+[    0.986337] scsi2 : ata_piix
+[    0.986793] ata1: PATA max MWDMA2 cmd 0x1f0 ctl 0x3f6 bmdma 0xc180 irq 14
+[    0.987643] ata2: PATA max MWDMA2 cmd 0x170 ctl 0x376 bmdma 0xc188 irq 15
+Begin: Loading essential drivers ... done.
+Begin: Running /scripts/init-premount ... done.
+Begin: Mounting root file system ... Begin: Running /scripts/local-top ... Begin: Loading[    1.163446] md: linear personality registered for level -1
+Success: loaded module linear.
+[    1.166541] md: multipath personality registered for level -4
+Success: loaded module multipath.
+[    1.169460] md: raid0 personality registered for level 0
+Success: loaded module raid0.
+[    1.173593] md: raid1 personality registered for level 1
+Success: loaded module raid1.
+[    1.176227] async_tx: api initialized (async)
+[    1.177551] xor: automatically using best checksumming function: generic_sse
+[    1.196016]    generic_sse:  8610.000 MB/sec
+[    1.196560] xor: using function: generic_sse (8610.000 MB/sec)
+[    1.264039] raid6: int64x1   2412 MB/s
+[    1.332033] raid6: int64x2   2353 MB/s
+[    1.400038] raid6: int64x4   2016 MB/s
+[    1.468035] raid6: int64x8   1562 MB/s
+[    1.536015] raid6: sse2x1    5912 MB/s
+[    1.604018] raid6: sse2x2    6881 MB/s
+[    1.672019] raid6: sse2x4    8002 MB/s
+[    1.672505] raid6: using algorithm sse2x4 (8002 MB/s)
+[    1.673160] Refined TSC clocksource calibration: 2393.952 MHz.
+[    1.679177] md: raid6 personality registered for level 6
+[    1.679886] md: raid5 personality registered for level 5
+[    1.680573] md: raid4 personality registered for level 4
+Success: loaded module raid456.
+Success: loaded module raid5.
+Success: loaded module raid6.
+[    1.687575] md: raid10 personality registered for level 10
+Success: loaded module raid10.
+done.
+Begin: Assembling all MD arrays ... mdadm: No devices listed in conf file were found.
+Failure: failed to assemble all arrays.
+done.
+[    1.698138] device-mapper: uevent: version 1.0.3
+[    1.699080] device-mapper: ioctl: 4.20.0-ioctl (2011-02-02) initialised: dm-devel@redhat.com
+done.
+Begin: Waiting for root file system ... [    3.964265] sym0: unknown interrupt(s) ignored, ISTAT=0x5 DSTAT=0x80 SIST=0x0
+[    3.965199] scsi 0:0:0:0: Direct-Access     QEMU     QEMU HARDDISK    1.0  PQ: 0 ANSI: 5
+[    3.966153] scsi target0:0:0: tagged command queuing enabled, command queue depth 16.
+[    3.967078] scsi target0:0:0: Beginning Domain Validation
+[    3.968144] scsi target0:0:0: Domain Validation skipping write tests
+[    3.968918] scsi target0:0:0: Ending Domain Validation
+[    3.977320] sd 0:0:0:0: [sda] 4194367 512-byte logical blocks: (2.14 GB/2.00 GiB)
+[    3.978892] sd 0:0:0:0: [sda] Write Protect is off
+[    3.979596] sd 0:0:0:0: [sda] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    3.983093]  sda: sda1 sda2 sda3
+[    3.984246] sd 0:0:0:0: [sda] Attached SCSI disk
+done.
+Begin: Running /scripts/local-premount ... done.
+[    4.060518] EXT3-fs: barriers not enabled
+[    4.061405] kjournald starting.  Commit interval 5 seconds
+[    4.062079] EXT3-fs (sda1): mounted filesystem with ordered data mode
+Begin: Running /scripts/local-bottom ... done.
+done.
+Begin: Running /scripts/init-bottom ... done.
+init: ureadahead main process (226) terminated with status 5
+init: ureadahead-other main process (455) terminated with status 4
+ * Starting MD monitoring service mdadm --monitor                        [ OK ] 
+AUTHORIZED_KEYS:
+************************
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT480s2/z8zghCcafieTmRJDw96Go/UuasDZuPMTBQO4DeV1Rsb5ga3//s4L82VpgMBos/dtegGECx3/zFqCzO2QX13yfSdvJPBHHNspdpN8HLg51eq04xaEm+Fi0jUIeVmE7CZiK8cBROnMyjSxJKyGg9RtDueKhaaK3cu2yqteW0p+JuWJ1GJe/9wYzEm1aWw412UunUBHRFtXKXsu+kDdAFq9LBVg/mZLwmq+YjZkdtDLrU3pynbAZSXcMU0ko1wCTTZv+Uk1CSUdYqkP3c7VFnUfzNm3ajSlq75GW6u6+nH/8EsHJkUn3uUh2KJx/2Tcd2cWWh3VZWDQPjQjiR 959814699827@eucalyptus.vasya
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCT480s2/z8zghCcafieTmRJDw96Go/UuasDZuPMTBQO4DeV1Rsb5ga3//s4L82VpgMBos/dtegGECx3/zFqCzO2QX13yfSdvJPBHHNspdpN8HLg51eq04xaEm+Fi0jUIeVmE7CZiK8cBROnMyjSxJKyGg9RtDueKhaaK3cu2yqteW0p+JuWJ1GJe/9wYzEm1aWw412UunUBHRFtXKXsu+kDdAFq9LBVg/mZLwmq+YjZkdtDLrU3pynbAZSXcMU0ko1wCTTZv+Uk1CSUdYqkP3c7VFnUfzNm3ajSlq75GW6u6+nH/8EsHJkUn3uUh2KJx/2Tcd2cWWh3VZWDQPjQjiR 959814699827@eucalyptus.vasya
+************************
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+128   385  128   385    0     0  15382      0 --:--:-- --:--:-- --:--:-- 16041
+Downloaded user data in /tmp/user-data-554
+root@eucahost-51-77:/var/log# 
+root@eucahost-51-77:/var/log# 
+root@eucahost-51-77:/var/log# 
+root@eucahost-51-77:/var/log# !gdb
+gdb --pid=8329
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+0x00007ff5a95d1d2d in read () from /lib/x86_64-linux-gnu/libpthread.so.0
+(gdb) 
+(gdb) 
+(gdb) info threads
+  Id   Target Id         Frame 
+  4    Thread 0x7ff59de63700 (LWP 8331) "apache2" 0x00007ff5a92ecb03 in poll () from /lib/x86_64-linux-gnu/libc.so.6
+  3    Thread 0x7ff59d662700 (LWP 8332) "apache2" 0x00007ff5a95ced84 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib/x86_64-linux-gnu/libpthread.so.0
+  2    Thread 0x7ff59cc4b700 (LWP 8379) "apache2" 0x00007ff5a95ced84 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib/x86_64-linux-gnu/libpthread.so.0
+* 1    Thread 0x7ff5aa08d740 (LWP 8329) "apache2" 0x00007ff5a95d1d2d in read () from /lib/x86_64-linux-gnu/libpthread.so.0
+(gdb) bt
+#0  0x00007ff5a95d1d2d in read () from /lib/x86_64-linux-gnu/libpthread.so.0
+#1  0x00007ff5aa0f7224 in ap_mpm_pod_check ()
+#2  0x00007ff5aa0c9e65 in ?? ()
+#3  0x00007ff5aa0f5cee in ?? ()
+#4  0x00007ff5aa0f65c5 in ap_mpm_run ()
+#5  0x00007ff5aa0cab58 in main ()
+
+
+
+
+(gdb) thread 2
+[Switching to thread 2 (Thread 0x7ff59cc4b700 (LWP 8379))]
+#0  0x00007ff5a95ced84 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib/x86_64-linux-gnu/libpthread.so.0
+(gdb) bt
+#0  0x00007ff5a95ced84 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib/x86_64-linux-gnu/libpthread.so.0
+#1  0x00007ff5a54e25e6 in sem_p () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#2  0x00007ff5a54aec55 in check_hypervisor_conn () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#3  0x00007ff5a54aef67 in ?? () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#4  0x00007ff5a54af8a1 in monitoring_thread () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#5  0x00007ff5a95cae9a in start_thread () from /lib/x86_64-linux-gnu/libpthread.so.0
+#6  0x00007ff5a92f84bd in clone () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000000000000000 in ?? ()
+
+
+
+
+(gdb) thread 3
+[Switching to thread 3 (Thread 0x7ff59d662700 (LWP 8332))]
+#0  0x00007ff5a95ced84 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib/x86_64-linux-gnu/libpthread.so.0
+(gdb) bt
+#0  0x00007ff5a95ced84 in pthread_cond_wait@@GLIBC_2.3.2 () from /lib/x86_64-linux-gnu/libpthread.so.0
+#1  0x00007ff5a97fc7c0 in apr_thread_cond_wait () from /usr/lib/libapr-1.so.0
+#2  0x00007ff5aa0f6dc4 in ap_queue_info_wait_for_idler ()
+#3  0x00007ff5aa0f57a9 in ?? ()
+#4  0x00007ff5a980e417 in ?? () from /usr/lib/libapr-1.so.0
+#5  0x00007ff5a95cae9a in start_thread () from /lib/x86_64-linux-gnu/libpthread.so.0
+#6  0x00007ff5a92f84bd in clone () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x0000000000000000 in ?? ()
+
+
+
+
+(gdb) thread 4
+[Switching to thread 4 (Thread 0x7ff59de63700 (LWP 8331))]
+#0  0x00007ff5a92ecb03 in poll () from /lib/x86_64-linux-gnu/libc.so.6
+(gdb) bt
+#0  0x00007ff5a92ecb03 in poll () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ff5a49dc57c in ?? () from /usr/lib/libvirt.so.0
+#2  0x00007ff5a49dd1d1 in ?? () from /usr/lib/libvirt.so.0
+#3  0x00007ff5a49de400 in ?? () from /usr/lib/libvirt.so.0
+#4  0x00007ff5a49deaf7 in ?? () from /usr/lib/libvirt.so.0
+#5  0x00007ff5a49c2af0 in ?? () from /usr/lib/libvirt.so.0
+#6  0x00007ff5a49c2c44 in ?? () from /usr/lib/libvirt.so.0
+#7  0x00007ff5a49c48b7 in ?? () from /usr/lib/libvirt.so.0
+#8  0x00007ff5a49a3c00 in virDomainAttachDevice () from /usr/lib/libvirt.so.0
+#9  0x00007ff5a54b8274 in ?? () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#10 0x00007ff5a54b4042 in doAttachVolume () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#11 0x00007ff5a54acc59 in ncAttachVolumeMarshal () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#12 0x00007ff5a54a3cba in axis2_skel_EucalyptusNC_ncAttachVolume () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#13 0x00007ff5a54a4fce in axis2_svc_skel_EucalyptusNC_invoke () from /usr/lib/axis2/services/EucalyptusNC/libEucalyptusNC.so
+#14 0x00007ff5a8549265 in ?? () from /usr/lib/axis2/lib/libaxis2_engine.so.0
+#15 0x00007ff5a8548f91 in ?? () from /usr/lib/axis2/lib/libaxis2_engine.so.0
+#16 0x00007ff5a853f60e in axis2_engine_receive () from /usr/lib/axis2/lib/libaxis2_engine.so.0
+#17 0x00007ff5a87947db in axis2_http_transport_utils_process_http_post_request () from /usr/lib/apache2/modules/libmod_axis2.so
+#18 0x00007ff5a87908f9 in axis2_apache2_worker_process_request () from /usr/lib/apache2/modules/libmod_axis2.so
+#19 0x00007ff5a878e7d4 in ?? () from /usr/lib/apache2/modules/libmod_axis2.so
+#20 0x00007ff5aa0dfbb8 in ap_run_handler ()
+#21 0x00007ff5aa0e002e in ap_invoke_handler ()
+#22 0x00007ff5aa0ef950 in ap_process_request ()
+#23 0x00007ff5aa0ec778 in ?? ()
+#24 0x00007ff5aa0e6658 in ap_run_process_connection ()
+#25 0x00007ff5aa0f5b1c in ?? ()
+#26 0x00007ff5a980e417 in ?? () from /usr/lib/libapr-1.so.0
+#27 0x00007ff5a95cae9a in start_thread () from /lib/x86_64-linux-gnu/libpthread.so.0
+#28 0x00007ff5a92f84bd in clone () from /lib/x86_64-linux-gnu/libc.so.6
+#29 0x0000000000000000 in ?? ()
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 8329] will be detached.
+
+Quit anyway? (y or n) y
+Detaching from program: /usr/lib/apache2/mpm-worker/apache2, process 8329
+root@eucahost-51-77:/var/log# 

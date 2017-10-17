@@ -1,0 +1,62 @@
+# target_branch: lp:eucalyptus/2.0
+=== modified file 'clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/VmInstance.java'
+--- clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/VmInstance.java	2010-08-14 09:46:01 +0000
++++ clc/modules/cluster-manager/src/main/java/com/eucalyptus/cluster/VmInstance.java	2011-11-11 17:55:18 +0000
+@@ -521,18 +521,24 @@
+     return this.volumes;
+   }
+   
+-  public void setVolumes( final List<AttachedVolume> newVolumes ) {
+-    for ( AttachedVolume vol : newVolumes ) {
+-      vol.setInstanceId( this.getInstanceId( ) );
+-      vol.setStatus( "attached" );
++  public void setVolumes( final List<AttachedVolume> volList ) {
++    final Map<String, AttachedVolume> newVolumes = new HashMap<String, AttachedVolume>( ) {
++      {
++        for ( AttachedVolume v : volList ) {
++          put ( v.getVolumeId( ), v );
++        }
++      }
++    };
++    for ( AttachedVolume v : this.getVolumes( ) ) {
++      String volId = v.getVolumeId( );
++      if ( newVolumes.containsKey( volId ) ) {
++        newVolumes.remove( volId );
++      }
+     }
+-    Set<AttachedVolume> oldVolumes = Sets.newHashSet( this.getVolumes( ) );
+-    this.volumes.retainAll( volumes );
+-    this.volumes.addAll( volumes );
+-    for ( AttachedVolume v : oldVolumes ) {
+-      if ( "attaching".equals( v.getStatus( ) ) && !this.volumes.contains( v ) ) {
+-        this.volumes.add( v );
+-      }
++    for ( AttachedVolume v : newVolumes.values( ) ) {
++      v.setInstanceId( this.getInstanceId( ) );
++      v.setStatus( "attached" );
++      this.volumes.add( v );
+     }
+   }
+   
+
+=== modified file 'clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/SystemState.java'
+--- clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/SystemState.java	2010-08-18 02:38:44 +0000
++++ clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/SystemState.java	2011-11-11 17:58:59 +0000
+@@ -207,7 +207,7 @@
+       }
+       vm.setState( VmState.Mapper.get( runVm.getStateName( ) ), Reason.APPEND, "UPDATE" );
+       vm.updateNetworkIndex( runVm.getNetParams( ).getNetworkIndex( ) );
+-      vm.setVolumes( runVm.getVolumes( ) );
++      //vm.setVolumes( runVm.getVolumes( ) );
+       try {
+         Network network = Networks.getInstance( ).lookup( runVm.getOwnerId( ) + "-" + runVm.getGroupNames( ).get( 0 ) );
+         network.extantNetworkIndex( vm.getPlacement( ), vm.getNetworkIndex( ) );
+@@ -396,6 +396,7 @@
+       vm.updatePublicAddress( VmInstance.DEFAULT_IP );
+       vm.setKeyInfo( keyInfo );
+       vm.setImageInfo( imgInfo );
++      vm.setVolumes( runVm.getVolumes( ) );
+       VmInstances.getInstance( ).register( vm );
+     } catch ( NoSuchElementException e ) {
+       ClusterConfiguration config = Clusters.getInstance( ).lookup( runVm.getPlacement( ) ).getConfiguration( );
+

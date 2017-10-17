@@ -1,0 +1,52 @@
+import itertools
+import os
+import sys
+from urlparse import urlparse
+
+import boto
+from boto.exception import S3ResponseError
+
+def connect(url, access, secret):
+    host = urlparse(url).hostname
+    return boto.connect_walrus(host, access, secret)
+
+def revert(c, bucket, prefix):
+    b = c.get_bucket(bucket)
+    b.configure_versioning(True)
+    
+    ukeys = b.list_versions(prefix)
+    l = list(ukeys)
+    print "Found", len(l), "versioned items with", len(set(x.name for x in l)), "unique keys"
+
+def die(msg, code=1):
+    print >> sys.stderr, msg
+    sys.exit(code)
+
+def main():
+    try:
+        access = os.environ['EC2_ACCESS_KEY']
+        secret = os.environ['EC2_SECRET_KEY']
+    except KeyError:
+        die("Missing credentials. Set EC2_ACCESS_KEY and EC2_SECRET_KEY")
+    
+    try:
+        url = os.environ['EC2_URL']
+    except KeyError:
+        die("Missing endpoint. Set EC2_URL")
+    
+    try:
+        bucket = sys.argv[1]
+    except IndexError:
+        die("Usage: %s bucket [prefix]" % sys.argv[0])
+    
+    prefix = ""
+    if len(sys.argv) > 2:
+        prefix = sys.argv[2]
+    
+    c = connect(url, access, secret)
+    revert(c, bucket, prefix)
+
+if __name__ == '__main__':
+    main()
+    
+    

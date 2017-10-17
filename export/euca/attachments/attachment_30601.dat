@@ -1,0 +1,470 @@
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2InternetGatewayResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2InternetGatewayResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2InternetGatewayResourceAction.java	(revision )
+@@ -170,7 +170,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {  //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2VolumeResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2VolumeResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2VolumeResourceAction.java	(revision )
+@@ -409,7 +409,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) { //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSCloudFormationWaitConditionResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSCloudFormationWaitConditionResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSCloudFormationWaitConditionResourceAction.java	(revision )
+@@ -249,7 +249,7 @@
+                   continue;
+                 }
+                 String uniqueId = localObjectNode.get("UniqueId").asText();
+-                if (data == null) {
++                if (data == null) { //TODO:STEVE: checks wrong value
+                   LOG.trace("Null uniqueId, skipping");
+                   continue;
+                 }
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2DHCPOptionsResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2DHCPOptionsResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2DHCPOptionsResourceAction.java	(revision )
+@@ -216,7 +216,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {  //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2SecurityGroupResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2SecurityGroupResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2SecurityGroupResourceAction.java	(revision )
+@@ -439,7 +439,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", groupId)));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {  //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/CloudFormationService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/CloudFormationService.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/CloudFormationService.java	(revision )
+@@ -370,6 +370,7 @@
+             stackEntity.setStackPolicy(stackPolicyText);
+             stackEntity.setStackStatus(Status.CREATE_IN_PROGRESS);
+             stackEntity.setStackStatusReason("User initiated");
++            //TODO:STEVE: there are many == Boolean comparisons in cloudformation
+             stackEntity.setDisableRollback(request.getDisableRollback() == Boolean.TRUE); // null -> false
+             stackEntity.setCreationTimestamp(new Date());
+             if (request.getCapabilities() != null && request.getCapabilities().getMember() != null) {
+@@ -1430,7 +1431,7 @@
+ 
+   private boolean stackPolicyIsDifferent(String previousStackPolicy, String nextStackPolicy) throws ValidationErrorException {
+     if (nextStackPolicy == null) return false;
+-    if (previousStackPolicy == null && previousStackPolicy != null) return true;
++    if (previousStackPolicy == null && previousStackPolicy != null) return true;  //TODO:STEVE: compare wrong value
+     ObjectMapper objectMapper = new ObjectMapper();
+     JsonNode previousStackPolicyNode = null;
+     try {
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2InstanceResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2InstanceResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2InstanceResourceAction.java	(revision )
+@@ -652,6 +652,7 @@
+             resetInstanceAttribute(configuration, newAction, "disableApiTermination");
+           }
+         }
++        //TODO:STEVE: boolean compared to string
+         if (!Objects.equals(runningInstancesItemType.getInstanceInitiatedShutdownBehavior(), newAction.properties.getInstanceInitiatedShutdownBehavior())) {
+           if (newAction.properties.getInstanceInitiatedShutdownBehavior() != null) {
+             ModifyInstanceAttributeType modifyInstanceAttributeType = MessageHelper.createMessage(ModifyInstanceAttributeType.class, newAction.info.getEffectiveUserId());
+@@ -676,6 +677,7 @@
+             AsyncRequests.sendSync(configuration, modifyInstanceAttributeType);
+           }
+         }
++        //TODO:STEVE: string compared to boolean
+         if (!Objects.equals(runningInstancesItemType.getMonitoring(), newAction.properties.getMonitoring())) {
+           if (newAction.properties.getMonitoring() != Boolean.TRUE) {
+             UnmonitorInstancesType unmonitorInstancesType = MessageHelper.createMessage(UnmonitorInstancesType.class, newAction.info.getEffectiveUserId());
+@@ -715,7 +717,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {  //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+@@ -1000,7 +1002,7 @@
+         DescribeInstancesResponseType describeInstancesResponseType = AsyncRequests.sendSync(configuration, describeInstancesType);
+         if (describeInstancesResponseType.getReservationSet().size() == 0) throw new ValidationErrorException("Instance " + newAction.info.getPhysicalResourceId() + " not found.");
+         if ("terminated".equals(describeInstancesResponseType.getReservationSet().get(0).getInstancesSet().get(0).getStateName())) {
+-          new ValidationErrorException("Instance " + newAction.info.getPhysicalResourceId() + " terminated.");
++          new ValidationErrorException("Instance " + newAction.info.getPhysicalResourceId() + " terminated.");   //TODO:STEVE: Ex not thrown
+         }
+         if ("stopped".equals(describeInstancesResponseType.getReservationSet().get(0).getInstancesSet().get(0).getStateName())) {
+           return newAction;
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2NetworkInterfaceResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2NetworkInterfaceResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2NetworkInterfaceResourceAction.java	(revision )
+@@ -496,7 +496,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null & describeTagsResponseType.getTagSet() != null) { //TODO:STEVE: & not &&
+           for (TagInfo tagInfo : describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2SubnetResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2SubnetResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2SubnetResourceAction.java	(revision )
+@@ -250,7 +250,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) { //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2NetworkAclResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2NetworkAclResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2NetworkAclResourceAction.java	(revision )
+@@ -178,7 +178,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) { //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/template/IntrinsicFunctions.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/template/IntrinsicFunctions.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/template/IntrinsicFunctions.java	(revision )
+@@ -400,7 +400,7 @@
+       // Make sure types ok
+       if (arg0Node == null || arg1Node == null || arg2Node == null
+         || !arg0Node.isValueNode() || !arg1Node.isValueNode() || !arg2Node.isValueNode()
+-        || arg0Node == null || arg1Node.asText() == null || arg2Node.asText() == null) {
++        || arg0Node == null || arg1Node.asText() == null || arg2Node.asText() == null) {  //TODO:STEVE: should be checking  arg0Node.atText()?
+         throw new ValidationErrorException("Template error: every Fn::FindInMap object requires three parameters, " +
+           "the map name, map key and the attribute for return value");
+       }
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSElasticLoadBalancingLoadBalancerResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSElasticLoadBalancingLoadBalancerResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSElasticLoadBalancingLoadBalancerResourceAction.java	(revision )
+@@ -703,7 +703,7 @@
+         }
+         final TagDescription tagDescription = describeTagsResponseType.getDescribeTagsResult().getTagDescriptions().getMember().get(0);
+         Set<CloudFormationResourceTag> existingTags = Sets.newLinkedHashSet();
+-        if (tagDescription != null & tagDescription.getTags() != null && tagDescription.getTags().getMember() != null) {
++        if (tagDescription != null & tagDescription.getTags() != null && tagDescription.getTags().getMember() != null) { //TODO:STEVE: & not &&
+           for (Tag tag : tagDescription.getTags().getMember()) {
+             CloudFormationResourceTag cfTag = new CloudFormationResourceTag();
+             cfTag.setKey(tag.getKey());
+@@ -1237,6 +1237,7 @@
+     loadBalancerNames.getMember().add(newAction.info.getPhysicalResourceId());
+     describeLoadBalancersType.setLoadBalancerNames(loadBalancerNames);
+     DescribeLoadBalancersResponseType describeLoadBalancersResponseType = AsyncRequests.<DescribeLoadBalancersType,DescribeLoadBalancersResponseType> sendSync(configuration, describeLoadBalancersType);
++    //TODO:STEVE: checks for null rather than not null
+     if (describeLoadBalancersResponseType == null && describeLoadBalancersResponseType.getDescribeLoadBalancersResult() == null
+             && describeLoadBalancersResponseType.getDescribeLoadBalancersResult().getLoadBalancerDescriptions() == null &&
+             describeLoadBalancersResponseType.getDescribeLoadBalancersResult().getLoadBalancerDescriptions().getMember() == null &&
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2VPCResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2VPCResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2VPCResourceAction.java	(revision )
+@@ -277,7 +277,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) { //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2RouteTableResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2RouteTableResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSEC2RouteTableResourceAction.java	(revision )
+@@ -177,7 +177,7 @@
+         describeTagsType.setFilterSet(Lists.newArrayList(Filter.filter("resource-id", newAction.info.getPhysicalResourceId())));
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<EC2Tag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) {
++        if (describeTagsResponseType != null  & describeTagsResponseType.getTagSet() != null) { //TODO:STEVE: & not &&
+           for (TagInfo tagInfo: describeTagsResponseType.getTagSet()) {
+             EC2Tag tag = new EC2Tag();
+             tag.setKey(tagInfo.getKey());
+Index: modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSAutoScalingAutoScalingGroupResourceAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSAutoScalingAutoScalingGroupResourceAction.java	(revision e8b504cd68ee91748273025684a0eabc014ecc1b)
++++ modules/cloudformation/src/main/java/com/eucalyptus/cloudformation/resources/standard/actions/AWSAutoScalingAutoScalingGroupResourceAction.java	(revision )
+@@ -164,9 +164,9 @@
+     }
+     // if AZ's not set, don't check, but otherwise make sure it matches.
+     if (autoScalingGroupType.getAvailabilityZones() != null &&
+-      autoScalingGroupType.getAvailabilityZones().getMember() != null &&
+-      !autoScalingGroupType.getAvailabilityZones().getMember().isEmpty() &&
+-      !autoScalingGroupType.getAvailabilityZones().getMember().contains(instance.getAvailabilityZone())) {
++        autoScalingGroupType.getAvailabilityZones().getMember() != null &&
++        !autoScalingGroupType.getAvailabilityZones().getMember().isEmpty() &&
++        !autoScalingGroupType.getAvailabilityZones().getMember().contains(instance.getAvailabilityZone())) {
+       return true;
+     }
+     Splitter commaSplitterAndTrim = Splitter.on(',').omitEmptyStrings().trimResults();
+@@ -186,8 +186,8 @@
+     }
+     // if AZ's not set, don't check, but otherwise make sure it matches.
+     if (newAction.properties.getAvailabilityZones() != null &&
+-      !newAction.properties.getAvailabilityZones().isEmpty() &&
+-      !newAction.properties.getAvailabilityZones().contains(instance.getAvailabilityZone())) {
++        !newAction.properties.getAvailabilityZones().isEmpty() &&
++        !newAction.properties.getAvailabilityZones().contains(instance.getAvailabilityZone())) {
+       return true;
+     }
+ 
+@@ -351,8 +351,8 @@
+           describeAutoScalingGroupsType.setAutoScalingGroupNames(autoScalingGroupNames);
+           DescribeAutoScalingGroupsResponseType describeAutoScalingGroupsResponseType = AsyncRequests.sendSync(configuration, describeAutoScalingGroupsType);
+           if (describeAutoScalingGroupsResponseType != null && describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult() != null &&
+-            describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups() != null &&
+-            describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember() != null) {
++              describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups() != null &&
++              describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember() != null) {
+             for (AutoScalingGroupType autoScalingGroupType: describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember()) {
+               if (!Objects.equals(autoScalingGroupType.getAutoScalingGroupName(), action.info.getPhysicalResourceId())) continue;
+               if (autoScalingGroupType.getInstances() != null && autoScalingGroupType.getInstances().getMember() != null) {
+@@ -364,7 +364,7 @@
+           }
+           // check for signals
+           Collection<SignalEntity> signals = SignalEntityManager.getSignals(action.getStackEntity().getStackId(), action.info.getAccountId(), action.info.getLogicalResourceId(),
+-            action.getStackEntity().getStackVersion());
++              action.getStackEntity().getStackVersion());
+           int numSuccessSignals = 0;
+           if (signals != null) {
+             for (SignalEntity signal : signals) {
+@@ -519,9 +519,9 @@
+         if (updatePolicy.getAutoScalingRollingUpdate() == null) return newAction;
+ 
+         RollingUpdateStateEntityManager.deleteRollingUpdateStateEntity(newAction.info.getAccountId(),
+-          newAction.getStackEntity().getStackId(), newAction.info.getLogicalResourceId());
++            newAction.getStackEntity().getStackId(), newAction.info.getLogicalResourceId());
+         RollingUpdateStateEntity rollingUpdateStateEntity = RollingUpdateStateEntityManager.createRollingUpdateStateEntity(newAction.info.getAccountId(),
+-          newAction.getStackEntity().getStackId(), newAction.info.getLogicalResourceId());
++            newAction.getStackEntity().getStackId(), newAction.info.getLogicalResourceId());
+ 
+ 
+         AutoScalingGroupType autoScalingGroupType = getExistingUniqueAutoscalingGroupType(configuration, newAction);
+@@ -538,13 +538,13 @@
+ 
+         for (String possibleBadSuspendedProcess: possibleBadSuspendedProcesses) {
+           if (alreadySuspendedProcesses.contains(possibleBadSuspendedProcess) ||
+-            updatePolicy.getAutoScalingRollingUpdate().getSuspendProcesses().contains(possibleBadSuspendedProcess)) {
++              updatePolicy.getAutoScalingRollingUpdate().getSuspendProcesses().contains(possibleBadSuspendedProcess)) {
+             badSuspendedProcesses.add(possibleBadSuspendedProcess);
+           }
+         }
+         if (!badSuspendedProcesses.isEmpty()) {
+           throw new ResourceFailureException("Autoscaling rolling updates cannot be performed because the " +
+-            badSuspendedProcesses + " process(es) have been suspended; please resume these processes and then retry the update.");
++              badSuspendedProcesses + " process(es) have been suspended; please resume these processes and then retry the update.");
+         }
+ 
+         // check to see if rolling updates apply,.(if we have one 'bad' one say)
+@@ -604,7 +604,7 @@
+         if (newAction.info.getUpdatePolicyJson() != null) {
+           UpdatePolicy updatePolicy = UpdatePolicy.parse(newAction.info.getUpdatePolicyJson());
+           if (updatePolicy != null && updatePolicy.getAutoScalingRollingUpdate() != null &&
+-            updatePolicy.getAutoScalingRollingUpdate().getMinInstancesInService() >= newAction.properties.getMaxSize() ) {
++              updatePolicy.getAutoScalingRollingUpdate().getMinInstancesInService() >= newAction.properties.getMaxSize() ) {
+             throw new ValidationErrorException("MinInstancesInService must be less than the autoscaling group's MaxSize");
+           }
+         }
+@@ -642,8 +642,8 @@
+         describeTagsType.setFilters(filters);
+         DescribeTagsResponseType describeTagsResponseType = AsyncRequests.sendSync(configuration, describeTagsType);
+         Set<AutoScalingTag> existingTags = Sets.newLinkedHashSet();
+-        if (describeTagsResponseType != null  & describeTagsResponseType.getDescribeTagsResult() != null && 
++        if (describeTagsResponseType != null  & describeTagsResponseType.getDescribeTagsResult() != null && //TODO:STEVE: & not &&
+-          describeTagsResponseType.getDescribeTagsResult().getTags() != null && describeTagsResponseType.getDescribeTagsResult().getTags().getMember() != null) {
++            describeTagsResponseType.getDescribeTagsResult().getTags() != null && describeTagsResponseType.getDescribeTagsResult().getTags().getMember() != null) {
+           for (TagDescription tagDescription: describeTagsResponseType.getDescribeTagsResult().getTags().getMember()) {
+             AutoScalingTag tag = new AutoScalingTag();
+             tag.setKey(tagDescription.getKey());
+@@ -702,8 +702,8 @@
+         describeNotificationConfigurationsType.setAutoScalingGroupNames(autoScalingGroupNames);
+         DescribeNotificationConfigurationsResponseType describeNotificationConfigurationsResponseType = AsyncRequests.sendSync(configuration, describeNotificationConfigurationsType);
+         if (describeNotificationConfigurationsResponseType != null && describeNotificationConfigurationsResponseType.getDescribeNotificationConfigurationsResult() != null &&
+-          describeNotificationConfigurationsResponseType.getDescribeNotificationConfigurationsResult().getNotificationConfigurations() != null &&
+-          describeNotificationConfigurationsResponseType.getDescribeNotificationConfigurationsResult().getNotificationConfigurations().getMember() != null) {
++            describeNotificationConfigurationsResponseType.getDescribeNotificationConfigurationsResult().getNotificationConfigurations() != null &&
++            describeNotificationConfigurationsResponseType.getDescribeNotificationConfigurationsResult().getNotificationConfigurations().getMember() != null) {
+           for (NotificationConfiguration notificationConfiguration: describeNotificationConfigurationsResponseType.getDescribeNotificationConfigurationsResult().getNotificationConfigurations().getMember()) {
+             if (!existingNotificationConfigurations.containsKey(notificationConfiguration.getTopicARN())) {
+               existingNotificationConfigurations.put(notificationConfiguration.getTopicARN(), Sets.newHashSet());
+@@ -825,9 +825,9 @@
+ 
+   private boolean doesGroupNotExist(DescribeAutoScalingGroupsResponseType describeAutoScalingGroupsResponseType) {
+     return describeAutoScalingGroupsResponseType == null || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult() == null
+-      || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups() == null
+-      || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember() == null
+-      || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember().isEmpty();
++        || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups() == null
++        || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember() == null
++        || describeAutoScalingGroupsResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember().isEmpty();
+   }
+ 
+ 
+@@ -862,9 +862,9 @@
+     describeAutoScalingGroupsType.setAutoScalingGroupNames(autoScalingGroupNames);
+     DescribeAutoScalingGroupsResponseType describeAutoScalingGroupResponseType = AsyncRequests.sendSync(configuration, describeAutoScalingGroupsType);
+     if (describeAutoScalingGroupResponseType == null || describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult() == null ||
+-      describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups() == null ||
+-      describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember() == null ||
+-      describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember().size() != 1) {
++        describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups() == null ||
++        describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember() == null ||
++        describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember().size() != 1) {
+       throw new ValidationErrorException(action.info.getPhysicalResourceId() + " refers to either a non-existant or non-unique autoscaling group");
+     }
+     return describeAutoScalingGroupResponseType.getDescribeAutoScalingGroupsResult().getAutoScalingGroups().getMember().get(0);
+@@ -966,9 +966,9 @@
+           //    of the group temporarily.  In that case the value it can't be bigger than is desiredCapacity - minRunningInstances + number of non obsolete instances
+ 
+           int batchSize = Math.min(
+-            Math.min(rollingUpdateStateEntity.getNumOriginalObsoleteInstances(), updatePolicy.getAutoScalingRollingUpdate().getMaxBatchSize()),
+-            rollingUpdateStateEntity.getDesiredCapacity() - updatePolicy.getAutoScalingRollingUpdate().getMinInstancesInService()
+-              + (rollingUpdateStateEntity.getDesiredCapacity() - rollingUpdateStateEntity.getNumOriginalObsoleteInstances()));
++              Math.min(rollingUpdateStateEntity.getNumOriginalObsoleteInstances(), updatePolicy.getAutoScalingRollingUpdate().getMaxBatchSize()),
++              rollingUpdateStateEntity.getDesiredCapacity() - updatePolicy.getAutoScalingRollingUpdate().getMinInstancesInService()
++                  + (rollingUpdateStateEntity.getDesiredCapacity() - rollingUpdateStateEntity.getNumOriginalObsoleteInstances()));
+ 
+           // Once we set the batch size, we need to make sure the group size is correct.  Either 'desiredCapacity' or (if we need to increase the size, batchSize + minRunningInstances)
+ 
+@@ -977,7 +977,7 @@
+           rollingUpdateStateEntity.setTempDesiredCapacity(tempDesiredCapacity);
+ 
+           StringBuilder message = new StringBuilder("Rollling update initiated.  " +
+-            "Terminating " + rollingUpdateStateEntity.getNumOriginalObsoleteInstances() + " instance(s) in batches of " + batchSize);
++              "Terminating " + rollingUpdateStateEntity.getNumOriginalObsoleteInstances() + " instance(s) in batches of " + batchSize);
+           if (updatePolicy.getAutoScalingRollingUpdate().getMinInstancesInService() > 0) {
+             message.append(", while keeping at least " + updatePolicy.getAutoScalingRollingUpdate().getMinInstancesInService() + " in service.");
+           } else {
+@@ -1155,13 +1155,13 @@
+           rollingUpdateStateEntity.setNumNeededSignalsThisBatch(newInstanceIds.size());
+           rollingUpdateStateEntity.setNumReceivedSignalsThisBatch(0);
+           rollingUpdateStateEntity.setSignalCutoffTimestamp(new Date(System.currentTimeMillis() +
+-            TimeUnit.SECONDS.toMillis(Duration.parse(updatePolicy.getAutoScalingRollingUpdate().getPauseTime()).getSeconds())));
++              TimeUnit.SECONDS.toMillis(Duration.parse(updatePolicy.getAutoScalingRollingUpdate().getPauseTime()).getSeconds())));
+         } else {
+           if (Duration.parse(updatePolicy.getAutoScalingRollingUpdate().getPauseTime()).getSeconds() > 0) {
+             addStackEventForRollingUpdate(newAction, "New instance(s) added to autoscaling group - Pausing for " + updatePolicy.getAutoScalingRollingUpdate().getPauseTime() + ".");
+           }
+           rollingUpdateStateEntity.setSignalCutoffTimestamp(new Date(System.currentTimeMillis() +
+-            TimeUnit.SECONDS.toMillis(Duration.parse(updatePolicy.getAutoScalingRollingUpdate().getPauseTime()).getSeconds())));
++              TimeUnit.SECONDS.toMillis(Duration.parse(updatePolicy.getAutoScalingRollingUpdate().getPauseTime()).getSeconds())));
+         }
+         rollingUpdateStateEntity.setState(nextSignalState);
+       } else {
+@@ -1190,7 +1190,7 @@
+         }
+       }
+       Collection<SignalEntity> signals = SignalEntityManager.getSignals(newAction.getStackEntity().getStackId(), newAction.info.getAccountId(), newAction.info.getLogicalResourceId(),
+-        newAction.getStackEntity().getStackVersion());
++          newAction.getStackEntity().getStackVersion());
+       for (SignalEntity signal : signals) {
+         if (signal.getProcessed()) continue;
+         // Ignore signals with ids not from the list of instance ids.
+@@ -1215,7 +1215,7 @@
+       }
+       if (rollingUpdateStateEntity.getNumFailureSignals() > rollingUpdateStateEntity.getNumExpectedTotalSignals() * updatePolicy.getAutoScalingRollingUpdate().getMinSuccessfulInstancesPercent() / 100) {
+         throw new ResourceFailureException("Received " + rollingUpdateStateEntity.getNumFailureSignals() +
+-          " FAILURE signal(s) out of " + rollingUpdateStateEntity.getNumExpectedTotalSignals() + ". Unable to satisfy " + updatePolicy.getAutoScalingRollingUpdate().getMinSuccessfulInstancesPercent() + "% MinSuccessfulInstancesPercent requirement");
++            " FAILURE signal(s) out of " + rollingUpdateStateEntity.getNumExpectedTotalSignals() + ". Unable to satisfy " + updatePolicy.getAutoScalingRollingUpdate().getMinSuccessfulInstancesPercent() + "% MinSuccessfulInstancesPercent requirement");
+       }
+       // otherwise continue
+       rollingUpdateStateEntity.setState(nextState);
+@@ -1239,9 +1239,9 @@
+       Date timestamp = new Date();
+       String eventId = action.info.getLogicalResourceId() + "-" + Status.UPDATE_IN_PROGRESS + "-" + timestamp.getTime();
+       StackEventEntityManager.addStackEvent(action.info.getAccountId(), eventId, action.info.getLogicalResourceId(),
+-        action.info.getPhysicalResourceId(), action.info.getPropertiesJson(),
+-        Status.UPDATE_IN_PROGRESS, message, action.info.getType(), action.getStackEntity().getStackId(),
+-        action.getStackEntity().getStackName(), timestamp);
++          action.info.getPhysicalResourceId(), action.info.getPropertiesJson(),
++          Status.UPDATE_IN_PROGRESS, message, action.info.getType(), action.getStackEntity().getStackId(),
++          action.getStackEntity().getStackName(), timestamp);
+     }
+ 
+     private static boolean isAllTerminated(Collection<String> instanceIds, String effectiveUserId) throws Exception {

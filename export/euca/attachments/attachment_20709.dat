@@ -1,0 +1,44 @@
+{ 
+"Statement":[{ 
+"Sid":"1", 
+"Effect":"Limit", 
+"Action":["ec2:RunInstances"], 
+"Resource":"*", 
+"Condition": { 
+"NumericLessThanEquals":{ 
+"ec2:quota-vminstancenumber":"2" 
+} 
+} 
+}, 
+{ 
+"Effect":"Limit", 
+"Action":["ec2:CreateVolume"], 
+"Resource":"*", 
+"Condition": { 
+"NumericLessThanEquals":{ 
+"ec2:quota-volumenumber":"3" 
+} 
+} 
+}, 
+{ 
+"Effect":"Limit", 
+"Action":["s3:CreateBucket"], 
+"Resource":"*", 
+"Condition": { 
+"NumericLessThanEquals":{ 
+"s3:quota-bucketnumber":"3" 
+} 
+} 
+}, 
+{ 
+"Effect":"Limit", 
+"Action":["ec2:AllocateAddress"], 
+"Resource":"*", 
+"Condition": { 
+"NumericLessThanEquals":{ 
+"ec2:quota-addressnumber":"1" 
+} 
+} 
+} 
+] 
+}

@@ -1,0 +1,39 @@
+
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmsRequest;
+import com.amazonaws.services.cloudwatch.model.DescribeAlarmsResult;
+import com.amazonaws.services.cloudwatch.model.MetricAlarm;
+import com.amazonaws.services.cloudwatch.model.StateValue;
+
+public class DescribeAlarmsTest {
+  public static AmazonCloudWatchClient getCreds() {
+    BasicAWSCredentials props = new BasicAWSCredentials(
+      "A6PFZBJU2OKWKVH4KTZAQ",
+      "d0wSAheQlGS4IdQqrHZyjnrqxHXxV37Ltsk6HifF");
+    AmazonCloudWatchClient cloudWatch = new AmazonCloudWatchClient(props);
+    cloudWatch.setEndpoint("http://192.168.51.71:8773/services/CloudWatch/");
+    return cloudWatch;
+  }
+  public static void main(String[] args) {
+    AmazonCloudWatchClient cloudWatch = getCreds();
+    DescribeAlarmsRequest describeAlarmsRequest = new DescribeAlarmsRequest();
+    describeAlarmsRequest.setAlarmNamePrefix("My ");
+    describeAlarmsRequest.setStateValue(StateValue.ALARM);
+    describeAlarmsRequest.setAlarmNames(Arrays.asList(new String[]{"My Name", "My Name 2"}));
+    describeAlarmsRequest.setActionPrefix("ins");
+    describeAlarmsRequest.setMaxRecords(5);
+    DescribeAlarmsResult describeAlarmResult = cloudWatch.describeAlarms(describeAlarmsRequest);
+    // DescribeAlarmsResult describeAlarmResult = cloudWatch.describeAlarms();
+    for (MetricAlarm metricAlarm: describeAlarmResult.getMetricAlarms()) {
+      System.out.println(metricAlarm);
+    }
+
+    
+  }
+  
+}

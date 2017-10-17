@@ -1,0 +1,224 @@
+/*************************************************************************
+ * Copyright 2009-2015 Eucalyptus Systems, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Please contact Eucalyptus Systems, Inc., 6755 Hollister Ave., Goleta
+ * CA 93117, USA or visit http://www.eucalyptus.com/licenses/ if you need
+ * additional information or have any questions.
+ ************************************************************************/
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.AmazonServiceException
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.regions.Region
+import com.amazonaws.regions.Regions
+import com.amazonaws.services.identitymanagement.model.*
+import com.github.sjones4.youcan.youare.YouAreClient
+
+/**
+ * Tests IAM policy variables.
+ *
+ * Run as an IAM user with permission to manage IAM resources, do not run as
+ * cloud administrator.
+ * 
+ * Related issue:
+ *   https://eucalyptus.atlassian.net/browse/EUCA-8582
+ *
+ * Related AWS doc:
+ *   http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html
+ *   http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_delegate-permissions_examples.html
+ */
+class TestIAMPolicyVariables {
+  
+  private final String host = '10.111.X.XXX'
+
+  private final AWSCredentialsProvider credentials = new StaticCredentialsProvider( new BasicAWSCredentials(
+      'AKI...',
+      '...'
+  ) )
+
+  public static void main( String[] args ) throws Exception {
+    new TestIAMPolicyVariables( ).test( )
+  }
+
+  private String cloudUri( String host, String servicePath ) {
+    URI.create( "http://${host}:8773/" )
+        .resolve( servicePath )
+        .toString( )
+  }
+
+  private YouAreClient getYouAreClient( final String host, final AWSCredentialsProvider credentials  ) {
+    final YouAreClient euare = new YouAreClient( credentials )
+    if ( host ) {
+      euare.setEndpoint( cloudUri( host, '/services/Euare' ) )
+    } else {
+      euare.setRegion( Region.getRegion( Regions.US_EAST_1 ) )
+    }
+    euare
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test() throws Exception {
+    final String namePrefix = UUID.randomUUID().toString().substring(0,8) + "-"
+    print( "Using resource prefix for test: ${namePrefix}" )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    String userName = "${namePrefix}user1"
+    try {
+      AWSCredentialsProvider userCredentials = getYouAreClient( host, credentials ).with {
+        String accountNumber = getUser( ).with {
+          user.getArn( ).split(":")[4]  
+        }  
+        print( "Detected account number ${accountNumber}" )
+      
+        cleanupTasks.add{
+          println( "Deleting user ${userName}" )
+          deleteUser( new DeleteUserRequest(
+              userName: userName
+          ) )
+        }
+        print( "Creating user ${userName}" )
+        createUser( new CreateUserRequest(
+            userName: userName,
+            path: '/'
+        ) )
+        
+        String policyName = "${namePrefix}policy1"
+        print( "Creating user policy ${policyName}" )
+        putUserPolicy( new PutUserPolicyRequest(
+            userName: userName,
+            policyName: policyName,
+            policyDocument: """\
+              {
+                "Version": "2012-10-17",
+                "Statement": [{
+                  "Action": [
+                    "iam:*AccessKey*",
+                    "iam:*LoginProfile"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": ["arn:aws:iam::${accountNumber}:user/\${aws:username}"]
+                }]
+              }
+              """.stripIndent( )
+        ) )
+        cleanupTasks.add{
+          print( "Deleting user policy ${policyName}" )
+          deleteUserPolicy( new DeleteUserPolicyRequest(
+              userName: userName,
+              policyName: policyName
+          ) )
+        }
+
+        print( "Creating access key for user ${userName}" )
+        AWSCredentialsProvider userCredentials = createAccessKey( new CreateAccessKeyRequest( 
+            userName: userName
+        ) ).with {
+          accessKey.with {
+            new StaticCredentialsProvider( new BasicAWSCredentials( accessKeyId, secretAccessKey ) )  
+          }
+        }
+
+        cleanupTasks.add {
+          print( "Deleting access key for user ${userName}" )
+          deleteAccessKey( new DeleteAccessKeyRequest(
+              userName: userName,
+              accessKeyId: userCredentials.credentials.AWSAccessKeyId
+          ) )
+        } 
+        
+        userCredentials
+      }
+
+      getYouAreClient( host, userCredentials ).with {
+        print( "Creating access key using users credentials" )
+        String keyId = createAccessKey( new CreateAccessKeyRequest( ) ).with {
+          accessKey.accessKeyId
+        }
+        print( "Created access key: ${keyId}" )
+        
+        print( "Listing access keys using user credentials" )
+        listAccessKeys( ).with {
+          assertThat( !accessKeyMetadata.isEmpty( ), "Expected access key" )
+          accessKeyMetadata.each { AccessKeyMetadata key ->
+            print( "Listed access key: ${key.accessKeyId}" )
+          }
+        }
+        
+        print( "Deleting access key ${keyId} using users credentials" )
+        deleteAccessKey( new DeleteAccessKeyRequest(
+            accessKeyId: keyId
+        ) )
+        
+        try {
+          print( "Creating access key for admin using users credentials, should fail" )
+          createAccessKey( new CreateAccessKeyRequest( userName: 'admin' ) )
+          assertThat( false, "Expected key creation to fail for admin user due to permissions" )
+        } catch ( AmazonServiceException e ) {
+          print( "Expected error creating key without permission: ${e}" )
+        }
+        
+        print( "Creating login profile using users credentials" )
+        createLoginProfile( new CreateLoginProfileRequest( userName: userName, password: "p@55w0Rd!" ) )
+
+        print( "Getting login profile using users credentials" )
+        getLoginProfile( new GetLoginProfileRequest( userName: userName ) ).with {
+          print( "Login profile create date: ${loginProfile.createDate}" )
+        }
+        
+        print( "Updating login profile using users credentials" )
+        updateLoginProfile( new UpdateLoginProfileRequest( userName: userName, password: "Upd@T3d_p@55w0Rd" ) )
+
+        print( "Deleting login profile using users credentials" )
+        deleteLoginProfile( new DeleteLoginProfileRequest( userName: userName ) )
+
+        try {
+          print( "Creating login profile for admin using users credentials, should fail" )
+          createLoginProfile( new CreateLoginProfileRequest( userName: 'admin', password: "p@55w0Rd!" ) )
+          assertThat( false, "Expected login profile creation to fail for admin user due to permissions" )
+        } catch ( AmazonServiceException e ) {
+          print( "Expected error creating login profile without permission: ${e}" )
+        }
+        
+        void
+      }
+      
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( NoSuchEntityException e ) {
+          print( "Entity not found during cleanup." )
+        } catch ( AmazonServiceException e ) {
+          print( "Service error during cleanup; code: ${e.errorCode}, message: ${e.message}" )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }  
+}

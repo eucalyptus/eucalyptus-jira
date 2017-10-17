@@ -1,0 +1,436 @@
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccessKeyEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccessKeyEntity.java
+index 92cc30b..d3850ee 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccessKeyEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccessKeyEntity.java
+@@ -77,6 +77,7 @@ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import com.eucalyptus.crypto.Crypto;
+ import com.eucalyptus.entities.AbstractPersistent;
++import org.hibernate.annotations.Index;
+ 
+ /**
+  * Database secret key entity.
+@@ -96,6 +97,7 @@ public class AccessKeyEntity extends AbstractPersistent implements Serializable
+ 
+   // The Access Key ID
+   @Column( name = "auth_access_key_query_id" )
++  @Index( name = "auth_access_key_query_id_idx" )
+   String accessKey;
+   // The SECRET key
+   @Column( name = "auth_access_key_key" )
+@@ -121,7 +123,9 @@ public class AccessKeyEntity extends AbstractPersistent implements Serializable
+ 
+   @PrePersist
+   public void generateOnCommit() {
+-    if( this.accessKey == null && this.key != null ) {/** NOTE: first time that AKey is committed it needs to generate its own ID (i.e., not the database id), do this at commit time and generate if null **/
++    if ( this.accessKey == null && this.key !=
++                                   null ) {/** NOTE: first time that AKey is committed it needs to generate its own
++     ID (i.e., not the database id), do this at commit time and generate if null **/
+       this.accessKey = Crypto.generateAlphanumericId( 20, "AKI" );
+     }
+   }
+@@ -134,7 +138,6 @@ public class AccessKeyEntity extends AbstractPersistent implements Serializable
+ //    k.setId( id );
+ //    return k;
+ //  }
+-
+   public static AccessKeyEntity newInstanceWithAccessKeyId( final String accessKeyId ) {
+     AccessKeyEntity k = new AccessKeyEntity();
+     k.accessKey = accessKeyId;
+@@ -147,7 +150,8 @@ public class AccessKeyEntity extends AbstractPersistent implements Serializable
+     if ( o == null || getClass() != o.getClass() ) return false;
+ 
+     AccessKeyEntity that = ( AccessKeyEntity ) o;
+-    if ( !this.getAccessKey( ).equals( that.getAccessKey( ) ) ) return false;//NOTE: prefer for equality check to not rely on sensitive data -- e.g., secret key.
++    if ( !this.getAccessKey().equals( that.getAccessKey() ) )
++      return false;//NOTE: prefer for equality check to not rely on sensitive data -- e.g., secret key.
+     if ( !this.getSecretKey().equals( that.getSecretKey() ) ) return false;
+ 
+     return true;
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccountEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccountEntity.java
+index 5d45dc3..b327992 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccountEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/AccountEntity.java
+@@ -64,6 +64,7 @@ package com.eucalyptus.auth.entities;
+ 
+ import java.io.Serializable;
+ import java.util.List;
++import java.util.Set;
+ import javax.annotation.Nullable;
+ import javax.persistence.Column;
+ import javax.persistence.Entity;
+@@ -71,6 +72,7 @@ import javax.persistence.EntityTransaction;
+ import javax.persistence.FetchType;
+ import javax.persistence.JoinColumn;
+ import javax.persistence.OneToMany;
++import javax.persistence.OrderColumn;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.PrePersist;
+ import javax.persistence.Table;
+@@ -88,6 +90,7 @@ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import com.eucalyptus.entities.AbstractPersistent;
+ import com.google.common.base.Predicate;
++import org.hibernate.annotations.Index;
+ 
+ /**
+  * Database account entity.
+@@ -107,15 +110,17 @@ public class AccountEntity extends AbstractPersistent implements Serializable {
+   String name;
+ 
+   @Column( name = "auth_account_number", unique = true )
++  @Index( name = "auth_account_number_idx" )
+   String accountNumber;
+ 
+   @Column( name = "auth_account_canonical_id", length = 64, unique = true )
++  @Index( name = "auth_account_canonical_id_idx" )
+   String canonicalId;
+ 
+   // Groups for this account
+   @OneToMany( fetch = FetchType.LAZY, mappedBy = "account" )
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
+-  List<GroupEntity> groups;
++  Set<GroupEntity> groups;
+ 
+   public AccountEntity() {
+   }
+@@ -146,11 +151,9 @@ public class AccountEntity extends AbstractPersistent implements Serializable {
+       int len = buf.length();
+       if ( len < 64 ) {
+         notFinished = true;
+-            }
+-            else if (len == 64) {
++      } else if ( len == 64 ) {
+         notFinished = false;
+-            }
+-            else {
++      } else {
+         buf.delete( 64, len + 1 ); // end is exclusive, but if start == end, nothing is done
+         notFinished = false;
+       }
+@@ -160,8 +163,7 @@ public class AccountEntity extends AbstractPersistent implements Serializable {
+           // canonical id is a dupe
+           buf = new StringBuilder();
+           notFinished = true;
+-                }
+-                catch (AuthException aex) {
++        } catch ( AuthException aex ) {
+           // canonical id is not in use
+         }
+       }
+@@ -242,8 +244,7 @@ public class AccountEntity extends AbstractPersistent implements Serializable {
+           }
+         }
+         tran.commit();
+-            }
+-            catch (Exception ex) {
++      } catch ( Exception ex ) {
+         tran.rollback();
+         LOG.error( "caught exception during upgrade, while attempting to generate and assign canonical ids" );
+         Exceptions.toUndeclared( ex );
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/GroupEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/GroupEntity.java
+index b48329a..38d52a3 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/GroupEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/GroupEntity.java
+@@ -64,6 +64,7 @@ package com.eucalyptus.auth.entities;
+ 
+ import java.io.Serializable;
+ import java.util.List;
++import java.util.Set;
+ import javax.persistence.CascadeType;
+ import javax.persistence.Column;
+ import javax.persistence.Entity;
+@@ -73,15 +74,19 @@ import javax.persistence.JoinTable;
+ import javax.persistence.ManyToMany;
+ import javax.persistence.ManyToOne;
+ import javax.persistence.OneToMany;
++import javax.persistence.OrderColumn;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.PrePersist;
+ import javax.persistence.Table;
+ import javax.persistence.Transient;
++
++import com.google.common.collect.Sets;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import com.eucalyptus.crypto.Crypto;
+ import com.eucalyptus.entities.AbstractPersistent;
+ import com.google.common.collect.Lists;
++import org.hibernate.annotations.Index;
+ 
+ /**
+  * Database group entity.
+@@ -97,10 +102,12 @@ public class GroupEntity extends AbstractPersistent implements Serializable {
+ 
+   // The Group ID: the user facing group id which conforms to length and character restrictions per spec.
+   @Column( name = "auth_group_id_external" )
++  @Index( name = "auth_group_id_external_idx" )
+   String groupId;
+ 
+   // Group name, not unique since different accounts can have the same group name
+   @Column( name = "auth_group_name" )
++  @Index( name = "auth_group_name_idx" )
+   String name;
+ 
+   // Group path (prefix to organize group name space, see AWS spec)
+@@ -113,14 +120,16 @@ public class GroupEntity extends AbstractPersistent implements Serializable {
+ 
+   // Users in the group
+   @ManyToMany( fetch = FetchType.LAZY )
+-  @JoinTable( name = "auth_group_has_users", joinColumns = { @JoinColumn( name = "auth_group_id" ) }, inverseJoinColumns = @JoinColumn( name = "auth_user_id" ) )
++  @JoinTable( name = "auth_group_has_users",
++              joinColumns = {@JoinColumn( name = "auth_group_id" )},
++              inverseJoinColumns = @JoinColumn( name = "auth_user_id" ) )
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
+-  List<UserEntity> users;
++  Set<UserEntity> users;
+ 
+   // Policies for the group
+-  @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "group" )
++  @OneToMany( cascade = {CascadeType.ALL}, mappedBy = "group", fetch = FetchType.LAZY )
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
+-  List<PolicyEntity> policies;
++  Set<PolicyEntity> policies;
+ 
+   // The owning account
+   @ManyToOne( fetch = FetchType.LAZY )
+@@ -129,8 +138,8 @@ public class GroupEntity extends AbstractPersistent implements Serializable {
+   AccountEntity account;
+ 
+   public GroupEntity() {
+-    this.users = Lists.newArrayList( );
+-    this.policies = Lists.newArrayList( );
++    this.users = Sets.newHashSet();
++    this.policies = Sets.newHashSet();
+   }
+ 
+   public GroupEntity( String name ) {
+@@ -211,11 +220,11 @@ public class GroupEntity extends AbstractPersistent implements Serializable {
+     this.userGroup = userGroup;
+   }
+ 
+-  public List<PolicyEntity> getPolicies( ) {
++  public Set<PolicyEntity> getPolicies() {
+     return this.policies;
+   }
+ 
+-  public List<UserEntity> getUsers( ) {
++  public Set<UserEntity> getUsers() {
+     return this.users;
+   }
+ 
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java
+index dd45ca1..aa69741 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/PolicyEntity.java
+@@ -71,6 +71,7 @@ import javax.persistence.JoinColumn;
+ import javax.persistence.Lob;
+ import javax.persistence.ManyToOne;
+ import javax.persistence.OneToMany;
++import javax.persistence.OrderColumn;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.Table;
+ import javax.persistence.Transient;
+@@ -108,6 +109,7 @@ public class PolicyEntity extends AbstractPersistent implements Serializable {
+   // The set of statements of this policy
+   @OneToMany( cascade = {CascadeType.ALL}, mappedBy = "policy" )
+   @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
++  @OrderColumn( name = "auth_policy_statements_order" )
+   List<StatementEntity> statements;
+ 
+   // The owning group
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/RoleEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/RoleEntity.java
+index b1f7407..6fffe20 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/RoleEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/RoleEntity.java
+@@ -21,13 +21,16 @@ package com.eucalyptus.auth.entities;
+ 
+ import java.io.Serializable;
+ import java.util.List;
++import java.util.Set;
+ import javax.persistence.CascadeType;
+ import javax.persistence.Column;
+ import javax.persistence.Entity;
++import javax.persistence.FetchType;
+ import javax.persistence.JoinColumn;
+ import javax.persistence.ManyToOne;
+ import javax.persistence.OneToMany;
+ import javax.persistence.OneToOne;
++import javax.persistence.OrderColumn;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.PrePersist;
+ import javax.persistence.PreUpdate;
+@@ -67,9 +70,9 @@ public class RoleEntity extends AbstractPersistent implements Serializable {
+   @JoinColumn(name = "auth_role_assume_role_policy_id", nullable = false)
+   private PolicyEntity assumeRolePolicy;
+ 
+-  @OneToMany( cascade = CascadeType.ALL, mappedBy = "role" )
++  @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY )
+   @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+-  private List<PolicyEntity> policies;
++  private Set<PolicyEntity> policies;
+ 
+   @ManyToOne
+   @JoinColumn(name = "auth_role_owning_account", nullable = false)
+@@ -127,11 +130,11 @@ public class RoleEntity extends AbstractPersistent implements Serializable {
+     this.assumeRolePolicy = assumeRolePolicy;
+   }
+ 
+-  public List<PolicyEntity> getPolicies() {
++  public Set<PolicyEntity> getPolicies() {
+     return policies;
+   }
+ 
+-  public void setPolicies( final List<PolicyEntity> policies ) {
++  public void setPolicies( final Set<PolicyEntity> policies ) {
+     this.policies = policies;
+   }
+ 
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/StatementEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/StatementEntity.java
+index c2ea510..6c803ca 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/StatementEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/StatementEntity.java
+@@ -73,6 +73,7 @@ import javax.persistence.JoinColumn;
+ import javax.persistence.ManyToOne;
+ import javax.persistence.OneToMany;
+ import javax.persistence.OneToOne;
++import javax.persistence.OrderColumn;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.Table;
+ import javax.persistence.Transient;
+@@ -148,11 +149,13 @@ public class StatementEntity extends AbstractPersistent implements Serializable
+   // List of decomposed authorizations
+   @OneToMany( cascade = {CascadeType.ALL}, mappedBy = "statement" )
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
++  @OrderColumn( name = "auth_statement_authorizations_order" )
+   List<AuthorizationEntity> authorizations;
+ 
+   // List of decomposed conditions
+   @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "statement")
+   @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
++  @OrderColumn( name = "auth_statement_conditions_order" )
+   List<ConditionEntity> conditions;
+ 
+   // The owning policy
+diff --git a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/UserEntity.java b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/UserEntity.java
+index 3f31ab4..03ef324 100644
+--- a/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/UserEntity.java
++++ b/clc/modules/authentication/src/main/java/com/eucalyptus/auth/entities/UserEntity.java
+@@ -65,6 +65,7 @@ package com.eucalyptus.auth.entities;
+ import java.io.Serializable;
+ import java.util.List;
+ import java.util.Map;
++import java.util.Set;
+ import javax.persistence.CascadeType;
+ import javax.persistence.CollectionTable;
+ import javax.persistence.Column;
+@@ -76,10 +77,13 @@ import javax.persistence.FetchType;
+ import javax.persistence.ManyToMany;
+ import javax.persistence.MapKeyColumn;
+ import javax.persistence.OneToMany;
++import javax.persistence.OrderColumn;
+ import javax.persistence.PersistenceContext;
+ import javax.persistence.PrePersist;
+ import javax.persistence.Table;
+ import javax.persistence.Transient;
++
++import com.google.common.collect.Sets;
+ import org.hibernate.annotations.Cache;
+ import org.hibernate.annotations.CacheConcurrencyStrategy;
+ import com.eucalyptus.auth.principal.User.RegistrationStatus;
+@@ -87,6 +91,7 @@ import com.eucalyptus.crypto.Crypto;
+ import com.eucalyptus.entities.AbstractPersistent;
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Maps;
++import org.hibernate.annotations.Index;
+ 
+ /**
+  * Database entity for a user.
+@@ -102,10 +107,12 @@ public class UserEntity extends AbstractPersistent implements Serializable {
+ 
+   // The User ID the user facing group id which conforms to length and character restrictions per spec.
+   @Column( name = "auth_user_id_external" )
++  @Index( name = "auth_user_id_external_idx" )
+   String userId;
+ 
+   // User name
+   @Column( name = "auth_user_name" )
++  @Index( name = "auth_user_name_idx" )
+   String name;
+ 
+   // User path (prefix to organize user name space, see AWS spec)
+@@ -138,14 +145,16 @@ public class UserEntity extends AbstractPersistent implements Serializable {
+   Long passwordExpires;
+ 
+   // List of secret keys
+-  @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "user" )
++  @OneToMany( cascade = {CascadeType.ALL}, mappedBy = "user", fetch = FetchType.LAZY )
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
+-  List<AccessKeyEntity> keys;
++  @OrderColumn( name = "auth_user_keys_order" )
++  Set<AccessKeyEntity> keys;
+ 
+   // List of certificates
+-  @OneToMany( cascade = { CascadeType.ALL }, mappedBy = "user" )
++  @OneToMany( cascade = {CascadeType.ALL}, mappedBy = "user", fetch = FetchType.LAZY )
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
+-  List<CertificateEntity> certificates;
++  @OrderColumn( name = "auth_user_certificates_order" )
++  Set<CertificateEntity> certificates;
+ 
+   // Customizable user info in key-value pairs
+   @ElementCollection
+@@ -158,14 +167,15 @@ public class UserEntity extends AbstractPersistent implements Serializable {
+   // User's groups
+   @ManyToMany( fetch = FetchType.LAZY, mappedBy = "users" ) // not owning side
+   @Cache( usage = CacheConcurrencyStrategy.TRANSACTIONAL )
+-  List<GroupEntity> groups;
++  @OrderColumn( name = "auth_user_groups_order" )
++  Set<GroupEntity> groups;
+ 
+ 
+   public UserEntity() {
+-    this.keys = Lists.newArrayList( );
+-    this.certificates = Lists.newArrayList( );
++    this.keys = Sets.newHashSet();
++    this.certificates = Sets.newHashSet();
+     this.info = Maps.newHashMap();
+-    this.groups = Lists.newArrayList( );
++    this.groups = Sets.newHashSet();
+   }
+ 
+   public UserEntity( String name ) {
+@@ -180,7 +190,9 @@ public class UserEntity extends AbstractPersistent implements Serializable {
+ 
+   @PrePersist
+   public void generateOnCommit() {
+-    if( this.userId == null ) {/** NOTE: first time that user is committed it needs to generate its own ID (i.e., not the database id), do this at commit time and generate if null **/
++    if ( this.userId ==
++         null ) {/** NOTE: first time that user is committed it needs to generate its own ID (i.e.,
++     not the database id), do this at commit time and generate if null **/
+       this.userId = Crypto.generateAlphanumericId( 21, "AID" );
+     }
+   }
+@@ -281,11 +293,11 @@ public class UserEntity extends AbstractPersistent implements Serializable {
+     this.passwordExpires = passwordExpires;
+   }
+ 
+-  public List<AccessKeyEntity> getKeys( ) {
++  public Set<AccessKeyEntity> getKeys() {
+     return this.keys;
+   }
+ 
+-  public List<CertificateEntity> getCertificates( ) {
++  public Set<CertificateEntity> getCertificates() {
+     return this.certificates;
+   }
+ 
+@@ -293,7 +305,7 @@ public class UserEntity extends AbstractPersistent implements Serializable {
+     return this.info;
+   }
+ 
+-  public List<GroupEntity> getGroups( ) {
++  public Set<GroupEntity> getGroups() {
+     return this.groups;
+   }
+ 

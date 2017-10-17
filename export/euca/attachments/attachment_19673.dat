@@ -1,0 +1,104 @@
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java
+index c13d5de..b7b40c3 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/blockstorage/Volumes.java
+@@ -72,6 +72,8 @@ import java.util.concurrent.ExecutionException;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ import java.util.Date;
+ import javax.persistence.EntityTransaction;
++
++import com.eucalyptus.vm.VmInstance;
+ import org.apache.log4j.Logger;
+ import org.hibernate.criterion.Example;
+ import com.eucalyptus.auth.principal.UserFullName;
+@@ -203,26 +205,36 @@ public class Volumes {
+         db.rollback( );
+       }
+       Logs.extreme( ).debug( "Volume state update: " + Joiner.on( "\n" ).join( partitionVolumeMap.entries( ) ) );
+-      for ( final String partition : partitionVolumeMap.keySet( ) ) {
++      final EntityTransaction dbInstance = Entities.get( VmInstance.class );
++      try {
++        final List<VmInstance> vms = Entities.query( VmInstance.create( ) );
++        dbInstance.rollback();
++        for ( final String partition : partitionVolumeMap.keySet( ) ) {
+         try {
+-          final Map<String, StorageVolume> idStorageVolumeMap = updateVolumesInPartition( partition );//TODO:GRZE: restoring volume state
+-          for ( final String v : partitionVolumeMap.get( partition ) ) {
+-            try {
+-              final StorageVolume storageVolume = idStorageVolumeMap.get( v );
+-              volumeStateUpdate( v, storageVolume );
+-            } catch ( final Exception ex ) {
+-              LOG.error( ex );
+-              Logs.extreme( ).error( ex, ex );
++            final Map<String, StorageVolume> idStorageVolumeMap = updateVolumesInPartition( partition );//TODO:GRZE: restoring volume state
++            for ( final String v : partitionVolumeMap.get( partition ) ) {
++              try {
++                final StorageVolume storageVolume = idStorageVolumeMap.get( v );
++                volumeStateUpdate( v, storageVolume, vms );
++              } catch ( final Exception ex ) {
++                LOG.error( ex );
++                Logs.extreme( ).error( ex, ex );
++              }
+             }
++          } catch ( final Exception ex ) {
++            LOG.error( ex );
++            Logs.extreme( ).error( ex, ex );
+           }
+-        } catch ( final Exception ex ) {
+-          LOG.error( ex );
+-          Logs.extreme( ).error( ex, ex );
+         }
++      } catch (Exception ex) {
++        Logs.extreme( ).error( ex , ex );
++        throw ex;
++      } finally {
++        if ( dbInstance.isActive() ) dbInstance.rollback();
+       }
+     }
+     
+-    static void volumeStateUpdate( final String volumeId, final StorageVolume storageVolume ) {
++    static void volumeStateUpdate( final String volumeId, final StorageVolume storageVolume, final List<VmInstance> vms ) {
+       final Function<String, Volume> updateVolume = new Function<String, Volume>( ) {
+         @Override
+         public Volume apply( final String input ) {
+@@ -233,7 +245,7 @@ public class Volumes {
+             boolean maybeBusy = false;
+             String vmId = null;
+             try {
+-              vmAttachedVol = VmInstances.lookupVolumeAttachment( v.getDisplayName( ) );
++              vmAttachedVol = VmInstances.lookupVolumeAttachment( v.getDisplayName( ), vms );
+               maybeBusy = true;
+               vmId = vmAttachedVol.getVmInstance( ).getInstanceId( );
+             } catch ( final NoSuchElementException ex ) {
+@@ -319,7 +331,7 @@ public class Volumes {
+     }
+     
+     static Map<String, StorageVolume> updateVolumesInPartition( final String partition ) {
+-      final Map<String, StorageVolume> idStorageVolumeMap = Maps.newHashMap( );
++      final Map<String, StorageVolume> idStorageVolumeMap = Maps.newHashMap();
+       final ServiceConfiguration scConfig = Topology.lookup( Storage.class, Partitions.lookupByName( partition ) );
+       try {
+         final DescribeStorageVolumesResponseType volState = AsyncRequests.sendSync( scConfig, new DescribeStorageVolumesType( ) );
+diff --git a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmInstances.java b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmInstances.java
+index 5ac1f3a..3e2661c 100644
+--- a/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmInstances.java
++++ b/clc/modules/cluster-manager/src/main/java/com/eucalyptus/vm/VmInstances.java
+@@ -483,12 +483,16 @@ public class VmInstances {
+       if ( db.isActive() ) db.rollback();
+     }
+   }
+-  
++
++  /*
++  WARNING! This method should never be called if you intend to iterate over a list of volumes
++  The time complexity when you do so is pretty bad.
++   */
+   public static VmVolumeAttachment lookupVolumeAttachment( final String volumeId ) {
+     VmVolumeAttachment ret = null;
+     final EntityTransaction db = Entities.get( VmInstance.class );
+     try {
+-      List<VmInstance> vms = Entities.query( VmInstance.create( ) );
++      List<VmInstance> vms = Entities.query( VmInstance.create() );
+       for ( VmInstance vm : vms ) {
+         try {
+           ret = vm.lookupVolumeAttachment( volumeId );

@@ -1,0 +1,333 @@
+package com.eucalyptus.tests.awssdk
+
+import com.amazonaws.auth.AWSCredentialsProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.internal.StaticCredentialsProvider
+import com.amazonaws.regions.Region
+import com.amazonaws.regions.Regions
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflow
+import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.*
+
+
+/**
+ * This application tests SWF timeout requirements.
+ *
+ * This is verification for the bug:
+ *
+ *   https://eucalyptus.atlassian.net/browse/EUCA-10027
+ */
+class TestSWFTimeouts {
+
+  private final String host;
+  private final AWSCredentialsProvider credentials;
+
+  public static void main( String[] args ) throws Exception {
+    new TestSWFTimeouts( '10.111.5.76', 'AKI5EWSWYTNVRQ9RFUUC', '5GGJRm4ctKwsRfKk1SaeH21kRdXJFWhtlWmwNA5C' ).test( )
+  }
+
+  public TestSWFTimeouts( String host,
+                          String accessKey,
+                          String secretKey ) {
+    this.host = host
+    this.credentials = new StaticCredentialsProvider( new BasicAWSCredentials( accessKey, secretKey ) )
+  }
+
+  private String cloudUri( String servicePath ) {
+    URI.create( "http://" + host + ":8773/" )
+        .resolve( servicePath )
+        .toString()
+  }
+
+  private AmazonSimpleWorkflow getSWFClient( final AWSCredentialsProvider credentials ) {
+    final AmazonSimpleWorkflow swf = new AmazonSimpleWorkflowClient( credentials )
+    if ( host ) {
+      swf.setEndpoint( cloudUri( "/services/SimpleWorkflow" ) )
+    } else {
+      swf.setRegion( Region.getRegion( Regions.US_WEST_1 ) )
+    }
+    swf
+  }
+
+  private boolean assertThat( boolean condition,
+                              String message ){
+    assert condition : message
+    true
+  }
+
+  private void print( String text ) {
+    System.out.println( text )
+  }
+
+  public void test( ) throws Exception {
+    final AmazonSimpleWorkflow swf = getSWFClient( credentials )
+
+    final List<Runnable> cleanupTasks = [] as List<Runnable>
+    try {
+      final String namePrefix = UUID.randomUUID().toString() + "-";
+      print( "Using prefix for test: " + namePrefix );
+
+      swf.with {
+        String domainName = "${namePrefix}domain"
+        print("Registering domain ${domainName}")
+        registerDomain(new RegisterDomainRequest(
+            name: domainName,
+            description: 'test domain',
+            workflowExecutionRetentionPeriodInDays: 1))
+        cleanupTasks.add {
+          print("Deprecating domain ${domainName}")
+          deprecateDomain(new DeprecateDomainRequest(name: domainName))
+        }
+
+        String activityTypeName = "${namePrefix}activity-type"
+        print("Registering activity type ${activityTypeName}")
+        registerActivityType(new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList(name: 'list')
+        ))
+        cleanupTasks.add {
+          print("Deprecating activity type ${activityTypeName}")
+          deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeName, version: '1')))
+        }
+
+        String activityTypeNoneName = "${namePrefix}activity-none-type"
+        print("Registering activity type ${activityTypeNoneName}")
+        registerActivityType(new RegisterActivityTypeRequest(
+            domain: domainName,
+            name: activityTypeNoneName,
+            version: '1',
+            description: 'test activity type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultTaskHeartbeatTimeout: 'NONE',
+            defaultTaskScheduleToCloseTimeout: 'NONE',
+            defaultTaskScheduleToStartTimeout: 'NONE',
+            defaultTaskStartToCloseTimeout: 'NONE',
+        ))
+        cleanupTasks.add {
+          print("Deprecating activity type ${activityTypeNoneName}")
+          deprecateActivityType(new DeprecateActivityTypeRequest(domain: domainName, activityType: new ActivityType(name: activityTypeNoneName, version: '1')))
+        }
+
+        String workflowTypeName = "${namePrefix}workflow-type"
+        print("Registering workflow type ${workflowTypeName}")
+        registerWorkflowType(new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultChildPolicy: 'TERMINATE',
+        ))
+        cleanupTasks.add {
+          print("Deprecating workflow type ${workflowTypeName}")
+          deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeName, version: '1')))
+        }
+
+        try {
+          String workflowExeTimeId = "${namePrefix}-exe-time-workflow-id"
+          print( "Starting workflow execution ${workflowExeTimeId}" )
+          startWorkflowExecution(new StartWorkflowExecutionRequest(
+              workflowId: workflowExeTimeId,
+              domain: domainName,
+              workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+              taskList: new TaskList( name: 'list' ),
+              taskStartToCloseTimeout: '60'
+          )).with {
+            runId
+          }
+          assertThat( false, "Expected error starting workflow with unspecified execution timeout" )
+        } catch ( Exception e ) {
+          print( "Expected error starting workflow with unspecified timeout: ${e}"  )
+        }
+
+        try {
+          String workflowTaskTimeId = "${namePrefix}-task-time-workflow-id"
+          print( "Starting workflow execution ${workflowTaskTimeId}" )
+          startWorkflowExecution(new StartWorkflowExecutionRequest(
+              workflowId: workflowTaskTimeId,
+              domain: domainName,
+              executionStartToCloseTimeout: '60',
+              workflowType: new WorkflowType( name: workflowTypeName, version: '1' ),
+              taskList: new TaskList( name: 'list' ),
+          )).with {
+            runId
+          }
+          assertThat( false, "Expected error starting workflow with unspecified task timeout" )
+        } catch ( Exception e ) {
+          print( "Expected error starting workflow with unspecified timeout: ${e}"  )
+        }
+
+        String workflowTypeNoneName = "${namePrefix}workflow-none-type"
+        print("Registering workflow type ${workflowTypeName}")
+        registerWorkflowType(new RegisterWorkflowTypeRequest(
+            domain: domainName,
+            name: workflowTypeNoneName,
+            version: '1',
+            description: 'test workflow type',
+            defaultTaskList: new TaskList(name: 'list'),
+            defaultChildPolicy: 'TERMINATE',
+            defaultTaskStartToCloseTimeout: 'NONE'
+        ))
+        cleanupTasks.add {
+          print("Deprecating workflow type ${workflowTypeNoneName}")
+          deprecateWorkflowType(new DeprecateWorkflowTypeRequest(domain: domainName, workflowType: new WorkflowType(name: workflowTypeNoneName, version: '1')))
+        }
+
+        String workflowId = "${namePrefix}-workflow-id"
+        print( "Starting workflow execution ${workflowId}" )
+        String runId = startWorkflowExecution(new StartWorkflowExecutionRequest(
+            workflowId: workflowId,
+            domain: domainName,
+            executionStartToCloseTimeout: '60',
+            workflowType: new WorkflowType( name: workflowTypeNoneName, version: '1' ),
+            taskList: new TaskList( name: 'list' )
+        )).with {
+          runId
+        }
+        assertThat( runId != null, "Expected run-id" )
+        print( "Started workflow execution with runId: ${runId}" )
+
+        print( "Polling for decision task ${domainName}/list" )
+        String decisionTaskToken1 = pollForDecisionTask(new PollForDecisionTaskRequest(
+            domain: domainName,
+            taskList: new TaskList(name: 'list'),
+            identity: 'test-decider-1'
+        )).with {
+          taskToken
+        }
+        assertThat( decisionTaskToken1 != null && !decisionTaskToken1.isEmpty( ), "Expected task token" )
+
+        print( "Responding with start activity tasks" )
+        respondDecisionTaskCompleted(new RespondDecisionTaskCompletedRequest(
+            taskToken: decisionTaskToken1,
+            decisions:
+            [
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-1',
+                        input: 'input',
+                        scheduleToStartTimeout: '120',
+                        startToCloseTimeout: '120',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-2',
+                        input: 'input',
+                        scheduleToCloseTimeout: '120',
+                        startToCloseTimeout: '120',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-3',
+                        input: 'input',
+                        scheduleToCloseTimeout: '120',
+                        scheduleToStartTimeout: '120',
+                        heartbeatTimeout: '120',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-4',
+                        input: 'input',
+                        scheduleToCloseTimeout: '120',
+                        scheduleToStartTimeout: '120',
+                        startToCloseTimeout: '120',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeName ).withVersion( '1' ),
+                        activityId: 'activity-5',
+                        input: 'input',
+                        scheduleToCloseTimeout: 'NONE',
+                        scheduleToStartTimeout: 'NONE',
+                        startToCloseTimeout: 'NONE',
+                        heartbeatTimeout: 'NONE',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+                new Decision(
+                    decisionType: 'ScheduleActivityTask',
+                    scheduleActivityTaskDecisionAttributes: new ScheduleActivityTaskDecisionAttributes(
+                        activityType: new ActivityType( ).withName( activityTypeNoneName ).withVersion( '1' ),
+                        activityId: 'activity-6',
+                        input: 'input',
+                        taskList: new TaskList( name: 'list' )
+                    )
+                ),
+            ]
+        ))
+
+        print( "Verifying execution history" )
+        getWorkflowExecutionHistory( new GetWorkflowExecutionHistoryRequest(
+            domain: domainName,
+            execution: new WorkflowExecution(
+                workflowId: workflowId,
+                runId: runId
+            )
+        ) ).with {
+          print( events.toString( ) )
+          int failedScheduleCount = 0
+          events.each { HistoryEvent event ->
+            if ( event.eventType == 'ScheduleActivityTaskFailed' ) {
+              failedScheduleCount += 1
+              ScheduleActivityTaskFailedEventAttributes eventAttributes = event.scheduleActivityTaskFailedEventAttributes;
+              String expectedFailureCause = ''
+              switch( eventAttributes.getActivityId( ) ) {
+                case 'activity-1':
+                  expectedFailureCause = 'DEFAULT_SCHEDULE_TO_CLOSE_TIMEOUT_UNDEFINED'
+                  break
+                case 'activity-2':
+                  expectedFailureCause = 'DEFAULT_SCHEDULE_TO_START_TIMEOUT_UNDEFINED'
+                  break
+                case 'activity-3':
+                  expectedFailureCause = 'DEFAULT_START_TO_CLOSE_TIMEOUT_UNDEFINED'
+                  break
+                case 'activity-4':
+                  expectedFailureCause = 'DEFAULT_HEARTBEAT_TIMEOUT_UNDEFINED'
+                  break
+              }
+              assertThat( expectedFailureCause == eventAttributes.cause, "Expected failure cause ${expectedFailureCause}, but was: ${eventAttributes.cause}" )
+            }
+          }
+          assertThat( failedScheduleCount == 4, "Expected 4 activitity task scheduling failures, but was: ${failedScheduleCount}")
+        }
+      }
+
+      print( "Test complete" )
+    } finally {
+      // Attempt to clean up anything we created
+      cleanupTasks.reverseEach { Runnable cleanupTask ->
+        try {
+          cleanupTask.run()
+        } catch ( DomainDeprecatedException e ) {
+          print( e.message )
+        } catch ( TypeDeprecatedException e ) {
+          print( e.message )
+        } catch ( Exception e ) {
+          e.printStackTrace()
+        }
+      }
+    }
+  }
+}

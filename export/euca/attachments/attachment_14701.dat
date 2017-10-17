@@ -1,0 +1,105 @@
+From 68f06dbdd5af301647840ff4f7e648f83a5151f7 Mon Sep 17 00:00:00 2001
+From: dkavanagh <dkavanagh@gmail.com>
+Date: Tue, 5 Mar 2013 16:18:37 -0500
+Subject: [PATCH] EUCA-5306
+ fixes references to placement and handles turning ssl cert validation off, both needed for boto greater than 2.5.2
+
+---
+ console/eucaconsole/botoclcinterface.py |    7 ++++++-
+ console/static/js/dashboard.js          |    6 +++++-
+ console/static/js/instance.js           |   13 ++++++++++++-
+ console/static/js/volume.js             |   10 +++++++++-
+ 4 files changed, 32 insertions(+), 4 deletions(-)
+
+diff --git a/console/eucaconsole/botoclcinterface.py b/console/eucaconsole/botoclcinterface.py
+index 6302a12..2f9c765 100644
+--- a/console/eucaconsole/botoclcinterface.py
++++ b/console/eucaconsole/botoclcinterface.py
+@@ -51,9 +51,14 @@ class BotoClcInterface(ClcInterface):
+             port=443
+         except ConfigParser.Error:
+             pass
+-        self.conn = EC2Connection(access_id, secret_key, region=reg,
++        if boto.__version__ < 2.6:
++            self.conn = EC2Connection(access_id, secret_key, region=reg,
+                                   port=port, path=path,
+                                   is_secure=True, security_token=token, debug=0)
++        else:
++            self.conn = EC2Connection(access_id, secret_key, region=reg,
++                                  port=port, path=path, validate_certs=False,
++                                  is_secure=True, security_token=token, debug=0)
+         self.conn.APIVersion = '2012-03-01'
+         self.conn.http_connection_kwargs['timeout'] = 30
+ 
+diff --git a/console/static/js/dashboard.js b/console/static/js/dashboard.js
+index c75eeb1..56dec91 100644
+--- a/console/static/js/dashboard.js
++++ b/console/static/js/dashboard.js
+@@ -101,7 +101,11 @@
+         var az=$instObj.find('#dashboard-instance-az select').val();
+         var results = describe('instance');
+         $.each(results, function (idx, instance){
+-          if (az==='all' || instance.placement === az ){
++          var placement = instance.placement;
++          if (placement == undefined) {
++              placement = instance._placement.zone;
++          }
++          if (az==='all' || placement === az ){
+             var state = instance.state;
+             if (state == undefined) {
+                 state = instance._state.name;
+diff --git a/console/static/js/instance.js b/console/static/js/instance.js
+index 462a060..1236fcb 100644
+--- a/console/static/js/instance.js
++++ b/console/static/js/instance.js
+@@ -91,7 +91,15 @@
+                },
+             },
+             { "mDataProp": "image_id"},
+-            { "mDataProp": "placement" }, 
++            {
++              "fnRender": function(oObj) { 
++                var placement = oObj.aData.placement;
++                if (placement == undefined) {
++                  placement = oObj.aData._placement.zone;
++                }
++                return placement;
++              }
++            },
+             {
+ 	          "mDataProp": "public_dns_name",
+  			  "sClass": "wrap-content"
+@@ -975,6 +983,9 @@
+ 
+       var selectedType = instance.instance_type;
+       var zone = instance.placement;
++      if (zone == undefined) {
++        zone = oObj.aData._placement.zone;
++      }
+       $summary = $('<div>').append(
+           $('<div>').attr('id','summary-type-insttype').append($('<div>').text(launch_instance_summary_type), $('<span>').text(selectedType)),
+           $('<div>').attr('id','summary-type-zone').append($('<div>').text(launch_instance_summary_zone), $('<span>').text(zone)),
+diff --git a/console/static/js/volume.js b/console/static/js/volume.js
+index 8f7801c..5bcef0d 100644
+--- a/console/static/js/volume.js
++++ b/console/static/js/volume.js
+@@ -343,7 +343,15 @@
+         if ( volume && results ) {
+           for( res in results) {
+             var instance = results[res];
+-            if ( instance.state === 'running' && instance.placement === volume.zone)
++            var state = instance.state;
++            if (state == undefined) {
++                state = instance._state.name;
++            }
++            var placement = instance.placement;
++            if (placement == undefined) {
++                placement = instance._placement.zone;
++            }
++            if ( state === 'running' && placement === volume.zone)
+               inst_ids.push(instance.id);
+           }
+         }
+-- 
+1.7.2.2
+
